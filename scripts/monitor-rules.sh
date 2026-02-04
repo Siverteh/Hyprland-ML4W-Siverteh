@@ -49,11 +49,11 @@ move_to_laptop_mode() {
         hyprctl dispatch movetoworkspacesilent 4,address:$addr
     done
 
-    # Move Mission Center to workspace 5
-    echo "Moving Mission Center to workspace 5..." | tee -a "$LOG_FILE"
+    # Move Mission Center to workspace 10
+    echo "Moving Mission Center to workspace 10..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("mission-center|missioncenter")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 5,address:$addr
+        hyprctl dispatch movetoworkspacesilent 10,address:$addr
     done
 }
 
@@ -80,11 +80,56 @@ move_to_external_mode() {
     done
 }
 
+# Function to update waybar workspace icons
+update_waybar_icons() {
+    local mode=$1
+    local modules_file="$HOME/.config/waybar/modules.json"
+    
+    if [ "$mode" == "external" ]; then
+        # External: Workspace 1=Work, 2=Social, 3=Monitoring
+        jq '.["hyprland/workspaces"]["format-icons"] = {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "urgent": "",
+            "default": ""
+        }' "$modules_file" > "$modules_file.tmp" && mv "$modules_file.tmp" "$modules_file"
+    else
+        # Laptop: Separate workspaces
+        jq '.["hyprland/workspaces"]["format-icons"] = {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "urgent": "",
+            "default": ""
+        }' "$modules_file" > "$modules_file.tmp" && mv "$modules_file.tmp" "$modules_file"
+    fi
+    
+    # Reload waybar
+    ~/.config/waybar/launch.sh &
+}
+
 if [ "$EXTERNAL_ACTIVE" == "false" ]; then
     echo "External monitor detected - applying dual-window workspaces" | tee -a "$LOG_FILE"
     
     # Move existing windows to external layout
     move_to_external_mode
+
+    update_waybar_icons "external"
     
     # External Monitor Rules
     cat > "$RULES_FILE" << 'EOF'
@@ -110,10 +155,10 @@ windowrule = match:class ^(Discord)$, workspace 2
 windowrule = match:class ^(Spotify)$, workspace 2
 windowrule = match:class ^(spotify)$, workspace 2
 
-# Workspace 3: Monitoring (disable floating, then fullscreen)
-windowrule = match:class ^(mission-center)$, workspace 3
+# Workspace 10: Monitoring (disable floating, then fullscreen)
+windowrule = match:class ^(mission-center)$, workspace 10
 windowrule = match:class ^(mission-center)$, float off
-windowrule = match:class ^(io.missioncenter.MissionCenter)$, workspace 3
+windowrule = match:class ^(io.missioncenter.MissionCenter)$, workspace 10
 windowrule = match:class ^(io.missioncenter.MissionCenter)$, float off
 
 EOF
@@ -124,6 +169,8 @@ else
     # Move existing windows to laptop layout
     move_to_laptop_mode
     
+    update_waybar_icons "laptop"
+
     # Laptop Rules
     cat > "$RULES_FILE" << 'EOF'
 # =====================================================
@@ -152,10 +199,10 @@ windowrule = match:class ^(Discord)$, workspace 3 silent
 windowrule = match:class ^(Spotify)$, workspace 4 silent
 windowrule = match:class ^(spotify)$, workspace 4 silent
 
-# Workspace 5: Monitoring (disable floating, then fullscreen)
-windowrule = match:class ^(mission-center)$, workspace 5 silent
+# Workspace 10: Monitoring (disable floating, then fullscreen)
+windowrule = match:class ^(mission-center)$, workspace 10 silent
 windowrule = match:class ^(mission-center)$, float off
-windowrule = match:class ^(io.missioncenter.MissionCenter)$, workspace 5 silent
+windowrule = match:class ^(io.missioncenter.MissionCenter)$, workspace 10 silent
 windowrule = match:class ^(io.missioncenter.MissionCenter)$, float off
 
 EOF

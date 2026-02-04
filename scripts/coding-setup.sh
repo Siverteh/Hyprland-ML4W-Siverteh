@@ -30,6 +30,13 @@ hyprctl dispatch workspace 4
 spotify &
 sleep 0.5
 
+# Workspace 10: Mission Center and ML4W Settings side by side
+hyprctl dispatch workspace 10
+flatpak run io.missioncenter.MissionCenter &
+sleep 1
+flatpak run com.ml4w.settings &
+sleep 0.5
+
 # Return to workspace 2 (your main coding area)
 sleep 1
 hyprctl dispatch workspace 2
