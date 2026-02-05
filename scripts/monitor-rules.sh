@@ -86,41 +86,36 @@ update_waybar_icons() {
     local modules_file="$HOME/.config/waybar/modules.json"
     
     if [ "$mode" == "external" ]; then
-        # External: Workspace 1=Work, 2=Social, 3=Monitoring
-        jq '.["hyprland/workspaces"]["format-icons"] = {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": "",
-            "urgent": "",
-            "default": ""
-        }' "$modules_file" > "$modules_file.tmp" && mv "$modules_file.tmp" "$modules_file"
+        # Laptop: Replace just the icon lines
+        sed -i 's/"1": ".*"/"1": ""/' "$modules_file"
+        sed -i 's/"2": ".*"/"2": ""/' "$modules_file"
+        sed -i 's/"3": ".*"/"3": ""/' "$modules_file"
+        sed -i 's/"4": ".*"/"4": ""/' "$modules_file"
+        sed -i 's/"5": ".*"/"5": ""/' "$modules_file"
+        sed -i 's/"6": ".*"/"6": ""/' "$modules_file"
+        sed -i 's/"7": ".*"/"7": ""/' "$modules_file"
+        sed -i 's/"8": ".*"/"8": ""/' "$modules_file"
+        sed -i 's/"9": ".*"/"9": ""/' "$modules_file"
+        sed -i 's/"10": ".*"/"10": ""/' "$modules_file"
+
     else
-        # Laptop: Separate workspaces
-        jq '.["hyprland/workspaces"]["format-icons"] = {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": "",
-            "urgent": "",
-            "default": ""
-        }' "$modules_file" > "$modules_file.tmp" && mv "$modules_file.tmp" "$modules_file"
+        # External: Replace just the icon lines
+        sed -i 's/"1": ".*"/"1": ""/' "$modules_file"
+        sed -i 's/"2": ".*"/"2": ""/' "$modules_file"
+        sed -i 's/"3": ".*"/"3": ""/' "$modules_file"
+        sed -i 's/"4": ".*"/"4": ""/' "$modules_file"
+        sed -i 's/"5": ".*"/"5": ""/' "$modules_file"
+        sed -i 's/"6": ".*"/"6": ""/' "$modules_file"
+        sed -i 's/"7": ".*"/"7": ""/' "$modules_file"
+        sed -i 's/"8": ".*"/"8": ""/' "$modules_file"
+        sed -i 's/"9": ".*"/"9": ""/' "$modules_file"
+        sed -i 's/"10": ".*"/"10": ""/' "$modules_file"
     fi
-    
-    # Reload waybar
+    killall waybar 2>/dev/null
+    sleep 1
     ~/.config/waybar/launch.sh &
+    
+    echo "Waybar icons updated to $mode mode" | tee -a "$LOG_FILE"
 }
 
 if [ "$EXTERNAL_ACTIVE" == "false" ]; then
