@@ -1,0 +1,19 @@
+# When DP-1 is connected
+profile external_dp {
+    output eDP-1 disable
+    output DP-1 enable mode preferred scale 1
+    exec ~/.config/hypr/scripts/monitor-rules.sh
+}
+
+# When HDMI-A-1 is connected  
+profile external_hdmi {
+    output eDP-1 disable
+    output HDMI-A-1 enable mode preferred scale 1
+    exec ~/.config/hypr/scripts/monitor-rules.sh
+}
+
+# When no external monitor - use laptop screen
+profile laptop {
+    output eDP-1 enable mode preferred scale 1.25
+    exec ~/.config/hypr/scripts/monitor-rules.sh
+}

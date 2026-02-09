@@ -1,0 +1,26 @@
+# Cache and logs
+*.log
+*.cache
+**/cache/
+**/.cache/
+
+# Backup files
+*.backup
+*.backup-*
+*~
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Large files
+wallpapers/
+*.jpg
+*.png
+*.jpeg
+
+# Sensitive data
+**/*password*
+**/*secret*
+**/*token*
