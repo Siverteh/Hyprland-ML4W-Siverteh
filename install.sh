@@ -98,6 +98,36 @@ if [ -d "$DOTFILES_DIR/nwg-dock-hyprland" ]; then
     create_symlink "$DOTFILES_DIR/nwg-dock-hyprland" "$CONFIG_DIR/nwg-dock-hyprland"
 fi
 
+# ML4W core (REQUIRED)
+if [ -d "$DOTFILES_DIR/ml4w" ]; then
+    echo "→ ML4W core configuration"
+    create_symlink "$DOTFILES_DIR/ml4w" "$CONFIG_DIR/ml4w"
+fi
+
+# Wlogout (power menu)
+if [ -d "$DOTFILES_DIR/wlogout" ]; then
+    echo "→ Wlogout configuration"
+    create_symlink "$DOTFILES_DIR/wlogout" "$CONFIG_DIR/wlogout"
+fi
+
+# Waypaper (wallpaper selector)
+if [ -d "$DOTFILES_DIR/waypaper" ]; then
+    echo "→ Waypaper configuration"
+    create_symlink "$DOTFILES_DIR/waypaper" "$CONFIG_DIR/waypaper"
+fi
+
+# Matugen (color scheme generator - IMPORTANT)
+if [ -d "$DOTFILES_DIR/matugen" ]; then
+    echo "→ Matugen configuration"
+    create_symlink "$DOTFILES_DIR/matugen" "$CONFIG_DIR/matugen"
+fi
+
+# Fastfetch (system info)
+if [ -d "$DOTFILES_DIR/fastfetch" ]; then
+    echo "→ Fastfetch configuration"
+    create_symlink "$DOTFILES_DIR/fastfetch" "$CONFIG_DIR/fastfetch"
+fi\
+
 echo ""
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo -e "${GREEN}  Installation complete!${NC}"
