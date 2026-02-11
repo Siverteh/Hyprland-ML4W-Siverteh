@@ -14,11 +14,14 @@
 *.swp
 *.swo
 
-# Large files
-wallpapers/
+# Exclude images EXCEPT in specific directories
 *.jpg
 *.png
 *.jpeg
+!ml4w/wallpapers/*.jpg
+!ml4w/wallpapers/*.png
+!ml4w/wallpapers/*.jpeg
+!wlogout/icons/*.png
 
 # Sensitive data
 **/*password*
