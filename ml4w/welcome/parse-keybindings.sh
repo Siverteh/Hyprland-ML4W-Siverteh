@@ -1,0 +1,153 @@
+#!/bin/bash
+# Parse keybinding.conf and generate keybindings.json
+
+KEYBIND_CONF="$HOME/.config/hypr/conf/keybinding.conf"
+OUTPUT_JSON="$HOME/.config/ml4w/welcome/keybindings.json"
+
+# Create organized keybindings structure
+cat > "$OUTPUT_JSON" << 'EOF'
+{
+  "sections": [
+    {
+      "name": "Workspace Navigation",
+      "bindings": [
+        {"keys": ["Super", "+", "1-0"], "action": "Switch to workspace 1-10"},
+        {"keys": ["Super", "+", "Tab"], "action": "Next workspace"},
+        {"keys": ["Super", "+", "Shift", "+", "Tab"], "action": "Previous workspace"},
+        {"keys": ["Super", "+", "Scroll↓"], "action": "Next workspace (scroll)"},
+        {"keys": ["Super", "+", "Scroll↑"], "action": "Previous workspace (scroll)"}
+      ]
+    },
+    {
+      "name": "Move Windows to Workspaces",
+      "bindings": [
+        {"keys": ["Super", "+", "Shift", "+", "1-0"], "action": "Move window to workspace 1-10"},
+        {"keys": ["Super", "+", "Ctrl", "+", "Shift", "+", "←"], "action": "Move to previous workspace"},
+        {"keys": ["Super", "+", "Ctrl", "+", "Shift", "+", "→"], "action": "Move to next workspace"}
+      ]
+    },
+    {
+      "name": "Window Management",
+      "bindings": [
+        {"keys": ["Super", "+", "Q"], "action": "Close window"},
+        {"keys": ["Super", "+", "Shift", "+", "Q"], "action": "Force kill window"},
+        {"keys": ["Super", "+", "F"], "action": "Fullscreen"},
+        {"keys": ["Super", "+", "M"], "action": "Maximize"},
+        {"keys": ["Super", "+", "H"], "action": "Minimize window"},
+        {"keys": ["Super", "+", "Shift", "+", "H"], "action": "Restore last minimized"},
+        {"keys": ["Super", "+", "Alt", "+", "H"], "action": "Restore all minimized (current workspace)"},
+        {"keys": ["Super", "+", "T"], "action": "Toggle floating"},
+        {"keys": ["Super", "+", "P"], "action": "Pin window"},
+        {"keys": ["Super", "+", "Shift", "+", "P"], "action": "Pseudo tile"},
+        {"keys": ["Super", "+", "G"], "action": "Toggle group"},
+        {"keys": ["Super", "+", "["], "action": "Previous in group"},
+        {"keys": ["Super", "+", "]"], "action": "Next in group"},
+        {"keys": ["Super", "+", "J"], "action": "Toggle split"}
+      ]
+    },
+    {
+      "name": "Window Focus & Movement",
+      "bindings": [
+        {"keys": ["Super", "+", "←"], "action": "Focus left"},
+        {"keys": ["Super", "+", "→"], "action": "Focus right"},
+        {"keys": ["Super", "+", "↑"], "action": "Focus up"},
+        {"keys": ["Super", "+", "↓"], "action": "Focus down"},
+        {"keys": ["Super", "+", "Shift", "+", "←"], "action": "Move window left"},
+        {"keys": ["Super", "+", "Shift", "+", "→"], "action": "Move window right"},
+        {"keys": ["Super", "+", "Shift", "+", "↑"], "action": "Move window up"},
+        {"keys": ["Super", "+", "Shift", "+", "↓"], "action": "Move window down"},
+        {"keys": ["Alt", "+", "Tab"], "action": "Cycle windows forward"},
+        {"keys": ["Alt", "+", "Shift", "+", "Tab"], "action": "Cycle windows backward"}
+      ]
+    },
+    {
+      "name": "Window Resize",
+      "bindings": [
+        {"keys": ["Super", "+", "R"], "action": "Enter resize mode"},
+        {"keys": ["Super", "+", "Alt", "+", "←"], "action": "Resize left"},
+        {"keys": ["Super", "+", "Alt", "+", "→"], "action": "Resize right"},
+        {"keys": ["Super", "+", "Alt", "+", "↑"], "action": "Resize up"},
+        {"keys": ["Super", "+", "Alt", "+", "↓"], "action": "Resize down"}
+      ]
+    },
+    {
+      "name": "Launch Applications",
+      "bindings": [
+        {"keys": ["Super", "+", "Shift", "+", "T"], "action": "Open Kitty (Terminal)"},
+        {"keys": ["Super", "+", "Shift", "+", "B"], "action": "Open Google Chrome"},
+        {"keys": ["Super", "+", "Shift", "+", "C"], "action": "Open VS Code"},
+        {"keys": ["Super", "+", "Shift", "+", "V"], "action": "Open Cursor"},
+        {"keys": ["Super", "+", "Shift", "+", "D"], "action": "Open Discord"},
+        {"keys": ["Super", "+", "Shift", "+", "S"], "action": "Open Spotify"},
+        {"keys": ["Super", "+", "Shift", "+", "M"], "action": "Open Mission Center"},
+        {"keys": ["Super", "+", "Shift", "+", "F"], "action": "Open File Manager"}
+      ]
+    },
+    {
+      "name": "Launchers & Utilities",
+      "bindings": [
+        {"keys": ["Super", "+", "A"], "action": "App launcher (Rofi)"},
+        {"keys": ["Super", "+", "D"], "action": "Window picker"},
+        {"keys": ["Super", "+", "`"], "action": "Toggle scratchpad"},
+        {"keys": ["Super", "+", "Shift", "+", "`"], "action": "Move to scratchpad"},
+        {"keys": ["Super", "+", "V"], "action": "Clipboard manager"},
+        {"keys": ["Super", "+", "."], "action": "Emoji picker"}
+      ]
+    },
+    {
+      "name": "System Controls",
+      "bindings": [
+        {"keys": ["Super", "+", "X"], "action": "Power menu (wlogout)"},
+        {"keys": ["Super", "+", "Esc"], "action": "Lock screen"},
+        {"keys": ["Super", "+", "Shift", "+", "R"], "action": "Reload Hyprland"}
+      ]
+    },
+    {
+      "name": "Utilities",
+      "bindings": [
+        {"keys": ["Super", "+", "W"], "action": "Wallpaper picker (Waypaper)"},
+        {"keys": ["Super", "+", "Z"], "action": "Toggle all bars"},
+        {"keys": ["Super", "+", "Alt", "+", "Z"], "action": "Toggle bottom bar"},
+        {"keys": ["Super", "+", "Shift", "+", "Z"], "action": "Toggle top bar"},
+        {"keys": ["Super", "+", "O"], "action": "Toggle monitor"},
+        {"keys": ["Super", "+", "Alt", "+", "K"], "action": "Reload Kanshi (monitor manager)"},
+        {"keys": ["Super", "+", "Alt", "+", "C"], "action": "Launch coding setup"}
+      ]
+    },
+    {
+      "name": "Audio & Media",
+      "bindings": [
+        {"keys": ["F1"], "action": "Mute/Unmute audio"},
+        {"keys": ["F2"], "action": "Volume down"},
+        {"keys": ["F3"], "action": "Volume up"},
+        {"keys": ["F9"], "action": "Mute/Unmute microphone"}
+      ]
+    },
+    {
+      "name": "Display & Brightness",
+      "bindings": [
+        {"keys": ["F5"], "action": "Brightness down"},
+        {"keys": ["F6"], "action": "Brightness up"},
+        {"keys": ["F4", "↑"], "action": "Keyboard backlight up"},
+        {"keys": ["F4", "↓"], "action": "Keyboard backlight down"}
+      ]
+    },
+    {
+      "name": "Screenshots",
+      "bindings": [
+        {"keys": ["PrtSc"], "action": "Screenshot area to clipboard"},
+        {"keys": ["Super", "+", "PrtSc"], "action": "Screenshot to file"}
+      ]
+    },
+    {
+      "name": "Mouse Actions",
+      "bindings": [
+        {"keys": ["Super", "+", "LMB"], "action": "Move window"},
+        {"keys": ["Super", "+", "RMB"], "action": "Resize window"}
+      ]
+    }
+  ]
+}
+EOF
+
+echo "✓ Keybindings generated at $OUTPUT_JSON"
