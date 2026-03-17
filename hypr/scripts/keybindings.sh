@@ -6,11 +6,7 @@
 #          /___/                        /___/     
 # 
 
-# -----------------------------------------------------
-# Get keybindings location based on variation
-# -----------------------------------------------------
-config_file=$(<~/.config/hypr/conf/keybinding.conf)
-config_file=${config_file//source = ~//home/$USER}
+config_file="$HOME/.config/hypr/conf/keybinding.conf"
 
 # -----------------------------------------------------
 # Load Launcher
@@ -20,22 +16,30 @@ launcher=$(cat $HOME/.config/ml4w/settings/launcher)
 # -----------------------------------------------------
 # Path to keybindings config file
 # -----------------------------------------------------
-echo "Reading from: $config_file"
+keybinds=$(awk -F',' '
+    $1 ~ /^bind/ || $1 ~ /^binde/ || $1 ~ /^bindm/ {
+        gsub(/\$mainMod/, "SUPER", $1)
+        split($1, head, "=")
+        modifiers = head[2]
+        key = $2
+        action = $3
+        detail = $4
 
-keybinds=$(awk -F'[=#]' '
-    $1 ~ /^bind/ {
-        # Replace the string "$mainMod" with "SUPER" (for the super key)
-        gsub(/\$mainMod/, "SUPER", $0)
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", modifiers)
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", key)
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", action)
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", detail)
 
-        # Remove "bind" and extra spaces, if any, at the beginning of the line
-        gsub(/^bind[[:space:]]*=+[[:space:]]*/, "", $0)
+        combo = key
+        if (modifiers != "") {
+            combo = modifiers " + " key
+        }
 
-        # Split the keybinding part (e.g., "Mod1,Return") using a comma
-        split($1, kbarr, ",")
+        if (detail != "") {
+            action = action " " detail
+        }
 
-        # Format the keybinding and associated command and prepare for output:
-        # Concatenate the two keybinding keys (e.g., "Mod1" + "Return") and append the command
-        print kbarr[1] "  + " kbarr[2] "\r" $2
+        print combo "\r" action
     }
 ' "$config_file")
 
@@ -45,5 +49,5 @@ if [ "$launcher" == "walker" ]; then
     keybinds=$(echo -n "$keybinds" | tr '\r' ':')
     $HOME/.config/walker/launch.sh -d -N -H -p "Search Keybinds" <<<"$keybinds"
 else
-    rofi -dmenu -i -markup -eh 2 -replace -p "Keybinds" -config ~/.config/rofi/config-compact.rasi <<<"$keybinds"
+    rofi -dmenu -i -markup -eh 2 -replace -p "Siverteh Keys" -config ~/.config/rofi/config-compact.rasi <<<"$keybinds"
 fi

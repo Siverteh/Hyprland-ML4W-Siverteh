@@ -145,13 +145,8 @@ fi
 # -----------------------------------------------------
 
 sleep 1
+"$HOME/.config/fastfetch/render-logo.sh"
 $HOME/.config/waybar/launch.sh
-
-# -----------------------------------------------------
-# Reload nwg-dock-hyprland
-# -----------------------------------------------------
-
-$HOME/.config/nwg-dock-hyprland/launch.sh &
 
 # -----------------------------------------------------
 # Update Pywalfox

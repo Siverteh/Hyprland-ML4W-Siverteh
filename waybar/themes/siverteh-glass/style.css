@@ -1,0 +1,243 @@
+* {
+    font-family: "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 7 Brands", "Font Awesome 6 Free", "Font Awesome 6 Brands", FontAwesome, "Material Icons", Roboto, Helvetica, Arial, sans-serif;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-size: 11px;
+}
+
+window#waybar {
+    background: transparent;
+    color: @on_surface;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.modules-left > widget:first-child > #custom-appmenu {
+    margin-left: 8px;
+}
+
+.modules-right > widget:last-child > #group-session {
+    margin-right: 8px;
+}
+
+.modules-center {
+    padding-top: 0;
+}
+
+#custom-appmenu,
+#group-updates-performance,
+#group-connectivity,
+#group-session,
+#taskbar.empty {
+    background: linear-gradient(180deg, alpha(@surface_container_high, 0.18), alpha(@surface, 0.28));
+    border: none;
+    border-radius: 12px;
+    margin: 6px 4px 0 4px;
+    padding: 2px 4px;
+    box-shadow: 0 4px 10px alpha(@shadow, 0.08), inset 0 1px 0 alpha(@on_surface, 0.03);
+}
+
+#workspaces {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 6px 4px 0 4px;
+    padding: 0;
+}
+
+#taskbar {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-height: 0;
+    margin: 6px 4px 0 4px;
+    padding: 0;
+}
+
+#taskbar.empty {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+#clock {
+    font-weight: 800;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 6px 4px 0 4px;
+    padding: 4px 3px;
+    min-width: 0;
+}
+
+#custom-appmenu,
+#custom-siverteh,
+#custom-updates,
+#cpu,
+#memory,
+#custom-notification,
+#pulseaudio,
+#bluetooth,
+#network,
+#battery,
+#tray,
+#custom-exit,
+#taskbar button {
+    color: @on_surface;
+    background: transparent;
+    margin: 1px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    min-height: 18px;
+    transition: background 160ms ease, color 160ms ease;
+}
+
+#custom-appmenu {
+    color: @on_surface;
+    font-weight: 800;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 8px;
+}
+
+#custom-siverteh {
+    background: alpha(@surface_bright, 0.08);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    min-width: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#custom-updates,
+#cpu,
+#memory {
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    font-weight: 700;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#custom-notification {
+    font-family: "Material Icons";
+    font-size: 13px;
+}
+
+#tray {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#custom-exit,
+#bluetooth,
+#custom-notification {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#workspaces button {
+    background: alpha(@surface_container_lowest, 0.16);
+    color: alpha(@on_surface, 0.64);
+    min-width: 22px;
+    min-height: 18px;
+    padding: 0;
+    margin: 1px 2px;
+    font-weight: 800;
+}
+
+#workspaces button.active {
+    background: linear-gradient(135deg, alpha(@primary, 0.42), alpha(@secondary, 0.22));
+    color: @on_surface;
+    box-shadow: inset 0 1px 0 alpha(@primary_fixed, 0.1);
+}
+
+#workspaces button.urgent {
+    background: alpha(@error, 0.88);
+    color: @on_error;
+}
+
+#custom-appmenu:hover,
+#custom-siverteh:hover,
+#custom-updates:hover,
+#cpu:hover,
+#memory:hover,
+#custom-notification:hover,
+#pulseaudio:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover,
+#custom-exit:hover,
+#tray:hover,
+#workspaces button:hover,
+#taskbar button:hover,
+#taskbar button.active,
+#clock:hover {
+    background: alpha(@primary_container, 0.42);
+    color: @on_primary_container;
+}
+
+#taskbar button {
+    min-width: 20px;
+    min-height: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 9px;
+}
+
+#taskbar button image {
+    padding: 0;
+}
+
+#custom-updates.neutral {
+    color: alpha(@on_surface, 0.72);
+}
+
+#custom-updates.green {
+    color: alpha(@on_surface, 0.92);
+}
+
+#custom-updates.yellow {
+    background: alpha(@tertiary_container, 0.45);
+    color: @on_tertiary_container;
+}
+
+#custom-updates.red {
+    background: alpha(@error_container, 0.5);
+    color: @on_error_container;
+}
+
+#tray menu {
+    background: alpha(@surface_container, 0.96);
+    border: 1px solid alpha(@primary_fixed, 0.38);
+    border-radius: 14px;
+}
+
+
+#network.disconnected,
+#battery.critical,
+#pulseaudio.muted {
+    background: alpha(@error_container, 0.45);
+    color: @on_error_container;
+}
+
+tooltip {
+    background: alpha(@surface_container, 0.96);
+    color: @on_surface;
+    border: 1px solid alpha(@primary_fixed, 0.42);
+    border-radius: 14px;
+}
+
+tooltip label {
+    color: @on_surface;
+}

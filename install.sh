@@ -12,7 +12,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
 
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
-echo -e "${GREEN}  ML4W Hyprland Dotfiles Installer${NC}"
+echo -e "${GREEN}  Siverteh Hyprland Dotfiles Installer${NC}"
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo ""
 echo "Dotfiles: $DOTFILES_DIR"
@@ -92,15 +92,9 @@ if [ -d "$DOTFILES_DIR/kitty" ]; then
     create_symlink "$DOTFILES_DIR/kitty" "$CONFIG_DIR/kitty"
 fi
 
-# nwg-dock-hyprland
-if [ -d "$DOTFILES_DIR/nwg-dock-hyprland" ]; then
-    echo "→ nwg-dock-hyprland configuration"
-    create_symlink "$DOTFILES_DIR/nwg-dock-hyprland" "$CONFIG_DIR/nwg-dock-hyprland"
-fi
-
-# ML4W core (REQUIRED)
+# Siverteh core compatibility
 if [ -d "$DOTFILES_DIR/ml4w" ]; then
-    echo "→ ML4W core configuration"
+    echo "→ Siverteh compatibility configuration"
     create_symlink "$DOTFILES_DIR/ml4w" "$CONFIG_DIR/ml4w"
 fi
 
@@ -126,7 +120,7 @@ fi
 if [ -d "$DOTFILES_DIR/fastfetch" ]; then
     echo "→ Fastfetch configuration"
     create_symlink "$DOTFILES_DIR/fastfetch" "$CONFIG_DIR/fastfetch"
-fi\
+fi
 
 echo ""
 echo -e "${GREEN}═══════════════════════════════════════${NC}"

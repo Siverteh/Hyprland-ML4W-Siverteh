@@ -1,0 +1,62 @@
+@import '../../colors.css';
+
+* {
+    font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+    box-shadow: none;
+}
+
+window {
+    background: url("../../../../.cache/ml4w/hyprland-dotfiles/blurred_wallpaper.png");
+    background-size: cover;
+    font-size: 14pt;
+}
+
+button {
+    background:
+        linear-gradient(180deg, alpha(@surface_container, 0.92), alpha(@surface, 0.95));
+    color: @on_surface;
+    border-radius: 20px;
+    border: 1px solid alpha(@primary_fixed, 0.2);
+    margin: 6px;
+    min-width: 118px;
+    min-height: 112px;
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    background-size: 60px;
+    padding: 92px 12px 18px 12px;
+}
+
+button:hover,
+button:focus {
+    background:
+        linear-gradient(180deg, alpha(@primary_container, 0.82), alpha(@surface_container_high, 0.96));
+    color: @on_primary_container;
+    border-radius: 20px;
+    border: 1px solid alpha(@primary_fixed, 0.42);
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    background-size: 60px;
+}
+
+button label,
+button span {
+    font-size: 0.84em;
+    font-weight: 700;
+}
+
+button#lock,
+button#logout,
+button#matrix,
+button#hibernate,
+button#shutdown,
+button#reboot {
+    border-radius: 20px;
+}
+
+button#lock { background-image: image(url("../../icons/lock.png")); }
+button#logout { background-image: image(url("../../icons/logout.png")); }
+button#matrix { background-image: image(url("../../icons/matrix.png")); }
+button#hibernate { background-image: image(url("../../icons/hibernate.png")); }
+button#shutdown { background-image: image(url("../../icons/shutdown.png")); }
+button#reboot { background-image: image(url("../../icons/reboot.png")); }

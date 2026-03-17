@@ -40,6 +40,8 @@ threshhold_red=100
 # Check for updates
 # ----------------------------------------------------- 
 
+updates=0
+
 # Arch
 if [[ $(_checkCommandExists "pacman") == 0 ]]; then
 
@@ -69,8 +71,16 @@ if [[ $(_checkCommandExists "pacman") == 0 ]]; then
     else
         aur_helper="yay"
     fi
-    updates_aur=$($aur_helper -Qum | wc -l)
-    updates_pacman=$(checkupdates | wc -l)
+    updates_aur=0
+    updates_pacman=0
+
+    if [[ $(_checkCommandExists "$aur_helper") == 0 ]]; then
+        updates_aur=$($aur_helper -Qum 2>/dev/null | wc -l)
+    fi
+    if [[ $(_checkCommandExists "checkupdates") == 0 ]]; then
+        updates_pacman=$(checkupdates 2>/dev/null | wc -l)
+    fi
+
     updates=$((updates_aur+updates_pacman))
     
 # Fedora
@@ -85,7 +95,13 @@ fi
 # Output in JSON format for Waybar Module custom-updates
 # ----------------------------------------------------- 
 
-css_class="green"
+css_class="neutral"
+tooltip="No updates available"
+
+if [ "$updates" -gt $threshhold_green ]; then
+    css_class="green"
+    tooltip="Click to update your system"
+fi
 
 if [ "$updates" -gt $threshhold_yellow ]; then
     css_class="yellow"
@@ -94,10 +110,5 @@ fi
 if [ "$updates" -gt $threshhold_red ]; then
     css_class="red"
 fi
-if [ "$updates" != 0 ]; then
-    if [ "$updates" -gt $threshhold_green ]; then
-        printf '{"text": "%s", "alt": "%s", "tooltip": "Click to update your system", "class": "%s"}' "$updates" "$updates" "$css_class"
-    else
-        printf '{"text": "0", "alt": "0", "tooltip": "No updates available", "class": "green"}'
-    fi
-fi
+
+printf '{"text": "%s", "alt": "%s", "tooltip": "%s", "class": "%s"}' "$updates" "$updates" "$tooltip" "$css_class"

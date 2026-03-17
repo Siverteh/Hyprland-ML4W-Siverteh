@@ -11,10 +11,10 @@
     "keybind" : "e"
 }
 {
-    "label" : "suspend",
-    "action" : "~/.config/hypr/scripts/power.sh suspend",
-    "text" : "Suspend",
-    "keybind" : "u"
+    "label" : "matrix",
+    "action" : "~/.config/hypr/scripts/matrix-rest.sh",
+    "text" : "Matrix",
+    "keybind" : "m"
 }
 {
     "label" : "hibernate",

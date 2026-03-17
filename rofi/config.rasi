@@ -12,7 +12,7 @@
 /* ---- Configuration ---- */
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Fira Sans 11";
+    font:                       "Fira Sans Semibold 11";
     show-icons:                 true;
     display-drun:                " ";
     display-run:                 " ";
@@ -45,7 +45,7 @@ configuration {
 // Main //
 window {
     height:                      35em;
-    width:                       56em;
+    width:                       54em;
     transparency:                "real";
     fullscreen:                  false;
     enabled:                     true;
@@ -54,7 +54,7 @@ window {
     padding:                     0em;
     border:                      @border-width;
     border-color:                @primary;
-    border-radius:               @border-radius;
+    border-radius:               2.2em;
     background-color:            @background;
 }
 
@@ -69,7 +69,7 @@ mainbox {
 }
 
 imagebox {
-    padding:                     20px;
+    padding:                     24px;
     background-color:            transparent;
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
@@ -90,18 +90,18 @@ mode-switcher {
 }
 
 button {
-    padding:                     15px;
+    padding:                     15px 18px;
     border-radius:               2em;
     border:                      0;    
     cursor:                      pointer;
-    background-color:            @background;
+    background-color:            @surface;
     text-color:                  @on-surface;
 }
 
 button selected {
-    padding:                     15px;
+    padding:                     15px 18px;
     border-radius:               2em;    
-    background-color:            @surface;
+    background-color:            @primary-container;
     text-color:                  @on-surface;
 }
 
@@ -173,7 +173,7 @@ element {
 }
 
 element selected.normal {
-    background-color:            @surface;
+    background-color:            @primary-container;
     text-color:                  @on-surface;
     border-radius:               1.5em;
 }

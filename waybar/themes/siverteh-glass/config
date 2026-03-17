@@ -1,0 +1,25 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "spacing": 0,
+    "include": [
+        "~/.config/waybar/modules.json"
+    ],
+    "modules-left": [
+        "custom/appmenu",
+        "hyprland/workspaces",
+        "wlr/taskbar"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "group/updates-performance",
+        "group/connectivity",
+        "group/session"
+    ]
+}

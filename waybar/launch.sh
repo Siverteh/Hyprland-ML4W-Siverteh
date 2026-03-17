@@ -26,7 +26,7 @@ sleep 0.5
 # Default theme: /THEMEFOLDER;/VARIATION
 # -----------------------------------------------------
 
-default_theme="/ml4w-modern;/ml4w-modern/default"
+default_theme="/siverteh-glass;/siverteh-glass/default"
 
 # -----------------------------------------------------
 # Remove incompatible themes
@@ -45,6 +45,12 @@ if [ -f ~/.config/ml4w/settings/waybar-theme.sh ]; then
         echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
         ;;
     "/ml4w;/ml4w/dark")
+        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+        ;;
+    "/ml4w-glass;/ml4w-glass/default")
+        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+        ;;
+    "/ml4w-modern;/ml4w-modern/default")
         echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
         ;;
     *)

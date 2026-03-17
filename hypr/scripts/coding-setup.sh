@@ -1,45 +1,43 @@
 #!/bin/bash
-#  ____          _ _               ____       _                 
-# / ___|___   __| (_)_ __   __ _  / ___|  ___| |_ _   _ _ __    
-#| |   / _ \ / _` | | '_ \ / _` | \___ \ / _ \ __| | | | '_ \   
-#| |__| (_) | (_| | | | | | (_| |  ___) |  __/ |_| |_| | |_) |  
-# \____\___/ \__,_|_|_| |_|\__, | |____/ \___|\__|\__,_| .__/   
-#                          |___/                       |_|      
 
-# Multi-workspace coding environment setup
+launch_setting() {
+    local file="$1"
+    local cmd
 
-notify-send "Coding Setup" "Setting up your development environment..." -t 2000
+    if [ ! -f "$file" ]; then
+        return 1
+    fi
 
-# Workspace 1: Browser with Claude
+    cmd=$(<"$file")
+    if [ -z "$cmd" ]; then
+        return 1
+    fi
+
+    bash -lc "$cmd" &
+}
+
+notify-send "Siverteh Daily Profile" "Opening your core workspaces..." -t 2000
+
 hyprctl dispatch workspace 1
-google-chrome-stable --new-window "https://claude.ai" &
-sleep 0.5
+launch_setting "$HOME/.config/ml4w/settings/browser.sh"
+sleep 0.6
 
-# Workspace 2: VS Code (main coding workspace)
 hyprctl dispatch workspace 2
-code &
-sleep 0.5
+launch_setting "$HOME/.config/ml4w/settings/editor.sh"
+sleep 0.6
 
-# Workspace 3: Discord
 hyprctl dispatch workspace 3
 discord &
-sleep 0.5
+sleep 0.6
 
-# Workspace 4: Spotify
 hyprctl dispatch workspace 4
 spotify &
-sleep 0.5
+sleep 0.6
 
-# Workspace 10: Mission Center and ML4W Settings side by side
-hyprctl dispatch workspace 10
-flatpak run com.ml4w.settings &
-sleep 1
-flatpak run io.missioncenter.MissionCenter &
- 
+hyprctl dispatch workspace 5
+launch_setting "$HOME/.config/ml4w/settings/email.sh"
+sleep 0.8
 
-
-# Return to workspace 2 (your main coding area)
-sleep 1
 hyprctl dispatch workspace 2
 
-notify-send "Coding Setup" "Environment ready! 🚀" -t 2000
+notify-send "Siverteh Daily Profile" "Browser, code, chat, music, and mail are ready." -t 2000

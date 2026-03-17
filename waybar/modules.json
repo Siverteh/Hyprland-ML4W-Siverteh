@@ -15,35 +15,43 @@
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "6": "",
-      "7": "",
-      "8": "",
-      "9": "",
-      "10": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
       "urgent": "",
       "default": ""
     },
     "persistent-workspaces": {
-      "DP-1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "eDP-1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "*": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      "DP-1": [1, 2, 3, 4, 5, 6],
+      "eDP-1": [1, 2, 3, 4, 5, 6],
+      "*": [1, 2, 3, 4, 5, 6]
     }
+  },
+  "custom/siverteh": {
+    "exec": "~/.config/hypr/scripts/waybar/siverteh-status.sh",
+    "return-type": "json",
+    "interval": 60,
+    "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
+    "escape": false
   },
   // Taskbar
   "wlr/taskbar": {
     "format": "{icon}",
-    "icon-size": 18,
+    "icon-size": 15,
     "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
     "ignore-list": [
       "Alacritty",
-      "kitty"
+      "kitty",
+      "foot"
     ],
     "app_ids-mapping": {
       "firefoxdeveloperedition": "firefox-developer-edition"
@@ -65,11 +73,11 @@
     },
     "separate-outputs": true
   },
-  // ML4W Welcome App
-  "custom/ml4w-welcome": {
-    "on-click": "flatpak run com.ml4w.sidebar",
+  // Siverteh Hub
+  "custom/hub": {
+    "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
     "format": " ",
-    "tooltip-format": "Open ML4W Sidebar App"
+    "tooltip-format": "Open Siverteh Hub"
   },
   // Empty
   "custom/empty": {
@@ -115,7 +123,7 @@
     "exec": "~/.config/ml4w/scripts/updates.sh",
     "interval": 1800,
     "signal": 1,
-    "hide-empty-text": true,
+    "hide-empty-text": false,
     "on-click": "~/.config/ml4w/settings/installupdates.sh"
   },
   // Wallpaper
@@ -134,8 +142,8 @@
   // Settings
   "custom/settings": {
     "format": "",
-    "on-click": "sleep 0.1 && com.ml4w.dotfilessettings",
-    "tooltip-format": "ML4W Dotfiles Settings"
+    "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
+    "tooltip-format": "Open Siverteh Hub"
   },
   // Keybindings
   "custom/keybindings": {
@@ -151,12 +159,10 @@
   },
   // Rofi Application Launcher
   "custom/appmenu": {
-    // START APPS LABEL
     "format": "Apps",
-    // END APPS LABEL
     "on-click": "~/.config/hypr/scripts/launcher.sh",
     "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
-    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+    "tooltip-format": "Left: Open launcher\nRight: Browse keybindings"
   },
   // Rofi Application Launcher
   "custom/appmenuicon": {
@@ -228,15 +234,14 @@
   },
   // System tray
   "tray": {
-    "icon-size": 21,
-    "spacing": 10
+    "icon-size": 14,
+    "spacing": 6
   },
   // Clock
   "clock": {
-    "format": "{:%H:%M %a}",
-    "on-click": "flatpak run com.ml4w.calendar",
-    "timezone": "",
-    "tooltip": false
+    "format": "{:%H:%M | %a %d %b}",
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh"
   },
   // System
   "custom/system": {
@@ -247,17 +252,54 @@
   },
   // CPU
   "cpu": {
-    "format": "/ C {usage}% ",
+    "format": "  {usage}%",
     "on-click": "~/.config/ml4w/settings/system-monitor.sh",
     "on-scroll-up": "true",
     "on-scroll-down": "true"
   },
   // Memory
   "memory": {
-    "format": "/ M {}% ",
+    "format": "  {}%",
     "on-click": "~/.config/ml4w/settings/system-monitor.sh",
     "on-scroll-up": "true",
     "on-scroll-down": "true"
+  },
+  // Group Launcher + Brand
+  "group/launcher-brand": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/appmenu",
+      "custom/siverteh"
+    ]
+  },
+  // Group Updates + Performance
+  "group/updates-performance": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/updates",
+      "cpu",
+      "memory"
+    ]
+  },
+  // Group Connectivity
+  "group/connectivity": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/notification",
+      "pulseaudio",
+      "bluetooth",
+      "network",
+      "battery"
+    ]
+  },
+  // Group Session
+  "group/session": {
+    "orientation": "horizontal",
+    "modules": [
+      "tray",
+      "custom/siverteh",
+      "custom/exit"
+    ]
   },
   // Harddisc space used
   "disk": {
@@ -329,15 +371,15 @@
   },
   // Network
   "network": {
-    "format": "{ifname}",
+    "format": "󰤭",
     "format-wifi": " {signalStrength}%",
-    "format-ethernet": "  {ifname}",
-    "format-disconnected": "Disconnected ⚠",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤮",
     "tooltip-format": " {ifname} via {gwaddri}",
     "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50,
+    "max-length": 10,
     "on-click": "~/.config/ml4w/settings/networkmanager.sh",
     "on-click-right": "~/.config/ml4w/scripts/nm-applet.sh toggle",
   },
@@ -350,17 +392,17 @@
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-charging": "  {capacity}%",
-    "format-plugged": "  {capacity}%",
-    "format-alt": "{icon}  {time}",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
     // "format-good": "", // An empty format will hide the module
     // "format-full": "",
     "format-icons": [
-      " ",
-      " ",
-      " ",
-      " ",
-      " "
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   // Power Profiles Daemon
@@ -380,7 +422,7 @@
   // Pulseaudio
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
-    "format": "{icon}  {volume}%",
+    "format": "{icon} {volume}%",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     "format-muted": " {format_source}",
@@ -403,15 +445,18 @@
   },
   // Bluetooth
   "bluetooth": {
-  "format": " {status}",
-  "format-disabled": "",
-  "format-off": "",
-  "interval": 30,
-  "on-click": "sleep 0.1 && ~/.config/ml4w/settings/bluetooth.sh",
-  "tooltip-format-connected": "Connected devices: {num_connections} connected\n\n{device_enumerate}",
-  "tooltip-format-enumerate-connected": "{device_alias}",
-  "tooltip-format-enumerate-connected-battery": "{device_alias}\t| Battery life: {device_battery_percentage}%",
-  "format-no-controller": ""
+    "format": "",
+    "format-disabled": "",
+    "format-off": "",
+    "interval": 30,
+    "on-click": "sleep 0.1 && ~/.config/ml4w/settings/bluetooth.sh",
+    "tooltip-format": "Bluetooth",
+    "tooltip-format-connected": "Connected devices: {num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t| Battery life: {device_battery_percentage}%",
+    "format-connected": "",
+    "format-connected-battery": "",
+    "format-no-controller": ""
   },
   // Other
   "user": {

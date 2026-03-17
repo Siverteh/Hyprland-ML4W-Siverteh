@@ -13,6 +13,8 @@
 *.tmp
 *.swp
 *.swo
+*.pyc
+__pycache__/
 
 # Exclude images EXCEPT in specific directories
 *.jpg

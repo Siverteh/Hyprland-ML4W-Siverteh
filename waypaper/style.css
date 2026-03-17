@@ -1,0 +1,86 @@
+@import url("/home/siverteh/.config/waybar/colors.css");
+
+* {
+    color: @on_surface;
+    font-family: "Fira Sans", "Noto Sans", sans-serif;
+}
+
+window,
+dialog,
+.background {
+    background:
+        radial-gradient(circle at top, alpha(@primary, 0.14), transparent 38%),
+        linear-gradient(180deg, alpha(@surface_container_high, 0.98), alpha(@surface, 0.98));
+}
+
+box,
+stack,
+scrolledwindow,
+viewport,
+flowbox,
+listview {
+    background: transparent;
+}
+
+headerbar,
+toolbar {
+    background: alpha(@surface_container, 0.86);
+    border: 1px solid alpha(@primary_fixed, 0.12);
+    box-shadow: none;
+}
+
+button,
+togglebutton,
+combobox,
+dropdown,
+spinbutton,
+entry,
+searchbar entry {
+    background: alpha(@surface_container_high, 0.88);
+    color: @on_surface;
+    border-radius: 14px;
+    border: 1px solid alpha(@primary_fixed, 0.12);
+    box-shadow: none;
+}
+
+button:hover,
+togglebutton:hover,
+combobox:hover,
+dropdown:hover {
+    background: alpha(@primary_container, 0.6);
+}
+
+flowboxchild,
+listview row,
+row {
+    background: alpha(@surface_container, 0.78);
+    border-radius: 18px;
+    border: 1px solid alpha(@outline, 0.18);
+    padding: 8px;
+}
+
+flowboxchild:selected,
+listview row:selected,
+row:selected {
+    background: alpha(@primary_container, 0.82);
+    border-color: alpha(@primary_fixed, 0.24);
+}
+
+image {
+    border-radius: 16px;
+}
+
+scale trough {
+    background: alpha(@on_surface, 0.08);
+    border-radius: 999px;
+}
+
+scale highlight {
+    background: alpha(@primary, 0.72);
+    border-radius: 999px;
+}
+
+checkbutton check,
+switch slider {
+    background: alpha(@primary, 0.92);
+}

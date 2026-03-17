@@ -1,7 +1,6 @@
 #!/bin/bash
-# Parse keybinding.conf and generate keybindings.json
+# Generate keybindings.json for the Siverteh Hub
 
-KEYBIND_CONF="$HOME/.config/hypr/conf/keybinding.conf"
 OUTPUT_JSON="$HOME/.config/ml4w/welcome/keybindings.json"
 
 # Create organized keybindings structure
@@ -11,7 +10,7 @@ cat > "$OUTPUT_JSON" << 'EOF'
     {
       "name": "Workspace Navigation",
       "bindings": [
-        {"keys": ["Super", "+", "1-0"], "action": "Switch to workspace 1-10"},
+        {"keys": ["Super", "+", "1-6"], "action": "Switch between the main workspace pills"},
         {"keys": ["Super", "+", "Tab"], "action": "Next workspace"},
         {"keys": ["Super", "+", "Shift", "+", "Tab"], "action": "Previous workspace"},
         {"keys": ["Super", "+", "Scroll↓"], "action": "Next workspace (scroll)"},
@@ -21,7 +20,7 @@ cat > "$OUTPUT_JSON" << 'EOF'
     {
       "name": "Move Windows to Workspaces",
       "bindings": [
-        {"keys": ["Super", "+", "Shift", "+", "1-0"], "action": "Move window to workspace 1-10"},
+        {"keys": ["Super", "+", "Shift", "+", "1-6"], "action": "Move a window into the personal workspace map"},
         {"keys": ["Super", "+", "Ctrl", "+", "Shift", "+", "←"], "action": "Move to previous workspace"},
         {"keys": ["Super", "+", "Ctrl", "+", "Shift", "+", "→"], "action": "Move to next workspace"}
       ]
@@ -80,13 +79,14 @@ cat > "$OUTPUT_JSON" << 'EOF'
         {"keys": ["Super", "+", "Shift", "+", "D"], "action": "Open Discord"},
         {"keys": ["Super", "+", "Shift", "+", "S"], "action": "Open Spotify"},
         {"keys": ["Super", "+", "Shift", "+", "M"], "action": "Open Mission Center"},
-        {"keys": ["Super", "+", "Shift", "+", "F"], "action": "Open File Manager"}
+        {"keys": ["Super", "+", "Shift", "+", "F"], "action": "Open File Manager"},
+        {"keys": ["Super", "+", "O"], "action": "Open Siverteh Hub"}
       ]
     },
     {
       "name": "Launchers & Utilities",
       "bindings": [
-        {"keys": ["Super", "+", "A"], "action": "App launcher (Rofi)"},
+        {"keys": ["Super", "+", "A"], "action": "Open the Apps launcher"},
         {"keys": ["Super", "+", "D"], "action": "Window picker"},
         {"keys": ["Super", "+", "`"], "action": "Toggle scratchpad"},
         {"keys": ["Super", "+", "Shift", "+", "`"], "action": "Move to scratchpad"},
@@ -106,12 +106,10 @@ cat > "$OUTPUT_JSON" << 'EOF'
       "name": "Utilities",
       "bindings": [
         {"keys": ["Super", "+", "W"], "action": "Wallpaper picker (Waypaper)"},
-        {"keys": ["Super", "+", "Z"], "action": "Toggle all bars"},
-        {"keys": ["Super", "+", "Alt", "+", "Z"], "action": "Toggle bottom bar"},
-        {"keys": ["Super", "+", "Shift", "+", "Z"], "action": "Toggle top bar"},
-        {"keys": ["Super", "+", "O"], "action": "Toggle monitor"},
+        {"keys": ["Super", "+", "Z"], "action": "Toggle the top bar"},
+        {"keys": ["Super", "+", "Ctrl", "+", "M"], "action": "Matrix Sleep rest screen"},
         {"keys": ["Super", "+", "Alt", "+", "K"], "action": "Reload Kanshi (monitor manager)"},
-        {"keys": ["Super", "+", "Alt", "+", "C"], "action": "Launch coding setup"}
+        {"keys": ["Super", "+", "Alt", "+", "C"], "action": "Launch the daily profile"}
       ]
     },
     {

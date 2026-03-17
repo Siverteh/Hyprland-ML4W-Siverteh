@@ -12,7 +12,7 @@
 /* ---- Configuration ---- */
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Fira Sans 11";
+    font:                       "Fira Sans Semibold 11";
     show-icons:                 true;
     icon-theme:                 "Tela-circle-dracula";
     display-drun:                " ";
@@ -45,7 +45,7 @@ configuration {
 
 // Main //
 window {
-    width:                        30em;
+    width:                        34em;
     x-offset:                     0em;
     y-offset:                     2em;
     spacing:                      0em;
@@ -60,8 +60,8 @@ window {
     anchor:                       north;
     fullscreen:                   false;
     enabled:                      true;
-    border-radius:                @border-radius;
-    background-color:             transparent;
+    border-radius:                2em;
+    background-color:             @background;
 }
 
 mainbox {
@@ -152,7 +152,7 @@ element {
 }
 
 element selected.normal {
-    background-color:            @surface;
+    background-color:            @primary-container;
     text-color:                  @on-surface;
     border-radius:               1.5em;
 }
