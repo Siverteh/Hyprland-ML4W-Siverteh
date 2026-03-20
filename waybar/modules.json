@@ -15,12 +15,12 @@
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
       "7": "",
       "8": "",
       "9": "",
@@ -164,6 +164,13 @@
     "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
     "tooltip-format": "Left: Open launcher\nRight: Browse keybindings"
   },
+  // Group Launcher
+  "group/launcher": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/appmenu"
+    ]
+  },
   // Rofi Application Launcher
   "custom/appmenuicon": {
     "format": "",
@@ -272,20 +279,27 @@
       "custom/siverteh"
     ]
   },
-  // Group Updates + Performance
-  "group/updates-performance": {
+  // Group Updates
+  "group/updates": {
     "orientation": "horizontal",
     "modules": [
-      "custom/updates",
+      "custom/updates"
+    ]
+  },
+  // Group Stats
+  "group/stats": {
+    "orientation": "horizontal",
+    "modules": [
       "cpu",
-      "memory"
+      "memory",
+      "disk"
     ]
   },
   // Group Connectivity
   "group/connectivity": {
     "orientation": "horizontal",
     "modules": [
-      "custom/notification",
+      "tray",
       "pulseaudio",
       "bluetooth",
       "network",
@@ -296,7 +310,7 @@
   "group/session": {
     "orientation": "horizontal",
     "modules": [
-      "tray",
+      "custom/notification",
       "custom/siverteh",
       "custom/exit"
     ]
@@ -304,7 +318,7 @@
   // Harddisc space used
   "disk": {
     "interval": 30,
-    "format": "D {percentage_used}% ",
+    "format": " {percentage_used}%",
     "path": "/",
     "on-click": "~/.config/ml4w/settings/system-monitor.sh",
     "on-scroll-up": "true",

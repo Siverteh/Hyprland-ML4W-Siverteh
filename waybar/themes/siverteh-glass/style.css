@@ -23,42 +23,70 @@ window#waybar {
     margin-left: 8px;
 }
 
-.modules-right > widget:last-child > #group-session {
-    margin-right: 8px;
+.modules-right > widget:last-child {
+    margin-right: 0;
 }
 
 .modules-center {
     padding-top: 0;
 }
 
+/* Shell / pill surfaces */
 #custom-appmenu,
-#group-updates-performance,
-#group-connectivity,
-#group-session,
-#taskbar.empty {
-    background: linear-gradient(180deg, alpha(@surface_container_high, 0.18), alpha(@surface, 0.28));
-    border: none;
+#workspaces,
+#taskbar,
+#clock {
+    background: alpha(@surface_container_high, 0.05);
+    border: 1px solid alpha(@primary, 0.62);
     border-radius: 12px;
     margin: 6px 4px 0 4px;
-    padding: 2px 4px;
-    box-shadow: 0 4px 10px alpha(@shadow, 0.08), inset 0 1px 0 alpha(@on_surface, 0.03);
+    padding: 2px 5px;
+    min-height: 24px;
+    box-shadow: 0 2px 8px alpha(@shadow, 0.05), inset 0 1px 0 alpha(@on_surface, 0.03);
+}
+
+.modules-right > widget {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    box-shadow: none;
+}
+
+.modules-right > widget > box {
+    background: alpha(@surface_container_high, 0.05);
+    border: 1px solid alpha(@primary, 0.62);
+    border-radius: 12px;
+    margin: 6px 4px 0 4px;
+    padding: 2px 5px;
+    min-height: 24px;
+    box-shadow: 0 2px 8px alpha(@shadow, 0.05), inset 0 1px 0 alpha(@on_surface, 0.03);
+}
+
+.modules-right > widget:last-child > box {
+    margin-right: 8px;
+}
+
+.modules-right > widget > box > widget,
+.modules-right > widget > box > widget > box {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
 }
 
 #workspaces {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    margin: 6px 4px 0 4px;
-    padding: 0;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #taskbar {
-    background: transparent;
-    border: none;
-    box-shadow: none;
     min-height: 0;
-    margin: 6px 4px 0 4px;
-    padding: 0;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #taskbar.empty {
@@ -72,19 +100,16 @@ window#waybar {
 
 #clock {
     font-weight: 800;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    margin: 6px 4px 0 4px;
-    padding: 4px 3px;
+    padding: 2px 8px;
     min-width: 0;
 }
 
-#custom-appmenu,
+/* Inner items */
 #custom-siverteh,
 #custom-updates,
 #cpu,
 #memory,
+#disk,
 #custom-notification,
 #pulseaudio,
 #bluetooth,
@@ -96,7 +121,7 @@ window#waybar {
     color: @on_surface;
     background: transparent;
     margin: 1px;
-    padding: 3px 7px;
+    padding: 2px 6px;
     border-radius: 999px;
     min-height: 18px;
     transition: background 160ms ease, color 160ms ease;
@@ -105,24 +130,25 @@ window#waybar {
 #custom-appmenu {
     color: @on_surface;
     font-weight: 800;
-    padding-left: 7px;
-    padding-right: 7px;
-    border-radius: 8px;
+    font-size: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-width: 0;
 }
 
 #custom-siverteh {
-    background: alpha(@surface_bright, 0.08);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.02em;
     min-width: 20px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 #custom-updates,
 #cpu,
-#memory {
+#memory,
+#disk {
     font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
     font-weight: 700;
     padding-left: 8px;
@@ -135,8 +161,8 @@ window#waybar {
 }
 
 #tray {
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #custom-exit,
@@ -149,10 +175,13 @@ window#waybar {
 #workspaces button {
     background: alpha(@surface_container_lowest, 0.16);
     color: alpha(@on_surface, 0.64);
-    min-width: 22px;
-    min-height: 18px;
-    padding: 0;
-    margin: 1px 2px;
+    font-family: "Font Awesome 7 Free", "Font Awesome 7 Brands", "Font Awesome 6 Free", "Font Awesome 6 Brands", "JetBrainsMono Nerd Font", "Fira Sans Semibold", sans-serif;
+    font-size: 11px;
+    min-width: 24px;
+    min-height: 20px;
+    padding: 0 5px;
+    margin: 1px;
+    border-radius: 10px;
     font-weight: 800;
 }
 
@@ -162,16 +191,26 @@ window#waybar {
     box-shadow: inset 0 1px 0 alpha(@primary_fixed, 0.1);
 }
 
+#workspaces button label {
+    margin: 0;
+    padding: 0;
+}
+
+#workspaces button:nth-child(3) label {
+    margin-left: -1px;
+    margin-right: 1px;
+}
+
 #workspaces button.urgent {
     background: alpha(@error, 0.88);
     color: @on_error;
 }
 
-#custom-appmenu:hover,
 #custom-siverteh:hover,
 #custom-updates:hover,
 #cpu:hover,
 #memory:hover,
+#disk:hover,
 #custom-notification:hover,
 #pulseaudio:hover,
 #bluetooth:hover,
@@ -185,6 +224,12 @@ window#waybar {
 #clock:hover {
     background: alpha(@primary_container, 0.42);
     color: @on_primary_container;
+}
+
+#custom-appmenu:hover,
+#clock:hover {
+    background: alpha(@surface_container_high, 0.09);
+    color: @on_surface;
 }
 
 #taskbar button {
@@ -208,13 +253,13 @@ window#waybar {
 }
 
 #custom-updates.yellow {
-    background: alpha(@tertiary_container, 0.45);
-    color: @on_tertiary_container;
+    background: transparent;
+    color: @tertiary;
 }
 
 #custom-updates.red {
-    background: alpha(@error_container, 0.5);
-    color: @on_error_container;
+    background: transparent;
+    color: @error;
 }
 
 #tray menu {
@@ -227,8 +272,8 @@ window#waybar {
 #network.disconnected,
 #battery.critical,
 #pulseaudio.muted {
-    background: alpha(@error_container, 0.45);
-    color: @on_error_container;
+    background: transparent;
+    color: @error;
 }
 
 tooltip {

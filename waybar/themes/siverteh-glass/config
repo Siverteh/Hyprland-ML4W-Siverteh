@@ -18,7 +18,8 @@
         "clock"
     ],
     "modules-right": [
-        "group/updates-performance",
+        "group/updates",
+        "group/stats",
         "group/connectivity",
         "group/session"
     ]
