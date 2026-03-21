@@ -15,12 +15,14 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango
 
+from settings_backend import SivertehSettingsBackend
+
 
 class HubWindow(Adw.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app, title="Siverteh OS")
 
-        self.set_default_size(940, 760)
+        self.set_default_size(940, 790)
         self.connect("close-request", self.on_close_request)
 
         style_manager = Adw.StyleManager.get_default()
@@ -28,11 +30,18 @@ class HubWindow(Adw.ApplicationWindow):
 
         self.repo_root = Path(__file__).resolve().parents[2]
         self.settings_dir = Path.home() / ".config" / "ml4w" / "settings"
+        self.settings_backend = SivertehSettingsBackend(self.repo_root)
+        self.settings_state = self.settings_backend.ensure_state()
         self.css_provider = Gtk.CssProvider()
         self.css_provider_added = False
         self.color_monitors = []
         self.theme_refresh_source = None
         self.color_signature = ""
+        self.settings_signal_block = False
+        self.pending_display_change = None
+        self.display_revert_source = None
+        self.display_dialog = None
+        self.display_widgets = {}
         self.colors = self.load_colors()
         self.system_info = self.load_system_info()
         self.defaults = self.load_defaults()
@@ -43,6 +52,8 @@ class HubWindow(Adw.ApplicationWindow):
         GLib.timeout_add(900, self.poll_for_theme_changes)
 
     def on_close_request(self, *_args):
+        if self.pending_display_change is not None:
+            self.cancel_pending_display_change(rebuild=False)
         app = self.get_application()
         if app is not None:
             GLib.idle_add(app.quit)
@@ -437,6 +448,7 @@ class HubWindow(Adw.ApplicationWindow):
             self.css_provider_added = True
 
     def build_interface(self, current_page=None):
+        self.settings_state = self.settings_backend.load_state()
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.set_content(root)
 
@@ -460,6 +472,7 @@ class HubWindow(Adw.ApplicationWindow):
         self.add_workspaces_page()
         self.add_keybindings_page()
         self.add_actions_page()
+        self.add_settings_page()
 
         if current_page:
             self.stack.set_visible_child_name(current_page)
@@ -759,6 +772,497 @@ class HubWindow(Adw.ApplicationWindow):
 
         page.append(flow)
         self.stack.add_titled(scroll, "actions", "Actions")
+
+    def show_error_dialog(self, title, body):
+        dialog = Adw.MessageDialog.new(self, title, body)
+        dialog.add_response("ok", "OK")
+        dialog.set_default_response("ok")
+        dialog.set_close_response("ok")
+        dialog.present()
+
+    def create_preferences_page(self):
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_vexpand(True)
+
+        page = Adw.PreferencesPage()
+        page.set_margin_top(10)
+        page.set_margin_bottom(22)
+        page.set_margin_start(22)
+        page.set_margin_end(22)
+        scroll.set_child(page)
+        return scroll, page
+
+    def create_combo_row(self, title, subtitle, options, selected_value, callback):
+        row = Adw.ComboRow(title=title)
+        row.set_subtitle(subtitle)
+        model = Gtk.StringList.new(options)
+        row.set_model(model)
+        row._options = options
+        try:
+            selected_index = options.index(selected_value)
+        except ValueError:
+            selected_index = 0
+        row.set_selected(selected_index)
+        row.connect("notify::selected", callback)
+        return row
+
+    def create_switch_row(self, title, subtitle, active, callback):
+        row = Adw.SwitchRow(title=title)
+        row.set_subtitle(subtitle)
+        row.set_active(active)
+        row.connect("notify::active", callback)
+        return row
+
+    def create_spin_row(self, title, subtitle, value, lower, upper, step, digits, callback):
+        row = Adw.ActionRow(title=title)
+        row.set_subtitle(subtitle)
+
+        adjustment = Gtk.Adjustment(
+            value=value,
+            lower=lower,
+            upper=upper,
+            step_increment=step,
+            page_increment=step * 2,
+            page_size=0,
+        )
+        spin = Gtk.SpinButton(adjustment=adjustment, climb_rate=1, digits=digits)
+        spin.set_value(value)
+        spin.connect("value-changed", callback)
+        row.add_suffix(spin)
+        row.set_activatable_widget(spin)
+        row._spin = spin
+        return row
+
+    def on_bar_workspace_display_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        value = "icons" if row._options[row.get_selected()] == "Icons" else "numbers"
+        if value == self.settings_state["bar"]["workspace_display"]:
+            return
+        self.settings_backend.set_bar_setting("workspace_display", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_outline_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        value = row.get_active()
+        if value == self.settings_state["bar"]["pill_outline"]:
+            return
+        self.settings_backend.set_bar_setting("pill_outline", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_updates_visibility_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row.get_selected()]
+        value = "always" if label == "Always" else "pending_only"
+        if value == self.settings_state["bar"]["updates_visibility"]:
+            return
+        self.settings_backend.set_bar_setting("updates_visibility", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_density_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row.get_selected()]
+        value = "compact" if label == "Compact" else "balanced"
+        if value == self.settings_state["bar"]["density"]:
+            return
+        self.settings_backend.set_bar_setting("density", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_hyprland_spin_changed(self, spin, key, digits=0):
+        if self.settings_signal_block:
+            return
+        value = spin.get_value()
+        if digits == 0:
+            value = int(round(value))
+        else:
+            value = round(value, digits)
+        if value == self.settings_state["hyprland"][key]:
+            return
+        self.settings_backend.set_hyprland_setting(key, value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_hyprland_blur_enabled_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        value = row.get_active()
+        if value == self.settings_state["hyprland"]["blur_enabled"]:
+            return
+        self.settings_backend.set_hyprland_setting("blur_enabled", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_hyprland_animation_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row.get_selected()]
+        value = label.lower()
+        if value == self.settings_state["hyprland"]["animation_preset"]:
+            return
+        self.settings_backend.set_hyprland_setting("animation_preset", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def get_monitor_state(self, monitor_name, fallback_mode, fallback_scale):
+        return self.settings_state.get("display", {}).get(
+            monitor_name,
+            {"mode": fallback_mode, "scale": fallback_scale},
+        )
+
+    def on_display_setting_changed(self, monitor_name):
+        if self.settings_signal_block:
+            return
+
+        widgets = self.display_widgets.get(monitor_name)
+        if not widgets:
+            return
+
+        mode = widgets["mode_options"][widgets["mode_row"].get_selected()]
+        scale_label = widgets["scale_options"][widgets["scale_row"].get_selected()]
+        scale = float(scale_label)
+        current = self.get_monitor_state(
+            monitor_name, widgets["current_mode"], widgets["current_scale"]
+        )
+
+        if mode == current["mode"] and abs(scale - float(current["scale"])) < 0.001:
+            return
+
+        if self.pending_display_change is not None:
+            self.cancel_pending_display_change(rebuild=True)
+            return
+
+        try:
+            self.settings_backend.apply_display_preview(monitor_name, mode, scale)
+        except subprocess.CalledProcessError:
+            self.show_error_dialog(
+                "Display change failed",
+                "Hyprland rejected that display mode. The current resolution has been kept.",
+            )
+            self.build_interface("settings")
+            return
+
+        self.pending_display_change = {
+            "monitor_name": monitor_name,
+            "old_mode": current["mode"],
+            "old_scale": float(current["scale"]),
+            "new_mode": mode,
+            "new_scale": scale,
+            "seconds_left": 15,
+        }
+        self.present_display_confirm_dialog()
+
+    def format_display_dialog_body(self):
+        if self.pending_display_change is None:
+            return ""
+        change = self.pending_display_change
+        return (
+            f"{change['monitor_name']} is now using {change['new_mode']} at scale "
+            f"{change['new_scale']}. Reverting in {change['seconds_left']} seconds "
+            "unless you keep it."
+        )
+
+    def present_display_confirm_dialog(self):
+        if self.pending_display_change is None:
+            return
+
+        if self.display_dialog is not None:
+            self.display_dialog.close()
+
+        dialog = Adw.MessageDialog.new(
+            self,
+            "Keep display settings?",
+            self.format_display_dialog_body(),
+        )
+        dialog.add_response("revert", "Revert")
+        dialog.add_response("keep", "Keep")
+        dialog.set_response_appearance("keep", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_default_response("keep")
+        dialog.set_close_response("revert")
+        dialog.connect("response", self.on_display_dialog_response)
+        dialog.present()
+        self.display_dialog = dialog
+
+        if self.display_revert_source is not None:
+            GLib.source_remove(self.display_revert_source)
+        self.display_revert_source = GLib.timeout_add_seconds(
+            1, self.on_display_confirm_tick
+        )
+
+    def on_display_confirm_tick(self):
+        if self.pending_display_change is None:
+            self.display_revert_source = None
+            return GLib.SOURCE_REMOVE
+
+        self.pending_display_change["seconds_left"] -= 1
+        if self.pending_display_change["seconds_left"] <= 0:
+            self.cancel_pending_display_change(rebuild=True)
+            return GLib.SOURCE_REMOVE
+
+        if self.display_dialog is not None:
+            self.display_dialog.set_body(self.format_display_dialog_body())
+        return GLib.SOURCE_CONTINUE
+
+    def on_display_dialog_response(self, dialog, response):
+        if response == "keep":
+            self.confirm_pending_display_change()
+        else:
+            self.cancel_pending_display_change(rebuild=True)
+        dialog.close()
+
+    def confirm_pending_display_change(self):
+        if self.pending_display_change is None:
+            return
+
+        change = self.pending_display_change
+        self.settings_backend.persist_display_setting(
+            change["monitor_name"], change["new_mode"], change["new_scale"]
+        )
+        self.settings_state = self.settings_backend.load_state()
+        self.clear_display_confirmation_state()
+        self.build_interface("settings")
+
+    def cancel_pending_display_change(self, rebuild=False):
+        if self.pending_display_change is not None:
+            change = self.pending_display_change
+            try:
+                self.settings_backend.revert_display_preview(
+                    change["monitor_name"], change["old_mode"], change["old_scale"]
+                )
+            except subprocess.CalledProcessError:
+                pass
+        self.clear_display_confirmation_state()
+        if rebuild:
+            self.settings_state = self.settings_backend.load_state()
+            self.build_interface("settings")
+
+    def clear_display_confirmation_state(self):
+        if self.display_revert_source is not None:
+            GLib.source_remove(self.display_revert_source)
+            self.display_revert_source = None
+        if self.display_dialog is not None:
+            self.display_dialog.close()
+            self.display_dialog = None
+        self.pending_display_change = None
+
+    def create_display_group(self, monitor):
+        monitor_name = monitor["name"]
+        current_state = self.get_monitor_state(
+            monitor_name, monitor["current_mode"], monitor["scale"]
+        )
+        available_modes = monitor["available_modes"] or [monitor["current_mode"]]
+        scale_values = ["1.0", "1.25", "1.5", "1.75", "2.0"]
+        current_scale_label = str(current_state["scale"])
+        if current_scale_label not in scale_values:
+            scale_values.append(current_scale_label)
+            scale_values = sorted(scale_values, key=float)
+
+        group = Adw.PreferencesGroup(
+            title=monitor_name,
+            description=(
+                f"{monitor.get('description') or 'Detected display'} • "
+                f"Current {current_state['mode']} at scale {current_state['scale']}"
+            ),
+        )
+
+        mode_row = self.create_combo_row(
+            "Resolution and refresh",
+            "Applies live and asks for confirmation before it is saved.",
+            available_modes,
+            current_state["mode"],
+            lambda row, pspec, name=monitor_name: self.on_display_setting_changed(name),
+        )
+        scale_row = self.create_combo_row(
+            "Scale",
+            "Choose the UI scaling factor for this monitor.",
+            scale_values,
+            current_scale_label,
+            lambda row, pspec, name=monitor_name: self.on_display_setting_changed(name),
+        )
+
+        group.add(mode_row)
+        group.add(scale_row)
+
+        self.display_widgets[monitor_name] = {
+            "mode_row": mode_row,
+            "mode_options": available_modes,
+            "scale_row": scale_row,
+            "scale_options": scale_values,
+            "current_mode": current_state["mode"],
+            "current_scale": float(current_state["scale"]),
+        }
+        return group
+
+    def add_settings_page(self):
+        scroll, page = self.create_preferences_page()
+        self.display_widgets = {}
+
+        bar_group = Adw.PreferencesGroup(
+            title="Bar",
+            description="Live Waybar presentation controls for the Siverteh glass theme.",
+        )
+        bar_group.add(
+            self.create_combo_row(
+                "Workspace style",
+                "Choose semantic icons or plain workspace numbers.",
+                ["Icons", "Numbers"],
+                "Icons"
+                if self.settings_state["bar"]["workspace_display"] == "icons"
+                else "Numbers",
+                self.on_bar_workspace_display_changed,
+            )
+        )
+        bar_group.add(
+            self.create_switch_row(
+                "Pill outline",
+                "Keep the colored border around the glass pills.",
+                self.settings_state["bar"]["pill_outline"],
+                self.on_bar_outline_changed,
+            )
+        )
+        bar_group.add(
+            self.create_combo_row(
+                "Updates pill",
+                "Show it all the time or only when updates are available.",
+                ["Always", "Pending only"],
+                "Always"
+                if self.settings_state["bar"]["updates_visibility"] == "always"
+                else "Pending only",
+                self.on_bar_updates_visibility_changed,
+            )
+        )
+        bar_group.add(
+            self.create_combo_row(
+                "Bar density",
+                "Compact keeps the current tight look. Balanced adds a little more breathing room.",
+                ["Compact", "Balanced"],
+                "Compact"
+                if self.settings_state["bar"]["density"] == "compact"
+                else "Balanced",
+                self.on_bar_density_changed,
+            )
+        )
+        page.add(bar_group)
+
+        layout_group = Adw.PreferencesGroup(
+            title="Layout",
+            description="Core Hyprland tiling layout controls.",
+        )
+        gaps_in_row = self.create_spin_row(
+            "Inner gaps",
+            "Space between tiled windows.",
+            self.settings_state["hyprland"]["gaps_in"],
+            0,
+            32,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "gaps_in"),
+        )
+        gaps_out_row = self.create_spin_row(
+            "Outer gaps",
+            "Space between windows and the screen edge.",
+            self.settings_state["hyprland"]["gaps_out"],
+            0,
+            48,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "gaps_out"),
+        )
+        border_row = self.create_spin_row(
+            "Border size",
+            "Thickness of the active and inactive window border.",
+            self.settings_state["hyprland"]["border_size"],
+            0,
+            8,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "border_size"),
+        )
+        rounding_row = self.create_spin_row(
+            "Rounding",
+            "Corner roundness for windows and surfaces.",
+            self.settings_state["hyprland"]["rounding"],
+            0,
+            32,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "rounding"),
+        )
+        for row in (gaps_in_row, gaps_out_row, border_row, rounding_row):
+            layout_group.add(row)
+        page.add(layout_group)
+
+        effects_group = Adw.PreferencesGroup(
+            title="Effects",
+            description="Blur, opacity, and animation tuning. These settings reload Hyprland immediately.",
+        )
+        effects_group.add(
+            self.create_switch_row(
+                "Blur",
+                "Enable or disable Hyprland blur for glass surfaces.",
+                self.settings_state["hyprland"]["blur_enabled"],
+                self.on_hyprland_blur_enabled_changed,
+            )
+        )
+        blur_size_row = self.create_spin_row(
+            "Blur size",
+            "How wide the blur samples are.",
+            self.settings_state["hyprland"]["blur_size"],
+            1,
+            16,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "blur_size"),
+        )
+        blur_passes_row = self.create_spin_row(
+            "Blur passes",
+            "More passes look smoother but cost more performance.",
+            self.settings_state["hyprland"]["blur_passes"],
+            1,
+            8,
+            1,
+            0,
+            lambda spin: self.on_hyprland_spin_changed(spin, "blur_passes"),
+        )
+        inactive_opacity_row = self.create_spin_row(
+            "Inactive opacity",
+            "Opacity used for unfocused windows.",
+            self.settings_state["hyprland"]["inactive_opacity"],
+            0.50,
+            1.00,
+            0.05,
+            2,
+            lambda spin: self.on_hyprland_spin_changed(spin, "inactive_opacity", digits=2),
+        )
+        animation_row = self.create_combo_row(
+            "Animation preset",
+            "Off removes animations entirely. Balanced matches the current feel.",
+            ["Off", "Minimal", "Balanced", "Lively"],
+            self.settings_state["hyprland"]["animation_preset"].capitalize(),
+            self.on_hyprland_animation_changed,
+        )
+        for row in (blur_size_row, blur_passes_row, inactive_opacity_row, animation_row):
+            effects_group.add(row)
+        page.add(effects_group)
+
+        display_intro = Adw.PreferencesGroup(
+            title="Displays",
+            description="Mode changes apply live, then revert automatically after 15 seconds unless you keep them.",
+        )
+        page.add(display_intro)
+
+        monitors = self.settings_backend.list_monitors()
+        if monitors:
+            for monitor in monitors:
+                page.add(self.create_display_group(monitor))
+        else:
+            unavailable = Adw.PreferencesGroup(
+                title="Displays unavailable",
+                description="Hyprland monitor data was not available, so resolution controls could not be loaded.",
+            )
+            page.add(unavailable)
+
+        self.stack.add_titled(scroll, "settings", "Settings")
 
 
 class HubApp(Adw.Application):

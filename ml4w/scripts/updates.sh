@@ -97,6 +97,13 @@ fi
 
 css_class="neutral"
 tooltip="No updates available"
+text="$updates"
+
+updates_visibility="always"
+settings_file="$HOME/.config/siverteh/settings.json"
+if [ -f "$settings_file" ] && command -v jq >/dev/null 2>&1; then
+    updates_visibility=$(jq -r '.bar.updates_visibility // "always"' "$settings_file" 2>/dev/null || echo "always")
+fi
 
 if [ "$updates" -gt $threshhold_green ]; then
     css_class="green"
@@ -111,4 +118,8 @@ if [ "$updates" -gt $threshhold_red ]; then
     css_class="red"
 fi
 
-printf '{"text": "%s", "alt": "%s", "tooltip": "%s", "class": "%s"}' "$updates" "$updates" "$tooltip" "$css_class"
+if [ "$updates_visibility" = "pending_only" ] && [ "$updates" -eq 0 ]; then
+    text=""
+fi
+
+printf '{"text": "%s", "alt": "%s", "tooltip": "%s", "class": "%s"}' "$text" "$updates" "$tooltip" "$css_class"

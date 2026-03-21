@@ -33,6 +33,7 @@ window#waybar {
 
 /* Shell / pill surfaces */
 #custom-appmenu,
+#custom-updates,
 #workspaces,
 #taskbar,
 #clock {
@@ -106,7 +107,6 @@ window#waybar {
 
 /* Inner items */
 #custom-siverteh,
-#custom-updates,
 #cpu,
 #memory,
 #disk,
@@ -286,3 +286,5 @@ tooltip {
 tooltip label {
     color: @on_surface;
 }
+
+@import url("settings-generated.css");

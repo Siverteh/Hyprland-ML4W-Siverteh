@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 
+import atexit
 import json
+import os
 import re
+import signal
 import subprocess
 import sys
 from pathlib import Path
 
 import gi
 
-gi.require_version("Gdk", "4.0")
-gi.require_version("Gtk", "4.0")
 gi.require_version("Gtk4LayerShell", "1.0")
+gi.require_version("Gtk", "4.0")
+gi.require_version("Gdk", "4.0")
 
-from gi.repository import Gdk, Gio, GLib, Gtk, Gtk4LayerShell
+from gi.repository import Gtk4LayerShell, Gtk, Gdk, Gio, GLib
+
+
+PID_FILE = Path.home() / ".cache" / "siverteh" / "mini-calendar.pid"
 
 
 def read_color(name, fallback):
@@ -47,49 +53,84 @@ COLORS = {
 
 
 class MiniCalendar(Gtk.Application):
-    def __init__(self):
+    def __init__(self, daemon_mode=False):
         super().__init__(
             application_id="com.siverteh.minicalendar",
             flags=Gio.ApplicationFlags.NON_UNIQUE,
         )
+        self.daemon_mode = daemon_mode
         self.window = None
-        self.ready_for_autoclose = False
         self.popup_width = 312
-        self.popup_y = 46
+        self.popup_y = 0
+        self.hold()
+
+        PID_FILE.parent.mkdir(parents=True, exist_ok=True)
+        PID_FILE.write_text(str(os.getpid()))
+        atexit.register(self.cleanup_pid)
+        signal.signal(signal.SIGUSR1, self.on_toggle_signal)
+
+    def cleanup_pid(self):
+        try:
+            if PID_FILE.exists() and PID_FILE.read_text().strip() == str(os.getpid()):
+                PID_FILE.unlink()
+        except OSError:
+            pass
 
     def do_activate(self):
-        if self.window is None:
-            self.window = Gtk.ApplicationWindow(application=self)
-            self.window.set_title("Siverteh Mini Calendar")
-            self.window.set_default_size(self.popup_width, 286)
-            self.window.set_resizable(False)
-            self.window.set_decorated(False)
-            self.window.set_hide_on_close(False)
-            self.window.connect("close-request", self.on_close_request)
-            self.window.connect("notify::is-active", self.on_active_changed)
+        self.ensure_window()
+        if not self.daemon_mode:
+            self.toggle_visibility(force_show=True)
 
-            controller = Gtk.EventControllerKey()
-            controller.connect("key-pressed", self.on_key_pressed)
-            self.window.add_controller(controller)
-
-            Gtk4LayerShell.init_for_window(self.window)
-            Gtk4LayerShell.set_namespace(self.window, "siverteh-mini-calendar")
-            Gtk4LayerShell.set_layer(self.window, Gtk4LayerShell.Layer.OVERLAY)
-            Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.TOP, True)
-            Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.TOP, 46)
-            Gtk4LayerShell.set_keyboard_mode(self.window, Gtk4LayerShell.KeyboardMode.ON_DEMAND)
-
-            self.apply_css()
+    def ensure_window(self):
+        if self.window is not None:
             self.window.set_child(self.build_content())
+            return
 
-        self.window.present()
-        GLib.timeout_add(120, self.position_window)
-        self.ready_for_autoclose = False
-        GLib.timeout_add(450, self.enable_autoclose)
+        self.window = Gtk.ApplicationWindow(application=self)
+        self.window.set_title("Siverteh Mini Calendar")
+        self.window.set_default_size(self.popup_width, 286)
+        self.window.set_resizable(False)
+        self.window.set_decorated(False)
+        self.window.set_hide_on_close(False)
+        self.window.set_focusable(True)
+        self.window.connect("close-request", self.on_close_request)
+
+        controller = Gtk.EventControllerKey()
+        controller.connect("key-pressed", self.on_key_pressed)
+        self.window.add_controller(controller)
+
+        Gtk4LayerShell.init_for_window(self.window)
+        Gtk4LayerShell.set_namespace(self.window, "siverteh-mini-calendar")
+        Gtk4LayerShell.set_layer(self.window, Gtk4LayerShell.Layer.OVERLAY)
+        Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.TOP, True)
+        Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.LEFT, True)
+        Gtk4LayerShell.set_keyboard_mode(
+            self.window, Gtk4LayerShell.KeyboardMode.ON_DEMAND
+        )
+
+        self.apply_css()
+        self.window.set_child(self.build_content())
+        self.configure_position()
+
+    def on_toggle_signal(self, *_args):
+        GLib.idle_add(self.toggle_visibility)
+
+    def toggle_visibility(self, force_show=False):
+        self.ensure_window()
+        if self.window.is_visible() and not force_show:
+            self.window.hide()
+        else:
+            self.window.set_child(self.build_content())
+            self.configure_position()
+            self.window.present()
+            self.window.grab_focus()
+        return GLib.SOURCE_REMOVE
 
     def compute_position(self):
         try:
-            monitors = json.loads(subprocess.check_output(["hyprctl", "-j", "monitors"], text=True))
+            monitors = json.loads(
+                subprocess.check_output(["hyprctl", "-j", "monitors"], text=True)
+            )
         except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
             return 804, self.popup_y
 
@@ -105,23 +146,10 @@ class MiniCalendar(Gtk.Application):
         popup_y = max(logical_y + self.popup_y, 0)
         return popup_x, popup_y
 
-    def position_window(self):
+    def configure_position(self):
         popup_x, popup_y = self.compute_position()
-        try:
-            subprocess.run(
-                [
-                    "hyprctl",
-                    "dispatch",
-                    "movewindowpixel",
-                    f"exact {popup_x} {popup_y},title:^(Siverteh Mini Calendar)$",
-                ],
-                check=False,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-        except FileNotFoundError:
-            pass
-        return GLib.SOURCE_REMOVE
+        Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.LEFT, popup_x)
+        Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.TOP, popup_y)
 
     def build_content(self):
         outer = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -148,6 +176,16 @@ class MiniCalendar(Gtk.Application):
         calendar.set_hexpand(False)
         calendar.set_vexpand(False)
         calendar.set_show_week_numbers(False)
+        calendar.set_focusable(True)
+
+        shortcuts = Gtk.ShortcutController()
+        shortcuts.add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.ShortcutTrigger.parse_string("Escape"),
+                Gtk.CallbackAction.new(lambda *_args: self.close_shortcut()),
+            )
+        )
+        outer.add_controller(shortcuts)
 
         card.append(title)
         card.append(subtitle)
@@ -242,31 +280,22 @@ class MiniCalendar(Gtk.Application):
 
     def on_key_pressed(self, _controller, keyval, _keycode, _state):
         if keyval == Gdk.KEY_Escape:
-            self.quit()
+            self.window.hide()
             return True
         return False
 
-    def on_active_changed(self, window, _pspec):
-        if not self.ready_for_autoclose:
-            return
-        GLib.timeout_add(150, self.close_if_inactive, window)
-
-    def enable_autoclose(self):
-        self.ready_for_autoclose = True
-        return GLib.SOURCE_REMOVE
-
-    def close_if_inactive(self, window):
-        if window is None:
-            return GLib.SOURCE_REMOVE
-        if not window.is_active():
-            self.quit()
-        return GLib.SOURCE_REMOVE
+    def close_shortcut(self):
+        if self.window is not None:
+            self.window.hide()
+        return True
 
     def on_close_request(self, *_args):
-        self.quit()
-        return False
+        if self.window is not None:
+            self.window.hide()
+        return True
 
 
 if __name__ == "__main__":
-    app = MiniCalendar()
-    sys.exit(app.run([]))
+    daemon_mode = "--daemon" in sys.argv[1:]
+    app = MiniCalendar(daemon_mode=daemon_mode)
+    sys.exit(app.run(sys.argv))

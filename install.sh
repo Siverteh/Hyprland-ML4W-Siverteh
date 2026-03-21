@@ -122,6 +122,12 @@ if [ -d "$DOTFILES_DIR/fastfetch" ]; then
     create_symlink "$DOTFILES_DIR/fastfetch" "$CONFIG_DIR/fastfetch"
 fi
 
+# Local helper binaries
+if [ -f "$DOTFILES_DIR/bin/xdg-open" ]; then
+    echo "→ Local desktop helper binaries"
+    create_symlink "$DOTFILES_DIR/bin/xdg-open" "$HOME/.local/bin/xdg-open"
+fi
+
 echo ""
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo -e "${GREEN}  Installation complete!${NC}"

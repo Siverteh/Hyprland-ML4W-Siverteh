@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+system_xdg_open="/usr/bin/xdg-open"
+browser_setting="$HOME/.config/ml4w/settings/browser.sh"
+
+if [ "$#" -ne 1 ]; then
+    exec "$system_xdg_open" "$@"
+fi
+
+target="$1"
+
+case "$target" in
+    http://*|https://*)
+        hyprctl dispatch workspace 1 >/dev/null 2>&1 || true
+
+        browser_cmd="google-chrome-stable"
+        if [ -f "$browser_setting" ]; then
+            read -r browser_cmd < "$browser_setting"
+            [ -n "$browser_cmd" ] || browser_cmd="google-chrome-stable"
+        fi
+
+        escaped_target="$(printf '%q' "$target")"
+        setsid -f bash -lc "$browser_cmd $escaped_target" >/dev/null 2>&1
+        exit 0
+        ;;
+    *)
+        exec "$system_xdg_open" "$@"
+        ;;
+esac

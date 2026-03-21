@@ -18,7 +18,7 @@
         "clock"
     ],
     "modules-right": [
-        "group/updates",
+        "custom/updates",
         "group/stats",
         "group/connectivity",
         "group/session"
