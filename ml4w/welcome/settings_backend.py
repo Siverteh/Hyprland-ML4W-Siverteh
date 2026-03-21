@@ -45,6 +45,10 @@ DEFAULT_STATE = {
         "updates_visibility": "always",
         "density": "compact",
     },
+    "display_setup": {
+        "mode": "extend",
+        "workspace_layout": "split",
+    },
     "hyprland": {
         "gaps_in": 5,
         "gaps_out": 5,
@@ -73,6 +77,7 @@ class SivertehSettingsBackend:
         self.animation_conf_path = self.repo_root / "hypr" / "conf" / "animation.conf"
         self.animation_presets_dir = self.repo_root / "hypr" / "conf" / "animation-presets"
         self.monitor_conf_path = self.repo_root / "hypr" / "conf" / "monitor.conf"
+        self.display_profile_script = self.repo_root / "hypr" / "scripts" / "apply-display-profile.sh"
 
     def ensure_state(self):
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -123,6 +128,7 @@ class SivertehSettingsBackend:
     def build_initial_state(self):
         state = copy.deepcopy(DEFAULT_STATE)
         state["bar"] = self.read_bar_state()
+        state["display_setup"] = self.read_display_setup_state()
         state["hyprland"] = self.read_hyprland_state()
         state["display"] = self.read_display_state()
         return state
@@ -232,6 +238,39 @@ class SivertehSettingsBackend:
         state["animation_preset"] = self.detect_animation_preset()
         return state
 
+    def read_display_setup_state(self):
+        state = copy.deepcopy(DEFAULT_STATE["display_setup"])
+        monitors = self.list_monitors()
+        if not monitors:
+            return state
+
+        active_monitors = [monitor for monitor in monitors if not monitor.get("disabled", False)]
+        internal = [
+            monitor
+            for monitor in active_monitors
+            if self.is_internal_monitor(monitor["name"], monitor.get("description", ""))
+        ]
+        external = [monitor for monitor in active_monitors if monitor not in internal]
+
+        if len(active_monitors) <= 1:
+            if internal:
+                state["mode"] = "laptop_only"
+            else:
+                state["mode"] = "external_only"
+            state["workspace_layout"] = "unified"
+            return state
+
+        if any(monitor.get("mirror_of") not in {"", "none", None} for monitor in active_monitors):
+            state["mode"] = "mirror"
+        else:
+            state["mode"] = "extend"
+
+        if len(active_monitors) > 1 and internal and external:
+            state["workspace_layout"] = "split"
+        else:
+            state["workspace_layout"] = "sequential"
+        return state
+
     def detect_animation_preset(self):
         try:
             current = self.animation_conf_path.read_text().strip()
@@ -290,71 +329,49 @@ class SivertehSettingsBackend:
             )
         return entries
 
+    def is_internal_monitor(self, name, description=""):
+        prefixes = ("eDP", "LVDS", "DSI")
+        if name.startswith(prefixes):
+            return True
+        lowered = description.lower()
+        return "built-in" in lowered or "panel" in lowered
+
     def list_monitors(self):
         try:
             output = subprocess.check_output(
-                ["hyprctl", "monitors", "all"], text=True
+                ["hyprctl", "-j", "monitors", "all"], text=True
             )
-        except (subprocess.CalledProcessError, FileNotFoundError):
+            monitors_json = json.loads(output)
+        except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
             return []
 
         monitors = []
-        current = None
-        for raw_line in output.splitlines():
-            line = raw_line.strip()
-            if not line:
-                continue
-            match = re.match(r"Monitor\s+(.+?)\s+\(ID\s+\d+\):", line)
-            if match:
-                if current:
-                    monitors.append(current)
-                current = {
-                    "name": match.group(1),
-                    "current_mode": "",
-                    "available_modes": [],
-                    "scale": 1.0,
-                    "focused": False,
-                    "description": "",
-                }
-                continue
-            if current is None:
-                continue
-
-            mode_match = re.match(r"(\d+x\d+)@([0-9.]+)\s+at\s+", line)
-            if mode_match and not current["current_mode"]:
-                current["current_mode"] = self.format_mode_label(
-                    mode_match.group(1), mode_match.group(2)
+        for item in monitors_json:
+            refresh = item.get("refreshRate", 0)
+            if refresh:
+                current_mode = self.format_mode_label(
+                    f"{item.get('width', 0)}x{item.get('height', 0)}",
+                    refresh,
                 )
-                continue
+            else:
+                current_mode = ""
 
-            if line.startswith("availableModes:"):
-                available = line.split(":", 1)[1].strip().split()
-                current["available_modes"] = [
-                    self.format_mode_label(*mode.split("@", 1))
-                    if "@" in mode
-                    else mode
-                    for mode in available
-                ]
-                continue
+            available_modes = item.get("availableModes") or []
+            if current_mode and current_mode not in available_modes:
+                available_modes.insert(0, current_mode)
 
-            scale_match = re.match(r"scale:\s*([0-9.]+)", line)
-            if scale_match:
-                current["scale"] = self.parse_scale(scale_match.group(1))
-                continue
-
-            if line.startswith("focused:"):
-                current["focused"] = line.endswith("yes")
-                continue
-
-            if line.startswith("description:"):
-                current["description"] = line.split(":", 1)[1].strip()
-
-        if current:
-            monitors.append(current)
-
-        for monitor in monitors:
-            if monitor["current_mode"] and monitor["current_mode"] not in monitor["available_modes"]:
-                monitor["available_modes"].insert(0, monitor["current_mode"])
+            monitors.append(
+                {
+                    "name": item.get("name", ""),
+                    "current_mode": current_mode,
+                    "available_modes": available_modes,
+                    "scale": self.parse_scale(item.get("scale", 1.0)),
+                    "focused": bool(item.get("focused", False)),
+                    "description": item.get("description", ""),
+                    "disabled": bool(item.get("disabled", False)),
+                    "mirror_of": item.get("mirrorOf", "none"),
+                }
+            )
 
         return monitors
 
@@ -391,11 +408,108 @@ class SivertehSettingsBackend:
     def format_scale_for_hypr(self, scale):
         return f"{float(scale):.2f}".rstrip("0").rstrip(".")
 
+    def collect_monitor_inventory(self, state=None):
+        if state is None:
+            state = self.load_state()
+
+        display_state = state.get("display", {})
+        parsed_entries = self.parse_monitor_conf()
+        live_monitors = {item["name"]: item for item in self.list_monitors()}
+
+        order = []
+        inventory = {}
+
+        def ensure_monitor(name):
+            if name not in inventory:
+                inventory[name] = {
+                    "name": name,
+                    "position": "auto",
+                    "description": "",
+                    "mode": "preferred",
+                    "scale": 1.0,
+                    "disabled": False,
+                    "mirror_of": "none",
+                }
+                order.append(name)
+            return inventory[name]
+
+        for entry in parsed_entries:
+            monitor = ensure_monitor(entry["name"])
+            monitor["position"] = entry["position"]
+            monitor["mode"] = entry["mode"]
+            monitor["scale"] = entry["scale"]
+
+        for name, live in live_monitors.items():
+            monitor = ensure_monitor(name)
+            monitor["description"] = live.get("description", "")
+            if live.get("current_mode"):
+                monitor["mode"] = live["current_mode"]
+            monitor["scale"] = live.get("scale", monitor["scale"])
+            monitor["disabled"] = live.get("disabled", False)
+            monitor["mirror_of"] = live.get("mirror_of", "none")
+
+        for name, display in display_state.items():
+            monitor = ensure_monitor(name)
+            monitor["mode"] = display.get("mode", monitor["mode"])
+            monitor["scale"] = display.get("scale", monitor["scale"])
+
+        connected_names = [name for name in order if name in live_monitors] or order[:]
+        return {"order": order, "inventory": inventory, "connected": connected_names}
+
+    def determine_display_plan(self, state=None):
+        if state is None:
+            state = self.load_state()
+
+        data = self.collect_monitor_inventory(state)
+        order = data["order"]
+        inventory = data["inventory"]
+        connected = data["connected"]
+        settings = state.get("display_setup", DEFAULT_STATE["display_setup"])
+
+        internal = [
+            name for name in connected if self.is_internal_monitor(name, inventory[name].get("description", ""))
+        ]
+        external = [name for name in connected if name not in internal]
+
+        mode = settings.get("mode", "extend")
+        if mode == "laptop_only":
+            active = internal[:] or connected[:1]
+            primary = active[0] if active else None
+        elif mode == "external_only":
+            active = external[:] or internal[:] or connected[:1]
+            primary = active[0] if active else None
+        elif mode == "mirror":
+            active = connected[:] or order[:1]
+            primary = external[0] if external else (active[0] if active else None)
+        else:
+            active = connected[:] or order[:1]
+            primary = external[0] if external else (active[0] if active else None)
+
+        secondary = [name for name in active if name != primary]
+        return {
+            "mode": mode,
+            "layout": settings.get("workspace_layout", "split"),
+            "order": order,
+            "inventory": inventory,
+            "connected": connected,
+            "active": active,
+            "primary": primary,
+            "secondary": secondary,
+            "internal": internal,
+            "external": external,
+        }
+
     def set_bar_setting(self, key, value):
         state = self.load_state()
         state["bar"][key] = value
         self.save_state(state)
         self.apply_bar_settings(state)
+
+    def set_display_setup_setting(self, key, value):
+        state = self.load_state()
+        state["display_setup"][key] = value
+        self.save_state(state)
+        self.apply_display_setup(state)
 
     def set_hyprland_setting(self, key, value):
         state = self.load_state()
@@ -411,6 +525,15 @@ class SivertehSettingsBackend:
         }
         self.save_state(state)
         self.write_monitor_conf(state)
+        self.write_display_profile_script(state)
+
+    def apply_display_setup(self, state=None):
+        if state is None:
+            state = self.load_state()
+        self.write_monitor_conf(state)
+        self.write_display_profile_script(state)
+        self.run_command(["hyprctl", "reload"])
+        self.run_shell_command("sleep 1 && ~/.config/hypr/scripts/apply-display-profile.sh && ~/.config/waybar/launch.sh")
 
     def apply_bar_settings(self, state=None):
         if state is None:
@@ -425,6 +548,9 @@ class SivertehSettingsBackend:
         modules.setdefault("hyprland/workspaces", {})
         modules["hyprland/workspaces"]["format"] = "{icon}"
         modules["hyprland/workspaces"]["format-icons"] = workspace_format
+        modules["hyprland/workspaces"]["all-outputs"] = False
+        modules["hyprland/workspaces"]["on-scroll-up"] = "hyprctl dispatch focusworkspaceoncurrentmonitor r-1"
+        modules["hyprland/workspaces"]["on-scroll-down"] = "hyprctl dispatch focusworkspaceoncurrentmonitor r+1"
 
         modules.setdefault("custom/updates", {})
         modules["custom/updates"]["hide-empty-text"] = True
@@ -605,52 +731,152 @@ class SivertehSettingsBackend:
         if state is None:
             state = self.load_state()
 
-        display_state = state.get("display", {})
-        lines = []
-        try:
-            lines = self.monitor_conf_path.read_text().splitlines()
-        except OSError:
-            lines = []
+        plan = self.determine_display_plan(state)
+        inventory = plan["inventory"]
+        active = set(plan["active"])
+        primary = plan["primary"]
 
-        existing = set()
-        updated_lines = []
-        for line in lines:
-            stripped = line.strip()
-            if not stripped.startswith("monitor="):
-                updated_lines.append(line)
+        header = [
+            "# -----------------------------------------------------",
+            "# Monitor Setup",
+            "# Generated by Siverteh OS",
+            "# -----------------------------------------------------",
+        ]
+        lines = header[:]
+
+        for name in plan["order"]:
+            monitor = inventory[name]
+            if name not in active:
+                lines.append(f"monitor={name},disable")
                 continue
 
-            payload = stripped.split("=", 1)[1]
-            parts = [part.strip() for part in payload.split(",")]
-            if len(parts) < 4:
-                updated_lines.append(line)
-                continue
+            mode = self.normalize_mode_for_hypr(monitor["mode"])
+            position = monitor.get("position", "auto") or "auto"
+            scale = self.format_scale_for_hypr(monitor["scale"])
 
-            name = parts[0]
-            existing.add(name)
-            if name not in display_state:
-                updated_lines.append(line)
-                continue
+            if plan["mode"] == "mirror" and primary and name != primary:
+                lines.append(
+                    f"monitor={name},{mode},{position},{scale},mirror,{primary}"
+                )
+            else:
+                lines.append(f"monitor={name},{mode},{position},{scale}")
 
-            position = parts[2]
-            new_line = (
-                f"monitor={name},"
-                f"{self.normalize_mode_for_hypr(display_state[name]['mode'])},"
-                f"{position},"
-                f"{self.format_scale_for_hypr(display_state[name]['scale'])}"
-            )
-            updated_lines.append(new_line)
+        self.monitor_conf_path.write_text("\n".join(lines) + "\n")
 
-        for name, display in display_state.items():
-            if name in existing:
-                continue
-            updated_lines.append(
-                "monitor="
-                f"{name},{self.normalize_mode_for_hypr(display['mode'])},auto,"
-                f"{self.format_scale_for_hypr(display['scale'])}"
-            )
+    def write_display_profile_script(self, state=None):
+        if state is None:
+            state = self.load_state()
 
-        self.monitor_conf_path.write_text("\n".join(updated_lines) + "\n")
+        self.display_profile_script.parent.mkdir(parents=True, exist_ok=True)
+        self.display_profile_script.write_text(
+            """#!/usr/bin/env bash
+set -euo pipefail
+
+settings_file="$HOME/.config/siverteh/settings.json"
+
+if ! command -v hyprctl >/dev/null 2>&1; then
+    exit 0
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    exit 0
+fi
+
+if [ ! -f "$settings_file" ]; then
+    exit 0
+fi
+
+mapfile -t monitor_lines < <(hyprctl -j monitors | jq -r '.[] | select(.disabled == false) | [.name, .description] | @tsv')
+
+if [ ${#monitor_lines[@]} -eq 0 ]; then
+    exit 0
+fi
+
+active_monitors=()
+internal_monitors=()
+external_monitors=()
+
+for line in "${monitor_lines[@]}"; do
+    name=${line%%$'\\t'*}
+    description=${line#*$'\\t'}
+    active_monitors+=("$name")
+    if [[ "$name" == eDP* || "$name" == LVDS* || "$name" == DSI* ]] || [[ "${description,,}" == *"built-in"* ]] || [[ "${description,,}" == *"panel"* ]]; then
+        internal_monitors+=("$name")
+    else
+        external_monitors+=("$name")
+    fi
+done
+
+mode=$(jq -r '.display_setup.mode // "extend"' "$settings_file")
+layout=$(jq -r '.display_setup.workspace_layout // "split"' "$settings_file")
+
+choose_primary() {
+    if [ ${#external_monitors[@]} -gt 0 ]; then
+        printf '%s' "${external_monitors[0]}"
+    elif [ ${#active_monitors[@]} -gt 0 ]; then
+        printf '%s' "${active_monitors[0]}"
+    elif [ ${#internal_monitors[@]} -gt 0 ]; then
+        printf '%s' "${internal_monitors[0]}"
+    fi
+}
+
+primary=$(choose_primary)
+
+if [ -z "$primary" ]; then
+    exit 0
+fi
+
+move_ws() {
+    local workspace="$1"
+    local monitor="$2"
+    [ -n "$monitor" ] || return 0
+    hyprctl dispatch moveworkspacetomonitor "$workspace $monitor" >/dev/null 2>&1 || true
+}
+
+if [ "$mode" = "laptop_only" ] || [ "$mode" = "external_only" ] || [ "$mode" = "mirror" ] || [ ${#active_monitors[@]} -le 1 ]; then
+    for ws in 1 2 3 4 5 6; do
+        move_ws "$ws" "$primary"
+    done
+    exit 0
+fi
+
+if [ "$layout" = "unified" ]; then
+    for ws in 1 2 3 4 5 6; do
+        move_ws "$ws" "$primary"
+    done
+elif [ "$layout" = "split" ]; then
+    secondary=""
+    for mon in "${active_monitors[@]}"; do
+        if [ "$mon" != "$primary" ]; then
+            secondary="$mon"
+            break
+        fi
+    done
+
+    if [ -z "$secondary" ]; then
+        for ws in 1 2 3 4 5 6; do
+            move_ws "$ws" "$primary"
+        done
+    else
+        for ws in 1 2 6; do
+            move_ws "$ws" "$primary"
+        done
+        for ws in 3 4 5; do
+            move_ws "$ws" "$secondary"
+        done
+    fi
+else
+    index=0
+    count=${#active_monitors[@]}
+    for ws in 1 2 3 4 5 6; do
+        target=${active_monitors[$((index % count))]}
+        move_ws "$ws" "$target"
+        index=$((index + 1))
+    done
+fi
+"""
+        )
+        self.display_profile_script.chmod(0o755)
 
     def run_shell_command(self, command):
         subprocess.Popen(

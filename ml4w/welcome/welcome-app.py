@@ -22,8 +22,18 @@ class HubWindow(Adw.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app, title="Siverteh OS")
 
-        self.set_default_size(940, 790)
+        self.window_sizes = {
+            "overview": (940, 780),
+            "workspaces": (940, 740),
+            "keybindings": (940, 780),
+            "actions": (940, 780),
+            "settings": (940, 790),
+        }
+        self.set_default_size(*self.window_sizes["overview"])
         self.connect("close-request", self.on_close_request)
+        self.key_controller = Gtk.EventControllerKey()
+        self.key_controller.connect("key-pressed", self.on_key_pressed)
+        self.add_controller(self.key_controller)
 
         style_manager = Adw.StyleManager.get_default()
         style_manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
@@ -59,6 +69,12 @@ class HubWindow(Adw.ApplicationWindow):
             GLib.idle_add(app.quit)
         return False
 
+    def on_key_pressed(self, _controller, keyval, _keycode, _state):
+        if keyval == Gdk.KEY_Escape:
+            self.close()
+            return True
+        return False
+
     def parse_waybar_colors(self, colors):
         colors_file = Path.home() / ".config" / "waybar" / "colors.css"
         if not colors_file.exists():
@@ -72,12 +88,15 @@ class HubWindow(Adw.ApplicationWindow):
         token_map = {
             "background": "background",
             "surface": "surface",
+            "surface_bright": "surface_bright",
             "surface_container": "surface_container",
             "surface_container_high": "surface_container_high",
+            "surface_container_highest": "surface_container_highest",
             "primary": "primary",
             "primary_fixed": "primary_fixed",
             "primary_container": "primary_container",
             "secondary": "secondary",
+            "secondary_container": "secondary_container",
             "tertiary": "tertiary",
             "on_primary": "on_primary",
             "on_surface": "on_surface",
@@ -96,12 +115,15 @@ class HubWindow(Adw.ApplicationWindow):
         colors = {
             "background": "#110f18",
             "surface": "#161320",
+            "surface_bright": "#34303f",
             "surface_container": "#201b2b",
             "surface_container_high": "#2a2237",
+            "surface_container_highest": "#342b43",
             "primary": "#d0a7ff",
             "primary_fixed": "#f2d8ff",
             "primary_container": "#6f5091",
             "secondary": "#c6b2dd",
+            "secondary_container": "#4c405f",
             "tertiary": "#ff8ab5",
             "on_primary": "#231332",
             "on_surface": "#f4eefb",
@@ -125,10 +147,12 @@ class HubWindow(Adw.ApplicationWindow):
             "surface": "surface",
             "surface-container": "surface_container",
             "surface-container-high": "surface_container_high",
+            "surface-container-highest": "surface_container_highest",
             "primary": "primary",
             "primary-fixed": "primary_fixed",
             "primary-container": "primary_container",
             "secondary": "secondary",
+            "secondary-container": "secondary_container",
             "tertiary": "tertiary",
             "on-primary": "on_primary",
             "on-surface": "on_surface",
@@ -336,11 +360,13 @@ class HubWindow(Adw.ApplicationWindow):
 
         .card {{
             background:
-                radial-gradient(circle at top left, alpha({self.colors['primary']}, 0.2), alpha({self.colors['surface_container_high']}, 0.94) 56%, alpha({self.colors['surface']}, 0.96));
-            border: 1px solid alpha({self.colors['primary_fixed']}, 0.24);
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.16), alpha({self.colors['surface_container_high']}, 0.9) 58%, alpha({self.colors['surface_container']}, 0.94));
+            border: 1px solid alpha({self.colors['secondary']}, 0.22);
             border-radius: 24px;
             padding: 20px;
-            box-shadow: 0 14px 30px alpha(black, 0.18);
+            box-shadow:
+                0 14px 30px alpha(black, 0.16),
+                inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.05);
         }}
 
         .card-title {{
@@ -395,17 +421,22 @@ class HubWindow(Adw.ApplicationWindow):
         }}
 
         .keybind-item {{
-            background: alpha({self.colors['surface_container']}, 0.72);
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.14), alpha({self.colors['surface_container_high']}, 0.86) 60%, alpha({self.colors['surface_container']}, 0.9));
+            border: 1px solid alpha({self.colors['secondary']}, 0.18);
             border-radius: 18px;
-            padding: 12px 14px;
+            padding: 14px 16px;
             margin-bottom: 8px;
+            box-shadow: inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.04);
         }}
 
         .keybind-key {{
-            background: alpha({self.colors['primary_container']}, 0.56);
+            background:
+                linear-gradient(135deg, alpha({self.colors['secondary_container']}, 0.72), alpha({self.colors['surface_container_highest']}, 0.8));
             color: {self.colors['primary_fixed']};
+            border: 1px solid alpha({self.colors['secondary']}, 0.2);
             border-radius: 999px;
-            padding: 4px 10px;
+            padding: 5px 12px;
             font-size: 11px;
             font-weight: 800;
         }}
@@ -416,14 +447,17 @@ class HubWindow(Adw.ApplicationWindow):
         }}
 
         .action-button {{
-            background: alpha({self.colors['surface_container_high']}, 0.9);
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.15), alpha({self.colors['surface_container_high']}, 0.88) 60%, alpha({self.colors['surface_container']}, 0.92));
             border-radius: 22px;
-            border: 1px solid alpha({self.colors['primary_fixed']}, 0.22);
+            border: 1px solid alpha({self.colors['secondary']}, 0.2);
             padding: 18px;
+            box-shadow: inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.04);
         }}
 
         .action-button:hover {{
-            background: alpha({self.colors['primary_container']}, 0.7);
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.2), alpha({self.colors['surface_container_high']}, 0.92) 60%, alpha({self.colors['surface_container']}, 0.94));
         }}
 
         .action-title {{
@@ -435,6 +469,165 @@ class HubWindow(Adw.ApplicationWindow):
         .action-subtitle {{
             color: {self.colors['on_surface_variant']};
             font-size: 11px;
+        }}
+
+        preferencespage,
+        preferencesgroup,
+        preferencesgroup > box,
+        preferencesgroup > box > box {{
+            background: transparent;
+        }}
+
+        preferencesgroup > box > label {{
+            color: {self.colors['primary_fixed']};
+        }}
+
+        preferencesgroup row,
+        preferencesgroup row.activatable,
+        preferencesgroup comborow,
+        preferencesgroup switchrow,
+        preferencesgroup actionrow {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.16), alpha({self.colors['surface_container_high']}, 0.84) 58%, alpha({self.colors['surface_container']}, 0.88));
+            color: {self.colors['on_surface']};
+            border-radius: 18px;
+            border: 1px solid alpha({self.colors['secondary']}, 0.22);
+            box-shadow: inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.04);
+        }}
+
+        preferencesgroup row:hover,
+        preferencesgroup row.activatable:hover,
+        preferencesgroup comborow:hover,
+        preferencesgroup switchrow:hover,
+        preferencesgroup actionrow:hover {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.2), alpha({self.colors['surface_container_high']}, 0.88) 58%, alpha({self.colors['surface_container']}, 0.9));
+        }}
+
+        preferencesgroup row title,
+        preferencesgroup row .title,
+        preferencesgroup row label,
+        preferencesgroup row image,
+        preferencesgroup comborow label,
+        preferencesgroup switchrow label,
+        preferencesgroup actionrow label {{
+            color: {self.colors['on_surface']};
+        }}
+
+        preferencesgroup row.subtitle,
+        preferencesgroup row .subtitle,
+        preferencesgroup row .dim-label,
+        preferencesgroup row label.subtitle {{
+            color: {self.colors['on_surface_variant']};
+        }}
+
+        preferencesgroup spinbutton,
+        preferencesgroup switch,
+        menubutton.selector-menu {{
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }}
+
+        menubutton.selector-menu > button,
+        preferencesgroup spinbutton {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.18), alpha({self.colors['surface_container_high']}, 0.86) 60%, alpha({self.colors['surface_container']}, 0.9));
+            color: {self.colors['on_surface']};
+            border-radius: 999px;
+            border: 1px solid alpha({self.colors['secondary']}, 0.24);
+            min-height: 28px;
+            box-shadow: inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.05);
+        }}
+
+        menubutton.selector-menu > button {{
+            padding: 2px 10px;
+            min-width: 0;
+            border-radius: 999px;
+        }}
+
+        menubutton.selector-menu > button > box,
+        menubutton.selector-menu > button > box > box,
+        menubutton.selector-menu > button > box > widget,
+        menubutton.selector-menu > button > box > image,
+        menubutton.selector-menu > button > box > label {{
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }}
+
+        menubutton.selector-menu > button:hover,
+        menubutton.selector-menu > button:focus,
+        menubutton.selector-menu > button:active,
+        menubutton.selector-menu > button:checked {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.22), alpha({self.colors['surface_container_high']}, 0.9) 60%, alpha({self.colors['surface_container']}, 0.94));
+        }}
+
+        .selector-pill-label {{
+            color: {self.colors['on_surface']};
+            font-weight: 700;
+        }}
+
+        .selector-pill-arrow {{
+            color: {self.colors['on_surface_variant']};
+            min-width: 12px;
+            min-height: 12px;
+        }}
+
+        popover.selector-popover > contents {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.16), alpha({self.colors['surface_container_high']}, 0.9) 58%, alpha({self.colors['surface_container']}, 0.94));
+            border-radius: 18px;
+            border: 1px solid alpha({self.colors['secondary']}, 0.2);
+            box-shadow:
+                0 12px 28px alpha(black, 0.18),
+                inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.04);
+            padding: 8px;
+        }}
+
+        .selector-option {{
+            background: transparent;
+            border-radius: 12px;
+            border: none;
+            color: {self.colors['on_surface']};
+            padding: 8px 12px;
+            font-weight: 600;
+        }}
+
+        .selector-option:hover,
+        .selector-option:focus {{
+            background: alpha({self.colors['secondary']}, 0.14);
+        }}
+
+        preferencesgroup spinbutton {{
+            padding: 0 6px;
+            min-height: 24px;
+        }}
+
+        preferencesgroup switch {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['secondary']}, 0.18), alpha({self.colors['surface_container_high']}, 0.86) 60%, alpha({self.colors['surface_container']}, 0.9));
+            border-radius: 999px;
+            border: 1px solid alpha({self.colors['secondary']}, 0.24);
+            min-width: 40px;
+            min-height: 22px;
+            padding: 2px;
+            box-shadow: inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.05);
+        }}
+
+        preferencesgroup switch:checked {{
+            background:
+                linear-gradient(135deg, alpha({self.colors['secondary']}, 0.82), alpha({self.colors['primary_fixed']}, 0.68));
+            border-color: alpha({self.colors['primary_fixed']}, 0.24);
+        }}
+
+        preferencesgroup switch slider {{
+            min-width: 16px;
+            min-height: 16px;
+            background: alpha({self.colors['surface_bright']}, 0.96);
+            border-radius: 999px;
+            box-shadow: 0 2px 6px alpha(black, 0.12);
         }}
         """
 
@@ -457,6 +650,7 @@ class HubWindow(Adw.ApplicationWindow):
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_transition_duration(220)
+        self.stack.connect("notify::visible-child-name", self.on_stack_page_changed)
 
         switcher = Gtk.StackSwitcher()
         switcher.set_stack(self.stack)
@@ -476,6 +670,35 @@ class HubWindow(Adw.ApplicationWindow):
 
         if current_page:
             self.stack.set_visible_child_name(current_page)
+            self.apply_window_size(current_page)
+        else:
+            self.apply_window_size("overview")
+
+    def on_stack_page_changed(self, stack, _pspec):
+        page_name = stack.get_visible_child_name() or "overview"
+        self.apply_window_size(page_name)
+
+    def apply_window_size(self, page_name):
+        width, height = self.window_sizes.get(page_name, self.window_sizes["overview"])
+        self.set_default_size(width, height)
+        self.set_size_request(width, height)
+        GLib.idle_add(self.resize_hypr_window, width, height)
+
+    def resize_hypr_window(self, width, height):
+        try:
+            active = json.loads(
+                subprocess.check_output(["hyprctl", "-j", "activewindow"], text=True)
+            )
+        except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError):
+            return GLib.SOURCE_REMOVE
+
+        if active.get("class") == "com.siverteh.hub" or active.get("title") == "Siverteh OS":
+            subprocess.Popen(
+                ["hyprctl", "dispatch", "resizeactive", "exact", str(width), str(height)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        return GLib.SOURCE_REMOVE
 
     def create_header(self):
         header = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
@@ -794,18 +1017,64 @@ class HubWindow(Adw.ApplicationWindow):
         return scroll, page
 
     def create_combo_row(self, title, subtitle, options, selected_value, callback):
-        row = Adw.ComboRow(title=title)
+        row = Adw.ActionRow(title=title)
         row.set_subtitle(subtitle)
-        model = Gtk.StringList.new(options)
-        row.set_model(model)
         row._options = options
         try:
             selected_index = options.index(selected_value)
         except ValueError:
             selected_index = 0
-        row.set_selected(selected_index)
-        row.connect("notify::selected", callback)
+
+        menu_button = Gtk.MenuButton()
+        menu_button.set_valign(Gtk.Align.CENTER)
+        menu_button.set_halign(Gtk.Align.END)
+        menu_button.set_hexpand(False)
+        menu_button.set_has_frame(False)
+        menu_button.add_css_class("selector-menu")
+
+        content = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        label = Gtk.Label(label=options[selected_index])
+        label.add_css_class("selector-pill-label")
+        arrow = Gtk.Image.new_from_icon_name("pan-down-symbolic")
+        arrow.add_css_class("selector-pill-arrow")
+        content.append(label)
+        content.append(arrow)
+        menu_button.set_child(content)
+
+        popover = Gtk.Popover()
+        popover.set_has_arrow(False)
+        popover.set_position(Gtk.PositionType.BOTTOM)
+        popover.add_css_class("selector-popover")
+
+        option_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        for index, option in enumerate(options):
+            option_button = Gtk.Button(label=option)
+            option_button.set_has_frame(False)
+            option_button.add_css_class("selector-option")
+            option_button.connect("clicked", self.on_combo_option_clicked, row, index)
+            option_box.append(option_button)
+
+        popover.set_child(option_box)
+        menu_button.set_popover(popover)
+
+        row._selected_index = selected_index
+        row._selector_label = label
+        row._selector_popover = popover
+        row._combo_callback = callback
+
+        row.add_suffix(menu_button)
+        row.set_activatable_widget(menu_button)
         return row
+
+    def on_combo_option_clicked(self, _button, row, index):
+        self.set_combo_row_selection(row, index, emit=True)
+        row._selector_popover.popdown()
+
+    def set_combo_row_selection(self, row, index, emit=False):
+        row._selected_index = index
+        row._selector_label.set_text(row._options[index])
+        if emit:
+            row._combo_callback(row, None)
 
     def create_switch_row(self, title, subtitle, active, callback):
         row = Adw.SwitchRow(title=title)
@@ -828,6 +1097,7 @@ class HubWindow(Adw.ApplicationWindow):
         )
         spin = Gtk.SpinButton(adjustment=adjustment, climb_rate=1, digits=digits)
         spin.set_value(value)
+        spin.set_width_chars(3 if digits else 2)
         spin.connect("value-changed", callback)
         row.add_suffix(spin)
         row.set_activatable_widget(spin)
@@ -837,7 +1107,7 @@ class HubWindow(Adw.ApplicationWindow):
     def on_bar_workspace_display_changed(self, row, _pspec):
         if self.settings_signal_block:
             return
-        value = "icons" if row._options[row.get_selected()] == "Icons" else "numbers"
+        value = "icons" if row._options[row._selected_index] == "Icons" else "numbers"
         if value == self.settings_state["bar"]["workspace_display"]:
             return
         self.settings_backend.set_bar_setting("workspace_display", value)
@@ -855,7 +1125,7 @@ class HubWindow(Adw.ApplicationWindow):
     def on_bar_updates_visibility_changed(self, row, _pspec):
         if self.settings_signal_block:
             return
-        label = row._options[row.get_selected()]
+        label = row._options[row._selected_index]
         value = "always" if label == "Always" else "pending_only"
         if value == self.settings_state["bar"]["updates_visibility"]:
             return
@@ -865,12 +1135,50 @@ class HubWindow(Adw.ApplicationWindow):
     def on_bar_density_changed(self, row, _pspec):
         if self.settings_signal_block:
             return
-        label = row._options[row.get_selected()]
+        label = row._options[row._selected_index]
         value = "compact" if label == "Compact" else "balanced"
         if value == self.settings_state["bar"]["density"]:
             return
         self.settings_backend.set_bar_setting("density", value)
         self.settings_state = self.settings_backend.load_state()
+
+    def refresh_settings_page(self):
+        self.settings_state = self.settings_backend.load_state()
+        self.build_interface("settings")
+        return GLib.SOURCE_REMOVE
+
+    def on_display_setup_mode_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row._selected_index]
+        mapping = {
+            "Laptop only": "laptop_only",
+            "External only": "external_only",
+            "Extend": "extend",
+            "Mirror": "mirror",
+        }
+        value = mapping.get(label, "extend")
+        if value == self.settings_state["display_setup"]["mode"]:
+            return
+        self.settings_backend.set_display_setup_setting("mode", value)
+        self.settings_state = self.settings_backend.load_state()
+        GLib.timeout_add(1400, self.refresh_settings_page)
+
+    def on_display_workspace_layout_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row._selected_index]
+        mapping = {
+            "Unified": "unified",
+            "Personal split": "split",
+            "Sequential": "sequential",
+        }
+        value = mapping.get(label, "split")
+        if value == self.settings_state["display_setup"]["workspace_layout"]:
+            return
+        self.settings_backend.set_display_setup_setting("workspace_layout", value)
+        self.settings_state = self.settings_backend.load_state()
+        GLib.timeout_add(1400, self.refresh_settings_page)
 
     def on_hyprland_spin_changed(self, spin, key, digits=0):
         if self.settings_signal_block:
@@ -897,7 +1205,7 @@ class HubWindow(Adw.ApplicationWindow):
     def on_hyprland_animation_changed(self, row, _pspec):
         if self.settings_signal_block:
             return
-        label = row._options[row.get_selected()]
+        label = row._options[row._selected_index]
         value = label.lower()
         if value == self.settings_state["hyprland"]["animation_preset"]:
             return
@@ -918,8 +1226,8 @@ class HubWindow(Adw.ApplicationWindow):
         if not widgets:
             return
 
-        mode = widgets["mode_options"][widgets["mode_row"].get_selected()]
-        scale_label = widgets["scale_options"][widgets["scale_row"].get_selected()]
+        mode = widgets["mode_options"][widgets["mode_row"]._selected_index]
+        scale_label = widgets["scale_options"][widgets["scale_row"]._selected_index]
         scale = float(scale_label)
         current = self.get_monitor_state(
             monitor_name, widgets["current_mode"], widgets["current_scale"]
@@ -1244,6 +1552,39 @@ class HubWindow(Adw.ApplicationWindow):
         for row in (blur_size_row, blur_passes_row, inactive_opacity_row, animation_row):
             effects_group.add(row)
         page.add(effects_group)
+
+        display_setup_group = Adw.PreferencesGroup(
+            title="Display setup",
+            description="Choose how Hyprland should use your screens and where workspaces should land by default.",
+        )
+        display_setup_group.add(
+            self.create_combo_row(
+                "Screen mode",
+                "Laptop only, external only, extend, or mirror the same content.",
+                ["Laptop only", "External only", "Extend", "Mirror"],
+                {
+                    "laptop_only": "Laptop only",
+                    "external_only": "External only",
+                    "extend": "Extend",
+                    "mirror": "Mirror",
+                }.get(self.settings_state["display_setup"]["mode"], "Extend"),
+                self.on_display_setup_mode_changed,
+            )
+        )
+        display_setup_group.add(
+            self.create_combo_row(
+                "Workspace defaults",
+                "Choose whether workspaces start unified, use your personal split, or distribute across monitors in order.",
+                ["Unified", "Personal split", "Sequential"],
+                {
+                    "unified": "Unified",
+                    "split": "Personal split",
+                    "sequential": "Sequential",
+                }.get(self.settings_state["display_setup"]["workspace_layout"], "Personal split"),
+                self.on_display_workspace_layout_changed,
+            )
+        )
+        page.add(display_setup_group)
 
         display_intro = Adw.PreferencesGroup(
             title="Displays",
