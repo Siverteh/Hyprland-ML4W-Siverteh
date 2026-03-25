@@ -76,13 +76,6 @@ if [ ! -d $generatedversions ]; then
     mkdir -p $generatedversions
 fi
 
-# Will be set when waypaper is running
-waypaperrunning=$ml4w_cache_folder/waypaper-running
-if [ -f $waypaperrunning ]; then
-    rm $waypaperrunning
-    exit
-fi
-
 cachefile="$ml4w_cache_folder/current_wallpaper"
 blurredwallpaper="$ml4w_cache_folder/blurred_wallpaper.png"
 squarewallpaper="$ml4w_cache_folder/square_wallpaper.png"
@@ -147,14 +140,23 @@ if [ -f "$wallpapereffect" ]; then
             source $HOME/.config/hypr/effects/wallpaper/$effect
         fi
         _writeLog "Loading wallpaper $generatedversions/$effect-$wallpaperfilename with effect $effect"
-        _writeLog "Setting wallpaper with $used_wallpaper"
-        touch "$waypaperrunning"
-        waypaper --wallpaper "$used_wallpaper"
+        _writeLog "Prepared wallpaper $used_wallpaper"
     else
         _writeLog "Wallpaper effect is set to off"
     fi
 else
     effect="off"
+fi
+
+# -----------------------------------------------------
+# Apply wallpaper with the active engine
+# -----------------------------------------------------
+
+if [ "${ML4W_SKIP_ENGINE_APPLY:-0}" = "1" ] && [ "$used_wallpaper" = "$wallpaper" ]; then
+    _writeLog "Skipping engine apply because Waypaper already set the wallpaper"
+else
+    _writeLog "Applying wallpaper with active engine: $used_wallpaper"
+    "$HOME/.config/hypr/scripts/apply-wallpaper-engine.sh" "$used_wallpaper"
 fi
 
 # -----------------------------------------------------

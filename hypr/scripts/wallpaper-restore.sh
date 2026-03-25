@@ -78,10 +78,7 @@ fi
 # -----------------------------------------------------
 
 echo ":: Setting wallpaper with source image $wallpaper"
-if [ -f ~/.local/bin/waypaper ]; then
-    export PATH=$PATH:~/.local/bin/
-fi
-waypaper --wallpaper "$wallpaper"
+"$HOME/.config/hypr/scripts/apply-wallpaper-engine.sh" "$wallpaper"
 
 if [ -x "$HOME/.config/hypr/scripts/gtk.sh" ]; then
     "$HOME/.config/hypr/scripts/gtk.sh"

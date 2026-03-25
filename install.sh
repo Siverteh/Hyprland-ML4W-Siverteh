@@ -127,6 +127,13 @@ if [ -f "$DOTFILES_DIR/bin/xdg-open" ]; then
     echo "→ Local desktop helper binaries"
     create_symlink "$DOTFILES_DIR/bin/xdg-open" "$HOME/.local/bin/xdg-open"
 fi
+if [ -f "$DOTFILES_DIR/bin/swww" ]; then
+    echo "→ Wallpaper engine compatibility binaries"
+    create_symlink "$DOTFILES_DIR/bin/swww" "$HOME/.local/bin/swww"
+fi
+if [ -f "$DOTFILES_DIR/bin/swww-daemon" ]; then
+    create_symlink "$DOTFILES_DIR/bin/swww-daemon" "$HOME/.local/bin/swww-daemon"
+fi
 
 echo ""
 echo -e "${GREEN}═══════════════════════════════════════${NC}"

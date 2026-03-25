@@ -983,7 +983,7 @@ class HubWindow(Adw.ApplicationWindow):
     def build_actions(self):
         file_manager = self.read_setting("filemanager.sh", "nautilus --new-window")
         return [
-            ("Wallpaper", "Pick a new wallpaper or effect", "waypaper"),
+            ("Wallpaper", "Pick a new wallpaper or effect", "~/.config/hypr/scripts/waypaper.sh"),
             ("Matrix Sleep", "Wallpaper-reactive falling glyph rest screen", "~/.config/hypr/scripts/matrix-rest.sh"),
             ("Reload Hyprland", "Apply config changes immediately", "hyprctl reload"),
             ("Relaunch Waybar", "Refresh the top bar and theme", "~/.config/waybar/launch.sh"),
