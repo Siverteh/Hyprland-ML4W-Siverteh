@@ -40,7 +40,7 @@ window#waybar {
 #clock,
 #custom-clock-center {
     background: alpha(@surface_container_high, 0.05);
-    border: 1px solid alpha(@primary, 0.62);
+    border: 1px solid alpha(@primary_fixed, 0.78);
     border-radius: 12px;
     margin: 6px 4px 0 4px;
     padding: 2px 5px;
@@ -59,7 +59,7 @@ window#waybar {
 
 .modules-right > widget > box {
     background: alpha(@surface_container_high, 0.05);
-    border: 1px solid alpha(@primary, 0.62);
+    border: 1px solid alpha(@primary_fixed, 0.78);
     border-radius: 12px;
     margin: 6px 4px 0 4px;
     padding: 2px 5px;
@@ -190,8 +190,8 @@ window#waybar {
     font-family: "JetBrainsMono Nerd Font", "Font Awesome 7 Free", "Font Awesome 6 Free", "Fira Sans Semibold", sans-serif;
     font-weight: 700;
     background: alpha(@surface_container_high, 0.05);
-    border-top: 1px solid alpha(@primary, 0.62);
-    border-bottom: 1px solid alpha(@primary, 0.62);
+    border-top: 1px solid alpha(@primary_fixed, 0.78);
+    border-bottom: 1px solid alpha(@primary_fixed, 0.78);
     box-shadow: inset 0 1px 0 alpha(@on_surface, 0.03);
     margin-top: 6px;
     margin-bottom: 0;
@@ -210,7 +210,7 @@ window#waybar {
     padding-bottom: 0;
     font-size: 12px;
     min-height: 18px;
-    border-left: 1px solid alpha(@primary, 0.62);
+    border-left: 1px solid alpha(@primary_fixed, 0.78);
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
     margin-left: 4px;
@@ -237,7 +237,7 @@ window#waybar {
 }
 
 #custom-player-next {
-    border-right: 1px solid alpha(@primary, 0.62);
+    border-right: 1px solid alpha(@primary_fixed, 0.78);
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     margin-right: 4px;
@@ -324,8 +324,15 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    background: alpha(@error, 0.88);
-    color: @on_error;
+    background: alpha(@surface_container_lowest, 0.16);
+    color: alpha(@on_surface, 0.64);
+    box-shadow: none;
+}
+
+#workspaces button.urgent.active {
+    background: linear-gradient(135deg, alpha(@primary, 0.42), alpha(@secondary, 0.22));
+    color: @on_surface;
+    box-shadow: inset 0 1px 0 alpha(@primary_fixed, 0.1);
 }
 
 #custom-siverteh:hover,

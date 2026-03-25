@@ -788,7 +788,7 @@ class SivertehSettingsBackend:
     def render_waybar_override_css(self, bar_settings):
         density = bar_settings["density"]
         pill_outline = bar_settings["pill_outline"]
-        border_color = "alpha(@primary, 0.62)" if pill_outline else "transparent"
+        border_color = "alpha(@primary_fixed, 0.78)" if pill_outline else "transparent"
 
         if density == "balanced":
             shell_padding = "3px 6px"
