@@ -6,17 +6,22 @@
     "margin-left": 0,
     "margin-right": 0,
     "spacing": 0,
+    "fixed-center": false,
+    "expand-right": false,
     "include": [
         "~/.config/waybar/modules.json"
     ],
     "modules-left": [
         "custom/appmenu",
         "hyprland/workspaces",
-        "wlr/taskbar"
+        "wlr/taskbar",
+        "custom/music-progress",
+        "custom/music-label",
+        "custom/player-prev",
+        "custom/player-play",
+        "custom/player-next"
     ],
-    "modules-center": [
-        "clock"
-    ],
+    "modules-center": [],
     "modules-right": [
         "custom/updates",
         "group/stats",

@@ -44,6 +44,11 @@ DEFAULT_STATE = {
         "pill_outline": True,
         "updates_visibility": "always",
         "density": "compact",
+        "show_open_apps": True,
+        "show_music": True,
+        "music_display": "compact",
+        "show_stats": True,
+        "show_clock": True,
     },
     "display_setup": {
         "mode": "extend",
@@ -69,6 +74,7 @@ class SivertehSettingsBackend:
         self.repo_root = Path(repo_root)
         self.state_path = Path.home() / ".config" / "siverteh" / "settings.json"
         self.modules_path = self.repo_root / "waybar" / "modules.json"
+        self.config_path = self.repo_root / "waybar" / "themes" / "siverteh-glass" / "config"
         self.style_override_path = (
             self.repo_root / "waybar" / "themes" / "siverteh-glass" / "settings-generated.css"
         )
@@ -176,12 +182,51 @@ class SivertehSettingsBackend:
     def save_modules(self, modules):
         self.modules_path.write_text(json.dumps(modules, indent=2) + "\n")
 
+    def load_waybar_config(self):
+        try:
+            return json.loads(self.config_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            return {
+                "layer": "top",
+                "position": "top",
+                "margin-top": 0,
+                "margin-bottom": 0,
+                "margin-left": 0,
+                "margin-right": 0,
+                "spacing": 0,
+                "fixed-center": False,
+                "expand-right": False,
+                "include": ["~/.config/waybar/modules.json"],
+                "modules-left": [
+                    "custom/appmenu",
+                    "hyprland/workspaces",
+                    "wlr/taskbar",
+                    "custom/music-progress",
+                    "custom/music-label",
+                    "custom/player-prev",
+                    "custom/player-play",
+                    "custom/player-next",
+                ],
+                "modules-center": [],
+                "modules-right": [
+                    "custom/updates",
+                    "group/stats",
+                    "group/connectivity",
+                    "group/session",
+                ],
+            }
+
+    def save_waybar_config(self, config):
+        self.config_path.write_text(json.dumps(config, indent=4) + "\n")
+
     def read_bar_state(self):
         state = copy.deepcopy(DEFAULT_STATE["bar"])
         try:
             modules = self.load_modules()
         except (OSError, json.JSONDecodeError):
             modules = {}
+
+        config = self.load_waybar_config()
 
         workspace_icons = (
             modules.get("hyprland/workspaces", {}).get("format-icons", {})
@@ -201,6 +246,43 @@ class SivertehSettingsBackend:
                 state["density"] = "balanced"
             if "border: 1px solid transparent;" in content:
                 state["pill_outline"] = False
+
+        modules_left = config.get("modules-left", [])
+        modules_center = config.get("modules-center", [])
+        modules_right = config.get("modules-right", [])
+        music_modules = modules.get("group/music", {}).get("modules", [])
+        flat_music_modules = {
+            "custom/music-progress",
+            "custom/music-label",
+            "custom/player-prev",
+            "custom/player-play",
+            "custom/player-next",
+        }
+
+        state["show_open_apps"] = "wlr/taskbar" in modules_left
+        state["show_music"] = (
+            "group/music" in modules_left
+            or "group/music" in modules_right
+            or any(module in modules_left for module in flat_music_modules)
+            or any(module in modules_right for module in flat_music_modules)
+        )
+        state["music_display"] = (
+            "full"
+            if (
+                "custom/music-label" in music_modules
+                or "custom/music-label" in modules_left
+                or "custom/music-label" in modules_right
+            )
+            else "compact"
+        )
+        session_modules = modules.get("group/session", {}).get("modules", [])
+        state["show_clock"] = (
+            "custom/status-pill" in session_modules
+            or "custom/status-pill" in modules_right
+            or "custom/clock-center" in modules_center
+            or "clock" in modules_center
+        )
+        state["show_stats"] = "group/stats" in modules_right
 
         return state
 
@@ -408,6 +490,35 @@ class SivertehSettingsBackend:
     def format_scale_for_hypr(self, scale):
         return f"{float(scale):.2f}".rstrip("0").rstrip(".")
 
+    def detect_preferred_network_interface(self):
+        try:
+            output = subprocess.check_output(
+                ["nmcli", "-t", "-f", "DEVICE,TYPE,STATE", "device", "status"],
+                text=True,
+            )
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return ""
+
+        lines = [line.strip() for line in output.splitlines() if line.strip()]
+        connected_wifi = []
+        connected_ethernet = []
+        for line in lines:
+            parts = line.split(":")
+            if len(parts) < 3:
+                continue
+            device, device_type, state = parts[:3]
+            if state.startswith("connected"):
+                if device_type == "wifi":
+                    connected_wifi.append(device)
+                elif device_type == "ethernet":
+                    connected_ethernet.append(device)
+
+        if connected_wifi:
+            return connected_wifi[0]
+        if connected_ethernet:
+            return connected_ethernet[0]
+        return ""
+
     def collect_monitor_inventory(self, state=None):
         if state is None:
             state = self.load_state()
@@ -480,7 +591,11 @@ class SivertehSettingsBackend:
             primary = active[0] if active else None
         elif mode == "mirror":
             active = connected[:] or order[:1]
-            primary = external[0] if external else (active[0] if active else None)
+            # Hyprland's native mirror uses one display as the render source.
+            # Prefer the internal panel on mixed-resolution laptop setups so the
+            # built-in screen keeps its native mode instead of inheriting the
+            # external monitor's rendered output size.
+            primary = internal[0] if internal else (external[0] if external else (active[0] if active else None))
         else:
             active = connected[:] or order[:1]
             primary = external[0] if external else (active[0] if active else None)
@@ -533,16 +648,20 @@ class SivertehSettingsBackend:
         self.write_monitor_conf(state)
         self.write_display_profile_script(state)
         self.run_command(["hyprctl", "reload"])
-        self.run_shell_command("sleep 1 && ~/.config/hypr/scripts/apply-display-profile.sh && ~/.config/waybar/launch.sh")
+        self.run_shell_command(
+            "sleep 1.6 && ~/.config/hypr/scripts/apply-display-profile.sh && sleep 0.5 && ~/.config/waybar/launch.sh"
+        )
 
     def apply_bar_settings(self, state=None):
         if state is None:
             state = self.load_state()
 
+        bar_settings = state["bar"]
         modules = self.load_modules()
+        config = self.load_waybar_config()
         workspace_format = (
             WORKSPACE_ICON_MAP
-            if state["bar"]["workspace_display"] == "icons"
+            if bar_settings["workspace_display"] == "icons"
             else WORKSPACE_NUMBER_MAP
         )
         modules.setdefault("hyprland/workspaces", {})
@@ -553,12 +672,116 @@ class SivertehSettingsBackend:
         modules["hyprland/workspaces"]["on-scroll-down"] = "hyprctl dispatch focusworkspaceoncurrentmonitor r+1"
 
         modules.setdefault("custom/updates", {})
-        modules["custom/updates"]["hide-empty-text"] = True
+        modules["custom/updates"]["exec"] = "~/.config/hypr/scripts/waybar/updates_status.sh"
+        modules["custom/updates"]["hide-empty-text"] = (
+            bar_settings.get("updates_visibility", "always") != "always"
+        )
+        modules.setdefault("custom/clock-center", {})
+        modules["custom/clock-center"] = {
+            "exec": "~/.config/hypr/scripts/waybar/clock_status.py",
+            "format": "{}",
+            "return-type": "json",
+            "interval": 1,
+            "tooltip": True,
+            "escape": False,
+            "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh",
+        }
+        modules.setdefault("custom/status-pill", {})
+        modules["custom/status-pill"] = {
+            "exec": "~/.config/hypr/scripts/waybar/status_pill.py",
+            "format": "{}",
+            "return-type": "json",
+            "interval": 1,
+            "tooltip": True,
+            "escape": False,
+            "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh",
+            "hide-empty-text": True,
+        }
+        modules.setdefault("custom/music-progress", {})
+        modules["custom/music-progress"] = {
+            "exec": "~/.config/hypr/scripts/waybar/music_status.py progress-cache",
+            "return-type": "json",
+            "signal": 13,
+            "escape": True,
+            "on-click": "~/.config/hypr/scripts/waybar/music-control.sh play-pause",
+            "tooltip": True,
+        }
+        modules.setdefault("custom/music-label", {})
+        modules["custom/music-label"] = {
+            "exec": "~/.config/hypr/scripts/waybar/music_status.py --label-follow",
+            "return-type": "json",
+            "restart-interval": 1,
+            "expand": False,
+            "align": 0,
+            "justify": "left",
+            "escape": True,
+            "hide-empty-text": True,
+            "tooltip": True,
+            "on-click": "~/.config/hypr/scripts/waybar/music-control.sh play-pause",
+        }
+        modules.setdefault("custom/player-play", {})
+        modules["custom/player-play"]["exec"] = "~/.config/hypr/scripts/waybar/music_status.py play-icon"
+        modules["custom/player-play"]["return-type"] = "json"
+        modules["custom/player-play"]["interval"] = 1
+        modules["custom/player-play"]["escape"] = True
+        modules["custom/player-play"]["tooltip"] = True
+        modules["custom/player-play"]["on-click"] = "~/.config/hypr/scripts/waybar/music-control.sh play-pause"
+        modules.setdefault("network", {})
+        preferred_interface = self.detect_preferred_network_interface()
+        if preferred_interface:
+            modules["network"]["interface"] = preferred_interface
+        elif "interface" in modules["network"]:
+            modules["network"].pop("interface", None)
+        modules["network"]["format"] = " {signalStrength}%"
+        modules["network"]["format-wifi"] = " {signalStrength}%"
+        modules["network"]["format-ethernet"] = "󰈀"
+        modules["network"]["format-disconnected"] = "󰖪"
+        modules.setdefault("group/session", {})
+        modules["group/session"]["orientation"] = "horizontal"
+        session_modules = [
+            "custom/notification",
+            "custom/siverteh",
+            "custom/exit",
+        ]
+        if bar_settings["show_clock"]:
+            session_modules.append("custom/status-pill")
+        modules["group/session"]["modules"] = session_modules
+
+        modules_left = ["custom/appmenu", "hyprland/workspaces"]
+        if bar_settings["show_open_apps"]:
+            modules_left.append("wlr/taskbar")
+        if bar_settings["show_music"]:
+            modules_left.append("custom/music-progress")
+            if bar_settings.get("music_display") == "full":
+                modules_left.append("custom/music-label")
+            modules_left.extend(
+                [
+                    "custom/player-prev",
+                    "custom/player-play",
+                    "custom/player-next",
+                ]
+            )
+
+        modules_center = []
+
+        modules_right = []
+        modules_right.append("custom/updates")
+        if bar_settings["show_stats"]:
+            modules_right.append("group/stats")
+        modules_right.append("group/connectivity")
+        modules_right.append("group/session")
+
+        config["modules-left"] = modules_left
+        config["modules-center"] = modules_center
+        config["modules-right"] = modules_right
+        config["fixed-center"] = False
+        config["expand-right"] = False
 
         self.save_modules(modules)
+        self.save_waybar_config(config)
         self.style_override_path.parent.mkdir(parents=True, exist_ok=True)
         self.style_override_path.write_text(
-            self.render_waybar_override_css(state["bar"])
+            self.render_waybar_override_css(bar_settings)
         )
         self.run_shell_command("~/.config/waybar/launch.sh")
 
@@ -596,6 +819,7 @@ class SivertehSettingsBackend:
 #workspaces,
 #taskbar,
 #clock,
+#custom-clock-center,
 .modules-right > widget > box {{
     background: alpha(@surface_container_high, 0.05);
     border: 1px solid {border_color};
@@ -616,7 +840,19 @@ class SivertehSettingsBackend:
     padding: {clock_padding};
 }}
 
+#custom-clock-center {{
+    color: @on_surface;
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    padding: {clock_padding};
+}}
+
 #custom-siverteh,
+#custom-status-pill,
+#custom-music-progress,
+#custom-music-label,
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next,
 #cpu,
 #memory,
 #disk,
@@ -632,6 +868,28 @@ class SivertehSettingsBackend:
     min-height: {inner_height};
 }}
 
+#custom-updates,
+#cpu,
+#memory,
+#disk,
+#network,
+#bluetooth,
+#custom-status-pill {{
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+}}
+
+#custom-status-pill {{
+    font-size: 10px;
+    font-weight: 800;
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+}}
+
+#custom-updates {{
+    min-width: 44px;
+}}
+
 #workspaces button {{
     min-width: {workspace_size[0]};
     min-height: {workspace_size[1]};
@@ -643,6 +901,67 @@ class SivertehSettingsBackend:
     min-height: {taskbar_size[1]};
     padding-left: {taskbar_size[2]};
     padding-right: {taskbar_size[3]};
+}}
+
+
+#custom-music-progress,
+#custom-music-label,
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next {{
+    min-height: {inner_height};
+    background: alpha(@surface_container_high, 0.05);
+    border-top: 1px solid {border_color};
+    border-bottom: 1px solid {border_color};
+    box-shadow: inset 0 1px 0 alpha(@on_surface, 0.03);
+    margin-top: 6px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+}}
+
+#custom-music-progress {{
+    padding: 8px 3px 0 6px;
+    min-height: {inner_height};
+    min-width: 92px;
+    font-size: 12px;
+    border-left: 1px solid {border_color};
+    border-top-left-radius: {shell_radius};
+    border-bottom-left-radius: {shell_radius};
+    margin-left: 4px;
+}}
+
+#custom-music-label {{
+    padding: 8px 4px 0 4px;
+    min-height: {inner_height};
+    min-width: 0;
+    font-size: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+    border-right: none;
+}}
+
+#custom-player-prev,
+#custom-player-play {{
+    border-left: none;
+    border-right: none;
+}}
+
+#custom-player-next {{
+    border-right: 1px solid {border_color};
+    border-top-right-radius: {shell_radius};
+    border-bottom-right-radius: {shell_radius};
+    margin-right: 4px;
+}}
+
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next {{
+    padding: 8px 3px 0 3px;
+    min-height: {inner_height};
+    font-size: 9px;
 }}
 """
 
@@ -744,7 +1063,11 @@ class SivertehSettingsBackend:
         ]
         lines = header[:]
 
-        for name in plan["order"]:
+        ordered_names = plan["order"][:]
+        if plan["mode"] == "mirror" and primary in ordered_names:
+            ordered_names = [primary] + [name for name in ordered_names if name != primary]
+
+        for name in ordered_names:
             monitor = inventory[name]
             if name not in active:
                 lines.append(f"monitor={name},disable")
@@ -811,7 +1134,9 @@ mode=$(jq -r '.display_setup.mode // "extend"' "$settings_file")
 layout=$(jq -r '.display_setup.workspace_layout // "split"' "$settings_file")
 
 choose_primary() {
-    if [ ${#external_monitors[@]} -gt 0 ]; then
+    if [ "$mode" = "mirror" ] && [ ${#internal_monitors[@]} -gt 0 ]; then
+        printf '%s' "${internal_monitors[0]}"
+    elif [ ${#external_monitors[@]} -gt 0 ]; then
         printf '%s' "${external_monitors[0]}"
     elif [ ${#active_monitors[@]} -gt 0 ]; then
         printf '%s' "${active_monitors[0]}"

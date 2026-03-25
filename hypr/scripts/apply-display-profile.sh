@@ -40,7 +40,9 @@ mode=$(jq -r '.display_setup.mode // "extend"' "$settings_file")
 layout=$(jq -r '.display_setup.workspace_layout // "split"' "$settings_file")
 
 choose_primary() {
-    if [ ${#external_monitors[@]} -gt 0 ]; then
+    if [ "$mode" = "mirror" ] && [ ${#internal_monitors[@]} -gt 0 ]; then
+        printf '%s' "${internal_monitors[0]}"
+    elif [ ${#external_monitors[@]} -gt 0 ]; then
         printf '%s' "${external_monitors[0]}"
     elif [ ${#active_monitors[@]} -gt 0 ]; then
         printf '%s' "${active_monitors[0]}"

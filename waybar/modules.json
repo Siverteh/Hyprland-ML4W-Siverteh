@@ -54,12 +54,32 @@
     "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
     "escape": false
   },
+  "custom/clock-center": {
+    "exec": "~/.config/hypr/scripts/waybar/clock_status.py",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 1,
+    "tooltip": true,
+    "escape": false,
+    "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh"
+  },
+  "custom/status-pill": {
+    "exec": "~/.config/hypr/scripts/waybar/status_pill.py",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 1,
+    "tooltip": true,
+    "escape": false,
+    "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh",
+    "hide-empty-text": true
+  },
   "wlr/taskbar": {
     "format": "{icon}",
     "icon-size": 15,
     "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
+    "sort-by-app-id": true,
     "ignore-list": [
       "Alacritty",
       "kitty",
@@ -72,6 +92,54 @@
       "Firefox Web Browser": "Firefox",
       "Foot Server": "Terminal"
     }
+  },
+  "group/music": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/music-progress",
+      "custom/music-label",
+      "custom/player-prev",
+      "custom/player-play",
+      "custom/player-next"
+    ]
+  },
+  "custom/music-progress": {
+    "exec": "~/.config/hypr/scripts/waybar/music_status.py progress-cache",
+    "return-type": "json",
+    "signal": 13,
+    "escape": true,
+    "on-click": "~/.config/hypr/scripts/waybar/music-control.sh play-pause",
+    "tooltip": true
+  },
+  "custom/music-label": {
+    "exec": "~/.config/hypr/scripts/waybar/music_status.py --label-follow",
+    "return-type": "json",
+    "restart-interval": 1,
+    "expand": false,
+    "align": 0,
+    "justify": "left",
+    "escape": true,
+    "hide-empty-text": true,
+    "tooltip": true,
+    "on-click": "~/.config/hypr/scripts/waybar/music-control.sh play-pause"
+  },
+  "custom/player-prev": {
+    "format": "\uf048",
+    "tooltip-format": "Previous",
+    "on-click": "~/.config/hypr/scripts/waybar/music-control.sh previous"
+  },
+  "custom/player-play": {
+    "exec": "~/.config/hypr/scripts/waybar/music_status.py play-icon",
+    "return-type": "json",
+    "interval": 1,
+    "escape": true,
+    "tooltip": true,
+    "on-click": "~/.config/hypr/scripts/waybar/music-control.sh play-pause"
+  },
+  "custom/player-next": {
+    "format": "\uf051",
+    "tooltip-format": "Next",
+    "on-click": "~/.config/hypr/scripts/waybar/music-control.sh next"
   },
   "hyprland/window": {
     "max-length": 60,
@@ -123,10 +191,10 @@
     "format": "\uf1b2  {}",
     "escape": true,
     "return-type": "json",
-    "exec": "~/.config/ml4w/scripts/updates.sh",
+    "exec": "~/.config/hypr/scripts/waybar/updates_status.sh",
     "interval": 1800,
     "signal": 1,
-    "hide-empty-text": true,
+    "hide-empty-text": false,
     "on-click": "~/.config/ml4w/settings/installupdates.sh"
   },
   "custom/wallpaper": {
@@ -234,7 +302,7 @@
     "spacing": 6
   },
   "clock": {
-    "format": "{:%H:%M | %a %d %b}",
+    "format": "\uf017 {:%H:%M}  |  \uf073 {:%a %d %b}",
     "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
     "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh"
   },
@@ -280,7 +348,6 @@
   "group/connectivity": {
     "orientation": "horizontal",
     "modules": [
-      "tray",
       "pulseaudio",
       "bluetooth",
       "network",
@@ -292,7 +359,8 @@
     "modules": [
       "custom/notification",
       "custom/siverteh",
-      "custom/exit"
+      "custom/exit",
+      "custom/status-pill"
     ]
   },
   "disk": {
@@ -359,10 +427,11 @@
     ]
   },
   "network": {
-    "format": "\udb82\udd2d",
+    "interface": "wlan0",
+    "format": "\uf1eb {signalStrength}%",
     "format-wifi": "\uf1eb {signalStrength}%",
     "format-ethernet": "\udb80\ude00",
-    "format-disconnected": "\udb82\udd2e",
+    "format-disconnected": "\udb81\uddaa",
     "tooltip-format": "\uf796 {ifname} via {gwaddri}",
     "tooltip-format-wifi": "\uf1eb  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
     "tooltip-format-ethernet": "\uf796 {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",

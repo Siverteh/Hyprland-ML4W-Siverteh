@@ -36,7 +36,9 @@ window#waybar {
 #custom-updates,
 #workspaces,
 #taskbar,
-#clock {
+#custom-workspace-apps,
+#clock,
+#custom-clock-center {
     background: alpha(@surface_container_high, 0.05);
     border: 1px solid alpha(@primary, 0.62);
     border-radius: 12px;
@@ -84,13 +86,15 @@ window#waybar {
     padding-right: 3px;
 }
 
-#taskbar {
+#taskbar,
+#custom-workspace-apps {
     min-height: 0;
     padding-left: 2px;
     padding-right: 2px;
 }
 
-#taskbar.empty {
+#taskbar.empty,
+#custom-workspace-apps.empty {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -105,8 +109,23 @@ window#waybar {
     min-width: 0;
 }
 
+#custom-clock-center {
+    color: @on_surface;
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    font-weight: 800;
+    padding: 2px 8px;
+    min-width: 0;
+}
+
 /* Inner items */
 #custom-siverteh,
+#custom-status-pill,
+#custom-workspace-apps,
+#custom-music-progress,
+#custom-music-label,
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next,
 #cpu,
 #memory,
 #disk,
@@ -117,7 +136,8 @@ window#waybar {
 #battery,
 #tray,
 #custom-exit,
-#taskbar button {
+#taskbar button,
+#custom-workspace-apps {
     color: @on_surface;
     background: transparent;
     margin: 1px;
@@ -148,11 +168,113 @@ window#waybar {
 #custom-updates,
 #cpu,
 #memory,
-#disk {
+#disk,
+#network,
+#bluetooth,
+#custom-workspace-apps {
     font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
     font-weight: 700;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+#custom-updates {
+    min-width: 44px;
+}
+
+#custom-music-progress,
+#custom-music-label,
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 7 Free", "Font Awesome 6 Free", "Fira Sans Semibold", sans-serif;
+    font-weight: 700;
+    background: alpha(@surface_container_high, 0.05);
+    border-top: 1px solid alpha(@primary, 0.62);
+    border-bottom: 1px solid alpha(@primary, 0.62);
+    box-shadow: inset 0 1px 0 alpha(@on_surface, 0.03);
+    margin-top: 6px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+}
+
+#custom-music-progress {
+    color: alpha(@primary_fixed, 0.92);
+    letter-spacing: 0.02em;
+    min-width: 92px;
+    padding-left: 6px;
+    padding-right: 3px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    font-size: 12px;
+    min-height: 18px;
+    border-left: 1px solid alpha(@primary, 0.62);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    margin-left: 4px;
+}
+
+#custom-music-label {
+    color: alpha(@on_surface, 0.86);
+    font-size: 10px;
+    min-width: 0;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+    border-right: none;
+}
+
+#custom-player-prev,
+#custom-player-play {
+    border-left: none;
+    border-right: none;
+}
+
+#custom-player-next {
+    border-right: 1px solid alpha(@primary, 0.62);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-right: 4px;
+}
+
+#custom-workspace-apps {
+    min-width: 126px;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#custom-player-prev,
+#custom-player-play,
+#custom-player-next {
+    font-size: 9px;
+    min-width: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 8px;
+    padding-bottom: 0;
+}
+
+#custom-player-play.playing,
+#custom-music-progress.playing,
+#custom-music-label.playing {
+    color: @primary_fixed;
+}
+
+#custom-player-play.paused,
+#custom-music-progress.paused,
+#custom-music-label.paused,
+#custom-player-play.idle,
+#custom-music-progress.idle,
+#custom-music-label.idle {
+    color: alpha(@on_surface, 0.48);
 }
 
 #custom-notification {
@@ -208,6 +330,10 @@ window#waybar {
 
 #custom-siverteh:hover,
 #custom-updates:hover,
+#custom-music-progress:hover,
+#custom-player-prev:hover,
+#custom-player-play:hover,
+#custom-player-next:hover,
 #cpu:hover,
 #memory:hover,
 #disk:hover,
@@ -218,16 +344,20 @@ window#waybar {
 #battery:hover,
 #custom-exit:hover,
 #tray:hover,
+#custom-workspace-apps:hover,
 #workspaces button:hover,
 #taskbar button:hover,
 #taskbar button.active,
-#clock:hover {
+#clock:hover,
+#custom-clock-center:hover {
     background: alpha(@primary_container, 0.42);
     color: @on_primary_container;
 }
 
 #custom-appmenu:hover,
-#clock:hover {
+#clock:hover,
+#custom-clock-center:hover,
+#custom-status-pill:hover {
     background: alpha(@surface_container_high, 0.09);
     color: @on_surface;
 }
@@ -288,3 +418,11 @@ tooltip label {
 }
 
 @import url("settings-generated.css");
+#custom-status-pill {
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+}

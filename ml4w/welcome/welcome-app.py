@@ -52,6 +52,9 @@ class HubWindow(Adw.ApplicationWindow):
         self.display_revert_source = None
         self.display_dialog = None
         self.display_widgets = {}
+        self.settings_scroll_window = None
+        self.settings_scroll_value = 0.0
+        self.restore_settings_scroll_pending = False
         self.colors = self.load_colors()
         self.system_info = self.load_system_info()
         self.defaults = self.load_defaults()
@@ -243,6 +246,8 @@ class HubWindow(Adw.ApplicationWindow):
         current_page = None
         if hasattr(self, "stack") and self.stack is not None:
             current_page = self.stack.get_visible_child_name()
+            if current_page == "settings":
+                self.capture_settings_scroll_position()
 
         self.colors = updated
         self.apply_css()
@@ -521,6 +526,17 @@ class HubWindow(Adw.ApplicationWindow):
             color: {self.colors['on_surface_variant']};
         }}
 
+        preferencesgroup row > box > box:last-child,
+        preferencesgroup row > box > box:last-child > box,
+        preferencesgroup row > box > box:last-child > revealer,
+        preferencesgroup row > box > box:last-child > revealer > box,
+        .row-control-shell,
+        .row-control-shell > box {{
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }}
+
         preferencesgroup spinbutton,
         preferencesgroup switch,
         menubutton.selector-menu {{
@@ -642,6 +658,7 @@ class HubWindow(Adw.ApplicationWindow):
 
     def build_interface(self, current_page=None):
         self.settings_state = self.settings_backend.load_state()
+        self.settings_scroll_window = None
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.set_content(root)
 
@@ -673,6 +690,33 @@ class HubWindow(Adw.ApplicationWindow):
             self.apply_window_size(current_page)
         else:
             self.apply_window_size("overview")
+
+        if current_page == "settings" and self.restore_settings_scroll_pending:
+            GLib.idle_add(self.restore_settings_scroll_position)
+
+    def capture_settings_scroll_position(self):
+        if self.settings_scroll_window is None:
+            return
+
+        adjustment = self.settings_scroll_window.get_vadjustment()
+        if adjustment is None:
+            return
+
+        self.settings_scroll_value = adjustment.get_value()
+        self.restore_settings_scroll_pending = True
+
+    def restore_settings_scroll_position(self):
+        if not self.restore_settings_scroll_pending or self.settings_scroll_window is None:
+            return GLib.SOURCE_REMOVE
+
+        adjustment = self.settings_scroll_window.get_vadjustment()
+        if adjustment is None:
+            return GLib.SOURCE_REMOVE
+
+        upper = max(0.0, adjustment.get_upper() - adjustment.get_page_size())
+        adjustment.set_value(min(self.settings_scroll_value, upper))
+        self.restore_settings_scroll_pending = False
+        return GLib.SOURCE_REMOVE
 
     def on_stack_page_changed(self, stack, _pspec):
         page_name = stack.get_visible_child_name() or "overview"
@@ -1062,7 +1106,12 @@ class HubWindow(Adw.ApplicationWindow):
         row._selector_popover = popover
         row._combo_callback = callback
 
-        row.add_suffix(menu_button)
+        shell = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        shell.add_css_class("row-control-shell")
+        shell.set_halign(Gtk.Align.END)
+        shell.append(menu_button)
+
+        row.add_suffix(shell)
         row.set_activatable_widget(menu_button)
         return row
 
@@ -1077,10 +1126,21 @@ class HubWindow(Adw.ApplicationWindow):
             row._combo_callback(row, None)
 
     def create_switch_row(self, title, subtitle, active, callback):
-        row = Adw.SwitchRow(title=title)
+        row = Adw.ActionRow(title=title)
         row.set_subtitle(subtitle)
-        row.set_active(active)
-        row.connect("notify::active", callback)
+        switch = Gtk.Switch()
+        switch.set_active(active)
+        switch.set_valign(Gtk.Align.CENTER)
+        switch.connect("notify::active", callback)
+
+        shell = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        shell.add_css_class("row-control-shell")
+        shell.set_halign(Gtk.Align.END)
+        shell.append(switch)
+
+        row.add_suffix(shell)
+        row.set_activatable_widget(switch)
+        row._switch = switch
         return row
 
     def create_spin_row(self, title, subtitle, value, lower, upper, step, digits, callback):
@@ -1099,7 +1159,11 @@ class HubWindow(Adw.ApplicationWindow):
         spin.set_value(value)
         spin.set_width_chars(3 if digits else 2)
         spin.connect("value-changed", callback)
-        row.add_suffix(spin)
+        shell = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        shell.add_css_class("row-control-shell")
+        shell.set_halign(Gtk.Align.END)
+        shell.append(spin)
+        row.add_suffix(shell)
         row.set_activatable_widget(spin)
         row._spin = spin
         return row
@@ -1113,10 +1177,10 @@ class HubWindow(Adw.ApplicationWindow):
         self.settings_backend.set_bar_setting("workspace_display", value)
         self.settings_state = self.settings_backend.load_state()
 
-    def on_bar_outline_changed(self, row, _pspec):
+    def on_bar_outline_changed(self, switch, _pspec):
         if self.settings_signal_block:
             return
-        value = row.get_active()
+        value = switch.get_active()
         if value == self.settings_state["bar"]["pill_outline"]:
             return
         self.settings_backend.set_bar_setting("pill_outline", value)
@@ -1142,7 +1206,54 @@ class HubWindow(Adw.ApplicationWindow):
         self.settings_backend.set_bar_setting("density", value)
         self.settings_state = self.settings_backend.load_state()
 
+    def on_bar_show_open_apps_changed(self, switch, _pspec):
+        if self.settings_signal_block:
+            return
+        value = switch.get_active()
+        if value == self.settings_state["bar"]["show_open_apps"]:
+            return
+        self.settings_backend.set_bar_setting("show_open_apps", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_show_music_changed(self, switch, _pspec):
+        if self.settings_signal_block:
+            return
+        value = switch.get_active()
+        if value == self.settings_state["bar"]["show_music"]:
+            return
+        self.settings_backend.set_bar_setting("show_music", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_music_display_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+        label = row._options[row._selected_index]
+        value = "compact" if label == "Compact hover" else "full"
+        if value == self.settings_state["bar"].get("music_display", "compact"):
+            return
+        self.settings_backend.set_bar_setting("music_display", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_show_stats_changed(self, switch, _pspec):
+        if self.settings_signal_block:
+            return
+        value = switch.get_active()
+        if value == self.settings_state["bar"]["show_stats"]:
+            return
+        self.settings_backend.set_bar_setting("show_stats", value)
+        self.settings_state = self.settings_backend.load_state()
+
+    def on_bar_show_clock_changed(self, switch, _pspec):
+        if self.settings_signal_block:
+            return
+        value = switch.get_active()
+        if value == self.settings_state["bar"]["show_clock"]:
+            return
+        self.settings_backend.set_bar_setting("show_clock", value)
+        self.settings_state = self.settings_backend.load_state()
+
     def refresh_settings_page(self):
+        self.capture_settings_scroll_position()
         self.settings_state = self.settings_backend.load_state()
         self.build_interface("settings")
         return GLib.SOURCE_REMOVE
@@ -1193,10 +1304,10 @@ class HubWindow(Adw.ApplicationWindow):
         self.settings_backend.set_hyprland_setting(key, value)
         self.settings_state = self.settings_backend.load_state()
 
-    def on_hyprland_blur_enabled_changed(self, row, _pspec):
+    def on_hyprland_blur_enabled_changed(self, switch, _pspec):
         if self.settings_signal_block:
             return
-        value = row.get_active()
+        value = switch.get_active()
         if value == self.settings_state["hyprland"]["blur_enabled"]:
             return
         self.settings_backend.set_hyprland_setting("blur_enabled", value)
@@ -1247,6 +1358,7 @@ class HubWindow(Adw.ApplicationWindow):
                 "Display change failed",
                 "Hyprland rejected that display mode. The current resolution has been kept.",
             )
+            self.capture_settings_scroll_position()
             self.build_interface("settings")
             return
 
@@ -1328,6 +1440,7 @@ class HubWindow(Adw.ApplicationWindow):
         )
         self.settings_state = self.settings_backend.load_state()
         self.clear_display_confirmation_state()
+        self.capture_settings_scroll_position()
         self.build_interface("settings")
 
     def cancel_pending_display_change(self, rebuild=False):
@@ -1342,6 +1455,7 @@ class HubWindow(Adw.ApplicationWindow):
         self.clear_display_confirmation_state()
         if rebuild:
             self.settings_state = self.settings_backend.load_state()
+            self.capture_settings_scroll_position()
             self.build_interface("settings")
 
     def clear_display_confirmation_state(self):
@@ -1403,6 +1517,7 @@ class HubWindow(Adw.ApplicationWindow):
 
     def add_settings_page(self):
         scroll, page = self.create_preferences_page()
+        self.settings_scroll_window = scroll
         self.display_widgets = {}
 
         bar_group = Adw.PreferencesGroup(
@@ -1448,6 +1563,49 @@ class HubWindow(Adw.ApplicationWindow):
                 if self.settings_state["bar"]["density"] == "compact"
                 else "Balanced",
                 self.on_bar_density_changed,
+            )
+        )
+        bar_group.add(
+            self.create_switch_row(
+                "Open applications",
+                "Show the running app icons after the workspace pill.",
+                self.settings_state["bar"]["show_open_apps"],
+                self.on_bar_show_open_apps_changed,
+            )
+        )
+        bar_group.add(
+            self.create_switch_row(
+                "Music controls",
+                "Show the playback line and skip controls after open applications.",
+                self.settings_state["bar"]["show_music"],
+                self.on_bar_show_music_changed,
+            )
+        )
+        bar_group.add(
+            self.create_combo_row(
+                "Music display",
+                "Choose compact hover info or show the full artist and title in the bar.",
+                ["Compact hover", "Full title"],
+                "Compact hover"
+                if self.settings_state["bar"].get("music_display", "compact") == "compact"
+                else "Full title",
+                self.on_bar_music_display_changed,
+            )
+        )
+        bar_group.add(
+            self.create_switch_row(
+                "System metrics",
+                "Show the CPU, memory, and disk pill on the right.",
+                self.settings_state["bar"]["show_stats"],
+                self.on_bar_show_stats_changed,
+            )
+        )
+        bar_group.add(
+            self.create_switch_row(
+                "Clock and date",
+                "Show the right-side time and date pill.",
+                self.settings_state["bar"]["show_clock"],
+                self.on_bar_show_clock_changed,
             )
         )
         page.add(bar_group)
