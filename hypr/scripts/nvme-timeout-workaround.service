@@ -1,0 +1,11 @@
+[Unit]
+Description=Apply NVMe timeout workaround for Micron 2500 on ASUS Zenbook
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -lc 'echo performance > /sys/module/pcie_aspm/parameters/policy && echo 0 > /sys/module/nvme_core/parameters/default_ps_max_latency_us && echo 0 > /sys/bus/pci/devices/10000:e1:00.0/d3cold_allowed && echo 0 > /sys/bus/pci/devices/10000:e0:06.2/d3cold_allowed && echo on > /sys/bus/pci/devices/10000:e1:00.0/power/control && echo on > /sys/bus/pci/devices/10000:e0:06.2/power/control'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
