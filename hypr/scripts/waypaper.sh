@@ -2,7 +2,7 @@
 
 export PATH="$HOME/.local/bin:$PATH"
 
-engine_file="$HOME/.config/ml4w/settings/wallpaper-engine.sh"
+engine_file="$HOME/.config/siverteh/core/settings/wallpaper-engine.sh"
 waypaper_config="$HOME/.config/waypaper/config.ini"
 
 backend="swww"

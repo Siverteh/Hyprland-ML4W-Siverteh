@@ -6,28 +6,28 @@
 # /___/                                     
 # 
 
-ml4w_cache_folder="$HOME/.cache/ml4w/hyprland-dotfiles"
+siverteh_cache_folder="$HOME/.cache/siverteh/hyprland-dotfiles"
 gamemode_monitor="$HOME/.config/hypr/conf/monitors/gamemode.conf"
 
-if [ -f $HOME/.config/ml4w/settings/gamemode-enabled ]; then
-  if [ -f $ml4w_cache_folder/last_monitor.conf ]; then
-    cat $ml4w_cache_folder/last_monitor.conf > $HOME/.config/hypr/conf/monitor.conf
-    rm $ml4w_cache_folder/last_monitor.conf
+if [ -f $HOME/.config/siverteh/core/settings/gamemode-enabled ]; then
+  if [ -f $siverteh_cache_folder/last_monitor.conf ]; then
+    cat $siverteh_cache_folder/last_monitor.conf > $HOME/.config/hypr/conf/monitor.conf
+    rm $siverteh_cache_folder/last_monitor.conf
   fi
-  if [ -f $ml4w_cache_folder/restart-wpauto ]; then
-    rm $ml4w_cache_folder/restart-wpauto
+  if [ -f $siverteh_cache_folder/restart-wpauto ]; then
+    rm $siverteh_cache_folder/restart-wpauto
     $HOME/.config/hypr/scripts/wallpaper-automation.sh &
   fi
   hyprctl reload
-  rm $HOME/.config/ml4w/settings/gamemode-enabled
+  rm $HOME/.config/siverteh/core/settings/gamemode-enabled
   notify-send "Gamemode deactivated" "Animations and blur enabled"
 else
   if [ -f $gamemode_monitor ]; then
-    cat $HOME/.config/hypr/conf/monitor.conf > $ml4w_cache_folder/last_monitor.conf
+    cat $HOME/.config/hypr/conf/monitor.conf > $siverteh_cache_folder/last_monitor.conf
     echo "source = $gamemode_monitor" > $HOME/.config/hypr/conf/monitor.conf
   fi
-  if [ -f $ml4w_cache_folder/wallpaper-automation ]; then
-    touch $ml4w_cache_folder/restart-wpauto
+  if [ -f $siverteh_cache_folder/wallpaper-automation ]; then
+    touch $siverteh_cache_folder/restart-wpauto
     $HOME/.config/hypr/scripts/wallpaper-automation.sh
   fi
   hyprctl --batch "\
@@ -41,6 +41,6 @@ else
     keyword decoration:inactive_opacity 1;\
     keyword decoration:fullscreen_opacity 1;\
     keyword decoration:rounding 0"
-  touch $HOME/.config/ml4w/settings/gamemode-enabled
+  touch $HOME/.config/siverteh/core/settings/gamemode-enabled
   notify-send "Gamemode activated" "Animations and blur disabled"
 fi

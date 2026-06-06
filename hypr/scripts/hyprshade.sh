@@ -20,7 +20,7 @@ if [[ "$1" == "rofi" ]]; then
     # Open rofi
     choice=$(echo -e "$options" | rofi -dmenu -replace -config ~/.config/rofi/config-hyprshade.rasi -i -no-show-icons -l 4 -width 30 -p "Hyprshade")
     if [ ! -z $choice ]; then
-        echo "hyprshade_filter=\"$choice\"" >~/.config/ml4w/settings/hyprshade.sh
+        echo "hyprshade_filter=\"$choice\"" >~/.config/siverteh/core/settings/hyprshade.sh
         if [ "$choice" == "off" ]; then
             hyprshade off
             notify-send "Hyprshade deactivated"
@@ -36,8 +36,8 @@ else
     hyprshade_filter="blue-light-filter-50"
 
     # Check if hyprshade.sh settings file exists and load
-    if [ -f ~/.config/ml4w/settings/hyprshade.sh ]; then
-        source ~/.config/ml4w/settings/hyprshade.sh
+    if [ -f ~/.config/siverteh/core/settings/hyprshade.sh ]; then
+        source ~/.config/siverteh/core/settings/hyprshade.sh
     fi
 
     # Toggle Hyprshade

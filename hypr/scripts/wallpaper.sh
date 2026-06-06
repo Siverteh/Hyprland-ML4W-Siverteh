@@ -6,7 +6,7 @@
 #                /_/       /_/             
 
 # Source library.sh
-source $HOME/.config/ml4w/library.sh
+source $HOME/.config/siverteh/core/library.sh
 
 restart_nautilus_if_running() {
     if ! nautilus_window_open; then
@@ -47,7 +47,7 @@ nautilus_window_open() {
 # Check to use wallpaper cache
 # -----------------------------------------------------
 
-if [ -f ~/.config/ml4w/settings/wallpaper_cache ]; then
+if [ -f ~/.config/siverteh/core/settings/wallpaper_cache ]; then
     use_cache=1
     _writeLog "Using Wallpaper Cache"
 else
@@ -58,10 +58,10 @@ fi
 # -----------------------------------------------------
 # Create cache folder
 # -----------------------------------------------------
-ml4w_cache_folder="$HOME/.cache/ml4w/hyprland-dotfiles"
+siverteh_cache_folder="$HOME/.cache/siverteh/hyprland-dotfiles"
 
-if [ ! -d $ml4w_cache_folder ]; then
-    mkdir -p $ml4w_cache_folder
+if [ ! -d $siverteh_cache_folder ]; then
+    mkdir -p $siverteh_cache_folder
 fi
 
 # -----------------------------------------------------
@@ -71,18 +71,18 @@ fi
 force_generate=0
 
 # Cache for generated wallpapers with effects
-generatedversions="$ml4w_cache_folder/wallpaper-generated"
+generatedversions="$siverteh_cache_folder/wallpaper-generated"
 if [ ! -d $generatedversions ]; then
     mkdir -p $generatedversions
 fi
 
-cachefile="$ml4w_cache_folder/current_wallpaper"
-blurredwallpaper="$ml4w_cache_folder/blurred_wallpaper.png"
-squarewallpaper="$ml4w_cache_folder/square_wallpaper.png"
-rasifile="$ml4w_cache_folder/current_wallpaper.rasi"
-blurfile="$HOME/.config/ml4w/settings/blur.sh"
-defaultwallpaper="$HOME/.config/ml4w/wallpapers/default.jpg"
-wallpapereffect="$HOME/.config/ml4w/settings/wallpaper-effect.sh"
+cachefile="$siverteh_cache_folder/current_wallpaper"
+blurredwallpaper="$siverteh_cache_folder/blurred_wallpaper.png"
+squarewallpaper="$siverteh_cache_folder/square_wallpaper.png"
+rasifile="$siverteh_cache_folder/current_wallpaper.rasi"
+blurfile="$HOME/.config/siverteh/core/settings/blur.sh"
+defaultwallpaper="$HOME/.config/siverteh/core/wallpapers/default.jpg"
+wallpapereffect="$HOME/.config/siverteh/core/settings/wallpaper-effect.sh"
 blur="50x30"
 blur=$(cat $blurfile)
 
@@ -152,7 +152,7 @@ fi
 # Apply wallpaper with the active engine
 # -----------------------------------------------------
 
-if [ "${ML4W_SKIP_ENGINE_APPLY:-0}" = "1" ] && [ "$used_wallpaper" = "$wallpaper" ]; then
+if [ "${SIVERTEH_SKIP_ENGINE_APPLY:-0}" = "1" ] && [ "$used_wallpaper" = "$wallpaper" ]; then
     _writeLog "Skipping engine apply because Waypaper already set the wallpaper"
 else
     _writeLog "Applying wallpaper with active engine: $used_wallpaper"

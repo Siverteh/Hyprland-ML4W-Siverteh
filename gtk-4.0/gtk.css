@@ -1,14 +1,29 @@
 @import url("colors.css");
 @import 'colors.css';
 
-window,
-.background,
-navigationview,
-navigationview > widget,
-scrolledwindow,
-contentview {
+window {
     background-color: @window_bg_color;
     color: @window_fg_color;
+}
+
+navigationview,
+navigationview > widget {
+    background-color: @window_bg_color;
+    color: @window_fg_color;
+}
+
+scrolledwindow,
+contentview,
+popover,
+popover.background,
+popover > contents,
+tooltip,
+tooltip.background,
+menu,
+menu.background {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
 }
 
 headerbar,

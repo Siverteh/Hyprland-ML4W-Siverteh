@@ -19,11 +19,11 @@ launch_setting() {
 notify-send "Siverteh Daily Profile" "Opening your core workspaces..." -t 2000
 
 hyprctl dispatch workspace 1
-launch_setting "$HOME/.config/ml4w/settings/browser.sh"
+launch_setting "$HOME/.config/siverteh/core/settings/browser.sh"
 sleep 0.6
 
 hyprctl dispatch workspace 2
-launch_setting "$HOME/.config/ml4w/settings/editor.sh"
+launch_setting "$HOME/.config/siverteh/core/settings/editor.sh"
 sleep 0.6
 
 hyprctl dispatch workspace 3
@@ -35,7 +35,7 @@ spotify &
 sleep 0.6
 
 hyprctl dispatch workspace 5
-launch_setting "$HOME/.config/ml4w/settings/email.sh"
+launch_setting "$HOME/.config/siverteh/core/settings/email.sh"
 sleep 0.8
 
 hyprctl dispatch workspace 2

@@ -10,7 +10,7 @@ if [ -z "$wallpaper" ] || [ ! -f "$wallpaper" ]; then
     exit 1
 fi
 
-engine_file="$HOME/.config/ml4w/settings/wallpaper-engine.sh"
+engine_file="$HOME/.config/siverteh/core/settings/wallpaper-engine.sh"
 engine="swww"
 
 if [ -f "$engine_file" ]; then

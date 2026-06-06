@@ -4,7 +4,7 @@ set -euo pipefail
 
 STATE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/hypr-trash"
 TRASH_WORKSPACE="special:trash"
-TTL_SECONDS=300
+TTL_SECONDS=30
 
 mkdir -p "$STATE_DIR"
 
@@ -168,7 +168,7 @@ trash_active() {
     write_state "$address" "$workspace_id" "$workspace_name" "$trashed_at"
     hyprctl dispatch movetoworkspacesilent "$TRASH_WORKSPACE,address:$address" >/dev/null
     schedule_expiry "$address" "$trashed_at"
-    notify "Window moved to trash" "Press SUPER+SHIFT+Q to restore within 5 minutes"
+    notify "Window moved to trash" "Press SUPER+SHIFT+Q to restore within 30 seconds"
 }
 
 trashed_windows_by_age() {

@@ -2,17 +2,8 @@
 
 set -euo pipefail
 
-NVME_DEV="10000:e1:00.0"
-UPSTREAM_PORT="10000:e0:06.2"
 ASPM_POLICY="/sys/module/pcie_aspm/parameters/policy"
 NVME_APST="/sys/module/nvme_core/parameters/default_ps_max_latency_us"
-
-paths=(
-    "/sys/bus/pci/devices/${NVME_DEV}/d3cold_allowed"
-    "/sys/bus/pci/devices/${UPSTREAM_PORT}/d3cold_allowed"
-    "/sys/bus/pci/devices/${NVME_DEV}/power/control"
-    "/sys/bus/pci/devices/${UPSTREAM_PORT}/power/control"
-)
 
 usage() {
     cat <<'EOF'
@@ -30,25 +21,56 @@ If root access is required, the script prints the exact sudo commands to run.
 EOF
 }
 
+nvme_devices() {
+    local path
+
+    for path in /sys/class/nvme/nvme*/device; do
+        [[ -e "$path" ]] || continue
+        readlink -f "$path"
+    done
+}
+
+write_value() {
+    local path="$1"
+    local value="$2"
+
+    [[ -e "$path" && -w "$path" ]] || return 0
+    printf '%s\n' "$value" > "$path" || true
+}
+
+print_value() {
+    local label="$1"
+    local path="$2"
+
+    printf '%s=' "$label"
+    if [[ -e "$path" ]]; then
+        cat "$path"
+    else
+        printf 'missing\n'
+    fi
+}
+
 print_status() {
-    printf 'pcie_aspm_policy='
-    cat "$ASPM_POLICY"
-    printf 'nvme_default_ps_max_latency_us='
-    cat "$NVME_APST"
-    printf '%s=' "${paths[0]}"
-    cat "${paths[0]}"
-    printf '%s=' "${paths[1]}"
-    cat "${paths[1]}"
-    printf '%s=' "${paths[2]}"
-    cat "${paths[2]}"
-    printf '%s=' "${paths[3]}"
-    cat "${paths[3]}"
+    local dev parent
+
+    print_value pcie_aspm_policy "$ASPM_POLICY"
+    print_value nvme_default_ps_max_latency_us "$NVME_APST"
+
+    for dev in $(nvme_devices); do
+        parent="$(dirname "$dev")"
+        printf 'nvme_device=%s\n' "$dev"
+        print_value "${dev}/d3cold_allowed" "${dev}/d3cold_allowed"
+        print_value "${dev}/power/control" "${dev}/power/control"
+        printf 'nvme_parent=%s\n' "$parent"
+        print_value "${parent}/d3cold_allowed" "${parent}/d3cold_allowed"
+        print_value "${parent}/power/control" "${parent}/power/control"
+    done
 }
 
 require_root_for() {
     local mode="$1"
 
-    if [[ -w "$ASPM_POLICY" && -w "$NVME_APST" && -w "${paths[0]}" && -w "${paths[1]}" && -w "${paths[2]}" && -w "${paths[3]}" ]]; then
+    if (( EUID == 0 )); then
         return 0
     fi
 
@@ -57,12 +79,7 @@ require_root_for() {
 Root access is required to apply the NVMe timeout workaround.
 
 Run:
-  echo performance | sudo tee ${ASPM_POLICY} >/dev/null
-  echo 0 | sudo tee ${NVME_APST} >/dev/null
-  echo 0 | sudo tee ${paths[0]} >/dev/null
-  echo 0 | sudo tee ${paths[1]} >/dev/null
-  echo on | sudo tee ${paths[2]} >/dev/null
-  echo on | sudo tee ${paths[3]} >/dev/null
+  sudo ${0} apply
 
 Then check:
   ${0##*/} status
@@ -72,12 +89,7 @@ EOF
 Root access is required to revert the NVMe timeout workaround.
 
 Run:
-  echo default | sudo tee ${ASPM_POLICY} >/dev/null
-  echo 100000 | sudo tee ${NVME_APST} >/dev/null
-  echo 1 | sudo tee ${paths[0]} >/dev/null
-  echo 1 | sudo tee ${paths[1]} >/dev/null
-  echo on | sudo tee ${paths[2]} >/dev/null
-  echo auto | sudo tee ${paths[3]} >/dev/null
+  sudo ${0} revert
 
 Then check:
   ${0##*/} status
@@ -88,24 +100,38 @@ EOF
 }
 
 apply() {
+    local dev parent
+
     require_root_for apply
-    echo performance > "$ASPM_POLICY"
-    echo 0 > "$NVME_APST"
-    echo 0 > "${paths[0]}"
-    echo 0 > "${paths[1]}"
-    echo on > "${paths[2]}"
-    echo on > "${paths[3]}"
+    write_value "$ASPM_POLICY" performance
+    write_value "$NVME_APST" 0
+
+    for dev in $(nvme_devices); do
+        parent="$(dirname "$dev")"
+        write_value "${dev}/d3cold_allowed" 0
+        write_value "${dev}/power/control" on
+        write_value "${parent}/d3cold_allowed" 0
+        write_value "${parent}/power/control" on
+    done
+
     print_status
 }
 
 revert() {
+    local dev parent
+
     require_root_for revert
-    echo default > "$ASPM_POLICY"
-    echo 100000 > "$NVME_APST"
-    echo 1 > "${paths[0]}"
-    echo 1 > "${paths[1]}"
-    echo on > "${paths[2]}"
-    echo auto > "${paths[3]}"
+    write_value "$ASPM_POLICY" default
+    write_value "$NVME_APST" 100000
+
+    for dev in $(nvme_devices); do
+        parent="$(dirname "$dev")"
+        write_value "${dev}/d3cold_allowed" 1
+        write_value "${dev}/power/control" on
+        write_value "${parent}/d3cold_allowed" 1
+        write_value "${parent}/power/control" auto
+    done
+
     print_status
 }
 

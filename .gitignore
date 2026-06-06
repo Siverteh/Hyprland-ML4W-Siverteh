@@ -20,9 +20,9 @@ __pycache__/
 *.jpg
 *.png
 *.jpeg
-!ml4w/wallpapers/*.jpg
-!ml4w/wallpapers/*.png
-!ml4w/wallpapers/*.jpeg
+!siverteh/wallpapers/*.jpg
+!siverteh/wallpapers/*.png
+!siverteh/wallpapers/*.jpeg
 !wlogout/icons/*.png
 
 # Sensitive data

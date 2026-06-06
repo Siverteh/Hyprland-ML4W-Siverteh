@@ -32,54 +32,54 @@ default_theme="/siverteh-glass;/siverteh-glass/default"
 # Remove incompatible themes
 # -----------------------------------------------------
 
-if [ -f ~/.config/ml4w/settings/waybar-theme.sh ]; then
-    themestyle=$(cat ~/.config/ml4w/settings/waybar-theme.sh)
+if [ -f ~/.config/siverteh/core/settings/waybar-theme.sh ]; then
+    themestyle=$(cat ~/.config/siverteh/core/settings/waybar-theme.sh)
     case "$themestyle" in
-    "/ml4w-modern;/ml4w-modern/light")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh-modern;/siverteh-modern/light")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
-    "/ml4w-modern;/ml4w-modern/dark")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh-modern;/siverteh-modern/dark")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
-    "/ml4w;/ml4w/light")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh;/siverteh/light")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
-    "/ml4w;/ml4w/dark")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh;/siverteh/dark")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
-    "/ml4w-glass;/ml4w-glass/default")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh-glass-classic;/siverteh-glass-classic/default")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
-    "/ml4w-modern;/ml4w-modern/default")
-        echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    "/siverteh-modern;/siverteh-modern/default")
+        echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
         ;;
     *)
         echo
         ;;
     esac
-    if [ -d $HOME/.config/waybar/themes/ml4w-modern/light ]; then
-        rm -rf $HOME/.config/waybar/themes/ml4w-modern/light
+    if [ -d $HOME/.config/waybar/themes/siverteh-modern/light ]; then
+        rm -rf $HOME/.config/waybar/themes/siverteh-modern/light
     fi
-    if [ -d $HOME/.config/waybar/themes/ml4w-modern/dark ]; then
-        rm -rf $HOME/.config/waybar/themes/ml4w-modern/dark
+    if [ -d $HOME/.config/waybar/themes/siverteh-modern/dark ]; then
+        rm -rf $HOME/.config/waybar/themes/siverteh-modern/dark
     fi
-    if [ -d $HOME/.config/waybar/themes/ml4w/light ]; then
-        rm -rf $HOME/.config/waybar/themes/ml4w/light
+    if [ -d $HOME/.config/waybar/themes/siverteh/light ]; then
+        rm -rf $HOME/.config/waybar/themes/siverteh/light
     fi
-    if [ -d $HOME/.config/waybar/themes/ml4w/dark ]; then
-        rm -rf $HOME/.config/waybar/themes/ml4w/dark
+    if [ -d $HOME/.config/waybar/themes/siverteh/dark ]; then
+        rm -rf $HOME/.config/waybar/themes/siverteh/dark
     fi
 fi
 
 # -----------------------------------------------------
-# Get current theme information from ~/.config/ml4w/settings/waybar-theme.sh
+# Get current theme information from ~/.config/siverteh/core/settings/waybar-theme.sh
 # -----------------------------------------------------
 
-if [ -f ~/.config/ml4w/settings/waybar-theme.sh ]; then
-    themestyle=$(cat ~/.config/ml4w/settings/waybar-theme.sh)
+if [ -f ~/.config/siverteh/core/settings/waybar-theme.sh ]; then
+    themestyle=$(cat ~/.config/siverteh/core/settings/waybar-theme.sh)
 else
-    touch ~/.config/ml4w/settings/waybar-theme.sh
-    echo "$default_theme" >~/.config/ml4w/settings/waybar-theme.sh
+    touch ~/.config/siverteh/core/settings/waybar-theme.sh
+    echo "$default_theme" >~/.config/siverteh/core/settings/waybar-theme.sh
     themestyle=$default_theme
 fi
 
@@ -110,8 +110,8 @@ config_path="$HOME/.config/waybar/themes${arrThemes[0]}/$config_file"
 style_path="$HOME/.config/waybar/themes${arrThemes[1]}/$style_file"
 
 # Check if waybar-disabled file exists
-if [ ! -f $HOME/.config/ml4w/settings/waybar-disabled ]; then
-    nohup /usr/bin/waybar \
+if [ ! -f $HOME/.config/siverteh/core/settings/waybar-disabled ]; then
+    setsid -f /usr/bin/waybar \
         -c "$config_path" \
         -s "$style_path" \
         >/tmp/waybar.log 2>&1 </dev/null &

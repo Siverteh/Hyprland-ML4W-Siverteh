@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-killall hypridle
+killall hypridle 2>/dev/null || true
 sleep 1
-hypridle &
+hyprctl dispatch exec "hypridle" >/dev/null
 notify-send "hypridle has been restarted."

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-exec "$HOME/.config/ml4w/scripts/welcome.sh"
+exec "$HOME/.config/siverteh/core/scripts/welcome.sh"

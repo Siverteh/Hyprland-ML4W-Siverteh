@@ -49,11 +49,11 @@ nautilus_window_open() {
     ' >/dev/null 2>&1
 }
 
-ml4w_cache_folder="$HOME/.cache/ml4w/hyprland-dotfiles"
+siverteh_cache_folder="$HOME/.cache/siverteh/hyprland-dotfiles"
 
-defaultwallpaper="$HOME/.config/ml4w/wallpapers/default.jpg"
+defaultwallpaper="$HOME/.config/siverteh/core/wallpapers/default.jpg"
 
-cachefile="$ml4w_cache_folder/current_wallpaper"
+cachefile="$siverteh_cache_folder/current_wallpaper"
 
 # -----------------------------------------------------
 # Get current wallpaper

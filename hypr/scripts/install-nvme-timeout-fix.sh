@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-REPO_ROOT="/home/siverteh/Hyprland-ML4W-Siverteh"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SERVICE_SRC="${REPO_ROOT}/hypr/scripts/nvme-timeout-workaround.service"
 SERVICE_DST="/etc/systemd/system/nvme-timeout-workaround.service"
+HELPER_SRC="${REPO_ROOT}/hypr/scripts/nvme-timeout-workaround.sh"
+HELPER_DST="/usr/local/sbin/nvme-timeout-workaround"
 LIMINE_CONF="/etc/default/limine"
 PARAM="nvme_core.default_ps_max_latency_us=0"
 
@@ -28,6 +30,7 @@ if ! grep -Fqw "$PARAM" "$LIMINE_CONF"; then
 fi
 
 install -Dm644 "$SERVICE_SRC" "$SERVICE_DST"
+install -Dm755 "$HELPER_SRC" "$HELPER_DST"
 systemctl daemon-reload
 systemctl enable nvme-timeout-workaround.service
 systemctl restart nvme-timeout-workaround.service

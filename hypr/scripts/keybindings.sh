@@ -11,7 +11,7 @@ config_file="$HOME/.config/hypr/conf/keybinding.conf"
 # -----------------------------------------------------
 # Load Launcher
 # -----------------------------------------------------
-launcher=$(cat $HOME/.config/ml4w/settings/launcher)
+launcher=$(cat $HOME/.config/siverteh/core/settings/launcher)
 
 # -----------------------------------------------------
 # Path to keybindings config file

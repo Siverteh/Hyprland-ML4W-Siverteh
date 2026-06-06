@@ -1,9 +1,19 @@
 @import 'colors.css';
 
-window,
-.background {
+window {
     background-color: @window_bg_color;
     color: @window_fg_color;
+}
+
+menu,
+menu.background,
+tooltip,
+tooltip.background,
+popover,
+popover.background {
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
 }
 
 headerbar,

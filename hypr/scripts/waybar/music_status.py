@@ -157,6 +157,10 @@ def connectivity_pill_width():
     return width
 
 
+def bar_settings():
+    return load_siverteh_settings().get("bar", {})
+
+
 def first_player():
     players = run("playerctl", "-l").stdout.strip().splitlines()
     cleaned = [player.strip() for player in players if player.strip()]
@@ -467,38 +471,50 @@ def logical_monitor_width():
 
 def adaptive_label_limit():
     monitor_width = logical_monitor_width()
-    # Music sits at the left edge of the right cluster and should flex to fill
-    # the gap from the center clock to the fixed right-side pills. The other
-    # right-side pills always keep priority and stay fully visible.
-    half_bar_budget = int(monitor_width / 2)
-    center_clock_half = 92
-    center_gap = 22
+    settings = bar_settings()
+    visible_windows = visible_client_count() if settings.get("show_open_apps", True) else 0
 
-    music_progress_width = 96
-    music_buttons_width = 50
-    updates_width = updates_pill_width()
-    stats_width = 138
-    connectivity_width = connectivity_pill_width()
-    session_width = 104
-    right_spacing = 16
+    appmenu_width = 56
+    workspaces_width = 186
+    taskbar_width = 0
+    if settings.get("show_open_apps", True):
+        if visible_windows > 0:
+            taskbar_width = 18 + (visible_windows * 34)
 
-    fixed_right_width = (
-        music_progress_width
+    music_progress_width = 108
+    music_buttons_width = 64
+    left_spacing = 18
+
+    updates_width = updates_pill_width() + 12
+    stats_width = 146 if settings.get("show_stats", True) else 0
+    connectivity_width = connectivity_pill_width() + 16
+    session_width = 104 + (78 if settings.get("show_clock", True) else 0)
+    right_spacing = 18
+
+    fixed_left_width = (
+        appmenu_width
+        + workspaces_width
+        + taskbar_width
+        + music_progress_width
         + music_buttons_width
-        + updates_width
-        + stats_width
-        + connectivity_width
-        + session_width
-        + right_spacing
+        + left_spacing
     )
 
-    remaining = half_bar_budget - center_clock_half - center_gap - fixed_right_width
+    fixed_right_width = updates_width + stats_width + connectivity_width + session_width + right_spacing
+
+    remaining = monitor_width - fixed_left_width - fixed_right_width
     if remaining <= 0:
         return 0
 
-    character_width = 8.2
-    limit = int(remaining / character_width)
-    return max(0, min(limit, 44))
+    remaining -= 28
+    if remaining <= 0:
+        return 0
+
+    character_width = 7.9
+    width_limit = int(remaining / character_width)
+    pressure_limit = 46 - (visible_windows * 3)
+    limit = min(width_limit, pressure_limit)
+    return max(0, min(limit, 46))
 
 
 def current_player_metadata():
@@ -519,8 +535,16 @@ def label_payload():
     status, tooltip = current_player_metadata()
     if status == "idle":
         return {"text": "", "class": "idle", "tooltip": tooltip}
+    if bar_settings().get("music_display", "compact") != "full":
+        return {"text": "", "class": status, "tooltip": tooltip}
+
+    full_text = " ".join(tooltip.split())
+    limit = adaptive_label_limit()
+    if limit < 8:
+        return {"text": "", "class": status, "tooltip": tooltip}
+
     return {
-        "text": " ".join(tooltip.split()),
+        "text": marquee_track_text(full_text, limit=limit, step_duration=0.32, edge_pause_steps=4),
         "class": status,
         "tooltip": tooltip,
     }
@@ -595,7 +619,7 @@ def cava_daemon():
                     }
                     write_cache_payload(payload)
 
-                    if now - last_signal > 0.12:
+                    if now - last_signal > 0.5:
                         signal_waybar_refresh()
                         last_signal = now
             finally:
@@ -657,12 +681,12 @@ def main():
         while True:
             try:
                 print(json.dumps(label_payload()), flush=True)
-                time.sleep(0.12)
+                time.sleep(0.5)
             except BrokenPipeError:
                 return
 
     if follow:
-        delay = 0.12 if mode != "play-icon" else 0.25
+        delay = 0.5 if mode != "play-icon" else 0.5
         while True:
             try:
                 print(json.dumps(payload_for_mode()), flush=True)

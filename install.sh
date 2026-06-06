@@ -92,10 +92,11 @@ if [ -d "$DOTFILES_DIR/kitty" ]; then
     create_symlink "$DOTFILES_DIR/kitty" "$CONFIG_DIR/kitty"
 fi
 
-# Siverteh core compatibility
-if [ -d "$DOTFILES_DIR/ml4w" ]; then
-    echo "→ Siverteh compatibility configuration"
-    create_symlink "$DOTFILES_DIR/ml4w" "$CONFIG_DIR/ml4w"
+# Siverteh core
+if [ -d "$DOTFILES_DIR/siverteh" ]; then
+    echo "→ Siverteh core configuration"
+    mkdir -p "$CONFIG_DIR/siverteh"
+    create_symlink "$DOTFILES_DIR/siverteh" "$CONFIG_DIR/siverteh/core"
 fi
 
 # Wlogout (power menu)

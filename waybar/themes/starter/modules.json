@@ -59,9 +59,9 @@
     // Cliphist
     "custom/cliphist": {
         "format": "",
-        "on-click": "sleep 0.1 && ~/.config/ml4w/scripts/cliphist.sh",
-        "on-click-right": "sleep 0.1 && ~/.config/ml4w/scripts/cliphist.sh d",
-        "on-click-middle": "sleep 0.1 && ~/.config/ml4w/scripts/cliphist.sh w",
+        "on-click": "sleep 0.1 && ~/.config/siverteh/core/scripts/cliphist.sh",
+        "on-click-right": "sleep 0.1 && ~/.config/siverteh/core/scripts/cliphist.sh d",
+        "on-click-middle": "sleep 0.1 && ~/.config/siverteh/core/scripts/cliphist.sh w",
         "tooltip": false
     },
 
@@ -83,9 +83,9 @@
         "tooltip-format": "{}",
         "escape": true,
         "return-type": "json",
-        "exec": "~/.config/ml4w/scripts/updates.sh",
+        "exec": "~/.config/siverteh/core/scripts/updates.sh",
         "restart-interval": 60,
-        "on-click": "alacritty -e ~/.config/ml4w/scripts/installupdates.sh",
+        "on-click": "alacritty -e ~/.config/siverteh/core/scripts/installupdates.sh",
         "tooltip": false
     },
 
@@ -113,7 +113,7 @@
     // Settings
     "custom/settings": {
         "format": "",
-        "on-click": "flatpak run com.ml4w.settings",
+        "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
         "tooltip": false
     },
 
@@ -134,14 +134,14 @@
     // Browser Launcher
     "custom/browser": {
         "format": "",
-        "on-click": "~/.config/ml4w/settings/browser.sh",
+        "on-click": "~/.config/siverteh/core/settings/browser.sh",
         "tooltip": false
     },
 
-    // ML4W Welcome App
-    "custom/ml4w-welcome": {
-        "on-click": "flatpak run com.ml4w.sidebar",
-        "on-click-right": "flatpak run com.ml4w.welcome",
+    // Siverteh OS Welcome App
+    "custom/siverteh-hub": {
+        "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
+        "on-click-right": "~/.config/hypr/scripts/siverteh-hub.sh",
         "format": " ",
         "tooltip-format": "Open Sidebar"
     },
@@ -188,7 +188,7 @@
     // Clock
     "clock": {
         "format": "{:%H:%M %a}",
-        "on-click": "flatpak run com.ml4w.calendar",
+        "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh",
         "tooltip": false
     },
 
@@ -327,7 +327,7 @@
     "user": {
         "format": "{user}",
         "interval": 60,
-        "icon": false,
+        "icon": false
     },
 
     // Idle Inhibator

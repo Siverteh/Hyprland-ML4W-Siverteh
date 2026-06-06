@@ -17,13 +17,13 @@
 prompt='Screenshot'
 mesg="DIR: ~/Screenshots"
 
-SAVE_DIR=$(cat ~/.config/ml4w/settings/screenshot-folder)
-SAVE_FILENAME=$(cat ~/.config/ml4w/settings/screenshot-filename)
+SAVE_DIR=$(cat ~/.config/siverteh/core/settings/screenshot-folder)
+SAVE_FILENAME=$(cat ~/.config/siverteh/core/settings/screenshot-filename)
 eval screenshot_folder="$SAVE_DIR"
 eval NAME="$SAVE_FILENAME"
 
 # Screenshot Editor
-export GRIMBLAST_EDITOR="$(cat ~/.config/ml4w/settings/screenshot-editor)"
+export GRIMBLAST_EDITOR="$(cat ~/.config/siverteh/core/settings/screenshot-editor)"
 
 # Example for keybindings
 # bind = SUPER, p, exec, grimblast save active

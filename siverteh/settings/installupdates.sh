@@ -1,0 +1,1 @@
+$(cat ~/.config/siverteh/core/settings/terminal.sh) --class dotfiles-floating -e ~/.config/siverteh/core/scripts/installupdates.sh

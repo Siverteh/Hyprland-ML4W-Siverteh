@@ -1,6 +1,6 @@
-# Hyprland-ML4W-Siverteh
+# Siverteh OS Hyprland Dotfiles
 
-My personal Hyprland dotfiles built on ML4W.
+My personal Hyprland dotfiles built on Siverteh OS.
 
 ## Structure
 ```
@@ -19,8 +19,8 @@ dotfiles/
 
 ## Installation
 ```bash
-git clone https://github.com/yourusername/Hyprland-ML4W-Siverteh.git ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/yourusername/siverteh-os.git ~/siverteh-os
+cd ~/siverteh-os
 ./install.sh
 ```
 
@@ -43,4 +43,4 @@ See [hypr/conf/keybinding.conf](hypr/conf/keybinding.conf) for full list.
 
 ## Credits
 
-Built on [ML4W Dotfiles](https://github.com/mylinuxforwork/dotfiles)# Hyprland-ML4W-Siverteh
+Built for Siverteh OS.

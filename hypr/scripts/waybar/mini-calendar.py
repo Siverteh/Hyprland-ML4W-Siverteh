@@ -228,9 +228,13 @@ class MiniCalendar(Gtk.Application):
         colors = self.colors
         css = f"""
         window.popup-window,
+        window.popup-window.background,
+        .popup-window,
+        .popup-window.background,
         window {{
             background: transparent;
             background-color: transparent;
+            background-image: none;
             border: none;
             outline: none;
             box-shadow: none;

@@ -4,7 +4,7 @@ After=local-fs.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash -lc 'echo performance > /sys/module/pcie_aspm/parameters/policy && echo 0 > /sys/module/nvme_core/parameters/default_ps_max_latency_us && echo 0 > /sys/bus/pci/devices/10000:e1:00.0/d3cold_allowed && echo 0 > /sys/bus/pci/devices/10000:e0:06.2/d3cold_allowed && echo on > /sys/bus/pci/devices/10000:e1:00.0/power/control && echo on > /sys/bus/pci/devices/10000:e0:06.2/power/control'
+ExecStart=/usr/local/sbin/nvme-timeout-workaround apply
 RemainAfterExit=yes
 
 [Install]

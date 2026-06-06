@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 system_xdg_open="/usr/bin/xdg-open"
-browser_setting="$HOME/.config/ml4w/settings/browser.sh"
+browser_setting="$HOME/.config/siverteh/core/settings/browser.sh"
 
 if [ "$#" -ne 1 ]; then
     exec "$system_xdg_open" "$@"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep ASUS UX3405 touchpad I2C controller awake
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -lc 'echo on > /sys/bus/pci/devices/0000:00:15.1/power/control'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

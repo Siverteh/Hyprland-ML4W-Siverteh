@@ -14,8 +14,8 @@ read_color() {
 host=$(hostname)
 user=${USER:-siverteh}
 distro=$(awk -F= '/^PRETTY_NAME=/{gsub(/"/, "", $2); print $2}' /etc/os-release 2>/dev/null)
-primary=$(read_color "$HOME/.config/ml4w/colors/primary" "#c495ff")
-secondary=$(read_color "$HOME/.config/ml4w/colors/secondary" "#8fd6ff")
+primary=$(read_color "$HOME/.config/siverteh/core/colors/primary" "#c495ff")
+secondary=$(read_color "$HOME/.config/siverteh/core/colors/secondary" "#8fd6ff")
 
 if [ -z "$distro" ]; then
     distro="Linux"
