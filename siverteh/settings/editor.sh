@@ -1,1 +1,1 @@
-code
+~/.config/hypr/scripts/ai-workspace.sh

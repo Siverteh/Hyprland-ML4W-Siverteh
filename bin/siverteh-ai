@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""Launch independent local or SSH Codex tasks, sessions, and the personal vault."""
+import argparse
+import datetime as dt
+import json
+import os
+from pathlib import Path
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+
+
+def settings_path():
+    return Path(os.environ.get("SIVERTEH_AI_PROJECTS", str(Path.home() / ".config/siverteh-ai/projects.json")))
+
+
+def projects():
+    p = settings_path()
+    if not p.is_file():
+        raise ValueError(f"Create {p} using the example in the OS repository's ai/ directory")
+    values = json.loads(p.read_text())["projects"]
+    if not values:
+        raise ValueError("No projects configured")
+    for item in values:
+        if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]*", item["id"]):
+            raise ValueError("Project id must contain only letters, digits, hyphens, or underscores")
+        if not str(item["path"]).startswith("/"):
+            raise ValueError("Project paths must be absolute")
+        if item.get("host") and not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9._@-]*", item["host"]):
+            raise ValueError("Use a concrete SSH alias without shell syntax")
+    return values
+
+
+def select(lines, prompt):
+    result = subprocess.run(["fzf", "--height=80%", "--border", "--prompt", prompt], input="\n".join(lines), text=True, capture_output=True)
+    if result.returncode:
+        raise SystemExit(0)
+    return result.stdout.strip()
+
+
+def project_for(identifier):
+    values = projects()
+    if not identifier:
+        identifier = select([f"{p['id']}\t{p.get('label', p['id'])}\t{p.get('host', 'this computer')}" for p in values], "Project > ").split("\t")[0]
+    for item in values:
+        if item["id"] == identifier:
+            return item
+    raise ValueError(f"Unknown project: {identifier}")
+
+
+def local_environment(account):
+    env = dict(os.environ)
+    if account:
+        if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,47}", account):
+            raise ValueError("Invalid account profile name")
+        home = Path.home() / ".local/share/siverteh-ai/accounts" / account
+        home.mkdir(parents=True, exist_ok=True, mode=0o700)
+        home.chmod(0o700)
+        guidance = home / "AGENTS.md"
+        canonical = Path.home() / ".codex/AGENTS.md"
+        if not guidance.exists() and canonical.exists():
+            guidance.symlink_to(canonical)
+        env["CODEX_HOME"] = str(home)
+    return env
+
+
+def validate_account(account):
+    if account and not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,47}", account):
+        raise ValueError("Invalid account profile name")
+
+
+def run_project(args):
+    validate_account(args.account)
+    p = project_for(args.project)
+    if p.get("host"):
+        if args.command == "sessions":
+            listing = subprocess.run(["ssh", "-o", "BatchMode=yes", p["host"], "tmux list-sessions -F '#S' 2>/dev/null"], text=True, capture_output=True)
+            account_tag = f"profile-{args.account}" if args.account else "default"
+            pattern = re.compile(re.escape(f"ai-{p['id']}-{account_tag}-") + r"[0-9]{8}T[0-9]{6}-[0-9]+$")
+            names = [x for x in listing.stdout.splitlines() if pattern.fullmatch(x)]
+            if not names:
+                print("No running sessions for this project. Choose New task.")
+                return
+            session = select(names, "Resume session > ")
+            command = shlex.join(["tmux", "attach-session", "-t", "=" + session])
+        elif args.command == "shell":
+            command = "cd " + shlex.quote(p["path"]) + " && exec \"${SHELL:-/bin/sh}\" -l"
+        else:
+            helper = p.get("remote_helper", "~/.local/bin/siverteh-ai-remote")
+            # Only the default tilde expression is shell-expanded. Configured paths are literal.
+            executable = '"$HOME/.local/bin/siverteh-ai-remote"' if helper == "~/.local/bin/siverteh-ai-remote" else shlex.quote(helper)
+            command = executable + " " + shlex.join([p["id"], p["path"], args.account or ""])
+        os.execvp("ssh", ["ssh", "-t", p["host"], command])
+    env = local_environment(args.account)
+    vault = Path(os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain")))
+    executable = str(Path.home() / ".local/bin/codex")
+    if args.command == "sessions":
+        argv = [executable, "agents", "-C", p["path"]]
+    elif args.command == "shell":
+        os.chdir(p["path"])
+        os.execvpe(env.get("SHELL", "/bin/bash"), [env.get("SHELL", "/bin/bash"), "-l"], env)
+    else:
+        argv = [executable, "--worktree", "-C", p["path"], "--add-dir", str(vault)]
+    os.execvpe(argv[0], argv, env)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", choices=["dashboard", "new", "sessions", "shell", "brain", "login", "projects"], nargs="?", default="dashboard")
+    parser.add_argument("--project")
+    parser.add_argument("--account", help="Separate CODEX_HOME/auth on the selected host; all profiles share the same personal vault")
+    args = parser.parse_args()
+    validate_account(args.account)
+    if args.command == "projects":
+        for p in projects():
+            print(f"{p['id']}: {p.get('label', p['id'])} ({p.get('host', 'local')})")
+    elif args.command == "login":
+        if args.project:
+            project = project_for(args.project)
+            if project.get('host'):
+                if not args.account:
+                    command = 'codex login --device-auth'
+                else:
+                    command = '"$HOME/.local/bin/siverteh-ai-account" ' + shlex.join([args.account, 'login', '--device-auth'])
+                os.execvp('ssh', ['ssh', '-t', project['host'], command])
+        env = local_environment(args.account)
+        binary = str(Path.home() / ".local/bin/codex")
+        os.execvpe(binary, [binary, "login"], env)
+    elif args.command == "brain":
+        vault = subprocess.check_output([str(Path.home() / ".local/bin/siverteh-brain"), "init"], text=True).strip()
+        sync = shutil.which("siverteh-brain-sync")
+        if sync:
+            try:
+                subprocess.run([sync], timeout=50, check=False)
+            except subprocess.TimeoutExpired:
+                print("Brain sync timed out; opening the available local notes", file=sys.stderr)
+        obsidian = shutil.which("obsidian")
+        if obsidian:
+            from urllib.parse import quote
+            subprocess.Popen([obsidian, "obsidian://open?path=" + quote(vault, safe="")], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        else:
+            os.execvp("less", ["less", str(Path(vault) / "README.md")])
+    elif args.command == "dashboard":
+        actions = ["New task", "Running sessions", "Project shell", "Open brain", "ChatGPT", "Close dashboard"]
+        while True:
+            action = select(actions, "Siverteh AI > ")
+            if action == "Close dashboard":
+                return
+            if action == "ChatGPT":
+                subprocess.Popen(["chatgpt"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+                continue
+            command = {"New task": "new", "Running sessions": "sessions", "Project shell": "shell", "Open brain": "brain"}[action]
+            child = [str(Path(__file__).resolve()), command]
+            if command != "brain":
+                p = project_for(None)
+                child.extend(["--project", p["id"]])
+                if args.account:
+                    child.extend(["--account", args.account])
+            subprocess.Popen(["kitty", "--class", "siverteh-ai-task", "--title", action, "--", *child], start_new_session=True)
+    else:
+        run_project(args)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (ValueError, OSError, KeyError, subprocess.CalledProcessError) as error:
+        print(f"siverteh-ai: {error}", file=sys.stderr)
+        raise SystemExit(1)
