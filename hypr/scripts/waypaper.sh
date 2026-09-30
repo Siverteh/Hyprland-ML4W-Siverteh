@@ -5,13 +5,13 @@ export PATH="$HOME/.local/bin:$PATH"
 engine_file="$HOME/.config/siverteh/core/settings/wallpaper-engine.sh"
 waypaper_config="$HOME/.config/waypaper/config.ini"
 
-backend="swww"
+backend="awww"
 if [ -f "$engine_file" ]; then
     backend="$(tr -d '\n' <"$engine_file")"
 fi
 
 if [ -z "$backend" ]; then
-    backend="swww"
+    backend="awww"
 fi
 
 if [ -f "$waypaper_config" ]; then

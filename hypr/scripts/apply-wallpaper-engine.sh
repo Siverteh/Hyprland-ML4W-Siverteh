@@ -11,14 +11,14 @@ if [ -z "$wallpaper" ] || [ ! -f "$wallpaper" ]; then
 fi
 
 engine_file="$HOME/.config/siverteh/core/settings/wallpaper-engine.sh"
-engine="swww"
+engine="awww"
 
 if [ -f "$engine_file" ]; then
     engine="$(tr -d '\n' <"$engine_file")"
 fi
 
 if [ -z "$engine" ]; then
-    engine="swww"
+    engine="awww"
 fi
 
 apply_hyprpaper() {
@@ -63,7 +63,7 @@ apply_hyprpaper() {
     nohup hyprpaper >/tmp/hyprpaper.log 2>&1 </dev/null &
 }
 
-apply_swww() {
+apply_awww() {
     local waypaper_config="$HOME/.config/waypaper/config.ini"
     local transition_type="any"
     local transition_step="90"
@@ -71,8 +71,8 @@ apply_swww() {
     local transition_fps="60"
     local transition_angle="0"
 
-    if ! command -v swww-daemon >/dev/null 2>&1 || ! command -v swww >/dev/null 2>&1; then
-        echo ":: swww backend selected but swww is not installed" >&2
+    if ! command -v awww-daemon >/dev/null 2>&1 || ! command -v awww >/dev/null 2>&1; then
+        echo ":: awww backend selected but awww is not installed" >&2
         exit 1
     fi
 
@@ -86,12 +86,16 @@ apply_swww() {
 
     pkill -x hyprpaper >/dev/null 2>&1 || true
 
-    if ! pgrep -x swww-daemon >/dev/null 2>&1; then
-        nohup swww-daemon >/tmp/swww.log 2>&1 </dev/null &
-        sleep 0.5
+    if ! awww query >/dev/null 2>&1; then
+        nohup awww-daemon >"${XDG_RUNTIME_DIR:?}/siverteh-awww.log" 2>&1 </dev/null &
+        for _ in $(seq 1 30); do
+            awww query >/dev/null 2>&1 && break
+            sleep 0.1
+        done
+        awww query >/dev/null
     fi
 
-    swww img "$wallpaper" \
+    awww img "$wallpaper" \
         --transition-type "${transition_type:-any}" \
         --transition-step "${transition_step:-90}" \
         --transition-duration "${transition_duration:-2}" \
@@ -103,10 +107,11 @@ case "$engine" in
 hyprpaper)
     apply_hyprpaper
     ;;
-swww)
-    apply_swww
+awww)
+    apply_awww
     ;;
 *)
-    apply_hyprpaper
+    echo ":: Unsupported wallpaper engine: $engine" >&2
+    exit 2
     ;;
 esac
