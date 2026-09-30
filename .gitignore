@@ -29,3 +29,6 @@ __pycache__/
 **/*password*
 **/*secret*
 **/*token*
+
+# This file names a D-Bus provider and contains no credentials.
+!/ai/dbus/org.freedesktop.secrets.service

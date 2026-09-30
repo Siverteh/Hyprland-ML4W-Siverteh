@@ -141,6 +141,9 @@ echo -e "${GREEN}═════════════════════
 echo -e "${GREEN}  Installation complete!${NC}"
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo ""
+python3 "$DOTFILES_DIR/ai/install-codex.py"
+python3 "$DOTFILES_DIR/ai/install.py"
+
 echo "Your configs are now symlinked to $DOTFILES_DIR"
 echo ""
 echo "Next steps:"
