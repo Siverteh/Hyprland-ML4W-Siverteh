@@ -21,11 +21,11 @@ vault="$HOME/Documents/Siverteh-Brain"
 mkdir -p "$vault"
 chmod 700 "$vault"
 if [[ -n "$account" ]]; then
-    printf -v command '%q ' "$HOME/.local/bin/siverteh-ai-account" "$account" -C "$worktree" --add-dir "$vault"
+    printf -v command '%q ' "$HOME/.local/bin/siverteh-ai-account" "$account" --sandbox danger-full-access --ask-for-approval never -C "$worktree" --add-dir "$vault"
 else
-    printf -v command '%q ' codex -C "$worktree" --add-dir "$vault"
+    printf -v command '%q ' codex --sandbox danger-full-access --ask-for-approval never -C "$worktree" --add-dir "$vault"
 fi
-# Remain in a shell after Codex exits, so session output and checkout stay accessible.
+# Preserve failures and explain the remaining terminal instead of silently closing.
 printf -v directory '%q' "$worktree"
-command="cd $directory && $command; exec bash -l"
+command="cd $directory && $command; result=\$?; printf '\nCodex ended (exit %s). Your files and saved conversation remain.\n' \"\$result\"; printf 'Type codex resume to reopen saved work, or exit to close this task.\n'; exec bash -l"
 exec tmux new-session -s "$session" bash -lc "$command"

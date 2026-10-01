@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import subprocess
 
 if len(sys.argv) < 2 or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,47}', sys.argv[1]):
     raise SystemExit('Usage: siverteh-ai-account ACCOUNT [Codex arguments...]')
@@ -15,4 +16,5 @@ canonical = Path.home() / '.codex/AGENTS.md'
 if not guidance.exists() and canonical.exists():
     guidance.symlink_to(canonical)
 env = dict(os.environ, CODEX_HOME=str(profile))
+subprocess.run([str(Path.home()/'.local/bin/siverteh-ai-chat'), 'configure'], env=env, check=True)
 os.execvpe('codex', ['codex', *sys.argv[2:]], env)

@@ -44,7 +44,7 @@ def main():
         target.symlink_to(source)
 
     binaries = ["siverteh-brain", "siverteh-ai-remote"] if args.remote else ["codex", "siverteh-ai", "siverteh-brain", "siverteh-ai-remote"]
-    binaries.extend(['siverteh-ai-account', 'siverteh-brain-sync'])
+    binaries.extend(['siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
     if not args.remote and (home / '.local/share/siverteh-ai/obsidian/1.13.7/squashfs-root/AppRun').exists():
         binaries.append('obsidian')
     if not args.remote:
@@ -87,6 +87,10 @@ def main():
         if target.exists() and target.resolve() != (repo / "ai/AGENTS.md").resolve():
             raise RuntimeError(f"Existing isolated guidance needs manual integration: {target}")
         link(repo / "ai/AGENTS.md", target)
+    title_env = dict(os.environ)
+    if args.codex_home:
+        title_env["CODEX_HOME"] = str(args.codex_home.expanduser().resolve())
+    subprocess.run([str(home / ".local/bin/siverteh-ai-chat"), "configure"], env=title_env, check=True)
     config = home / ".config/siverteh-ai/projects.json"
     if not config.exists():
         config.parent.mkdir(parents=True, exist_ok=True, mode=0o700)

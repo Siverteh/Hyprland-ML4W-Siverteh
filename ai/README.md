@@ -1,14 +1,119 @@
 # Personal AI workspace
 
 Workspace 2 opens ChatGPT and a Kitty controller. Use the controller to start
-independent tasks, attach running sessions, open a project shell, or browse the
-private brain. `SUPER+ALT+C` uses the existing daily workspace launcher.
+independent tasks, resume running sessions, or optionally browse private notes.
+Obsidian is never launched by the workspace launcher; agents use the Markdown
+files directly even while it is closed. `SUPER+ALT+C` uses the existing daily workspace launcher.
+
+## Daily use
+
+The dashboard has eight actions: **New task**, **Resume latest task**, **Load task**,
+**New project**, **Project terminal**,
+**Open brain**, **Settings**, and **Close**. A responsive alternate-screen menu
+keeps one logo and one selection list visible, including during window resizing.
+Every submenu includes Back; Escape also returns and stays in the main menu. Close exits only the
+dashboard, leaving workers running. Project terminal remains a separate command
+prompt; `exit` or Ctrl+D closes it.
+
+New project creates a named local folder under `~/Projects`, initializes Git, and
+registers it without overwriting folders or making an initial commit. It offers
+Start task or Back. New task offers **General chat** first, followed by registered
+projects. General chat needs no repository and uses a private scratch folder per
+conversation under `~/.local/share/siverteh-ai/chats`; it appears in Load task and
+Resume latest task for the current account. Ask ordinary questions, or ask to work
+on a named project later in the same conversation. The agent reads the project
+registry and its instructions, uses explicit working directories, and creates an
+isolated worktree before editing. The installed Codex user default is full filesystem and network access, with command
+approval prompts disabled; project instructions and user-requested scope still apply.
+Its history stays grouped under General chat even if a project is discussed later.
+
+Choosing a project in New task then offers **Codex** or **Claude Code**. Both use an
+isolated worktree; an empty repository uses an orphan worktree until its first
+commit. Remote workers run in tmux; detach
+with Ctrl+B, then D. Resume latest task opens the most recently updated chat
+across configured projects for the selected account, without another picker.
+Load task combines native Codex and Claude Code chats across those projects, newest first, with assistant labels, project names and
+running/saved status. It attaches running remote tasks or resumes the exact saved
+thread; local tasks resume in their recorded working directory. If no chats exist,
+it returns without starting a new task. Each chat resumes in its original assistant; this does not convert or merge transcripts between assistants. Load task retains available histories with a warning when a source is unavailable.
+Resume latest reports an error rather than silently choosing a different latest task.
+New agents are instructed to assign a concise title through the local
+`siverteh_workflow.set_chat_title` MCP tool. It only exposes chat naming via
+Codex’s supported API; it does not grant additional permissions itself.
+Titles use the native `thread/name/set` API, not direct database edits. An unnamed
+chat displays its first-request preview until the agent gives it a title. Separate
+account homes stay separate. Local resume uses the native Codex resume interface.
+
+Agents automatically checkpoint useful verified findings and preferences into the
+private brain at milestones and before handoff. This is agent behavior guided by
+shared instructions, not an indiscriminate conversation recorder. Trivial turns,
+duplicate facts and secrets are excluded. The existing two-minute file sync moves
+new notes between configured hosts; Obsidian need not run. New/resumed sessions
+load updated guidance; already-running sessions may retain earlier instructions.
+
+Terminal workers and ChatGPT app projects have separate conversations. Their
+shared knowledge is the private Markdown vault, not a unified chat history.
+
+## Claude Code
+
+Install the native Claude Code CLI using [Anthropic's setup instructions](https://code.claude.com/docs/en/setup).
+Run `python3 ai/install-claude.py` for the isolated, pinned Python session-history
+SDK, and `python3 ai/install.py` to link the adapter. Install these on each host
+where Claude tasks run. Sign in with `siverteh-ai login --agent claude` (or
+`claude auth login`). Claude authentication is independent of Codex.
+
+`New task → project/General chat → Claude Code` starts a native interactive Claude
+session. CLI callers use `siverteh-ai new --project PROJECT --agent claude`.
+Project tasks get separate `claude/…` worktrees; general chats use independent
+scratch folders. Remote tasks run in tmux. The adapter passes shared brain and
+project instructions through Claude's supported appended system prompt, including
+reading repository AGENTS.md and respecting remote build-host settings. Native
+Claude configuration and permission modes remain in effect.
+
+The combined history uses Codex's supported thread API and Anthropic's
+`list_sessions()` metadata API, with millisecond timestamps normalized before
+sorting. Titles come from each assistant's native history; Claude's `/rename`
+updates the displayed title. This does not parse or rewrite private transcript
+formats. `--account NAME` keeps Claude data in a separate
+`~/.local/share/siverteh-ai/claude-accounts/NAME`; it never copies Codex credentials.
+No Claude login or SDK is needed to list a host/account with no Claude history.
+
+## Accounts in Settings
+
+Settings provides Accounts, Default assistant (Ask each time, Codex or Claude Code),
+and Check setup (installed tools, selected-account login status, and shared brain).
+It does not show authentication tokens or change running sessions.
+
+Accounts shows the selected Codex and Claude Code accounts independently. Select
+an existing profile to use it for new tasks and that assistant's history, or
+choose Add account, enter a short label, and complete the assistant's own sign-in
+in a separate terminal/browser. Successful sign-in activates only that assistant's
+new profile; cancellation leaves the previous selection in place. Sign in to
+selected account reauthenticates that profile. Every submenu has Back.
+
+Account selection is stored privately in `~/.config/siverteh-ai/settings.json`.
+Default uses the existing native account; named profiles use separate provider
+homes. Switching never logs out or changes running chats. History is combined
+across the two selected accounts, not across every account's private history.
+Rows identify project, assistant, account, and state. Explicit `--account NAME`
+overrides the saved selection for that invocation. Remote hosts authenticate
+independently under the same profile name; no credentials are copied over SSH.
+
+## Access defaults
+
+New and resumed Codex workflow tasks use `--sandbox danger-full-access
+--ask-for-approval never`. Installation and account setup write matching
+`sandbox_mode` and `approval_policy` defaults into that account's Codex config,
+so ordinary Codex launches use the same access. Existing running sessions keep
+their current permission settings until reopened. Explicit CLI/profile overrides
+and centrally managed restrictions can still take precedence. Authentication,
+OS account permissions and SSH authorization are unchanged.
 
 ## Prerequisites
 
 This setup targets Linux x86_64 with Python 3.12 or newer (including
 `hashlib.file_digest` and safe tar extraction filters), Git, OpenSSH, and Bash.
-The desktop controller needs Kitty, fzf, ripgrep, jq, and flock; the desktop
+The desktop controller needs Kitty, Python curses, ripgrep, jq, and flock; the desktop
 launcher requires the installed ChatGPT app and Hyprland's Lua dispatch API.
 Remote workers additionally require tmux and the complete pinned Codex package.
 Credential commands require `secret-tool` (Arch's `libsecret` package) and a
@@ -19,7 +124,7 @@ Check these on the relevant host before installation:
 
 ```sh
 python3 -c 'import sys, hashlib, tarfile; assert sys.version_info >= (3, 12); assert hasattr(hashlib, "file_digest") and hasattr(tarfile, "data_filter")'
-command -v git ssh bash kitty fzf rg jq flock secret-tool
+command -v git ssh bash kitty rg jq flock secret-tool
 # On the remote worker host:
 command -v git bash tmux
 ```
@@ -53,12 +158,15 @@ siverteh-ai new --project REMOTE_PROJECT --account second
 ```
 
 Local sessions use `codex agents` and `codex --worktree`. Remote workers use SSH,
-tmux, and an explicit Git worktree. Copy the `siverteh-ai-remote` and
+tmux, and an explicit Git worktree. New Codex workers explicitly select danger-full-access with approval prompts
+disabled. Claude retains its native permission settings.
+SSH children advertise the widely available `xterm-256color` terminal type;
+the desktop retains its own terminal setting. Copy the `siverteh-ai-remote` and
 `siverteh-brain` helpers and personal guidance to a trusted development host;
 its own Codex credentials stay on that host. Run the installer with `--remote`
 when installing a copy of this tooling there. It leaves the host's Codex binary
 unchanged. Detach tmux with `Ctrl+B`, then `D`; the worker continues. Reopen it
-through Running sessions. Clean up only finished, clean task worktrees.
+through Resume task. Clean up only finished, clean task worktrees.
 
 Each `--account NAME` uses a separate directory under
 `~/.local/share/siverteh-ai/accounts/`. Authentication and conversations are
@@ -166,3 +274,10 @@ Run `python3 -m unittest discover -s ai/tests -v` and shell syntax checks for
 verification should launch the workspace twice, confirm one controller and one
 ChatGPT app, open a local worker, detach/reopen a remote worker, and confirm the
 private vault is available. Never include private evidence in the public diff.
+
+Projects can keep their primary checkout local and declare `build_host` and
+`build_path` for heavy remote builds/tests. Agents read this registry at startup,
+then follow project instructions and use isolated remote worktrees with the exact
+task changes. This is an agent workflow, not transparent compiler offloading.
+Optional `task_sources` entries retain named chat history on former task hosts;
+new tasks use the primary path and resumed chats retain their original host.
