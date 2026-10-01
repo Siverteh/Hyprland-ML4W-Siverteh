@@ -44,7 +44,7 @@ def main():
         target.symlink_to(source)
 
     binaries = ["siverteh-brain", "siverteh-ai-remote"] if args.remote else ["codex", "siverteh-ai", "siverteh-brain", "siverteh-ai-remote"]
-    binaries.extend(['siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
+    binaries.extend(['siverteh-ai-tools', 'siverteh-ai-skills', 'siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
     if not args.remote and (home / '.local/share/siverteh-ai/obsidian/1.13.7/squashfs-root/AppRun').exists():
         binaries.append('obsidian')
     if not args.remote:
@@ -58,6 +58,7 @@ def main():
     for skill in (repo / "ai/skills").iterdir():
         if skill.is_dir():
             link(skill, home / ".agents/skills" / skill.name)
+    subprocess.run([str(home / ".local/bin/siverteh-ai-skills")], check=True)
     guidance = home / ".codex/AGENTS.md"
     guidance.parent.mkdir(parents=True, exist_ok=True)
     if not guidance.exists():

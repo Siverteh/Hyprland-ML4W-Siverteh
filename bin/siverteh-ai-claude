@@ -113,6 +113,7 @@ def prepare_directory(args):
 
 def run(args):
     env=environment(args.account)
+    subprocess.run([str(Path.home()/'.local/bin/siverteh-ai-skills'), '--claude-home', env['CLAUDE_CONFIG_DIR']], check=True)
     os.environ.update(env)
     if args.command=='list':
         print(json.dumps(list_chats(args)))
