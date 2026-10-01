@@ -44,11 +44,11 @@ def main():
         target.symlink_to(source)
 
     binaries = ["siverteh-brain", "siverteh-ai-remote"] if args.remote else ["codex", "siverteh-ai", "siverteh-brain", "siverteh-ai-remote"]
-    binaries.extend(['siverteh-ai-tools', 'siverteh-ai-skills', 'siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
+    binaries.extend(['siverteh-brain-maintain', 'siverteh-ai-tools', 'siverteh-ai-skills', 'siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
     if not args.remote and (home / '.local/share/siverteh-ai/obsidian/1.13.7/squashfs-root/AppRun').exists():
         binaries.append('obsidian')
     if not args.remote:
-        for name in ('siverteh-brain-sync.service', 'siverteh-brain-sync.timer'):
+        for name in ('siverteh-brain-sync.service', 'siverteh-brain-sync.timer', 'siverteh-brain-check.service', 'siverteh-brain-check.timer'):
             link(repo / 'ai/systemd' / name, home / '.config/systemd/user' / name)
         secret_service = home / '.local/share/dbus-1/services/org.freedesktop.secrets.service'
         if Path('/usr/bin/ksecretd').exists() and not Path('/usr/share/dbus-1/services/org.freedesktop.secrets.service').exists() and not secret_service.exists():
@@ -98,6 +98,7 @@ def main():
         config.write_text(json.dumps({"projects": [{"id": "os", "label": "Siverteh OS", "path": str(repo)}]}, indent=2) + "\n")
         config.chmod(0o600)
     subprocess.run([str(home / ".local/bin/siverteh-brain"), "init"], check=True)
+    subprocess.run([str(home / ".local/bin/siverteh-brain-maintain"), "setup"], check=True)
     print("Personal workflow installed. Existing account credentials were not changed.")
     print("Project registry:", config)
     if backup.exists():

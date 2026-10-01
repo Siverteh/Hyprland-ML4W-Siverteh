@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-"""Exchange new Markdown notes over SSH without overwriting or deleting notes."""
+"""Three-way private vault synchronization; never propagate deletions."""
 import argparse
+from contextlib import contextmanager
+import datetime as dt
+import fcntl
+import hashlib
 import importlib.machinery
 import importlib.util
 import json
@@ -10,116 +14,156 @@ import re
 import subprocess
 import sys
 import tempfile
+import uuid
 
-
-def brain_module():
-    loader = importlib.machinery.SourceFileLoader('siverteh_brain', str(Path(__file__).resolve().with_name('siverteh-brain')))
-    spec = importlib.util.spec_from_loader(loader.name, loader)
-    module = importlib.util.module_from_spec(spec)
-    loader.exec_module(module)
-    return module
-
-
-brain = brain_module()
-KINDS = {'inbox', 'personal', 'projects', 'infrastructure', 'devices', 'runbooks', 'decisions', 'credentials'}
+loader = importlib.machinery.SourceFileLoader('siverteh_brain', str(Path(__file__).resolve().with_name('siverteh-brain')))
+spec = importlib.util.spec_from_loader(loader.name, loader)
+brain = importlib.util.module_from_spec(spec)
+loader.exec_module(brain)
+KINDS = {'inbox','personal','projects','infrastructure','devices','runbooks','decisions','credentials','wiki','raw','checkpoints'}
+ROOT_FILES = {'README.md','AGENTS.md','CLAUDE.md','INDEX.md'}
+SUFFIXES = {'.md','.txt','.base','.canvas'}
 
 
 def note_path(root, name):
     path = PurePosixPath(name)
-    if path.is_absolute() or '..' in path.parts or str(path) != name:
-        raise ValueError('Invalid note path')
-    if name != 'README.md' and (len(path.parts) != 2 or path.parts[0] not in KINDS or path.suffix != '.md'):
-        raise ValueError('Only vault Markdown notes may be synchronized')
+    if path.is_absolute() or '..' in path.parts or str(path) != name or any(p.startswith('.') for p in path.parts):
+        raise ValueError('Invalid vault path')
+    if name not in ROOT_FILES and (len(path.parts)<2 or path.parts[0] not in KINDS or path.suffix not in SUFFIXES):
+        raise ValueError('Unsupported vault file; use Markdown sources and source links')
     target = root / name
-    if target.is_symlink() or target.parent.is_symlink():
-        raise ValueError('Symlinked notes are not synchronized')
+    for part in [target, *target.parents]:
+        if part == root.parent:
+            break
+        if part.is_symlink():
+            raise ValueError('Symlinked vault paths are not supported')
     return target
 
 
 def snapshot(root):
     notes = {}
-    paths = [root / 'README.md']
+    paths = [root / name for name in ROOT_FILES]
     for kind in sorted(KINDS):
-        if (root / kind).is_symlink():
-            raise ValueError('Symlinked note directories are not synchronized')
-        paths.extend(sorted((root / kind).glob('*.md')))
-    for path in paths:
-        if path.exists():
-            name = path.relative_to(root).as_posix()
-            target = note_path(root, name)
-            body = target.read_text()
-            brain.safe_note(body)
-            notes[name] = body
+        folder = root/kind
+        if folder.is_symlink():
+            raise ValueError('Symlinked vault directories are not supported')
+        paths.extend(folder.rglob('*'))
+    for path in sorted(paths):
+        if path.is_symlink():
+            raise ValueError('Symlinked vault files are not supported')
+        if any(part.startswith('.') for part in path.relative_to(root).parts) or path.suffix not in SUFFIXES:
+            continue
+        if not path.is_file():
+            continue
+        name = path.relative_to(root).as_posix()
+        target = note_path(root, name)
+        body = target.read_text()
+        brain.safe_note(body)
+        notes[name] = body
     return notes
 
 
-def merge_new(root, notes):
-    # Validate the complete batch before writing any files.
-    checked = []
-    for name, body in notes.items():
-        if not isinstance(body, str):
-            raise ValueError('Invalid note content')
+def atomic(path, body):
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    with tempfile.NamedTemporaryFile(mode='w', dir=path.parent, prefix='.pending-', delete=False) as out:
+        pending=Path(out.name)
+        out.write(body); out.flush(); os.fsync(out.fileno())
+    try:
+        os.replace(pending,path)
+    finally:
+        pending.unlink(missing_ok=True)
+
+
+@contextmanager
+def locked(root):
+    state=root/'.brain-state'; state.mkdir(parents=True,exist_ok=True,mode=0o700)
+    with (state/'lock').open('a') as lock:
+        os.chmod(state/'lock',0o600)
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        yield
+
+
+def digest(notes):
+    return hashlib.sha256(json.dumps(notes,sort_keys=True).encode()).hexdigest()
+
+
+def backup(root, notes=None):
+    notes=snapshot(root) if notes is None else notes
+    key=digest(notes)
+    folder=root/'.brain-state/backups'
+    path=folder/(key+'.json')
+    if not path.exists():
+        atomic(path,json.dumps({'version':1,'created':dt.datetime.now(dt.timezone.utc).isoformat(),'sha256':key,'files':notes},indent=2)+'\n')
+    return path
+
+
+def conflict(root,name,local,incoming):
+    item={'path':name,'local':local,'incoming':incoming}
+    path=root/'.brain-state/conflicts'/(digest(item)+'.json')
+    if not path.exists(): atomic(path,json.dumps(item,indent=2)+'\n')
+
+
+def merge(root, incoming, base, excluded=()):
+    # Validate the entire remote batch before changing anything.
+    for name,body in incoming.items():
+        note_path(root,name)
+        if not isinstance(body,str): raise ValueError('Invalid vault content')
         brain.safe_note(body)
-        checked.append((name, note_path(root, name), body))
-    conflicts, added = [], []
-    for name, target, body in checked:
-        target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-        with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, prefix='.sync-', delete=False) as out:
-            pending = Path(out.name)
-            out.write(body)
-        try:
-            # Publish complete content atomically; an existing destination is never replaced.
-            os.link(pending, target)
-        except FileExistsError:
-            if target.read_text() != body:
-                conflicts.append(name)
+    current=snapshot(root)
+    backup(root,current)
+    changed=[]; conflicts=[]
+    for name,body in incoming.items():
+        if name in excluded:
+            conflict(root,name,current.get(name),body)
+            continue
+        old=current.get(name)
+        if old==body: continue
+        if old is None or (name in base and old==base[name]):
+            atomic(note_path(root,name),body); changed.append(name)
+        elif name in base and body==base[name]:
+            continue
         else:
-            added.append(name)
-        finally:
-            pending.unlink()
-    return added, conflicts
+            conflict(root,name,old,body); conflicts.append(name)
+    backup(root)
+    return changed,conflicts
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--exchange', action='store_true', help=argparse.SUPPRESS)
-    parser.add_argument('--config', type=Path, default=Path.home() / '.config/siverteh-ai/brain-sync.json')
-    args = parser.parse_args()
-    if not args.exchange and not args.config.exists():
-        return
-    root = brain.initialize()
-    if args.exchange:
-        incoming = json.load(sys.stdin)
-        # Fail before changing either side if existing remote notes contain credentials.
-        snapshot(root)
-        added, conflicts = merge_new(root, incoming['notes'])
-        print(json.dumps({'notes': snapshot(root), 'added': added, 'conflicts': conflicts}))
-        return
-    config = json.loads(args.config.read_text())
-    host = config['host']
-    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._@-]*', host):
-        raise ValueError('Invalid SSH host alias')
-    # Both ends use their own private default vault; no account or keyring state is included.
-    payload = json.dumps({'notes': snapshot(root)})
-    remote = subprocess.run(['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', host,
-                             '"$HOME/.local/bin/siverteh-brain-sync" --exchange'],
-                            input=payload, capture_output=True, text=True, timeout=45)
-    if remote.returncode:
-        raise RuntimeError('Remote note exchange failed; check SSH and the installed remote helper')
-    reply = json.loads(remote.stdout)
-    added, conflicts = merge_new(root, reply['notes'])
-    conflicts = sorted(set(conflicts + reply['conflicts']))
-    print(f"Brain sync: {len(added)} received, {len(reply['added'])} sent")
-    if conflicts:
-        print('Conflicting notes were left unchanged on both hosts:', file=sys.stderr)
-        for name in conflicts:
-            print('  ' + name, file=sys.stderr)
-        raise SystemExit(2)
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--exchange',action='store_true')
+    parser.add_argument('--config',type=Path,default=Path.home()/'.config/siverteh-ai/brain-sync.json')
+    args=parser.parse_args()
+    if not args.exchange and not args.config.exists(): return
+    root=brain.initialize()
+    with locked(root):
+        if args.exchange:
+            request=json.load(sys.stdin)
+            if request.get('version')!=2: raise ValueError('Both hosts require sync protocol version 2')
+            changed,conflicts=merge(root,request['notes'],request['base'])
+            print(json.dumps({'version':2,'notes':snapshot(root),'changed':changed,'conflicts':conflicts}))
+            return
+        host=json.loads(args.config.read_text())['host']
+        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._@-]*',host): raise ValueError('Invalid SSH alias')
+        base_path=root/'.brain-state/peers'/(hashlib.sha256(host.encode()).hexdigest()+'.json')
+        base=json.loads(base_path.read_text()) if base_path.exists() else {}
+        before=snapshot(root); backup(root,before)
+        result=subprocess.run(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=10',host,'"$HOME/.local/bin/siverteh-brain-sync" --exchange'],input=json.dumps({'version':2,'notes':before,'base':base}),capture_output=True,text=True,timeout=60)
+        if result.returncode: raise RuntimeError('Remote exchange failed; inspect remote health and protocol version')
+        reply=json.loads(result.stdout)
+        if reply.get('version')!=2: raise ValueError('Unexpected sync protocol')
+        changed,conflicts=merge(root,reply['notes'],before,reply['conflicts'])
+        conflicts=sorted(set(conflicts+reply['conflicts']))
+        after=snapshot(root)
+        for name,body in after.items():
+            if reply['notes'].get(name)==body: base[name]=body
+        atomic(base_path,json.dumps(base)+'\n')
+        print(f"Brain sync: {len(changed)} received, {len(reply['changed'])} sent, {len(conflicts)} conflicts")
+        if conflicts:
+            print('Conflicts preserved under .brain-state/conflicts; reconcile deliberately.',file=sys.stderr)
+            raise SystemExit(2)
 
 
-if __name__ == '__main__':
-    try:
-        main()
-    except (ValueError, KeyError, OSError, RuntimeError, subprocess.TimeoutExpired) as error:
-        print(f'siverteh-brain-sync: {error}', file=sys.stderr)
-        raise SystemExit(1)
+if __name__=='__main__':
+    try: main()
+    except (ValueError,KeyError,OSError,RuntimeError,subprocess.TimeoutExpired) as error:
+        print(f'siverteh-brain-sync: {error}',file=sys.stderr); raise SystemExit(1)

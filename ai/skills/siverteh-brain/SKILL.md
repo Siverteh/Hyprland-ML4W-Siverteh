@@ -13,7 +13,11 @@ notes; inspect the cited source when the fact controls an operation. Host
 addresses are dated observations, so verify machine identity before changing it.
 Repo-local instructions and specs stay authoritative for code and deployment.
 
-When work establishes a reusable fact, record a concise note with the CLI:
+Automatically record useful new knowledge at verified milestones and before
+finishing a task; do not wait for a user reminder. During long tasks, checkpoint
+important findings as they become established. Search first, skip trivial turns
+and duplicates, and mark corrections as superseding older evidence. Never dump
+whole conversations or tool logs into the vault. Use the CLI:
 
 ```sh
 siverteh-brain note --kind runbooks --title 'Short factual title' \
@@ -31,3 +35,11 @@ The helper rejects common credential patterns but is not a complete detector;
 review the text. Never sync private vault content or account state into the
 public OS repo. Ordinary ChatGPT web memory is a separate system and does not
 automatically read this folder.
+
+## Maintenance and project overviews
+
+At meaningful milestones, or when notes conflict, read
+[maintenance](references/maintenance.md). Keep reconciliation scoped, preserve
+historical evidence, and save only changed reusable conclusions. Use the shared
+Obsidian skills for formatting and views; this skill governs what belongs in the
+private brain. The app does not need to be open for file-based maintenance.

@@ -1,5 +1,5 @@
 [Unit]
-Description=Exchange new private Markdown notes
+Description=Synchronize versioned private knowledge
 ConditionPathExists=%h/.config/siverteh-ai/brain-sync.json
 
 [Service]

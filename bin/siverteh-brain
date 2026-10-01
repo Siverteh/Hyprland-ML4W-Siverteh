@@ -20,13 +20,13 @@ def initialize():
     root = vault_path()
     root.mkdir(parents=True, exist_ok=True, mode=0o700)
     root.chmod(0o700)
-    for name in ("inbox", "personal", "projects", "infrastructure", "devices", "runbooks", "decisions", "credentials"):
+    for name in ("inbox", "personal", "projects", "infrastructure", "devices", "runbooks", "decisions", "credentials", "wiki", "raw", "checkpoints"):
         (root / name).mkdir(exist_ok=True, mode=0o700)
     readme = root / "README.md"
     if not readme.exists():
         readme.write_text("""# Siverteh Brain
 
-This private local folder is the durable knowledge bank shared by your Codex accounts.
+This private local folder is the durable knowledge bank shared by your Codex and Claude accounts.
 Open this folder as an Obsidian vault, or use `siverteh-brain search WORDS`.
 
 | Folder | Content |
@@ -77,7 +77,7 @@ def main():
     search = sub.add_parser("search")
     search.add_argument("query", nargs="+")
     note = sub.add_parser("note", help="Read a Markdown note from stdin; write a unique dated file")
-    note.add_argument("--kind", choices=["inbox", "personal", "projects", "infrastructure", "devices", "runbooks", "decisions", "credentials"], default="inbox")
+    note.add_argument("--kind", choices=["inbox", "personal", "projects", "infrastructure", "devices", "runbooks", "decisions", "credentials", "checkpoints"], default="inbox")
     note.add_argument("--title", required=True)
     note.add_argument("--source", required=True)
     note.add_argument("--confidence", choices=["verified", "reported", "unverified"], default="reported")

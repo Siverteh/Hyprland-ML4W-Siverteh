@@ -46,6 +46,15 @@ from your shell for its thread_id argument. This uses the supported naming API;
 never edit the session database. Update the title if the task changes materially.
 If the helper is unavailable, continue the task without repeatedly retrying.
 
+
+For multi-step work, use the handoff reference in
+`~/.agents/skills/siverteh-project-work/references/handoff.md` at meaningful
+milestones and before ending unfinished work. On resume, retrieve that checkpoint
+and verify current state. When durable findings conflict or a project reaches a
+milestone, use `~/.agents/skills/siverteh-brain/references/maintenance.md` to
+reconcile relevant notes without deleting historical evidence. Skip unchanged
+checkpoints and trivial turns. These responsibilities apply to Codex and Claude.
+
 Specialist skills are shared through `~/.agents/skills`, exposed to both assistants.
 Use Obsidian Markdown/Bases/Canvas for vault presentation, Defuddle for clean web
 extraction, frontend-design for visual UI, doc-coauthoring for substantial prose,
@@ -62,3 +71,9 @@ project Python/Node environments. Some upstream document skills assume hosted
 preinstalled tools: use this wrapper here. LibreOffice/Pandoc must be checked
 separately before conversions; never claim rendering or formula recalculation
 was verified if those tools were unavailable.
+
+Start brain retrieval at INDEX.md and the relevant wiki page, then verify its
+linked evidence. The vault's AGENTS.md / CLAUDE.md reference the shared policy.
+Maintain current pages using siverteh-brain-maintain read/update with an expected
+hash. Keep evidence notes append-only. Use siverteh-brain-maintain check after
+substantial ingestion or reconciliation; do not invent a current fact from age alone.
