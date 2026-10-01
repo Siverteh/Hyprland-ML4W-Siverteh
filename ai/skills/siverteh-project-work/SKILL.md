@@ -67,3 +67,10 @@ Settings provides independent Codex/Claude account selectors, named sign-ins,
 a default assistant choice, and a setup status check. Load task combines only the
 selected accounts' histories and labels assistant/account. Switching accounts
 does not alter running sessions. Both assistants use the same private brain.
+
+## Durable task checkpoints
+
+Use [the handoff guide](references/handoff.md) for significant multi-step work,
+at milestones and before ending unfinished work. On resume, retrieve the latest
+relevant checkpoint and verify its state before continuing. Do not generate
+checkpoints for trivial questions or duplicate an unchanged one.

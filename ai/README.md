@@ -213,15 +213,11 @@ For private note sync, install the helpers on both hosts and create
 The selected SSH alias must be trusted and use key authentication. Both ends use
 their own `~/Documents/Siverteh-Brain`. Run `siverteh-brain-sync`, then enable
 `systemctl --user enable --now siverteh-brain-sync.timer` on the desktop. Opening
-the brain also synchronizes. The timer exchanges new Markdown notes every two
-minutes; account files, keyring data, and Obsidian state are excluded. Common
-credential patterns in complete notes are rejected before transfer.
-
-Sync only creates absent note files. It never overwrites or deletes existing
-notes. If the same filename has different content, both versions remain and the
-command reports the conflict; inspect `journalctl --user -u siverteh-brain-sync`.
-Reconcile edits deliberately or record a new dated note. This protects concurrent
-writers but does not merge edits or replace a private backup.
+the brain also synchronizes. The timer synchronizes managed Markdown/text/Bases/Canvas files every two
+minutes. Account files, keyring data and Obsidian UI state are excluded. Common
+credential patterns are rejected before transfer. Protocol 2 accepts one-sided
+edits relative to the last common version; divergent edits are preserved and
+reported. It never propagates deletions. See Versioned private knowledge below.
 
 Ordinary ChatGPT web memory does not read this folder. Codex's generated local
 memories are a separate optional recall system; the Markdown vault is the
@@ -282,6 +278,7 @@ task changes. This is an agent workflow, not transparent compiler offloading.
 Optional `task_sources` entries retain named chat history on former task hosts;
 new tasks use the primary path and resumed chats retain their original host.
 
+
 ## Shared specialist skills
 
 Run `python3 ai/install.py`, then `siverteh-ai-skills --install` to fetch the
@@ -321,3 +318,35 @@ A host needs Node available in PATH or at `skill-tools/node/bin`. The personal
 computer uses an isolated official Node distribution with its SHA256 checked
 against nodejs.org. npm records the installed tree in package-lock.json in the
 tool directory; Python versions can be inspected with the environment's pip.
+
+
+## Versioned private knowledge
+
+The evidence folders remain append-only. `wiki/` contains maintained synthesis;
+`raw/` contains text source extracts; `checkpoints/` contains task handoffs.
+Read INDEX.md first. Wiki pages include Reviewed, Status and source links.
+
+Sync protocol 2 uses the last common per-peer content to accept one-sided edits.
+Divergent edits remain on each host and both copies are saved as conflict evidence.
+No deletions propagate. Both hosts must be upgraded together. All helper writes
+use an advisory vault lock; use the read/update compare-and-swap helper for wiki
+edits. Direct editor writes do not participate in that lock.
+
+Snapshots are checksummed JSON with private permissions in .brain-state/backups.
+They cover managed .md/.txt/.base/.canvas files and root policy/index files only.
+They are created before/after synchronization and page updates, and daily by the
+health timer. Restore always uses a new directory. No automatic snapshot pruning
+is enabled. Private notes/snapshots are never placed in the public OS repo.
+
+```sh
+siverteh-brain-maintain check
+siverteh-brain-maintain backup
+siverteh-brain-maintain read wiki/project.md
+siverteh-brain-maintain update wiki/project.md --expected-sha256 HASH < revised.md
+siverteh-brain-maintain restore /path/to/snapshot.json /new/private/restore-folder
+```
+
+Enable `siverteh-brain-check.timer` and `siverteh-brain-sync.timer` with systemctl
+--user after install. Check results appear in the user journal; a failed check
+makes the service fail visibly. This timer does not invoke models or rewrite notes.
+Factual reconciliation remains the agents' responsibility.

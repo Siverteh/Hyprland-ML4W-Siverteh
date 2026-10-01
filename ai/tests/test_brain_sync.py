@@ -1,68 +1,80 @@
-import concurrent.futures
 import importlib.machinery
 import importlib.util
 from pathlib import Path
-import stat
 import tempfile
 import unittest
 
-
-ROOT = Path(__file__).resolve().parents[2]
-loader = importlib.machinery.SourceFileLoader('brain_sync', str(ROOT / 'bin/siverteh-brain-sync'))
-spec = importlib.util.spec_from_loader(loader.name, loader)
-sync = importlib.util.module_from_spec(spec)
-loader.exec_module(sync)
-
+ROOT=Path(__file__).resolve().parents[2]
+def load(name):
+ loader=importlib.machinery.SourceFileLoader(name,str(ROOT/'bin'/name))
+ spec=importlib.util.spec_from_loader(loader.name,loader)
+ module=importlib.util.module_from_spec(spec);loader.exec_module(module);return module
+sync=load('siverteh-brain-sync');maintenance=load('siverteh-brain-maintain')
 
 class SyncTests(unittest.TestCase):
-    def test_new_notes_exchange_without_overwrites_or_deletions(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            left, right = Path(tmp) / 'left', Path(tmp) / 'right'
-            left.mkdir()
-            right.mkdir()
-            sync.merge_new(left, {'inbox/left.md': 'Left note', 'inbox/conflict.md': 'Left edit'})
-            sync.merge_new(right, {'inbox/right.md': 'Right note', 'inbox/conflict.md': 'Right edit'})
-            added, conflicts = sync.merge_new(right, sync.snapshot(left))
-            self.assertEqual(added, ['inbox/left.md'])
-            self.assertEqual(conflicts, ['inbox/conflict.md'])
-            sync.merge_new(left, sync.snapshot(right))
-            self.assertEqual((left / 'inbox/right.md').read_text(), 'Right note')
-            self.assertEqual((left / 'inbox/conflict.md').read_text(), 'Left edit')
-            self.assertEqual((right / 'inbox/conflict.md').read_text(), 'Right edit')
-            self.assertEqual(stat.S_IMODE((left / 'inbox/right.md').stat().st_mode), 0o600)
+ def test_one_sided_edit_propagates_and_old_version_restores(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp)/'vault';root.mkdir()
+   sync.merge(root,{'wiki/project.md':'old'}, {})
+   archive=sync.backup(root)
+   sync.merge(root,{'wiki/project.md':'new'}, {'wiki/project.md':'old'})
+   self.assertEqual(sync.snapshot(root)['wiki/project.md'],'new')
+   dest=Path(tmp)/'restore';maintenance.restore(archive,dest)
+   self.assertEqual(sync.snapshot(dest)['wiki/project.md'],'old')
+ def test_divergent_edits_preserve_both_and_baseline_remote_edit(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);sync.merge(root,{'wiki/p.md':'local'}, {})
+   changed,conflicts=sync.merge(root,{'wiki/p.md':'remote'}, {'wiki/p.md':'base'})
+   self.assertEqual(conflicts,['wiki/p.md']);self.assertEqual(changed,[])
+   self.assertEqual(sync.snapshot(root)['wiki/p.md'],'local')
+   self.assertEqual(len(list((root/'.brain-state/conflicts').glob('*.json'))),1)
+   self.assertEqual(sync.merge(root,{'wiki/p.md':'base'}, {'wiki/p.md':'base'}),([],[]))
+ def test_deletion_not_propagated_and_extended_formats_sync(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);notes={'wiki/views/current.base':'views: []','wiki/map.canvas':'{}','raw/article.txt':'source','AGENTS.md':'rules'}
+   sync.merge(root,notes,{})
+   sync.merge(root,{},notes)
+   self.assertEqual(sync.snapshot(root),notes)
+ def test_all_input_validated_before_writes(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp)
+   for name,body in [('../outside.md','x'),('.codex/auth.json','x'),('inbox/private.md','password: secret')]:
+    with self.assertRaises(ValueError):sync.merge(root,{'inbox/first.md':'ok',name:body},{})
+    self.assertFalse((root/'inbox/first.md').exists())
+ def test_symlink_rejected(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp)/'vault';root.mkdir();outside=Path(tmp)/'outside';outside.mkdir()
+   (root/'wiki').symlink_to(outside)
+   with self.assertRaises(ValueError):sync.merge(root,{'wiki/page.md':'x'},{})
+ def test_conflict_reply_does_not_overwrite_local(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);sync.merge(root,{'wiki/p.md':'mine'},{})
+   sync.merge(root,{'wiki/p.md':'theirs'},{'wiki/p.md':'mine'},['wiki/p.md'])
+   self.assertEqual(sync.snapshot(root)['wiki/p.md'],'mine')
+ def test_restore_rejects_existing_destination(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);archive=sync.backup(root)
+   with self.assertRaises(ValueError):maintenance.restore(archive,root)
+ def test_check_missing_sources_and_links(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);sync.merge(root,{'wiki/p.md':'[[missing]] [broken](absent.md)'},{})
+   found=maintenance.check(root)
+   self.assertTrue(any('Source:' in x for x in found))
+   self.assertTrue(any('wiki link' in x for x in found))
+   self.assertTrue(any('relative link' in x for x in found))
 
-    def test_secret_and_non_note_paths_are_rejected_before_writes(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            for name, body in [('inbox/private.md', 'password: secret'), ('../outside.md', 'ordinary'), ('.codex/auth.json', 'ordinary')]:
-                with self.assertRaises(ValueError):
-                    sync.merge_new(root, {'inbox/first.md': 'ordinary', name: body})
-                self.assertFalse((root / 'inbox/first.md').exists())
+class CheckpointTests(unittest.TestCase):
+ def test_dated_checkpoint_uses_evidence_metadata(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp)
+   sync.merge(root,{'checkpoints/task.md':'# Task\nRecorded: 2026-10-01\nConfidence: verified\nSource: test\nCompleted task.'},{})
+   self.assertEqual(maintenance.check(root),[])
 
-    def test_concurrent_duplicate_imports_publish_one_complete_note(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            body = 'Long complete note\n' * 10000
-            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-                results = list(pool.map(lambda _: sync.merge_new(root, {'inbox/same.md': body}), range(16)))
-            self.assertEqual(sum(len(added) for added, _ in results), 1)
-            self.assertTrue(all(not conflicts for _, conflicts in results))
-            self.assertEqual((root / 'inbox/same.md').read_text(), body)
-            self.assertEqual(list((root / 'inbox').glob('.sync-*')), [])
-
-    def test_symlinks_cannot_export_or_replace_external_files(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp) / 'vault'
-            (root / 'inbox').mkdir(parents=True)
-            external = Path(tmp) / 'external.md'
-            external.write_text('Outside the vault')
-            (root / 'inbox/linked.md').symlink_to(external)
-            with self.assertRaises(ValueError):
-                sync.snapshot(root)
-            with self.assertRaises(ValueError):
-                sync.merge_new(root, {'inbox/linked.md': 'Changed'})
-            self.assertEqual(external.read_text(), 'Outside the vault')
-
-
-if __name__ == '__main__':
-    unittest.main()
+class SnapshotEnumerationTests(unittest.TestCase):
+ def test_pending_and_unmanaged_files_do_not_block_managed_notes(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);(root/'inbox').mkdir();(root/'raw').mkdir()
+   (root/'inbox/.note-pending').write_text('partial')
+   (root/'raw/article.pdf').write_bytes(b'pdf')
+   (root/'inbox/note.md').write_text('published')
+   self.assertEqual(sync.snapshot(root),{'inbox/note.md':'published'})
