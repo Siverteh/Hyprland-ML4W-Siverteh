@@ -68,9 +68,64 @@ class BrainTests(unittest.TestCase):
 class WorkflowTests(unittest.TestCase):
     def test_dashboard_forwards_selected_account_to_worker(self):
         ai = module('siverteh-ai')
-        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New task', 'Close dashboard']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch:
+        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New task', 'Codex', 'Close']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch:
             ai.main()
-            self.assertEqual(launch.call_args.args[0][-4:], ['--project', 'example-project', '--account', 'second'])
+            argv=launch.call_args.args[0]
+            self.assertEqual(argv[argv.index('--project')+1], 'example-project')
+            self.assertEqual(argv[argv.index('--agent')+1], 'codex')
+            self.assertEqual(argv[-2:], ['--account', 'second'])
+
+    def test_gui_warnings_do_not_corrupt_the_menu(self):
+        ai = module('siverteh-ai')
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {'HOME': tmp}):
+            process = ai.launch_background([sys.executable, '-c', 'import sys; print("window diagnostic", file=sys.stderr)'])
+            self.assertEqual(process.wait(timeout=5), 0)
+            self.assertIn('window diagnostic', (Path(tmp) / '.local/state/siverteh-ai/launcher.log').read_text())
+
+    def test_escape_at_root_and_project_cancel_keep_dashboard_open(self):
+        ai = module('siverteh-ai')
+        with patch.object(ai, 'select', side_effect=[None, 'New task', 'Close']) as menu, patch.object(ai, 'project_for', return_value=None), patch.object(ai.subprocess, 'Popen') as launch:
+            ai.dashboard(SimpleNamespace(account=None))
+            self.assertEqual(menu.call_count, 3)
+            launch.assert_not_called()
+
+    def test_menu_uses_alternate_screen_without_fzf_scrollback(self):
+        ai = module('siverteh-ai')
+        with patch.object(ai.curses, 'wrapper', return_value=None) as wrapper:
+            self.assertIsNone(ai.select(['New task'], 'Workspace'))
+            wrapper.assert_called_once()
+        self.assertEqual(ai.clean_label('Title\x1b\n with\t spacing'), 'Title with spacing')
+
+    def test_menu_only_has_requested_choices(self):
+        ai = module('siverteh-ai')
+        with patch.object(ai, 'select', return_value='Close') as menu:
+            ai.dashboard(SimpleNamespace(account=None))
+            self.assertEqual(menu.call_args.args[0], ['New task', 'Resume latest task', 'Load task', 'New project', 'Project terminal', 'Open brain', 'Settings', 'Close'])
+
+    def test_remote_shell_uses_supported_terminal_without_changing_parent(self):
+        ai = module('siverteh-ai')
+        with patch.dict(os.environ, {'TERM': 'xterm-kitty'}), patch.object(ai, 'project_for', return_value={'id':'example', 'host':'dev', 'path':'/tmp/repo'}), patch.object(ai.os, 'execvpe', side_effect=RuntimeError('exec')) as execute:
+            with self.assertRaises(RuntimeError):
+                ai.run_project(SimpleNamespace(project='example', account=None, command='shell'))
+            self.assertEqual(execute.call_args.args[2]['TERM'], 'xterm-256color')
+            self.assertEqual(os.environ['TERM'], 'xterm-kitty')
+
+    def test_worker_failure_stays_visible_until_enter(self):
+        ai = module('siverteh-ai')
+        with patch.object(ai, 'project_for', return_value={'id':'example','host':'dev'}), patch.object(ai.subprocess, 'run', return_value=SimpleNamespace(returncode=255)), patch('builtins.input') as wait:
+            ai.worker_window(SimpleNamespace(project='example', account=None, worker_command='new'))
+            wait.assert_called_once()
+
+    def test_local_worker_has_writable_worktree_and_brain(self):
+        ai = module('siverteh-ai')
+        with patch.object(ai, 'project_for', return_value={'id':'example','path':'/tmp/repo'}), patch.object(ai.subprocess,'run',return_value=SimpleNamespace(returncode=0)), patch.object(ai.os, 'execvpe', side_effect=RuntimeError('exec')) as execute:
+            with self.assertRaises(RuntimeError):
+                ai.run_project(SimpleNamespace(project='example', account=None, command='new'))
+            command = execute.call_args.args[1]
+            self.assertEqual(command[command.index('--sandbox') + 1], 'danger-full-access')
+            self.assertEqual(command[command.index('--ask-for-approval') + 1], 'never')
+            self.assertIn('--worktree', command)
+            self.assertIn('--add-dir', command)
 
     def test_remote_wrapper_protects_legacy_home_and_honors_separate_accounts(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -83,20 +138,27 @@ class WorkflowTests(unittest.TestCase):
                 result = subprocess.run(['bash', str(ROOT / 'ai/remote-codex-wrapper.sh')], env=dict(os.environ, HOME=tmp, CODEX_HOME=str(selected)), capture_output=True, text=True, check=True)
                 self.assertEqual(result.stdout.strip(), str(expected))
 
-    def test_remote_session_selection_distinguishes_account_prefixes(self):
+    def test_remote_resume_displays_names_but_attaches_exact_session(self):
         ai = module('siverteh-ai')
-        project = {'id': 'project', 'host': 'my-server', 'path': '/tmp/project'}
-        wanted = 'ai-project-profile-work-20260930T140000-123'
-        listing = SimpleNamespace(stdout=wanted + '\nai-project-profile-work-personal-20260930T140000-456\nai-project-default-20260930T140000-789\n')
-        with patch.object(ai, 'project_for', return_value=project), patch.object(ai.subprocess, 'run', return_value=listing), patch.object(ai, 'select', return_value=wanted) as select, patch.object(ai.os, 'execvp', side_effect=RuntimeError('exec intercepted')):
-            with self.assertRaisesRegex(RuntimeError, 'exec intercepted'):
-                ai.run_project(SimpleNamespace(command='sessions', project='project', account='work'))
-            self.assertEqual(select.call_args.args[0], [wanted])
+        project = {'id':'project','host':'my-server','path':'/tmp/project'}
+        session='ai-project-profile-work-20260930T140000-123'
+        listing=SimpleNamespace(returncode=0,stdout=json.dumps([{'id':'thread-1','title':'Fix Wi-Fi setup','state':'running','session':session}]))
+        with patch.object(ai,'project_for',return_value=project), patch.object(ai.subprocess,'run',return_value=listing) as run, patch.object(ai,'select',side_effect=lambda lines,*_,**kw:lines[0]), patch.object(ai,'ssh_exec') as execute:
+            ai.run_project(SimpleNamespace(command='sessions',project='project',account='work'))
+            self.assertIn('--account work',run.call_args.args[0][-1])
+            self.assertIn('='+session,execute.call_args.args[1])
+
+    def test_saved_chat_resumes_exact_id_and_account(self):
+        ai=module('siverteh-ai')
+        item={'id':'thread-1','title':'Camera work','state':'saved','session':None}
+        with patch.object(ai,'project_for',return_value={'id':'example','host':'dev','path':'/repo'}), patch.object(ai.subprocess,'run',return_value=SimpleNamespace(returncode=0,stdout=json.dumps([item]))), patch.object(ai,'select',side_effect=lambda lines,*_,**kw:lines[0]), patch.object(ai,'ssh_exec') as execute:
+            ai.run_project(SimpleNamespace(command='sessions',project='example',account='second'))
+            self.assertIn('--thread-id thread-1 --project example --account second',execute.call_args.args[1])
 
     def test_remote_account_is_forwarded_without_shell_injection(self):
         ai = module('siverteh-ai')
         project = {'id': 'project', 'host': 'my-server', 'path': '/tmp/project with spaces'}
-        with patch.object(ai, 'project_for', return_value=project), patch.object(ai.os, 'execvp', side_effect=RuntimeError('exec intercepted')) as call:
+        with patch.object(ai, 'project_for', return_value=project), patch.object(ai.os, 'execvpe', side_effect=RuntimeError('exec intercepted')) as call:
             with self.assertRaisesRegex(RuntimeError, 'exec intercepted'):
                 ai.run_project(SimpleNamespace(command='new', project='project', account='second'))
             args = call.call_args.args[1]
@@ -108,6 +170,9 @@ class WorkflowTests(unittest.TestCase):
     def test_account_helper_preserves_default_auth_and_uses_isolated_home(self):
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
+            (home / '.local/bin').mkdir(parents=True)
+            (home / '.local/bin/siverteh-ai-chat').symlink_to(ROOT / 'bin/siverteh-ai-chat')
+            (home / '.local/bin/siverteh-ai-skills').symlink_to(ROOT / 'bin/siverteh-ai-skills')
             (home / '.codex').mkdir()
             (home / '.codex/auth.json').write_text('default authentication')
             (home / '.codex/AGENTS.md').write_text('shared guidance')
@@ -125,6 +190,8 @@ class WorkflowTests(unittest.TestCase):
     def test_separate_account_home_keeps_shared_guidance_without_auth_copy(self):
         ai = module('siverteh-ai')
         with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {'HOME': tmp}):
+            (Path(tmp) / '.local/bin').mkdir(parents=True)
+            (Path(tmp) / '.local/bin/siverteh-ai-chat').symlink_to(ROOT / 'bin/siverteh-ai-chat')
             codex = Path(tmp) / '.codex'
             codex.mkdir()
             (codex / 'AGENTS.md').write_text('Personal guidance')
@@ -200,3 +267,139 @@ class WorkflowTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class LatestTaskTests(unittest.TestCase):
+    def test_latest_uses_most_recent_across_projects_without_picker(self):
+        ai=module('siverteh-ai')
+        projects=[{'id':'one','host':'dev','path':'/one'},{'id':'two','host':'prod','path':'/two'}]
+        def chats(p, account, errors=None):
+            return [dict(id=p['id'],title='A task',state='running',session='session-'+p['id'],updated_at=10 if p['id']=='one' else 20,project=p)]
+        with patch.object(ai,'chat_projects',return_value=projects), patch.object(ai,'project_chats',side_effect=chats), patch.object(ai,'select') as picker, patch.object(ai,'ssh_exec') as execute:
+            ai.load_task(SimpleNamespace(command='latest',project=None,account='work'))
+            picker.assert_not_called()
+            self.assertEqual(execute.call_args.args,('prod','tmux attach-session -t =session-two'))
+
+    def test_latest_dashboard_does_not_ask_for_project(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'select',side_effect=['Resume latest task','Close']), patch.object(ai,'project_for') as picker, patch.object(ai,'launch_background') as launch:
+            ai.dashboard(SimpleNamespace(account=None))
+            picker.assert_not_called()
+            self.assertIn('latest',launch.call_args.args[0])
+
+    def test_local_saved_task_resumes_exact_thread_and_worktree(self):
+        ai=module('siverteh-ai');project={'id':'local','path':'/repo'}
+        item={'id':'thread-xyz','title':'Fix settings','state':'saved','updated_at':30,'cwd':'/repo-worktree','project':project}
+        with patch.object(ai,'chat_projects',return_value=[project]), patch.object(ai,'project_chats',return_value=[item]), patch.object(ai,'local_environment',return_value={}), patch.object(ai.os,'execvpe') as execute:
+            ai.load_task(SimpleNamespace(command='latest',project=None,account=None))
+            argv=execute.call_args.args[1]
+            self.assertEqual(argv[1:3],['resume','thread-xyz'])
+            self.assertEqual(argv[argv.index('--sandbox')+1],'danger-full-access')
+            self.assertEqual(argv[argv.index('--ask-for-approval')+1],'never')
+            self.assertEqual(argv[argv.index('-C')+1],'/repo-worktree')
+
+    def test_no_tasks_returns_to_dashboard_without_starting_new_task(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'chat_projects',return_value=[{'id':'one'}]), patch.object(ai,'project_chats',return_value=[]), patch.object(ai,'select',return_value='Back') as picker, patch.object(ai.os,'execvpe') as execute:
+            ai.load_task(SimpleNamespace(command='latest',project=None,account=None))
+            picker.assert_called_once()
+            execute.assert_not_called()
+
+
+class NewProjectTests(unittest.TestCase):
+    def test_new_project_registered_without_overwriting_other_projects(self):
+        ai=module('siverteh-ai')
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ,{'HOME':temp},clear=False):
+            config=Path(temp)/'projects.json'
+            config.write_text(json.dumps({'projects':[{'id':'old','label':'Old','path':'/existing'}]}))
+            with patch.dict(os.environ,{'SIVERTEH_AI_PROJECTS':str(config)}):
+                p=ai.create_project('My New Game')
+                self.assertTrue((Path(p['path'])/'.git').is_dir())
+                self.assertEqual([x['id'] for x in json.loads(config.read_text())['projects']],['old','my-new-game'])
+                with self.assertRaises(ValueError):ai.create_project('My New Game')
+                with patch.object(ai.os,'execvpe') as execute:
+                    ai.run_project(SimpleNamespace(command='new',project=p['id'],account=None))
+                    argv=execute.call_args.args[1]
+                    worktree=Path(argv[argv.index('-C')+1])
+                    self.assertTrue((worktree/'.git').is_file())
+                    self.assertNotEqual(worktree,Path(p['path']))
+                head=subprocess.run(['git','-C',p['path'],'rev-parse','--verify','HEAD'],capture_output=True)
+                self.assertNotEqual(head.returncode,0)
+
+    def test_new_project_never_overwrites_existing_folder(self):
+        ai=module('siverteh-ai')
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ,{'HOME':temp,'SIVERTEH_AI_PROJECTS':str(Path(temp)/'projects.json')}):
+            folder=Path(temp)/'Projects/keep-me';folder.mkdir(parents=True)
+            (folder/'important').write_text('keep')
+            with self.assertRaises(FileExistsError):ai.create_project('Keep me')
+            self.assertEqual((folder/'important').read_text(),'keep')
+
+    def test_project_wizard_back_does_not_create_folder(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'project_name',return_value=None),patch.object(ai,'create_project') as create:
+            self.assertIsNone(ai.project_wizard())
+            create.assert_not_called()
+
+
+class ProjectBuildHostTests(unittest.TestCase):
+    def test_build_host_does_not_move_local_tasks_to_ssh(self):
+        ai=module('siverteh-ai')
+        p={'id':'example','path':'/local/repo','build_host':'builder','build_path':'/remote/repo'}
+        with patch.object(ai,'project_for',return_value=p),patch.object(ai.subprocess,'run',return_value=SimpleNamespace(returncode=0)),patch.object(ai.os,'execvpe') as execute,patch.object(ai,'ssh_exec') as ssh:
+            ai.run_project(SimpleNamespace(command='new',project='example',account=None))
+            ssh.assert_not_called()
+            self.assertIn('/local/repo',execute.call_args.args[1])
+
+    def test_load_keeps_previous_remote_chat_source(self):
+        ai=module('siverteh-ai')
+        p={'id':'example','path':'/local/repo','task_sources':[{'host':'dev','path':'/remote/repo'}]}
+        with patch.object(ai,'source_chats',side_effect=lambda source,account:[{'project':source}]) as read, patch.object(ai,'claude_chats',return_value=[]):
+            rows=ai.project_chats(p,None)
+            self.assertEqual(len(rows),2)
+            self.assertNotIn('host',rows[0]['project'])
+            self.assertEqual(rows[1]['project']['host'],'dev')
+
+
+class GeneralChatTests(unittest.TestCase):
+    def test_general_chat_launch_is_not_a_git_task_and_has_separate_folders(self):
+        ai=module('siverteh-ai')
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ,{'HOME':temp}), patch.object(ai.os,'execvpe') as execute, patch.object(ai.subprocess,'run') as run:
+            folders=[]
+            for _ in range(2):
+                ai.run_project(SimpleNamespace(command='new',project='general-chat',account=None))
+                argv=execute.call_args.args[1]
+                self.assertNotIn('--worktree',argv)
+                folder=Path(argv[argv.index('-C')+1]);folders.append(folder)
+                self.assertTrue(folder.is_dir())
+                guidance=(folder/'AGENTS.md').read_text()
+                self.assertIn('projects.json',guidance)
+                self.assertIn('Retain this conversation',guidance)
+                self.assertIn('full access by default',guidance)
+                self.assertEqual(argv[argv.index('--sandbox')+1],'danger-full-access')
+                self.assertEqual(argv[argv.index('--ask-for-approval')+1],'never')
+            self.assertNotEqual(folders[0],folders[1])
+            run.assert_not_called()
+
+    def test_general_option_is_only_in_new_task_picker(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'projects',return_value=[{'id':'os','label':'Custom OS','path':'/os'}]), patch.object(ai,'select',side_effect=lambda lines,*_,**kw:lines[0]) as menu:
+            self.assertEqual(ai.project_for(None,include_general=True)['id'],'general-chat')
+            self.assertIn('General chat',menu.call_args.args[0][0])
+            self.assertEqual(ai.project_for(None)['id'],'os')
+
+    def test_general_history_is_included_without_registered_projects(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'projects',return_value=[]):
+            self.assertEqual([p['id'] for p in ai.chat_projects()],['general-chat'])
+
+    def test_general_history_flag_and_account_forwarded(self):
+        ai=module('siverteh-ai')
+        with patch.object(ai,'local_environment',return_value={}),patch.object(ai.subprocess,'run',return_value=SimpleNamespace(returncode=0,stdout='[]')) as run:
+            ai.source_chats(ai.general_chat(),'personal')
+            argv=run.call_args.args[0]
+            self.assertIn('--chat-directory',argv)
+            self.assertEqual(argv[argv.index('--account')+1],'personal')
+
+    def test_general_name_cannot_shadow_chat_entry(self):
+        ai=module('siverteh-ai')
+        with self.assertRaises(ValueError):ai.create_project('General chat')
