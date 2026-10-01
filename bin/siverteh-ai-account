@@ -15,6 +15,7 @@ guidance = profile / 'AGENTS.md'
 canonical = Path.home() / '.codex/AGENTS.md'
 if not guidance.exists() and canonical.exists():
     guidance.symlink_to(canonical)
+subprocess.run([str(Path.home()/'.local/bin/siverteh-ai-skills'), '--codex-home', str(profile)], check=True)
 env = dict(os.environ, CODEX_HOME=str(profile))
 subprocess.run([str(Path.home()/'.local/bin/siverteh-ai-chat'), 'configure'], env=env, check=True)
 os.execvpe('codex', ['codex', *sys.argv[2:]], env)

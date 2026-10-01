@@ -45,3 +45,20 @@ Use the `siverteh_workflow.set_chat_title` MCP tool. Read `CODEX_THREAD_ID`
 from your shell for its thread_id argument. This uses the supported naming API;
 never edit the session database. Update the title if the task changes materially.
 If the helper is unavailable, continue the task without repeatedly retrying.
+
+Specialist skills are shared through `~/.agents/skills`, exposed to both assistants.
+Use Obsidian Markdown/Bases/Canvas for vault presentation, Defuddle for clean web
+extraction, frontend-design for visual UI, doc-coauthoring for substantial prose,
+and pdf/docx/pptx/xlsx for those document formats. Keep repository-specific rules
+and the private brain's storage policy authoritative. Install document tool
+prerequisites in an isolated environment when needed; report unsupported rendering
+rather than claiming visual verification. Never install dependencies into a
+project merely because a general document skill lists them.
+
+Use `siverteh-ai-tools python`, `siverteh-ai-tools node`, or
+`siverteh-ai-tools defuddle` for installed isolated document/extraction tools.
+Their environment is `~/.local/share/siverteh-ai/skill-tools`; it does not replace
+project Python/Node environments. Some upstream document skills assume hosted
+preinstalled tools: use this wrapper here. LibreOffice/Pandoc must be checked
+separately before conversions; never claim rendering or formula recalculation
+was verified if those tools were unavailable.

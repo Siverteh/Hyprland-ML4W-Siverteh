@@ -281,3 +281,43 @@ then follow project instructions and use isolated remote worktrees with the exac
 task changes. This is an agent workflow, not transparent compiler offloading.
 Optional `task_sources` entries retain named chat history on former task hosts;
 new tasks use the primary path and resumed chats retain their original host.
+
+## Shared specialist skills
+
+Run `python3 ai/install.py`, then `siverteh-ai-skills --install` to fetch the
+revision-pinned sources in `ai/skill-sources.json`. Ten selected skills cover
+Obsidian Markdown/Bases/Canvas, webpage extraction, frontend design, document
+coauthoring and PDF/Word/PowerPoint/Excel. Source licenses are retained. No
+upstream scripts execute during installation. Existing conflicting skills are
+preserved and reported, never silently replaced.
+
+The library is exposed to both assistants and existing named accounts; new
+account launches link it automatically. Authentication is never shared. Skills
+become available in fresh sessions. Optional document/rendering tools may require
+an isolated dependency installation for the requested operation.
+
+Brain maintenance and project checkpoints extend the two existing personal
+skills. Agents save evidence-based milestones, superseding links and concise
+handoffs through the private brain helper. This is agent-driven, not a background
+summarizer; it never copies entire chat histories or requires Obsidian to be open.
+
+Use `siverteh-ai-tools python`, `siverteh-ai-tools node`, or
+`siverteh-ai-tools defuddle` for installed isolated document/extraction tools.
+Their environment is `~/.local/share/siverteh-ai/skill-tools`; it does not replace
+project Python/Node environments. Some upstream document skills assume hosted
+preinstalled tools: use this wrapper here. LibreOffice/Pandoc must be checked
+separately before conversions; never claim rendering or formula recalculation
+was verified if those tools were unavailable.
+
+Tool dependencies can be rebuilt without changing project environments:
+
+```sh
+python3 -m venv ~/.local/share/siverteh-ai/skill-tools/python
+~/.local/share/siverteh-ai/skill-tools/python/bin/pip install pypdf pdfplumber reportlab python-docx openpyxl pandas 'markitdown[docx,pptx,xlsx]' Pillow defusedxml lxml pyyaml
+npm install --prefix ~/.local/share/siverteh-ai/skill-tools defuddle docx pptxgenjs react-icons react react-dom sharp
+```
+
+A host needs Node available in PATH or at `skill-tools/node/bin`. The personal
+computer uses an isolated official Node distribution with its SHA256 checked
+against nodejs.org. npm records the installed tree in package-lock.json in the
+tool directory; Python versions can be inspected with the environment's pip.
