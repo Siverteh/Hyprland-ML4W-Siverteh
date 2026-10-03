@@ -1,9 +1,10 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Window
 import QtQuick.Shapes
 Rectangle {
     id:root
-    width:1920;height:1200
+    width:Screen.width;height:Screen.height
     property var configuration:typeof config!=="undefined"?config:({})
     property var backend:typeof sddm!=="undefined"?sddm:null
     property var usersModel:typeof userModel!=="undefined"?userModel:[]
