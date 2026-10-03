@@ -12,7 +12,19 @@ Item {
 
     required property Brightness.Monitor monitor
     property bool horizontal: false
-    readonly property string displayTitle:Hyprland.activeClient?.wmClass==="siverteh-ai-dashboard"?"Siverteh AI":Hyprland.activeClient?.wmClass==="siverteh-ai-task"?(ChatWindowTitle.title || (["Load chat","Resume latest chat","New chat"].includes(Hyprland.activeClient?.title)?"Siverteh AI chat":Hyprland.activeClient?.title??"Siverteh AI chat")):(Hyprland.activeClient?.title??qsTr("Desktop"))
+    readonly property string displayTitle: {
+        const client=Hyprland.activeClient;
+        if(client?.wmClass==="siverteh-ai-dashboard")return "Siverteh AI";
+        if(client?.wmClass==="siverteh-ai-task") {
+            // An unknown chat waits for its name instead of flashing a placeholder.
+            if(!ChatWindowTitle.resolved)return "";
+            if(ChatWindowTitle.title)return ChatWindowTitle.title;
+            return ["Load chat","Resume latest chat","New chat"].includes(client.title)?"Siverteh AI chat":client.title||"Siverteh AI chat";
+        }
+        if(client?.wmClass==="kitty"&&/^fish(?: in |$)/.test(client.title??""))
+            return "Terminal · "+(client.title.replace(/^fish in /,"").replace(/^fish$/,"")||"Home");
+        return client?.title??qsTr("Desktop");
+    }
     property color colour: Colours.palette.m3primary
     readonly property Item child: child
 

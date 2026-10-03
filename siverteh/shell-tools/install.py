@@ -26,6 +26,13 @@ def deploy(code_only=False):
   (DEST/'source').rename(stale)
  pending.rename(DEST/'source')
  shutil.copytree(ROOT,DEST/'tools',dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','tests'))
+ # Keep ordinary terminal titles aligned with the desktop labels.
+ title=HOME/".config/fish/functions/fish_title.fish"
+ title.parent.mkdir(parents=True,exist_ok=True)
+ if title.exists() and title.read_bytes()!=(ROOT/"fish_title.fish").read_bytes():
+  saved=STATE/"backups"/dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")/"fish_title.fish"
+  saved.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(title,saved)
+ shutil.copyfile(ROOT/"fish_title.fish",title)
  if code_only:
   for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)

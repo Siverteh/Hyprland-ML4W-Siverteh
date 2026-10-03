@@ -9,14 +9,14 @@ Item {
         anchors.centerIn:parent;width:28;height:28
         preferredRendererType:Shape.CurveRenderer
         ShapePath {
-            fillColor:"transparent";strokeColor:Colours.palette.m3primary;strokeWidth:2.6
-            capStyle:ShapePath.RoundCap;joinStyle:ShapePath.RoundJoin
-            PathSvg {path:"M 14 5 L 7 5 Q 3 5 3 9 Q 3 12 8 13 L 10 13 Q 15 14 15 18 Q 15 22 11 22 L 3 22"}
+            fillColor:"transparent";strokeColor:Colours.palette.m3primary;strokeWidth:3
+            capStyle:ShapePath.SquareCap;joinStyle:ShapePath.MiterJoin
+            PathSvg {path:"M 14 8 L 14 5 L 3 5 L 3 13.5 L 14 13.5 L 14 22 L 3 22"}
         }
         ShapePath {
-            fillColor:"transparent";strokeColor:Colours.palette.m3secondary;strokeWidth:2.6
-            capStyle:ShapePath.RoundCap;joinStyle:ShapePath.RoundJoin
-            PathSvg {path:"M 18 5 L 18 22 M 26 5 L 26 22 M 18 13.5 L 26 13.5"}
+            fillColor:"transparent";strokeColor:Colours.palette.m3secondary;strokeWidth:3
+            capStyle:ShapePath.SquareCap;joinStyle:ShapePath.MiterJoin
+            PathSvg {path:"M 19 5 L 19 22 M 27 5 L 27 22 M 19 13.5 L 27 13.5"}
         }
     }
 }

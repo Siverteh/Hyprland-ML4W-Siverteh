@@ -13,6 +13,7 @@ ShellRoot {
     TopBar {}
 
     Shortcuts {}
+    Component.onCompleted:ChatWindowTitle.scan()
     IpcHandler {
         target:"siverteh"
         function state(): string { const v=Visibilities.getForActive();return JSON.stringify({active:Hyprland.activeWsId,workspaces:Hyprland.workspaces.values.length,dashboard:v?.dashboard,tab:v?.dashboardTab,launcher:v?.launcher,session:v?.session,osd:v?.osd,hidden:Visibilities.hidden,query:v?.launcherQuery,launcherMode:v?.launcherMode,reveal:Visibilities.reveal,notificationsSuppressed:Object.values(Visibilities.panels).some(p=>p.notifications.suppressed)}); }
@@ -21,7 +22,7 @@ ShellRoot {
         function session():void { const v=Visibilities.getForActive();if(v){Visibilities.hidden=false;v.osd=false;v.dashboard=false;v.launcher=false;v.session=!v.session;const p=Visibilities.panels[Hyprland.focusedMonitor?.name];if(p)p.popouts.hasCurrent=false;} }
         function popout(name:string,center:real):void { Visibilities.popout(name,center,Hyprland.focusedMonitor?.name ?? Object.keys(Visibilities.screens)[0]); }
         function close(): void { const v=Visibilities.getForActive();if(v){v.dashboard=false;v.osd=false;v.launcher=false;v.session=false;} for(const p of Object.values(Visibilities.panels))p.popouts.hasCurrent=false; }
-        function popupState():string{return JSON.stringify(Object.values(Visibilities.panels).map(p=>({name:p.popouts.currentName,open:p.popouts.hasCurrent,height:p.popouts.height,width:p.popouts.width,header:p.popouts.headerHovered})));}
+        function popupState():string{return JSON.stringify(Object.values(Visibilities.panels).map(p=>({name:p.popouts.currentName,open:p.popouts.hasCurrent,height:p.popouts.height,width:p.popouts.width,center:p.popouts.currentCenter,header:p.popouts.headerHovered})));}
         function galleryStep(delta:int):void { for(const p of Object.values(Visibilities.panels))p.launcher.galleryStep(delta); }
         function galleryState():string { return JSON.stringify(Object.values(Visibilities.panels).map(p=>({count:p.launcher.galleryCount,index:p.launcher.galleryIndex}))); }
         function workspace(id:int):void { Hyprland.dispatch("workspace "+id); }

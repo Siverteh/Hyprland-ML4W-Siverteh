@@ -23,9 +23,10 @@ Item {
         source:({audio:"Audio.qml",notifications:"Notifications.qml",network:"Network.qml",bluetooth:"Bluetooth.qml",calendar:"Calendar.qml",battery:"Battery.qml"})[root.currentName]??""
         onLoaded:{if(item.implicitWidth>0)root.lastWidth=item.implicitWidth;if(item.implicitHeight>0)root.lastHeight=item.implicitHeight;}
     }
-    Behavior on implicitWidth {Anim {}}
+    Behavior on implicitWidth {enabled:root.hasCurrent;Anim {}}
     Behavior on implicitHeight {Anim {}}
-    Behavior on currentCenter {Anim {}}
+    // Place a closed pane before its reveal; animate only an already-open pane.
+    Behavior on currentCenter {enabled:root.hasCurrent;Anim {}}
     component Anim:NumberAnimation {
         duration:Appearance.anim.durations.normal
         easing.type:Easing.BezierSpline
