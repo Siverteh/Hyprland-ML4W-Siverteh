@@ -108,6 +108,15 @@ def apply_palette(home, wallpaper=None, live=True):
     lock_template=lock_template.replace('{{wallpaper}}', selected)
     for role,value in colors.items():lock_template=lock_template.replace('{{'+role+'}}',value)
     atomic_write(home/'.config/hypr/hyprlock.conf', lock_template)
+    # Login appearance is public wallpaper/color data; authentication remains SDDM-owned.
+    publisher=Path(__file__).with_name('login-appearance.py')
+    if selected and publisher.exists():
+        try:
+            import importlib.util
+            spec=importlib.util.spec_from_file_location('login_appearance',publisher);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+            module.publish(colors,selected,home/'.local/state/siverteh-native-shell/login-preview')
+        except (OSError,ValueError,ImportError):pass  # A login-theme image failure must not interrupt the desktop palette.
+
 
     atomic_write(state / 'scheme/current-mode.txt', data['mode'])
     atomic_write(state / 'scheme/current.txt', '\n'.join(k+' '+v for k,v in colors.items())+'\n')

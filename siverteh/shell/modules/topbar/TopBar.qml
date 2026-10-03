@@ -80,7 +80,7 @@ Variants {
             StyledRect {
                 id:statusHolder
                 radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
-                implicitWidth:status.implicitHeight+Appearance.padding.small*2;implicitHeight:34
+                implicitWidth:status.implicitHeight+Appearance.padding.normal*2;implicitHeight:34
                 Native.StatusIcons {id:status;anchors.centerIn:parent;rotation:-90;horizontal:true}
                 MouseArea {
                     id:statusHover

@@ -87,9 +87,9 @@ Item {
         anchors.horizontalCenter:battery.horizontalCenter;anchors.top:battery.bottom;anchors.topMargin:Appearance.spacing.small
         implicitWidth:root.horizontal?bellRow.implicitHeight:bellRow.implicitWidth
         implicitHeight:root.horizontal?bellRow.implicitWidth:bellRow.implicitHeight
-        Row {id:bellRow;anchors.centerIn:parent;rotation:root.horizontal?90:0;spacing:4
+        Row {id:bellRow;anchors.centerIn:parent;rotation:root.horizontal?90:0;spacing:2
             MaterialIcon {text:"notifications";color:root.colour;fill:Notifs.list.length?1:0}
-            StyledText {anchors.verticalCenter:parent.verticalCenter;visible:Notifs.list.length>0;text:Notifs.list.length;font.pointSize:11;color:root.colour}
+            StyledText {anchors.verticalCenter:parent.verticalCenter;anchors.verticalCenterOffset:4;visible:Notifs.list.length>0;text:Notifs.list.length;font.pointSize:10;color:root.colour}
         }
     }
 
