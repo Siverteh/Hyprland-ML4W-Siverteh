@@ -509,11 +509,15 @@ Item {
         id:cat
         anchors.verticalCenter:parent.verticalCenter;anchors.left:details.right;anchors.leftMargin:Appearance.spacing.large
         implicitWidth:170;implicitHeight:170
+        readonly property bool enabledForBeat:root.shouldUpdate && (Players.active?.isPlaying??false)
         AnimatedImage {
+            id:catImage
             anchors.fill:parent;source:"root:/assets/bongocat.gif";fillMode:Image.PreserveAspectFit
-            playing:root.shouldUpdate && (Players.active?.isPlaying??false)
-            speed:Math.min(1.8,0.6+Math.max(0,...Cava.values)/100)
+            playing:false;cache:true
         }
+        Connections {target:Cava;function onBeat(){if(cat.enabledForBeat){catImage.currentFrame=(catImage.currentFrame+1)%Math.max(1,catImage.frameCount);}}}
+        onEnabledForBeatChanged:if(!enabledForBeat){catImage.currentFrame=0;}
+
     }
 
     component Control: StyledRect {
