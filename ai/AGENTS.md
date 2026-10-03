@@ -77,3 +77,30 @@ linked evidence. The vault's AGENTS.md / CLAUDE.md reference the shared policy.
 Maintain current pages using siverteh-brain-maintain read/update with an expected
 hash. Keep evidence notes append-only. Use siverteh-brain-maintain check after
 substantial ingestion or reconciliation; do not invent a current fact from age alone.
+
+## Conversation-first context and memory
+
+New chats are general conversations, not assigned projects. Resolve the relevant
+repositories only when the user requests work, using `siverteh-ai-context QUERY`
+(or MCP `siverteh_workflow.resolve_context`). Keep the same chat across subjects.
+Resolve ambiguity from the conversation and registry before asking; do not guess
+which repository to modify. Registry build_host/build_path remain authoritative.
+
+The brain includes personal life, ideas, research, devices and skills as well as
+projects. At meaningful milestones, search existing evidence first, then use
+`siverteh-ai-memory --title TITLE --source SOURCE --confidence reported|verified|unverified
+--world SUBJECT --topic TOPIC` with a concise Markdown body on stdin. Repeat
+--world to connect several subjects, and --topic for shared subtopics. Codex also
+exposes find_knowledge and remember in siverteh_workflow; Claude uses the same CLI.
+Keep entity names stable; reuse canonical wiki names/aliases. New subjects create
+missing wiki descriptors automatically; this does not register a coding project.
+Preserve existing curated pages and reconcile them through expected-hash updates.
+
+Save decisions, outcomes, useful research and explicit personal preferences;
+do not save every utterance, duplicate unchanged facts, transient output or raw
+transcripts. User statements are reported; tested outcomes are verified; ideas
+and hypotheses remain unverified. Link sources. Correct older facts explicitly.
+The visual brain grows from dated evidence with activity decay, not message counts.
+Meaningful new topics can emerge within existing worlds; promote a distinct new
+world when it warrants its own stable subject. New repositories belong in the
+project registry only when actually created or discovered and verified.

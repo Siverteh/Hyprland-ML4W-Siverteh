@@ -7,42 +7,25 @@ files directly even while it is closed. `SUPER+ALT+C` uses the existing daily wo
 
 ## Daily use
 
-The dashboard has eight actions: **New task**, **Resume latest task**, **Load task**,
-**New project**, **Project terminal**,
-**Open brain**, **Settings**, and **Close**. A responsive alternate-screen menu
-keeps one logo and one selection list visible, including during window resizing.
-Every submenu includes Back; Escape also returns and stays in the main menu. Close exits only the
-dashboard, leaving workers running. Project terminal remains a separate command
-prompt; `exit` or Ctrl+D closes it.
+The compact dashboard has six actions: **New chat**, **Resume latest chat**,
+**Load chat**, **Open brain**, **Settings**, and **Close**. New chat immediately
+opens a private scratch folder with the default assistant (Codex initially).
+Settings chooses Codex/Claude, accounts, usage and registry management. Escape
+returns within menus; Close exits only the dashboard and preserves workers.
 
-New project creates a named local folder under `~/Projects`, initializes Git, and
-registers it without overwriting folders or making an initial commit. It offers
-Start task or Back. New task offers **General chat** first, followed by registered
-projects. General chat needs no repository and uses a private scratch folder per
-conversation under `~/.local/share/siverteh-ai/chats`; it appears in Load task and
-Resume latest task for the current account. Ask ordinary questions, or ask to work
-on a named project later in the same conversation. The agent reads the project
-registry and its instructions, uses explicit working directories, and creates an
-isolated worktree before editing. The installed Codex user default is full filesystem and network access, with command
-approval prompts disabled; project instructions and user-requested scope still apply.
-Its history stays grouped under General chat even if a project is discussed later.
+Talk normally and ask for work on any subject. The assistant resolves project
+candidates from the registry when needed, reads repository instructions, and
+creates an isolated worktree for each independent writing task. It keeps the
+same conversation across projects. Heavy builds run on declared build hosts in
+isolated remote worktrees and tmux; local edits remain local.
 
-Choosing a project in New task then offers **Codex** or **Claude Code**. Both use an
-isolated worktree; an empty repository uses an orphan worktree until its first
-commit. Remote workers run in tmux; detach
-with Ctrl+B, then D. Resume latest task opens the most recently updated chat
-across configured projects for the selected account, without another picker.
-Load task combines native Codex and Claude Code chats across those projects, newest first, with assistant labels, project names and
-running/saved status. It attaches running remote tasks or resumes the exact saved
-thread; local tasks resume in their recorded working directory. If no chats exist,
-it returns without starting a new task. Each chat resumes in its original assistant; this does not convert or merge transcripts between assistants. Load task retains available histories with a warning when a source is unavailable.
-Resume latest reports an error rather than silently choosing a different latest task.
-New agents are instructed to assign a concise title through the local
-`siverteh_workflow.set_chat_title` MCP tool. It only exposes chat naming via
-Codex’s supported API; it does not grant additional permissions itself.
-Titles use the native `thread/name/set` API, not direct database edits. An unnamed
-chat displays its first-request preview until the agent gives it a title. Separate
-account homes stay separate. Local resume uses the native Codex resume interface.
+Resume latest chat and Load chat combine the selected providers/accounts across
+general chats, registered projects and remote task sources. They preserve the
+original assistant, account, host and working directory. Missing history sources
+produce a warning; latest will not silently choose an incorrect newest chat.
+Codex titles use the supported thread/name/set API. The local workflow MCP also
+exposes context lookup, evidence search and structured memory; it offers no
+arbitrary command-execution tool.
 
 Agents automatically checkpoint useful verified findings and preferences into the
 private brain at milestones and before handoff. This is agent behavior guided by
@@ -62,7 +45,7 @@ SDK, and `python3 ai/install.py` to link the adapter. Install these on each host
 where Claude tasks run. Sign in with `siverteh-ai login --agent claude` (or
 `claude auth login`). Claude authentication is independent of Codex.
 
-`New task → project/General chat → Claude Code` starts a native interactive Claude
+`Settings → Assistant → Claude Code`, then `New chat` starts a native interactive Claude
 session. CLI callers use `siverteh-ai new --project PROJECT --agent claude`.
 Project tasks get separate `claude/…` worktrees; general chats use independent
 scratch folders. Remote tasks run in tmux. The adapter passes shared brain and
@@ -80,7 +63,7 @@ No Claude login or SDK is needed to list a host/account with no Claude history.
 
 ## Accounts in Settings
 
-Settings provides Accounts, Default assistant (Ask each time, Codex or Claude Code),
+Settings provides Accounts, Assistant (Codex or Claude Code), Usage, Projects,
 and Check setup (installed tools, selected-account login status, and shared brain).
 It does not show authentication tokens or change running sessions.
 
@@ -350,3 +333,22 @@ Enable `siverteh-brain-check.timer` and `siverteh-brain-sync.timer` with systemc
 --user after install. Check results appear in the user journal; a failed check
 makes the service fail visibly. This timer does not invoke models or rewrite notes.
 Factual reconciliation remains the agents' responsibility.
+
+## Conversation-first launcher
+
+New chat opens immediately with the selected default assistant (Codex initially).
+Resume latest chat and Load chat preserve each native provider, account and cwd.
+Settings contains assistant/account selection, project registry and Usage.
+Project-specific CLI commands remain available for compatibility.
+
+Context resolution uses the local registry; shared memory captures structured
+world/topic annotations without importing raw chats. The Observatory displays
+new subjects and connections from private evidence, independently of project IDs.
+The assistant still reads repository instructions and isolates each writing task.
+
+Usage reads Codex's supported account/rateLimits/read protocol. Optional activity
+metrics appear only on clients supporting account/usage/read. Claude's supported
+statusLine input is captured per account for sessions launched here; missing or
+stale data is labelled. Session cost estimates are not subscription charges.
+Existing custom Claude status lines are delegated their original input. No private
+usage APIs, authentication exports or transcript scraping are used.

@@ -68,10 +68,10 @@ class BrainTests(unittest.TestCase):
 class WorkflowTests(unittest.TestCase):
     def test_dashboard_forwards_selected_account_to_worker(self):
         ai = module('siverteh-ai')
-        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New task', 'Codex', 'Close']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch:
+        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New chat', 'Close']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch:
             ai.main()
             argv=launch.call_args.args[0]
-            self.assertEqual(argv[argv.index('--project')+1], 'example-project')
+            self.assertEqual(argv[argv.index('--project')+1], 'general-chat')
             self.assertEqual(argv[argv.index('--agent')+1], 'codex')
             self.assertEqual(argv[-2:], ['--account', 'second'])
 
@@ -84,7 +84,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_escape_at_root_and_project_cancel_keep_dashboard_open(self):
         ai = module('siverteh-ai')
-        with patch.object(ai, 'select', side_effect=[None, 'New task', 'Close']) as menu, patch.object(ai, 'project_for', return_value=None), patch.object(ai.subprocess, 'Popen') as launch:
+        with patch.object(ai, 'select', side_effect=[None, None, 'Close']) as menu, patch.object(ai, 'project_for', return_value=None), patch.object(ai.subprocess, 'Popen') as launch:
             ai.dashboard(SimpleNamespace(account=None))
             self.assertEqual(menu.call_count, 3)
             launch.assert_not_called()
@@ -100,7 +100,7 @@ class WorkflowTests(unittest.TestCase):
         ai = module('siverteh-ai')
         with patch.object(ai, 'select', return_value='Close') as menu:
             ai.dashboard(SimpleNamespace(account=None))
-            self.assertEqual(menu.call_args.args[0], ['New task', 'Resume latest task', 'Load task', 'New project', 'Project terminal', 'Open brain', 'Settings', 'Close'])
+            self.assertEqual(menu.call_args.args[0], ['New chat', 'Resume latest chat', 'Load chat', 'Open brain', 'Settings', 'Close'])
 
     def test_remote_shell_uses_supported_terminal_without_changing_parent(self):
         ai = module('siverteh-ai')
@@ -282,7 +282,7 @@ class LatestTaskTests(unittest.TestCase):
 
     def test_latest_dashboard_does_not_ask_for_project(self):
         ai=module('siverteh-ai')
-        with patch.object(ai,'select',side_effect=['Resume latest task','Close']), patch.object(ai,'project_for') as picker, patch.object(ai,'launch_background') as launch:
+        with patch.object(ai,'select',side_effect=['Resume latest chat','Close']), patch.object(ai,'project_for') as picker, patch.object(ai,'launch_background') as launch:
             ai.dashboard(SimpleNamespace(account=None))
             picker.assert_not_called()
             self.assertIn('latest',launch.call_args.args[0])

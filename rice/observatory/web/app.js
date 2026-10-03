@@ -184,4 +184,4 @@ canvas.addEventListener('pointerup',e=>{drag=null;if(!pointerMoved){const box=ca
 canvas.addEventListener('pointercancel',()=>{drag=null;});
 canvas.addEventListener('wheel',e=>{e.preventDefault();cameraTarget.zoom=Math.max(.45,Math.min(6,cameraTarget.zoom*Math.exp(-e.deltaY*.001)));},{passive:false});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){setTab('universe');if(history.length)$('back').click();else overview();}});
-$('motion').textContent=motion?'Orbit on':'Orbit off';load();requestAnimationFrame(draw);setInterval(load,120000);
+$('motion').textContent=motion?'Orbit on':'Orbit off';load();requestAnimationFrame(draw);setInterval(load,30000);

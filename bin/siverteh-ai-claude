@@ -91,7 +91,9 @@ def guidance():
         'siverteh-brain note; read ~/.agents/skills/siverteh-brain/SKILL.md for details. '
         'Codex-specific title tools do not apply to Claude: use Claude native session titles and /rename. '
         'Never copy Codex or Claude credentials between accounts. '
-        'A General chat folder is for questions; only work on a project when the user requests it.'
+        'A General chat folder is for conversation; resolve relevant projects later using siverteh-ai-context QUERY. '
+        'Save meaningful findings through siverteh-ai-memory with --world and --topic, including personal and research topics. '
+        'Read ~/.agents/skills/siverteh-brain/SKILL.md. Do not store transcripts or turn suggestions into facts.'
     )
 
 
@@ -134,6 +136,13 @@ def run(args):
     vault=Path(os.environ.get('SIVERTEH_BRAIN',str(Path.home()/'Documents/Siverteh-Brain')))
     vault.mkdir(parents=True,exist_ok=True,mode=0o700)
     argv=[binary,'--append-system-prompt',guidance(),'--add-dir',str(vault)]
+    # Per-session overlay keeps subscription metrics private and preserves a custom status line.
+    status={}
+    for settings in (Path(env['CLAUDE_CONFIG_DIR'])/'settings.json', directory/'.claude/settings.json', directory/'.claude/settings.local.json'):
+        if settings.exists():status.update(json.loads(settings.read_text()).get('statusLine',{}))
+    command=[str(Path.home()/'.local/bin/siverteh-ai-usage'),'capture','--agent','claude','--account',args.account]
+    if status.get('command'):command+=['--delegate',status['command']]
+    argv+=['--settings',json.dumps({'statusLine':{'type':'command','command':shlex.join(command)}})]
     if args.command=='resume':
         if not args.thread_id:raise ValueError('A Claude session ID is required')
         uuid.UUID(args.thread_id)

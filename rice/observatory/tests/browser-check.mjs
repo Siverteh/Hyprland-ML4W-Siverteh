@@ -9,6 +9,7 @@ async function evaluate(expression){const r=await call('Runtime.evaluate',{expre
 await call('Runtime.enable');
 await call('Emulation.setDeviceMetricsOverride',{width:1440,height:950,deviceScaleFactor:1,mobile:false});
 await call('Page.navigate',{url:'http://127.0.0.1:17843'});
+await call('Page.bringToFront');
 for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,150));if(await evaluate('document.getElementById("loading")?.hidden'))break;}
 const initial=await evaluate('({hubs:document.querySelectorAll(".hub-link").length,notes:graph.noteCount,hits:hits.length})');
 if(initial.hubs<4||initial.notes<1||initial.hits<4)throw Error('Graph failed to render: '+JSON.stringify(initial));
@@ -44,7 +45,7 @@ await new Promise(r=>setTimeout(r,750));
 if(!(await evaluate('selected===null&&document.getElementById("back").disabled')))throw Error('Back did not return to the overview');
 await evaluate('select(byId.get("newbringer"));select(byId.get("newbringer:camera"))');
 await evaluate('select(children(byId.get("newbringer:camera")).filter(n=>n.kind==="note").at(-1))');
-await new Promise(r=>setTimeout(r,750));
+for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,100));if(await evaluate('positions().has(selected.id)&&Math.hypot(project(positions().get(selected.id)).x-W*.5,project(positions().get(selected.id)).y-H*.56)<10'))break;}
 if(!(await evaluate('positions().has(selected.id)&&Math.hypot(project(positions().get(selected.id)).x-W*.5,project(positions().get(selected.id)).y-H*.56)<10')))throw Error('Evidence outside the default visible subset did not focus');
 await evaluate('document.getElementById("library").click();document.getElementById("search").value="zzzz-no-results";document.getElementById("search").dispatchEvent(new Event("input"))');
 if(await evaluate('document.querySelectorAll(".search-result").length')!==0)throw Error('Search failed');

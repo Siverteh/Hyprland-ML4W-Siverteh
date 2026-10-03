@@ -10,19 +10,20 @@ from test_workflow import module
 
 
 class ClaudeWorkflowTests(unittest.TestCase):
-    def test_assistant_picker_follows_project_and_forwards_claude(self):
+    def test_new_chat_uses_default_without_project_or_provider_picker(self):
         ai=module('siverteh-ai')
-        with patch.object(ai,'select',side_effect=['New task','Claude Code','Close']) as select, patch.object(ai,'project_for',return_value={'id':'os','path':'/repo','label':'OS'}) as project, patch.object(ai,'launch_background') as launch:
+        with patch.object(ai,'default_assistant',return_value='claude'), patch.object(ai,'select',side_effect=['New chat','Close']) as select, patch.object(ai,'project_for') as project, patch.object(ai,'launch_background') as launch:
             ai.dashboard(SimpleNamespace(account='work'))
-            self.assertEqual(select.call_args_list[1].args[0],['Codex','Claude Code'])
+            self.assertEqual(select.call_count,2)
             argv=launch.call_args.args[0]
             self.assertEqual(argv[argv.index('--agent')+1],'claude')
             self.assertEqual(argv[argv.index('--account')+1],'work')
-            project.assert_called_once()
+            self.assertEqual(argv[argv.index('--project')+1],'general-chat')
+            project.assert_not_called()
 
-    def test_back_from_assistant_does_not_launch(self):
+    def test_escape_at_dashboard_does_not_launch(self):
         ai=module('siverteh-ai')
-        with patch.object(ai,'select',side_effect=['New task',None,'Close']), patch.object(ai,'project_for',return_value={'id':'os','path':'/repo'}),patch.object(ai,'launch_background') as launch:
+        with patch.object(ai,'select',side_effect=[None,'Close']),patch.object(ai,'launch_background') as launch:
             ai.dashboard(SimpleNamespace(account=None))
             launch.assert_not_called()
 
@@ -137,7 +138,7 @@ class AccountSettingsTests(unittest.TestCase):
     def test_default_assistant_change_keeps_account_selections(self):
         ai=module('siverteh-ai')
         with tempfile.TemporaryDirectory() as temp,patch.dict(os.environ,{'SIVERTEH_AI_SETTINGS':str(Path(temp)/'settings.json')}):
-            self.assertEqual(ai.default_assistant(),'ask')
+            self.assertEqual(ai.default_assistant(),'codex')
             ai.select_account('codex','work');ai.set_default_assistant('claude')
             self.assertEqual(ai.default_assistant(),'claude')
             self.assertEqual(ai.effective_account('codex'),'work')

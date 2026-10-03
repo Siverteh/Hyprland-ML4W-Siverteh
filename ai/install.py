@@ -44,7 +44,7 @@ def main():
         target.symlink_to(source)
 
     binaries = ["siverteh-brain", "siverteh-ai-remote"] if args.remote else ["codex", "siverteh-ai", "siverteh-brain", "siverteh-ai-remote"]
-    binaries.extend(['siverteh-brain-maintain', 'siverteh-ai-tools', 'siverteh-ai-skills', 'siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude'])
+    binaries.extend(['siverteh-brain-maintain', 'siverteh-ai-tools', 'siverteh-ai-skills', 'siverteh-ai-account', 'siverteh-brain-sync', 'siverteh-ai-chat', 'siverteh-ai-claude', 'siverteh-ai-context', 'siverteh-ai-memory', 'siverteh-ai-usage'])
     if not args.remote and (home / '.local/share/siverteh-ai/obsidian/1.13.7/squashfs-root/AppRun').exists():
         binaries.append('obsidian')
     if not args.remote:
@@ -57,7 +57,18 @@ def main():
         link(repo / "bin" / name, home / ".local/bin" / name)
     for skill in (repo / "ai/skills").iterdir():
         if skill.is_dir():
-            link(skill, home / ".agents/skills" / skill.name)
+            shared = home / ".agents/skills" / skill.name
+            previous = shared.resolve() if shared.is_symlink() else None
+            link(skill, shared)
+            # Migrate only aliases proven to point at our previous shared skill.
+            if previous and previous != shared.resolve():
+                profiles = [home / '.codex', home / '.claude']
+                for group in ('accounts', 'claude-accounts'):
+                    profiles.extend((home / '.local/share/siverteh-ai' / group).glob('*'))
+                for profile in profiles:
+                    alias = profile / 'skills' / skill.name
+                    if alias.is_symlink() and alias.resolve() == previous:
+                        link(shared, alias)
     subprocess.run([str(home / ".local/bin/siverteh-ai-skills")], check=True)
     guidance = home / ".codex/AGENTS.md"
     guidance.parent.mkdir(parents=True, exist_ok=True)
@@ -88,7 +99,7 @@ def main():
         if target.exists() and target.resolve() != (repo / "ai/AGENTS.md").resolve():
             raise RuntimeError(f"Existing isolated guidance needs manual integration: {target}")
         link(repo / "ai/AGENTS.md", target)
-    title_env = dict(os.environ)
+    title_env = dict(os.environ, CODEX_HOME=str(home / ".codex"))
     if args.codex_home:
         title_env["CODEX_HOME"] = str(args.codex_home.expanduser().resolve())
     subprocess.run([str(home / ".local/bin/siverteh-ai-chat"), "configure"], env=title_env, check=True)

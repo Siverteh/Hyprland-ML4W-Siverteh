@@ -5,27 +5,24 @@ description: Start or resume an independent local or SSH project task in Siverte
 
 # Siverteh Project Work
 
-Read `$HOME/.config/siverteh-ai/projects.json` for this machine's project registry.
-Use `siverteh-ai projects` for an overview and `siverteh-ai new --project ID` for
-a terminal worker. `siverteh-ai sessions --project ID` reopens a local Codex
-dashboard or a running remote tmux session. The GUI dashboard opens workers in
-separate Kitty windows, keeping the controller available. Choose New task, then a project (or General chat), then Codex or Claude Code. Resume latest
-task immediately returns to the most recently updated chat across configured
-projects and both assistants. Load task labels each chat Codex or Claude Code; resume it in its original assistant, not a converted conversation. Escape goes back within menus; Close dashboard exits
-only the controller. Project terminal is for manual commands, not AI chat;
-`exit` or Ctrl+D closes that separate window. Obsidian is optional and is not
-started by the workspace launcher.
+The desktop launcher is conversation-first: **New chat**, **Resume latest chat**,
+**Load chat**, **Open brain**, **Settings**, **Close**. New chat uses the default
+assistant (Codex initially) and selected account, with no project/provider prompt.
+Settings changes the default assistant, accounts, usage and project registry.
+Existing chats resume in their original assistant/account/workspace; switching the
+default never converts chats or interrupts workers.
 
-General chat in New task starts without a project. Resolve projects later from
-the registry when the user asks; read the chosen project's instructions, use
-explicit working directories and an isolated worktree for changes. Keep the same
-conversation. Full access is the configured user default; keep changes scoped
-to the request and preserve other tasks.
-Do not create or modify a project for a question that only asks for explanation.
-General chats remain grouped under General chat in history.
+Start in a neutral private chat folder. Answer questions normally; a mention of a
+project does not authorize editing. When asked to work, resolve relevant project
+candidates with `siverteh-ai-context QUERY` or `siverteh_workflow.resolve_context`.
+Read `$HOME/.config/siverteh-ai/projects.json`, project AGENTS.md / CLAUDE.md and
+specifications. Keep this conversation when switching subjects. Use explicit
+working directories and one isolated worktree per independent writing task.
+Ask only when the target is actually ambiguous; one chat can span several projects.
 
-New project creates a local repository under ~/Projects and registers it; New
-task uses an existing project. Menus provide Back as well as Escape.
+Manual project terminals and creating projects are no longer main-menu steps.
+Registry management remains in Settings, and explicit project CLI commands remain
+compatible. Escape goes back; Close exits only the controller.
 
 Projects may declare build_host and build_path. These designate a remote build
 machine while the project path remains the local editing checkout. For heavy
@@ -64,7 +61,7 @@ For Claude titles, use native session names or /rename; do not call the Codex
 set_chat_title tool for a Claude session.
 
 Settings provides independent Codex/Claude account selectors, named sign-ins,
-a default assistant choice, and a setup status check. Load task combines only the
+a default assistant choice, and a setup status check. Load chat combines only the
 selected accounts' histories and labels assistant/account. Switching accounts
 does not alter running sessions. Both assistants use the same private brain.
 

@@ -56,7 +56,7 @@ class ChatTitles(unittest.TestCase):
             chat.serve({'CODEX_HOME':'/account'})
             rename.assert_called_once_with('thread-one','Fix camera lag',{'CODEX_HOME':'/account'})
         replies=[json.loads(line) for line in output.getvalue().splitlines()]
-        self.assertEqual([t['name'] for t in replies[0]['result']['tools']], ['set_chat_title'])
+        self.assertEqual([t['name'] for t in replies[0]['result']['tools']], ['set_chat_title','resolve_context','find_knowledge','remember'])
         self.assertEqual(replies[2]['error']['code'],-32601)
 
     def test_configure_is_idempotent_and_keeps_other_config(self):

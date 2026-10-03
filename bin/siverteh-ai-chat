@@ -123,8 +123,37 @@ def set_title(thread_id, title, env):
         codex.call('thread/name/set', {'threadId': thread_id, 'name': name})
 
 
+def knowledge_tools():
+    common={'type':'object','additionalProperties':False}
+    return [
+        {'name':'resolve_context','description':'Find relevant registered project paths and build hosts from conversation. This does not execute or select a project. Clarify only genuine ambiguity.', 'annotations':{'readOnlyHint':True},'inputSchema':common|{'properties':{'query':{'type':'string'}},'required':['query']}},
+        {'name':'find_knowledge','description':'Search shared private evidence for a subject before relying on it or adding memory. Read INDEX.md and relevant wiki pages first.', 'annotations':{'readOnlyHint':True},'inputSchema':common|{'properties':{'query':{'type':'string'}},'required':['query']}},
+        {'name':'remember','description':'Save meaningful durable personal knowledge, decisions, research or verified work at milestones. No raw transcripts, secrets, repetitive mentions or speculation as facts. Worlds are stable subjects, not necessarily projects. Topics connect subjects. Search first; distinguish reported/verified/unverified.', 'annotations':{'destructiveHint':False},'inputSchema':common|{'properties':{
+            'title':{'type':'string'},'source':{'type':'string'},'body':{'type':'string'},
+            'kind':{'type':'string','enum':['inbox','personal','projects','infrastructure','devices','runbooks','decisions','checkpoints']},
+            'confidence':{'type':'string','enum':['reported','verified','unverified']},
+            'worlds':{'type':'array','items':{'type':'string'}},'topics':{'type':'array','items':{'type':'string'}}},'required':['title','source','body','confidence']}}
+    ]
+
+def knowledge_call(name,args):
+    if name in ('resolve_context','find_knowledge') and (not isinstance(args.get('query'),str) or not args['query'].strip()):raise ValueError('A nonempty query is required')
+    if name=='remember' and any(not isinstance(args.get(k),str) or not args[k].strip() for k in ('title','source','body','confidence')):raise ValueError('Title, source, body and confidence are required')
+    folder=Path(__file__).resolve().parent
+    if name=='resolve_context':command=[str(folder/'siverteh-ai-context'),args['query']];body=None
+    elif name=='find_knowledge':
+        command=[str(folder/'siverteh-brain'),'search',args['query']];body=None
+    else:
+        command=[str(folder/'siverteh-ai-memory'),'--title',args['title'],'--source',args['source'],'--confidence',args['confidence'],'--kind',args.get('kind','inbox')]
+        for key,flag in [('worlds','--world'),('topics','--topic')]:
+            for value in args.get(key,[]):command.extend([flag,value])
+        body=args['body']
+    result=subprocess.run(command,input=body,text=True,capture_output=True,timeout=25)
+    if result.returncode and not(name=='find_knowledge' and result.returncode==1):raise ValueError(result.stderr.strip() or 'Knowledge request failed')
+    return result.stdout[:50000] or 'No matching evidence'
+
+
 def serve(env):
-    """Expose only naming over local MCP stdio, outside the task file sandbox."""
+    """Expose naming, context and scoped private memory over local MCP stdio."""
     for line in sys.stdin:
         try:
             request = json.loads(line)
@@ -144,13 +173,18 @@ def serve(env):
                     'inputSchema': {'type': 'object', 'properties': {
                         'thread_id': {'type': 'string', 'pattern': '^[a-zA-Z0-9-]{1,100}$'},
                         'title': {'type': 'string', 'minLength': 1, 'maxLength': 100}},
-                        'required': ['thread_id', 'title'], 'additionalProperties': False}}]}
+                        'required': ['thread_id', 'title'], 'additionalProperties': False}}, *knowledge_tools()]}
             elif method == 'tools/call' and params.get('name') == 'set_chat_title':
                 try:
                     args = params.get('arguments', {})
                     set_title(args.get('thread_id'), args.get('title', ''), env)
                     result = {'content': [{'type': 'text', 'text': 'Chat title saved'}]}
                 except (ValueError, OSError, subprocess.SubprocessError) as error:
+                    result = {'isError': True, 'content': [{'type': 'text', 'text': str(error)}]}
+            elif method == 'tools/call' and params.get('name') in ('resolve_context','remember','find_knowledge'):
+                try:
+                    result = {'content': [{'type': 'text', 'text': knowledge_call(params['name'],params.get('arguments', {}))}]}
+                except (ValueError,OSError,subprocess.SubprocessError) as error:
                     result = {'isError': True, 'content': [{'type': 'text', 'text': str(error)}]}
             else:
                 print(json.dumps({'jsonrpc': '2.0', 'id': request['id'], 'error': {'code': -32601, 'message': 'Unknown method'}}), flush=True)

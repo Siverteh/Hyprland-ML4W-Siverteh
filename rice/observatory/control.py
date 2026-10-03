@@ -41,7 +41,7 @@ def slug(value):
 def fields(body):
     clean=re.sub(r'(?ms)^```[^\n]*\n.*?^```[^\n]*$', '', body)
     clean=re.split(r'^##\s',clean,maxsplit=1,flags=re.M)[0]
-    return {k.lower():v.strip().strip('"\'') for k,v in re.findall(r'(?mi)^(Entity|Name|Parent|Project|Topics|Tags|Category|Aliases):\s*([^\n]+)',clean)}
+    return {k.lower():v.strip().strip('"\'') for k,v in re.findall(r'(?mi)^(Entity|Name|Parent|Project|Worlds|Topics|Tags|Category|Aliases):\s*([^\n]+)',clean)}
 
 def items(value):
     return [s.strip().strip('"\'') for s in str(value).strip('[]').split(',') if s.strip()]
@@ -167,13 +167,14 @@ def graph():
     assigned = set()
     hubs,declarations=definitions(notes)
     for hub_id, label, color, terms, topics in hubs:
-        matched = [n for n in notes if slug(n['meta'].get('project',''))==hub_id or slug(n['meta'].get('parent',''))==hub_id or any(mentions(n['path']+'\n'+n['label']+'\n'+n['text'],t) for t in terms)]
+        matched = [n for n in notes if slug(n['meta'].get('project',''))==hub_id or slug(n['meta'].get('parent',''))==hub_id or any(slug(w)==hub_id or any(mentions(w,t) for t in terms) for w in items(n['meta'].get('worlds',''))) or any(mentions(n['path']+'\n'+n['label']+'\n'+n['text'],t) for t in terms)]
         # Explicit topic annotations can grow a planet from one meaningful note.
         annotated={}
         for n in matched:
             for tag in items(n['meta'].get('topics',n['meta'].get('tags',''))):
                 if slug(tag): annotated.setdefault(slug(tag),tag)
-        topics=[*topics,*[('tag-'+key,value,[value.lower()]) for key,value in sorted(annotated.items())]]
+        known_topics={slug(label) for _,label,_ in topics}
+        topics=[*topics,*[('tag-'+key,value,[value.lower()]) for key,value in sorted(annotated.items()) if key not in known_topics]]
         theme=declarations.get(hub_id) or {'personal':'personal','research':'research','musikki':'music'}.get(hub_id)
         if not theme:
             counts={key:sum(n['category']==key for n in matched) for key in THEMES if key!='general'}
@@ -272,7 +273,7 @@ def action(name, value=''):
         'lock':['hyprlock'], 'power':[str(HOME/'.config/siverteh/core/scripts/wlogout.sh')],
         'files':[str(HOME/'.config/siverteh/core/settings/filemanager.sh')],
         'terminal':['kitty'], 'tasks':['kitty','--class','siverteh-ai-dashboard','--title','Siverteh AI','--','siverteh-ai','dashboard'],
-        'new':['kitty','--class','siverteh-ai-task','--title','New task','--','siverteh-ai','window','--worker-command','new'],
+        'new':['kitty','--class','siverteh-ai-task','--title','New chat','--','siverteh-ai','window','--worker-command','new'],
         'resume':['kitty','--class','siverteh-ai-task','--title','Resume task','--','siverteh-ai','window','--worker-command','latest'],
         'notes':['env','SIVERTEH_BRAIN_VIEW=notes','siverteh-ai','brain'],
     }

@@ -96,3 +96,18 @@ class IndexTests(unittest.TestCase):
             self.assertTrue(any('workspace=2' in str(c) for c in calls))
 
 if __name__=='__main__': unittest.main()
+
+class ConversationEntities(unittest.TestCase):
+    setUp=IndexTests.setUp
+    tearDown=IndexTests.tearDown
+    note=IndexTests.note
+    def test_nonproject_world_annotations_create_shared_connections(self):
+        self.note('wiki/entity-climbing.md','# Climbing\nEntity: world\nName: Climbing\nReviewed: 2026-10-03\nStatus: Current\nSource: User')
+        self.note('wiki/entity-electronics.md','# Electronics\nEntity: world\nName: Electronics\nReviewed: 2026-10-03\nStatus: Current\nSource: User')
+        self.note('inbox/related.md','# A useful skill\nWorlds: Climbing, Electronics\nTopics: Learning\nRecorded: 2026-10-03\nNo project ID is needed.')
+        graph=module.graph();hubs=[n for n in graph['nodes'] if n['kind']=='hub']
+        self.assertTrue(any(n['label']=='Climbing' and n['count']>=1 for n in hubs))
+        self.assertTrue(any(n['label']=='Electronics' and n['count']>=1 for n in hubs))
+        topics=[n for n in graph['nodes'] if n['kind']=='topic' and n['label']=='Learning'];self.assertEqual(len(topics),2)
+        note=next(n for n in graph['nodes'] if n['label']=='A useful skill')
+        self.assertEqual(sum(e['target']==note['id'] and e['source'] in [n['id'] for n in topics] for e in graph['links']),2)
