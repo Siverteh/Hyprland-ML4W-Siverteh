@@ -27,6 +27,8 @@ class PaletteCommitTest(unittest.TestCase):
             self.assertIn('accent: #123456;', (home / '.config/siverteh-shell/rofi.rasi').read_text())
             self.assertEqual((home/'.config/siverteh/core/colors/primary').read_text(), '#123456')
             self.assertIn('active_border_color #123456', (home/'.config/kitty/colors-matugen.conf').read_text())
+            self.assertIn('color4 #'+palette.readable(colors['inversePrimary'],colors['inverseSurface'])+'\n',(home/'.config/kitty/colors-matugen.conf').read_text())
+            self.assertIn('color14 #'+palette.readable(colors['secondary'],colors['inverseSurface'])+'\n',(home/'.config/kitty/colors-matugen.conf').read_text())
             self.assertIn('outer_color = rgba(123456ff)', (home/'.config/hypr/hyprlock.conf').read_text())
             self.assertIn('primary 123456', (state / 'scheme/current.txt').read_text())
             self.assertEqual((state / 'wallpaper/last.txt').read_text(), '/tmp/example-wallpaper.png')

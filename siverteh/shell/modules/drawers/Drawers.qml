@@ -36,8 +36,8 @@ Variants {
             mask: Region {
                 x: Visibilities.hidden ? 0 : bar.implicitWidth
                 y: 0
-                width: Visibilities.hidden ? win.width : win.width - bar.implicitWidth - BorderConfig.thickness
-                height: Visibilities.hidden ? win.height : win.height - BorderConfig.thickness
+                width: Visibilities.hidden ? win.width : win.width - bar.implicitWidth - BorderConfig.right
+                height: Visibilities.hidden ? win.height : win.height - BorderConfig.bottom
                 intersection: Intersection.Xor
 
                 regions: regions.instances
@@ -143,7 +143,7 @@ Variants {
 
             Item {
                 id: bar
-                implicitWidth: BorderConfig.thickness
+                implicitWidth: BorderConfig.left
                 function checkPopout(y) { panels.popouts.hasCurrent=false; }
             }
         }

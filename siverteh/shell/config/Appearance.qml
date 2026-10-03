@@ -1,5 +1,6 @@
 pragma Singleton
 
+import "root:/services"
 import Quickshell
 import QtQuick
 
@@ -68,13 +69,13 @@ Singleton {
     }
 
     component AnimDurations: QtObject {
-        readonly property int small: 200
-        readonly property int normal: 400
-        readonly property int large: 600
-        readonly property int extraLarge: 1000
-        readonly property int expressiveFastSpatial: 350
-        readonly property int expressiveDefaultSpatial: 500
-        readonly property int expressiveEffects: 200
+        readonly property int small: DesktopSettings.data.animations===false?0:200
+        readonly property int normal: DesktopSettings.data.animations===false?0:400
+        readonly property int large: DesktopSettings.data.animations===false?0:600
+        readonly property int extraLarge: DesktopSettings.data.animations===false?0:1000
+        readonly property int expressiveFastSpatial: DesktopSettings.data.animations===false?0:350
+        readonly property int expressiveDefaultSpatial: DesktopSettings.data.animations===false?0:500
+        readonly property int expressiveEffects: DesktopSettings.data.animations===false?0:200
     }
 
     component Anim: QtObject {

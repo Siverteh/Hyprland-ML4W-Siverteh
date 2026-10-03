@@ -17,6 +17,7 @@ Variants {
         required property ShellScreen modelData
         screen: modelData
         name: "topbar"
+        visible:DesktopSettings.data.topEdge!==false
         contentItem.opacity: Visibilities.reveal
         mask: Region { width: Visibilities.hidden ? 0 : win.width; height: win.height }
         anchors.top:true; anchors.left:true; anchors.right:true

@@ -24,7 +24,8 @@ Item {
     readonly property BarPopouts.Wrapper popouts: popouts
 
     anchors.fill: parent
-    anchors.margins: BorderConfig.thickness
+    anchors.rightMargin: BorderConfig.right
+    anchors.bottomMargin: BorderConfig.bottom
     anchors.leftMargin: bar.implicitWidth
     anchors.topMargin: 0
 

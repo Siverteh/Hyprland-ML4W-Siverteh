@@ -33,6 +33,7 @@ def deploy(code_only=False):
   saved=STATE/"backups"/dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")/"fish_title.fish"
   saved.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(title,saved)
  shutil.copyfile(ROOT/"fish_title.fish",title)
+ subprocess.run(["python3",str(ROOT/"desktop-settings.py"),"init"],check=True,stdout=subprocess.DEVNULL)
  if code_only:
   for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)

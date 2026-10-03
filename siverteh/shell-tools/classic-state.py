@@ -99,8 +99,8 @@ def apply_palette(home, wallpaper=None, live=True):
     terminal=''.join(name+' #'+value+'\n' for name,value in terminal_roles.items())+'background_opacity 0.98\n'
     ansi=['onSurface','error','green','yellow','blue','mauve','teal','onSurface']
     for i,role in enumerate(ansi):
-        value=term_bg if i==0 else term_fg if i==7 else readable(colors.get(role,colors['primary']),term_bg)
-        bright=term_muted if i==0 else value
+        value=term_bg if i==0 else term_fg if i==7 else term_accent if i==4 else readable(colors.get(role,colors['primary']),term_bg)
+        bright=term_muted if i==0 else readable(colors['secondary'],term_bg) if i==6 else value
         terminal+=f'color{i} #{value}\ncolor{i+8} #{bright}\n'
     atomic_write(home/'.config/kitty/colors-matugen.conf', terminal)
     lock_template=Path(__file__).with_name('hyprlock.conf.in').read_text()

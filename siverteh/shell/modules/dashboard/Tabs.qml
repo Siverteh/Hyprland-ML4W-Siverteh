@@ -42,6 +42,7 @@ Item {
             iconName: "workspaces"
             text: qsTr("Workspaces")
         }
+        Tab {iconName:"settings";text:qsTr("Settings")}
     }
 
     Item {

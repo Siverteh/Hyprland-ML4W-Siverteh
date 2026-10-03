@@ -95,6 +95,7 @@ Item {
 
                 Performance {}
                 WorkspacePage { visibilities:root.visibilities }
+                Settings {}
             }
 
             Behavior on contentX {

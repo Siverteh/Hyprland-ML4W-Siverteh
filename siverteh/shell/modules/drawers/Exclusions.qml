@@ -24,10 +24,12 @@ Scope {
 
     ExclusionZone {
         anchors.right: true
+        exclusiveZone:Visibilities.hidden?0:BorderConfig.right
     }
 
     ExclusionZone {
         anchors.bottom: true
+        exclusiveZone:Visibilities.hidden?0:BorderConfig.bottom
     }
 
     component ExclusionZone: StyledWindow {

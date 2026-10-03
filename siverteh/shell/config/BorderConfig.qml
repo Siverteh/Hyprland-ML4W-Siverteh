@@ -8,7 +8,10 @@ Singleton {
     id: root
 
     readonly property color colour: Colours.palette.m3surface
-    readonly property int headerHeight: 40 + thickness
-    readonly property int thickness: Appearance.padding.normal
-    readonly property int rounding: Appearance.rounding.large
+    readonly property int headerHeight: DesktopSettings.data.topEdge===false?0:40 + thickness
+    readonly property int thickness: DesktopSettings.data.frameWidth??10
+    readonly property int left:DesktopSettings.data.leftEdge===false?0:thickness
+    readonly property int right:DesktopSettings.data.rightEdge===false?0:thickness
+    readonly property int bottom:DesktopSettings.data.bottomEdge===false?0:thickness
+    readonly property int rounding: DesktopSettings.data.frameRounding??25
 }

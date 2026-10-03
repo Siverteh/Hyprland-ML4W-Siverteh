@@ -10,7 +10,9 @@ Shape {
     anchors.fill: parent
     preferredRendererType: Shape.CurveRenderer
     function outline() {
-        const t=BorderConfig.thickness,r=BorderConfig.rounding,L=bar.implicitWidth,T=0,R=width-t,B=height-t;
+        const r=BorderConfig.rounding,L=bar.implicitWidth,T=0,R=width-BorderConfig.right,B=height-BorderConfig.bottom;
+        const tl=L>0&&BorderConfig.headerHeight>0?r:0,tr=BorderConfig.right>0&&BorderConfig.headerHeight>0?r:0;
+        const bl=L>0&&BorderConfig.bottom>0?r:0,br=BorderConfig.right>0&&BorderConfig.bottom>0?r:0;
         const commands=[];
         function point(x,y){return x.toFixed(3)+","+y.toFixed(3);}
         function move(x,y){commands.push("M"+point(x,y));}
@@ -27,7 +29,7 @@ Shape {
             a=p(u+w,ry);line(a[0],a[1]);b=p(u+w+rr,0);a=p(u+w,0);quad(a[0],a[1],b[0],b[1]);
         }
         move(0,0);line(width,0);line(width,height);line(0,height);commands.push("Z");
-        move(L+r,T);
+        move(L+tl,T);
         const top=[];
         if(panels.dashboard.height>0.5)top.push(panels.dashboard);
         if(panels.popouts.height>0.5&&panels.popouts.width>0.5&&!panels.popouts.joinsRight)top.push(panels.popouts);
@@ -41,13 +43,13 @@ Shape {
             line(R-n.width,T+n.height-ry);quad(R-n.width,T+n.height,R-n.width+r,T+n.height);
             line(R-r,T+n.height);quad(R,T+n.height,R,T+n.height+r);
             rightStart=T+n.height+r;
-        }else{line(R-r,T);quad(R,T,R,T+r);}
+        }else{line(R-tr,T);quad(R,T,R,T+tr);}
         const side=panels.session.width>0.5?panels.session:panels.osd;
         if(side.width>0.5&&T+side.y-r>rightStart)notch(side.y,side.height,side.width,(u,v)=>[R-v,T+u]);
-        line(R,B-r);quad(R,B,R-r,B);
+        line(R,B-br);quad(R,B,R-br,B);
         const launcher=panels.launcher;
         if(launcher.height>0.5)notch(R-(L+launcher.x+launcher.width),launcher.width,launcher.height,(u,v)=>[R-u,B-v]);
-        line(L+r,B);quad(L,B,L,B-r);line(L,T+r);quad(L,T,L+r,T);commands.push("Z");
+        line(L+bl,B);quad(L,B,L,B-bl);line(L,T+tl);quad(L,T,L+tl,T);commands.push("Z");
         return commands.join(" ");
     }
     ShapePath {
