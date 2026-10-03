@@ -72,8 +72,8 @@ Variants {
             Item {
                 implicitWidth:updateRow.implicitWidth;implicitHeight:34
                 Row {id:updateRow;anchors.centerIn:parent;spacing:4
-                    MaterialIcon {text:"package_2";color:Colours.palette.m3tertiary}
-                    StyledText {text:win.updateCount;color:Colours.palette.m3tertiary}
+                    MaterialIcon {text:"package_2";color:Colours.palette.m3primary}
+                    StyledText {text:win.updateCount;color:Colours.palette.m3primary}
                 }
                 MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{connectionManager.command=["siverteh-os-shell","updates"];AppLaunch.run(connectionManager.command);}}
             }
