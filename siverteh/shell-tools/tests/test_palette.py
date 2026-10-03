@@ -16,7 +16,7 @@ class PaletteCommitTest(unittest.TestCase):
             state.mkdir(parents=True)
             colors = json.loads((Path(__file__).resolve().parents[1]/'reference-style.json').read_text())['colours']
             colors['primary'] = '#123456'
-            (state / 'scheme.json').write_text(json.dumps({'mode':'dark','colours':colors}))
+            (state / 'scheme.json').write_text(json.dumps({'mode':'light','colours':colors}))
             terminal = home / '.config/kitty/kitty.conf'
             terminal.parent.mkdir(parents=True)
             terminal.write_text('foreground #fedcba\n')
@@ -26,11 +26,21 @@ class PaletteCommitTest(unittest.TestCase):
             self.assertIn('#ff123456', (home/'.config/siverteh-shell/qt.conf').read_text())
             self.assertIn('accent: #123456;', (home / '.config/siverteh-shell/rofi.rasi').read_text())
             self.assertEqual((home/'.config/siverteh/core/colors/primary').read_text(), '#123456')
-            self.assertIn('cursor #123456', (home/'.config/kitty/colors-matugen.conf').read_text())
+            self.assertIn('active_border_color #123456', (home/'.config/kitty/colors-matugen.conf').read_text())
             self.assertIn('outer_color = rgba(123456ff)', (home/'.config/hypr/hyprlock.conf').read_text())
             self.assertIn('primary 123456', (state / 'scheme/current.txt').read_text())
             self.assertEqual((state / 'wallpaper/last.txt').read_text(), '/tmp/example-wallpaper.png')
             self.assertEqual(terminal.read_text(), 'foreground #fedcba\n')
+            term=(home/'.config/kitty/colors-matugen.conf').read_text()
+            self.assertIn('background #'+colors['inverseSurface'],term)
+            self.assertIn('foreground #'+colors['inverseOnSurface'],term)
+
+    def test_dim_ansi_text_remains_readable_on_light_and_dark_backgrounds(self):
+        for background in ('fbf9f8','141318'):
+            for original in ('dfe3e3','ffffff','000000','008f68','424848'):
+                result=palette.readable(original,background)
+                a,b=palette.luminance(result),palette.luminance(background)
+                self.assertGreaterEqual((max(a,b)+0.05)/(min(a,b)+0.05),4.5)
 
     def test_invalid_palette_does_not_replace_committed_state(self):
         with tempfile.TemporaryDirectory() as folder:

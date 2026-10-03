@@ -38,7 +38,7 @@ Variants {
             interval:120
             onTriggered: {
                 const p=Visibilities.panels[win.screen.name];
-                if(p && !p.parent.containsMouse) p.popouts.hasCurrent=false;
+                if(p){p.popouts.headerHovered=statusHover.containsMouse||calendarHover.containsMouse;if(!p.popouts.headerHovered&&!p.parent.containsMouse)p.popouts.hasCurrent=false;}
             }
         }
         function openConnections(name,item) {
@@ -82,9 +82,9 @@ Variants {
                     MaterialIcon {text:"calendar_month";color:Colours.palette.m3tertiary}
                     StyledText {text:Time.format("HH:mm");color:Colours.palette.m3tertiary}
                 }
-                MouseArea { anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
+                MouseArea { id:calendarHover;anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
                     onEntered:win.hoverMenu("calendar",this)
-                    onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=false;dismissPopout.restart();}
+                    onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=statusHover.containsMouse;dismissPopout.restart();}
                     onClicked:win.hoverMenu("calendar",this)
                 }
             }
@@ -92,17 +92,23 @@ Variants {
                 radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
                 implicitWidth:status.implicitHeight+Appearance.padding.small*2;implicitHeight:34
                 Native.StatusIcons {id:status;anchors.centerIn:parent;rotation:-90;horizontal:true}
-                Row {
-                    anchors.fill:parent
-                    Repeater {model:["network","bluetooth","battery"]
-                        MouseArea {
-                            required property string modelData
-                            width:parent.width/3;height:parent.height;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
-                            onEntered:win.hoverMenu(modelData,this)
-                            onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=false;dismissPopout.restart();}
-                            onClicked:win.openConnections(modelData,this)
+                MouseArea {
+                    id:statusHover
+                    anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
+                    function menuName(){return ["network","bluetooth","battery"][Math.max(0,Math.min(2,Math.floor(mouseX/width*3)))];}
+                    function showMenu(){
+                        const name=menuName(),p=Visibilities.panels[win.screen.name];
+                        dismissPopout.stop();if(p)p.popouts.headerHovered=true;
+                        if(p && (!p.popouts.hasCurrent||p.popouts.currentName!==name)) {
+                            const index=["network","bluetooth","battery"].indexOf(name);
+                            const pt=mapToItem(win.contentItem,(index+.5)*width/3,0);
+                            dismissPopout.stop();p.popouts.headerHovered=true;Visibilities.popout(name,pt.x,win.screen.name);
                         }
                     }
+                    onEntered:showMenu()
+                    onPositionChanged:if(containsMouse)showMenu()
+                    onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=calendarHover.containsMouse;dismissPopout.restart();}
+                    onClicked:if(menuName()==="battery")showMenu();else win.openConnections(menuName(),this)
                 }
             }
             Native.Power {}

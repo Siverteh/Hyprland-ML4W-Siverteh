@@ -15,6 +15,22 @@ def atomic_write(path, text):
         if os.path.exists(temp): os.unlink(temp)
 
 
+def luminance(value):
+    rgb=[int(value.lstrip('#')[i:i+2],16)/255 for i in (0,2,4)]
+    rgb=[v/12.92 if v<=0.04045 else ((v+0.055)/1.055)**2.4 for v in rgb]
+    return sum(v*w for v,w in zip(rgb,(0.2126,0.7152,0.0722)))
+
+
+def readable(value, background, minimum=4.5):
+    rgb=[int(value.lstrip('#')[i:i+2],16) for i in (0,2,4)]
+    bg=luminance(background)
+    for _ in range(100):
+        result=''.join(f'{v:02x}' for v in rgb);fg=luminance(result)
+        if (max(bg,fg)+0.05)/(min(bg,fg)+0.05)>=minimum:return result
+        rgb=[max(0,int(v*0.92)) for v in rgb] if bg>0.5 else [min(255,int(v+max(1,(255-v)*0.08))) for v in rgb]
+    return '000000' if bg>0.5 else 'ffffff'
+
+
 def apply_palette(home, wallpaper=None, live=True):
     state = home / '.local/state/siverteh_shell'
     data = json.loads((state / 'scheme.json').read_text())
@@ -69,16 +85,23 @@ def apply_palette(home, wallpaper=None, live=True):
         atomic_write(home/('.config/siverteh/core/colors/'+name), '#'+colors[role])
     legacy='\n'.join('var_'+name+' = "rgba('+colors[role]+'ff)"' for name,role in [('primary','primary'),('on_primary','onPrimary'),('on_surface','onSurface')])+'\n'
     atomic_write(home/'.config/hypr/colors.lua', legacy)
-    terminal_roles={'foreground':'onSurface','background':'surface','cursor':'primary','cursor_text_color':'onPrimary',
-                    'selection_foreground':'onPrimary','selection_background':'primary','url_color':'tertiary',
-                    'active_border_color':'primary','inactive_border_color':'outlineVariant',
-                    'active_tab_foreground':'onPrimary','active_tab_background':'primary',
-                    'inactive_tab_foreground':'onSurfaceVariant','inactive_tab_background':'surfaceContainer'}
-    terminal=''.join(name+' #'+colors[role]+'\n' for name,role in terminal_roles.items())
-    ansi=['surfaceVariant','error','green','yellow','blue','mauve','teal','onSurface']
+    # Terminal TUIs often paint dark input panels regardless of the desktop mode.
+    # Use the same palette's inverse roles on light wallpapers, preserving its hue.
+    term_bg=colors['inverseSurface'] if data['mode']=='light' else colors['surface']
+    term_fg=colors['inverseOnSurface'] if data['mode']=='light' else colors['onSurface']
+    term_accent=readable(colors['inversePrimary'] if data['mode']=='light' else colors['primary'],term_bg)
+    term_muted=readable(colors['onSurfaceVariant'],term_bg)
+    terminal_roles={'foreground':term_fg,'background':term_bg,'cursor':term_accent,'cursor_text_color':term_bg,
+                    'selection_foreground':term_bg,'selection_background':term_accent,'url_color':readable(colors['tertiary'],term_bg),
+                    'active_border_color':colors['primary'],'inactive_border_color':colors['outlineVariant'],
+                    'active_tab_foreground':term_bg,'active_tab_background':term_accent,
+                    'inactive_tab_foreground':term_muted,'inactive_tab_background':term_bg}
+    terminal=''.join(name+' #'+value+'\n' for name,value in terminal_roles.items())+'background_opacity 0.98\n'
+    ansi=['onSurface','error','green','yellow','blue','mauve','teal','onSurface']
     for i,role in enumerate(ansi):
-        value=colors.get(role,colors['primary'])
-        terminal+=f'color{i} #{value}\ncolor{i+8} #{value}\n'
+        value=term_bg if i==0 else term_fg if i==7 else readable(colors.get(role,colors['primary']),term_bg)
+        bright=term_muted if i==0 else value
+        terminal+=f'color{i} #{value}\ncolor{i+8} #{bright}\n'
     atomic_write(home/'.config/kitty/colors-matugen.conf', terminal)
     lock_template=Path(__file__).with_name('hyprlock.conf.in').read_text()
     selected = str(Path(wallpaper).expanduser().resolve()) if wallpaper else ((state/'wallpaper/last.txt').read_text().strip() if (state/'wallpaper/last.txt').exists() else '')

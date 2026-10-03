@@ -28,7 +28,7 @@ Item {
         return `${Math.floor(length / 60)}:${Math.floor(length % 60).toString().padStart(2, "0")}`;
     }
 
-    implicitWidth: cover.implicitWidth + DashboardConfig.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + Appearance.padding.large * 2
+    implicitWidth: cover.implicitWidth + DashboardConfig.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + cat.implicitWidth + Appearance.spacing.large + Appearance.padding.large * 2
     implicitHeight: Math.max(cover.implicitHeight + DashboardConfig.sizes.mediaVisualiserSize * 2, details.implicitHeight) + Appearance.padding.large * 2
 
     Behavior on playerProgress {
@@ -504,6 +504,17 @@ Item {
         }
     }
 
+
+    Item {
+        id:cat
+        anchors.verticalCenter:parent.verticalCenter;anchors.left:details.right;anchors.leftMargin:Appearance.spacing.large
+        implicitWidth:170;implicitHeight:170
+        AnimatedImage {
+            anchors.fill:parent;source:"root:/assets/bongocat.gif";fillMode:Image.PreserveAspectFit
+            playing:root.shouldUpdate && (Players.active?.isPlaying??false)
+            speed:Math.min(1.8,0.6+Math.max(0,...Cava.values)/100)
+        }
+    }
 
     component Control: StyledRect {
         id: control
