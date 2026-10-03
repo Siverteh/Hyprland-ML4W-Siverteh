@@ -33,6 +33,7 @@ Column {
     }
 
     VerticalSlider {
+        enabled:root.monitor?.available??false
         icon: `brightness_${(Math.round(value * 6) + 1)}`
         value: root.monitor?.brightness ?? 0
         onMoved: root.monitor?.setBrightness(value)

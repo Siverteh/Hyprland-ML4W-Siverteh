@@ -113,6 +113,15 @@ def chat_records(threads, sessions):
 
 
 
+def cache_title(thread_id,title):
+    if not re.fullmatch(r'[a-zA-Z0-9-]{1,100}',thread_id or ''):raise ValueError('Invalid title cache ID')
+    import tempfile
+    root=Path.home()/'.local/state/siverteh-ai/chat-titles';root.mkdir(parents=True,exist_ok=True,mode=0o700)
+    fd,temp=tempfile.mkstemp(dir=root,prefix='.title-')
+    with os.fdopen(fd,'w') as output:json.dump({'title':label(title)},output)
+    os.replace(temp,root/f'{thread_id}.json')
+
+
 def set_title(thread_id, title, env):
     if not re.fullmatch(r'[a-zA-Z0-9-]{1,100}', thread_id or ''):
         raise ValueError('A valid chat ID is required')
@@ -121,6 +130,7 @@ def set_title(thread_id, title, env):
         raise ValueError('A title is required')
     with Codex(env) as codex:
         codex.call('thread/name/set', {'threadId': thread_id, 'name': name})
+    cache_title(thread_id,name)
 
 
 def knowledge_tools():
@@ -279,6 +289,7 @@ def main():
             if not name or not a.thread_id:
                 raise ValueError('Run in a Codex tool session or pass --thread-id, plus a short title')
             codex.call('thread/name/set',{'threadId':a.thread_id,'name':name})
+            cache_title(a.thread_id,name)
             print('Chat title saved')
         else:
             if not a.path or not a.project:

@@ -12,14 +12,20 @@ Item {
 
     property color colour: Colours.palette.m3secondary
 
+    readonly property Item audioItem: speaker
+    readonly property Item notificationsItem: bell
     readonly property Item network: network
     readonly property Item bluetoothItem: bluetooth
     readonly property Item battery: battery
 
     clip: true
-    implicitWidth: Math.max(network.implicitWidth, bluetooth.implicitWidth, battery.implicitWidth)
-    implicitHeight: network.implicitHeight + bluetooth.implicitHeight + bluetooth.anchors.topMargin + battery.implicitHeight + battery.anchors.topMargin
+    implicitWidth: Math.max(speaker.implicitWidth,network.implicitWidth,bluetooth.implicitWidth,battery.implicitWidth,bell.implicitWidth)
+    implicitHeight:speaker.implicitHeight+network.implicitHeight+bluetooth.implicitHeight+battery.implicitHeight+bell.implicitHeight+Appearance.spacing.small*4
 
+    MaterialIcon {
+        id:speaker;rotation:root.horizontal?90:0;text:Audio.muted?"volume_off":"volume_up";color:root.colour
+        anchors.horizontalCenter:parent.horizontalCenter
+    }
     MaterialIcon {
         rotation:root.horizontal?90:0
         id: network
@@ -28,7 +34,8 @@ Item {
         text: Network.active ? Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
         color: root.colour
 
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter:parent.horizontalCenter
+        anchors.top:speaker.bottom;anchors.topMargin:Appearance.spacing.small
     }
 
     MaterialIcon {
@@ -73,6 +80,12 @@ Item {
         }
         color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
         fill: 1
+    }
+
+    MaterialIcon {
+        id:bell;rotation:root.horizontal?90:0;text:"notifications";color:root.colour
+        anchors.horizontalCenter:battery.horizontalCenter;anchors.top:battery.bottom;anchors.topMargin:Appearance.spacing.small
+        fill:Notifs.list.length?1:0
     }
 
     Behavior on implicitWidth {

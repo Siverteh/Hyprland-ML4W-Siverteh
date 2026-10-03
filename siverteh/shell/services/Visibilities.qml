@@ -14,6 +14,7 @@ Singleton {
         const v=screens[screenName],p=panels[screenName];
         if(!v||!p||v.session)return;
         v.dashboard=false;v.osd=false;
+        if(p.popouts.currentName!==name)p.popouts.pinned=false;
         p.popouts.currentName=name;p.popouts.currentCenter=center;p.popouts.hasCurrent=true;
     }
     function getForActive(): PersistentProperties {

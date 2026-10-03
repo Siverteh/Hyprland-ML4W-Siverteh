@@ -20,7 +20,7 @@ Item {
         id:body
         anchors.fill:parent;anchors.margins:Appearance.padding.large
         clip:true;asynchronous:false
-        source:({network:"Network.qml",bluetooth:"Bluetooth.qml",calendar:"Calendar.qml",battery:"Battery.qml"})[root.currentName]??""
+        source:({audio:"Audio.qml",notifications:"Notifications.qml",network:"Network.qml",bluetooth:"Bluetooth.qml",calendar:"Calendar.qml",battery:"Battery.qml"})[root.currentName]??""
         onLoaded:{if(item.implicitWidth>0)root.lastWidth=item.implicitWidth;if(item.implicitHeight>0)root.lastHeight=item.implicitHeight;}
     }
     Behavior on implicitWidth {Anim {}}

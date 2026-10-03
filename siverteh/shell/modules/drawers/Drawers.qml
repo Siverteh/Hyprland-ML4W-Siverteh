@@ -31,7 +31,7 @@ Variants {
             contentItem.focus: true
             contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;panels.popouts.hasCurrent=false;}
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: !Visibilities.hidden && (visibilities.launcher || visibilities.session) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: !Visibilities.hidden && (visibilities.launcher || visibilities.session || panels.popouts.pinned) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: Region {
                 x: Visibilities.hidden ? 0 : bar.implicitWidth
@@ -66,11 +66,12 @@ Variants {
             }
 
             HyprlandFocusGrab {
-                active: !Visibilities.hidden && (visibilities.launcher || visibilities.session)
+                active: !Visibilities.hidden && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
                     visibilities.launcher = false;
                     visibilities.session = false;
+                    panels.popouts.hasCurrent=false;
                 }
             }
 

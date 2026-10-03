@@ -68,7 +68,7 @@ class BrainTests(unittest.TestCase):
 class WorkflowTests(unittest.TestCase):
     def test_dashboard_forwards_selected_account_to_worker(self):
         ai = module('siverteh-ai')
-        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New chat', 'Close']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch:
+        with patch.object(sys, 'argv', ['siverteh-ai', 'dashboard', '--account', 'second']), patch.object(ai, 'select', side_effect=['New chat', 'Close']), patch.object(ai, 'project_for', return_value={'id': 'example-project'}), patch.object(ai.subprocess, 'Popen') as launch, patch.object(ai, 'default_assistant', return_value='codex'):
             ai.main()
             argv=launch.call_args.args[0]
             self.assertEqual(argv[argv.index('--project')+1], 'general-chat')

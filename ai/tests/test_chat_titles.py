@@ -32,6 +32,16 @@ class ChatTitles(unittest.TestCase):
         self.assertEqual(chat.label('hello\r\nworld\x1b'), 'helloworld')
         self.assertLessEqual(len(chat.label('x'*200)),100)
 
+    def test_derived_title_cache_is_private_and_strips_controls(self):
+        import json
+        chat=module('siverteh-ai-chat')
+        with tempfile.TemporaryDirectory() as home, patch.dict(os.environ,{'HOME':home}):
+            chat.cache_title('thread-one','A title\x1b\n')
+            file=Path(home)/'.local/state/siverteh-ai/chat-titles/thread-one.json'
+            self.assertEqual(json.loads(file.read_text()),{'title':'A title'})
+            self.assertEqual(file.stat().st_mode&0o777,0o600)
+            with self.assertRaises(ValueError):chat.cache_title('../escape','no')
+
     def test_account_home_stays_isolated(self):
         chat=module('siverteh-ai-chat')
         with tempfile.TemporaryDirectory() as home, patch.dict(os.environ,{'HOME':home}):

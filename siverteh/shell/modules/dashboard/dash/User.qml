@@ -19,13 +19,8 @@ Row {
         radius: Appearance.rounding.full
         color: Colours.palette.m3surfaceContainerHigh
 
-        MaterialIcon {
-            anchors.centerIn: parent
+        ShLogo {anchors.centerIn:parent;scale:parent.width/48}
 
-            text: "terminal"
-            fill: 1
-            font.pointSize: (info.implicitHeight / 2) || 1
-        }
 
 
     }

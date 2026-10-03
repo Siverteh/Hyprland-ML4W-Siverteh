@@ -126,11 +126,4 @@ Slider {
         }
     }
 
-    Behavior on value {
-        NumberAnimation {
-            duration: Appearance.anim.durations.large
-            easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.standard
-        }
-    }
 }

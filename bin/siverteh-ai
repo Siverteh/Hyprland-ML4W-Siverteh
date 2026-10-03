@@ -572,6 +572,7 @@ def load_task(args):
         if chosen is None:
             return
         item = choices[chosen]
+    if sys.stdout.isatty():print('\033]2;'+clean_label(item['title'])+'\007',end='',flush=True)
     project = item['project']
     account=item.get('account',args.account)
     if item.get('agent') == 'claude':

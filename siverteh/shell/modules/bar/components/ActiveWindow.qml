@@ -12,6 +12,7 @@ Item {
 
     required property Brightness.Monitor monitor
     property bool horizontal: false
+    readonly property string displayTitle:Hyprland.activeClient?.wmClass==="siverteh-ai-dashboard"?"Siverteh AI":Hyprland.activeClient?.wmClass==="siverteh-ai-task"?(ChatWindowTitle.title || (["Load chat","Resume latest chat","New chat"].includes(Hyprland.activeClient?.title)?"Siverteh AI chat":Hyprland.activeClient?.title??"Siverteh AI chat")):(Hyprland.activeClient?.title??qsTr("Desktop"))
     property color colour: Colours.palette.m3primary
     readonly property Item child: child
 
@@ -81,7 +82,7 @@ Item {
         TextMetrics {
             id: metrics
 
-            text: Hyprland.activeClient?.title ?? qsTr("Desktop")
+            text: root.displayTitle
             font.pointSize: Appearance.font.size.smaller
             font.family: Appearance.font.family.mono
             elide: Qt.ElideRight
@@ -124,7 +125,7 @@ Item {
             Layout.alignment: Qt.AlignVCenter
         }
         StyledText {
-            text: Hyprland.activeClient?.title ?? qsTr("Desktop")
+            text: root.displayTitle
             color: root.colour
             font.pointSize: Appearance.font.size.smaller
             font.family: Appearance.font.family.mono

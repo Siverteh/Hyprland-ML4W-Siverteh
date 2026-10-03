@@ -10,10 +10,13 @@ Singleton {
     id: root
 
     property var ddcMonitors: []
+    property string backlightDevice:""
+    Process {running:true;command:["brightnessctl","-c","backlight","-m"];stdout:SplitParser {onRead:data=>{root.backlightDevice=data.split(",")[0];for(const m of root.monitors)m.refresh();}}}
+    IpcHandler {target:"brightness";function state():string{return JSON.stringify(root.monitors.map(m=>({screen:m.modelData.name,value:m.brightness,device:root.backlightDevice,available:m.available})));}function set(value:real):string{const m=root.monitors[0];if(m)m.setBrightness(value);return JSON.stringify({found:!!m,available:m?.available,requested:value,brightness:m?.brightness,command:m?.writer.command,running:m?.writer.running,pending:m?.pendingPercent});}}
     readonly property list<Monitor> monitors: variants.instances
 
     function getMonitorForScreen(screen: ShellScreen): var {
-        return monitors.find(m => m.modelData === screen);
+        return monitors.find(m => m.modelData.name === screen?.name);
     }
 
     function increaseBrightness(): void {
@@ -30,6 +33,7 @@ Singleton {
             monitor.setBrightness(monitor.brightness - 0.1);
     }
 
+    Timer {interval:1000;running:true;repeat:true;onTriggered:{for(const m of root.monitors)m.refresh();}}
     reloadableId: "brightness"
 
     onMonitorsChanged: {
@@ -48,7 +52,7 @@ Singleton {
     Process {
         id: ddcProc
 
-        command: ["ddcutil", "detect", "--brief"]
+        command: ["sh","-c","command -v ddcutil >/dev/null && ddcutil detect --brief"]
         stdout: SplitParser {
             splitMarker: "\n\n"
             onRead: data => {
@@ -64,9 +68,6 @@ Singleton {
         onExited: root.ddcMonitorsChanged()
     }
 
-    Process {
-        id: setProc
-    }
 
     CustomShortcut {
         name: "brightnessUp"
@@ -85,34 +86,42 @@ Singleton {
         readonly property bool isDdc: root.ddcMonitors.some(m => m.model === modelData.model)
         readonly property string busNum: root.ddcMonitors.find(m => m.model === modelData.model)?.busNum ?? ""
         property real brightness
+        property int pendingPercent:-1
+        readonly property bool available:isDdc || (root.backlightDevice.length>0 && (/^(eDP|LVDS)/i.test(modelData.name)||Quickshell.screens.length===1))
+        readonly property Timer writeDelay:Timer {interval:60;onTriggered:monitor.startWrite()}
+        readonly property Process writer:Process {
+            property int percent
+            onExited:code=>{monitor.refresh();if(code!==0)console.warn("Brightness write failed",code);monitor.writeDelay.restart();}
+        }
+        function startWrite(){
+            if(writer.running||pendingPercent<0)return;
+            writer.percent=pendingPercent;pendingPercent=-1;
+            writer.command=isDdc?["ddcutil","-b",busNum,"setvcp","10",writer.percent]:["brightnessctl","-c","backlight","-d",root.backlightDevice,"set",writer.percent+"%"];
+            writer.running=true;
+        }
+        function refresh(){
+            if(!available)return;
+            initProc.command=isDdc?["ddcutil","-b",busNum,"getvcp","10","--brief"]:["sh","-c",'echo "a b c $(brightnessctl -c backlight -d '+root.backlightDevice+' get) $(brightnessctl -c backlight -d '+root.backlightDevice+' max)"'];
+            initProc.running=true;
+        }
 
         readonly property Process initProc: Process {
             stdout: SplitParser {
                 onRead: data => {
                     const [, , , current, max] = data.split(" ");
-                    monitor.brightness = parseInt(current) / parseInt(max);
+                    if(!monitor.writer.running && monitor.pendingPercent<0)monitor.brightness = parseInt(current) / parseInt(max);
                 }
             }
         }
 
-        function setBrightness(value: real): void {
-            value = Math.max(0, Math.min(1, value));
-            const rounded = Math.round(value * 100);
-            if (Math.round(brightness * 100) === rounded)
-                return;
-            brightness = value;
-            setProc.command = isDdc ? ["ddcutil", "-b", busNum, "setvcp", "10", rounded] : ["brightnessctl", "s", `${rounded}%`];
-            setProc.startDetached();
-        }
+        function setBrightness(value:real):void {
+            if(!available)return;
+            value=Math.max(.01,Math.min(1,value));
+            const percent=Math.round(value*100);
 
-        onBusNumChanged: {
-            initProc.command = isDdc ? ["ddcutil", "-b", busNum, "getvcp", "10", "--brief"] : ["sh", "-c", `echo "a b c $(brightnessctl g) $(brightnessctl m)"`];
-            initProc.running = true;
+            brightness=value;pendingPercent=percent;writeDelay.restart();
         }
-
-        Component.onCompleted: {
-            initProc.command = isDdc ? ["ddcutil", "-b", busNum, "getvcp", "10", "--brief"] : ["sh", "-c", `echo "a b c $(brightnessctl g) $(brightnessctl m)"`];
-            initProc.running = true;
-        }
+        onBusNumChanged:refresh()
+        Component.onCompleted:refresh()
     }
 }

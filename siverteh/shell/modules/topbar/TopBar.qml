@@ -38,11 +38,11 @@ Variants {
             interval:120
             onTriggered: {
                 const p=Visibilities.panels[win.screen.name];
-                if(p){p.popouts.headerHovered=statusHover.containsMouse||calendarHover.containsMouse;if(!p.popouts.headerHovered&&!p.parent.containsMouse)p.popouts.hasCurrent=false;}
+                if(p){p.popouts.headerHovered=statusHover.containsMouse||calendarHover.containsMouse;if(!p.popouts.pinned&&!p.popouts.headerHovered&&!p.parent.containsMouse)p.popouts.hasCurrent=false;}
             }
         }
         function openConnections(name,item) {
-            if(name === "battery") { hoverMenu(name,item); return; }
+            if(name === "audio"){connectionManager.command=["pavucontrol"];connectionManager.startDetached();return;}
             const p=Visibilities.panels[screen.name];if(p)p.popouts.hasCurrent=false;
             connectionManager.command=["siverteh-os-shell",name === "network" ? "wifi" : "bluetooth"];
             connectionManager.startDetached();
@@ -96,16 +96,16 @@ Variants {
                     id:statusHover
                     anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
                     function menuName(){
-                        const icons=[status.network,status.bluetoothItem,status.battery];let best=Infinity,index=0;
+                        const icons=[status.audioItem,status.network,status.bluetoothItem,status.battery,status.notificationsItem];let best=Infinity,index=0;
                         for(let i=0;i<icons.length;i++){const icon=icons[i],x=icon.mapToItem(statusHover,icon.width/2,icon.height/2).x,d=Math.abs(mouseX-x);if(d<best){best=d;index=i;}}
-                        return ["network","bluetooth","battery"][index];
+                        return ["audio","network","bluetooth","battery","notifications"][index];
                     }
                     function showMenu(){
                         const name=menuName(),p=Visibilities.panels[win.screen.name];
                         dismissPopout.stop();if(p)p.popouts.headerHovered=true;
                         if(p && (!p.popouts.hasCurrent||p.popouts.currentName!==name)) {
-                            const index=["network","bluetooth","battery"].indexOf(name);
-                            const icon=[status.network,status.bluetoothItem,status.battery][index];
+                            const index=["audio","network","bluetooth","battery","notifications"].indexOf(name);
+                            const icon=[status.audioItem,status.network,status.bluetoothItem,status.battery,status.notificationsItem][index];
                             const pt=icon.mapToItem(win.contentItem,icon.width/2,icon.height/2);
                             dismissPopout.stop();p.popouts.headerHovered=true;Visibilities.popout(name,pt.x,win.screen.name);
                         }
@@ -113,7 +113,11 @@ Variants {
                     onEntered:showMenu()
                     onPositionChanged:if(containsMouse)showMenu()
                     onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=calendarHover.containsMouse;dismissPopout.restart();}
-                    onClicked:if(menuName()==="battery")showMenu();else win.openConnections(menuName(),this)
+                    onClicked:{
+                        const name=menuName(),p=Visibilities.panels[win.screen.name];
+                        if(name==="notifications") {if(p.popouts.hasCurrent&&p.popouts.pinned&&p.popouts.currentName===name)p.popouts.hasCurrent=false;else{showMenu();p.popouts.pinned=true;}}
+                        else if(name==="battery")showMenu();else win.openConnections(name,this);
+                    }
                 }
             }
             Native.Power {}
