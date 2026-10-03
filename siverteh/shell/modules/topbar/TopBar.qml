@@ -77,7 +77,13 @@ Variants {
                 }
                 MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{connectionManager.command=["siverteh-os-shell","updates"];AppLaunch.run(connectionManager.command);}}
             }
+            StyledRect {
+                radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
+                implicitWidth:calendarItem.implicitWidth+statusHolder.implicitWidth+Appearance.spacing.normal+Appearance.padding.small*2
+                implicitHeight:34
+                Row {anchors.centerIn:parent;spacing:Appearance.spacing.normal
             Item {
+                id:calendarItem
                 implicitWidth:clockRow.implicitWidth;implicitHeight:34
                 Row { id:clockRow;anchors.centerIn:parent;spacing:Appearance.spacing.small
                     MaterialIcon {text:"calendar_month";color:Colours.palette.m3tertiary}
@@ -89,9 +95,9 @@ Variants {
                     onClicked:win.hoverMenu("calendar",this)
                 }
             }
-            StyledRect {
-                radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
-                implicitWidth:status.implicitHeight+Appearance.padding.small*2;implicitHeight:34
+            Item {
+                id:statusHolder
+                implicitWidth:status.implicitHeight;implicitHeight:34
                 Native.StatusIcons {id:status;anchors.centerIn:parent;rotation:-90;horizontal:true}
                 MouseArea {
                     id:statusHover
@@ -119,6 +125,8 @@ Variants {
                         if(name==="notifications") {if(p.popouts.hasCurrent&&p.popouts.pinned&&p.popouts.currentName===name)p.popouts.hasCurrent=false;else{showMenu();p.popouts.pinned=true;}}
                         else if(name==="battery")showMenu();else win.openConnections(name,this);
                     }
+                }
+            }
                 }
             }
             Native.Power {}

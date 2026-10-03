@@ -17,6 +17,7 @@ StyledRect {
     readonly property bool hasImage: modelData.image.length > 0
     readonly property bool hasAppIcon: modelData.appIcon.length > 0
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
+    property bool history:false
     property bool expanded
 
     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
@@ -49,11 +50,13 @@ StyledRect {
         onPressed: event => {
             startY = event.y;
             if (event.button === Qt.MiddleButton)
-                root.modelData.notification.dismiss();
+                Notifs.dismiss(root.modelData);
         }
         onReleased: event => {
             if (Math.abs(root.x) < NotifsConfig.sizes.width * NotifsConfig.clearThreshold)
                 root.x = 0;
+            else if(root.history)
+                Notifs.dismiss(root.modelData);
             else
                 root.modelData.popup = false;
         }

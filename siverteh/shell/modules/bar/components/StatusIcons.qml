@@ -82,10 +82,15 @@ Item {
         fill: 1
     }
 
-    MaterialIcon {
-        id:bell;rotation:root.horizontal?90:0;text:"notifications";color:root.colour
+    Item {
+        id:bell
         anchors.horizontalCenter:battery.horizontalCenter;anchors.top:battery.bottom;anchors.topMargin:Appearance.spacing.small
-        fill:Notifs.list.length?1:0
+        implicitWidth:root.horizontal?bellRow.implicitHeight:bellRow.implicitWidth
+        implicitHeight:root.horizontal?bellRow.implicitWidth:bellRow.implicitHeight
+        Row {id:bellRow;anchors.centerIn:parent;rotation:root.horizontal?90:0;spacing:4
+            MaterialIcon {text:"notifications";color:root.colour;fill:Notifs.list.length?1:0}
+            StyledText {anchors.verticalCenter:parent.verticalCenter;visible:Notifs.list.length>0;text:Notifs.list.length;font.pointSize:11;color:root.colour}
+        }
     }
 
     Behavior on implicitWidth {
