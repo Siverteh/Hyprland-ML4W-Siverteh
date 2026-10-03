@@ -13,12 +13,10 @@ Item {
         ScrollBar.vertical:ScrollBar {}
         Column {
             id:content;width:parent.width;spacing:16
-            Row {spacing:12
-                MaterialIcon {text:"tune";font.pointSize:24;color:Colours.palette.m3primary}
-                Column {spacing:4
-                    StyledText {text:"Make it yours";font.pointSize:20}
-                    StyledText {text:DesktopSettings.message&&DesktopSettings.message!=="Changes save automatically"?DesktopSettings.message:"Desktop changes save automatically. Super+O brings this panel back.";color:Colours.palette.m3onSurfaceVariant}
-                }
+            StyledText {
+                visible:DesktopSettings.message.length>0&&DesktopSettings.message!=="Changes save automatically"
+                text:DesktopSettings.message
+                width:parent.width;wrapMode:Text.WordWrap;color:Colours.palette.m3error
             }
             StyledRect {
                 width:900;height:DesktopSettings.pending?175:140;radius:17;color:Colours.palette.m3surfaceContainer
