@@ -17,8 +17,9 @@ Item {
 
     anchors.centerIn: parent
 
-    implicitWidth: hasCurrent ? (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + Appearance.padding.large * 2 : 0
-    implicitHeight: (content.children.find(c => c.shouldBeActive)?.implicitHeight ?? 0) + Appearance.padding.large * 2
+    readonly property real targetWidth: (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + Appearance.padding.large * 2
+    implicitWidth: targetWidth
+    implicitHeight: hasCurrent ? (content.children.find(c => c.shouldBeActive)?.implicitHeight ?? 0) + Appearance.padding.large * 2 : 0
 
     Item {
         id: content
@@ -42,6 +43,8 @@ Item {
             name: "bluetooth"
             source: "Bluetooth.qml"
         }
+
+        Popout { name: "calendar"; source: "Calendar.qml" }
 
         Popout {
             name: "battery"
@@ -121,7 +124,7 @@ Item {
         opacity: 0
         scale: 0.8
         active: false
-        asynchronous: true
+        asynchronous: false
 
         states: State {
             name: "active"

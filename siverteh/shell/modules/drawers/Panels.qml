@@ -26,6 +26,7 @@ Item {
     anchors.fill: parent
     anchors.margins: BorderConfig.thickness
     anchors.leftMargin: bar.implicitWidth
+    anchors.topMargin: 0
 
     Component.onCompleted: Visibilities.panels[screen.name] = this
 
@@ -43,7 +44,7 @@ Item {
 
     Notifications.Wrapper {
         id: notifications
-        suppressed: popouts.width > 0.1 || session.width > 0.1 || dashboard.height > 0.1
+        suppressed: popouts.height > 0.1 || session.width > 0.1 || dashboard.height > 0.1
 
         anchors.top: parent.top
         anchors.right: parent.right
@@ -82,7 +83,8 @@ Item {
         screen: root.screen
 
         anchors.top: parent.top
-        x: Math.max(BorderConfig.rounding*2,Math.min(parent.width-width-BorderConfig.rounding*2,root.popouts.currentCenter-root.bar.implicitWidth-width/2))
+        readonly property bool joinsRight: currentCenter-root.bar.implicitWidth+targetWidth/2 > parent.width-BorderConfig.rounding*2
+        x: joinsRight ? parent.width-width : Math.max(BorderConfig.rounding*2,currentCenter-root.bar.implicitWidth-width/2)
 
     }
 }

@@ -18,7 +18,7 @@ MouseArea {
     property point dragStart
 
     function withinPanelHeight(panel: Item, x: real, y: real): bool {
-        const panelY = BorderConfig.thickness + panel.y;
+        const panelY = panels.y + panel.y;
         return y >= panelY - BorderConfig.rounding && y <= panelY + panel.height + BorderConfig.rounding;
     }
 
@@ -28,7 +28,7 @@ MouseArea {
 
     function inTopPanel(panel: Item, x: real, y: real): bool {
         const panelX = bar.implicitWidth + panel.x;
-        return y < BorderConfig.thickness + panel.y + panel.height && x >= panelX - BorderConfig.rounding && x <= panelX + panel.width + BorderConfig.rounding;
+        return y < panels.y + panel.y + panel.height && x >= panelX - BorderConfig.rounding && x <= panelX + panel.width + BorderConfig.rounding;
     }
 
     anchors.fill: parent
@@ -64,7 +64,7 @@ MouseArea {
 
         // Header popouts extend down from the top edge and remain while entered.
         if(popouts.hasCurrent){
-            const px=bar.implicitWidth+popouts.x,py=BorderConfig.thickness+popouts.y;
+            const px=bar.implicitWidth+popouts.x,py=panels.y+popouts.y;
             if(y>py+popouts.height+BorderConfig.rounding||x<px-BorderConfig.rounding||x>px+popouts.width+BorderConfig.rounding)popouts.hasCurrent=false;
         }
 

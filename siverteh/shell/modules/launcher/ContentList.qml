@@ -113,7 +113,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         sourceComponent: WallpaperList {
-            search: root.search
+            filter: root.search.text.split(" ").slice(1).join(" ")
             visibilities: root.visibilities
         }
     }

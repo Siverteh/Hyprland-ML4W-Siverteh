@@ -8,7 +8,7 @@ import QtQuick.Controls
 PathView {
     id: root
 
-    required property TextField search
+    property string filter: ""
     required property PersistentProperties visibilities
     readonly property int numItems: {
         const screenWidth = QsWindow.window?.screen.width * 0.8;
@@ -24,12 +24,10 @@ PathView {
     }
 
     model: ScriptModel {
-        readonly property string search: root.search.text.split(" ").slice(1).join(" ")
+        readonly property string search: root.filter
 
         values: {
             const list = Wallpapers.fuzzyQuery(search);
-            if (list.length > 1 && list.length % 2 === 0)
-                list.length -= 1; // Always show odd number
             return list;
         }
         onValuesChanged: root.currentIndex = search ? 0 : values.findIndex(w => w.path === Wallpapers.actualCurrent)
@@ -39,7 +37,7 @@ PathView {
     Component.onDestruction: Wallpapers.stopPreview()
 
     onCurrentItemChanged: {
-        if (currentItem)
+        if (currentItem && visibilities.launcher)
             Wallpapers.preview(currentItem.modelData.path);
     }
 

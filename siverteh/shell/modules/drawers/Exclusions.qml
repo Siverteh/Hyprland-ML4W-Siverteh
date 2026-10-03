@@ -19,7 +19,7 @@ Scope {
 
     ExclusionZone {
         anchors.top: true
-        exclusiveZone: Visibilities.hidden ? 0 : 40 + BorderConfig.thickness
+        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.headerHeight
     }
 
     ExclusionZone {

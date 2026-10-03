@@ -36,15 +36,15 @@ Variants {
 
             mask: Region {
                 x: Visibilities.hidden ? 0 : bar.implicitWidth
-                y: Visibilities.hidden ? 0 : BorderConfig.thickness
+                y: 0
                 width: Visibilities.hidden ? win.width : win.width - bar.implicitWidth - BorderConfig.thickness
-                height: Visibilities.hidden ? win.height : win.height - BorderConfig.thickness * 2
+                height: Visibilities.hidden ? win.height : win.height - BorderConfig.thickness
                 intersection: Intersection.Xor
 
                 regions: regions.instances
             }
 
-            margins.top: 40
+            margins.top: BorderConfig.headerHeight
             anchors.top: true
             anchors.bottom: true
             anchors.left: true
@@ -59,7 +59,7 @@ Variants {
                     required property Item modelData
 
                     x: modelData.x + bar.implicitWidth
-                    y: modelData.y + BorderConfig.thickness
+                    y: modelData.y
                     width: modelData.width
                     height: modelData.height
                     intersection: Intersection.Subtract
@@ -110,9 +110,6 @@ Variants {
                 }
             }
 
-            // Solid overlap prevents a shadow/antialias seam at the top-bar join.
-            Rectangle { anchors.top: parent.top; width: parent.width; height: BorderConfig.thickness; color: BorderConfig.colour }
-
             PersistentProperties {
                 id: visibilities
 
@@ -122,6 +119,7 @@ Variants {
                 property bool dashboard
                 property int dashboardTab: 0
                 property string launcherQuery: ""
+                property string launcherMode: "apps"
                 property int launcherRequest: 0
 
                 Component.onCompleted: Visibilities.screens[scope.modelData.name] = this

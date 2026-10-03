@@ -10,7 +10,7 @@ Shape {
     anchors.fill: parent
     preferredRendererType: Shape.CurveRenderer
     function outline() {
-        const t=BorderConfig.thickness,r=BorderConfig.rounding,L=bar.implicitWidth,T=t,R=width-t,B=height-t;
+        const t=BorderConfig.thickness,r=BorderConfig.rounding,L=bar.implicitWidth,T=0,R=width-t,B=height-t;
         const commands=[];
         function point(x,y){return x.toFixed(3)+","+y.toFixed(3);}
         function move(x,y){commands.push("M"+point(x,y));}
@@ -30,14 +30,15 @@ Shape {
         move(L+r,T);
         const top=[];
         if(panels.dashboard.height>0.5)top.push(panels.dashboard);
-        if(panels.popouts.height>0.5&&panels.popouts.width>0.5)top.push(panels.popouts);
+        if(panels.popouts.height>0.5&&panels.popouts.width>0.5&&!panels.popouts.joinsRight)top.push(panels.popouts);
         top.sort((a,b)=>a.x-b.x);
         for(const p of top)notch(p.x,p.width,p.height,(u,v)=>[L+u,T+v]);
-        const n=panels.notifications;
+        const n=panels.popouts.joinsRight&&panels.popouts.height>0.01&&panels.popouts.width>0.01 ? panels.popouts : panels.notifications;
         let rightStart=T+r;
-        if(n.height>0.5){
-            line(R-n.width-r,T);quad(R-n.width,T,R-n.width,T+r);
-            line(R-n.width,T+n.height-r);quad(R-n.width,T+n.height,R-n.width+r,T+n.height);
+        if(n.height>0.01){
+            const ry=Math.min(r,n.height/2);
+            line(R-n.width-r,T);quad(R-n.width,T,R-n.width,T+ry);
+            line(R-n.width,T+n.height-ry);quad(R-n.width,T+n.height,R-n.width+r,T+n.height);
             line(R-r,T+n.height);quad(R,T+n.height,R,T+n.height+r);
             rightStart=T+n.height+r;
         }else{line(R-r,T);quad(R,T,R,T+r);}

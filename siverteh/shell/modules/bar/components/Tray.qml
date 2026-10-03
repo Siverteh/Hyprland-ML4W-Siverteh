@@ -33,7 +33,12 @@ Item {
         Repeater {
             id: items
 
-            model: ScriptModel { values: SystemTray.items.values.filter(i=>!String(i.id).toLowerCase().includes("blueman")&&!String(i.title).toLowerCase().includes("bluetooth")) }
+            model: ScriptModel {
+                values: SystemTray.items.values.filter(i => {
+                    const name=[i.id,i.title,i.iconName].join(" ").toLowerCase();
+                    return !/blueman|bluetooth|spotify|nm-applet|network|wireless|wlan|wi-?fi/.test(name);
+                })
+            }
 
             TrayItem { rotation:90 }
         }
