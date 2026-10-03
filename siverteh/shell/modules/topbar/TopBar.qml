@@ -47,8 +47,8 @@ Variants {
                 Native.ActiveWindow {
                     id:active
                     anchors.centerIn:parent
-                    width:30; height:parent.width
-                    rotation:90
+                    width:parent.width; height:30
+                    horizontal:true
                     monitor:Brightness.getMonitorForScreen(win.screen)
                 }
             }

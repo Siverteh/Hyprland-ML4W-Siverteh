@@ -112,6 +112,8 @@ Variants {
                 shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
             }
 
+            SeamBridges { panels: panels; bar: bar }
+
             PersistentProperties {
                 id: visibilities
 

@@ -10,6 +10,7 @@ case "${1:-start}" in
  start) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell -n ;;
  close) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh close ;;
  scheme-mode) "$rice_runtime/venv/bin/siverteh_shell" scheme set -m "${2:-light}"; exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/classic-state.py" ;;
+ launcher) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call drawers toggle launcher ;;
  toggle) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call drawers toggle dashboard ;;
  apps) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action app-windows "${2:-}" ;;
  brain|capture|tasks|new|resume|updates|wifi|bluetooth) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action "$1" "${2:-}" ;;

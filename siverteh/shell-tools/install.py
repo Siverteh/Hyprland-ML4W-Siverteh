@@ -51,7 +51,7 @@ def deploy(code_only=False):
  # Source-owned profile aliases keep the base OS startup integration small.
  for name in ['autostart','keybinding']:
   path=HOME/'.config/hypr/conf'/f'{name}.lua';text=path.read_text()
-  text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory start")','hl.exec_cmd("systemctl --user start siverteh-os-shell.service")').replace('~/.local/bin/siverteh-observatory toggle','~/.local/bin/siverteh-os-shell toggle')
+  text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory start")','hl.exec_cmd("systemctl --user start siverteh-os-shell.service")').replace('~/.local/bin/siverteh-observatory toggle','~/.local/bin/siverteh-os-shell toggle').replace('~/.config/hypr/scripts/launcher.sh','~/.local/bin/siverteh-os-shell launcher')
   if name=='autostart':
    text=text.replace('hl.exec_cmd("swaync")','-- Native Siverteh shell owns notification rendering.')
    text=text.replace('hl.exec_cmd("swayosd-server")','-- Native Siverteh shell owns the audio/brightness OSD.')

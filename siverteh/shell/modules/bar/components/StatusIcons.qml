@@ -60,7 +60,7 @@ Item {
             }
 
             MaterialIcon {
-        rotation:root.horizontal?90:0
+                rotation: root.horizontal ? 90 : 0
                 required property Bluetooth.Device modelData
 
                 animate: true

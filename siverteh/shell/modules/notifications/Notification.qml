@@ -13,6 +13,7 @@ StyledRect {
     id: root
 
     required property Notifs.Notif modelData
+    HoverHandler { onHoveredChanged: root.modelData.hovered = hovered }
     readonly property bool hasImage: modelData.image.length > 0
     readonly property bool hasAppIcon: modelData.appIcon.length > 0
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2

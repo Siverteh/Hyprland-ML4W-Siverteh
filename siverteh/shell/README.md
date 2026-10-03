@@ -11,3 +11,5 @@ The desktop source is maintained here, inside Siverteh OS. This baseline uses th
 The installed desktop is a deployed copy of this source. No separate upstream checkout, submodule or update process owns it. License and adapted-code attribution are in LICENSE and NOTICE.
 
 Reference artwork is kept privately in the user's wallpaper folder; it is not included in public Git. The initial static wallpaper is extracted from the supplied demo's clean background region. Live values, host information, applications and monitor proportions differ from the recording; the interface uses the reference's real source. Custom background/color behavior is deferred.
+
+Super+A and clicking the Arch icon open the same bottom launcher. Type to search apps, use Up/Down and Enter to choose, and Escape to close. Normal notification popups expire after five seconds by default; hovering pauses expiry.

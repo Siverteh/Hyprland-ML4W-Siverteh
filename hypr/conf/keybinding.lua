@@ -227,8 +227,8 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.config/siverteh/core/settings/f
 
 -- =====================================================
 
--- App launcher (rofi)
-hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"))
+-- Native bottom app launcher
+hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"))
 
 -- Window picker
 hl.bind("SUPER + D", hl.dsp.exec_cmd("rofi -show window"))

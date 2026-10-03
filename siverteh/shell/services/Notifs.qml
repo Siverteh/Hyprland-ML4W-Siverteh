@@ -45,6 +45,7 @@ Singleton {
 
     IpcHandler {
         target: "notifs"
+        function counts(): string { return JSON.stringify({popups:root.popups.length,retained:root.list.length}); }
 
         function clear(): void {
             for (const notif of root.list)
@@ -55,6 +56,7 @@ Singleton {
     component Notif: QtObject {
         id: notif
 
+        property bool hovered: false
         property bool popup
         readonly property date time: new Date()
         readonly property string timeStr: {
@@ -79,7 +81,7 @@ Singleton {
         readonly property list<NotificationAction> actions: notification.actions
 
         readonly property Timer timer: Timer {
-            running: true
+            running: notif.popup && !notif.hovered
             interval: notif.notification.expireTimeout > 0 ? notif.notification.expireTimeout : NotifsConfig.defaultExpireTimeout
             onTriggered: {
                 if (NotifsConfig.expire)

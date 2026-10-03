@@ -70,6 +70,7 @@ Item {
                 }
 
                 MaterialIcon {
+                    rotation: root.horizontal ? 90 : 0
                     required property Hyprland.Client modelData
 
                     text: Icons.getAppCategoryIcon(modelData.wmClass, "terminal")

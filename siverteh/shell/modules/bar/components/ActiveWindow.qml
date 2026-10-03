@@ -5,16 +5,18 @@ import "root:/services"
 import "root:/utils"
 import "root:/config"
 import QtQuick
+import QtQuick.Layouts
 
 Item {
     id: root
 
     required property Brightness.Monitor monitor
+    property bool horizontal: false
     property color colour: Colours.palette.m3primary
     readonly property Item child: child
 
-    implicitWidth: child.implicitWidth
-    implicitHeight: child.implicitHeight
+    implicitWidth: horizontal ? horizontalRow.implicitWidth : child.implicitWidth
+    implicitHeight: horizontal ? horizontalRow.implicitHeight : child.implicitHeight
 
     MouseArea {
         anchors.top: parent.top
@@ -47,6 +49,7 @@ Item {
 
     Item {
         id: child
+        visible: !root.horizontal
 
         property Item current: text1
 
@@ -106,6 +109,28 @@ Item {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.emphasized
             }
+        }
+    }
+
+    RowLayout {
+        id: horizontalRow
+        visible: root.horizontal
+        anchors.centerIn: parent
+        width: Math.min(implicitWidth, root.width)
+        spacing: Appearance.spacing.small
+        MaterialIcon {
+            text: Icons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
+            color: root.colour
+            Layout.alignment: Qt.AlignVCenter
+        }
+        StyledText {
+            text: Hyprland.activeClient?.title ?? qsTr("Desktop")
+            color: root.colour
+            font.pointSize: Appearance.font.size.smaller
+            font.family: Appearance.font.family.mono
+            elide: Text.ElideRight
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter
         }
     }
 
