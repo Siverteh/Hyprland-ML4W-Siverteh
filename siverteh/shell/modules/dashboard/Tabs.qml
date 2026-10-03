@@ -51,14 +51,10 @@ Item {
         anchors.top: bar.bottom
         anchors.topMargin: DashboardConfig.sizes.tabIndicatorSpacing
 
-        implicitWidth: bar.currentItem.implicitWidth
+        implicitWidth: bar.currentItem.contentItem.implicitWidth
         implicitHeight: DashboardConfig.sizes.tabIndicatorHeight
 
-        x: {
-            const tab = bar.currentItem;
-            const width = (root.nonAnimWidth - DashboardConfig.sizes.tabIndicatorSpacing * (bar.count - 1) * 2) / bar.count
-            return width * tab.TabBar.index + (width - tab.implicitWidth) / 2;
-        }
+        x: bar.currentItem.x + (bar.currentItem.width - implicitWidth) / 2
 
         clip: true
 
@@ -236,6 +232,7 @@ Item {
                 anchors.bottom: parent.bottom
 
                 text: tab.text
+                font.pointSize: 11
                 color: tab.current ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
             }
 

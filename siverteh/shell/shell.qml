@@ -20,6 +20,8 @@ ShellRoot {
         target:"siverteh"
         function state(): string { const v=Visibilities.getForActive();return JSON.stringify({active:Hyprland.activeWsId,workspaces:Hyprland.workspaces.values.length,dashboard:v?.dashboard,tab:v?.dashboardTab,launcher:v?.launcher,session:v?.session,osd:v?.osd,hidden:Visibilities.hidden,left:v?.left,leftPinned:v?.leftPinned,query:v?.launcherQuery,launcherMode:v?.launcherMode,reveal:Visibilities.reveal,notificationsSuppressed:Object.values(Visibilities.panels).some(p=>p.notifications.suppressed)}); }
         function preview(name:string):void{Visibilities.openMode(name,"",true);}
+        function previewDashboard(index:int):void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.dashboardTab=index;v.dashboard=true;}}
+        function previewSliders():void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.osd=true;}}
         function previewLeft():void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.left=true;v.leftPinned=true;}}
         function mode(name:string):void{Visibilities.openMode(name,"");}
         function settings():void{Visibilities.openSettings();}

@@ -5,6 +5,8 @@ import QtQuick
 Singleton {
     id:root
     property string provider:""
+    property string defaultProvider:"codex"
+    property bool inWorkspace:false
     property string account:""
     property string title:"New chat"
     property string threadId:""
@@ -24,6 +26,7 @@ Singleton {
     function newChat(){if(!busy)command({action:"new"});}
     function load(key){if(!busy)command({action:"load",key:key});}
     function stop(){command({action:"stop"});}
+    function setProvider(provider){command({action:"provider",provider:provider});}
     function workspace(){command({action:"workspace"});}
     function answer(){if(question)command({action:"answer",id:question.id,answers:answers});}
     function setAnswer(id,text){const result=Object.assign({},answers);result[id]={answers:[text]};answers=result;}
@@ -31,7 +34,7 @@ Singleton {
     function accept(event){
         if(event.type==="connection"){connected=event.connected;error=event.error??"";return;}
         if(event.type==="state"){
-            provider=event.provider??provider;account=event.account??account;title=event.title??title;threadId=event.threadId??"";model=event.model??"";
+            defaultProvider=event.defaultProvider??defaultProvider;inWorkspace=event.inWorkspace??false;provider=event.provider??provider;account=event.account??account;title=event.title??title;threadId=event.threadId??"";model=event.model??"";
             busy=event.busy??false;status=event.status??"";error=event.error??"";
             if(question?.id!==event.question?.id)answers={};question=event.question??null;
             connected=true;
@@ -53,5 +56,5 @@ Singleton {
         stdout:SplitParser {onRead:line=>{try{root.accept(JSON.parse(line));}catch(e){root.error="Could not read the assistant response";}}}
         onExited:{root.connected=false;if(root.busy){root.error="Reopen the drawer to reconnect to the assistant";root.busy=false;}}
     }
-    IpcHandler {target:"sidebarChat";function state():string{return JSON.stringify({provider:root.provider,title:root.title,threadId:root.threadId,busy:root.busy,connected:root.connected,messages:messages.count,error:root.error});}function send(text:string):void{root.send(text);}function stop():void{root.stop();}}
+    IpcHandler {target:"sidebarChat";function state():string{return JSON.stringify({provider:root.provider,title:root.title,threadId:root.threadId,busy:root.busy,inWorkspace:root.inWorkspace,connected:root.connected,messages:messages.count,error:root.error});}function send(text:string):void{root.send(text);}function stop():void{root.stop();}}
 }

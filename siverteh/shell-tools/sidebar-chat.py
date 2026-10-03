@@ -95,7 +95,10 @@ class CodexPeer:
  def stop(self):
   if self.turn:self.call('turn/interrupt',{'threadId':self.metadata['id'],'turnId':self.turn})
  def close(self):
-  if self.process.poll() is None:self.process.terminate()
+  if self.process.poll() is None:
+   self.process.terminate()
+   try:self.process.wait(timeout=8)
+   except subprocess.TimeoutExpired:self.process.kill();self.process.wait(timeout=3)
 
 class ClaudePeer:
  def __init__(self,manager,metadata):
@@ -162,7 +165,7 @@ class Manager:
    meta=dict(agent=agent,account=account,cwd=str(cwd),title='New chat')
   self.metadata=meta;self.messages=[];self.question=None;self.status='';self.error='';self.peer=None;self.save()
  def save(self):atomic(self.path,self.metadata)
- def state(self):return dict(type='state',provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
+ def state(self):return dict(type='state',defaultProvider=preferences()[0],inWorkspace=self.metadata.get('in_workspace',False),provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
  def broadcast(self,value):
   encoded=(json.dumps(value)+'\n').encode()
   with self.lock:
@@ -199,6 +202,7 @@ class Manager:
  def ensure_peer(self):
   with self.connect_lock:
    if self.peer:return
+   if self.metadata.get('in_workspace'):raise RuntimeError('This chat is open in the workspace.')
    self.status='Connecting';self.update()
    try:
     self.peer=(CodexPeer if self.metadata['agent']=='codex' else ClaudePeer)(self,self.metadata)
@@ -219,7 +223,7 @@ class Manager:
   if action=='send':
    text=str(command.get('text','')).strip()
    if not text or len(text)>64000:return
-   if self.busy:return
+   if self.busy or self.metadata.get('in_workspace'):return
    self.busy=True;self.error='';self.update();threading.Thread(target=self.send,args=(text,),daemon=True).start()
   elif action=='stop':
    if self.peer:threading.Thread(target=self.peer.stop,daemon=True).start()
@@ -232,13 +236,25 @@ class Manager:
    if item:threading.Thread(target=self.connect_background,daemon=True).start()
   elif action=='answer' and self.question and str(command.get('id'))==self.question['id']:
    q=self.question;answers=command.get('answers',{});q['peer'].answer(q['raw_id'],answers,q['kind']);self.question=None;self.status='Working';self.update()
+  elif action=='provider':
+   agent=command.get('provider')
+   if agent not in ('codex','claude'):return
+   workflow=runpy.run_path(str((HOME/'.local/bin/siverteh-ai').resolve()))
+   workflow['set_default_assistant'](agent);self.update()
   elif action=='workspace':
    if self.busy or not self.metadata.get('id'):return
    path=HOME/'.local/state/siverteh-native-shell/extras/chats.json';records=json.loads(path.read_text()) if path.exists() else {};key=uuid.uuid4().hex[:24]
    records[key]=dict(id=self.metadata['id'],title=self.metadata['title'],agent=self.metadata['agent'],account=self.metadata['account'],cwd=self.metadata['cwd'],state='saved',project=dict(id='general-chat',path=self.metadata['cwd'],chat_directory=True))
    atomic(path,records)
    from importlib.util import spec_from_file_location,module_from_spec
-   spec=spec_from_file_location('extras',Path(__file__).with_name('desktop-extras.py'));m=module_from_spec(spec);spec.loader.exec_module(m);m.resume(key)
+   spec=spec_from_file_location('extras',Path(__file__).with_name('desktop-extras.py'));m=module_from_spec(spec);spec.loader.exec_module(m)
+   # Wait for our native app-server to exit before the terminal resumes this ID.
+   # Keep the transcript here, but never reconnect to a handed-off conversation.
+   self.generation+=1
+   if self.peer:self.peer.close();self.peer=None
+   self.metadata['in_workspace']=True;self.save()
+   self.status='Continue this chat in the workspace, or start a new chat here.';self.update()
+   m.resume(key)
 
  def connect_background(self):
   try:self.ensure_peer()
@@ -247,7 +263,7 @@ class Manager:
  def client(self,connection):
   with self.lock:
    connection.sendall((json.dumps(dict(type='history',messages=self.messages))+'\n'+json.dumps(self.state())+'\n').encode());self.clients.append(connection)
-  if self.metadata.get('id') and self.peer is None:threading.Thread(target=self.connect_background,daemon=True).start()
+  if self.metadata.get('id') and self.peer is None and not self.metadata.get('in_workspace'):threading.Thread(target=self.connect_background,daemon=True).start()
   try:
    with connection.makefile('r') as stream:
     for line in stream:

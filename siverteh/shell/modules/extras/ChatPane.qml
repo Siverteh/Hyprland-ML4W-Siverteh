@@ -55,16 +55,16 @@ Item {
             ActionButton {text:"Reply";onClicked:SidebarChat.answer()}
         }
         TextArea {
-            id:input;width:parent.width;height:100;wrapMode:TextEdit.Wrap;placeholderText:"Message Siverteh AI";color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant
+            id:input;enabled:!SidebarChat.inWorkspace;width:parent.width;height:100;wrapMode:TextEdit.Wrap;placeholderText:SidebarChat.inWorkspace?"Chat moved to the workspace":"Message Siverteh AI";color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant
             selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary;font.family:"IBM Plex Sans";font.pointSize:12
             background:StyledRect {radius:14;color:Colours.palette.m3surfaceContainerHigh}
             TapHandler {onTapped:root.visibilities.leftPinned=true}
             Keys.onReturnPressed:event=>{if(event.modifiers&Qt.ShiftModifier){event.accepted=false;}else{root.send();event.accepted=true;}}
         }
         Row {spacing:8
-            ActionButton {text:SidebarChat.busy?"Stop":"Send";icon:SidebarChat.busy?"stop":"arrow_upward";selected:true;enabled:SidebarChat.busy||input.text.trim().length>0;onClicked:SidebarChat.busy?SidebarChat.stop():root.send()}
+            ActionButton {text:SidebarChat.busy?"Stop":"Send";icon:SidebarChat.busy?"stop":"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&(SidebarChat.busy||input.text.trim().length>0);onClicked:SidebarChat.busy?SidebarChat.stop():root.send()}
             ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.follow=true;transcript.positionViewAtEnd();}}
         }
     }
-    function send(){if(!SidebarChat.busy&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);input.text="";}}
+    function send(){if(!SidebarChat.busy&&!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);input.text="";}}
 }

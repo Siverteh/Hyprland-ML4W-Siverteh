@@ -2,6 +2,7 @@ import "root:/widgets"
 import "root:/services"
 import "root:/config"
 import Quickshell
+import Quickshell.Io
 import QtQuick
 import QtQuick.Controls
 Item {
@@ -18,15 +19,16 @@ Item {
     onSectionChanged:refreshChats()
     Connections {target:root.visibilities;function onLeftChanged(){root.refreshChats();}}
     Timer {id:metadataDelay;interval:450;onTriggered:DesktopExtras.request("chats",{})}
-    Row {id:heading;x:16;y:16;width:438;height:32;spacing:10
-        ShLogo {implicitWidth:30;implicitHeight:30}
-        StyledText {text:"Siverteh AI";width:290;anchors.verticalCenter:parent.verticalCenter;font.pointSize:17;color:Colours.palette.m3primary}
-        ActionButton {text:"";icon:"push_pin";selected:root.visibilities.leftPinned;onClicked:root.visibilities.leftPinned=!selected}
+    Item {id:heading;x:16;y:16;width:438;height:34
+        ShLogo {id:logo;implicitWidth:30;implicitHeight:30;anchors.verticalCenter:parent.verticalCenter}
+        StyledText {text:"Siverteh AI";anchors.left:logo.right;anchors.leftMargin:10;anchors.verticalCenter:parent.verticalCenter;font.pointSize:17;color:Colours.palette.m3primary}
+        ActionButton {anchors.right:parent.right;text:"";icon:"push_pin";selected:root.visibilities.leftPinned;onClicked:root.visibilities.leftPinned=!selected}
     }
-    Row {id:tabs;x:16;anchors.top:heading.bottom;anchors.topMargin:12;spacing:8
+    Row {id:tabs;x:16;anchors.top:heading.bottom;anchors.topMargin:12;spacing:6
         ActionButton {text:"Chat";icon:"forum";selected:root.section==="chat";onClicked:root.section="chat"}
-        ActionButton {text:"Brain";icon:"neurology";selected:root.section==="brain";onClicked:root.section="brain"}
         ActionButton {text:"Chats";icon:"history";selected:root.section==="chats";onClicked:root.section="chats"}
+        ActionButton {text:"Brain";icon:"neurology";selected:root.section==="brain";onClicked:root.section="brain"}
+        ActionButton {text:"";icon:"settings";selected:root.section==="settings";onClicked:{SidebarChat.start();root.section="settings";}}
     }
     ChatPane {anchors.top:tabs.bottom;anchors.topMargin:14;anchors.bottom:parent.bottom;anchors.bottomMargin:16;anchors.left:parent.left;anchors.right:parent.right;anchors.leftMargin:16;anchors.rightMargin:16;visibilities:root.visibilities;active:root.visibilities.left&&root.section==="chat";visible:root.section==="chat"}
     Flickable {
@@ -37,6 +39,16 @@ Item {
         FastScroll {view:knowledge}
         Column {
             id:content;width:438;spacing:12
+            Column {width:438;spacing:12;visible:root.section==="settings"
+                StyledText {text:"Default assistant";color:Colours.palette.m3primary}
+                Row {spacing:8
+                    ActionButton {text:"Codex";selected:SidebarChat.defaultProvider==="codex";onClicked:SidebarChat.setProvider("codex")}
+                    ActionButton {text:"Claude Code";selected:SidebarChat.defaultProvider==="claude";onClicked:SidebarChat.setProvider("claude")}
+                }
+                StyledText {width:438;wrapMode:Text.Wrap;text:"Used for new chats here and in the workspace. Existing chats keep their assistant.";font.pointSize:11;color:Colours.palette.m3onSurfaceVariant}
+                ActionButton {text:"New chat";icon:"add_comment";enabled:!SidebarChat.busy;onClicked:{SidebarChat.newChat();root.section="chat";}}
+                ActionButton {text:"Accounts and usage";icon:"manage_accounts";onClicked:DesktopActions.execute("tasks")}
+            }
             StyledTextField {id:search;visible:root.section==="brain";width:438;height:42;leftPadding:13;rightPadding:13;placeholderText:"Search your brain";text:DesktopExtras.brainQuery
                 background:StyledRect {color:Colours.palette.m3surfaceContainerHigh;radius:21}
                 onPressed:root.visibilities.leftPinned=true
@@ -91,6 +103,7 @@ Item {
             }
         }
     }
+    IpcHandler {target:"leftDrawer";function section(name:string):void{if(["chat","chats","brain","settings"].includes(name))root.section=name;}function state():string{return JSON.stringify({section:root.section,width:root.width,height:root.height,pinRight:heading.width});}}
     component ChatCard:StyledRect {
         id:card;property string label;property string detail;signal clicked()
         width:438;height:55;radius:12;color:Colours.palette.m3surfaceContainer
