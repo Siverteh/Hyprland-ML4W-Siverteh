@@ -11,12 +11,9 @@ Singleton {
 
     readonly property list<string> colourNames: ["rosewater", "flamingo", "pink", "mauve", "red", "maroon", "peach", "yellow", "green", "teal", "sky", "sapphire", "blue", "lavender"]
 
-    property bool showPreview
-    property bool endPreviewOnNextChange
     property bool light
-    readonly property Colours palette: showPreview ? preview : current
+    readonly property Colours palette: current
     readonly property Colours current: Colours {}
-    readonly property Colours preview: Colours {}
     readonly property Transparency transparency: Transparency {}
 
     function alpha(c: color, layer: bool): color {
@@ -34,8 +31,8 @@ Singleton {
         return Qt.hsla(c.hslHue, c.hslSaturation, 0.1, 1);
     }
 
-    function load(data: string, isPreview: bool): void {
-        const colours = isPreview ? preview : current;
+    function load(data: string): void {
+        const colours = current;
         for (const line of data.trim().split("\n")) {
             let [name, colour] = line.split(" ");
             name = name.trim();
@@ -44,10 +41,7 @@ Singleton {
                 colours[name] = `#${colour.trim()}`;
         }
 
-        if (!isPreview || (isPreview && endPreviewOnNextChange)) {
-            showPreview = false;
-            endPreviewOnNextChange = false;
-        }
+
     }
 
     function setMode(mode: string): void {
@@ -70,7 +64,7 @@ Singleton {
         path: `${Paths.state}/scheme/current.txt`
         watchChanges: true
         onFileChanged: reload()
-        onLoaded: root.load(text(), false)
+        onLoaded: root.load(text())
     }
 
     component Transparency: QtObject {

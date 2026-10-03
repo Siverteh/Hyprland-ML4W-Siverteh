@@ -1,138 +1,69 @@
 pragma Singleton
-
 import "root:/utils/scripts/fuzzysort.js" as Fuzzy
 import "root:/utils"
 import Quickshell
 import Quickshell.Io
 import QtQuick
-
 Singleton {
-    id: root
-
-    readonly property string currentNamePath: `${Paths.state}/wallpaper/last.txt`.slice(7)
-    readonly property string path: `${Paths.pictures}/Wallpapers`.slice(7)
-
-    readonly property list<Wallpaper> list: wallpapers.instances
-    property bool showPreview: false
-    readonly property string current: showPreview ? previewPath : actualCurrent
-    property string previewPath
+    id:root
+    readonly property string currentNamePath:`${Paths.state}/wallpaper/last.txt`.slice(7)
+    readonly property string path:`${Paths.pictures}/Wallpapers`.slice(7)
+    readonly property list<Wallpaper> list:wallpapers.instances
     property string actualCurrent
-
-    readonly property list<var> preppedWalls: list.map(w => ({
-                name: Fuzzy.prepare(w.name),
-                path: Fuzzy.prepare(w.path),
-                wall: w
-            }))
-
-    function fuzzyQuery(search: string): var {
-        return Fuzzy.go(search, preppedWalls, {
-            all: true,
-            keys: ["name", "path"],
-            scoreFn: r => r[0].score * 0.9 + r[1].score * 0.1
-        }).map(r => r.obj.wall);
+    property string selectedPath
+    property string queuedPath
+    readonly property string current:selectedPath || actualCurrent
+    readonly property list<var> preppedWalls:list.map(w=>({name:Fuzzy.prepare(w.name),path:Fuzzy.prepare(w.path),wall:w}))
+    function fuzzyQuery(search:string):var {
+        return Fuzzy.go(search,preppedWalls,{all:true,keys:["name","path"],scoreFn:r=>r[0].score*.9+r[1].score*.1}).map(r=>r.obj.wall);
     }
-
-    function setWallpaper(path: string): void {
-        stopPreview();
-        if (path === actualCurrent) return;
-        actualCurrent = path;
-        setWall.path = path;
-        setWall.startDetached();
+    function browse(path:string):void {
+        if(!path || path===current)return;
+        selectedPath=path;settle.restart();
     }
-
-    function preview(path: string): void {
-        previewPath = path;
-        showPreview = true;
-        getPreviewColoursProc.queuedPath = path;
-        if (getPreviewColoursProc.running)
-            getPreviewColoursProc.running = false;
-        else
-            startPreview();
+    function commitSelection():void {
+        settle.stop();if(!selectedPath)return;
+        queuedPath=selectedPath;startCommit();
     }
-
-    function startPreview(): void {
-        if (!showPreview || !getPreviewColoursProc.queuedPath) return;
-        getPreviewColoursProc.requestPath = getPreviewColoursProc.queuedPath;
-        getPreviewColoursProc.queuedPath = "";
-        getPreviewColoursProc.running = true;
+    function setWallpaper(path:string):void {
+        if(!path)return;selectedPath=path;commitSelection();
     }
-
-    function stopPreview(): void {
-        showPreview = false;
-        getPreviewColoursProc.queuedPath = "";
-        getPreviewColoursProc.running = false;
-        Colours.showPreview = false;
-        Colours.endPreviewOnNextChange = false;
+    function startCommit():void {
+        if(commit.running || !queuedPath)return;
+        if(queuedPath===actualCurrent){queuedPath="";selectedPath="";return;}
+        commit.requestPath=queuedPath;queuedPath="";commit.running=true;
     }
-
-    reloadableId: "wallpapers"
-
-    IpcHandler {
-        target: "wallpaper"
-
-        function get(): string {
-            return root.actualCurrent;
-        }
-
-        function set(path: string): void {
-            root.setWallpaper(path);
-        }
-
-        function list(): string {
-            return root.list.map(w => w.path).join("\n");
-        }
-    }
-
+    Timer {id:settle;interval:300;onTriggered:root.commitSelection()}
     FileView {
-        path: root.currentNamePath
-        watchChanges: true
-        onFileChanged: reload()
-        onLoaded: root.actualCurrent = text().trim()
+        path:root.currentNamePath;watchChanges:true;onFileChanged:reload()
+        onLoaded:root.actualCurrent=text().trim()
     }
-
     Process {
-        id: getPreviewColoursProc
-
+        id:commit
         property string requestPath
-        property string queuedPath
-        onExited: root.startPreview()
-        command: ["siverteh_shell", "scheme", "print", requestPath]
-        stdout: SplitParser {
-            splitMarker: ""
-            onRead: data => {
-                if (!root.showPreview || getPreviewColoursProc.requestPath !== root.previewPath) return;
-                Colours.load(data, true);
-                Colours.showPreview = true;
-            }
+        command:["siverteh_shell","wallpaper","-f",requestPath]
+        onExited:code=>{
+            if(code===0){root.actualCurrent=requestPath;if(root.selectedPath===requestPath&&!root.queuedPath)root.selectedPath="";}
+            else console.warn("Wallpaper commit failed",code);
+            root.startCommit();
         }
     }
-
+    IpcHandler {
+        target:"wallpaper"
+        function get():string{return root.current;}
+        function set(path:string):void{root.setWallpaper(path);}
+        function list():string{return root.list.map(w=>w.path).join("\n");}
+        function state():string{return JSON.stringify({selected:root.current,applied:root.actualCurrent,busy:commit.running,queued:root.queuedPath});}
+    }
     Process {
-        id: setWall
-
-        property string path
-
-        command: ["siverteh_shell", "wallpaper", "-f", path]
+        running:true
+        command:["fd",".",root.path,"-t","f","-e","jpg","-e","jpeg","-e","png","-e","webp","-e","gif","-e","tif","-e","tiff"]
+        stdout:SplitParser {splitMarker:"";onRead:data=>wallpapers.model=data.trim().split("\n").filter(Boolean).sort((a,b)=>a.localeCompare(b))}
     }
-
-    Process {
-        running: true
-        command: ["fd", ".", root.path, "-t", "f", "-e", "jpg", "-e", "jpeg", "-e", "png", "-e", "webp", "-e", "gif", "-e", "tif", "-e", "tiff"]
-        stdout: SplitParser {
-            splitMarker: ""
-            onRead: data => wallpapers.model = data.trim().split("\n")
-        }
-    }
-
-    Variants {
-        id: wallpapers
-
-        Wallpaper {}
-    }
-
-    component Wallpaper: QtObject {
+    Variants {id:wallpapers;Wallpaper {}}
+    component Wallpaper:QtObject {
         required property string modelData
-        readonly property string path: modelData
-        readonly property string name: path.slice(path.lastIndexOf("/") + 1, path.lastIndexOf("."))
+        readonly property string path:modelData
+        readonly property string name:path.slice(path.lastIndexOf("/")+1,path.lastIndexOf(".")).replace(/_/g," ")
     }
 }

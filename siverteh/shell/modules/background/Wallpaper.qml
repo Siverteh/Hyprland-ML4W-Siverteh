@@ -32,7 +32,7 @@ Item {
         id: img
 
         function update(): void {
-            const srcPath = `${root.source}`.slice(7);
+            const srcPath = decodeURIComponent(`${root.source}`.slice(7));
             if (thumbnail.originalPath === srcPath) {
                 root.current = this;
             } else
@@ -47,7 +47,7 @@ Item {
         fillMode: Image.PreserveAspectCrop
 
         opacity: 0
-        scale: Wallpapers.showPreview ? 1 : 0.8
+        scale: 0.8
 
         onStatusChanged: {
             if (status === Image.Ready)

@@ -26,8 +26,8 @@ Item {
         function onLauncherChanged() {
             if(root.visibilities.launcher) {
                 root.forceActiveFocus();
-                if(walls.currentItem) Wallpapers.preview(walls.currentItem.modelData.path);
-            } else Wallpapers.stopPreview();
+                if(walls.currentItem) Wallpapers.browse(walls.currentItem.modelData.path);
+            } else {if(walls.currentItem)Wallpapers.browse(walls.currentItem.modelData.path);Wallpapers.commitSelection();}
         }
     }
     Keys.onLeftPressed: move(-1)

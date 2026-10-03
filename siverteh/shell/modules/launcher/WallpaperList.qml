@@ -9,6 +9,7 @@ PathView {
     id: root
 
     property string filter: ""
+    property bool initialized:false
     required property PersistentProperties visibilities
     readonly property int numItems: {
         const screenWidth = QsWindow.window?.screen.width * 0.8;
@@ -30,15 +31,15 @@ PathView {
             const list = Wallpapers.fuzzyQuery(search);
             return list;
         }
-        onValuesChanged: root.currentIndex = search ? 0 : values.findIndex(w => w.path === Wallpapers.actualCurrent)
+        onValuesChanged: root.currentIndex = search ? 0 : values.findIndex(w => w.path === Wallpapers.current)
     }
 
-    Component.onCompleted: currentIndex = Wallpapers.list.findIndex(w => w.path === Wallpapers.actualCurrent)
-    Component.onDestruction: Wallpapers.stopPreview()
+    Component.onCompleted: { currentIndex = Math.max(0,model.values.findIndex(w => w.path === Wallpapers.current)); initialized=true; }
+    Component.onDestruction: Wallpapers.commitSelection()
 
     onCurrentItemChanged: {
-        if (currentItem && visibilities.launcher)
-            Wallpapers.preview(currentItem.modelData.path);
+        if (initialized && currentItem && visibilities.launcher)
+            Wallpapers.browse(currentItem.modelData.path);
     }
 
     implicitWidth: Math.min(numItems, count) * (LauncherConfig.sizes.wallpaperWidth * 0.8 + Appearance.padding.larger * 2)
