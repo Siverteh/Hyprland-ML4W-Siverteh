@@ -22,6 +22,7 @@ SearchSurface {
     ListView {
         id:list;anchors.fill:parent;clip:true;spacing:6;currentIndex:0;model:root.entries
         ScrollBar.vertical:ScrollBar {}
+        FastScroll {view:list}
         delegate:StyledRect {
             id:tile;required property var modelData;required property int index
             width:list.width;height:58;radius:14;color:ListView.isCurrentItem?Colours.palette.m3secondaryContainer:Colours.palette.m3surfaceContainer

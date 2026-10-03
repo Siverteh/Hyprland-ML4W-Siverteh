@@ -1,10 +1,18 @@
 import "root:/widgets"
 import "root:/services"
+import Quickshell
+import Quickshell.Io
 import QtQuick
 import QtQuick.Controls
 SearchSurface {
     id:root;title:"Clipboard";placeholder:"Search copied text or images"
     Component.onCompleted:DesktopExtras.request("clips",{})
+    Connections {target:root.visibilities;function onLauncherChanged(){if(root.visibilities.launcher&&root.visibilities.launcherMode==="clipboard")DesktopExtras.request("clips",{});}}
+    Process {
+        running:root.visibilities.launcher&&root.visibilities.launcherMode==="clipboard"
+        command:["inotifywait","-q","-m","-e","close_write,moved_to","--format","%f",Quickshell.env("HOME")+"/.cache/cliphist"]
+        stdout:SplitParser {onRead:name=>{if(name==="db")DesktopExtras.request("clips",{});}}
+    }
     readonly property var matches:DesktopExtras.clips.filter(c=>c.title.toLowerCase().includes(query.toLowerCase()))
     function copy(index){const item=matches[index];if(item){DesktopExtras.request("copy",{id:item.id});visibilities.launcher=false;}}
     onChosen:copy(list.currentIndex)
@@ -12,6 +20,7 @@ SearchSurface {
     onMoved:delta=>list.currentIndex=Math.max(0,Math.min(matches.length-1,list.currentIndex+delta))
     ListView {id:list;anchors.fill:parent;clip:true;spacing:8;currentIndex:0;model:root.matches
         ScrollBar.vertical:ScrollBar {}
+        FastScroll {view:list}
         delegate:StyledRect {
             id:tile;required property var modelData;required property int index
             width:list.width;height:modelData.image?112:72;radius:15;color:ListView.isCurrentItem?Colours.palette.m3secondaryContainer:Colours.palette.m3surfaceContainer

@@ -31,7 +31,7 @@ Item {
     anchors.leftMargin: bar.implicitWidth
     anchors.topMargin: BorderConfig.headerHeight
 
-    Component.onCompleted: Visibilities.panels[screen.name] = this
+    Component.onCompleted:{const mapping=Object.assign({},Visibilities.panels);mapping[screen.name]=this;Visibilities.panels=mapping;}
 
     Extras.LeftDrawer {id:brainDrawer;screen:root.screen;visibilities:root.visibilities;anchors.left:parent.left;anchors.verticalCenter:parent.verticalCenter}
 

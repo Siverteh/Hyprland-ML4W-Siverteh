@@ -9,6 +9,8 @@ Item {
     implicitWidth:900;implicitHeight:Math.min(content.implicitHeight,Math.max(360,Quickshell.screens[0].height-210))
     property string primary:DesktopSettings.monitors[0]?.name??""
     Flickable {
+        id:settingsScroll
+        FastScroll {view:settingsScroll}
         anchors.fill:parent;clip:true;contentWidth:width;contentHeight:content.implicitHeight;flickableDirection:Flickable.VerticalFlick
         ScrollBar.vertical:ScrollBar {}
         Column {

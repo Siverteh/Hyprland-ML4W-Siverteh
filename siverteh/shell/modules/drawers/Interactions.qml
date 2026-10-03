@@ -46,6 +46,9 @@ MouseArea {
     }
 
     onPositionChanged: ({x, y}) => {
+        // The existing border responds immediately, matching the right-side drawer.
+        if(DesktopSettings.data.leftDrawer!==false&&!visibilities.session&&!visibilities.launcher&&x<bar.implicitWidth&&withinPanelHeight(panels.leftDrawer,x,y)){visibilities.dashboard=false;visibilities.left=true;}
+
         // Show osd on hover
         const showOsd = !visibilities.session && inRightPanel(panels.osd, x, y);
         visibilities.osd = showOsd;

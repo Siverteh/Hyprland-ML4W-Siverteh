@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Install or reload Siverteh's native shell source with a reversible cutover."""
-import argparse,datetime as dt,hashlib,json,os,shutil,signal,subprocess
+import argparse,datetime as dt,hashlib,json,os,shutil,signal,subprocess,time
 from pathlib import Path
 HOME=Path.home();ROOT=Path(__file__).resolve().parent;SHELL=ROOT.parent/'shell';DEST=HOME/'.local/share/siverteh-ai/siverteh-shell';STATE=HOME/'.local/state/siverteh-native-shell'
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
@@ -14,7 +14,20 @@ def stop_other_shells():
    try:os.kill(int(proc.name),signal.SIGTERM)
    except ProcessLookupError:pass
 
+def source_digest(directory):
+ digest=hashlib.sha256()
+ for file in sorted(directory.rglob('*')):
+  if not file.is_file() or any(part in ('build','__pycache__') for part in file.relative_to(directory).parts) or file.name=='.qmlls.ini':continue
+  digest.update(str(file.relative_to(directory)).encode());digest.update(file.read_bytes())
+ return digest.hexdigest()
+
 def deploy(code_only=False):
+ # Parse every QML file before replacing live source. A failed candidate stays local.
+ formatter='/usr/lib/qt6/bin/qmlformat' if Path('/usr/lib/qt6/bin/qmlformat').exists() else shutil.which('qmlformat')
+ if formatter:
+  for file in SHELL.rglob('*.qml'):
+   result=subprocess.run([formatter,str(file)],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,text=True)
+   if result.returncode:raise RuntimeError('QML validation failed: '+str(file.relative_to(SHELL))+' '+result.stderr.strip())
  runtime=HOME/'.local/share/siverteh-ai/shell-runtime'
  if not (HOME/'.local/share/siverteh-ai/rice-runtime/usr/bin/quickshell').exists() and not (runtime/'usr/bin/quickshell').exists():raise RuntimeError('Provision the user-local dependencies first')
  pending=DEST/'source.next'
@@ -33,13 +46,22 @@ def deploy(code_only=False):
   saved=STATE/"backups"/dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")/"fish_title.fish"
   saved.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(title,saved)
  shutil.copyfile(ROOT/"fish_title.fish",title)
+ chat_service=HOME/".config/systemd/user/siverteh-sidebar-ai.service"
+ chat_service.parent.mkdir(parents=True,exist_ok=True)
+ shutil.copyfile(ROOT/"siverteh-sidebar-ai.service",chat_service)
+ subprocess.run(["systemctl","--user","daemon-reload"],check=True)
  subprocess.run(["python3",str(ROOT/"desktop-settings.py"),"init"],check=True,stdout=subprocess.DEVNULL)
+ dbus=HOME/'.local/share/dbus-1/services/org.erikreider.swaync.service'
+ dbus.parent.mkdir(parents=True,exist_ok=True)
+ dbus.write_text('[D-BUS Service]\nName=org.freedesktop.Notifications\nExec=/usr/bin/systemctl --user start siverteh-os-shell.service\nSystemdService=siverteh-os-shell.service\n')
+ subprocess.run(['systemctl','--user','mask','--now','swaync.service','waybar.service'],check=True,stdout=subprocess.DEVNULL)
  if code_only:
   for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)
   subprocess.run(["python3",str(ROOT/"install-extras.py")],check=True)
   subprocess.run(['python3',str(ROOT/'isolate-apps.py')],check=True)
-  subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True);return
+  subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True)
+  validate_live(source_digest(SHELL));return
  STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
  backup=STATE/'backups'/dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ');backup.mkdir(parents=True,mode=0o700);entries=[]
  def write(path,body=None,link=None,mode=None):
@@ -110,7 +132,25 @@ def deploy(code_only=False):
  subprocess.run(['systemctl','--user','daemon-reload'],check=True)
  subprocess.run(['systemctl','--user','enable','--now','siverteh-os-shell.service'],check=True,capture_output=True)
  subprocess.run(['hyprctl','reload'],check=True,capture_output=True)
+ subprocess.run(['python3',str(ROOT/'isolate-apps.py')],check=True)
+ subprocess.run(['systemctl','--user','restart','siverteh-os-shell.service'],check=True)
+ validate_live(source_digest(SHELL))
  print('Native shell installed. Backup:',backup)
+
+def validate_live(expected=None):
+ for _ in range(80):
+  result=subprocess.run([str(DEST/'bin/qs'),'-c','siverteh_shell','ipc','call','siverteh','state'],capture_output=True,text=True,timeout=3)
+  try:ready=result.returncode==0 and 'reveal' in json.loads(result.stdout)
+  except ValueError:ready=False
+  if ready:
+   if expected is not None and source_digest(DEST/'source')!=expected:raise RuntimeError('The candidate failed to load; the previous validated desktop was restored.')
+   good=DEST/'source.good';pending=DEST/'source.good.next'
+   if pending.exists():shutil.rmtree(pending)
+   shutil.copytree(DEST/'source',pending)
+   if good.exists():shutil.rmtree(good)
+   pending.rename(good);return
+  time.sleep(.25)
+ raise RuntimeError('Desktop did not load; the supervisor will retain or recover the last validated source.')
 
 def restore():
  backup=Path((STATE/'latest-backup').read_text());entries=json.loads((backup/'manifest.json').read_text())

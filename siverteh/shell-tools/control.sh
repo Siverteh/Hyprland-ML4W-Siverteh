@@ -7,7 +7,7 @@ export QT_PLUGIN_PATH="$rice_runtime/usr/lib/qt6/plugins:${QT_PLUGIN_PATH:-}"
 export SIVERTEH_LIB_DIR="$rice_runtime/usr/lib/siverteh_shell"
 export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$rice_runtime/venv/bin:$PATH"
 case "${1:-start}" in
- start) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell -n ;;
+ start) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/shell-supervisor.py" ;;
  close) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh close ;;
  scheme-mode) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/siverteh_shell" scheme set -m "${2:-light}" ;;
  wallpaper) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher ">wallpaper " ;;

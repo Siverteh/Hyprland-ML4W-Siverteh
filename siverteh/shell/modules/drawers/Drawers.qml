@@ -67,7 +67,7 @@ Variants {
             }
 
             HyprlandFocusGrab {
-                active: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.leftPinned || panels.popouts.pinned)
+                active: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
                     visibilities.launcher = false;
@@ -127,7 +127,7 @@ Variants {
                 property string launcherMode: "apps"
                 property int launcherRequest: 0
 
-                Component.onCompleted: Visibilities.screens[scope.modelData.name] = this
+                Component.onCompleted:{const mapping=Object.assign({},Visibilities.screens);mapping[scope.modelData.name]=this;Visibilities.screens=mapping;}
             }
 
             Interactions {

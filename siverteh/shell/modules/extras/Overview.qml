@@ -23,6 +23,8 @@ SearchSurface {
     onQueryChanged:selection=0
     Component.onCompleted:Native.Hyprland.refreshToplevels()
     Flickable {
+        id:viewport
+        FastScroll {view:viewport}
         anchors.fill:parent;clip:true;contentWidth:width;contentHeight:workspacesGrid.implicitHeight
         ScrollBar.vertical:ScrollBar {}
         Grid {
