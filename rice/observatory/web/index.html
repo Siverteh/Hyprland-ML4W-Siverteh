@@ -1,17 +1,33 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Siverteh · Observatory</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Siverteh Brain</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
 <body>
-<header><div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="18" ry="7" transform="rotate(-32 20 20)"/><ellipse cx="20" cy="20" rx="18" ry="7" transform="rotate(32 20 20)"/><circle cx="20" cy="20" r="4"/></svg><div>Siverteh<span>Observatory</span></div></div><nav><button class="active" id="universe">Constellations</button><button id="library">Knowledge</button></nav><div class="header-actions"><button data-action="capture">＋ Capture</button><button data-action="tasks">AI workspace ↗</button></div></header>
-<main>
-<aside class="navigation"><div class="nav-heading">Your universe</div><div id="hubs"></div><div class="nav-foot"><span class="status-dot"></span> Private · on this device<div id="index-status">Reading your brain…</div><button id="refresh">Refresh knowledge</button></div></aside>
-<section class="space" aria-label="Interactive three-dimensional knowledge constellation">
-<div class="scene-heading"><span class="scene-kicker">A map of what matters to you</span><h1>Your knowledge,<br>in constellation.</h1><div id="scene-subtitle">Explore a world. Follow a connection.</div></div>
-<canvas id="cosmos" aria-label="Drag to orbit, scroll to zoom, click a star or planet to expand its knowledge"></canvas>
-<div id="loading" role="status">Gathering your constellations…</div>
-<div id="library-view" hidden><label for="search">Find something you know</label><input id="search" placeholder="Search titles and topics…" autocomplete="off"><div id="results"></div></div>
-<div class="scene-bottom"><span id="hint">Stars → planets → moons</span><div class="scene-tools"><button id="back" disabled title="Zoom out one level">← Back</button><button id="zoom-out" title="Zoom out">− Zoom</button><button id="motion" aria-pressed="true" title="Toggle ambient motion">Orbit on</button><button id="mode" title="Change star sizing">Recent focus</button><button id="home" title="Return to the overview">⌖ Overview</button></div></div>
-</section>
-<aside class="inspector" id="inspector"><div class="inspector-empty"><span class="empty-star">✦</span><h2>A little curiosity<br>goes a long way.</h2><p>Choose a star to explore its topic planets and evidence moons.</p><div class="connection-key"><span></span> Topic grouping<br><span class="source-line"></span> Linked evidence</div></div></aside>
+<svg class="symbols" aria-hidden="true"><defs>
+<symbol id="sh" viewBox="0 0 34 28"><path class="outline-primary" d="M2 2 L16 2 L16 6 L14 6 L14 4 L4 4 L4 12 L16 12 L16 24 L2 24 L2 22 L14 22 L14 14 L2 14Z" transform="translate(0.7 0.9)" fill="none" stroke="currentColor" stroke-width="0.24"/><path class="outline-primary" d="M2 2 L16 2 L16 6 L14 6 L14 4 L4 4 L4 12 L16 12 L16 24 L2 24 L2 22 L14 22 L14 14 L2 14Z" transform="translate(1.4 1.8)" fill="none" stroke="currentColor" stroke-width="0.24"/><path class="face-primary" d="M2 2 L16 2 L16 6 L14 6 L14 4 L4 4 L4 12 L16 12 L16 24 L2 24 L2 22 L14 22 L14 14 L2 14Z" fill="currentColor"/><path class="outline-secondary" d="M22 2 L24 2 L24 12 L30 12 L30 2 L32 2 L32 24 L30 24 L30 14 L24 14 L24 24 L22 24Z" transform="translate(0.7 0.9)" fill="none" stroke="currentColor" stroke-width="0.24"/><path class="outline-secondary" d="M22 2 L24 2 L24 12 L30 12 L30 2 L32 2 L32 24 L30 24 L30 14 L24 14 L24 24 L22 24Z" transform="translate(1.4 1.8)" fill="none" stroke="currentColor" stroke-width="0.24"/><path class="face-secondary" d="M22 2 L24 2 L24 12 L30 12 L30 2 L32 2 L32 24 L30 24 L30 14 L24 14 L24 24 L22 24Z" fill="currentColor"/></symbol>
+<symbol id="folder" viewBox="0 0 24 24"><path d="M3 7V5h7l3 3h8v12H3V7Z"/></symbol>
+<symbol id="person" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3Z"/></symbol>
+<symbol id="code" viewBox="0 0 24 24"><path d="m8 5-6 7 6 7m8-14 6 7-6 7M14 3l-4 18"/></symbol>
+<symbol id="chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4M10 10h4v4h-4Z"/></symbol>
+<symbol id="research" viewBox="0 0 24 24"><path d="M8 3h8M10 3v7L4 20h16l-6-10V3M7 15h10"/></symbol>
+<symbol id="music" viewBox="0 0 24 24"><path d="M5 14V9a7 7 0 0 1 14 0v5M3 13h4v7H3Zm14 0h4v7h-4Z"/></symbol>
+<symbol id="note" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5Z M9 9h6M9 13h6M9 17h4"/></symbol>
+<symbol id="network" viewBox="0 0 24 24"><path d="M6 6l12 0M6 6l6 12M18 6l-6 12"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</defs></svg>
+<div class="app">
+<aside class="rail">
+<button class="brand" id="brand" aria-label="Brain overview"><svg><use href="#sh"/></svg><span>Siverteh<small>Brain</small></span></button>
+<button id="overview-link" class="rail-home active"><svg><use href="#network"/></svg>Overview</button>
+<div class="rail-label">Subjects <span id="subject-count"></span></div><nav id="subjects" aria-label="Knowledge subjects"></nav>
+<div class="rail-bottom"><button id="refresh">Refresh knowledge</button><span id="index-status" role="status">Reading local notes…</span><small>Private, on this device</small></div>
+</aside>
+<main class="workspace">
+<header class="toolbar"><div class="search-wrap"><svg><use href="#note"/></svg><input id="search" type="search" aria-label="Search your brain" placeholder="Search your brain" autocomplete="off"><kbd>Ctrl K</kbd></div><button data-action="capture">Capture</button><button class="primary" data-action="new">New chat <svg><use href="#arrow"/></svg></button></header>
+<div class="content-scroll" id="content-scroll">
+<div class="page-heading"><div><div id="breadcrumbs"></div><h1 id="title">Your brain</h1><p id="subtitle">Projects, ideas and the knowledge between them.</p></div><button id="back" hidden>← Back</button></div>
+<div class="viewbar"><div class="segmented" role="tablist" aria-label="Brain view"><button data-view="overview" role="tab" aria-selected="true" class="active">Overview</button><button data-view="map" role="tab" aria-selected="false">Connections</button><button data-view="notes" role="tab" aria-selected="false">Notes</button></div><span id="view-summary"></span></div>
+<div id="loading" role="status">Reading your knowledge…</div><section id="content" aria-live="polite"></section><section id="inspector" class="reading-view" hidden aria-label="Note reader"></section>
+</div>
 </main>
-<footer><span id="footer-status">Local Markdown. Living connections.</span><span>Work → knowledge → possibility</span></footer>
+
+</div>
 </body></html>

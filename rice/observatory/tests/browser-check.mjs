@@ -1,67 +1,27 @@
 import fs from 'node:fs';
-const target=await (await fetch('http://127.0.0.1:17944/json/new?about:blank',{method:'PUT'})).json();
-const socket=new WebSocket(target.webSocketDebuggerUrl);
-await new Promise(r=>socket.addEventListener('open',r,{once:true}));
-let seq=0;const pending=new Map(),errors=[];
-socket.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);if(m.error)p.reject(m.error);else p.resolve(m.result);}else if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.text+': '+m.params.exceptionDetails.exception?.description);});
+const port=process.env.BRAIN_TEST_CDP||17946,url=process.env.BRAIN_TEST_URL||'http://127.0.0.1:17845';
+const target=await(await fetch(`http://127.0.0.1:${port}/json/new?about:blank`,{method:'PUT'})).json(),socket=new WebSocket(target.webSocketDebuggerUrl);
+await new Promise(r=>socket.addEventListener('open',r,{once:true}));let seq=0;const pending=new Map(),errors=[];
+socket.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}else if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.exception?.description||m.params.exceptionDetails.text);});
 function call(method,params={}){return new Promise((resolve,reject)=>{const id=++seq;pending.set(id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});}
-async function evaluate(expression){const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception.description);return r.result.value;}
-await call('Runtime.enable');
-await call('Emulation.setDeviceMetricsOverride',{width:1440,height:950,deviceScaleFactor:1,mobile:false});
-await call('Page.navigate',{url:'http://127.0.0.1:17843'});
-await call('Page.bringToFront');
-for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,150));if(await evaluate('document.getElementById("loading")?.hidden'))break;}
-const initial=await evaluate('({hubs:document.querySelectorAll(".hub-link").length,notes:graph.noteCount,hits:hits.length})');
-if(initial.hubs<4||initial.notes<1||initial.hits<4)throw Error('Graph failed to render: '+JSON.stringify(initial));
-fs.mkdirSync(process.env.HOME+'/.local/state/siverteh-observatory/qa',{recursive:true});
-const out=process.env.HOME+'/.local/state/siverteh-observatory/qa';
-const snap=await call('Page.captureScreenshot',{format:'png'});fs.writeFileSync(out+'/brain-overview.png',Buffer.from(snap.data,'base64'));
-await evaluate('document.querySelector(".hub-link").click()');
-await new Promise(r=>setTimeout(r,750));
-const expandedState=await evaluate('({expanded:[...expanded],hits:hits.length,heading:document.querySelector("#inspector h2").textContent})');
-if(!expandedState.expanded.includes('newbringer')||expandedState.hits<=initial.hits)throw Error('Hub expansion failed');
-const hubCamera=await evaluate('({zoom,center:project(positions().get("newbringer")),width:W,height:H})');
-if(hubCamera.zoom<=1.2||Math.hypot(hubCamera.center.x-hubCamera.width*.5,hubCamera.center.y-hubCamera.height*.56)>10)throw Error('Hub camera did not focus');
-await evaluate('select(byId.get("newbringer:camera"))');
-await new Promise(r=>setTimeout(r,750));
-const topicCamera=await evaluate('({zoom,center:project(positions().get("newbringer:camera")),width:W,height:H})');
-if(topicCamera.zoom<=hubCamera.zoom||Math.hypot(topicCamera.center.x-topicCamera.width*.5,topicCamera.center.y-topicCamera.height*.56)>10)throw Error('Topic camera did not travel closer');
-const snap2=await call('Page.captureScreenshot',{format:'png'});fs.writeFileSync(out+'/brain-expanded.png',Buffer.from(snap2.data,'base64'));
-if(!(await evaluate('labelBoxes.filter(x=>x.n.kind==="note").length>=10&&document.querySelector(".detail-kind").textContent.startsWith("Planet")')))throw Error('Moon labels or celestial hierarchy missing');
-const moonLabel=await evaluate('(()=>{const h=hits.find(h=>h.box&&h.n.kind==="note"),b=canvas.getBoundingClientRect();return {id:h.n.id,x:b.left+h.x,y:b.top+h.y};})()');
-await call('Input.dispatchMouseEvent',{type:'mousePressed',x:moonLabel.x,y:moonLabel.y,button:'left',clickCount:1});
-await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:moonLabel.x,y:moonLabel.y,button:'left',clickCount:1});
-if(!(await evaluate('selected.id==='+JSON.stringify(moonLabel.id))))throw Error('Named moon label was not clickable');
-await evaluate('document.getElementById("back").click()');
-await new Promise(r=>setTimeout(r,750));
-await evaluate('document.getElementById("zoom-out").click()');
-await new Promise(r=>setTimeout(r,750));
-if(!(await evaluate('zoom<2.4')))throw Error('Visible zoom-out control failed');
-await evaluate('document.getElementById("back").click()');
-await new Promise(r=>setTimeout(r,750));
-if(!(await evaluate('selected.id==="newbringer"&&!expanded.has("newbringer:camera")')))throw Error('Back did not return to the parent star');
-await evaluate('document.getElementById("back").click()');
-await new Promise(r=>setTimeout(r,750));
-if(!(await evaluate('selected===null&&document.getElementById("back").disabled')))throw Error('Back did not return to the overview');
-await evaluate('select(byId.get("newbringer"));select(byId.get("newbringer:camera"))');
-await evaluate('select(children(byId.get("newbringer:camera")).filter(n=>n.kind==="note").at(-1))');
-for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,100));if(await evaluate('positions().has(selected.id)&&Math.hypot(project(positions().get(selected.id)).x-W*.5,project(positions().get(selected.id)).y-H*.56)<10'))break;}
-if(!(await evaluate('positions().has(selected.id)&&Math.hypot(project(positions().get(selected.id)).x-W*.5,project(positions().get(selected.id)).y-H*.56)<10')))throw Error('Evidence outside the default visible subset did not focus');
-await evaluate('document.getElementById("library").click();document.getElementById("search").value="zzzz-no-results";document.getElementById("search").dispatchEvent(new Event("input"))');
-if(await evaluate('document.querySelectorAll(".search-result").length')!==0)throw Error('Search failed');
-await evaluate('select(graph.nodes.find(n=>n.kind==="note"))');
-await new Promise(r=>setTimeout(r,300));
-if(!(await evaluate('document.querySelector(".note-body").textContent.length>20')))throw Error('Note reader failed');
-await call('Emulation.setDeviceMetricsOverride',{width:900,height:700,deviceScaleFactor:1,mobile:false});
-await evaluate('setTab("universe")');
-await new Promise(r=>setTimeout(r,300));
-if(await evaluate('document.documentElement.scrollWidth>innerWidth'))throw Error('Layout overflows');
-await evaluate('document.getElementById("home").click()');
-await new Promise(r=>setTimeout(r,750));
-if(!(await evaluate('Math.abs(zoom-1)<.05&&Math.hypot(camera.x,camera.y,camera.z)<3&&selected===null')))throw Error('Overview did not restore camera');
-const expansionCheck=await evaluate('(()=>{for(let i=0;i<4;i++)(()=>{const n={id:"qa-extra-"+i,label:"QA world "+i,kind:"hub",count:0,radius:20,color:"#a9c9f2"};graph.nodes.push(n);byId.set(n.id,n);})();renderNav();const a=positions(),ids=graph.nodes.filter(n=>n.id.startsWith("qa-extra-")).map(n=>n.id);fitOverview();const distinct=ids.every((id,i)=>ids.slice(i+1).every(other=>Math.hypot(a.get(id).x-a.get(other).x,a.get(id).y-a.get(other).y)>150));const original=a.get(ids[0]);graph.nodes.reverse();const b=positions();return {distinct,stable:original.x===b.get(ids[0]).x&&original.y===b.get(ids[0]).y,zoom:cameraTarget.zoom};})()');
-if(!expansionCheck.distinct||!expansionCheck.stable||expansionCheck.zoom>=1)throw Error('Additional worlds overlap or fail to fit');
-await new Promise(r=>setTimeout(r,150));
-if(errors.length)throw Error([...new Set(errors)].join('\n'));
-console.log(JSON.stringify({initial,expanded:expandedState,hubZoom:hubCamera.zoom,topicZoom:topicCamera.zoom,cameraFocus:'passed',back:'passed',zoomOut:'passed',moonLabels:'passed',overview:'passed',browserErrors:errors.length,search:'passed',noteReader:'passed',responsive:'passed',screenshots:out}));
-socket.close();
+async function evaluate(expression){const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;}
+async function until(expression){for(let i=0;i<60;i++){if(await evaluate(expression))return;await new Promise(r=>setTimeout(r,150));}throw Error('Timed out: '+expression);}
+const output=process.env.HOME+'/.local/state/siverteh-observatory/qa/redesign';fs.mkdirSync(output,{recursive:true,mode:0o700});
+async function screenshot(name){const r=await call('Page.captureScreenshot',{format:'png'});fs.writeFileSync(output+'/'+name+'.png',Buffer.from(r.data,'base64'));}
+try{
+ await call('Runtime.enable');await call('Emulation.setDeviceMetricsOverride',{width:1560,height:1000,deviceScaleFactor:1,mobile:false});await call('Page.navigate',{url});await until('typeof ready!=="undefined"&&ready&&document.querySelectorAll(".subject-card").length>0');
+ const initial=await evaluate('({subjects:subjects().length,notes:graph.noteCount,canvas:document.querySelectorAll("canvas").length,accent:getComputedStyle(document.documentElement).getPropertyValue("--accent").trim()})');if(initial.canvas||initial.subjects<3||initial.notes<1)throw Error('Overview failed');await screenshot('overview');
+ await evaluate('select(subjects()[0].id)');await until('document.querySelector("#title").textContent===subjects()[0].label');await screenshot('subject');
+ await evaluate('document.querySelector("[data-view=map]").click()');await until('document.querySelectorAll(".map-node").length>1');
+ const point=await evaluate('(()=>{const b=document.querySelectorAll(".map-node")[1].getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2,before:state.focus};})()');
+ await call('Input.dispatchMouseEvent',{type:'mousePressed',x:point.x,y:point.y,button:'left',clickCount:1});await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:point.x,y:point.y,button:'left',clickCount:1});if(await evaluate('state.focus')===point.before)throw Error('Real map click did not focus');await screenshot('connections');
+ await evaluate('select(graph.nodes.find(n=>n.path==="wiki/siverteh-ai.md")?.id||graph.nodes.find(n=>n.kind==="note").id,{view:"notes"})');await until('document.querySelector(".reader p")!==null');await screenshot('reader');
+ const security=await evaluate('(()=>{const c=document.createElement("div");markdown(c,"# Test\\n\\n<script>window.bad=1</script>\\n\\n[bad](javascript:alert(1))\\n\\n**Bold** and `code`","fixture.md");return {script:c.querySelectorAll("script").length,unsafe:c.querySelectorAll("[href^=javascript]").length,bold:c.querySelectorAll("strong").length};})()');if(security.script||security.unsafe||security.bold!==1)throw Error('Unsafe or broken Markdown');
+ await evaluate('document.querySelector(".reader").dataset.identity="kept"');await evaluate('load()');if(!(await evaluate('document.querySelector(".reader").dataset.identity==="kept"')))throw Error('Reader lost on refresh');
+ await evaluate('$("search").value="private";$("search").dispatchEvent(new Event("input"))');await until('searchIds!==null');if(!(await evaluate('searchIds.size>0&&document.querySelectorAll(".note-row").length>0')))throw Error('Full text search failed');await screenshot('search');
+ await evaluate('home();graph.nodes.push({id:"qa-subject",kind:"hub",label:"QA subject",count:0,activity:.2});byId.set("qa-subject",graph.nodes.at(-1));render()');if(!(await evaluate('document.querySelectorAll(".subject").length===subjects().length&&document.querySelectorAll(".subject-card").length===subjects().length')))throw Error('Dynamic subject growth failed');await evaluate('load(true)');
+ await evaluate('const n={id:"qa-unverified",kind:"note",label:"QA unverified",path:"qa.md",confidence:"unverified",date:"2026-10-03"};graph.nodes.push(n);byId.set(n.id,n);home();state.view="notes";state.filter="verified";renderMain()');if(await evaluate('[...document.querySelectorAll(".note-title")].some(n=>n.textContent==="QA unverified")'))throw Error('Unverified incorrectly shown as verified');await evaluate('state.filter="all";load(true)');
+ await evaluate('graph.theme={...graph.theme,surface:"faf8f3",surfaceContainer:"f1eee8",surfaceContainerHigh:"e9e5dc",onSurface:"25211b",onSurfaceVariant:"625b50",outlineVariant:"d3cabc",primary:"73592a",onPrimary:"ffffff",secondary:"665b45",tertiary:"526441"};theme();home()');await screenshot('light-palette');await evaluate('load(true)');
+ for(const [width,height]of [[900,850],[720,850],[420,850]]){await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:false});await evaluate('home()');if(!(await evaluate(`document.documentElement.scrollWidth<=${width}+1`)))throw Error('Horizontal overflow at '+width);await screenshot('responsive-'+width);}
+ if(errors.length)throw Error([...new Set(errors)].join('\n'));console.log(JSON.stringify({initial,overview:'passed',mapClick:'passed',noteReader:'passed',fullText:'passed',markdownSafety:'passed',dynamicSubjects:'passed',confidenceFilter:'passed',lightPalette:'passed',responsive:'passed',browserErrors:errors.length,screenshots:output}));
+}finally{socket.close();await fetch(`http://127.0.0.1:${port}/json/close/${target.id}`);}

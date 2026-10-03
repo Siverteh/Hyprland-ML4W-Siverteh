@@ -42,11 +42,7 @@ Rectangle {
         function onLoginSucceeded(){password.clear();}
         function onInformationMessage(message){root.busy=false;root.message=message;}
     }
-    Shape {
-        x:36;y:30;width:38;height:38;scale:1.3;transformOrigin:Item.TopLeft
-        ShapePath {fillColor:"transparent";strokeColor:root.primary;strokeWidth:3;capStyle:ShapePath.SquareCap;joinStyle:ShapePath.MiterJoin;PathSvg {path:"M 14 8 L 14 5 L 3 5 L 3 13.5 L 14 13.5 L 14 22 L 3 22"}}
-        ShapePath {fillColor:"transparent";strokeColor:root.secondary;strokeWidth:3;capStyle:ShapePath.SquareCap;joinStyle:ShapePath.MiterJoin;PathSvg {path:"M 19 5 L 19 22 M 27 5 L 27 22 M 19 13.5 L 27 13.5"}}
-    }
+    Logo {x:36;y:30;width:48;height:40;primary:root.primary;secondary:root.secondary}
     Column {
         anchors.horizontalCenter:parent.horizontalCenter
         y:parent.height/2-230;width:360;spacing:16

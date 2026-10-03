@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""One layered SH geometry for web, Qt and Kitty, with wallpaper palette roles."""
+import json,io,os,tempfile
+from pathlib import Path
+from PIL import Image,ImageDraw
+HERE=Path(__file__).resolve().parent
+GEOMETRY=next(p for p in (HERE.parent/'shell/branding/sh.json',HERE.parent/'source/branding/sh.json') if p.exists())
+def svg(template=True,colors=None):
+ g=json.loads(GEOMETRY.read_text());parts=[]
+ for role,points in g['letters'].items():
+  color='@'+role.upper()+'@' if template else '#'+colors[role].lstrip('#')
+  path='M'+' L'.join(f'{x} {y}' for x,y in points)+'Z'
+  for x,y in g['outlines']:parts.append(f'<path class="outline-{role}" d="{path}" transform="translate({x} {y})" fill="none" stroke="{color}" stroke-width="{g["stroke"]}"/>')
+  parts.append(f'<path class="face-{role}" d="{path}" fill="{color}"/>')
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+ ' '.join(map(str,g['size']))+'">'+''.join(parts)+'</svg>'
+def atomic(path,data):
+ path.parent.mkdir(parents=True,exist_ok=True);fd,tmp=tempfile.mkstemp(dir=path.parent)
+ with os.fdopen(fd,'wb') as f:f.write(data)
+ os.chmod(tmp,0o644);os.replace(tmp,path)
+def publish(colors,home=Path.home()):
+ g=json.loads(GEOMETRY.read_text());scale=16;image=Image.new('RGB',(g['size'][0]*scale,g['size'][1]*scale),'#'+colors['surface'].lstrip('#'));draw=ImageDraw.Draw(image)
+ for role,points in g['letters'].items():
+  color='#'+colors[role].lstrip('#')
+  for dx,dy in g['outlines']:
+   p=[((x+dx)*scale,(y+dy)*scale) for x,y in points];draw.line(p+[p[0]],fill=color,width=max(1,round(g['stroke']*scale)))
+  draw.polygon([(x*scale,y*scale) for x,y in points],fill=color)
+ out=io.BytesIO();image.save(out,format='PNG');folder=home/'.local/share/siverteh-ai/branding';atomic(folder/'sh.png',out.getvalue());atomic(folder/'sh.svg',svg(False,colors).encode())
+def build():
+ root=HERE.parent;template=svg();(root/'shell/branding/sh.svg').write_text(template)
+ expression=json.dumps(template)
+ common='''Item {
+ id:root
+ implicitWidth:30;implicitHeight:30
+ property color primary:DEFAULT_PRIMARY
+ property color secondary:DEFAULT_SECONDARY
+ Image {anchors.fill:parent;fillMode:Image.PreserveAspectFit;sourceSize.width:192;sourceSize.height:192;source:"data:image/svg+xml;utf8,"+encodeURIComponent(TEMPLATE.replace(/@PRIMARY@/g,String(root.primary)).replace(/@SECONDARY@/g,String(root.secondary)))}
+}
+'''.replace('TEMPLATE',expression)
+ (root/'shell/widgets/ShLogo.qml').write_text('import "root:/services"\nimport QtQuick\n'+common.replace('DEFAULT_PRIMARY','Colours.palette.m3primary').replace('DEFAULT_SECONDARY','Colours.palette.m3secondary').replace(' implicitWidth:30;implicitHeight:30',' implicitWidth:30;implicitHeight:30\n Accessible.name:"Siverteh OS apps";Accessible.role:Accessible.Button'))
+ (root/'login/Logo.qml').write_text('import QtQuick\n'+common.replace('DEFAULT_PRIMARY','"#dbc492"').replace('DEFAULT_SECONDARY','"#d2c5ad"'))
+ web=root.parent/'rice/observatory/web/index.html';text=web.read_text();a=text.index('<symbol id="sh"');b=text.index('</symbol>',a)+len('</symbol>');inner=template.split('>',1)[1].rsplit('</svg>',1)[0].replace('@PRIMARY@','currentColor').replace('@SECONDARY@','currentColor');text=text[:a]+'<symbol id="sh" viewBox="0 0 34 28">'+inner+'</symbol>'+text[b:];web.write_text(text)
+if __name__=='__main__':
+ import sys
+ if '--build' in sys.argv:build()
+ colors=json.loads((Path.home()/'.local/state/siverteh_shell/scheme.json').read_text())['colours'];publish(colors)

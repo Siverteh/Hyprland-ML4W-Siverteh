@@ -2,7 +2,7 @@
 """Install a root-owned theme with user-writable appearance data, without restarting SDDM."""
 import argparse,datetime,json,os,pwd,shutil,sys
 from pathlib import Path
-FILES=('Main.qml','theme.conf','metadata.desktop')
+FILES=('Main.qml','Logo.qml','theme.conf','metadata.desktop')
 def install(source,user,prefix=Path('/'),uid=None,gid=None):
     if uid is None:account=pwd.getpwnam(user);uid=account.pw_uid;gid=account.pw_gid
     theme=prefix/'usr/share/sddm/themes/siverteh';base=prefix/'var/lib/siverteh-login';appearance=base/'appearance';config=prefix/'etc/sddm.conf.d/90-siverteh-theme.conf'

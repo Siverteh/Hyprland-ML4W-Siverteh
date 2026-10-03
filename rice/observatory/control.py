@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local desktop actions and a private, read-only constellation index."""
+"""Local desktop actions and a private, read-only knowledge index."""
 import argparse
 import calendar
 import fcntl
@@ -15,7 +15,7 @@ import subprocess
 import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse, parse_qs, quote
+from urllib.parse import urlparse, parse_qs, quote, unquote
 
 ROOT = Path(__file__).resolve().parent
 HOME = Path.home()
@@ -110,6 +110,9 @@ def run(argv, fallback='', timeout=3):
 def launch(argv):
     subprocess.Popen(argv, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
+def launch_app(argv):
+    launch(['systemd-run','--user','--scope','--collect','--quiet','env','-u','LD_LIBRARY_PATH','-u','QML_IMPORT_PATH','-u','QT_PLUGIN_PATH',*argv])
+
 def update_count():
     global _last_update_check
     now=time.monotonic()
@@ -136,6 +139,14 @@ def note_date(body):
     except ValueError:
         return None
 
+def note_timestamp(body):
+    match=re.search(r'^Recorded:\s*(\S+)',body,re.M)
+    try:
+        value=dt.datetime.fromisoformat(match.group(1).replace('Z','+00:00')) if match else None
+        if value:return value.replace(tzinfo=value.tzinfo or dt.timezone.utc).astimezone(dt.timezone.utc).isoformat()
+    except ValueError:pass
+    return ''
+
 def graph():
     """Derived topic grouping, explicit source links, dated-note activity proxy.
 
@@ -161,14 +172,14 @@ def graph():
             confidence = re.search(r'^Confidence:\s*(.*)', body, re.M)
             meta=fields(body)
             theme,reason=category(title,body,meta.get('category',''))
-            item = dict(id=ident, label=title, kind='note', path=rel, date=date.isoformat() if date else '', confidence=confidence.group(1) if confidence else 'source page', text=body[:60000], activity=round(weight, 4),meta=meta,category=theme,color=THEMES[theme][1])
+            item = dict(id=ident, label=title, kind='note', path=rel, date=date.isoformat() if date else '', recorded=note_timestamp(body), confidence=confidence.group(1) if confidence else 'source page', text=body[:60000], activity=round(weight, 4),revision=hashlib.sha256(body.encode()).hexdigest()[:16],meta=meta,category=theme,color=THEMES[theme][1])
             notes.append(item)
             lookup[rel] = ident
     assigned = set()
     hubs,declarations=definitions(notes)
     for hub_id, label, color, terms, topics in hubs:
         matched = [n for n in notes if slug(n['meta'].get('project',''))==hub_id or slug(n['meta'].get('parent',''))==hub_id or any(slug(w)==hub_id or any(mentions(w,t) for t in terms) for w in items(n['meta'].get('worlds',''))) or any(mentions(n['path']+'\n'+n['label']+'\n'+n['text'],t) for t in terms)]
-        # Explicit topic annotations can grow a planet from one meaningful note.
+        # Explicit topic annotations can create a topic from one meaningful note.
         annotated={}
         for n in matched:
             for tag in items(n['meta'].get('topics',n['meta'].get('tags',''))):
@@ -187,7 +198,7 @@ def graph():
                 days[n['date']] = min(3, days.get(n['date'], 0) + n['activity'])
         score = sum(days.values())
         scores[hub_id] = score
-        nodes.append(dict(id=hub_id, label=label, kind='hub', color=color, category=theme,themeLabel=THEMES[theme][0],themeReason='declared' if hub_id in declarations else 'inferred',count=len(matched), activity=round(score, 3), radius=28 + min(26, 8 * math.log1p(score)), summary='Related knowledge grouped from your local notes. Size follows dated evidence with a 21-day half-life; it does not measure all your conversations.'))
+        nodes.append(dict(id=hub_id, label=label, kind='hub', color=color, category=theme,themeLabel=THEMES[theme][0],themeReason='declared' if hub_id in declarations else 'inferred',count=len(matched), activity=round(score, 3), radius=28 + min(26, 8 * math.log1p(score)), summary='Related knowledge grouped from your local notes. Recent focus follows dated evidence with a 21-day half-life; it does not measure all your conversations.'))
         for key, topic_label, topic_terms in topics:
             topic_id = hub_id + ':' + key
             children = [n for n in matched if any(mentions(n['label']+'\n'+n['text'],t) for t in topic_terms)]
@@ -215,19 +226,40 @@ def graph():
         if n['kind']=='hub':
             relative=n['activity']/peak if peak else 0
             n['radius']=20+34*relative**.65
+    source_pairs=set()
+    stems={}
+    for path,ident in lookup.items():stems.setdefault(Path(path).stem.casefold(),[]).append(ident)
     for n in notes:
-        for target in re.findall(r'\]\(([^)]+\.md)(?:#[^)]*)?\)', n['text']):
-            if '://' in target:
-                continue
-            path = (VAULT / n['path']).parent / target
-            try:
-                rel = path.resolve().relative_to(VAULT.resolve()).as_posix()
-            except ValueError:
-                continue
-            if rel in lookup:
-                links.append(dict(source=n['id'], target=lookup[rel], kind='source'))
+        targets=[(value,False) for value in re.findall(r'\]\(([^)]+\.md)(?:#[^)]*)?\)',n['text'])]
+        targets += [(value,True) for value in re.findall(r'\[\[([^]\n]+)\]\]',n['text'])]
+        for value,wiki in targets:
+            target=unquote(value.split('|')[0].split('#')[0]).strip()
+            if not target or '://' in target:continue
+            if wiki and not target.endswith('.md'):target += '.md'
+            candidates=[VAULT/target,(VAULT/n['path']).parent/target] if wiki else [(VAULT/n['path']).parent/target]
+            ident=None
+            for path in candidates:
+                try:rel=path.resolve().relative_to(VAULT.resolve()).as_posix()
+                except ValueError:continue
+                if rel in lookup:ident=lookup[rel];break
+            if not ident and wiki and '/' not in target:
+                matches=stems.get(Path(target).stem.casefold(),[])
+                if len(matches)==1:ident=matches[0]
+            if ident and ident!=n['id']:source_pairs.add((n['id'],ident))
+    links.extend(dict(source=a,target=b,kind='source') for a,b in sorted(source_pairs))
     nodes.extend({k:v for k,v in n.items() if k not in ('text','meta')} for n in notes)
     return dict(nodes=nodes, links=links, noteCount=len(notes), theme=desktop_theme(), accent=palette(), generated=dt.datetime.now().isoformat(timespec='seconds'), activityModel='Dated knowledge activity · 21-day half-life · daily cap. Conversation tracking is not enabled.')
+
+def search_notes(query):
+    words=str(query)[:200].casefold().split()
+    if not words:return []
+    result=[]
+    for p in VAULT.rglob('*.md'):
+        rel=p.relative_to(VAULT).as_posix()
+        if not p.resolve().is_relative_to(VAULT.resolve()) or any(x.startswith('.') for x in Path(rel).parts) or rel in ('AGENTS.md','CLAUDE.md','README.md','INDEX.md'):continue
+        content=(rel+'\n'+p.read_text(errors='replace')).casefold()
+        if all(word in content for word in words):result.append('note:'+hashlib.sha256(rel.encode()).hexdigest()[:16])
+    return result
 
 def status():
     now = dt.datetime.now()
@@ -289,7 +321,9 @@ def action(name, value=''):
             old=next((c for c in clients if c['class']=='siverteh-ai-dashboard'),None)
             if old:
                 return action('focus',old['address'])
-        launch(actions[name]); return
+        launch_app(actions[name])
+        if name in ('new','resume','tasks'):action('workspace','2')
+        return
     if name=='volume':
         run(['wpctl','set-volume','@DEFAULT_AUDIO_SINK@',str(max(0,min(100,int(value))))+'%']); return
     if name=='brightness':
@@ -347,7 +381,7 @@ def action(name, value=''):
         return
     if name=='open-note':
         p=note_path(value)
-        launch(['obsidian','obsidian://open?path='+quote(str(p),safe='')]); return
+        launch_app(['obsidian','obsidian://open?path='+quote(str(p),safe='')]); return
     if name=='capture':
         text=run(['zenity','--text-info','--editable','--title=Capture a thought','--width=580','--height=340'],timeout=3600)
         if text.strip():
@@ -413,6 +447,7 @@ class Handler(BaseHTTPRequestHandler):
         path=urlparse(self.path)
         try:
             if path.path=='/api/brain': return self.send(json.dumps(graph()))
+            if path.path=='/api/search': return self.send(json.dumps(dict(ids=search_notes(parse_qs(path.query).get('q',[''])[0]))))
             if path.path=='/api/navigation':
                 nav=HOME/'.local/state/siverteh-native-shell/extras/brain-focus.json'
                 value=json.loads(nav.read_text()) if nav.exists() else {}
@@ -439,7 +474,7 @@ class Handler(BaseHTTPRequestHandler):
             data=json.loads(self.rfile.read(size))
             # Web interface only exposes its own narrow navigation actions.
             if data.get('name') not in ('open-note','capture','tasks','new','resume','notes'): raise ValueError('Invalid action')
-            launch([sys.executable,str(ROOT/'control.py'),'action',data['name'],str(data.get('value',''))])
+            launch_app([sys.executable,str(ROOT/'control.py'),'action',data['name'],str(data.get('value',''))])
             self.send('{"ok":true}')
         except (ValueError,KeyError): self.send('{}',code=400)
 
@@ -461,7 +496,7 @@ def ensure_server():
 
 def brain_window():
     clients=json.loads(run(['hyprctl','clients','-j'],'[]'))
-    return next((c for c in clients if c['class']=='siverteh-brain' or (c['class'].startswith('chrome-127.0.0.1') and c['title']=='Siverteh · Observatory')),None)
+    return next((c for c in clients if c['class']=='siverteh-brain' or (c['class'].startswith('chrome-127.0.0.1') and c['title'] in ('Siverteh · Observatory','Siverteh Brain'))),None)
 
 def ensure_brain(focus=False):
     STATE.mkdir(parents=True,exist_ok=True,mode=0o700)

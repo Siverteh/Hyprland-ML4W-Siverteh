@@ -103,6 +103,10 @@ def apply_palette(home, wallpaper=None, live=True):
         bright=term_muted if i==0 else readable(colors['secondary'],term_bg) if i==6 else value
         terminal+=f'color{i} #{value}\ncolor{i+8} #{bright}\n'
     atomic_write(home/'.config/kitty/colors-matugen.conf', terminal)
+    brand=Path(__file__).with_name('branding.py')
+    if brand.exists():
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('brand',brand);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.publish(colors,home)
     lock_template=Path(__file__).with_name('hyprlock.conf.in').read_text()
     selected = str(Path(wallpaper).expanduser().resolve()) if wallpaper else ((state/'wallpaper/last.txt').read_text().strip() if (state/'wallpaper/last.txt').exists() else '')
     lock_template=lock_template.replace('{{wallpaper}}', selected)

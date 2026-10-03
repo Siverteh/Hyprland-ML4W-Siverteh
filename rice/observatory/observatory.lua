@@ -11,10 +11,9 @@ hl.config({
     },
 })
 hl.window_rule({name="observatory-brain", match={class="^(siverteh-brain)$"}, workspace="6 silent"})
-hl.window_rule({name="observatory-brain-chrome", match={class="^chrome-127[.]0[.]0[.]1__-Default$", title="^Siverteh · Observatory$"}, workspace="6 silent"})
+hl.window_rule({name="observatory-brain-chrome", match={class="^chrome-127[.]0[.]0[.]1__-Default$", title="^Siverteh Brain$"}, workspace="6 silent"})
 hl.window_rule({name="observatory-obsidian", match={class="^(obsidian|Obsidian)$"}, workspace="6 silent"})
 hl.window_rule({name="observatory-workers", match={class="^(siverteh-ai-task|siverteh-ai-dashboard)$"}, workspace="2 silent"})
-hl.window_rule({name="observatory-terminal", match={class="^(kitty)$"}, workspace="2 silent"})
 hl.window_rule({name="observatory-controls", match={class="^(siverteh-os-control)$"}, float=true,center=true,size="720 500"})
 hl.window_rule({name="observatory-editors", match={class="^(Code|code|com.microsoft.VSCode|VSCodium|cursor|Cursor)$"}, workspace="7 silent"})
 hl.bind("SUPER + 7", hl.dsp.focus({workspace=7,on_current_monitor=true}))

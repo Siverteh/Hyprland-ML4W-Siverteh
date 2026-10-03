@@ -35,6 +35,31 @@ class IndexTests(unittest.TestCase):
         self.assertTrue(any(e['kind']=='group' for e in graph['links']))
         ids={n['id'] for n in graph['nodes']}
         self.assertTrue(all(e['source'] in ids and e['target'] in ids for e in graph['links']))
+    def test_wiki_references_resolve_aliases_and_deduplicate_markdown_links(self):
+        self.note('wiki/start.md','# Start\n[[wiki/target|Target page]]\n[[wiki/target#Details]]\n[Target](target.md)')
+        self.note('wiki/target.md','# Target\nContent')
+        edges=[e for e in module.graph()['links'] if e['kind']=='source']
+        self.assertEqual(len(edges),1)
+    def test_ambiguous_wiki_basenames_do_not_invent_connections(self):
+        self.note('wiki/start.md','# Start\n[[target]]')
+        self.note('projects/target.md','# Target A')
+        self.note('personal/target.md','# Target B')
+        self.assertEqual([e for e in module.graph()['links'] if e['kind']=='source'],[])
+    def test_full_text_search_excludes_hidden_instructions_and_external_symlinks(self):
+        self.note('projects/one.md','# Ordinary title\nA uniquely searchable detail')
+        self.note('.private/one.md','# uniquely searchable')
+        self.note('AGENTS.md','# uniquely searchable')
+        (self.root/'outside.md').symlink_to('/etc/passwd')
+        self.assertEqual(len(module.search_notes('uniquely searchable')),1)
+        self.assertEqual(module.search_notes('root:x'),[])
+    def test_recorded_time_is_normalized_and_revision_tracks_content_not_activity(self):
+        p=self.note('projects/one.md','# One\nRecorded: 2026-10-03T18:00:00+02:00\nNewbringer camera')
+        first=next(n for n in module.graph()['nodes'] if n['kind']=='note')
+        self.assertEqual(first['recorded'],'2026-10-03T16:00:00+00:00')
+        p.write_text(p.read_text()+'\nExtra evidence')
+        second=next(n for n in module.graph()['nodes'] if n['kind']=='note')
+        self.assertNotEqual(first['revision'],second['revision'])
+        self.assertEqual(first['activity'],second['activity'])
     def test_old_notes_stay_present_but_have_less_recent_weight(self):
         self.note('personal/old.md','# Old\nRecorded: 2020-01-01\nPersonal')
         self.note('personal/new.md','# New\nRecorded: 2026-10-02\nPersonal')
@@ -80,7 +105,7 @@ class IndexTests(unittest.TestCase):
         with patch.object(module,'HOME',self.root/'missing'):
             self.assertIsNone(module.update_count())
     def test_update_click_launches_existing_updater_without_installing_in_test(self):
-        with patch.object(module,'launch') as launch:
+        with patch.object(module,'launch_app') as launch:
             module.action('updates')
             self.assertEqual(launch.call_args.args[0],['bash',str(module.HOME/'.config/siverteh/core/settings/installupdates.sh')])
     def test_persistent_brain_reuses_window_without_focus_or_duplicates(self):

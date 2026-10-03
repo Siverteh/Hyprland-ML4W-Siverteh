@@ -224,9 +224,11 @@ def select(lines, prompt, header="", back=True, details=None):
     def menu(screen):
         curses.curs_set(0)
         curses.use_default_colors()
-        curses.init_pair(1, curses.COLOR_CYAN, -1)
-        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_CYAN)
+        curses.init_pair(1, curses.COLOR_BLUE, -1)
+        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)
         curses.init_pair(3, curses.COLOR_WHITE, -1)
+        image_path=Path.home()/'.local/share/siverteh-ai/branding/sh.png'
+        graphic=os.environ.get('TERM')=='xterm-kitty' and sys.stdout.isatty() and image_path.exists() and not os.environ.get('TMUX')
         index = 0
         query = ""
         title = clean_label(prompt.replace(">", "")).upper()
@@ -245,11 +247,13 @@ def select(lines, prompt, header="", back=True, details=None):
             box_width = min(62, max(16, width-6))
             x = max(1, (width-box_width)//2)
             y = max(1, min(5, height//7))
-            cyan = curses.color_pair(1)
-            logo = ["    ╱╲", "   ╱╱╲╲      S I V E R T E H", "  ╱╱  ╲╲         A I"]
-            for offset, line in enumerate(logo):
-                put(y+offset, x, line, cyan | curses.A_BOLD)
-            put(y+4, x, "─" * box_width, cyan | curses.A_DIM)
+            accent = curses.color_pair(1)
+            logo = ["  ┏━┓ ╻ ╻", "  ┗━┓ ┣━┫   Siverteh AI", "  ┗━┛ ╹ ╹"]
+            if graphic:
+                put(y+1,x+12,"Siverteh AI",accent | curses.A_BOLD)
+            else:
+                for offset, line in enumerate(logo):put(y+offset,x,line,accent | curses.A_BOLD)
+            put(y+4, x, "─" * box_width, accent | curses.A_DIM)
             put(y+6, x+2, title, curses.A_DIM)
             headers = str(header).splitlines()[:max(1, height-y-14)] if header else []
             for offset, line in enumerate(headers):
@@ -273,8 +277,18 @@ def select(lines, prompt, header="", back=True, details=None):
             if not matches:
                 put(top, x+2, "No matching tasks", curses.A_DIM)
             if len(lines) > 10 or query:
-                put(height-2, x+2, "⌕ " + query, cyan)
+                put(height-2, x+2, "⌕ " + query, accent)
             screen.refresh()
+            if graphic:
+                # Quiet Kitty PNG transfer: no response bytes interfere with menu input.
+                import base64
+                data=base64.b64encode(image_path.read_bytes()).decode()
+                pieces=[]
+                for offset in range(0,len(data),4096):
+                    chunk=data[offset:offset+4096];more=int(offset+4096<len(data))
+                    fields=(f"a=T,f=100,r=3,C=1,q=2,i={os.getpid()},p=1,m={more}" if offset==0 else f"m={more},q=2")
+                    pieces.append("\x1b_G"+fields+";"+chunk+"\x1b\\")
+                sys.stdout.write(f"\x1b7\x1b[{y+1};{x+1}H"+''.join(pieces)+"\x1b8");sys.stdout.flush()
             key = screen.get_wch()
             if key == curses.KEY_UP or (key == "k" and not query):
                 index = (index-1) % max(1, len(matches))
