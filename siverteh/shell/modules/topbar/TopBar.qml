@@ -53,7 +53,7 @@ Variants {
             id:leftGroup
             anchors.left:parent.left;anchors.leftMargin:Appearance.padding.large;anchors.verticalCenter:parent.verticalCenter
             spacing:Appearance.spacing.normal
-            ShLogo {MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{win.visibility.launcherMode="apps";win.visibility.launcherQuery="";win.visibility.launcherRequest++;win.visibility.launcher=!win.visibility.launcher;} } }
+            ShLogo {compact:true;MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{win.visibility.launcherMode="apps";win.visibility.launcherQuery="";win.visibility.launcherRequest++;win.visibility.launcher=!win.visibility.launcher;} } }
             StyledRect {
                 radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
                 implicitHeight:34;implicitWidth:workspaces.implicitWidth+Appearance.padding.small*2

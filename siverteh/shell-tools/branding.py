@@ -37,6 +37,11 @@ def build():
 }
 '''.replace('TEMPLATE',expression)
  (root/'shell/widgets/ShLogo.qml').write_text('import "root:/services"\nimport QtQuick\n'+common.replace('DEFAULT_PRIMARY','Colours.palette.m3primary').replace('DEFAULT_SECONDARY','Colours.palette.m3secondary').replace(' implicitWidth:30;implicitHeight:30',' implicitWidth:30;implicitHeight:30\n Accessible.name:"Siverteh OS apps";Accessible.role:Accessible.Button'))
+ widget=root/'shell/widgets/ShLogo.qml';text=widget.read_text()
+ text=text.replace(' property color primary:', ' property bool compact:false\n function adjust(value){return compact?value.replace(/L24 2 L24 12/g,"L24.6 2 L24.6 12").replace(/L24 14 L24 24/g,"L24.6 14 L24.6 24"):value;}\n property color primary:')
+ text=text.replace('encodeURIComponent(', 'encodeURIComponent(root.adjust(').replace('String(root.secondary)))}','String(root.secondary))))}')
+ widget.write_text(text)
+
  (root/'login/Logo.qml').write_text('import QtQuick\n'+common.replace('DEFAULT_PRIMARY','"#dbc492"').replace('DEFAULT_SECONDARY','"#d2c5ad"'))
  web=root.parent/'rice/observatory/web/index.html';text=web.read_text();a=text.index('<symbol id="sh"');b=text.index('</symbol>',a)+len('</symbol>');inner=template.split('>',1)[1].rsplit('</svg>',1)[0].replace('@PRIMARY@','currentColor').replace('@SECONDARY@','currentColor');text=text[:a]+'<symbol id="sh" viewBox="0 0 34 28">'+inner+'</symbol>'+text[b:];web.write_text(text)
 if __name__=='__main__':
