@@ -331,7 +331,7 @@ def worker_window(args):
         print("Type your request when the selected assistant opens. The dashboard stays in its own window.", flush=True)
         if project.get("host"):
             print("To leave a running task: Ctrl+B, then D. Return with Resume latest chat or Load chat.", flush=True)
-    child = [sys.executable, str(Path(__file__).resolve()), args.worker_command, "--project", project["id"], "--agent", getattr(args,"agent",None) or "codex"]
+    child = [sys.executable, str(Path(__file__).resolve()), args.worker_command, "--project", project["id"], "--agent", getattr(args,"agent",None) or default_assistant()]
     if args.account is not None:
         child += ["--account", args.account]
     result = subprocess.run(child)

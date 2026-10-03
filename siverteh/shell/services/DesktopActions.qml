@@ -7,7 +7,8 @@ Singleton {
     readonly property var list:[
         {name:"New chat",description:"Start with your default assistant",icon:"add_comment",action:"new"},
         {name:"Resume latest chat",description:"Continue your latest conversation",icon:"history",action:"resume"},
-        {name:"Load chat",description:"Browse all saved chats and hosts",icon:"forum",action:"tasks"},
+        {name:"Load chat",description:"Browse all saved chats and hosts",icon:"forum",action:"load"},
+        {name:"AI workspace",description:"Assistant settings, accounts and usage",icon:"terminal",action:"tasks"},
         {name:"Search brain",description:"Find knowledge in the left drawer",icon:"neurology",action:"left"},
         {name:"Open brain",description:"Explore the full knowledge map",icon:"neurology",action:"brain"},
         {name:"Capture thought",description:"Save a note in your brain",icon:"edit_note",action:"capture"},
@@ -44,7 +45,7 @@ Singleton {
         if(action==="dnd"){DesktopSettings.set("dnd",!DesktopSettings.data.dnd);return;}
         if(action==="light"||action==="dark"){Colours.setMode(action);return;}
         if(action==="power"){v.session=true;return;}
-        const commands={sound:["pavucontrol"],new:["siverteh-os-shell","new"],resume:["siverteh-os-shell","resume"],tasks:["siverteh-os-shell","tasks"],brain:["siverteh-os-shell","brain"],capture:["siverteh-os-shell","capture"],wifi:["siverteh-os-shell","wifi"],bluetooth:["siverteh-os-shell","bluetooth"]};
+        const commands={load:["kitty","--class","siverteh-ai-task","--title","Load chat","--","siverteh-ai","window","--worker-command","sessions"],sound:["pavucontrol"],new:["siverteh-os-shell","new"],resume:["siverteh-os-shell","resume"],tasks:["siverteh-os-shell","tasks"],brain:["siverteh-os-shell","brain"],capture:["siverteh-os-shell","capture"],wifi:["siverteh-os-shell","wifi"],bluetooth:["siverteh-os-shell","bluetooth"]};
         if(commands[action])AppLaunch.run(commands[action]);
     }
 }

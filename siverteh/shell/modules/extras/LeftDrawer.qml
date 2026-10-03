@@ -79,7 +79,7 @@ Item {
                 Repeater {model:DesktopExtras.chats.filter(c=>!Object.values(ChatWindowTitle.threadIds).includes(c.id)).slice(0,6)
                     ChatCard {required property var modelData;label:modelData.title;detail:modelData.agent+" · "+modelData.account+" · "+modelData.state;onClicked:{root.visibilities.left=false;root.visibilities.leftPinned=false;DesktopExtras.request("resume",{key:modelData.key});}}
                 }
-                ActionButton {text:"All saved chats";icon:"forum";onClicked:DesktopActions.execute("tasks")}
+                ActionButton {text:"All saved chats";icon:"forum";onClicked:DesktopActions.execute("load")}
             }
         }
     }

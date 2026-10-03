@@ -42,6 +42,14 @@ class ChatTitles(unittest.TestCase):
             self.assertEqual(file.stat().st_mode&0o777,0o600)
             with self.assertRaises(ValueError):chat.cache_title('../escape','no')
 
+    def test_new_chat_window_uses_selected_default_assistant(self):
+        workflow=module('siverteh-ai')
+        args=SimpleNamespace(worker_command='new',project=None,account=None,agent=None)
+        with patch.object(workflow,'default_assistant',return_value='claude'),patch.object(workflow.subprocess,'run',return_value=SimpleNamespace(returncode=0)) as run:
+            workflow.worker_window(args)
+            command=run.call_args.args[0]
+            self.assertEqual(command[command.index('--agent')+1],'claude')
+
     def test_account_home_stays_isolated(self):
         chat=module('siverteh-ai-chat')
         with tempfile.TemporaryDirectory() as home, patch.dict(os.environ,{'HOME':home}):
