@@ -95,13 +95,18 @@ Variants {
                 MouseArea {
                     id:statusHover
                     anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
-                    function menuName(){return ["network","bluetooth","battery"][Math.max(0,Math.min(2,Math.floor(mouseX/width*3)))];}
+                    function menuName(){
+                        const icons=[status.network,status.bluetoothItem,status.battery];let best=Infinity,index=0;
+                        for(let i=0;i<icons.length;i++){const icon=icons[i],x=icon.mapToItem(statusHover,icon.width/2,icon.height/2).x,d=Math.abs(mouseX-x);if(d<best){best=d;index=i;}}
+                        return ["network","bluetooth","battery"][index];
+                    }
                     function showMenu(){
                         const name=menuName(),p=Visibilities.panels[win.screen.name];
                         dismissPopout.stop();if(p)p.popouts.headerHovered=true;
                         if(p && (!p.popouts.hasCurrent||p.popouts.currentName!==name)) {
                             const index=["network","bluetooth","battery"].indexOf(name);
-                            const pt=mapToItem(win.contentItem,(index+.5)*width/3,0);
+                            const icon=[status.network,status.bluetoothItem,status.battery][index];
+                            const pt=icon.mapToItem(win.contentItem,icon.width/2,icon.height/2);
                             dismissPopout.stop();p.popouts.headerHovered=true;Visibilities.popout(name,pt.x,win.screen.name);
                         }
                     }
