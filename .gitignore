@@ -32,3 +32,9 @@ __pycache__/
 
 # This file names a D-Bus provider and contains no credentials.
 !/ai/dbus/org.freedesktop.secrets.service
+
+
+# Native desktop shell build output
+siverteh/shell/build/
+siverteh/shell-cli/dist/
+siverteh/shell-cli/**/*.egg-info/

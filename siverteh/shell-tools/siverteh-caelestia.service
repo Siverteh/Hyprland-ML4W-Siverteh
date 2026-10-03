@@ -1,0 +1,15 @@
+[Unit]
+Description=Siverteh Caelestia desktop shell
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/siverteh-ai/caelestia/bin/qs -c caelestia -n
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+TimeoutStopSec=10
+
+[Install]
+WantedBy=graphical-session.target

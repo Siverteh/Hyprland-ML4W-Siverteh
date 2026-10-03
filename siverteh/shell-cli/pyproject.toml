@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "siverteh_shell"
+requires-python = ">=3.13"
+version = "1.0.0"
+dependencies = [
+    "pillow",
+    "materialyoucolor"
+]
+
+[project.scripts]
+siverteh_shell = "siverteh_shell:main"
+
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "src",
+    "completions",
+    "README.md"
+]
+
+[tool.ruff]
+line-length = 120
