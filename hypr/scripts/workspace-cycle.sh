@@ -17,4 +17,4 @@ else
     fi
 fi
 
-hyprctl dispatch workspace $next
+"$HOME/.config/hypr/scripts/hyprctl-lua.sh" focus-workspace "$next"

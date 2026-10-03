@@ -72,8 +72,8 @@ setsid -f kitty \
         )"
 
         if [[ -n "$address" && "$address" != "null" ]]; then
-            hyprctl dispatch focuswindow "address:$address" >/dev/null 2>&1 || true
-            hyprctl dispatch fullscreen 0 >/dev/null 2>&1 || true
+            "$HOME/.config/hypr/scripts/hyprctl-lua.sh" focus-window "address:$address" >/dev/null 2>&1 || true
+            "$HOME/.config/hypr/scripts/hyprctl-lua.sh" fullscreen fullscreen "address:$address" >/dev/null 2>&1 || true
             break
         fi
 

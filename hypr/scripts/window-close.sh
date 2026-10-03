@@ -6,6 +6,18 @@ notify() {
     command -v notify-send >/dev/null 2>&1 && notify-send -t 2000 "$@" || true
 }
 
+lua_quote() {
+    local value="$1"
+
+    value="${value//\\/\\\\}"
+    value="${value//\"/\\\"}"
+    printf '"%s"' "$value"
+}
+
+window_selector() {
+    printf 'address:%s' "$1"
+}
+
 active_address() {
     hyprctl activewindow -j | jq -r '.address // empty'
 }
@@ -20,14 +32,20 @@ window_exists() {
 
 close_window() {
     local address="$1"
+    local selector
 
-    hyprctl dispatch closewindow "address:$address" >/dev/null 2>&1 || true
+    selector="$(window_selector "$address")"
+    hyprctl eval "hl.dispatch(hl.dsp.window.close({ window = $(lua_quote "$selector") }))" \
+        >/dev/null 2>&1 || true
 }
 
 force_window() {
     local address="$1"
+    local selector
 
-    hyprctl dispatch killwindow "address:$address" >/dev/null 2>&1 || true
+    selector="$(window_selector "$address")"
+    hyprctl eval "hl.dispatch(hl.dsp.window.kill({ window = $(lua_quote "$selector") }))" \
+        >/dev/null 2>&1 || true
 }
 
 main() {

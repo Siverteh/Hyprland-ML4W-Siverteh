@@ -1,7 +1,7 @@
 {
   "hyprland/workspaces": {
-    "on-scroll-up": "hyprctl dispatch focusworkspaceoncurrentmonitor r-1",
-    "on-scroll-down": "hyprctl dispatch focusworkspaceoncurrentmonitor r+1",
+    "on-scroll-up": "~/.config/hypr/scripts/hyprctl-lua.sh focus-workspace r-1 true",
+    "on-scroll-down": "~/.config/hypr/scripts/hyprctl-lua.sh focus-workspace r+1 true",
     "on-click": "activate",
     "active-only": false,
     "all-outputs": false,
@@ -53,6 +53,19 @@
     "interval": 60,
     "on-click": "~/.config/hypr/scripts/siverteh-hub.sh",
     "escape": false
+  },
+  "custom/siverteh-center": {
+    "exec": "~/.config/hypr/scripts/waybar/siverteh-center.sh",
+    "return-type": "json",
+    "interval": 1,
+    "signal": 9,
+    "escape": false,
+    "tooltip": false,
+    "on-click": "~/.config/hypr/scripts/siverteh-shell.sh",
+    "on-click-right": "~/.config/hypr/scripts/siverteh-shell.sh --tab=settings",
+    "on-click-middle": "~/.config/hypr/scripts/siverteh-shell.sh --tab=actions",
+    "on-scroll-up": "~/.config/hypr/scripts/siverteh-shell.sh --prev-tab",
+    "on-scroll-down": "~/.config/hypr/scripts/siverteh-shell.sh --next-tab"
   },
   "custom/clock-center": {
     "exec": "~/.config/hypr/scripts/waybar/clock_status.py",
@@ -220,7 +233,7 @@
   },
   "custom/calculator": {
     "format": "\uf1ec",
-    "on-click": "qalculate-gtk",
+    "on-click": "~/.config/siverteh/core/settings/calculator.sh",
     "tooltip-format": "Open calculator"
   },
   "custom/appmenu": {

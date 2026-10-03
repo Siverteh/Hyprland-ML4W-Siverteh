@@ -18,26 +18,28 @@ launch_setting() {
 
 notify-send "Siverteh Daily Profile" "Opening your core workspaces..." -t 2000
 
-hyprctl dispatch workspace 1
+hypr_lua="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
+
+"$hypr_lua" focus-workspace 1
 launch_setting "$HOME/.config/siverteh/core/settings/browser.sh"
 sleep 0.6
 
-hyprctl dispatch workspace 2
+"$hypr_lua" focus-workspace 2
 launch_setting "$HOME/.config/siverteh/core/settings/editor.sh"
 sleep 0.6
 
-hyprctl dispatch workspace 3
+"$hypr_lua" focus-workspace 3
 discord &
 sleep 0.6
 
-hyprctl dispatch workspace 4
+"$hypr_lua" focus-workspace 4
 spotify &
 sleep 0.6
 
-hyprctl dispatch workspace 5
+"$hypr_lua" focus-workspace 5
 launch_setting "$HOME/.config/siverteh/core/settings/email.sh"
 sleep 0.8
 
-hyprctl dispatch workspace 2
+"$hypr_lua" focus-workspace 2
 
 notify-send "Siverteh Daily Profile" "Browser, code, chat, music, and mail are ready." -t 2000

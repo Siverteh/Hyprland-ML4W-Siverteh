@@ -2,6 +2,7 @@
 set -euo pipefail
 
 settings_file="$HOME/.config/siverteh/settings.json"
+hypr_lua="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
 
 if ! command -v hyprctl >/dev/null 2>&1; then
     exit 0
@@ -61,7 +62,7 @@ move_ws() {
     local workspace="$1"
     local monitor="$2"
     [ -n "$monitor" ] || return 0
-    hyprctl dispatch moveworkspacetomonitor "$workspace $monitor" >/dev/null 2>&1 || true
+    "$hypr_lua" move-workspace "$workspace" "$monitor" >/dev/null 2>&1 || true
 }
 
 if [ "$mode" = "laptop_only" ] || [ "$mode" = "external_only" ] || [ "$mode" = "mirror" ] || [ ${#active_monitors[@]} -le 1 ]; then

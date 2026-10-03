@@ -111,7 +111,7 @@ style_path="$HOME/.config/waybar/themes${arrThemes[1]}/$style_file"
 
 # Check if waybar-disabled file exists
 if [ ! -f $HOME/.config/siverteh/core/settings/waybar-disabled ]; then
-    setsid -f /usr/bin/waybar \
+    setsid -f env -u LD_PRELOAD /usr/bin/waybar \
         -c "$config_path" \
         -s "$style_path" \
         >/tmp/waybar.log 2>&1 </dev/null &

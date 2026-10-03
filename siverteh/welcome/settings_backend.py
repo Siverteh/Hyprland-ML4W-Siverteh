@@ -37,8 +37,93 @@ WORKSPACE_NUMBER_MAP = {
     "default": "",
 }
 
+VIBE_OPTIONS = [
+    ("glass", "Glass / Cyber"),
+    ("minimal", "Minimal Luxe"),
+    ("neon", "Dark Neon"),
+    ("nordic", "Nordic Terminal"),
+    ("custom", "Full Custom"),
+]
+
+VIBE_LABELS = {value: label for value, label in VIBE_OPTIONS}
+
+VIBE_DESCRIPTIONS = {
+    "glass": "Current transparent glass core with a brighter center command tab.",
+    "minimal": "Quiet spacing, softer borders, and less visual noise.",
+    "neon": "Harder glow, louder accents, and a more arcade-dark shell.",
+    "nordic": "Cool terminal-forward glass with restrained contrast.",
+    "custom": "Maximum personality while still pulling every accent from Matugen.",
+}
+
+VIBE_STYLE = {
+    "glass": {
+        "surface_alpha": "0.12",
+        "center_alpha": "0.14",
+        "border_alpha": "0.24",
+        "glow_alpha": "0.03",
+        "hover_alpha": "0.24",
+        "radius_delta": 0,
+        "center_pad_x": 12,
+        "center_pad_y": 4,
+        "accent": "@primary_fixed",
+    },
+    "minimal": {
+        "surface_alpha": "0.035",
+        "center_alpha": "0.07",
+        "border_alpha": "0.34",
+        "glow_alpha": "0.025",
+        "hover_alpha": "0.24",
+        "radius_delta": -2,
+        "center_pad_x": 11,
+        "center_pad_y": 4,
+        "accent": "@secondary",
+    },
+    "neon": {
+        "surface_alpha": "0.075",
+        "center_alpha": "0.16",
+        "border_alpha": "0.92",
+        "glow_alpha": "0.16",
+        "hover_alpha": "0.54",
+        "radius_delta": 3,
+        "center_pad_x": 13,
+        "center_pad_y": 5,
+        "accent": "@tertiary",
+    },
+    "nordic": {
+        "surface_alpha": "0.045",
+        "center_alpha": "0.09",
+        "border_alpha": "0.52",
+        "glow_alpha": "0.05",
+        "hover_alpha": "0.30",
+        "radius_delta": 1,
+        "center_pad_x": 12,
+        "center_pad_y": 4,
+        "accent": "@secondary",
+    },
+    "custom": {
+        "surface_alpha": "0.08",
+        "center_alpha": "0.18",
+        "border_alpha": "0.95",
+        "glow_alpha": "0.20",
+        "hover_alpha": "0.58",
+        "radius_delta": 5,
+        "center_pad_x": 14,
+        "center_pad_y": 5,
+        "accent": "@primary_fixed",
+    },
+}
+
+VALID_VIBES = set(VIBE_LABELS)
+
+
+def normalize_vibe(value):
+    return value if value in VALID_VIBES else "glass"
+
 DEFAULT_STATE = {
     "version": 1,
+    "appearance": {
+        "vibe": "glass",
+    },
     "bar": {
         "workspace_display": "icons",
         "pill_outline": True,
@@ -79,10 +164,14 @@ class SivertehSettingsBackend:
             self.repo_root / "waybar" / "themes" / "siverteh-glass" / "settings-generated.css"
         )
         self.window_conf_path = self.repo_root / "hypr" / "conf" / "window.conf"
+        self.window_lua_path = self.repo_root / "hypr" / "conf" / "window.lua"
         self.decoration_conf_path = self.repo_root / "hypr" / "conf" / "decoration.conf"
+        self.decoration_lua_path = self.repo_root / "hypr" / "conf" / "decoration.lua"
         self.animation_conf_path = self.repo_root / "hypr" / "conf" / "animation.conf"
+        self.animation_lua_path = self.repo_root / "hypr" / "conf" / "animation.lua"
         self.animation_presets_dir = self.repo_root / "hypr" / "conf" / "animation-presets"
         self.monitor_conf_path = self.repo_root / "hypr" / "conf" / "monitor.conf"
+        self.monitor_lua_path = self.repo_root / "hypr" / "conf" / "monitor.lua"
         self.display_profile_script = self.repo_root / "hypr" / "scripts" / "apply-display-profile.sh"
 
     def ensure_state(self):
@@ -194,20 +283,14 @@ class SivertehSettingsBackend:
                 "margin-left": 0,
                 "margin-right": 0,
                 "spacing": 0,
-                "fixed-center": False,
+                "fixed-center": True,
                 "expand-right": False,
                 "include": ["~/.config/waybar/modules.json"],
                 "modules-left": [
-                    "custom/appmenu",
                     "hyprland/workspaces",
                     "wlr/taskbar",
-                    "custom/music-progress",
-                    "custom/music-label",
-                    "custom/player-prev",
-                    "custom/player-play",
-                    "custom/player-next",
                 ],
-                "modules-center": [],
+                "modules-center": ["custom/siverteh-center"],
                 "modules-right": [
                     "custom/updates",
                     "group/stats",
@@ -620,6 +703,15 @@ class SivertehSettingsBackend:
         self.save_state(state)
         self.apply_bar_settings(state)
 
+    def set_appearance_setting(self, key, value):
+        state = self.load_state()
+        state.setdefault("appearance", {})
+        if key == "vibe":
+            value = normalize_vibe(value)
+        state["appearance"][key] = value
+        self.save_state(state)
+        self.apply_bar_settings(state)
+
     def set_display_setup_setting(self, key, value):
         state = self.load_state()
         state["display_setup"][key] = value
@@ -657,6 +749,8 @@ class SivertehSettingsBackend:
             state = self.load_state()
 
         bar_settings = state["bar"]
+        appearance = state.get("appearance", DEFAULT_STATE["appearance"])
+        vibe = normalize_vibe(appearance.get("vibe", "glass"))
         modules = self.load_modules()
         config = self.load_waybar_config()
         workspace_format = (
@@ -668,8 +762,12 @@ class SivertehSettingsBackend:
         modules["hyprland/workspaces"]["format"] = "{icon}"
         modules["hyprland/workspaces"]["format-icons"] = workspace_format
         modules["hyprland/workspaces"]["all-outputs"] = False
-        modules["hyprland/workspaces"]["on-scroll-up"] = "hyprctl dispatch focusworkspaceoncurrentmonitor r-1"
-        modules["hyprland/workspaces"]["on-scroll-down"] = "hyprctl dispatch focusworkspaceoncurrentmonitor r+1"
+        modules["hyprland/workspaces"]["on-scroll-up"] = (
+            "~/.config/hypr/scripts/hyprctl-lua.sh focus-workspace r-1 true"
+        )
+        modules["hyprland/workspaces"]["on-scroll-down"] = (
+            "~/.config/hypr/scripts/hyprctl-lua.sh focus-workspace r+1 true"
+        )
 
         modules.setdefault("custom/updates", {})
         modules["custom/updates"]["exec"] = "~/.config/hypr/scripts/waybar/updates_status.sh"
@@ -696,6 +794,20 @@ class SivertehSettingsBackend:
             "escape": False,
             "on-click": "~/.config/hypr/scripts/waybar/calendar-popup.sh",
             "hide-empty-text": True,
+        }
+        modules.setdefault("custom/siverteh-center", {})
+        modules["custom/siverteh-center"] = {
+            "exec": "~/.config/hypr/scripts/waybar/siverteh-center.sh",
+            "return-type": "json",
+            "interval": 1,
+            "signal": 9,
+            "escape": False,
+            "tooltip": False,
+            "on-click": "~/.config/hypr/scripts/siverteh-shell.sh",
+            "on-click-right": "~/.config/hypr/scripts/siverteh-shell.sh --tab=settings",
+            "on-click-middle": "~/.config/hypr/scripts/siverteh-shell.sh --tab=actions",
+            "on-scroll-up": "~/.config/hypr/scripts/siverteh-shell.sh --prev-tab",
+            "on-scroll-down": "~/.config/hypr/scripts/siverteh-shell.sh --next-tab",
         }
         modules.setdefault("custom/music-progress", {})
         modules["custom/music-progress"] = {
@@ -747,22 +859,10 @@ class SivertehSettingsBackend:
             session_modules.append("custom/status-pill")
         modules["group/session"]["modules"] = session_modules
 
-        modules_left = ["custom/appmenu", "hyprland/workspaces"]
+        modules_left = ["hyprland/workspaces"]
         if bar_settings["show_open_apps"]:
             modules_left.append("wlr/taskbar")
-        if bar_settings["show_music"]:
-            modules_left.append("custom/music-progress")
-            if bar_settings.get("music_display") == "full":
-                modules_left.append("custom/music-label")
-            modules_left.extend(
-                [
-                    "custom/player-prev",
-                    "custom/player-play",
-                    "custom/player-next",
-                ]
-            )
-
-        modules_center = []
+        modules_center = ["custom/siverteh-center"]
 
         modules_right = []
         modules_right.append("custom/updates")
@@ -774,21 +874,463 @@ class SivertehSettingsBackend:
         config["modules-left"] = modules_left
         config["modules-center"] = modules_center
         config["modules-right"] = modules_right
-        config["fixed-center"] = False
+        config["fixed-center"] = True
         config["expand-right"] = False
 
         self.save_modules(modules)
         self.save_waybar_config(config)
         self.style_override_path.parent.mkdir(parents=True, exist_ok=True)
         self.style_override_path.write_text(
-            self.render_waybar_override_css(bar_settings)
+            self.render_waybar_override_css(bar_settings, vibe)
         )
         self.run_shell_command("~/.config/waybar/launch.sh")
 
-    def render_waybar_override_css(self, bar_settings):
+    def render_center_vibe_class_css(self, pill_outline=True):
+        blocks = []
+        for vibe_name, vibe_style in VIBE_STYLE.items():
+            center_accent = vibe_style["accent"]
+            surface_alpha = vibe_style["surface_alpha"]
+            center_alpha = vibe_style["center_alpha"]
+            glow_alpha = vibe_style["glow_alpha"]
+            hover_alpha = vibe_style["hover_alpha"]
+            border_color = (
+                f"alpha({center_accent}, {vibe_style['border_alpha']})"
+                if pill_outline
+                else "transparent"
+            )
+            blocks.append(
+                f"""
+#custom-siverteh-center.vibe-{vibe_name} {{
+    color: {center_accent};
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {center_alpha}), alpha(@surface_container_high, {surface_alpha}) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, {center_alpha}), alpha(@surface_container_high, {surface_alpha}));
+    border-color: {border_color};
+    box-shadow:
+        0 8px 22px alpha({center_accent}, {glow_alpha}),
+        inset 0 1px 0 alpha(@on_surface, 0.05);
+}}
+
+#custom-siverteh-center.vibe-{vibe_name}:hover {{
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {hover_alpha}), alpha(@surface_container_high, {center_alpha}) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, {center_alpha}), alpha(@surface_container_high, {surface_alpha}));
+}}
+
+#custom-siverteh-center.vibe-{vibe_name}.open {{
+    color: @on_primary;
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {hover_alpha}), alpha(@surface_container_high, {center_alpha}) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, {surface_alpha}));
+    border-color: alpha({center_accent}, 0.38);
+    border-radius: 999px 999px 16px 16px;
+    box-shadow:
+        0 0 0 1px alpha({center_accent}, 0.08),
+        0 10px 24px alpha({center_accent}, {glow_alpha}),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}}
+"""
+            )
+        return "\n".join(blocks)
+
+    def render_center_tab_class_css(self):
+        return """
+#custom-siverteh-center.open.tab-dashboard {
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.26), alpha(@surface_container_high, 0.14) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.12));
+    border-color: alpha(@primary_fixed, 0.42);
+    box-shadow:
+        0 0 0 1px alpha(@primary_fixed, 0.08),
+        0 10px 24px alpha(@primary_fixed, 0.04),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center.open.tab-media {
+    color: @on_surface;
+    background:
+        radial-gradient(circle at top, alpha(@tertiary, 0.24), alpha(@surface_container_high, 0.14) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.12));
+    border-color: alpha(@tertiary, 0.42);
+    box-shadow:
+        0 0 0 1px alpha(@tertiary, 0.08),
+        0 10px 24px alpha(@tertiary, 0.04),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center.open.tab-actions {
+    color: @on_surface;
+    background:
+        radial-gradient(circle at top, alpha(@primary, 0.24), alpha(@surface_container_high, 0.14) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.12));
+    border-color: alpha(@primary, 0.42);
+    box-shadow:
+        0 0 0 1px alpha(@primary, 0.08),
+        0 10px 24px alpha(@primary, 0.04),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center.open.tab-settings {
+    color: @on_surface;
+    background:
+        radial-gradient(circle at top, alpha(@secondary, 0.26), alpha(@surface_container_high, 0.14) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.12));
+    border-color: alpha(@secondary, 0.44);
+    box-shadow:
+        0 0 0 1px alpha(@secondary, 0.08),
+        0 10px 24px alpha(@secondary, 0.04),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+"""
+
+    def render_waybar_vibe_skin_css(self, vibe):
+        if vibe == "minimal":
+            return """
+window#waybar {
+    background: transparent;
+}
+
+#workspaces,
+#taskbar,
+#custom-updates,
+#clock,
+#custom-clock-center,
+.modules-right > widget > box {
+    background: alpha(@surface, 0.70);
+    border-color: alpha(@outline, 0.18);
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+#custom-siverteh-center {
+    min-width: 190px;
+    border-radius: 6px;
+    background: alpha(@surface, 0.86);
+    border-color: alpha(@secondary, 0.30);
+    box-shadow: none;
+}
+
+#custom-siverteh-center.open {
+    border-radius: 6px 6px 0 0;
+    box-shadow: inset 0 -1px 0 alpha(@secondary, 0.40);
+}
+"""
+        if vibe == "neon":
+            return """
+#workspaces,
+#taskbar,
+#custom-updates,
+#clock,
+#custom-clock-center,
+.modules-right > widget > box {
+    background:
+        radial-gradient(circle at top, alpha(@tertiary, 0.18), alpha(@background, 0.18) 70%),
+        alpha(@surface_container_high, 0.26);
+    border-color: alpha(@tertiary, 0.70);
+    border-radius: 999px;
+    box-shadow:
+        0 0 16px alpha(@tertiary, 0.20),
+        inset 0 1px 0 alpha(@on_surface, 0.07);
+}
+
+#custom-siverteh-center {
+    min-width: 214px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 999px;
+    background:
+        radial-gradient(circle at 18% 0%, alpha(@primary, 0.28), transparent 38%),
+        radial-gradient(circle at 82% 0%, alpha(@tertiary, 0.30), transparent 40%),
+        alpha(@background, 0.58);
+    border-color: alpha(@tertiary, 0.92);
+    box-shadow:
+        0 0 0 1px alpha(@primary, 0.22),
+        0 0 28px alpha(@tertiary, 0.42),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center.open {
+    border-radius: 999px 999px 26px 26px;
+    box-shadow:
+        0 0 0 1px alpha(@primary, 0.26),
+        0 0 34px alpha(@tertiary, 0.48),
+        0 12px 30px alpha(@shadow, 0.24);
+}
+"""
+        if vibe == "nordic":
+            return """
+#workspaces,
+#taskbar,
+#custom-updates,
+#clock,
+#custom-clock-center,
+.modules-right > widget > box {
+    background: alpha(@surface_container, 0.78);
+    border-color: alpha(@secondary, 0.42);
+    border-radius: 2px;
+    box-shadow: inset 0 -1px 0 alpha(@secondary, 0.18);
+}
+
+#custom-siverteh-center {
+    min-width: 202px;
+    border-radius: 2px;
+    background: alpha(@surface_container_highest, 0.82);
+    border-color: alpha(@secondary, 0.58);
+    box-shadow: none;
+}
+
+#custom-siverteh-center.open {
+    border-radius: 2px 2px 0 0;
+    box-shadow:
+        inset 0 -2px 0 alpha(@secondary, 0.74),
+        0 8px 18px alpha(@shadow, 0.12);
+}
+"""
+        if vibe == "custom":
+            return """
+#workspaces,
+#taskbar,
+#custom-updates,
+#clock,
+#custom-clock-center,
+.modules-right > widget > box {
+    background:
+        radial-gradient(circle at 15% 0%, alpha(@primary_fixed, 0.22), transparent 42%),
+        radial-gradient(circle at 88% 100%, alpha(@tertiary, 0.20), transparent 36%),
+        alpha(@surface_container_high, 0.28);
+    border-color: alpha(@primary_fixed, 0.82);
+    border-radius: 18px 8px 18px 8px;
+    box-shadow:
+        0 0 22px alpha(@primary_fixed, 0.20),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center {
+    min-width: 232px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 26px 10px 26px 10px;
+    background:
+        radial-gradient(circle at 20% 0%, alpha(@primary_fixed, 0.34), transparent 38%),
+        radial-gradient(circle at 78% 110%, alpha(@tertiary, 0.28), transparent 42%),
+        linear-gradient(90deg, alpha(@surface_container_highest, 0.42), alpha(@surface_container, 0.24));
+    border-color: alpha(@primary_fixed, 0.95);
+    box-shadow:
+        0 0 0 1px alpha(@tertiary, 0.22),
+        0 0 34px alpha(@primary_fixed, 0.36),
+        inset 0 1px 0 alpha(@on_surface, 0.10);
+}
+
+#custom-siverteh-center.open {
+    border-radius: 26px 10px 30px 30px;
+    box-shadow:
+        0 0 0 1px alpha(@tertiary, 0.26),
+        0 0 42px alpha(@primary_fixed, 0.42),
+        0 14px 34px alpha(@shadow, 0.24);
+}
+"""
+        return """
+#custom-siverteh-center {
+    min-width: 190px;
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.22), alpha(@surface_container_high, 0.12) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.16), alpha(@surface_container_high, 0.08));
+    border-color: alpha(@primary_fixed, 0.34);
+    box-shadow:
+        0 12px 28px alpha(@primary_fixed, 0.08),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}
+
+#custom-siverteh-center.open {
+    border-radius: 999px 999px 22px 22px;
+    box-shadow:
+        0 0 0 1px alpha(@primary_fixed, 0.10),
+        0 12px 30px alpha(@primary_fixed, 0.10),
+        0 8px 24px alpha(@shadow, 0.08);
+}
+"""
+
+    def render_active_waybar_vibe_lock_css(self, vibe):
+        open_selector = ",\n".join(
+            [
+                f"#custom-siverteh-center.vibe-{vibe}.open",
+                f"#custom-siverteh-center.vibe-{vibe}.state-open",
+                f"#custom-siverteh-center.vibe-{vibe}.open.tab-dashboard",
+                f"#custom-siverteh-center.vibe-{vibe}.open.tab-media",
+                f"#custom-siverteh-center.vibe-{vibe}.open.tab-actions",
+                f"#custom-siverteh-center.vibe-{vibe}.open.tab-settings",
+            ]
+        )
+        common = """
+.modules-center > widget,
+.modules-center > widget > box {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+#custom-siverteh-center.state-open,
+#custom-siverteh-center.open {
+    margin-top: 6px;
+    margin-bottom: 0;
+    min-height: 24px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-bottom-color: transparent;
+}
+"""
+        if vibe == "minimal":
+            return common + f"""
+#custom-siverteh-center.vibe-minimal {{
+    min-width: 190px;
+    border-radius: 6px;
+    background: alpha(@surface, 0.86);
+    border-color: alpha(@outline, 0.22);
+    box-shadow: none;
+}}
+
+{open_selector} {{
+    color: @on_surface;
+    border-radius: 6px 6px 0 0;
+    background: alpha(@surface, 0.88);
+    border-bottom-color: transparent;
+    box-shadow: inset 0 -1px 0 alpha(@secondary, 0.36);
+}}
+"""
+        if vibe == "neon":
+            return common + f"""
+#custom-siverteh-center.vibe-neon {{
+    min-width: 214px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 999px;
+    background:
+        radial-gradient(circle at 18% 0%, alpha(@primary, 0.28), transparent 38%),
+        radial-gradient(circle at 82% 0%, alpha(@tertiary, 0.30), transparent 40%),
+        alpha(@background, 0.58);
+    border-color: alpha(@tertiary, 0.92);
+    box-shadow:
+        0 0 0 1px alpha(@primary, 0.22),
+        0 0 28px alpha(@tertiary, 0.42),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}}
+
+{open_selector} {{
+    color: @on_surface;
+    border-radius: 999px 999px 10px 10px;
+    background:
+        radial-gradient(circle at 18% 0%, alpha(@primary, 0.38), transparent 38%),
+        radial-gradient(circle at 82% 0%, alpha(@tertiary, 0.42), transparent 40%),
+        alpha(@background, 0.68);
+    border-color: alpha(@tertiary, 0.98);
+    border-bottom-color: transparent;
+    box-shadow:
+        0 0 0 1px alpha(@primary, 0.28),
+        0 0 34px alpha(@tertiary, 0.52),
+        0 12px 30px alpha(@shadow, 0.24);
+}}
+"""
+        if vibe == "nordic":
+            return common + f"""
+#custom-siverteh-center.vibe-nordic {{
+    min-width: 202px;
+    border-radius: 2px;
+    background: alpha(@surface_container_highest, 0.82);
+    border-color: alpha(@secondary, 0.58);
+    box-shadow: none;
+}}
+
+{open_selector} {{
+    color: @on_surface;
+    border-radius: 2px 2px 0 0;
+    background: alpha(@surface_container_highest, 0.88);
+    border-bottom-color: transparent;
+    box-shadow:
+        inset 0 -2px 0 alpha(@secondary, 0.74),
+        0 8px 18px alpha(@shadow, 0.12);
+}}
+"""
+        if vibe == "custom":
+            return common + f"""
+#custom-siverteh-center.vibe-custom {{
+    min-width: 232px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 26px 10px 26px 10px;
+    background:
+        radial-gradient(circle at 20% 0%, alpha(@primary_fixed, 0.34), transparent 38%),
+        radial-gradient(circle at 78% 110%, alpha(@tertiary, 0.28), transparent 42%),
+        linear-gradient(90deg, alpha(@surface_container_highest, 0.42), alpha(@surface_container, 0.24));
+    border-color: alpha(@primary_fixed, 0.95);
+    box-shadow:
+        0 0 0 1px alpha(@tertiary, 0.22),
+        0 0 34px alpha(@primary_fixed, 0.36),
+        inset 0 1px 0 alpha(@on_surface, 0.10);
+}}
+
+{open_selector} {{
+    color: @on_surface;
+    border-radius: 26px 10px 12px 12px;
+    background:
+        radial-gradient(circle at 20% 0%, alpha(@primary_fixed, 0.42), transparent 38%),
+        radial-gradient(circle at 78% 110%, alpha(@tertiary, 0.36), transparent 42%),
+        linear-gradient(90deg, alpha(@surface_container_highest, 0.50), alpha(@surface_container, 0.30));
+    border-bottom-color: transparent;
+    box-shadow:
+        0 0 0 1px alpha(@tertiary, 0.26),
+        0 0 42px alpha(@primary_fixed, 0.42),
+        0 14px 34px alpha(@shadow, 0.24);
+}}
+"""
+        return common + f"""
+#custom-siverteh-center.vibe-glass {{
+    min-width: 204px;
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.22), alpha(@surface_container_high, 0.12) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.16), alpha(@surface_container_high, 0.08));
+    border-color: alpha(@primary_fixed, 0.34);
+    box-shadow:
+        0 12px 28px alpha(@primary_fixed, 0.08),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}}
+
+{open_selector} {{
+    color: @on_surface;
+    border-radius: 999px 999px 10px 10px;
+    border-bottom-color: transparent;
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.28), alpha(@surface_container_high, 0.14) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.10));
+    box-shadow:
+        0 0 0 1px alpha(@primary_fixed, 0.10),
+        0 12px 30px alpha(@primary_fixed, 0.10),
+        0 8px 24px alpha(@shadow, 0.08);
+}}
+"""
+
+    def render_waybar_override_css(self, bar_settings, vibe="glass"):
+        vibe = normalize_vibe(vibe)
+        vibe_style = VIBE_STYLE[vibe]
         density = bar_settings["density"]
         pill_outline = bar_settings["pill_outline"]
-        border_color = "alpha(@primary_fixed, 0.78)" if pill_outline else "transparent"
+        surface_alpha = vibe_style["surface_alpha"]
+        center_alpha = vibe_style["center_alpha"]
+        glow_alpha = vibe_style["glow_alpha"]
+        hover_alpha = vibe_style["hover_alpha"]
+        center_accent = vibe_style["accent"]
+        center_vibe_class_css = self.render_center_vibe_class_css(pill_outline)
+        center_tab_class_css = self.render_center_tab_class_css()
+        waybar_vibe_skin_css = (
+            self.render_waybar_vibe_skin_css(vibe)
+            + self.render_active_waybar_vibe_lock_css(vibe)
+        )
+        border_color = (
+            f"alpha({center_accent}, {vibe_style['border_alpha']})"
+            if pill_outline
+            else "transparent"
+        )
 
         if density == "balanced":
             shell_padding = "3px 6px"
@@ -811,8 +1353,14 @@ class SivertehSettingsBackend:
             taskbar_size = ("20px", "18px", "5px", "5px")
             clock_padding = "2px 8px"
 
+        shell_height_value = int(shell_height.rstrip("px"))
+        center_radius = max(10, int(shell_radius.rstrip("px")) + 3 + vibe_style["radius_delta"])
+        center_height = max(20, shell_height_value - 2)
+        center_pad_x = vibe_style["center_pad_x"]
+        center_pad_y = vibe_style["center_pad_y"]
         return f"""/* Auto-generated by Siverteh OS Settings */
 /* siverteh-density: {density} */
+/* siverteh-vibe: {vibe} */
 
 #custom-appmenu,
 #custom-updates,
@@ -821,14 +1369,62 @@ class SivertehSettingsBackend:
 #clock,
 #custom-clock-center,
 .modules-right > widget > box {{
-    background: alpha(@surface_container_high, 0.05);
+    background: alpha(@surface_container_high, {surface_alpha});
     border: 1px solid {border_color};
     border-radius: {shell_radius};
     margin: 6px 4px 0 4px;
     padding: {shell_padding};
     min-height: {shell_height};
-    box-shadow: 0 2px 8px alpha(@shadow, 0.05), inset 0 1px 0 alpha(@on_surface, 0.03);
+    box-shadow: 0 2px 8px alpha(@shadow, {glow_alpha}), inset 0 1px 0 alpha(@on_surface, 0.03);
 }}
+
+.modules-center {{
+    margin-top: 0;
+}}
+
+#custom-siverteh-center {{
+    color: {center_accent};
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {center_alpha}), alpha(@surface_container_high, {surface_alpha}) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, {center_alpha}), alpha(@surface_container_high, {surface_alpha}));
+    border: 1px solid {border_color};
+    border-radius: 999px;
+    margin: 6px 4px 0 4px;
+    padding: {max(2, center_pad_y - 1)}px {center_pad_x}px;
+    min-width: 154px;
+    min-height: {center_height}px;
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    font-weight: 900;
+    box-shadow:
+        0 8px 22px alpha({center_accent}, {glow_alpha}),
+        inset 0 1px 0 alpha(@on_surface, 0.05);
+}}
+
+#custom-siverteh-center:hover {{
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {hover_alpha}), alpha(@surface_container_high, {center_alpha}) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, {center_alpha}), alpha(@surface_container_high, {surface_alpha}));
+    color: @on_surface;
+}}
+
+#custom-siverteh-center.open {{
+    color: @on_primary;
+    background:
+        radial-gradient(circle at top, alpha({center_accent}, {hover_alpha}), alpha(@surface_container_high, {center_alpha}) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, {surface_alpha}));
+    border-color: alpha({center_accent}, 0.38);
+    border-radius: 999px 999px 16px 16px;
+    box-shadow:
+        0 0 0 1px alpha({center_accent}, 0.08),
+        0 10px 24px alpha({center_accent}, {glow_alpha}),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
+}}
+
+{center_vibe_class_css}
+
+{center_tab_class_css}
+
+{waybar_vibe_skin_css}
 
 #custom-appmenu {{
     padding-left: {app_padding[0]};
@@ -981,6 +1577,25 @@ class SivertehSettingsBackend:
         content = self.replace_assignment(content, "gaps_out", hyprland["gaps_out"])
         content = self.replace_assignment(content, "border_size", hyprland["border_size"])
         self.window_conf_path.write_text(content)
+        self.window_lua_path.write_text(
+            f"""hl.config({{
+    general = {{
+        gaps_in = {hyprland["gaps_in"]},
+        gaps_out = {hyprland["gaps_out"]},
+        border_size = {hyprland["border_size"]},
+        col = {{
+            active_border = {{
+                colors = {{var_primary, var_on_primary}},
+                angle = 90,
+            }},
+            inactive_border = var_on_primary,
+        }},
+        layout = "dwindle",
+        resize_on_border = true,
+    }},
+}})
+"""
+        )
 
     def update_decoration_conf(self, hyprland):
         content = self.decoration_conf_path.read_text()
@@ -1003,12 +1618,43 @@ class SivertehSettingsBackend:
             content, "passes", hyprland["blur_passes"], first_match_after="blur {"
         )
         self.decoration_conf_path.write_text(content)
+        blur_enabled = "true" if hyprland["blur_enabled"] else "false"
+        inactive_opacity = f"{float(hyprland['inactive_opacity']):.2f}".rstrip("0").rstrip(".")
+        self.decoration_lua_path.write_text(
+            f"""hl.config({{
+    decoration = {{
+        rounding = {hyprland["rounding"]},
+        active_opacity = 1.0,
+        inactive_opacity = {inactive_opacity},
+        fullscreen_opacity = 1.0,
+        blur = {{
+            enabled = {blur_enabled},
+            size = {hyprland["blur_size"]},
+            passes = {hyprland["blur_passes"]},
+            new_optimizations = true,
+            ignore_opacity = true,
+            xray = true,
+        }},
+        shadow = {{
+            enabled = true,
+            range = 32,
+            render_power = 2,
+            color = "rgba(00000050)",
+        }},
+    }},
+}})
+"""
+        )
 
     def write_animation_preset(self, preset_name):
         preset_path = self.animation_presets_dir / f"{preset_name}.conf"
         if not preset_path.exists():
             preset_path = self.animation_presets_dir / "balanced.conf"
         self.animation_conf_path.write_text(preset_path.read_text())
+        lua_preset_path = preset_path.with_suffix(".lua")
+        if not lua_preset_path.exists():
+            lua_preset_path = self.animation_presets_dir / "balanced.lua"
+        self.animation_lua_path.write_text(lua_preset_path.read_text())
 
     def replace_assignment(self, content, key, value, first_match_after=None):
         flags = re.MULTILINE
@@ -1037,11 +1683,17 @@ class SivertehSettingsBackend:
         )
 
     def apply_display_preview(self, monitor_name, mode, scale):
-        command = (
-            f"{monitor_name},{self.normalize_mode_for_hypr(mode)},auto,"
-            f"{self.format_scale_for_hypr(scale)}"
+        helper = self.repo_root / "hypr" / "scripts" / "hyprctl-lua.sh"
+        self.run_command(
+            [
+                str(helper),
+                "monitor",
+                monitor_name,
+                self.normalize_mode_for_hypr(mode),
+                "auto",
+                self.format_scale_for_hypr(scale),
+            ]
         )
-        self.run_command(["hyprctl", "keyword", "monitor", command])
 
     def revert_display_preview(self, monitor_name, old_mode, old_scale):
         self.apply_display_preview(monitor_name, old_mode, old_scale)
@@ -1086,6 +1738,32 @@ class SivertehSettingsBackend:
 
         self.monitor_conf_path.write_text("\n".join(lines) + "\n")
 
+        lua_lines = [
+            "-- Generated by Siverteh OS",
+        ]
+        for name in ordered_names:
+            monitor = inventory[name]
+            lua_lines.extend(["hl.monitor({", f'    output = "{name}",'])
+            if name not in active:
+                lua_lines.extend(["    disabled = true,", "})"])
+                continue
+
+            mode = self.normalize_mode_for_hypr(monitor["mode"])
+            position = monitor.get("position", "auto") or "auto"
+            scale = self.format_scale_for_hypr(monitor["scale"])
+            lua_lines.extend(
+                [
+                    "    disabled = false,",
+                    f'    mode = "{mode}",',
+                    f'    position = "{position}",',
+                    f"    scale = {scale},",
+                ]
+            )
+            if plan["mode"] == "mirror" and primary and name != primary:
+                lua_lines.append(f'    mirror = "{primary}",')
+            lua_lines.append("})")
+        self.monitor_lua_path.write_text("\n".join(lua_lines) + "\n")
+
     def write_display_profile_script(self, state=None):
         if state is None:
             state = self.load_state()
@@ -1096,6 +1774,7 @@ class SivertehSettingsBackend:
 set -euo pipefail
 
 settings_file="$HOME/.config/siverteh/settings.json"
+hypr_lua="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
 
 if ! command -v hyprctl >/dev/null 2>&1; then
     exit 0
@@ -1155,7 +1834,7 @@ move_ws() {
     local workspace="$1"
     local monitor="$2"
     [ -n "$monitor" ] || return 0
-    hyprctl dispatch moveworkspacetomonitor "$workspace $monitor" >/dev/null 2>&1 || true
+    "$hypr_lua" move-workspace "$workspace" "$monitor" >/dev/null 2>&1 || true
 }
 
 if [ "$mode" = "laptop_only" ] || [ "$mode" = "external_only" ] || [ "$mode" = "mirror" ] || [ ${#active_monitors[@]} -le 1 ]; then

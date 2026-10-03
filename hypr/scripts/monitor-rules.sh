@@ -3,6 +3,7 @@
 
 RULES_FILE="$HOME/.config/hypr/conf/windowrule.conf"
 LOG_FILE="/tmp/monitor-rules.log"
+HYPR_LUA="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
 
 # Clear log
 echo "=== Monitor Rules Debug $(date) ===" > "$LOG_FILE"
@@ -25,42 +26,42 @@ move_to_personal_layout() {
     echo "Moving browsers to workspace 1..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("chrome|chromium|firefox")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 1,address:$addr
+        "$HYPR_LUA" move-window 1 "address:$addr" false
     done
     
     # Move code editors to workspace 2
     echo "Moving code editors to workspace 2..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("code|cursor|vscodium")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 2,address:$addr
+        "$HYPR_LUA" move-window 2 "address:$addr" false
     done
     
     # Move Discord to workspace 3
     echo "Moving Discord to workspace 3..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("discord")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 3,address:$addr
+        "$HYPR_LUA" move-window 3 "address:$addr" false
     done
     
     # Move Spotify to workspace 4
     echo "Moving Spotify to workspace 4..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("spotify")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 4,address:$addr
+        "$HYPR_LUA" move-window 4 "address:$addr" false
     done
 
     # Move mail to workspace 5
     echo "Moving mail to workspace 5..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("evolution")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 5,address:$addr
+        "$HYPR_LUA" move-window 5 "address:$addr" false
     done
 
     # Move Mission Center to workspace 6
     echo "Moving Mission Center to workspace 6..." | tee -a "$LOG_FILE"
     hyprctl clients -j | jq -r '.[] | select(.class | ascii_downcase | test("mission-center|missioncenter")) | .address' | while read addr; do
         echo "  Moving $addr" >> "$LOG_FILE"
-        hyprctl dispatch movetoworkspacesilent 6,address:$addr
+        "$HYPR_LUA" move-window 6 "address:$addr" false
     done
 }
 

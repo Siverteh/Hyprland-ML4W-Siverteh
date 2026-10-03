@@ -12,6 +12,48 @@ notify() {
     command -v notify-send >/dev/null 2>&1 && notify-send -t 2500 "$@" || true
 }
 
+lua_quote() {
+    local value="$1"
+
+    value="${value//\\/\\\\}"
+    value="${value//\"/\\\"}"
+    printf '"%s"' "$value"
+}
+
+window_selector() {
+    printf 'address:%s' "$1"
+}
+
+dispatch_close() {
+    local selector
+
+    selector="$(window_selector "$1")"
+    hyprctl eval "hl.dispatch(hl.dsp.window.close({ window = $(lua_quote "$selector") }))"
+}
+
+dispatch_kill() {
+    local selector
+
+    selector="$(window_selector "$1")"
+    hyprctl eval "hl.dispatch(hl.dsp.window.kill({ window = $(lua_quote "$selector") }))"
+}
+
+dispatch_move() {
+    local address="$1"
+    local workspace="$2"
+    local selector
+
+    selector="$(window_selector "$address")"
+    hyprctl eval "hl.dispatch(hl.dsp.window.move({ workspace = $(lua_quote "$workspace"), window = $(lua_quote "$selector"), follow = false }))"
+}
+
+dispatch_focus() {
+    local selector
+
+    selector="$(window_selector "$1")"
+    hyprctl eval "hl.dispatch(hl.dsp.focus({ window = $(lua_quote "$selector") }))"
+}
+
 state_file() {
     printf '%s/%s' "$STATE_DIR" "$1"
 }
@@ -80,11 +122,11 @@ close_trashed_window() {
     client_exists "$address" || return 0
     client_is_trashed "$address" || return 0
 
-    hyprctl dispatch closewindow "address:$address" >/dev/null 2>&1 || true
+    dispatch_close "$address" >/dev/null 2>&1 || true
     sleep 2
 
     if client_exists "$address" && client_is_trashed "$address"; then
-        hyprctl dispatch killwindow "address:$address" >/dev/null 2>&1 || true
+        dispatch_kill "$address" >/dev/null 2>&1 || true
     fi
 }
 
@@ -166,7 +208,7 @@ trash_active() {
     trashed_at="$(date +%s)"
 
     write_state "$address" "$workspace_id" "$workspace_name" "$trashed_at"
-    hyprctl dispatch movetoworkspacesilent "$TRASH_WORKSPACE,address:$address" >/dev/null
+    dispatch_move "$address" "$TRASH_WORKSPACE" >/dev/null
     schedule_expiry "$address" "$trashed_at"
     notify "Window moved to trash" "Press SUPER+SHIFT+Q to restore within 30 seconds"
 }
@@ -195,9 +237,9 @@ restore_window() {
     }
 
     target="$(target_workspace)"
-    hyprctl dispatch movetoworkspacesilent "$target,address:$address" >/dev/null
+    dispatch_move "$address" "$target" >/dev/null
     rm -f "$(state_file "$address")"
-    hyprctl dispatch focuswindow "address:$address" >/dev/null 2>&1 || true
+    dispatch_focus "$address" >/dev/null 2>&1 || true
 }
 
 restore_last() {
@@ -233,7 +275,7 @@ restore_all() {
         return 0
     fi
 
-    [[ -n "$latest" ]] && hyprctl dispatch focuswindow "address:$latest" >/dev/null 2>&1 || true
+    [[ -n "$latest" ]] && dispatch_focus "$latest" >/dev/null 2>&1 || true
     notify "Restored $count window(s) from trash"
 }
 

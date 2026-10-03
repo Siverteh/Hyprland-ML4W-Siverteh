@@ -76,13 +76,13 @@ if [ -n "$selected_line" ]; then
     fi
 
     # Switch to the selected window's workspace
-    hyprctl dispatch workspace "$selected_workspace_id"
+    "$HOME/.config/hypr/scripts/hyprctl-lua.sh" focus-workspace "$selected_workspace_id"
 
     # Add a small delay to ensure Hyprland processes the workspace change before focusing
     sleep 0.05 
 
     # Focus on the selected window using its unique address
-    hyprctl dispatch focuswindow "address:$selected_address"
+    "$HOME/.config/hypr/scripts/hyprctl-lua.sh" focus-window "address:$selected_address"
 else
     echo "No window selected. Exiting."
 fi

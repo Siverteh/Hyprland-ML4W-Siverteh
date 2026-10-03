@@ -18,4 +18,4 @@ if [ -f "$WELCOME_DIR/parse-keybindings.sh" ]; then
 fi
 
 # Launch detached so Waybar clicks stay responsive.
-setsid -f python3 "$WELCOME_APP" >/dev/null 2>&1
+setsid -f python3 "$WELCOME_APP" "$@" >/dev/null 2>&1

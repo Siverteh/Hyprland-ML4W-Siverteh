@@ -13,6 +13,7 @@ log_message() {
 
 # Get the target workspace from the argument
 target_workspace=$1
+hypr_lua="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
 
 # Check if a target workspace was provided
 if [ -z "$target_workspace" ]; then
@@ -36,12 +37,12 @@ window_addresses=$(hyprctl clients -j | jq -r ".[] | select(.workspace.id == $cu
 # Move each window to the target workspace
 for address in $window_addresses; do
     log_message "Moving window $address to workspace $target_workspace"
-    hyprctl dispatch movetoworkspacesilent "$target_workspace,address:$address"
+    "$hypr_lua" move-window "$target_workspace" "address:$address" false
 done
 
 log_message "Finished moving windows"
 
 # Switch to the target workspace
-hyprctl dispatch workspace "$target_workspace"
+"$hypr_lua" focus-workspace "$target_workspace"
 
 log_message "Switched to workspace $target_workspace"

@@ -6,6 +6,7 @@ Siverteh OS
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 import gi
@@ -15,15 +16,22 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Pango
 
-from settings_backend import SivertehSettingsBackend
+from settings_backend import (
+    VIBE_DESCRIPTIONS,
+    VIBE_LABELS,
+    VIBE_OPTIONS,
+    SivertehSettingsBackend,
+    normalize_vibe,
+)
 
 
 class HubWindow(Adw.ApplicationWindow):
-    def __init__(self, app):
+    def __init__(self, app, initial_page=None):
         super().__init__(application=app, title="Siverteh OS")
 
         self.window_sizes = {
             "overview": (940, 780),
+            "now": (940, 760),
             "workspaces": (940, 740),
             "keybindings": (940, 780),
             "actions": (940, 780),
@@ -55,11 +63,14 @@ class HubWindow(Adw.ApplicationWindow):
         self.settings_scroll_window = None
         self.settings_scroll_value = 0.0
         self.restore_settings_scroll_pending = False
+        self.initial_page = initial_page
+        self.now_music_source = None
+        self.now_music_widgets = {}
         self.colors = self.load_colors()
         self.system_info = self.load_system_info()
         self.defaults = self.load_defaults()
         self.apply_css()
-        self.build_interface()
+        self.build_interface(initial_page)
         self.setup_color_watchers()
         self.color_signature = self.compute_color_signature()
         GLib.timeout_add(900, self.poll_for_theme_changes)
@@ -663,6 +674,86 @@ class HubWindow(Adw.ApplicationWindow):
             border-radius: 999px;
             box-shadow: 0 2px 6px alpha(black, 0.12);
         }}
+
+        .now-grid {{
+            margin: 0 22px 22px 22px;
+        }}
+
+        .now-card {{
+            background:
+                radial-gradient(circle at top left, alpha({self.colors['primary']}, 0.18), alpha({self.colors['surface_container_high']}, 0.9) 58%, alpha({self.colors['surface_container']}, 0.95));
+            border: 1px solid alpha({self.colors['primary_fixed']}, 0.18);
+            border-radius: 26px;
+            padding: 22px;
+            box-shadow:
+                0 18px 34px alpha(black, 0.18),
+                inset 0 1px 0 alpha({self.colors['primary_fixed']}, 0.06);
+        }}
+
+        .now-title {{
+            color: {self.colors['primary_fixed']};
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+        }}
+
+        .now-value {{
+            color: {self.colors['on_surface']};
+            font-size: 21px;
+            font-weight: 800;
+        }}
+
+        .now-muted {{
+            color: {self.colors['on_surface_variant']};
+            font-size: 12px;
+        }}
+
+        .music-bars {{
+            color: {self.colors['primary_fixed']};
+            font-family: "JetBrainsMono Nerd Font", monospace;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+        }}
+
+        .transport-button {{
+            background: alpha({self.colors['surface_container_highest']}, 0.62);
+            color: {self.colors['on_surface']};
+            border: 1px solid alpha({self.colors['secondary']}, 0.22);
+            border-radius: 999px;
+            min-width: 44px;
+            min-height: 38px;
+            font-size: 14px;
+            font-weight: 900;
+        }}
+
+        .transport-button:hover {{
+            background: alpha({self.colors['primary_container']}, 0.46);
+            color: {self.colors['primary_fixed']};
+        }}
+
+        calendar.hub-calendar {{
+            color: {self.colors['on_surface']};
+            background: alpha({self.colors['surface_container']}, 0.72);
+            border-radius: 18px;
+            border: 1px solid alpha({self.colors['outline']}, 0.20);
+            padding: 10px;
+        }}
+
+        calendar.hub-calendar header {{
+            background: transparent;
+            color: {self.colors['primary_fixed']};
+        }}
+
+        calendar.hub-calendar button {{
+            color: {self.colors['on_surface']};
+            background: transparent;
+            border-radius: 10px;
+        }}
+
+        calendar.hub-calendar button:hover {{
+            background: alpha({self.colors['primary']}, 0.16);
+        }}
         """
 
         self.css_provider.load_from_data(css.encode())
@@ -675,6 +766,10 @@ class HubWindow(Adw.ApplicationWindow):
             self.css_provider_added = True
 
     def build_interface(self, current_page=None):
+        if self.now_music_source is not None:
+            GLib.source_remove(self.now_music_source)
+            self.now_music_source = None
+        self.now_music_widgets = {}
         self.settings_state = self.settings_backend.load_state()
         self.settings_scroll_window = None
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -698,12 +793,13 @@ class HubWindow(Adw.ApplicationWindow):
         root.append(self.stack)
 
         self.add_overview_page()
+        self.add_now_page()
         self.add_workspaces_page()
         self.add_keybindings_page()
         self.add_actions_page()
         self.add_settings_page()
 
-        if current_page:
+        if current_page and current_page in self.window_sizes:
             self.stack.set_visible_child_name(current_page)
             self.apply_window_size(current_page)
         else:
@@ -755,8 +851,15 @@ class HubWindow(Adw.ApplicationWindow):
             return GLib.SOURCE_REMOVE
 
         if active.get("class") == "com.siverteh.hub" or active.get("title") == "Siverteh OS":
+            helper = self.repo_root / "hypr" / "scripts" / "hyprctl-lua.sh"
             subprocess.Popen(
-                ["hyprctl", "dispatch", "resizeactive", "exact", str(width), str(height)],
+                [
+                    str(helper),
+                    "resize-window",
+                    str(width),
+                    str(height),
+                    f"address:{active.get('address', '')}",
+                ],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
@@ -899,6 +1002,158 @@ class HubWindow(Adw.ApplicationWindow):
         page.append(defaults_grid)
         self.stack.add_titled(scroll, "overview", "Overview")
 
+    def query_music_payload(self, mode):
+        script = self.repo_root / "hypr" / "scripts" / "waybar" / "music_status.py"
+        try:
+            output = subprocess.check_output(
+                ["python3", str(script), mode],
+                text=True,
+                timeout=1.2,
+            )
+            payload = json.loads(output)
+        except (OSError, subprocess.SubprocessError, json.JSONDecodeError):
+            payload = {}
+
+        return {
+            "text": payload.get("text") or "",
+            "class": payload.get("class") or "idle",
+            "tooltip": payload.get("tooltip") or "No active media player",
+        }
+
+    def refresh_now_music(self):
+        if not self.now_music_widgets:
+            self.now_music_source = None
+            return GLib.SOURCE_REMOVE
+
+        progress = self.query_music_payload("progress-cache")
+        play_icon = self.query_music_payload("play-icon")
+        track = progress["tooltip"]
+        status = progress["class"].capitalize()
+
+        if not track or track in {"No active media player", "Nothing is playing"}:
+            track = "No active media player"
+            status = "Idle"
+
+        self.now_music_widgets["track"].set_text(track)
+        self.now_music_widgets["status"].set_text(status)
+        self.now_music_widgets["bars"].set_text(progress["text"] or "▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
+        self.now_music_widgets["play"].set_label(play_icon["text"] or "")
+        return GLib.SOURCE_CONTINUE
+
+    def create_transport_button(self, label, command):
+        button = Gtk.Button(label=label)
+        button.add_css_class("transport-button")
+        button.connect("clicked", self.run_command, command)
+        return button
+
+    def add_now_page(self):
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_vexpand(True)
+
+        page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16)
+        page.add_css_class("now-grid")
+        scroll.set_child(page)
+
+        top = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
+        top.set_homogeneous(True)
+        page.append(top)
+
+        music_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=14)
+        music_card.add_css_class("now-card")
+        top.append(music_card)
+
+        music_title = Gtk.Label(label="NOW PLAYING")
+        music_title.add_css_class("now-title")
+        music_title.set_halign(Gtk.Align.START)
+        music_card.append(music_title)
+
+        track_label = Gtk.Label(label="No active media player")
+        track_label.add_css_class("now-value")
+        track_label.set_halign(Gtk.Align.START)
+        track_label.set_wrap(True)
+        music_card.append(track_label)
+
+        status_label = Gtk.Label(label="Idle")
+        status_label.add_css_class("now-muted")
+        status_label.set_halign(Gtk.Align.START)
+        music_card.append(status_label)
+
+        bars_label = Gtk.Label(label="▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
+        bars_label.add_css_class("music-bars")
+        bars_label.set_halign(Gtk.Align.START)
+        music_card.append(bars_label)
+
+        controls = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        controls.set_halign(Gtk.Align.START)
+        controls.append(
+            self.create_transport_button(
+                "", "~/.config/hypr/scripts/waybar/music-control.sh previous"
+            )
+        )
+        play_button = self.create_transport_button(
+            "", "~/.config/hypr/scripts/waybar/music-control.sh play-pause"
+        )
+        controls.append(play_button)
+        controls.append(
+            self.create_transport_button(
+                "", "~/.config/hypr/scripts/waybar/music-control.sh next"
+            )
+        )
+        music_card.append(controls)
+
+        calendar_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=14)
+        calendar_card.add_css_class("now-card")
+        top.append(calendar_card)
+
+        calendar_title = Gtk.Label(label="CALENDAR")
+        calendar_title.add_css_class("now-title")
+        calendar_title.set_halign(Gtk.Align.START)
+        calendar_card.append(calendar_title)
+
+        today = GLib.DateTime.new_now_local().format("%A, %d %B %Y")
+        today_label = Gtk.Label(label=today)
+        today_label.add_css_class("now-value")
+        today_label.set_halign(Gtk.Align.START)
+        today_label.set_wrap(True)
+        calendar_card.append(today_label)
+
+        calendar = Gtk.Calendar()
+        calendar.add_css_class("hub-calendar")
+        calendar.set_show_week_numbers(False)
+        calendar.set_hexpand(True)
+        calendar_card.append(calendar)
+
+        lower = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=16)
+        lower.set_homogeneous(True)
+        page.append(lower)
+
+        vibe = normalize_vibe(self.settings_state.get("appearance", {}).get("vibe", "glass"))
+        lower.append(
+            self.create_card(
+                "ACTIVE VIBE",
+                VIBE_LABELS.get(vibe, "Glass / Cyber"),
+                VIBE_DESCRIPTIONS.get(vibe, "Wallpaper-reactive Siverteh glass styling."),
+            )
+        )
+        lower.append(
+            self.create_card(
+                "COLOR ENGINE",
+                "Matugen Live",
+                "Wallpaper changes still regenerate Waybar, Rofi, GTK, Kitty, SwayNC, wlogout, and Hyprland colors.",
+            )
+        )
+
+        self.now_music_widgets = {
+            "track": track_label,
+            "status": status_label,
+            "bars": bars_label,
+            "play": play_button,
+        }
+        self.refresh_now_music()
+        self.now_music_source = GLib.timeout_add_seconds(1, self.refresh_now_music)
+        self.stack.add_titled(scroll, "now", "Now")
+
     def add_workspaces_page(self):
         scroll, page = self.create_scrolled_page()
 
@@ -979,7 +1234,10 @@ class HubWindow(Adw.ApplicationWindow):
 
     def add_keybindings_page(self):
         scroll, page = self.create_scrolled_page()
-        keybindings_file = Path.home() / ".config" / "siverteh" / "welcome" / "keybindings.json"
+        keybindings_file = Path.home() / ".config" / "siverteh" / "core" / "welcome" / "keybindings.json"
+        legacy_keybindings_file = Path.home() / ".config" / "siverteh" / "welcome" / "keybindings.json"
+        if not keybindings_file.exists() and legacy_keybindings_file.exists():
+            keybindings_file = legacy_keybindings_file
 
         if not keybindings_file.exists():
             page.append(self.create_card("KEYBINDINGS", "No keybinding export found", "Run the hub launcher again to regenerate it."))
@@ -1186,6 +1444,26 @@ class HubWindow(Adw.ApplicationWindow):
         row.set_activatable_widget(spin)
         row._spin = spin
         return row
+
+    def on_appearance_vibe_changed(self, row, _pspec):
+        if self.settings_signal_block:
+            return
+
+        label = row._options[row._selected_index]
+        value = next(
+            (key for key, option_label in VIBE_LABELS.items() if option_label == label),
+            "glass",
+        )
+        value = normalize_vibe(value)
+        current = normalize_vibe(
+            self.settings_state.get("appearance", {}).get("vibe", "glass")
+        )
+        if value == current:
+            return
+
+        self.settings_backend.set_appearance_setting("vibe", value)
+        self.settings_state = self.settings_backend.load_state()
+        self.build_interface("settings")
 
     def on_bar_workspace_display_changed(self, row, _pspec):
         if self.settings_signal_block:
@@ -1539,6 +1817,24 @@ class HubWindow(Adw.ApplicationWindow):
         self.settings_scroll_window = scroll
         self.display_widgets = {}
 
+        current_vibe = normalize_vibe(
+            self.settings_state.get("appearance", {}).get("vibe", "glass")
+        )
+        appearance_group = Adw.PreferencesGroup(
+            title="Vibe",
+            description="Swap the overall feel while keeping the live wallpaper-derived Matugen palette.",
+        )
+        appearance_group.add(
+            self.create_combo_row(
+                "Desktop vibe",
+                VIBE_DESCRIPTIONS.get(current_vibe, VIBE_DESCRIPTIONS["glass"]),
+                [label for _value, label in VIBE_OPTIONS],
+                VIBE_LABELS.get(current_vibe, VIBE_LABELS["glass"]),
+                self.on_appearance_vibe_changed,
+            )
+        )
+        page.add(appearance_group)
+
         bar_group = Adw.PreferencesGroup(
             title="Bar",
             description="Live Waybar presentation controls for the Siverteh glass theme.",
@@ -1784,17 +2080,35 @@ class HubWindow(Adw.ApplicationWindow):
 
 
 class HubApp(Adw.Application):
-    def __init__(self):
+    def __init__(self, initial_page=None):
         super().__init__(application_id="com.siverteh.hub", flags=Gio.ApplicationFlags.NON_UNIQUE)
+        self.initial_page = initial_page
 
     def do_activate(self):
         window = self.props.active_window
         if window is None:
-            window = HubWindow(self)
+            window = HubWindow(self, self.initial_page)
         window.refresh_theme()
+        if self.initial_page:
+            window.stack.set_visible_child_name(self.initial_page)
+            window.apply_window_size(self.initial_page)
         window.present()
 
 
+def parse_initial_page(argv):
+    allowed_pages = {"overview", "now", "workspaces", "keybindings", "actions", "settings"}
+    requested = None
+    args = argv[1:]
+    for index, arg in enumerate(args):
+        if arg == "--page" and index + 1 < len(args):
+            requested = args[index + 1]
+            break
+        if arg.startswith("--page="):
+            requested = arg.split("=", 1)[1]
+            break
+    return requested if requested in allowed_pages else None
+
+
 if __name__ == "__main__":
-    app = HubApp()
+    app = HubApp(parse_initial_page(sys.argv))
     app.run(None)

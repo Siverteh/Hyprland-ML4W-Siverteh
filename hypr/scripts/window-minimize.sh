@@ -2,6 +2,7 @@
 # Window minimize/restore script
 
 STATE_DIR="$HOME/.cache/hypr-minimize"
+HYPR_LUA="$HOME/.config/hypr/scripts/hyprctl-lua.sh"
 mkdir -p "$STATE_DIR"
 
 hide_window() {
@@ -18,7 +19,7 @@ hide_window() {
     echo "$workspace_id" > "$STATE_DIR/$window_addr"
     
     # Move to special workspace silently
-    hyprctl dispatch movetoworkspacesilent special:hidden,address:$window_addr
+    "$HYPR_LUA" move-window "special:hidden" "address:$window_addr" false
     notify-send "Window hidden" "Press SUPER+SHIFT+H to restore"
 }
 
@@ -37,13 +38,15 @@ restore_last() {
     # Get the workspace it came from
     if [ -f "$STATE_DIR/$last_window" ]; then
         local target_ws=$(cat "$STATE_DIR/$last_window")
-        hyprctl dispatch movetoworkspacesilent $target_ws,address:$last_window
+        "$HYPR_LUA" move-window "$target_ws" "address:$last_window" false
         rm "$STATE_DIR/$last_window"
-        hyprctl dispatch focuswindow address:$last_window
+        "$HYPR_LUA" focus-window "address:$last_window"
         notify-send "Window restored"
     else
         # If we don't know where it came from, move to current workspace
-        hyprctl dispatch movetoworkspace name:current,address:$last_window
+        local current_ws
+        current_ws=$(hyprctl activeworkspace -j | jq -r '.id')
+        "$HYPR_LUA" move-window "$current_ws" "address:$last_window" true
         notify-send "Window restored to current workspace"
     fi
 }
@@ -62,7 +65,7 @@ restore_all_current_workspace() {
         if [ -f "$STATE_DIR/$window_addr" ]; then
             local orig_ws=$(cat "$STATE_DIR/$window_addr")
             if [ "$orig_ws" = "$current_ws" ]; then
-                hyprctl dispatch movetoworkspacesilent $current_ws,address:$window_addr
+                "$HYPR_LUA" move-window "$current_ws" "address:$window_addr" false
                 rm "$STATE_DIR/$window_addr"
                 ((count++))
             fi

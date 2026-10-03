@@ -6,22 +6,18 @@
     "margin-left": 0,
     "margin-right": 0,
     "spacing": 0,
-    "fixed-center": false,
+    "fixed-center": true,
     "expand-right": false,
     "include": [
         "~/.config/waybar/modules.json"
     ],
     "modules-left": [
-        "custom/appmenu",
         "hyprland/workspaces",
-        "wlr/taskbar",
-        "custom/music-progress",
-        "custom/music-label",
-        "custom/player-prev",
-        "custom/player-play",
-        "custom/player-next"
+        "wlr/taskbar"
     ],
-    "modules-center": [],
+    "modules-center": [
+        "custom/siverteh-center"
+    ],
     "modules-right": [
         "custom/updates",
         "group/stats",

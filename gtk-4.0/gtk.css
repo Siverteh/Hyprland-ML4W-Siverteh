@@ -1,5 +1,6 @@
 @import url("colors.css");
 @import 'colors.css';
+@import url("/home/siverteh/.config/siverteh-observatory/gtk.css");
 
 window {
     background-color: @window_bg_color;

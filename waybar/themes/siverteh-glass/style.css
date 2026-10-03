@@ -29,6 +29,7 @@ window#waybar {
 
 .modules-center {
     padding-top: 0;
+    margin-top: 0;
 }
 
 /* Shell / pill surfaces */
@@ -115,6 +116,38 @@ window#waybar {
     font-weight: 800;
     padding: 2px 8px;
     min-width: 0;
+}
+
+#custom-siverteh-center {
+    color: @primary_fixed;
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.11), alpha(@surface_container_high, 0.05) 64%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.11), alpha(@surface_container_high, 0.05));
+    border: 1px solid alpha(@primary_fixed, 0.78);
+    border-radius: 999px;
+    margin: 6px 4px 0 4px;
+    padding: 3px 12px;
+    min-width: 42px;
+    min-height: 24px;
+    font-family: "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 6 Free", FontAwesome, sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    box-shadow:
+        0 8px 22px alpha(@primary_fixed, 0.07),
+        inset 0 1px 0 alpha(@on_surface, 0.05);
+}
+
+#custom-siverteh-center.open {
+    color: @on_primary;
+    background:
+        radial-gradient(circle at top, alpha(@primary_fixed, 0.42), alpha(@surface_container_high, 0.14) 66%),
+        linear-gradient(180deg, alpha(@surface_container_highest, 0.18), alpha(@surface_container_high, 0.08));
+    border-color: alpha(@primary_fixed, 0.92);
+    box-shadow:
+        0 0 0 1px alpha(@primary_fixed, 0.14),
+        0 14px 34px alpha(@primary_fixed, 0.18),
+        inset 0 1px 0 alpha(@on_surface, 0.08);
 }
 
 /* Inner items */
@@ -336,6 +369,7 @@ window#waybar {
 }
 
 #custom-siverteh:hover,
+#custom-siverteh-center:hover,
 #custom-updates:hover,
 #custom-music-progress:hover,
 #custom-player-prev:hover,

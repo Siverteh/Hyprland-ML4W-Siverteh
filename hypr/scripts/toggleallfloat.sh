@@ -6,5 +6,5 @@
 # /_/   \_\_|_|_| |_|\___/ \__,_|\__|
 #
 
-hyprctl dispatch workspaceopt allfloat
+"$HOME/.config/hypr/scripts/hyprctl-lua.sh" toggle-all-float
 notify-send "Windows on this workspace toggled to floating/tiling"
