@@ -25,8 +25,8 @@ Item {
             height += list.itemAtIndex(i)?.nonAnimHeight ?? 0;
 
         const screen = QsWindow.window?.screen;
-        const visibilities = Visibilities.screens[screen];
-        const panel = Visibilities.panels[screen];
+        const visibilities = Visibilities.screens[screen?.name];
+        const panel = Visibilities.panels[screen?.name];
         if (visibilities && panel) {
             if (visibilities.osd) {
                 const h = panel.osd.y - BorderConfig.rounding * 2;

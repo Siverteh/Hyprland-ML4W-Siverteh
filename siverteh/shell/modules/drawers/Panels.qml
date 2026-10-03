@@ -43,7 +43,7 @@ Item {
 
     Notifications.Wrapper {
         id: notifications
-        suppressed: popouts.width > 0.1 || root.visibilities.session || root.visibilities.dashboard
+        suppressed: popouts.width > 0.1 || session.width > 0.1 || dashboard.height > 0.1
 
         anchors.top: parent.top
         anchors.right: parent.right
