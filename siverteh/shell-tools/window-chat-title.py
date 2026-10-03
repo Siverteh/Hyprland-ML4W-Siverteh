@@ -3,7 +3,7 @@
 import json,os,re,sys,unicodedata
 from pathlib import Path
 
-def resolve(pid):
+def resolve_info(pid):
     todo=[pid];seen=set()
     while todo and len(seen)<64:
         current=todo.pop()
@@ -13,13 +13,19 @@ def resolve(pid):
             if proc.stat().st_uid!=os.getuid():continue
             todo.extend(map(int,(proc/'task'/str(current)/'children').read_text().split()))
             args=(proc/'cmdline').read_bytes().decode(errors='replace').split('\0')
-            if 'resume' not in args:continue
-            thread=args[args.index('resume')+1]
+            option=next((arg for arg in ('resume','--resume','-r') if arg in args),None)
+            if not option:continue
+            thread=args[args.index(option)+1]
             if not re.fullmatch(r'[0-9a-f-]{36}',thread):continue
             file=Path.home()/'.local/state/siverteh-ai/chat-titles'/f'{thread}.json'
-            data=json.loads(file.read_text())
-            return ''.join(c for c in str(data['title']) if not unicodedata.category(c).startswith('C'))[:100]
+            title=''
+            if file.exists():
+                data=json.loads(file.read_text())
+                title=''.join(c for c in str(data['title']) if not unicodedata.category(c).startswith('C'))[:100]
+            return {'title':title,'threadId':thread}
         except (OSError,ValueError,IndexError,KeyError):continue
-    return ''
+    return {'title':'','threadId':''}
 
-if __name__=='__main__':print(json.dumps({'title':resolve(int(sys.argv[1]))}))
+def resolve(pid):return resolve_info(pid)['title']
+
+if __name__=='__main__':print(json.dumps(resolve_info(int(sys.argv[1]))))

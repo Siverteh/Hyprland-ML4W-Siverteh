@@ -413,6 +413,11 @@ class Handler(BaseHTTPRequestHandler):
         path=urlparse(self.path)
         try:
             if path.path=='/api/brain': return self.send(json.dumps(graph()))
+            if path.path=='/api/navigation':
+                nav=HOME/'.local/state/siverteh-native-shell/extras/brain-focus.json'
+                value=json.loads(nav.read_text()) if nav.exists() else {}
+                if time.time()-value.get('created',0)>60:value={}
+                return self.send(json.dumps(value))
             if path.path=='/api/note':
                 p=note_path(parse_qs(path.query).get('path',[''])[0])
                 return self.send(json.dumps(dict(text=p.read_text(errors='replace'))))

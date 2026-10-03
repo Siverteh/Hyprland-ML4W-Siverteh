@@ -18,6 +18,13 @@ Item {
                 text:DesktopSettings.message
                 width:parent.width;wrapMode:Text.WordWrap;color:Colours.palette.m3error
             }
+            Section {width:900;heading:"Desktop presets"
+                Row {spacing:10
+                    Repeater {model:["normal","focused","presentation","minimal"]
+                        Action {required property string modelData;label:modelData.charAt(0).toUpperCase()+modelData.slice(1);selected:(DesktopSettings.data.preset??"normal")===modelData;onActivated:DesktopSettings.request(["preset",modelData])}
+                    }
+                }
+            }
             StyledRect {
                 width:900;height:DesktopSettings.pending?175:140;radius:17;color:Colours.palette.m3surfaceContainer
                 Column {anchors.fill:parent;anchors.margins:16;spacing:12
@@ -54,6 +61,18 @@ Item {
                     Toggle {label:"Window shadows";setting:"shadow"}
                     Toggle {label:"Focus follows pointer";setting:"followMouse"}
                     Toggle {label:"Natural touchpad scrolling";setting:"naturalScroll"}
+                }
+            }
+            Row {spacing:16
+                Section {heading:"Desktop panels"
+                    Toggle {label:"Left-edge hover drawer";setting:"leftDrawer"}
+                    Toggle {label:"Native command palette";setting:"nativePalette"}
+                    Toggle {label:"Native window overview";setting:"nativeOverview"}
+                    Toggle {label:"Native clipboard panel";setting:"nativeClipboard"}
+                }
+                Section {heading:"Desktop behavior"
+                    Toggle {label:"Live window previews";setting:"livePreviews"}
+                    Toggle {label:"Do not disturb";setting:"dnd"}
                 }
             }
             Section {

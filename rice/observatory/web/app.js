@@ -185,3 +185,10 @@ canvas.addEventListener('pointercancel',()=>{drag=null;});
 canvas.addEventListener('wheel',e=>{e.preventDefault();cameraTarget.zoom=Math.max(.45,Math.min(6,cameraTarget.zoom*Math.exp(-e.deltaY*.001)));},{passive:false});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){setTab('universe');if(history.length)$('back').click();else overview();}});
 $('motion').textContent=motion?'Orbit on':'Orbit off';load();requestAnimationFrame(draw);setInterval(load,30000);
+
+// Small same-origin navigation handoff from the native brain drawer.
+let lastDesktopNavigation='';
+async function desktopNavigation(){
+ try{const response=await fetch('/api/navigation');if(!response.ok)return;const nav=await response.json();if(!nav.token||nav.token===lastDesktopNavigation)return;let node=graph.nodes.find(n=>n.path===nav.path);if(!node){await load();node=graph.nodes.find(n=>n.path===nav.path);}if(node){lastDesktopNavigation=nav.token;setTab('universe');select(node);}}catch{}
+}
+setInterval(desktopNavigation,2000);desktopNavigation();

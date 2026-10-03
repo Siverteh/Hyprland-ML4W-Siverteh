@@ -11,7 +11,13 @@ case "${1:-start}" in
  close) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh close ;;
  scheme-mode) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/siverteh_shell" scheme set -m "${2:-light}" ;;
  wallpaper) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher ">wallpaper " ;;
- settings) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher ">scheme " ;;
+ settings) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh settings ;;
+ left) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh left ;;
+ palette|overview|keys) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh mode "$1" ;;
+ clipboard)
+  if python3 -c 'import json,pathlib,sys;p=pathlib.Path.home()/".config/siverteh-shell/desktop.json";sys.exit(0 if not p.exists() or json.loads(p.read_text()).get("nativeClipboard",True) else 1)';then
+   exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh mode clipboard
+  else cliphist list | rofi -dmenu | cliphist decode | wl-copy;fi ;;
  session) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh session ;;
  hide) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh hide ;;
  launcher) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher "" ;;

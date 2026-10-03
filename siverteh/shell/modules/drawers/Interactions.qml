@@ -35,7 +35,7 @@ MouseArea {
     hoverEnabled: true
 
     onPressed: event => dragStart = Qt.point(event.x, event.y)
-    Timer {id:exitDelay;interval:120;onTriggered:if(!root.containsMouse&&!root.popouts.headerHovered&&!root.popouts.pinned)root.popouts.hasCurrent=false}
+    Timer {id:exitDelay;interval:120;onTriggered:{if(!root.containsMouse&&!root.popouts.headerHovered&&!root.popouts.pinned)root.popouts.hasCurrent=false;if(!root.containsMouse&&!visibilities.leftPinned)visibilities.left=false;}}
     onContainsMouseChanged: {
         if (!containsMouse) {
             visibilities.osd = false;
@@ -59,6 +59,8 @@ MouseArea {
             else if (dragX > SessionConfig.dragThreshold)
                 visibilities.session = false;
         }
+
+        if(visibilities.left&&!visibilities.leftPinned&&!((x<bar.implicitWidth+panels.leftDrawer.width+BorderConfig.rounding)&&withinPanelHeight(panels.leftDrawer,x,y)))visibilities.left=false;
 
         // Show dashboard on hover
         visibilities.dashboard = inTopPanel(panels.dashboard, x, y);

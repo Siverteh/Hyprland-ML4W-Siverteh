@@ -10,7 +10,7 @@ Shape {
     anchors.fill: parent
     preferredRendererType: Shape.CurveRenderer
     function outline() {
-        const r=BorderConfig.rounding,L=bar.implicitWidth,T=0,R=width-BorderConfig.right,B=height-BorderConfig.bottom;
+        const r=BorderConfig.rounding,L=bar.implicitWidth,T=panels.y,R=width-BorderConfig.right,B=height-BorderConfig.bottom;
         const tl=L>0&&BorderConfig.headerHeight>0?r:0,tr=BorderConfig.right>0&&BorderConfig.headerHeight>0?r:0;
         const bl=L>0&&BorderConfig.bottom>0?r:0,br=BorderConfig.right>0&&BorderConfig.bottom>0?r:0;
         const commands=[];
@@ -49,7 +49,9 @@ Shape {
         line(R,B-br);quad(R,B,R-br,B);
         const launcher=panels.launcher;
         if(launcher.height>0.5)notch(R-(L+launcher.x+launcher.width),launcher.width,launcher.height,(u,v)=>[R-u,B-v]);
-        line(L+bl,B);quad(L,B,L,B-bl);line(L,T+tl);quad(L,T,L+tl,T);commands.push("Z");
+        line(L+bl,B);quad(L,B,L,B-bl);const left=panels.leftDrawer;
+        if(left.width>0.5)notch(B-(T+left.y+left.height),left.height,left.width,(u,v)=>[L+v,B-u]);
+        line(L,T+tl);quad(L,T,L+tl,T);commands.push("Z");
         return commands.join(" ");
     }
     ShapePath {

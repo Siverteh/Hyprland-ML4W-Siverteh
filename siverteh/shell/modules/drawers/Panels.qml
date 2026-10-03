@@ -5,6 +5,7 @@ import "root:/modules/notifications" as Notifications
 import "root:/modules/session" as Session
 import "root:/modules/launcher" as Launcher
 import "root:/modules/dashboard" as Dashboard
+import "root:/modules/extras" as Extras
 import "root:/modules/bar/popouts" as BarPopouts
 import Quickshell
 import QtQuick
@@ -21,15 +22,18 @@ Item {
     readonly property Session.Wrapper session: session
     readonly property Launcher.Wrapper launcher: launcher
     readonly property Dashboard.Wrapper dashboard: dashboard
+    readonly property Extras.LeftDrawer leftDrawer:brainDrawer
     readonly property BarPopouts.Wrapper popouts: popouts
 
     anchors.fill: parent
     anchors.rightMargin: BorderConfig.right
     anchors.bottomMargin: BorderConfig.bottom
     anchors.leftMargin: bar.implicitWidth
-    anchors.topMargin: 0
+    anchors.topMargin: BorderConfig.headerHeight
 
     Component.onCompleted: Visibilities.panels[screen.name] = this
+
+    Extras.LeftDrawer {id:brainDrawer;screen:root.screen;visibilities:root.visibilities;anchors.left:parent.left;anchors.verticalCenter:parent.verticalCenter}
 
     Osd.Wrapper {
         id: osd

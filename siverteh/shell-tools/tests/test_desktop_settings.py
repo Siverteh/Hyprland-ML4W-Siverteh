@@ -19,6 +19,19 @@ class DesktopSettingsTests(unittest.TestCase):
         self.assertEqual(desktop.display_plan(monitors,'DP-1','mirror')[1]['mirrorOf'],'DP-1')
         with self.assertRaises(ValueError):desktop.display_plan(monitors[:1],'eDP-1','mirror')
 
+    def test_presets_return_to_custom_normal_preferences(self):
+        import io,sys
+        from contextlib import redirect_stdout
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            with patch.object(desktop,'STATE',root/'desktop.json'),patch.object(desktop,'LUA',root/'desktop.lua'),patch.object(desktop,'PENDING',root/'pending.json'),patch.object(desktop,'hypr',return_value='[]'):
+                normal=dict(desktop.DEFAULTS,gapsOut=27,frameWidth=4,nativeClipboard=False)
+                desktop.persist(normal)
+                for name in ('focused','presentation','minimal','normal'):
+                    with patch.object(sys,'argv',['desktop-settings','preset',name]),redirect_stdout(io.StringIO()):desktop.main()
+                    if name=='presentation':self.assertFalse(desktop.load()['topEdge']);self.assertTrue(desktop.load()['dnd'])
+                for key in desktop.DEFAULTS:self.assertEqual(desktop.load()[key],normal[key],key)
+
     def test_revert_restores_displays_without_losing_later_window_settings(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)

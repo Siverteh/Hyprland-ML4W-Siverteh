@@ -12,7 +12,9 @@ Singleton {
     id: root
 
     readonly property list<Notif> list: []
-    readonly property list<Notif> popups: list.filter(n => n.popup)
+    readonly property list<Notif> popups: list.filter(n => n.popup&&!DesktopSettings.data.dnd)
+
+    Connections {target:DesktopSettings;function onDataChanged(){if(DesktopSettings.data.dnd)for(const n of root.list)n.popup=false;}}
 
     NotificationServer {
         id: server
@@ -28,7 +30,7 @@ Singleton {
             notif.tracked = true;
 
             root.list.push(notifComp.createObject(root, {
-                popup: true,
+                popup: !DesktopSettings.data.dnd,
                 notification: notif
             }));
         }

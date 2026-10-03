@@ -22,6 +22,6 @@ Singleton {
     }
 
     function launch(entry: DesktopEntry): void {
-        Quickshell.execDetached({command:entry.runInTerminal?["kitty","--",...entry.command]:entry.command,workingDirectory:entry.workingDirectory});
+        AppLaunch.run(entry.runInTerminal?["kitty","--",...entry.command]:entry.command,entry.workingDirectory);
     }
 }

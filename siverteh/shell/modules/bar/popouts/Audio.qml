@@ -18,7 +18,7 @@ Column {
         StyledRect {implicitWidth:190;implicitHeight:36;radius:18;color:Colours.palette.m3surfaceContainer
             StyledText {anchors.centerIn:parent;text:"Sound settings"}
             Process {id:settings;command:["pavucontrol"]}
-            StateLayer {function onClicked(){settings.startDetached()}}
+            StateLayer {function onClicked(){AppLaunch.run(settings.command)}}
         }
     }
 }

@@ -5,7 +5,7 @@ from pathlib import Path
 from importlib.util import spec_from_file_location,module_from_spec
 spec=spec_from_file_location('palette',Path(__file__).with_name('classic-state.py'));palette=module_from_spec(spec);spec.loader.exec_module(palette)
 HOME=Path.home();STATE=HOME/'.config/siverteh-shell/desktop.json';LUA=STATE.with_name('desktop.lua');PENDING=STATE.with_name('display-pending.json')
-DEFAULTS=dict(animations=True,blur=True,shadow=True,followMouse=True,naturalScroll=True,gapsIn=6,gapsOut=12,borderSize=1,rounding=10,frameWidth=10,frameRounding=25,topEdge=True,leftEdge=True,rightEdge=True,bottomEdge=True)
+DEFAULTS=dict(animations=True,blur=True,shadow=True,followMouse=True,naturalScroll=True,gapsIn=6,gapsOut=12,borderSize=1,rounding=10,frameWidth=10,frameRounding=25,topEdge=True,leftEdge=True,rightEdge=True,bottomEdge=True,leftDrawer=True,livePreviews=True,nativePalette=True,nativeOverview=True,nativeClipboard=True,dnd=False)
 OPTIONS={'animations':'animations.enabled','blur':'decoration.blur.enabled','shadow':'decoration.shadow.enabled','followMouse':'input.follow_mouse','naturalScroll':'input.touchpad.natural_scroll','gapsIn':'general.gaps_in','gapsOut':'general.gaps_out','borderSize':'general.border_size','rounding':'decoration.rounding'}
 RANGES={'gapsIn':(0,30),'gapsOut':(0,80),'borderSize':(0,8),'rounding':(0,40),'frameWidth':(0,30),'frameRounding':(0,40)}
 
@@ -26,7 +26,11 @@ def initial():
         except (RuntimeError,ValueError,KeyError):pass
     return data
 
-def load():return {**DEFAULTS,**json.loads(STATE.read_text())} if STATE.exists() else initial()
+def load():
+    data={**DEFAULTS,**json.loads(STATE.read_text())} if STATE.exists() else initial()
+    data.pop('wallpaperTransition',None)
+    if isinstance(data.get('normalSnapshot'),dict):data['normalSnapshot'].pop('wallpaperTransition',None)
+    return data
 
 def validate(key,value):
     if key not in DEFAULTS:raise ValueError('Unknown setting')
@@ -91,7 +95,7 @@ def state():
     data=load();return dict(data=data,monitors=monitor_state(),pending=PENDING.exists(),message='Changes save automatically')
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','confirm','revert','rollback-after']);p.add_argument('args',nargs='*');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','confirm','revert','rollback-after','preset']);p.add_argument('args',nargs='*');a=p.parse_args()
     if a.action=='rollback-after':
         time.sleep(20)
     STATE.parent.mkdir(parents=True,exist_ok=True)
@@ -100,12 +104,23 @@ def main():
         try:
             if a.action=='init':
                 if PENDING.exists():revert()
-                if not STATE.exists():persist(initial())
+                persist(load())
                 ensure_include()
             elif a.action=='set':
                 key,raw=a.args;value=validate(key,json.loads(raw));data=load();data[key]=value
                 if key in OPTIONS:hypr('eval','hl.config({['+lua_value(OPTIONS[key])+']='+lua_value(int(value) if key=='followMouse' else value)+'})')
                 persist(data)
+            elif a.action=='preset':
+                name=a.args[0]
+                if name not in ('normal','focused','presentation','minimal'):raise ValueError('Unknown desktop preset')
+                data=load()
+                baseline=data.get('normalSnapshot') if data.get('preset','normal')!='normal' else {k:data[k] for k in DEFAULTS}
+                baseline=baseline or dict(DEFAULTS)
+                overrides={'normal':{},'focused':dict(blur=False,shadow=False,animations=False,dnd=True),
+                    'presentation':dict(leftDrawer=False,topEdge=False,leftEdge=False,rightEdge=False,bottomEdge=False,dnd=True),
+                    'minimal':dict(topEdge=True,leftEdge=False,rightEdge=False,bottomEdge=False,frameWidth=0,gapsIn=3,gapsOut=6,borderSize=0,shadow=False)}
+                data.update(baseline);data.update(overrides[name]);data['preset']=name;data['normalSnapshot']=baseline
+                hypr('eval',config_lua(data));persist(data)
             elif a.action=='display':
                 if PENDING.exists():raise ValueError('Keep or revert the current display change first')
                 mode,primary=a.args;data=load();monitors=monitor_state();plan=display_plan(monitors,primary,mode);token=uuid.uuid4().hex

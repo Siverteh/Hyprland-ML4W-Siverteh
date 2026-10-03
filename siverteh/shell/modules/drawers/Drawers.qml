@@ -29,21 +29,22 @@ Variants {
             name: "drawers"
             contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
-            contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;panels.popouts.hasCurrent=false;}
+            contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;visibilities.left=false;visibilities.leftPinned=false;panels.popouts.hasCurrent=false;}
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: !Visibilities.hidden && (visibilities.launcher || visibilities.session || panels.popouts.pinned) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.leftPinned || panels.popouts.pinned) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: Region {
-                x: Visibilities.hidden ? 0 : bar.implicitWidth
-                y: 0
-                width: Visibilities.hidden ? win.width : win.width - bar.implicitWidth - BorderConfig.right
-                height: Visibilities.hidden ? win.height : win.height - BorderConfig.bottom
+                x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
+                y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
+                width: Visibilities.hidden || visibilities.previewOnly ? win.width : win.width - bar.implicitWidth - BorderConfig.right
+                height: Visibilities.hidden || visibilities.previewOnly ? win.height : win.height - BorderConfig.headerHeight - BorderConfig.bottom
                 intersection: Intersection.Xor
 
                 regions: regions.instances
             }
 
-            margins.top: BorderConfig.headerHeight
+            // Keep the render surface fixed; move its interior instead of resizing it.
+            margins.top: 0
             anchors.top: true
             anchors.bottom: true
             anchors.left: true
@@ -52,13 +53,13 @@ Variants {
             Variants {
                 id: regions
 
-                model: Visibilities.hidden ? [] : panels.children
+                model: Visibilities.hidden || visibilities.previewOnly ? [] : panels.children
 
                 Region {
                     required property Item modelData
 
                     x: modelData.x + bar.implicitWidth
-                    y: modelData.y
+                    y: modelData.y + panels.y
                     width: modelData.width
                     height: modelData.height
                     intersection: Intersection.Subtract
@@ -66,11 +67,12 @@ Variants {
             }
 
             HyprlandFocusGrab {
-                active: !Visibilities.hidden && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+                active: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.leftPinned || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
                     visibilities.launcher = false;
                     visibilities.session = false;
+                    visibilities.left=false;visibilities.leftPinned=false;
                     panels.popouts.hasCurrent=false;
                 }
             }
@@ -113,9 +115,12 @@ Variants {
             PersistentProperties {
                 id: visibilities
 
+                property bool previewOnly
                 property bool osd
                 property bool session
                 property bool launcher
+                property bool left
+                property bool leftPinned
                 property bool dashboard
                 property int dashboardTab: 0
                 property string launcherQuery: ""

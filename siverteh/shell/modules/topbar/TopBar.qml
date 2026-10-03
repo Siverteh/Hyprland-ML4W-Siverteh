@@ -43,10 +43,10 @@ Variants {
             }
         }
         function openConnections(name,item) {
-            if(name === "audio"){connectionManager.command=["pavucontrol"];connectionManager.startDetached();return;}
+            if(name === "audio"){connectionManager.command=["pavucontrol"];AppLaunch.run(connectionManager.command);return;}
             const p=Visibilities.panels[screen.name];if(p)p.popouts.hasCurrent=false;
             connectionManager.command=["siverteh-os-shell",name === "network" ? "wifi" : "bluetooth"];
-            connectionManager.startDetached();
+            AppLaunch.run(connectionManager.command);
         }
         function hoverMenu(name,item){dismissPopout.stop();const panel=Visibilities.panels[screen.name];if(panel)panel.popouts.headerHovered=true;const p=item.mapToItem(win.contentItem,item.width/2,0);Visibilities.popout(name,p.x,screen.name);}
         RowLayout {
@@ -75,7 +75,7 @@ Variants {
                     MaterialIcon {text:"package_2";color:Colours.palette.m3tertiary}
                     StyledText {text:win.updateCount;color:Colours.palette.m3tertiary}
                 }
-                MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{connectionManager.command=["siverteh-os-shell","updates"];connectionManager.startDetached();}}
+                MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{connectionManager.command=["siverteh-os-shell","updates"];AppLaunch.run(connectionManager.command);}}
             }
             Item {
                 implicitWidth:clockRow.implicitWidth;implicitHeight:34

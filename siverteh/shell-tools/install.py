@@ -37,6 +37,8 @@ def deploy(code_only=False):
  if code_only:
   for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)
+  subprocess.run(["python3",str(ROOT/"install-extras.py")],check=True)
+  subprocess.run(['python3',str(ROOT/'isolate-apps.py')],check=True)
   subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True);return
  STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
  backup=STATE/'backups'/dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ');backup.mkdir(parents=True,mode=0o700);entries=[]
@@ -104,6 +106,7 @@ def deploy(code_only=False):
  (backup/'manifest.json').write_text(json.dumps(entries,indent=2));(STATE/'latest-backup').write_text(str(backup))
  stop_other_shells()
  subprocess.run(['systemctl','--user','disable','--now','siverteh-observatory-wallpaper.timer'],capture_output=True)
+ subprocess.run(['python3',str(ROOT/'install-extras.py')],check=True)
  subprocess.run(['systemctl','--user','daemon-reload'],check=True)
  subprocess.run(['systemctl','--user','enable','--now','siverteh-os-shell.service'],check=True,capture_output=True)
  subprocess.run(['hyprctl','reload'],check=True,capture_output=True)
