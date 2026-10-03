@@ -78,26 +78,9 @@ Variants {
                 MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{connectionManager.command=["siverteh-os-shell","updates"];AppLaunch.run(connectionManager.command);}}
             }
             StyledRect {
-                radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
-                implicitWidth:calendarItem.implicitWidth+statusHolder.implicitWidth+Appearance.spacing.normal+Appearance.padding.small*2
-                implicitHeight:34
-                Row {anchors.centerIn:parent;spacing:Appearance.spacing.normal
-            Item {
-                id:calendarItem
-                implicitWidth:clockRow.implicitWidth;implicitHeight:34
-                Row { id:clockRow;anchors.centerIn:parent;spacing:Appearance.spacing.small
-                    MaterialIcon {text:"calendar_month";color:Colours.palette.m3tertiary}
-                    StyledText {text:Time.format("HH:mm");color:Colours.palette.m3tertiary}
-                }
-                MouseArea { id:calendarHover;anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
-                    onEntered:win.hoverMenu("calendar",this)
-                    onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=statusHover.containsMouse;dismissPopout.restart();}
-                    onClicked:win.hoverMenu("calendar",this)
-                }
-            }
-            Item {
                 id:statusHolder
-                implicitWidth:status.implicitHeight;implicitHeight:34
+                radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
+                implicitWidth:status.implicitHeight+Appearance.padding.small*2;implicitHeight:34
                 Native.StatusIcons {id:status;anchors.centerIn:parent;rotation:-90;horizontal:true}
                 MouseArea {
                     id:statusHover
@@ -127,6 +110,17 @@ Variants {
                     }
                 }
             }
+            Item {
+                id:calendarItem
+                implicitWidth:clockRow.implicitWidth;implicitHeight:34
+                Row { id:clockRow;anchors.centerIn:parent;spacing:Appearance.spacing.small
+                    MaterialIcon {text:"calendar_month";color:Colours.palette.m3tertiary}
+                    StyledText {text:Time.format("HH:mm");color:Colours.palette.m3tertiary}
+                }
+                MouseArea { id:calendarHover;anchors.fill:parent;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
+                    onEntered:win.hoverMenu("calendar",this)
+                    onExited:{const p=Visibilities.panels[win.screen.name];if(p)p.popouts.headerHovered=statusHover.containsMouse;dismissPopout.restart();}
+                    onClicked:win.hoverMenu("calendar",this)
                 }
             }
             Native.Power {}
