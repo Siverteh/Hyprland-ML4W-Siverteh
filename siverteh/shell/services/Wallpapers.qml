@@ -33,6 +33,7 @@ Singleton {
     }
 
     function setWallpaper(path: string): void {
+        stopPreview();
         if (path === actualCurrent) return;
         actualCurrent = path;
         setWall.path = path;
@@ -42,12 +43,26 @@ Singleton {
     function preview(path: string): void {
         previewPath = path;
         showPreview = true;
+        getPreviewColoursProc.queuedPath = path;
+        if (getPreviewColoursProc.running)
+            getPreviewColoursProc.running = false;
+        else
+            startPreview();
+    }
+
+    function startPreview(): void {
+        if (!showPreview || !getPreviewColoursProc.queuedPath) return;
+        getPreviewColoursProc.requestPath = getPreviewColoursProc.queuedPath;
+        getPreviewColoursProc.queuedPath = "";
         getPreviewColoursProc.running = true;
     }
 
     function stopPreview(): void {
         showPreview = false;
-        Colours.endPreviewOnNextChange = true;
+        getPreviewColoursProc.queuedPath = "";
+        getPreviewColoursProc.running = false;
+        Colours.showPreview = false;
+        Colours.endPreviewOnNextChange = false;
     }
 
     reloadableId: "wallpapers"
@@ -78,10 +93,14 @@ Singleton {
     Process {
         id: getPreviewColoursProc
 
-        command: ["siverteh_shell", "scheme", "print", root.previewPath]
+        property string requestPath
+        property string queuedPath
+        onExited: root.startPreview()
+        command: ["siverteh_shell", "scheme", "print", requestPath]
         stdout: SplitParser {
             splitMarker: ""
             onRead: data => {
+                if (!root.showPreview || getPreviewColoursProc.requestPath !== root.previewPath) return;
                 Colours.load(data, true);
                 Colours.showPreview = true;
             }

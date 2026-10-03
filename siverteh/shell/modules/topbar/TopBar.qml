@@ -6,6 +6,7 @@ import "root:/modules/bar/components" as Native
 import "root:/modules/bar/components/workspaces" as NativeWs
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
@@ -16,19 +17,28 @@ Variants {
         required property ShellScreen modelData
         screen: modelData
         name: "topbar"
-        visible: !Visibilities.hidden
+        contentItem.opacity: Visibilities.reveal
+        mask: Region { width: Visibilities.hidden ? 0 : win.width; height: win.height }
         anchors.top:true; anchors.left:true; anchors.right:true
         implicitHeight:40
         WlrLayershell.exclusionMode:ExclusionMode.Ignore
         WlrLayershell.layer:WlrLayer.Top
-        color:Colours.palette.m3surface
+        color:"transparent"
+        Rectangle { anchors.fill:parent; color:Colours.palette.m3surface }
         readonly property var visibility:Visibilities.screens[screen.name]
+        Process { id: connectionManager }
+        function openConnections(name,item) {
+            if(name === "battery") { hoverMenu(name,item); return; }
+            const p=Visibilities.panels[screen.name];if(p)p.popouts.hasCurrent=false;
+            connectionManager.command=["siverteh-os-shell",name === "network" ? "wifi" : "bluetooth"];
+            connectionManager.startDetached();
+        }
         function hoverMenu(name,item){const p=item.mapToItem(win.contentItem,item.width/2,0);Visibilities.popout(name,p.x,screen.name);}
         RowLayout {
             id:leftGroup
             anchors.left:parent.left;anchors.leftMargin:Appearance.padding.large;anchors.verticalCenter:parent.verticalCenter
             spacing:Appearance.spacing.normal
-            Native.OsIcon { text:"󰣇";MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{win.visibility.launcherQuery="";win.visibility.launcher=!win.visibility.launcher;} } }
+            Native.OsIcon { text:"󰣇";MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:{win.visibility.launcherQuery="";win.visibility.launcherRequest++;win.visibility.launcher=!win.visibility.launcher;} } }
             StyledRect {
                 radius:Appearance.rounding.full;color:Colours.palette.m3surfaceContainer
                 implicitHeight:34;implicitWidth:workspaces.implicitHeight+Appearance.padding.small*2
@@ -58,7 +68,7 @@ Variants {
                             required property string modelData
                             width:parent.width/3;height:parent.height;hoverEnabled:true;cursorShape:Qt.PointingHandCursor
                             onEntered:win.hoverMenu(modelData,this)
-                            onClicked:win.hoverMenu(modelData,this)
+                            onClicked:win.openConnections(modelData,this)
                         }
                     }
                 }

@@ -41,8 +41,7 @@ StyledRect {
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         preventStealing: true
 
-        onEntered: root.modelData.timer.stop()
-        onExited: root.modelData.timer.start()
+        // HoverHandler owns pause state; keep the timer running binding intact.
 
         drag.target: parent
         drag.axis: Drag.XAxis

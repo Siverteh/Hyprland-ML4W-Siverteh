@@ -45,7 +45,7 @@ Singleton {
 
     IpcHandler {
         target: "notifs"
-        function counts(): string { return JSON.stringify({popups:root.popups.length,retained:root.list.length}); }
+        function counts(): string { return JSON.stringify({popups:root.popups.length,retained:root.list.length,timers:root.popups.map(n=>({running:n.timer.running,hovered:n.hovered,interval:n.timer.interval}))}); }
 
         function clear(): void {
             for (const notif of root.list)
@@ -81,7 +81,7 @@ Singleton {
         readonly property list<NotificationAction> actions: notification.actions
 
         readonly property Timer timer: Timer {
-            running: notif.popup && !notif.hovered
+            running: notif.popup && !notif.hovered && !Visibilities.hidden && !Object.values(Visibilities.panels).some(p => p.notifications.suppressed)
             interval: notif.notification.expireTimeout > 0 ? notif.notification.expireTimeout : NotifsConfig.defaultExpireTimeout
             onTriggered: {
                 if (NotifsConfig.expire)

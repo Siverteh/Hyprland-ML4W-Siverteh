@@ -86,3 +86,8 @@ require("conf.siverteh")
 
 -- Siverteh Observatory
 require("conf.observatory")
+
+-- Siverteh committed wallpaper palette
+local palette_path = os.getenv("HOME") .. "/.config/siverteh-shell/palette.lua"
+local palette_file = io.open(palette_path, "r")
+if palette_file then palette_file:close(); dofile(palette_path) end

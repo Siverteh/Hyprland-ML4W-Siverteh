@@ -17,14 +17,14 @@ Shape {
         function line(x,y){commands.push("L"+point(x,y));}
         function quad(cx,cy,x,y){commands.push("Q"+point(cx,cy)+" "+point(x,y));}
         function notch(u,w,d,map) {
-            if(w<0.5||d<0.5)return;
-            const rr=Math.min(r,w/2,d/2);
+            if(w<0.01||d<0.01)return;
+            const rr=Math.min(r,w/2), ry=Math.min(r,d/2);
             const p=(a,b)=>map(a,b);
             let a=p(u-rr,0);line(a[0],a[1]);
-            a=p(u,0);let b=p(u,rr);quad(a[0],a[1],b[0],b[1]);
-            a=p(u,d-rr);line(a[0],a[1]);b=p(u+rr,d);a=p(u,d);quad(a[0],a[1],b[0],b[1]);
-            a=p(u+w-rr,d);line(a[0],a[1]);b=p(u+w,d-rr);a=p(u+w,d);quad(a[0],a[1],b[0],b[1]);
-            a=p(u+w,rr);line(a[0],a[1]);b=p(u+w+rr,0);a=p(u+w,0);quad(a[0],a[1],b[0],b[1]);
+            a=p(u,0);let b=p(u,ry);quad(a[0],a[1],b[0],b[1]);
+            a=p(u,d-ry);line(a[0],a[1]);b=p(u+rr,d);a=p(u,d);quad(a[0],a[1],b[0],b[1]);
+            a=p(u+w-rr,d);line(a[0],a[1]);b=p(u+w,d-ry);a=p(u+w,d);quad(a[0],a[1],b[0],b[1]);
+            a=p(u+w,ry);line(a[0],a[1]);b=p(u+w+rr,0);a=p(u+w,0);quad(a[0],a[1],b[0],b[1]);
         }
         move(0,0);line(width,0);line(width,height);line(0,height);commands.push("Z");
         move(L+r,T);

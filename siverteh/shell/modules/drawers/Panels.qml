@@ -43,6 +43,7 @@ Item {
 
     Notifications.Wrapper {
         id: notifications
+        suppressed: popouts.width > 0.1 || root.visibilities.session || root.visibilities.dashboard
 
         anchors.top: parent.top
         anchors.right: parent.right
@@ -81,7 +82,7 @@ Item {
         screen: root.screen
 
         anchors.top: parent.top
-        x: Math.max(0,Math.min(parent.width-width,root.popouts.currentCenter-root.bar.implicitWidth-width/2))
+        x: Math.max(BorderConfig.rounding*2,Math.min(parent.width-width-BorderConfig.rounding*2,root.popouts.currentCenter-root.bar.implicitWidth-width/2))
 
     }
 }

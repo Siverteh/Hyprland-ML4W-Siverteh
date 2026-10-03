@@ -4,8 +4,9 @@ import QtQuick
 Item {
     id: root
 
-    visible: height > 0
-    implicitHeight: content.implicitHeight
+    property bool suppressed: false
+    visible: !suppressed && height > 0
+    implicitHeight: suppressed ? 0 : content.implicitHeight
     implicitWidth: content.implicitWidth
 
     Content {

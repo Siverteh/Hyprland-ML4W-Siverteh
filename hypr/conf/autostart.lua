@@ -10,7 +10,7 @@
 
 -- Start Listeners
 hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.config/siverteh/core/listeners.sh --startall")
+    hl.exec_cmd("~/.config/siverteh/core/listeners.sh --start low-bat-notification")
 end)
 
 -- Start Polkit
@@ -20,7 +20,7 @@ end)
 
 -- Load Wallpaper
 hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.local/bin/siverteh-observatory restore-wallpaper")
+    -- Native shell restores its committed wallpaper.
 end)
 
 -- Load Notification Daemon
@@ -30,7 +30,7 @@ end)
 
 -- Load GTK settings
 hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
+    -- Committed native palette manages GTK settings.
 end)
 
 -- Using hypridle to start hyprlock

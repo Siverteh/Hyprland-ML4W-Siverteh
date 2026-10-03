@@ -28,17 +28,17 @@ Variants {
 
             screen: scope.modelData
             name: "drawers"
-            visible: !Visibilities.hidden
+            contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
             contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;panels.popouts.hasCurrent=false;}
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: !Visibilities.hidden && (visibilities.launcher || visibilities.session) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: Region {
-                x: bar.implicitWidth
-                y: BorderConfig.thickness
-                width: win.width - bar.implicitWidth - BorderConfig.thickness
-                height: win.height - BorderConfig.thickness * 2
+                x: Visibilities.hidden ? 0 : bar.implicitWidth
+                y: Visibilities.hidden ? 0 : BorderConfig.thickness
+                width: Visibilities.hidden ? win.width : win.width - bar.implicitWidth - BorderConfig.thickness
+                height: Visibilities.hidden ? win.height : win.height - BorderConfig.thickness * 2
                 intersection: Intersection.Xor
 
                 regions: regions.instances
@@ -53,7 +53,7 @@ Variants {
             Variants {
                 id: regions
 
-                model: panels.children
+                model: Visibilities.hidden ? [] : panels.children
 
                 Region {
                     required property Item modelData
@@ -67,7 +67,7 @@ Variants {
             }
 
             HyprlandFocusGrab {
-                active: visibilities.launcher || visibilities.session
+                active: !Visibilities.hidden && (visibilities.launcher || visibilities.session)
                 windows: [win]
                 onCleared: {
                     visibilities.launcher = false;
@@ -98,13 +98,20 @@ Variants {
                 FrameSurface { panels: panels; bar: bar }
             }
 
-            MultiEffect {
-                anchors.fill: source
-                source: background
-                shadowEnabled: true
-                blurMax: 15
-                shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
+            Item {
+                anchors.fill: parent
+                clip: true
+                MultiEffect {
+                    anchors.fill: parent
+                    source: background
+                    shadowEnabled: true
+                    blurMax: 15
+                    shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
+                }
             }
+
+            // Solid overlap prevents a shadow/antialias seam at the top-bar join.
+            Rectangle { anchors.top: parent.top; width: parent.width; height: BorderConfig.thickness; color: BorderConfig.colour }
 
             PersistentProperties {
                 id: visibilities
@@ -115,6 +122,7 @@ Variants {
                 property bool dashboard
                 property int dashboardTab: 0
                 property string launcherQuery: ""
+                property int launcherRequest: 0
 
                 Component.onCompleted: Visibilities.screens[scope.modelData.name] = this
             }

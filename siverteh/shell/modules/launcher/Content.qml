@@ -68,7 +68,7 @@ Item {
             Component.onCompleted: text = root.visibilities.launcherQuery
             Connections {
                 target: root.visibilities
-                function onLauncherQueryChanged() { search.text = root.visibilities.launcherQuery; }
+                function onLauncherRequestChanged() { search.text = root.visibilities.launcherQuery; search.forceActiveFocus(); }
             }
 
             anchors.left: searchIcon.right

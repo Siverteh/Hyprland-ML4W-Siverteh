@@ -27,6 +27,8 @@ def deploy(code_only=False):
  pending.rename(DEST/'source')
  shutil.copytree(ROOT,DEST/'tools',dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','tests'))
  if code_only:
+  for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell')]:
+   shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)
   subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True);return
  STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
  backup=STATE/'backups'/dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ');backup.mkdir(parents=True,mode=0o700);entries=[]
@@ -57,18 +59,43 @@ def deploy(code_only=False):
   if name=='keybinding':
    for old,new in json.loads((ROOT/'shortcut-routes.json').read_text()).items():text=text.replace(old,new)
   if name=='autostart':
+   text=text.replace('~/.config/siverteh/core/listeners.sh --startall','~/.config/siverteh/core/listeners.sh --start low-bat-notification')
+   text=text.replace('hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")','-- Committed native palette manages GTK settings.')
+   text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory restore-wallpaper")','-- Native shell restores its committed wallpaper.')
    text=text.replace('hl.exec_cmd("swaync")','-- Native Siverteh shell owns notification rendering.')
    text=text.replace('hl.exec_cmd("swayosd-server")','-- Native Siverteh shell owns the audio/brightness OSD.')
   if text!=path.read_text():write(path,text)
+ # Apply the selected palette last, after any older profile overrides.
+ path=HOME/'.config/hypr/hyprland.lua'
+ marker='-- Siverteh committed wallpaper palette'
+ if marker not in path.read_text():
+  write(path,path.read_text()+'\n'+marker+'\nlocal palette_path = os.getenv("HOME") .. "/.config/siverteh-shell/palette.lua"\nlocal palette_file = io.open(palette_path, "r")\nif palette_file then palette_file:close(); dofile(palette_path) end\n')
  # The reference style is code; wallpaper files remain private user assets.
  style=json.loads((ROOT/'reference-style.json').read_text())
  scheme=HOME/'.local/state/siverteh_shell/scheme'
- write(scheme/'current.txt','\n'.join(k+' '+v.lstrip('#') for k,v in style['colours'].items())+'\n')
- write(scheme/'current-mode.txt',style['mode'])
+ if not (scheme/'current.txt').exists():write(scheme/'current.txt','\n'.join(k+' '+v.lstrip('#') for k,v in style['colours'].items())+'\n')
+ if not (scheme/'current-mode.txt').exists():write(scheme/'current-mode.txt',style['mode'])
  wallpaper=HOME/'Pictures/Wallpapers/Caelestia/reference-landscape.jpg'
- if wallpaper.exists():write(HOME/'.local/state/siverteh_shell/wallpaper/last.txt',str(wallpaper))
+ if wallpaper.exists() and not (HOME/'.local/state/siverteh_shell/wallpaper/last.txt').exists():write(HOME/'.local/state/siverteh_shell/wallpaper/last.txt',str(wallpaper))
+ if (HOME/'.local/state/siverteh_shell/scheme.json').exists():
+  # Palette generation also owns these files; include them in cutover rollback.
+  tracked={e['target'] for e in entries}
+  outputs=['.config/siverteh-shell/palette.lua','.config/siverteh-shell/qt.conf']
+  outputs += [f'.config/gtk-{v}/{name}' for v in ['3.0','4.0'] for name in ['gtk.css','settings.ini']]
+  outputs += [f'.config/qt{v}ct/qt{v}ct.conf' for v in [5,6]]
+  for rel in outputs:
+   path=HOME/rel
+   if str(path) in tracked:continue
+   entry={'target':str(path),'type':'absent','after_link':None}
+   if path.is_symlink():entry.update(type='symlink',link=os.readlink(path))
+   elif path.is_file():
+    saved=backup/rel;saved.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,saved);entry.update(type='file',backup=str(saved))
+   entries.append(entry)
+  subprocess.run(['python3',str(DEST/'tools/classic-state.py')],check=True)
+  for entry in entries:entry['after_hash']=digest(Path(entry['target']))
  (backup/'manifest.json').write_text(json.dumps(entries,indent=2));(STATE/'latest-backup').write_text(str(backup))
  stop_other_shells()
+ subprocess.run(['systemctl','--user','disable','--now','siverteh-observatory-wallpaper.timer'],capture_output=True)
  subprocess.run(['systemctl','--user','daemon-reload'],check=True)
  subprocess.run(['systemctl','--user','enable','--now','siverteh-os-shell.service'],check=True,capture_output=True)
  subprocess.run(['hyprctl','reload'],check=True,capture_output=True)
