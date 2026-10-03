@@ -209,22 +209,12 @@ Item {
         }
     }
 
-    AnimatedImage {
-        id: bongocat
 
-        anchors.top: controls.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.topMargin: Appearance.spacing.small
-        anchors.bottomMargin: Appearance.padding.large
-        anchors.margins: Appearance.padding.large * 2
 
-        playing: root.shouldUpdate && (Players.active?.isPlaying ?? false)
-        speed: BeatDetector.bpm / 300
-        source: "root:/assets/bongocat.gif"
-        asynchronous: true
-        fillMode: AnimatedImage.PreserveAspectFit
+    Spectrum {
+        anchors.top:controls.bottom;anchors.bottom:parent.bottom;anchors.left:parent.left;anchors.right:parent.right
+        anchors.margins:Appearance.padding.large
+        active:root.shouldUpdate && (Players.active?.isPlaying ?? false)
     }
 
     component Control: StyledRect {

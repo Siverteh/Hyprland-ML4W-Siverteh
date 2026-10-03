@@ -11,6 +11,7 @@ Item {
     property alias currentName: content.currentName
     property alias currentCenter: content.currentCenter
     property alias hasCurrent: content.hasCurrent
+    property bool headerHovered:false
     readonly property real targetWidth: content.targetWidth
 
     visible: width > 0 && height > 0

@@ -28,8 +28,8 @@ Item {
         return `${Math.floor(length / 60)}:${Math.floor(length % 60).toString().padStart(2, "0")}`;
     }
 
-    implicitWidth: cover.implicitWidth + DashboardConfig.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + bongocat.implicitWidth + bongocat.anchors.leftMargin * 2 + Appearance.padding.large * 2
-    implicitHeight: Math.max(cover.implicitHeight + DashboardConfig.sizes.mediaVisualiserSize * 2, details.implicitHeight, bongocat.implicitHeight) + Appearance.padding.large * 2
+    implicitWidth: cover.implicitWidth + DashboardConfig.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + Appearance.padding.large * 2
+    implicitHeight: Math.max(cover.implicitHeight + DashboardConfig.sizes.mediaVisualiserSize * 2, details.implicitHeight) + Appearance.padding.large * 2
 
     Behavior on playerProgress {
         NumberAnimation {
@@ -330,19 +330,7 @@ Item {
 
             spacing: Appearance.spacing.small
 
-            Control {
-                icon: "flip_to_front"
-                canUse: Players.active?.canRaise ?? false
-                fontSize: Appearance.font.size.larger
-                padding: Appearance.padding.small
-                fill: false
-                color: Colours.palette.m3surfaceContainer
 
-                function onClicked(): void {
-                    Players.active?.raise();
-                    root.visibilities.dashboard = false;
-                }
-            }
 
             MouseArea {
                 id: playerSelector
@@ -512,44 +500,11 @@ Item {
                 }
             }
 
-            Control {
-                icon: "delete"
-                canUse: Players.active?.canQuit ?? false
-                fontSize: Appearance.font.size.larger
-                padding: Appearance.padding.small
-                fill: false
-                color: Colours.palette.m3surfaceContainer
 
-                function onClicked(): void {
-                    Players.active?.quit();
-                }
-            }
         }
     }
 
-    Item {
-        id: bongocat
 
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: details.right
-        anchors.leftMargin: Appearance.spacing.normal
-
-        implicitWidth: visualiser.width
-        implicitHeight: visualiser.height
-
-        AnimatedImage {
-            anchors.centerIn: parent
-
-            width: visualiser.width * 0.75
-            height: visualiser.height * 0.75
-
-            playing: root.shouldUpdate && (Players.active?.isPlaying ?? false)
-            speed: BeatDetector.bpm / 300
-            source: "root:/assets/bongocat.gif"
-            asynchronous: true
-            fillMode: AnimatedImage.PreserveAspectFit
-        }
-    }
     component Control: StyledRect {
         id: control
 

@@ -2,13 +2,12 @@
 hl.config({
     general = {
         gaps_in = 6, gaps_out = 12, border_size = 1,
-        col = {active_border = {colors = {"rgba(80d9ccdd)", "rgba(416d7add)"}, angle = 45}, inactive_border = "rgba(294149aa)"},
     },
     decoration = {
         rounding = 10,
         active_opacity = 1, inactive_opacity = 1,
         blur = {enabled = true, size = 3, passes = 2, xray = false},
-        shadow = {enabled = true, range = 20, render_power = 3, color = "rgba(07121755)"},
+        shadow = {enabled = true, range = 20, render_power = 3},
     },
 })
 hl.window_rule({name="observatory-brain", match={class="^(siverteh-brain)$"}, workspace="6 silent"})

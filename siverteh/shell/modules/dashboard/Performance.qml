@@ -3,8 +3,11 @@ import "root:/services"
 import "root:/config"
 import QtQuick
 
+Item {
+    implicitWidth:metrics.implicitWidth
+    implicitHeight:metrics.implicitHeight+summary.implicitHeight+Appearance.padding.large*2
 Row {
-    id: root
+    id: metrics
 
     spacing: Appearance.spacing.large * 3
     padding: Appearance.padding.large
@@ -16,7 +19,7 @@ Row {
         value2: SystemUsage.gpuPerc
 
         label1: SystemUsage.gpuTemp>0 ? `${Math.ceil(SystemUsage.gpuTemp)}°C` : "—°C"
-        label2: `${Math.round(SystemUsage.gpuPerc * 100)}%`
+        label2: SystemUsage.gpuUsageAvailable ? `${Math.round(SystemUsage.gpuPerc * 100)}%` : "—"
 
         sublabel1: qsTr("GPU temp")
         sublabel2: qsTr("Usage")
@@ -49,7 +52,7 @@ Row {
         }
 
         sublabel1: qsTr("Memory")
-        sublabel2: qsTr("Storage")
+        sublabel2: qsTr("Root storage")
     }
 
     component Resource: Item {
@@ -226,5 +229,11 @@ Row {
                 easing.bezierCurve: Appearance.anim.curves.standard
             }
         }
+    }
+}
+
+    StyledText {id:summary;anchors.top:metrics.bottom;anchors.horizontalCenter:parent.horizontalCenter
+        text:`Load (1/5/15m)  ${SystemUsage.loadAverage}   ·   RAM ${+(SystemUsage.memTotal/1048576).toFixed(1)} GiB   ·   / free ${+((SystemUsage.storageTotal-SystemUsage.storageUsed)/1048576).toFixed(1)} GiB\nKernel  ${SystemUsage.kernel}`
+        horizontalAlignment:Text.AlignHCenter;color:Colours.palette.m3onSurfaceVariant
     }
 }

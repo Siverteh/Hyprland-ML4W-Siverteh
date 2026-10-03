@@ -47,7 +47,9 @@ figlet -f smslant "Updates"
 echo
 primarycolor=$(cat ~/.config/siverteh/core/colors/primary)
 onsurfacecolor=$(cat ~/.config/siverteh/core/colors/onsurface)
-if gum confirm --selected.background=$primarycolor --prompt.foreground=$onsurfacecolor "DO YOU WANT TO START THE UPDATE NOW?"; then
+onprimarycolor=$(cat ~/.config/siverteh/core/colors/onprimary)
+surfacecolor=$(cat ~/.config/siverteh/core/colors/surfacecontainer)
+if gum confirm --selected.background="$primarycolor" --selected.foreground="$onprimarycolor" --unselected.foreground="$onsurfacecolor" --unselected.background="$surfacecolor" --prompt.foreground="$onsurfacecolor" "DO YOU WANT TO START THE UPDATE NOW?"; then
     echo
     echo ":: Update started..."
 elif [ $? -eq 130 ]; then

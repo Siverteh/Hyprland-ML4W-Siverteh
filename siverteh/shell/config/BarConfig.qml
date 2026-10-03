@@ -6,25 +6,13 @@ import QtQuick
 Singleton {
     id: root
 
+    readonly property list<string> workspaceNames:["Browse","Work","Chat","Music","Mail","Brain","Other"]
+    readonly property list<string> workspaceIcons:["language","terminal","forum","music_note","mail","neurology","apps"]
     readonly property Sizes sizes: Sizes {}
-    readonly property Workspaces workspaces: Workspaces {}
 
     component Sizes: QtObject {
         property int innerHeight: 30
-        property int windowPreviewSize: 400
-        property int trayMenuWidth: 300
         property int batteryWidth: 200
     }
 
-    component Workspaces: QtObject {
-        property int shown: 7
-        property bool rounded: true
-        property bool activeIndicator: true
-        property bool occupiedBg: false
-        property bool showWindows: true
-        property bool activeTrail: false
-        property string label: "  "
-        property string occupiedLabel: "󰮯 "
-        property string activeLabel: "󰮯 "
-    }
 }

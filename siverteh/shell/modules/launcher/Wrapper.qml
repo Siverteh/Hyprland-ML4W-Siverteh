@@ -23,10 +23,11 @@ Item {
         }
     }
 
+    Component {id:apps;AppGrid {visibilities:root.visibilities}}
     Loader {
         id: content
-        sourceComponent: root.visibilities.launcherMode === "wallpaper" ? gallery : apps
+        sourceComponent: root.visibilities.launcherMode === "wallpaper" ? gallery : root.visibilities.launcherQuery.length ? commands : apps
         Component { id: gallery; WallpaperGallery { visibilities: root.visibilities } }
-        Component { id: apps; Content { visibilities: root.visibilities } }
+        Component { id: commands; Content { visibilities: root.visibilities } }
     }
 }

@@ -7,8 +7,13 @@ import QtQuick
 Singleton {
     id: root
 
+    property string kernel
+    property string loadAverage
+    FileView {path:"/proc/sys/kernel/osrelease";onLoaded:root.kernel=text().trim()}
+    FileView {id:load;path:"/proc/loadavg";onLoaded:root.loadAverage=text().trim().split(" ").slice(0,3).join("  ")}
     property real cpuPerc
     property real cpuTemp
+    property bool gpuUsageAvailable:false
     property real gpuPerc
     property real gpuTemp
     property int memUsed
@@ -52,6 +57,7 @@ Singleton {
         interval: 3000
         repeat: true
         onTriggered: {
+            load.reload();
             stat.reload();
             meminfo.reload();
             storage.running = true;
@@ -97,7 +103,7 @@ Singleton {
         id: storage
 
         running: true
-        command: ["sh", "-c", "df | grep '^/dev/' | awk '{print $3, $4}'"]
+        command: ["sh", "-c", "df -k / | awk 'NR==2 {print $3, $4}'"]
         stdout: SplitParser {
             splitMarker: ""
             onRead: data => {
@@ -136,9 +142,10 @@ Singleton {
         stdout: SplitParser {
             splitMarker: ""
             onRead: data => {
-                const percs = data.trim().split("\n");
-                const sum = percs.reduce((acc, d) => acc + parseInt(d, 10), 0);
-                root.gpuPerc = sum / percs.length / 100;
+                const percs = data.trim().split("\n").map(v=>parseFloat(v)).filter(v=>Number.isFinite(v));
+                root.gpuUsageAvailable=percs.length>0;
+                const sum = percs.reduce((acc, d) => acc + d, 0);
+                root.gpuPerc = percs.length ? sum / percs.length / 100 : 0;
             }
         }
     }

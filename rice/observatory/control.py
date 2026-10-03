@@ -227,7 +227,7 @@ def graph():
             if rel in lookup:
                 links.append(dict(source=n['id'], target=lookup[rel], kind='source'))
     nodes.extend({k:v for k,v in n.items() if k not in ('text','meta')} for n in notes)
-    return dict(nodes=nodes, links=links, noteCount=len(notes), accent=palette(), generated=dt.datetime.now().isoformat(timespec='seconds'), activityModel='Dated knowledge activity · 21-day half-life · daily cap. Conversation tracking is not enabled.')
+    return dict(nodes=nodes, links=links, noteCount=len(notes), theme=desktop_theme(), accent=palette(), generated=dt.datetime.now().isoformat(timespec='seconds'), activityModel='Dated knowledge activity · 21-day half-life · daily cap. Conversation tracking is not enabled.')
 
 def status():
     now = dt.datetime.now()
@@ -255,13 +255,19 @@ def status():
     first, days = calendar.monthrange(now.year, now.month)
     return dict(clock=now.strftime('%H:%M'), date=now.strftime('%A, %d %B'), month=now.strftime('%B %Y'), today=now.day, calendar=[0]*first+list(range(1,days+1)), volume=round(float(m.group(1))*100) if m else 0, muted='MUTED' in volume_text, brightness=int(bmatch.group(1)) if bmatch else 0, network=ssid or 'Disconnected', bluetooth='Powered: yes' in run(['bluetoothctl','show']), battery=battery, charging=charging, media=media, playback=playback, notifications=int(notify) if notify.isdigit() else 0, accent=palette(),wallpaperHold=(STATE/'wallpaper-hold').exists(),updates=update_count())
 
+def desktop_theme():
+    try:
+        return json.loads((HOME/'.local/state/siverteh_shell/scheme.json').read_text())['colours']
+    except (OSError,ValueError,KeyError):
+        return {}
+
 def palette():
     p=HOME/'.config/siverteh/core/colors/primary'
     try:
         value=p.read_text().strip()
-        return value if re.fullmatch(r'#[0-9a-fA-F]{6}',value) else '#80d9cc'
+        return value if re.fullmatch(r'#[0-9a-fA-F]{6}',value) else '#808080'
     except OSError:
-        return '#80d9cc'
+        return '#808080'
 
 def action(name, value=''):
     actions = {

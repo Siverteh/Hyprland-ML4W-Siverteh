@@ -35,12 +35,13 @@ MouseArea {
     hoverEnabled: true
 
     onPressed: event => dragStart = Qt.point(event.x, event.y)
+    Timer {id:exitDelay;interval:120;onTriggered:if(!root.containsMouse&&!root.popouts.headerHovered)root.popouts.hasCurrent=false}
     onContainsMouseChanged: {
         if (!containsMouse) {
             visibilities.osd = false;
             osdHovered = false;
             visibilities.dashboard = false;
-            popouts.hasCurrent = false;
+            exitDelay.restart();
         }
     }
 
@@ -63,7 +64,7 @@ MouseArea {
         visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
 
         // Header popouts extend down from the top edge and remain while entered.
-        if(popouts.hasCurrent){
+        if(popouts.hasCurrent&&!popouts.headerHovered){
             const px=bar.implicitWidth+popouts.x,py=panels.y+popouts.y;
             if(y>py+popouts.height+BorderConfig.rounding||x<px-BorderConfig.rounding||x>px+popouts.width+BorderConfig.rounding)popouts.hasCurrent=false;
         }

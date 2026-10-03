@@ -27,7 +27,7 @@ def deploy(code_only=False):
  pending.rename(DEST/'source')
  shutil.copytree(ROOT,DEST/'tools',dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','tests'))
  if code_only:
-  for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell')]:
+  for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)
   subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True);return
  STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
@@ -80,7 +80,7 @@ def deploy(code_only=False):
  if (HOME/'.local/state/siverteh_shell/scheme.json').exists():
   # Palette generation also owns these files; include them in cutover rollback.
   tracked={e['target'] for e in entries}
-  outputs=['.config/siverteh-shell/palette.lua','.config/siverteh-shell/qt.conf']
+  outputs=['.config/siverteh-shell/palette.lua','.config/siverteh-shell/qt.conf','.config/kitty/colors-matugen.conf','.config/hypr/colors.lua','.config/hypr/hyprlock.conf','.config/siverteh/core/colors/primary','.config/siverteh/core/colors/secondary','.config/siverteh/core/colors/onsurface','.config/siverteh/core/colors/onprimary','.config/siverteh/core/colors/surface','.config/siverteh/core/colors/surfacecontainer']
   outputs += [f'.config/gtk-{v}/{name}' for v in ['3.0','4.0'] for name in ['gtk.css','settings.ini']]
   outputs += [f'.config/qt{v}ct/qt{v}ct.conf' for v in [5,6]]
   for rel in outputs:

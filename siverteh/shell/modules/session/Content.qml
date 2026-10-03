@@ -1,119 +1,35 @@
-pragma ComponentBehavior: Bound
-
 import "root:/widgets"
 import "root:/services"
 import "root:/config"
 import Quickshell
 import Quickshell.Io
 import QtQuick
-
 Column {
-    id: root
-
+    id:root
     required property PersistentProperties visibilities
-
-    padding: Appearance.padding.large
-
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.left: parent.left
-
-    spacing: Appearance.spacing.large
-
-    SessionButton {
-        id: logout
-
-        icon: "logout"
-        command: ["uwsm", "stop"]
-
-        KeyNavigation.down: shutdown
-
-        Connections {
-            target: root.visibilities
-
-            function onSessionChanged(): void {
-                if (root.visibilities.session)
-                    logout.focus = true;
+    anchors.verticalCenter:parent.verticalCenter;anchors.left:parent.left
+    padding:Appearance.padding.large;spacing:Appearance.spacing.small
+    Repeater {
+        id:actions
+        model:[{label:"Lock",icon:"lock",command:["hyprlock"]},{label:"Log out",icon:"logout",command:["hyprctl","eval","hl.dispatch(hl.dsp.exit())"]},{label:"Restart",icon:"restart_alt",command:["systemctl","reboot"]},{label:"Power off",icon:"power_settings_new",command:["systemctl","poweroff"]}]
+        StyledRect {
+            id:button
+            required property var modelData
+            required property int index
+            implicitWidth:120;implicitHeight:80;radius:Appearance.rounding.normal
+            color:activeFocus?Colours.palette.m3secondaryContainer:Colours.palette.m3surfaceContainer
+            Process {id:proc;command:button.modelData.command}
+            Connections {target:root.visibilities;function onSessionChanged(){if(root.visibilities.session&&button.index===0)button.forceActiveFocus()}}
+            Keys.onReturnPressed:proc.startDetached()
+            Keys.onEnterPressed:proc.startDetached()
+            Keys.onEscapePressed:root.visibilities.session=false
+            Keys.onDownPressed:if(index<3)actions.itemAt(index+1).forceActiveFocus()
+            Keys.onUpPressed:if(index>0)actions.itemAt(index-1).forceActiveFocus()
+            Column {anchors.centerIn:parent;spacing:5
+                MaterialIcon {anchors.horizontalCenter:parent.horizontalCenter;text:button.modelData.icon;font.pointSize:24;color:button.index===3?Colours.palette.m3error:Colours.palette.m3onSurface}
+                StyledText {text:button.modelData.label;font.pointSize:11}
             }
-        }
-    }
-
-    SessionButton {
-        id: shutdown
-
-        icon: "power_settings_new"
-        command: ["systemctl", "poweroff"]
-
-        KeyNavigation.up: logout
-        KeyNavigation.down: hibernate
-    }
-
-    AnimatedImage {
-        width: SessionConfig.sizes.button
-        height: SessionConfig.sizes.button
-        sourceSize.width: width
-        sourceSize.height: height
-
-        playing: visible
-        asynchronous: true
-        speed: 0.7
-        source: "root:/assets/kurukuru.gif"
-    }
-
-    SessionButton {
-        id: hibernate
-
-        icon: "downloading"
-        command: ["systemctl", "hibernate"]
-
-        KeyNavigation.up: shutdown
-        KeyNavigation.down: reboot
-    }
-
-    SessionButton {
-        id: reboot
-
-        icon: "cached"
-        command: ["systemctl", "reboot"]
-
-        KeyNavigation.up: hibernate
-    }
-
-    component SessionButton: StyledRect {
-        id: button
-
-        required property string icon
-        required property list<string> command
-
-        implicitWidth: SessionConfig.sizes.button
-        implicitHeight: SessionConfig.sizes.button
-
-        radius: Appearance.rounding.large
-        color: button.activeFocus ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
-
-        Keys.onEnterPressed: proc.startDetached()
-        Keys.onReturnPressed: proc.startDetached()
-        Keys.onEscapePressed: root.visibilities.session = false
-
-        Process {
-            id: proc
-
-            command: button.command
-        }
-
-        StateLayer {
-            radius: parent.radius
-
-            function onClicked(): void {
-                proc.startDetached();
-            }
-        }
-
-        MaterialIcon {
-            anchors.centerIn: parent
-
-            text: button.icon
-            color: button.activeFocus ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
-            font.pointSize: Appearance.font.size.extraLarge
+            StateLayer {radius:button.radius;function onClicked(){proc.startDetached()}}
         }
     }
 }

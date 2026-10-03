@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Commit one wallpaper palette to the shell, window frame and native choosers."""
-import json, os, re, subprocess, sys, tempfile
+import json, os, re, signal, subprocess, sys, tempfile
 from pathlib import Path
 
 
@@ -64,11 +64,39 @@ def apply_palette(home, wallpaper=None, live=True):
             text = re.sub(r'(?m)^color_scheme_path\s*=.*$', 'color_scheme_path='+str(qt_path), settings.read_text())
             text = re.sub(r'(?m)^custom_palette\s*=.*$', 'custom_palette=true', text)
             atomic_write(settings, text)
+    # Existing updater prompts and terminal apps share the committed colors too.
+    for name,role in {'primary':'primary','secondary':'secondary','onsurface':'onSurface','onprimary':'onPrimary','surface':'surface','surfacecontainer':'surfaceContainer'}.items():
+        atomic_write(home/('.config/siverteh/core/colors/'+name), '#'+colors[role])
+    legacy='\n'.join('var_'+name+' = "rgba('+colors[role]+'ff)"' for name,role in [('primary','primary'),('on_primary','onPrimary'),('on_surface','onSurface')])+'\n'
+    atomic_write(home/'.config/hypr/colors.lua', legacy)
+    terminal_roles={'foreground':'onSurface','background':'surface','cursor':'primary','cursor_text_color':'onPrimary',
+                    'selection_foreground':'onPrimary','selection_background':'primary','url_color':'tertiary',
+                    'active_border_color':'primary','inactive_border_color':'outlineVariant',
+                    'active_tab_foreground':'onPrimary','active_tab_background':'primary',
+                    'inactive_tab_foreground':'onSurfaceVariant','inactive_tab_background':'surfaceContainer'}
+    terminal=''.join(name+' #'+colors[role]+'\n' for name,role in terminal_roles.items())
+    ansi=['surfaceVariant','error','green','yellow','blue','mauve','teal','onSurface']
+    for i,role in enumerate(ansi):
+        value=colors.get(role,colors['primary'])
+        terminal+=f'color{i} #{value}\ncolor{i+8} #{value}\n'
+    atomic_write(home/'.config/kitty/colors-matugen.conf', terminal)
+    lock_template=Path(__file__).with_name('hyprlock.conf.in').read_text()
+    selected = str(Path(wallpaper).expanduser().resolve()) if wallpaper else ((state/'wallpaper/last.txt').read_text().strip() if (state/'wallpaper/last.txt').exists() else '')
+    lock_template=lock_template.replace('{{wallpaper}}', selected)
+    for role,value in colors.items():lock_template=lock_template.replace('{{'+role+'}}',value)
+    atomic_write(home/'.config/hypr/hyprlock.conf', lock_template)
+
     atomic_write(state / 'scheme/current-mode.txt', data['mode'])
     atomic_write(state / 'scheme/current.txt', '\n'.join(k+' '+v for k,v in colors.items())+'\n')
     if wallpaper is not None:
         atomic_write(state / 'wallpaper/last.txt', str(Path(wallpaper).expanduser().resolve()))
     if live:
+        # Kitty documents SIGUSR1 as a config reload; it leaves terminal sessions running.
+        for proc in Path('/proc').iterdir():
+            if not proc.name.isdigit():continue
+            try:
+                if proc.stat().st_uid==os.getuid() and (proc/'comm').read_text().strip()=='kitty':os.kill(int(proc.name),signal.SIGUSR1)
+            except (OSError,ProcessLookupError):pass
         subprocess.run(['gsettings','set','org.gnome.desktop.interface','color-scheme','prefer-'+data['mode']], capture_output=True)
         subprocess.run(['gsettings','set','org.gnome.desktop.interface','gtk-theme','Adwaita'+('-dark' if data['mode']=='dark' else '')], capture_output=True)
         result = subprocess.run(['hyprctl', 'eval', lua], capture_output=True, text=True)

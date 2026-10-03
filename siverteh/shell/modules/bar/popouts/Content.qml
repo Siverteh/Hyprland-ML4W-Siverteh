@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import "root:/services"
 import "root:/config"
 import Quickshell
-import Quickshell.Services.SystemTray
 import QtQuick
 
 Item {
@@ -29,10 +28,7 @@ Item {
 
         clip: true
 
-        Popout {
-            name: "activewindow"
-            source: "ActiveWindow.qml"
-        }
+
 
         Popout {
             name: "network"
@@ -51,41 +47,7 @@ Item {
             source: "Battery.qml"
         }
 
-        Repeater {
-            model: ScriptModel {
-                values: [...SystemTray.items.values]
-            }
 
-            Popout {
-                id: trayMenu
-
-                required property SystemTrayItem modelData
-                required property int index
-
-                name: `traymenu${index}`
-                sourceComponent: trayMenuComp
-
-                Connections {
-                    target: root
-
-                    function onHasCurrentChanged(): void {
-                        if (root.hasCurrent && trayMenu.shouldBeActive) {
-                            trayMenu.sourceComponent = null;
-                            trayMenu.sourceComponent = trayMenuComp;
-                        }
-                    }
-                }
-
-                Component {
-                    id: trayMenuComp
-
-                    TrayMenu {
-                        popouts: root
-                        trayItem: trayMenu.modelData.menu
-                    }
-                }
-            }
-        }
     }
 
     Behavior on implicitWidth {

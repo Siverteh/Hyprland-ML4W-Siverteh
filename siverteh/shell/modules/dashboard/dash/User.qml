@@ -22,15 +22,12 @@ Row {
         MaterialIcon {
             anchors.centerIn: parent
 
-            text: "person"
+            text: "terminal"
             fill: 1
             font.pointSize: (info.implicitHeight / 2) || 1
         }
 
-        CachingImage {
-            anchors.fill: parent
-            path: `${Paths.home}/.face`
-        }
+
     }
 
     Column {
@@ -38,8 +35,9 @@ Row {
 
         spacing: Appearance.spacing.normal
 
+        InfoLine { icon:"badge";text:Quickshell.env("USER") || "Siverteh";colour:Colours.palette.m3primary }
         InfoLine {
-            icon: Icons.osIcon
+            icon: "computer"
             text: Icons.osName
             colour: Colours.palette.m3primary
         }
