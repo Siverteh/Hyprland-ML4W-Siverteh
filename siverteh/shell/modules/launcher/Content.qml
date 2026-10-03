@@ -65,6 +65,11 @@ Item {
 
         StyledTextField {
             id: search
+            Component.onCompleted: text = root.visibilities.launcherQuery
+            Connections {
+                target: root.visibilities
+                function onLauncherQueryChanged() { search.text = root.visibilities.launcherQuery; }
+            }
 
             anchors.left: searchIcon.right
             anchors.right: clearIcon.left

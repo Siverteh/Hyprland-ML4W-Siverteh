@@ -17,29 +17,29 @@
 -- -------------------- Audio Controls (with OSD) --------------------
 
 -- F1 = Mute/Unmute
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"), {
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
     locked = true,
 })
-hl.bind("F1", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"), {
+hl.bind("F1", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
     locked = true,
 })
 
 -- F2 = Volume Down
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), {
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
     repeating = true,
     locked = true,
 })
-hl.bind("F2", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), {
+hl.bind("F2", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
     repeating = true,
     locked = true,
 })
 
 -- F3 = Volume Up
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), {
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), {
     repeating = true,
     locked = true,
 })
-hl.bind("F3", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), {
+hl.bind("F3", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), {
     repeating = true,
     locked = true,
 })
@@ -47,16 +47,16 @@ hl.bind("F3", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), {
 -- -------------------- Screen Brightness (with OSD) --------------------
 
 -- F5 = Brightness Down
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"))
 
 -- F6 = Brightness Up
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"))
 
 -- -------------------- Keyboard Backlight (with OSD) --------------------
 
 -- F4 = Keyboard brightness up
-hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise --device kbd_backlight"))
-hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower --device kbd_backlight"))
+hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("brightnessctl --device kbd_backlight set 5%+"))
+hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%- --device kbd_backlight"))
 
 -- -------------------- Emoji picker --------------------
 
@@ -66,7 +66,7 @@ hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.config/siverteh/core/settings/emoj
 -- -------------------- Microphone Controls (with OSD) --------------------
 
 -- F9 = Mute/Unmute Microphone
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"))
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
 
 -- -------------------- Screenshot Tools --------------------
 hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy && notify-send \"Screenshot\" \"Copied to clipboard\""))
@@ -245,7 +245,7 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist dec
 -- SYSTEM CONTROLS
 
 -- =====================================================
-hl.bind("SUPER + X", hl.dsp.exec_cmd("~/.config/siverteh/core/scripts/wlogout.sh"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell session"))
 hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("hyprlock"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
@@ -256,10 +256,10 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 -- UTILITIES & TOOLS
 
 -- =====================================================
-hl.bind("SUPER + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/waypaper.sh"))
-hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/.config/hypr/scripts/waybar/toggle-topbar.sh"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell wallpaper"))
+hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell hide"))
 hl.bind("SUPER + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-observatory toggle"))
-hl.bind("SUPER + SHIFT + O", hl.dsp.exec_cmd("~/.config/hypr/scripts/siverteh-hub.sh --page=settings"))
+hl.bind("SUPER + SHIFT + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell settings"))
 hl.bind("SUPER + CTRL + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/matrix-rest.sh"))
 
 -- =====================================================

@@ -1,5 +1,6 @@
 import "root:/config"
 import Quickshell.Services.SystemTray
+import Quickshell
 import QtQuick
 
 Item {
@@ -32,7 +33,7 @@ Item {
         Repeater {
             id: items
 
-            model: SystemTray.items
+            model: ScriptModel { values: SystemTray.items.values.filter(i=>!String(i.id).toLowerCase().includes("blueman")&&!String(i.title).toLowerCase().includes("bluetooth")) }
 
             TrayItem { rotation:90 }
         }

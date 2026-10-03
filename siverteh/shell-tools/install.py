@@ -47,11 +47,15 @@ def deploy(code_only=False):
  write(HOME/'.local/bin/siverteh-os-shell',(ROOT/'control.sh').read_text(),mode=0o755)
  write(DEST/'bin/qs',(ROOT/'launch.sh').read_text(),mode=0o755)
  write(DEST/'bin/siverteh_shell',(ROOT/'cli-bridge.sh').read_text(),mode=0o755)
+ write(HOME/'.config/siverteh-shell/rofi.rasi',(ROOT/'rofi.rasi').read_text())
+ write(HOME/'.config/rofi/config.rasi','@import "'+str(HOME/'.config/siverteh-shell/rofi.rasi')+'"\n')
  write(HOME/'.config/systemd/user/siverteh-os-shell.service',(ROOT/'siverteh-os-shell.service').read_text())
  # Source-owned profile aliases keep the base OS startup integration small.
  for name in ['autostart','keybinding']:
   path=HOME/'.config/hypr/conf'/f'{name}.lua';text=path.read_text()
   text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory start")','hl.exec_cmd("systemctl --user start siverteh-os-shell.service")').replace('~/.local/bin/siverteh-observatory toggle','~/.local/bin/siverteh-os-shell toggle').replace('~/.config/hypr/scripts/launcher.sh','~/.local/bin/siverteh-os-shell launcher')
+  if name=='keybinding':
+   for old,new in json.loads((ROOT/'shortcut-routes.json').read_text()).items():text=text.replace(old,new)
   if name=='autostart':
    text=text.replace('hl.exec_cmd("swaync")','-- Native Siverteh shell owns notification rendering.')
    text=text.replace('hl.exec_cmd("swayosd-server")','-- Native Siverteh shell owns the audio/brightness OSD.')

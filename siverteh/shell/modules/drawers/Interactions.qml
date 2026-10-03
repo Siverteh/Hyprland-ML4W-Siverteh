@@ -46,7 +46,7 @@ MouseArea {
 
     onPositionChanged: ({x, y}) => {
         // Show osd on hover
-        const showOsd = inRightPanel(panels.osd, x, y);
+        const showOsd = !visibilities.session && inRightPanel(panels.osd, x, y);
         visibilities.osd = showOsd;
         osdHovered = showOsd;
 
@@ -62,17 +62,12 @@ MouseArea {
         // Show dashboard on hover
         visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
 
-        // Show popouts on hover
-        const popout = panels.popouts;
-        if (x < bar.implicitWidth + popout.width) {
-            if (x < bar.implicitWidth)
-                // Handle like part of bar
-                bar.checkPopout(y);
-            else
-                // Keep on hover
-                popouts.hasCurrent = withinPanelHeight(popout, x, y);
-        } else
-            popouts.hasCurrent = false;
+        // Header popouts extend down from the top edge and remain while entered.
+        if(popouts.hasCurrent){
+            const px=bar.implicitWidth+popouts.x,py=BorderConfig.thickness+popouts.y;
+            if(y>py+popouts.height+BorderConfig.rounding||x<px-BorderConfig.rounding||x>px+popouts.width+BorderConfig.rounding)popouts.hasCurrent=false;
+        }
+
     }
 
     Osd.Interactions {

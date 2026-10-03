@@ -1,0 +1,14 @@
+{
+  "~/.config/hypr/scripts/waypaper.sh": "~/.local/bin/siverteh-os-shell wallpaper",
+  "~/.config/hypr/scripts/waybar/toggle-topbar.sh": "~/.local/bin/siverteh-os-shell hide",
+  "~/.config/siverteh/core/scripts/wlogout.sh": "~/.local/bin/siverteh-os-shell session",
+  "~/.config/hypr/scripts/siverteh-hub.sh --page=settings": "~/.local/bin/siverteh-os-shell settings",
+  "swayosd-client --output-volume mute-toggle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  "swayosd-client --output-volume lower": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+  "swayosd-client --output-volume raise": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+  "swayosd-client --brightness lower": "brightnessctl set 5%-",
+  "swayosd-client --brightness raise --device kbd_backlight": "brightnessctl --device kbd_backlight set 5%+",
+  "swayosd-client --brightness lower --device kbd_backlight": "brightnessctl --device kbd_backlight set 5%-",
+  "swayosd-client --brightness raise": "brightnessctl set 5%+",
+  "swayosd-client --input-volume mute-toggle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+}

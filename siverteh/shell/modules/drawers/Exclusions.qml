@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import "root:/widgets"
 import "root:/config"
+import "root:/services"
 import Quickshell
 import QtQuick
 
@@ -13,12 +14,12 @@ Scope {
 
     ExclusionZone {
         anchors.left: true
-        exclusiveZone: root.bar.implicitWidth
+        exclusiveZone: Visibilities.hidden ? 0 : root.bar.implicitWidth
     }
 
     ExclusionZone {
         anchors.top: true
-        exclusiveZone: 40 + BorderConfig.thickness
+        exclusiveZone: Visibilities.hidden ? 0 : 40 + BorderConfig.thickness
     }
 
     ExclusionZone {
@@ -32,6 +33,6 @@ Scope {
     component ExclusionZone: StyledWindow {
         screen: root.screen
         name: "border-exclusion"
-        exclusiveZone: BorderConfig.thickness
+        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.thickness
     }
 }

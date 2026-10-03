@@ -28,8 +28,9 @@ Variants {
 
             screen: scope.modelData
             name: "drawers"
+            visible: !Visibilities.hidden
             contentItem.focus: true
-            contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;}
+            contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;panels.popouts.hasCurrent=false;}
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
@@ -94,14 +95,7 @@ Variants {
                 anchors.fill: parent
                 visible: false
 
-                Border {
-                    bar: bar
-                }
-
-                Backgrounds {
-                    panels: panels
-                    bar: bar
-                }
+                FrameSurface { panels: panels; bar: bar }
             }
 
             MultiEffect {
@@ -112,8 +106,6 @@ Variants {
                 shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
             }
 
-            SeamBridges { panels: panels; bar: bar }
-
             PersistentProperties {
                 id: visibilities
 
@@ -122,6 +114,7 @@ Variants {
                 property bool launcher
                 property bool dashboard
                 property int dashboardTab: 0
+                property string launcherQuery: ""
 
                 Component.onCompleted: Visibilities.screens[scope.modelData.name] = this
             }

@@ -34,7 +34,7 @@ Item {
 
         clip: root.visibilities.session
         screen: root.screen
-        visibility: root.visibilities.osd
+        visibility: root.visibilities.osd && !root.visibilities.session
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
@@ -80,14 +80,8 @@ Item {
 
         screen: root.screen
 
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.top
-        anchors.verticalCenterOffset: {
-            const off = root.popouts.currentCenter - BorderConfig.thickness;
-            const diff = root.height - Math.floor(off + implicitHeight / 2);
-            if (diff < 0)
-                return off + diff;
-            return off;
-        }
+        anchors.top: parent.top
+        x: Math.max(0,Math.min(parent.width-width,root.popouts.currentCenter-root.bar.implicitWidth-width/2))
+
     }
 }

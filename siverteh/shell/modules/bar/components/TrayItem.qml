@@ -33,7 +33,6 @@ MouseArea {
 
     IconImage {
         id: icon
-        rotation:90
 
         source: {
             let icon = root.modelData.icon;
