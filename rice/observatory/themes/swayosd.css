@@ -1,0 +1,4 @@
+window { border-radius: 14px; border: 1px solid #36535b; background: #111f25; }
+label, image { color: #e2ebe6; }
+progressbar trough { background: #30444a; border-radius: 8px; min-height: 7px; }
+progressbar progress { background: #80d9cc; border-radius: 8px; min-height: 7px; }

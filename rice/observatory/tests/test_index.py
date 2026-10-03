@@ -1,0 +1,98 @@
+import importlib.util
+from pathlib import Path
+import tempfile
+import unittest
+import json
+from unittest.mock import patch
+
+spec=importlib.util.spec_from_file_location('observatory',Path(__file__).parents[1]/'control.py')
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+
+class IndexTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
+        self.patcher=patch.object(module,'VAULT',self.root);self.patcher.start()
+        self.registry=patch.object(module,'PROJECTS',self.root/'registry.json');self.registry.start()
+    def tearDown(self): self.patcher.stop();self.registry.stop();self.tmp.cleanup()
+    def note(self,path,body):
+        p=self.root/path;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(body);return p
+    def test_paths_cannot_escape_vault(self):
+        with self.assertRaises(ValueError): module.note_path('../outside.md')
+        self.note('inside.md','# Test')
+        (self.root/'escape.md').symlink_to('/etc/passwd')
+        with self.assertRaises(ValueError): module.note_path('escape.md')
+        self.assertEqual(module.graph()['noteCount'],1)
+    def test_hidden_and_instruction_files_excluded(self):
+        self.note('.brain-state/private.md','# Hidden')
+        self.note('AGENTS.md','# Instructions')
+        self.note('personal/one.md','# A personal interest\nRecorded: 2026-10-02')
+        self.assertEqual(module.graph()['noteCount'],1)
+    def test_explicit_links_remain_distinct_from_grouping(self):
+        self.note('wiki/newbringer.md','# Newbringer\n[Evidence](../projects/camera.md)')
+        self.note('projects/camera.md','# Camera controller\nRecorded: 2026-10-02\nNewbringer camera')
+        graph=module.graph();sources=[e for e in graph['links'] if e['kind']=='source']
+        self.assertEqual(len(sources),1)
+        self.assertTrue(any(e['kind']=='group' for e in graph['links']))
+        ids={n['id'] for n in graph['nodes']}
+        self.assertTrue(all(e['source'] in ids and e['target'] in ids for e in graph['links']))
+    def test_old_notes_stay_present_but_have_less_recent_weight(self):
+        self.note('personal/old.md','# Old\nRecorded: 2020-01-01\nPersonal')
+        self.note('personal/new.md','# New\nRecorded: 2026-10-02\nPersonal')
+        notes={n['label']:n for n in module.graph()['nodes'] if n['kind']=='note'}
+        self.assertLess(notes['Old']['activity'],notes['New']['activity'])
+        self.assertEqual(len(notes),2)
+    def test_file_modification_does_not_manufacture_activity(self):
+        self.note('personal/undated.md','# Undated personal note')
+        note=next(n for n in module.graph()['nodes'] if n['kind']=='note')
+        self.assertEqual(note['activity'],0)
+    def test_unknown_actions_and_window_injection_rejected(self):
+        with self.assertRaises(ValueError): module.action('shell','echo anything')
+        with self.assertRaises(ValueError): module.action('focus','"; injected')
+    def test_new_registered_project_and_annotated_topic_appear(self):
+        module.PROJECTS.write_text(json.dumps({'projects':[{'id':'relay','label':'Relay'}]}))
+        self.note('projects/relay.md','# First circuit\nProject: relay\nTopics: Soldering\nRecorded: 2026-10-02\nSoldering a circuit')
+        nodes={n['id']:n for n in module.graph()['nodes']}
+        self.assertEqual(nodes['relay']['label'],'Relay')
+        self.assertEqual(nodes['relay:tag-soldering']['category'],'electronics')
+    def test_declared_world_and_semi_topic_need_no_registry_entry(self):
+        self.note('wiki/photography.md','# Photography\nEntity: world\nName: Photography\nCategory: research')
+        self.note('wiki/lighting.md','# Lighting\nEntity: topic\nParent: photography\nCategory: electronics\nLighting sensor circuit')
+        nodes={n['id']:n for n in module.graph()['nodes']}
+        self.assertEqual(nodes['photography']['themeReason'],'declared')
+        self.assertEqual(nodes['photography:entity-lighting']['category'],'electronics')
+    def test_examples_in_code_and_raw_imports_cannot_declare_worlds(self):
+        self.note('wiki/example.md','# Schema\n```\nEntity: world\nName: Imaginary\n```')
+        self.note('raw/import.md','# Import\nEntity: world\nName: Untrusted')
+        labels={n['label'] for n in module.graph()['nodes'] if n['kind']=='hub'}
+        self.assertNotIn('Imaginary',labels);self.assertNotIn('Untrusted',labels)
+    def test_subject_colors_differ_without_using_confidence(self):
+        self.note('projects/one.md','# AI inference\nRecorded: 2026-10-02\nConfidence: reported')
+        self.note('projects/two.md','# Circuit soldering\nRecorded: 2026-10-02\nConfidence: verified')
+        notes=[n for n in module.graph()['nodes'] if n['kind']=='note']
+        self.assertNotEqual(notes[0]['color'],notes[1]['color'])
+    def test_update_badge_uses_original_cache_and_throttles_checks(self):
+        self.note('.cache/siverteh/updates-waybar.json',json.dumps({'text':'','alt':'12'}))
+        self.note('.config/hypr/scripts/waybar/updates_status.sh','#!/bin/bash\n')
+        with patch.object(module,'HOME',self.root),patch.object(module,'_last_update_check',None),patch.object(module,'launch') as launch:
+            self.assertEqual(module.update_count(),12)
+            self.assertEqual(module.update_count(),12)
+            launch.assert_called_once()
+        with patch.object(module,'HOME',self.root/'missing'):
+            self.assertIsNone(module.update_count())
+    def test_update_click_launches_existing_updater_without_installing_in_test(self):
+        with patch.object(module,'launch') as launch:
+            module.action('updates')
+            self.assertEqual(launch.call_args.args[0],['bash',str(module.HOME/'.config/siverteh/core/settings/installupdates.sh')])
+    def test_persistent_brain_reuses_window_without_focus_or_duplicates(self):
+        with patch.object(module,'STATE',self.root/'state'),patch.object(module,'ensure_server'),patch.object(module,'brain_window',return_value={'address':'0x123'}),patch.object(module,'launch') as launch,patch.object(module,'action') as action:
+            module.ensure_brain(focus=False)
+            launch.assert_not_called();action.assert_not_called()
+    def test_background_brain_launch_restores_workspace_and_routes_to_six(self):
+        with patch.object(module,'STATE',self.root/'state'),patch.object(module,'ensure_server'),patch.object(module,'brain_window',side_effect=[None,{'address':'0x123'}]),patch.object(module,'run',return_value='{"id":2}') as run,patch.object(module,'launch') as launch:
+            module.ensure_brain(focus=False)
+            launch.assert_called_once()
+            calls=[c.args[0] for c in run.call_args_list]
+            self.assertTrue(any('workspace="6"' in str(c) for c in calls))
+            self.assertTrue(any('workspace=2' in str(c) for c in calls))
+
+if __name__=='__main__': unittest.main()

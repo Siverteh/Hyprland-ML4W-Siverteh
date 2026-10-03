@@ -1,0 +1,15 @@
+* { font-family: Cantarell, sans-serif; font-size: 14px; color: #e2ebe6; }
+.control-center { background: #111f25; border: 1px solid #36535b; border-radius: 16px; padding: 16px; }
+.notification { background: #172930; border: 1px solid #36535b; border-radius: 12px; margin: 6px; padding: 8px; }
+.notification-content { padding: 10px; }
+.summary { font-weight: 600; color: #d9eae5; }
+.body, .time { color: #a9bdc0; }
+.notification-action, button { background: #223a41; border-radius: 8px; border: none; padding: 8px; }
+button:hover, .notification-action:hover { background: #2f5055; }
+.close-button { background: #28434b; border-radius: 50%; }
+.widget-title { font-size: 20px; margin: 12px 4px; }
+.widget-dnd { background: #1a2c32; border-radius: 10px; padding: 8px; margin: 4px; }
+.widget-volume, .widget-backlight, .widget-mpris { background: #1a2c32; border-radius: 10px; padding: 12px; margin: 4px; }
+trough { background: #30444a; border-radius: 8px; min-height: 5px; }
+highlight { background: #80d9cc; border-radius: 8px; }
+slider { background: #e2ebe6; border-radius: 50%; min-width: 12px; min-height: 12px; }
