@@ -3,6 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 import json
+import os
 from unittest.mock import patch
 
 spec=importlib.util.spec_from_file_location('observatory',Path(__file__).parents[1]/'control.py')
@@ -12,8 +13,8 @@ class IndexTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
         self.patcher=patch.object(module,'VAULT',self.root);self.patcher.start()
-        self.registry=patch.object(module,'PROJECTS',self.root/'registry.json');self.registry.start()
-    def tearDown(self): self.patcher.stop();self.registry.stop();self.tmp.cleanup()
+        self.semantic=patch.dict(os.environ,{'SIVERTEH_BRAIN_SEMANTICS':'0'});self.semantic.start()
+    def tearDown(self): self.patcher.stop();self.semantic.stop();self.tmp.cleanup()
     def note(self,path,body):
         p=self.root/path;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(body);return p
     def test_paths_cannot_escape_vault(self):
@@ -45,6 +46,15 @@ class IndexTests(unittest.TestCase):
         self.note('projects/target.md','# Target A')
         self.note('personal/target.md','# Target B')
         self.assertEqual([e for e in module.graph()['links'] if e['kind']=='source'],[])
+    def test_grouping_override_changes_only_derived_state_and_rejects_escape(self):
+        p=self.note('inbox/result.md','# A result\nRecorded: 2026-10-03\nWorlds: Original\nGrip training')
+        before=p.read_bytes();module.action('assign-note',json.dumps({'path':'inbox/result.md','subjects':['Climbing']}))
+        note=next(n for n in module.graph()['nodes'] if n['kind']=='note')
+        self.assertEqual(note['memberships'][0]['subject'],'climbing');self.assertEqual(p.read_bytes(),before)
+        cache=self.root/'.brain-state/discovery/overrides.json';self.assertEqual(cache.stat().st_mode&0o777,0o600)
+        with self.assertRaises(ValueError):module.action('assign-note',json.dumps({'path':'../outside.md','subjects':['X']}))
+        module.action('assign-note',json.dumps({'path':'inbox/result.md','reset':True}))
+        note=next(n for n in module.graph()['nodes'] if n['kind']=='note');self.assertEqual(note['memberships'][0]['subject'],'original')
     def test_full_text_search_excludes_hidden_instructions_and_external_symlinks(self):
         self.note('projects/one.md','# Ordinary title\nA uniquely searchable detail')
         self.note('.private/one.md','# uniquely searchable')
@@ -74,7 +84,7 @@ class IndexTests(unittest.TestCase):
         with self.assertRaises(ValueError): module.action('shell','echo anything')
         with self.assertRaises(ValueError): module.action('focus','"; injected')
     def test_new_registered_project_and_annotated_topic_appear(self):
-        module.PROJECTS.write_text(json.dumps({'projects':[{'id':'relay','label':'Relay'}]}))
+        # A note annotation creates the subject without consulting a coding registry.
         self.note('projects/relay.md','# First circuit\nProject: relay\nTopics: Soldering\nRecorded: 2026-10-02\nSoldering a circuit')
         nodes={n['id']:n for n in module.graph()['nodes']}
         self.assertEqual(nodes['relay']['label'],'Relay')

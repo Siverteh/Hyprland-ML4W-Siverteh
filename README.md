@@ -1,46 +1,28 @@
-# Siverteh OS Hyprland Dotfiles
+# Siverteh OS
 
-My personal Hyprland dotfiles built on Siverteh OS.
+Personal CachyOS/Hyprland desktop with a wallpaper-driven horizontal Quickshell bar, curved desktop frame, native dashboard and persistent AI sidebar. Siverteh AI supports conversation-first Codex/Claude chats; the private Brain organizes saved knowledge into subjects and topics without a coding-project registry.
 
-## Structure
-```
-dotfiles/
-├── hypr/              # Hyprland config
-├── kanshi/            # Monitor management
-├── waybar/            # Status bar
-├── gtk-3.0/           # GTK3 theme
-├── gtk-4.0/           # GTK4 theme
-├── swaync/            # Notification center
-├── rofi/              # App launcher
-├── kitty/             # Terminal
-├── nwg-dock-hyprland/ # Dock
-└── install.sh         # Installer
-```
+## Current components
 
-## Installation
-```bash
-git clone https://github.com/yourusername/siverteh-os.git ~/siverteh-os
-cd ~/siverteh-os
-./install.sh
-```
+- [Desktop shell](siverteh/shell/README.md) and [deployment helpers](siverteh/shell-tools/README.md): settings, audio/microphone/display/keyboard sliders, notification history, clipboard, app launcher and wallpaper chooser.
+- [Siverteh AI](ai/README.md): provider/account settings, new/resume/load chats, isolated project work and shared memory.
+- [Brain](rice/observatory/README.md): overview, connections, full-text notes and inline reading. [Discovery design](rice/observatory/DISCOVERY.md) explains local semantic grouping, evidence-led growth and limitations.
+- [Login theme](siverteh/login/README.md): wallpaper-matched SDDM with manual authentication.
 
-## Features
+## Deployment
 
-- 🪟 Window minimization (SUPER+H)
-- 🖥️ Dynamic monitor management with Kanshi
-- ⚡ Custom coding environment setup
-- 🎨 Material You color scheme
-- ⌨️ ASUS Zenbook optimized
+This repository is the maintained source for an existing Siverteh setup, not a one-command installer for an arbitrary Linux system. Component instructions describe their prerequisites, private backups and deployment scope. The old root install.sh and legacy dotfile directories remain historical compatibility material; use the current component deployment helpers for this desktop.
 
-## Key Bindings
+The semantic model is optional: `siverteh-ai-tools python rice/observatory/provision-semantic.py` prepares its isolated CPU environment and downloads public weights once. Normal note inference is offline. Private notes, chat/account state, wallpapers and credentials remain outside public Git.
 
-- `SUPER + H` - Minimize window
-- `SUPER + SHIFT + H` - Restore last minimized
-- `SUPER + CTRL + H` - Restore all from current workspace
-- `SUPER + ALT + C` - Launch coding setup
+## Useful shortcuts
 
-See [hypr/conf/keybinding.conf](hypr/conf/keybinding.conf) for full list.
+| Shortcut | Action |
+|---|---|
+| Super+A | App grid |
+| Super+W | Wallpaper chooser |
+| Super+X | Native power menu |
+| Super+Z | Fade bar and frame |
+| Super+B | Brain on workspace 6 |
 
-## Credits
-
-Built for Siverteh OS.
+Startup targets browser1, AI2, Discord3, Spotify4, mail5 and Brain6. Plain terminals can open on any workspace. The native shell is maintained under siverteh/; retained third-party licenses and notices are included alongside adapted components.

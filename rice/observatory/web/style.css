@@ -28,3 +28,5 @@
 .outline-primary,.outline-secondary{stroke-linejoin:miter}
 
 .subjects-grid{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:1100px){.subjects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.subjects-grid{grid-template-columns:1fr}}
+
+.grouping{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:8px 0 25px}.grouping .inspector-label{margin:0 0 6px}.grouping small{display:block;color:var(--muted);font-size:11px;margin:5px 0 10px}.grouping button{font-size:12px}.grouping input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px}.grouping-actions{display:flex;gap:8px;margin-top:10px}

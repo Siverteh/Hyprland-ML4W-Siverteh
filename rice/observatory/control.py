@@ -7,6 +7,8 @@ import datetime as dt
 import hashlib
 import json
 import math
+import importlib.util
+import threading
 import os
 from pathlib import Path
 import re
@@ -23,7 +25,6 @@ STATE = HOME / '.local/state/siverteh-observatory'
 VAULT = Path(os.environ.get('SIVERTEH_BRAIN_DIR', str(HOME / 'Documents/Siverteh-Brain')))
 PORT = 17843
 _last_update_check = None
-PROJECTS = HOME / '.config/siverteh-ai/projects.json'
 THEMES = {
     'ai': ('AI & learning', '#a9c9f2', ['ai','artificial intelligence','machine learning','inference','tensorrt','neural','codex','claude','llm']),
     'electronics': ('Electronics & hardware', '#efbd87', ['electronics','circuit','solder','sensor','camera','gun','bosch','firmware','motor','battery']),
@@ -57,49 +58,12 @@ def category(label,body='',declared=''):
     best=max(scores,key=scores.get)
     return (best,'inferred') if scores[best] else ('general','inferred')
 
-def definitions(notes):
-    definitions={h[0]:list(h) for h in HUBS}
-    declarations={}
-    try:
-        registry=json.loads(PROJECTS.read_text()).get('projects',[])
-    except (OSError,ValueError): registry=[]
-    for project in registry:
-        ident=slug(project.get('id',''))
-        if not ident: continue
-        brain=project.get('brain',{})
-        if not isinstance(brain,dict): brain={}
-        label=str(brain.get('name') or project.get('label') or ident)
-        aliases=brain.get('aliases',[])
-        if not isinstance(aliases,list): aliases=[]
-        terms=[str(t).lower() for t in [ident,label,*aliases] if len(str(t))>=4]
-        if ident not in definitions: definitions[ident]=[ident,label,THEMES['general'][1],terms,[]]
-        else: definitions[ident][3]=list(dict.fromkeys(definitions[ident][3]+terms))
-        if brain.get('category') in THEMES: declarations[ident]=brain['category']
-    for note in notes:
-        meta=note['meta']
-        # Only current wiki pages explicitly declare worlds, never raw imports.
-        if note['path'].startswith('wiki/') and meta.get('entity') in ('project','world'):
-            ident=slug(meta.get('project') or Path(note['path']).stem)
-            label=meta.get('name') or note['label']
-            if ident not in definitions: definitions[ident]=[ident,label,THEMES['general'][1],[ident.lower(),label.lower(),*map(str.lower,items(meta.get('aliases','')))],[]]
-            elif meta.get('name'): definitions[ident][1]=label
-            if meta.get('category') in THEMES: declarations[ident]=meta['category']
-    for note in notes:
-        meta=note['meta']
-        if not note['path'].startswith('wiki/') or meta.get('entity')!='topic': continue
-        parent=slug(meta.get('parent') or meta.get('project',''))
-        if parent in definitions:
-            label=meta.get('name') or note['label'];key='entity-'+slug(Path(note['path']).stem)
-            definitions[parent][4]=[*definitions[parent][4],(key,label,[label.lower(),*map(str.lower,items(meta.get('aliases','')))])]
-            if meta.get('category') in THEMES: declarations[parent+':'+key]=meta['category']
-    return list(definitions.values()),declarations
-HUBS = [
-    ('newbringer', 'Newbringer', '#80d9cc', ['newbringer', 'gun', 'slinger', 'imx678', 'tensorrt', 'bosch'], [('devices','Devices', ['gun','device','bosch']), ('camera','Camera & vision',['camera','sensor','imx','inference','tensorrt']), ('frontend','Frontend',['frontend','overlay','android','apk']), ('systems','Systems & releases',['release','deployment','network','latency','server'])]),
-    ('personal', 'Siverteh', '#e6bc89', ['personal/', 'wiki/personal.md'], [('interests','Interests',['bouldering','music','gaming','interests']), ('background','Background & goals',['education','degree','background','ownership']), ('preferences','Preferences',['preference','desktop','workflow'])]),
-    ('os', 'Siverteh OS', '#9daee7', ['siverteh-ai', 'siverteh os', 'desktop','brain','workflow','codex','claude'], [('desktop','Desktop',['desktop','wallpaper','waybar','rice','power menu']), ('ai','AI workspace',['codex','claude','account','dashboard','task']), ('knowledge','Knowledge system',['brain','wiki','knowledge','sync','snapshot'])]),
-    ('musikki', 'MusikKI', '#dbaaed', ['musikki', 'musik-ki'], [('project','Project knowledge',['musikki','musik-ki'])]),
-    ('research', 'Research', '#91bde3', ['research', 'investigation', 'comparison', 'experiment'], [('findings','Findings & experiments',['research','investigation','comparison','experiment'])]),
-]
+def local_module(name):
+    spec=importlib.util.spec_from_file_location(name,ROOT/(name+'.py'));module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+DISCOVERY=local_module('discovery')
+SEMANTICS=local_module('semantic-client').SemanticClient(ROOT)
+GRAPH_LOCK=threading.RLock()
+GRAPH_CACHE={}
 
 def run(argv, fallback='', timeout=3):
     try:
@@ -175,57 +139,6 @@ def graph():
             item = dict(id=ident, label=title, kind='note', path=rel, date=date.isoformat() if date else '', recorded=note_timestamp(body), confidence=confidence.group(1) if confidence else 'source page', text=body[:60000], activity=round(weight, 4),revision=hashlib.sha256(body.encode()).hexdigest()[:16],meta=meta,category=theme,color=THEMES[theme][1])
             notes.append(item)
             lookup[rel] = ident
-    assigned = set()
-    hubs,declarations=definitions(notes)
-    for hub_id, label, color, terms, topics in hubs:
-        matched = [n for n in notes if slug(n['meta'].get('project',''))==hub_id or slug(n['meta'].get('parent',''))==hub_id or any(slug(w)==hub_id or any(mentions(w,t) for t in terms) for w in items(n['meta'].get('worlds',''))) or any(mentions(n['path']+'\n'+n['label']+'\n'+n['text'],t) for t in terms)]
-        # Explicit topic annotations can create a topic from one meaningful note.
-        annotated={}
-        for n in matched:
-            for tag in items(n['meta'].get('topics',n['meta'].get('tags',''))):
-                if slug(tag): annotated.setdefault(slug(tag),tag)
-        known_topics={slug(label) for _,label,_ in topics}
-        topics=[*topics,*[('tag-'+key,value,[value.lower()]) for key,value in sorted(annotated.items()) if key not in known_topics]]
-        theme=declarations.get(hub_id) or {'personal':'personal','research':'research','musikki':'music'}.get(hub_id)
-        if not theme:
-            counts={key:sum(n['category']==key for n in matched) for key in THEMES if key!='general'}
-            theme=max(counts,key=counts.get) if any(counts.values()) else category(label)[0]
-        color=THEMES[theme][1]
-        # One day of repetitive evidence has a capped contribution.
-        days = {}
-        for n in matched:
-            if n['date']:
-                days[n['date']] = min(3, days.get(n['date'], 0) + n['activity'])
-        score = sum(days.values())
-        scores[hub_id] = score
-        nodes.append(dict(id=hub_id, label=label, kind='hub', color=color, category=theme,themeLabel=THEMES[theme][0],themeReason='declared' if hub_id in declarations else 'inferred',count=len(matched), activity=round(score, 3), radius=28 + min(26, 8 * math.log1p(score)), summary='Related knowledge grouped from your local notes. Recent focus follows dated evidence with a 21-day half-life; it does not measure all your conversations.'))
-        for key, topic_label, topic_terms in topics:
-            topic_id = hub_id + ':' + key
-            children = [n for n in matched if any(mentions(n['label']+'\n'+n['text'],t) for t in topic_terms)]
-            if not children:
-                continue
-            topic_theme,reason=category(topic_label+' '+ ' '.join(topic_terms))
-            if topic_id in declarations: topic_theme,reason=declarations[topic_id],'declared'
-            if topic_theme=='general': topic_theme=theme
-            nodes.append(dict(id=topic_id, label=topic_label, kind='topic', parent=hub_id, color=THEMES[topic_theme][1],category=topic_theme,themeLabel=THEMES[topic_theme][0],themeReason=reason,groupReason='annotated' if key.startswith(('tag-','entity-')) else 'suggested',count=len(children), radius=10 + min(9, math.log1p(len(children))*2.4), summary='Topic annotations and related text organize this neighborhood. Suggested relationships are not verified dependencies.'))
-            links.append(dict(source=hub_id, target=topic_id, kind='group'))
-            for n in children:
-                assigned.add(n['id'])
-                links.append(dict(source=topic_id, target=n['id'], kind='group'))
-            # Hub notes which do not match a subtopic remain reachable below it.
-        for n in matched:
-            if not any(e['source'].startswith(hub_id + ':') and e['target'] == n['id'] for e in links):
-                links.append(dict(source=hub_id, target=n['id'], kind='group'))
-                assigned.add(n['id'])
-    unassigned = [n for n in notes if n['id'] not in assigned]
-    if unassigned:
-        nodes.append(dict(id='archive', label='Other knowledge', kind='hub', color='#869eaa', count=len(unassigned), activity=0, radius=24, summary='Notes awaiting a more specific topic grouping.'))
-        links.extend(dict(source='archive', target=n['id'], kind='group') for n in unassigned)
-    peak=max(scores.values(),default=0)
-    for n in nodes:
-        if n['kind']=='hub':
-            relative=n['activity']/peak if peak else 0
-            n['radius']=20+34*relative**.65
     source_pairs=set()
     stems={}
     for path,ident in lookup.items():stems.setdefault(Path(path).stem.casefold(),[]).append(ident)
@@ -247,8 +160,45 @@ def graph():
                 if len(matches)==1:ident=matches[0]
             if ident and ident!=n['id']:source_pairs.add((n['id'],ident))
     links.extend(dict(source=a,target=b,kind='source') for a,b in sorted(source_pairs))
-    nodes.extend({k:v for k,v in n.items() if k not in ('text','meta')} for n in notes)
-    return dict(nodes=nodes, links=links, noteCount=len(notes), theme=desktop_theme(), accent=palette(), generated=dt.datetime.now().isoformat(timespec='seconds'), activityModel='Dated knowledge activity · 21-day half-life · daily cap. Conversation tracking is not enabled.')
+    for n in notes:
+        n['references']=[b for a,b in source_pairs if a==n['id']]
+        n['featureText']=DISCOVERY.features(n)[1]
+    derived=VAULT/'.brain-state/discovery'
+    try:overrides=json.loads((derived/'overrides.json').read_text()) if (derived/'overrides.json').exists() else {}
+    except (OSError,ValueError):overrides={}
+    fingerprint=hashlib.sha256(json.dumps([(n['id'],n['revision']) for n in notes]).encode()).hexdigest()+str(today)+hashlib.sha256(json.dumps(overrides,sort_keys=True).encode()).hexdigest()
+    with GRAPH_LOCK:
+        cache_key=str(VAULT.resolve())
+        if GRAPH_CACHE.get('key')==(cache_key,fingerprint):
+            cached=GRAPH_CACHE['data'].copy();cached.update(theme=desktop_theme(),accent=palette(),generated=dt.datetime.now().isoformat(timespec='seconds'));return cached
+        try:prior=json.loads((derived/'subjects.json').read_text()) if (derived/'subjects.json').exists() else {}
+        except (OSError,ValueError):prior={}
+        dense=SEMANTICS.vectors(notes,derived/'vectors.json')
+        subjects,report=DISCOVERY.organize(notes,dense,prior,overrides)
+        derived.mkdir(parents=True,exist_ok=True,mode=0o700)
+        tmp=derived/'subjects.next';tmp.write_text(json.dumps(report));tmp.chmod(0o600);os.replace(tmp,derived/'subjects.json')
+        for subject in subjects:
+            members=[next(n for n in notes if n['id']==ident) for ident in subject['members']]
+            display_category=subject['category'] if subject['category'] in THEMES else category(subject['label'],' '.join(n['label'] for n in members))[0]
+            days={};unique=set()
+            for n in members:
+                signature=hashlib.sha256(DISCOVERY.clean(n['text']).casefold().encode()).hexdigest()
+                if n.get('recorded') and signature not in unique:days[n['date']]=days.get(n['date'],0)+n['activity'];unique.add(signature)
+            activity=sum(math.log1p(value) for value in days.values())
+            nodes.append(dict(id=subject['id'],label=subject['label'],kind='hub',count=len(members),activity=round(activity,3),radius=20+8*math.log1p(activity),category=display_category,color=THEMES[display_category][1],themeLabel=THEMES[display_category][0],themeReason='declared' if subject['category'] else 'inferred',origin=subject['origin'],parent=subject['parent'],summary='Grouped from saved knowledge; automatic suggestions are not verified facts.'))
+            topic_covered=set()
+            for topic in subject['topics']:
+                topic_category=topic['category'] if topic['category'] in THEMES else category(topic['label'],' '.join(next(n['label'] for n in notes if n['id']==i) for i in topic['members']))[0]
+                nodes.append(dict(id=topic['id'],label=topic['label'],kind='topic',parent=subject['id'],count=len(topic['members']),activity=0,radius=12,category=topic_category,color=THEMES[topic_category][1],groupReason=topic['origin'],summary='Topics emerge from annotations and coherent note communities.'))
+                links.append(dict(source=subject['id'],target=topic['id'],kind='group',reason=topic['origin']))
+                for ident in topic['members']:links.append(dict(source=topic['id'],target=ident,kind='group',reason=topic['origin']));topic_covered.add(ident)
+            for ident,assignment in subject['members'].items():
+                if ident not in topic_covered:links.append(dict(source=subject['id'],target=ident,kind='group',**assignment))
+            if subject['parent']:links.append(dict(source=subject['parent'],target=subject['id'],kind='group',reason='promoted topic'))
+        nodes.extend({k:v for k,v in n.items() if k not in ('text','meta','references','featureText')} for n in notes)
+        result=dict(nodes=nodes,links=links,noteCount=len(notes),theme=desktop_theme(),accent=palette(),generated=dt.datetime.now().isoformat(timespec='seconds'),activityModel='Meaningful saved evidence, 21-day half-life, deduplicated captures and diminishing daily returns. Raw message counting is not enabled.',discovery={**report,'embedding':SEMANTICS.health})
+        GRAPH_CACHE.update(key=(cache_key,fingerprint),data=result)
+        return result
 
 def search_notes(query):
     words=str(query)[:200].casefold().split()
@@ -323,6 +273,21 @@ def action(name, value=''):
                 return action('focus',old['address'])
         launch_app(actions[name])
         if name in ('new','resume','tasks'):action('workspace','2')
+        return
+    if name=='assign-note':
+        data=json.loads(value);p=note_path(data['path']);rel=p.relative_to(VAULT.resolve()).as_posix()
+        if rel in ('AGENTS.md','CLAUDE.md','INDEX.md','README.md'):raise ValueError('Not an indexed note')
+        labels=data.get('subjects',[])
+        if not isinstance(labels,list) or len(labels)>8 or any(not isinstance(label,str) or not 2<=len(label.strip())<=80 or any(ord(c)<32 for c in label) for label in labels):raise ValueError('Invalid subject labels')
+        path=VAULT/'.brain-state/discovery/overrides.json';path.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
+        with (path.parent/'override.lock').open('w') as guard:
+            fcntl.flock(guard,fcntl.LOCK_EX)
+            overrides=json.loads(path.read_text()) if path.exists() else {}
+            ident='note:'+hashlib.sha256(rel.encode()).hexdigest()[:16]
+            if data.get('reset'):overrides.pop(ident,None)
+            elif labels:overrides[ident]=list(dict.fromkeys(label.strip() for label in labels))
+            else:raise ValueError('Choose at least one subject')
+            temp=path.with_suffix('.tmp');temp.write_text(json.dumps(overrides));temp.chmod(0o600);os.replace(temp,path)
         return
     if name=='volume':
         run(['wpctl','set-volume','@DEFAULT_AUDIO_SINK@',str(max(0,min(100,int(value))))+'%']); return
@@ -473,8 +438,9 @@ class Handler(BaseHTTPRequestHandler):
             if not 0<size<=4096: raise ValueError('Invalid length')
             data=json.loads(self.rfile.read(size))
             # Web interface only exposes its own narrow navigation actions.
-            if data.get('name') not in ('open-note','capture','tasks','new','resume','notes'): raise ValueError('Invalid action')
-            launch_app([sys.executable,str(ROOT/'control.py'),'action',data['name'],str(data.get('value',''))])
+            if data.get('name') not in ('open-note','capture','tasks','new','resume','notes','assign-note'): raise ValueError('Invalid action')
+            if data['name']=='assign-note':action('assign-note',str(data.get('value','')))
+            else:launch_app([sys.executable,str(ROOT/'control.py'),'action',data['name'],str(data.get('value',''))])
             self.send('{"ok":true}')
         except (ValueError,KeyError): self.send('{}',code=400)
 
@@ -514,7 +480,7 @@ def ensure_brain(focus=False):
                 if window: break
                 time.sleep(.1)
             if window and re.fullmatch(r'0x[0-9a-fA-F]+',window['address']):
-                run(['hyprctl','eval','hl.dispatch(hl.dsp.window.move({workspace="6",window="address:'+window['address']+'",follow=false}))'])
+                run(['hyprctl','eval','hl.dispatch(hl.dsp.window.fullscreen_state({internal=0,client=0,action="set",window="address:'+window['address']+'"}))']);run(['hyprctl','eval','hl.dispatch(hl.dsp.window.move({workspace="6",window="address:'+window['address']+'",follow=false}))'])
             if not focus and isinstance(previous,int) and previous>0:
                 run(['hyprctl','eval',f'hl.dispatch(hl.dsp.focus({{workspace={previous},on_current_monitor=true}}))'])
         if focus:

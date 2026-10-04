@@ -14,6 +14,8 @@ def main():
     if current!=desired and hashlib.sha256(current.encode()).hexdigest() not in ('085569af25da439c1e194f7f9c64c570590f7d22d852935274a3e1e64587a6b2','7c9076561f38cbdfe27b89c5db391002d4727481932a87f85f8c3e4b6c08496b'):raise RuntimeError('Launcher changed since this task; preserve its changes before deploying.')
     backup=HOME/'.local/state/siverteh-observatory/backups'/('brain-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'));backup.mkdir(parents=True,mode=0o700)
     shutil.copytree(DEST/'web',backup/'web');shutil.copy2(DEST/'control.py',backup/'control.py');shutil.copy2(runtime,backup/'siverteh-ai')
+    for name in ('discovery.py','semantic.py','semantic-client.py'):
+        if (DEST/name).exists():shutil.copy2(DEST/name,backup/name)
     subprocess.run(['systemctl','--user','stop','siverteh-observatory-brain.service'],check=True)
     # Some earlier launches preceded the persistent service. Match only this app's paths/profile.
     control=str(DEST/'control.py').encode();profile=('--user-data-dir='+str(HOME/'.local/share/siverteh-ai/observatory-browser')).encode()
@@ -28,12 +30,20 @@ def main():
             except ProcessLookupError:pass
     time.sleep(.5)
     for name in ('index.html','style.css','app.js'):shutil.copy2(ROOT/'web'/name,DEST/'web'/name)
+    for name in ('discovery.py','semantic.py','semantic-client.py'):shutil.copy2(ROOT/name,DEST/name)
     shutil.copy2(ROOT/'control.py',DEST/'control.py')
     if current!=desired:
         lines=before.splitlines(keepends=True);lines[node.lineno-1:node.end_lineno]=[desired+'\n'];updated=''.join(lines);ast.parse(updated)
         fd,tmp=tempfile.mkstemp(dir=runtime.parent,prefix='.brain-brand-')
         with os.fdopen(fd,'w') as f:f.write(updated)
         os.chmod(tmp,runtime.stat().st_mode&0o777);os.replace(tmp,runtime)
+    memory=(HOME/'.local/bin/siverteh-ai-memory').resolve();body=memory.read_text();shutil.copy2(memory,backup/'siverteh-ai-memory')
+    begin=body.find('    registry=Path(');end=body.find("    metadata='Worlds:",begin)
+    if begin>=0 and end>begin:body=body[:begin]+body[end:];body=body.replace('            if ident in registered:continue\n','');ast.parse(body);memory.write_text(body)
+    rules=HOME/'.config/hypr/conf/observatory.lua';text=rules.read_text();shutil.copy2(rules,backup/'observatory.lua')
+    for name in ('observatory-brain','observatory-brain-chrome'):
+        lines=text.splitlines();text='\n'.join(line.replace('workspace="6 silent"','workspace="6 silent",fullscreen_state="0 0",suppress_event="fullscreen maximize"') if ('name="'+name+'"') in line and 'fullscreen_state=' not in line else line for line in lines)+'\n'
+    rules.write_text(text);subprocess.run(['hyprctl','reload'],check=True,stdout=subprocess.DEVNULL)
     subprocess.run(['systemctl','--user','start','siverteh-observatory-brain.service'],check=True)
     for _ in range(50):
         try:

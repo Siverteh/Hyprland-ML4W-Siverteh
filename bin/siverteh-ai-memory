@@ -14,9 +14,6 @@ def remember(args,body):
     m.safe_note('\n'.join([args.title,args.source,body,*args.world,*args.topic]))
     if not body.strip():raise ValueError('Memory is empty')
     worlds=list(dict.fromkeys(one(w) for w in args.world if slug(w)));topics=list(dict.fromkeys(one(t).replace(',',' ') for t in args.topic if slug(t)))
-    registry=Path(os.environ.get('SIVERTEH_AI_PROJECTS',str(Path.home()/'.config/siverteh-ai/projects.json')))
-    projects=json.loads(registry.read_text()).get('projects',[]) if registry.exists() else []
-    registered={slug(alias) for p in projects for alias in [p['id'],p.get('label',''),*p.get('aliases',[]),*p.get('brain',{}).get('aliases',[])] if alias}
     metadata='Worlds: '+', '.join(worlds)+'\nTopics: '+', '.join(topics)+'\n'
     # Identical milestone captures remain idempotent across concurrent assistants.
     signature=hashlib.sha256(json.dumps([args.kind,one(args.title),one(args.source),args.confidence,worlds,topics,body.strip()],ensure_ascii=False).encode()).hexdigest()
@@ -31,7 +28,6 @@ def remember(args,body):
         # Create only missing descriptors. Current curated pages are never overwritten.
         for world in worlds:
             ident=slug(world)
-            if ident in registered:continue
             wiki=root/'wiki'/('entity-'+ident+'.md')
             aliases=[];existing=None
             for page in (root/'wiki').glob('*.md'):

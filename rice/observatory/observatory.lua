@@ -10,8 +10,8 @@ hl.config({
         shadow = {enabled = true, range = 20, render_power = 3},
     },
 })
-hl.window_rule({name="observatory-brain", match={class="^(siverteh-brain)$"}, workspace="6 silent"})
-hl.window_rule({name="observatory-brain-chrome", match={class="^chrome-127[.]0[.]0[.]1__-Default$", title="^Siverteh Brain$"}, workspace="6 silent"})
+hl.window_rule({name="observatory-brain", match={class="^(siverteh-brain)$"}, workspace="6 silent",fullscreen_state="0 0",suppress_event="fullscreen maximize"})
+hl.window_rule({name="observatory-brain-chrome", match={class="^chrome-127[.]0[.]0[.]1__-Default$", title="^Siverteh Brain$"}, workspace="6 silent",fullscreen_state="0 0",suppress_event="fullscreen maximize"})
 hl.window_rule({name="observatory-obsidian", match={class="^(obsidian|Obsidian)$"}, workspace="6 silent"})
 hl.window_rule({name="observatory-workers", match={class="^(siverteh-ai-task|siverteh-ai-dashboard)$"}, workspace="2 silent"})
 hl.window_rule({name="observatory-controls", match={class="^(siverteh-os-control)$"}, float=true,center=true,size="720 500"})

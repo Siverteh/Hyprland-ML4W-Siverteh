@@ -33,6 +33,11 @@ class Conversation(unittest.TestCase):
             root=Path(tmp)/'brain';self.assertEqual(len(list((root/'wiki').glob('*.md'))),2)
             body=Path(json.loads(first.stdout)['path']).read_text();self.assertIn('Worlds: Climbing, Personal',body);self.assertIn('Topics: Training',body)
             refused=subprocess.run(command,input='password: hunter2',text=True,capture_output=True,env=env);self.assertNotEqual(refused.returncode,0)
+    def test_memory_subject_creation_is_independent_of_coding_registry(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'brain';registry=Path(tmp)/'projects.json';registry.write_text(json.dumps({'projects':[{'id':'gardensense','label':'GardenSense','path':'/repo'}]}))
+            result=subprocess.run([sys.executable,str(ROOT/'bin/siverteh-ai-memory'),'--title','A useful observation','--source','user','--world','GardenSense'],input='Soil moisture readings are useful.',text=True,capture_output=True,env=dict(os.environ,HOME=tmp,SIVERTEH_BRAIN=str(root),SIVERTEH_AI_PROJECTS=str(registry)),check=True)
+            self.assertTrue((root/'wiki/entity-gardensense.md').exists())
     def test_memory_existing_alias_preserves_curated_page(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)/'brain';(root/'wiki').mkdir(parents=True)
