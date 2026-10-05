@@ -6,3 +6,6 @@ StyledText 1.0 StyledText.qml
 ActionButton 1.0 ActionButton.qml
 StyledTextField 1.0 StyledTextField.qml
 FastScroll 1.0 FastScroll.qml
+
+singleton Appearance 1.0 Appearance.qml
+StateLayer 1.0 StateLayer.qml

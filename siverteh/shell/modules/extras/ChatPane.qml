@@ -20,7 +20,7 @@ Item {
         id:transcript;objectName:"sidebarTranscript";anchors.top:tools.bottom;anchors.bottom:footer.top;anchors.left:parent.left;anchors.right:parent.right;anchors.topMargin:12;anchors.bottomMargin:10
         model:SidebarChat.messages;clip:true;spacing:12;cacheBuffer:100
         ScrollBar.vertical:ScrollBar {}
-        FastScroll {view:transcript;onScrolled:transcript.follow=false}
+        FastScroll {objectName:"sidebarWheel";view:transcript;step:330;pixelMultiplier:2;onScrolled:transcript.follow=false}
         property bool follow:true
         onMovementStarted:follow=false
         onContentHeightChanged:if(follow)Qt.callLater(()=>transcript.positionViewAtEnd())
@@ -40,7 +40,13 @@ Item {
     Column {
         id:footer;anchors.bottom:parent.bottom;width:parent.width;spacing:8
         StyledText {width:parent.width;wrapMode:Text.Wrap;visible:SidebarChat.error.length>0||SidebarChat.status.length>0;text:SidebarChat.error||SidebarChat.status;color:SidebarChat.error?Colours.palette.m3error:Colours.palette.m3onSurfaceVariant;font.pointSize:10}
-        Column {width:parent.width;spacing:10;visible:SidebarChat.question!==null
+        ScrollView {
+            id:questionScroll;objectName:"sidebarQuestions";width:parent.width
+            height:visible?Math.min(240,root.height*0.35,Math.max(80,questionColumn.implicitHeight)):0
+            visible:SidebarChat.question!==null;clip:true
+            ScrollBar.horizontal.policy:ScrollBar.AlwaysOff
+            ScrollBar.vertical.policy:ScrollBar.AsNeeded
+            Column {id:questionColumn;width:questionScroll.availableWidth;spacing:10
             Repeater {model:SidebarChat.question?.questions??[]
                 Column {id:q;required property var modelData;width:parent.width;spacing:6
                     StyledText {width:parent.width;wrapMode:Text.Wrap;text:q.modelData.question}
@@ -49,10 +55,11 @@ Item {
                             ActionButton {required property var modelData;text:modelData.label;selected:SidebarChat.answers[q.modelData.id]?.answers?.[0]===text;onClicked:SidebarChat.setAnswer(q.modelData.id,text)}
                         }
                     }
-                    StyledTextField {width:parent.width;height:35;placeholderText:"Your answer";leftPadding:10;background:StyledRect {radius:10;color:Colours.palette.m3surfaceContainerHigh} onPressed:root.visibilities.leftPinned=true;onTextChanged:SidebarChat.setAnswer(q.modelData.id,text)}
+                    StyledTextField {objectName:"questionAnswer-"+q.modelData.id;width:parent.width;height:35;placeholderText:"Your answer";leftPadding:10;background:StyledRect {radius:10;color:Colours.palette.m3surfaceContainerHigh} onPressed:root.visibilities.leftPinned=true;onTextChanged:SidebarChat.setAnswer(q.modelData.id,text)}
                 }
             }
-            ActionButton {text:"Reply";onClicked:SidebarChat.answer()}
+            ActionButton {objectName:"sidebarReply";text:"Reply";enabled:!SidebarChat.inWorkspace&&SidebarChat.question!==null&&SidebarChat.question.questions.every(q=>(SidebarChat.answers[q.id]?.answers?.[0]??"").trim().length>0);onClicked:SidebarChat.answer()}
+        }
         }
         ScrollView {
             id:composer;objectName:"sidebarComposerScroll";width:parent.width;height:Math.min(160,Math.max(100,input.implicitHeight));clip:true

@@ -11,5 +11,8 @@ class ChatPaneUITests(unittest.TestCase):
    source=(ROOT.parent/'shell/modules/extras/ChatPane.qml').read_text()
    source=source.replace('import "root:/widgets"','import "fixtures"').replace('import "root:/services"','').replace('import Quickshell','').replace('required property PersistentProperties visibilities','required property var visibilities')
    (target/'ChatPane.qml').write_text(source)
+   shutil.copy2(ROOT.parent/'shell/widgets/FastScroll.qml',target/'fixtures/FastScroll.qml')
+   layer=(ROOT.parent/'shell/widgets/StateLayer.qml').read_text().replace('import "root:/widgets"','').replace('import "root:/services"','').replace('import "root:/config"','')
+   (target/'fixtures/StateLayer.qml').write_text(layer)
    result=subprocess.run([str(runner),'-input',str(target),'-o','-,txt'],env=dict(os.environ,QT_QPA_PLATFORM='offscreen'),capture_output=True,text=True,timeout=30)
    self.assertEqual(result.returncode,0,result.stdout+result.stderr)

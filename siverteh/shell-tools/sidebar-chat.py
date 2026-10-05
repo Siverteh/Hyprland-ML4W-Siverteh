@@ -81,9 +81,11 @@ class CodexPeer:
   elif method=='item/completed':
    item=p.get('item',{});kind=item.get('type')
    if kind=='agentMessage':m.complete_message(item['id'],item.get('text',''))
+   if kind=='agentMessage' and item.get('questions'):m.ask_async(item['id'],item['questions'])
    elif kind=='userMessage':m.native_user(item['id'],text_content(item.get('content')))
   elif method=='item/started':
-   kind=p.get('item',{}).get('type','')
+   item=p.get('item',{});kind=item.get('type','')
+   if kind=='agentMessage' and item.get('questions'):m.ask_async(item['id'],item['questions'])
    if kind in ('commandExecution','fileChange','mcpToolCall','webSearch'):
     m.status={'commandExecution':'Running a command','fileChange':'Editing files','mcpToolCall':'Using a tool','webSearch':'Searching the web'}[kind];m.update()
   elif method=='turn/completed':
@@ -159,7 +161,7 @@ print(json.dumps(rows[-300:]))
 
 class Manager:
  def __init__(self):
-  self.lock=threading.RLock();self.connect_lock=threading.Lock();self.send_lock=threading.Lock();self.generation=0;self.clients=[];self.messages=[];self.busy=False;self.status='';self.error='';self.peer=None;self.question=None;self.pending_users=[]
+  self.lock=threading.RLock();self.connect_lock=threading.Lock();self.send_lock=threading.Lock();self.generation=0;self.clients=[];self.messages=[];self.busy=False;self.status='';self.error='';self.peer=None;self.question=None;self.async_questions=[];self.pending_users=[]
   self.metadata={};self.path=None;self.choose()
  def choose(self,item=None,fresh=False):
   self.generation+=1
@@ -172,7 +174,7 @@ class Manager:
    guidance=HOME/'.codex/AGENTS.md'
    if guidance.exists():(cwd/'AGENTS.md').symlink_to(guidance)
    meta=dict(agent=agent,account=account,cwd=str(cwd),title='New chat')
-  self.metadata=meta;self.messages=[];self.pending_users=[];self.question=None;self.status='';self.error='';self.peer=None;self.save()
+  self.metadata=meta;self.messages=[];self.pending_users=[];self.question=None;self.async_questions=[];self.status='';self.error='';self.peer=None;self.save()
  def save(self):atomic(self.path,self.metadata)
  def state(self):return dict(type='state',defaultProvider=preferences()[0],inWorkspace=self.metadata.get('in_workspace',False),provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
  def broadcast(self,value):
@@ -183,11 +185,15 @@ class Manager:
     except OSError:self.clients.remove(client)
  def update(self):self.broadcast(self.state())
  def restore(self,turns):
-  self.messages=[]
+  self.messages=[];pending=[]
   for turn in turns:
    for item in turn.get('items',[]):
-    if item.get('type')=='userMessage':self.messages.append(dict(id=item['id'],role='user',text=text_content(item.get('content'))))
-    elif item.get('type')=='agentMessage':self.messages.append(dict(id=item['id'],role='assistant',text=item.get('text','')))
+    if item.get('type')=='userMessage':
+     pending=[];self.messages.append(dict(id=item['id'],role='user',text=text_content(item.get('content'))))
+    elif item.get('type')=='agentMessage':
+     if item.get('text'):self.messages.append(dict(id=item['id'],role='assistant',text=item.get('text','')))
+     if item.get('questions'):pending.append(item)
+  for item in pending:self.ask_async(item['id'],item['questions'])
   self.broadcast(dict(type='history',messages=self.messages))
  def delta(self,ident,text):
   if not text:return
@@ -197,6 +203,7 @@ class Manager:
    item['text']+=text
   self.broadcast(dict(type='delta',id=ident,text=text))
  def complete_message(self,ident,text):
+  if not text:return
   with self.lock:
    item=next((m for m in self.messages if m['id']==ident),None)
    if item is None:self.messages.append(dict(id=ident,role='assistant',text=text))
@@ -206,9 +213,18 @@ class Manager:
   with self.lock:
    if text in self.pending_users:self.pending_users.remove(text);return
   self.messages.append(dict(id=ident,role='user',text=text));self.broadcast(self.messages[-1]|{'type':'message'})
- def finish(self,error=''):self.busy=False;self.status='';self.error=error;self.question=None;self.update()
+ def finish(self,error=''):self.busy=False;self.status='';self.error=error;self.question=next(iter(self.async_questions),None);self.update()
  def ask(self,peer,ident,questions,kind):
   self.question=dict(peer=peer,raw_id=ident,id=str(ident),questions=questions,kind=kind);self.status='Waiting for your answer';self.update()
+ def ask_async(self,ident,questions):
+  key='async-'+str(ident)
+  if key in self.metadata.get('answered_questions',[]) or any(q['id']==key for q in self.async_questions):return
+  normal=[dict(id=str(i),question=q['title'],options=[dict(label=o) for o in q.get('options') or []]) for i,q in enumerate(questions)]
+  if not normal:return
+  question=dict(id=key,questions=normal,kind='async')
+  self.async_questions.append(question)
+  if not self.question:self.question=question
+  self.update()
  def ensure_peer(self):
   with self.connect_lock:
    if self.peer:return
@@ -260,7 +276,14 @@ class Manager:
    self.choose(item,fresh=action=='new');self.broadcast(dict(type='history',messages=[]));self.update()
    if item:threading.Thread(target=self.connect_background,daemon=True).start()
   elif action=='answer' and self.question and str(command.get('id'))==self.question['id']:
-   q=self.question;answers=command.get('answers',{});q['peer'].answer(q['raw_id'],answers,q['kind']);self.question=None;self.status='Working';self.update()
+   q=self.question;answers=command.get('answers',{})
+   if any(not answers.get(item['id'],{}).get('answers') or not str(answers[item['id']]['answers'][0]).strip() for item in q['questions']):return
+   if q['kind']=='async':
+    text='\n\n'.join(item['question']+'\nAnswer: '+str(answers[item['id']]['answers'][0]) for item in q['questions'])
+    self.async_questions.remove(q);self.metadata.setdefault('answered_questions',[]).append(q['id']);self.save()
+    self.question=next(iter(self.async_questions),None);self.update();self.handle(dict(action='send',text=text))
+   else:
+    q['peer'].answer(q['raw_id'],answers,q['kind']);self.question=next(iter(self.async_questions),None);self.status='Working';self.update()
   elif action=='provider':
    agent=command.get('provider')
    if agent not in ('codex','claude'):return

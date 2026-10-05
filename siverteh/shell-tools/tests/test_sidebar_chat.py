@@ -98,4 +98,36 @@ class SidebarTests(unittest.TestCase):
     manager.send('Keep this draft')
     self.assertTrue(manager.busy);self.assertEqual(manager.messages,[]);self.assertEqual(manager.pending_users,[])
     self.assertTrue(any(c.args[0].get('type')=='sendFailed' and c.args[0]['text']=='Keep this draft' for c in manager.broadcast.call_args_list))
+ def test_async_questions_survive_finish_and_answer_with_active_turn_steer(self):
+  from unittest.mock import Mock
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();manager.metadata.update(id='fixture',title='Fixture');manager.busy=True
+    peer=module.CodexPeer.__new__(module.CodexPeer);peer.turn='active-turn';peer.metadata=manager.metadata;peer.call=Mock();manager.peer=peer
+    manager.ask_async('question-card',[{'title':'Which option?','options':['A','B']}]);manager.ask_async('question-card',[{'title':'Which option?'}])
+    self.assertEqual(len(manager.async_questions),1);self.assertEqual(manager.state()['question']['questions'][0]['options'][0]['label'],'A')
+    manager.finish();self.assertIsNotNone(manager.question)
+    manager.handle({'action':'answer','id':'async-question-card','answers':{}});self.assertIsNotNone(manager.question)
+    with patch.object(module.threading,'Thread') as worker:
+     manager.handle({'action':'answer','id':'async-question-card','answers':{'0':{'answers':['B']}}})
+     self.assertEqual(worker.call_args.kwargs['args'],('Which option?\nAnswer: B',))
+    self.assertIsNone(manager.question);manager.ask_async('question-card',[{'title':'Which option?'}]);self.assertIsNone(manager.question)
+ def test_async_questions_restore_only_since_last_user_message(self):
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();manager.restore([{'items':[{'id':'old','type':'agentMessage','text':'','questions':[{'title':'Old question'}]},{'id':'answer','type':'userMessage','content':[{'type':'text','text':'Answered'}]},{'id':'new','type':'agentMessage','text':'','questions':[{'title':'New question'}]}]}])
+    self.assertEqual(manager.question['questions'][0]['question'],'New question');self.assertEqual(len(manager.async_questions),1)
+ def test_async_question_events_and_blocking_questions_coexist(self):
+  from unittest.mock import Mock
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();peer=module.CodexPeer.__new__(module.CodexPeer);peer.manager=manager;peer.generation=manager.generation;peer.metadata=manager.metadata
+    peer.event({'method':'item/completed','params':{'item':{'id':'card','type':'agentMessage','text':'','questions':[{'title':'Please choose','options':['A']}]}}})
+    manager.ask(Mock(),3,[{'id':'blocking','question':'Blocking question'}],'input')
+    self.assertEqual(manager.question['kind'],'input')
+    manager.handle({'action':'answer','id':'3','answers':{'blocking':{'answers':['Yes']}}})
+    self.assertEqual(manager.question['kind'],'async')
 if __name__=='__main__':unittest.main()

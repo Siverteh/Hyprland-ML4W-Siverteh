@@ -13,6 +13,7 @@ StyledRect {
     function onClicked(event: MouseEvent): void {
     }
 
+    radius: parent && parent.radius !== undefined ? parent.radius : 0
     anchors.fill: parent
 
     color: Colours.palette.m3onSurface

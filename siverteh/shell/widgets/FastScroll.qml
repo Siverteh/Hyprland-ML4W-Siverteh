@@ -3,6 +3,7 @@ WheelHandler {
     id:root
     required property var view
     property real step:150
+    property real pixelMultiplier:1
     property real destination:0
     signal scrolled()
     target:null
@@ -16,7 +17,7 @@ WheelHandler {
     }
     onWheel:event=>{
         scrolled();
-        if(event.pixelDelta.y)scrollBy(-event.pixelDelta.y,false);
+        if(event.pixelDelta.y)scrollBy(-event.pixelDelta.y*pixelMultiplier,false);
         else if(event.angleDelta.y)scrollBy(-event.angleDelta.y/120*step,true);
         event.accepted=true;
     }
