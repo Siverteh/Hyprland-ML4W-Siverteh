@@ -70,11 +70,12 @@ Item {
                 Keys.onReturnPressed:event=>{if(event.modifiers&Qt.ShiftModifier){event.accepted=false;}else{root.send();event.accepted=true;}}
             }
         }
+        Connections {target:SidebarChat;function onDraftChanged(){if(input.text!==SidebarChat.draft)input.text=SidebarChat.draft;}}
         Row {spacing:8
             ActionButton {text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&input.text.trim().length>0;onClicked:root.send()}
             ActionButton {text:"Stop";icon:"stop";visible:SidebarChat.busy;onClicked:SidebarChat.stop()}
             ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.follow=true;transcript.positionViewAtEnd();}}
         }
     }
-    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);input.text="";}}
+    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);SidebarChat.draft="";input.text="";}}
 }

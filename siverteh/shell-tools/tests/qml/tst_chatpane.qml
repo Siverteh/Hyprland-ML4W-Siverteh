@@ -14,7 +14,7 @@ TestCase {
  }
  function test_enter_sends_while_busy_and_shift_enter_adds_newline(){
   const view=createTemporaryObject(pane,test);verify(view);const input=findChild(view,"sidebarComposer");SidebarChat.busy=true
-  input.text="Follow up now";input.forceActiveFocus();keyClick(Qt.Key_Return);compare(SidebarChat.sends,1);compare(SidebarChat.lastText,"Follow up now");compare(input.text,"")
+  input.text="Follow up now";input.forceActiveFocus();keyClick(Qt.Key_Return);compare(SidebarChat.sends,1);compare(SidebarChat.lastText,"Follow up now");compare(input.text,"");SidebarChat.draft="Recovered draft";compare(input.text,"Recovered draft")
   input.text="Two lines";keyClick(Qt.Key_Return,Qt.ShiftModifier);compare(SidebarChat.sends,1);verify(input.text.indexOf("\n")>=0)
  }
 }

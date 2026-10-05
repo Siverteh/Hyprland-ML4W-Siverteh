@@ -172,7 +172,7 @@ class Manager:
    guidance=HOME/'.codex/AGENTS.md'
    if guidance.exists():(cwd/'AGENTS.md').symlink_to(guidance)
    meta=dict(agent=agent,account=account,cwd=str(cwd),title='New chat')
-  self.metadata=meta;self.messages=[];self.question=None;self.status='';self.error='';self.peer=None;self.save()
+  self.metadata=meta;self.messages=[];self.pending_users=[];self.question=None;self.status='';self.error='';self.peer=None;self.save()
  def save(self):atomic(self.path,self.metadata)
  def state(self):return dict(type='state',defaultProvider=preferences()[0],inWorkspace=self.metadata.get('in_workspace',False),provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
  def broadcast(self,value):
