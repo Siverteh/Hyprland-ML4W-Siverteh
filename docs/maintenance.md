@@ -164,7 +164,8 @@ omitted. Typing searches all visible apps; `>` searches built-in actions.
 The heart toggles a favorite; right-click offers favorite/hide, and the hidden
 apps button restores hidden entries. Ctrl+D toggles the selected app's favorite.
 Tab moves into the category rail, arrows navigate and Enter launches; Escape
-closes. Power actions stay in the existing power menu.
+closes. Clicking outside dismisses the panel without activating the app behind
+it. Power actions stay in the existing power menu.
 
 Preferences are private atomic JSON in `~/.config/siverteh-shell/launcher.json`,
 with mode0600 and locked read/modify/write operations. They are outside source

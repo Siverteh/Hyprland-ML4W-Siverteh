@@ -12,3 +12,10 @@ class LauncherPreferencesTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as folder,patch.object(prefs,'PATH',Path(folder)/'launcher.json'):
    with self.assertRaises(ValueError):prefs.change('favorite',{'id':'bad\nname','enabled':True})
    self.assertFalse(prefs.PATH.exists())
+
+ def test_malformed_existing_preferences_are_preserved(self):
+  with tempfile.TemporaryDirectory() as folder,patch.object(prefs,'PATH',Path(folder)/'launcher.json'):
+   original='{"favorites":42,"hidden":[]}'
+   prefs.PATH.write_text(original)
+   with self.assertRaises(ValueError):prefs.change('favorite',{'id':'one','enabled':True})
+   self.assertEqual(prefs.PATH.read_text(),original)
