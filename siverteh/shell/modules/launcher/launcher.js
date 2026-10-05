@@ -20,7 +20,7 @@ function category(app) {
 }
 function visible(apps){return categories.filter(c=>c.id==="all"||c.id==="favorites"||apps.some(a=>category(a)===c.id));}
 function browse(apps,id,favorites){
- if(id==="all")return apps;
+ if(id==="all")return Array.from(apps);
  if(id==="favorites")return apps.filter(a=>favorites.includes(a.id));
  return apps.filter(a=>category(a)===id);
 }
