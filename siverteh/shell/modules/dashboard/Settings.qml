@@ -26,7 +26,7 @@ Item {
         {id:"maintenance",label:"Maintenance",icon:"build",detail:"Health, releases and recovery",terms:"maintenance health release rollback restart resources cpu memory wallet updates diagnostics"}
     ]
     readonly property var current:pages.find(p=>p.id===page)??pages[0]
-    readonly property var matches:pages.filter(p=>(p.label+" "+p.detail+" "+p.terms).toLowerCase().includes(query.trim().toLowerCase()))
+    readonly property var matches:pages.filter(p=>query.trim().toLowerCase().split(/\s+/).every(word=>(p.label+" "+p.detail+" "+p.terms).toLowerCase().includes(word)))
     function open(id){page=id;query="";search.text="";}
     StyledRect {
         id:rail;width:190;height:parent.height;radius:17;color:Colours.palette.m3surfaceContainer
@@ -78,5 +78,5 @@ Item {
     Component {id:lock;LockPage {}}
     Component {id:ai;AiPage {}}
     Component {id:notifications;NotificationPage {}}
-    IpcHandler {target:"settingsView";function open(page:string):void{if(root.pages.some(p=>p.id===page))root.open(page);}function state():string{return JSON.stringify({page:root.page,search:root.query,width:root.width,height:root.height});}}
+    IpcHandler {target:"settingsView";function open(page:string):void{if(root.pages.some(p=>p.id===page))root.open(page);}function state():string{return JSON.stringify({page:root.page,search:root.query,width:root.width,height:root.height,tiles:pageLoader.item?.tileGeometry??[]});}}
 }

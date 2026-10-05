@@ -32,6 +32,17 @@ class DesktopSettingsTests(unittest.TestCase):
                     if name=='presentation':self.assertFalse(desktop.load()['topEdge']);self.assertTrue(desktop.load()['dnd'])
                 for key in desktop.DEFAULTS:self.assertEqual(desktop.load()[key],normal[key],key)
 
+    def test_presets_do_not_restore_old_lock_privacy_or_weather(self):
+        import io,sys
+        from contextlib import redirect_stdout
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            with patch.object(desktop,'STATE',root/'desktop.json'),patch.object(desktop,'LUA',root/'desktop.lua'),patch.object(desktop,'PENDING',root/'pending.json'),patch.object(desktop,'hypr',return_value='[]'):
+                desktop.persist(dict(desktop.DEFAULTS,preset='focused',weatherLocation='New city',lockNotificationContents=False,normalSnapshot=dict(desktop.DEFAULTS,weatherLocation='Old city',lockNotificationContents=True)))
+                with patch.object(sys,'argv',['desktop-settings','preset','normal']),redirect_stdout(io.StringIO()):desktop.main()
+                self.assertEqual(desktop.load()['weatherLocation'],'New city')
+                self.assertFalse(desktop.load()['lockNotificationContents'])
+
     def test_revert_restores_displays_without_losing_later_window_settings(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)

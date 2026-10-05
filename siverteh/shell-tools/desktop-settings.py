@@ -6,6 +6,7 @@ from importlib.util import spec_from_file_location,module_from_spec
 spec=spec_from_file_location('palette',Path(__file__).with_name('classic-state.py'));palette=module_from_spec(spec);spec.loader.exec_module(palette)
 HOME=Path.home();STATE=HOME/'.config/siverteh-shell/desktop.json';LUA=STATE.with_name('desktop.lua');PENDING=STATE.with_name('display-pending.json')
 DEFAULTS=dict(animations=True,blur=True,shadow=True,followMouse=True,naturalScroll=True,gapsIn=6,gapsOut=12,borderSize=1,rounding=10,frameWidth=10,frameRounding=25,topEdge=True,leftEdge=True,rightEdge=True,bottomEdge=True,leftDrawer=True,livePreviews=True,nativePalette=True,nativeOverview=True,nativeClipboard=True,dnd=False,lockMedia=True,lockWeather=True,lockNotifications=True,lockNotificationContents=False,weatherLocation="",weatherFahrenheit=False)
+PRESET_KEYS=[key for key in DEFAULTS if not key.startswith(('lock','weather'))]
 OPTIONS={'animations':'animations.enabled','blur':'decoration.blur.enabled','shadow':'decoration.shadow.enabled','followMouse':'input.follow_mouse','naturalScroll':'input.touchpad.natural_scroll','gapsIn':'general.gaps_in','gapsOut':'general.gaps_out','borderSize':'general.border_size','rounding':'decoration.rounding'}
 RANGES={'gapsIn':(0,30),'gapsOut':(0,80),'borderSize':(0,8),'rounding':(0,40),'frameWidth':(0,30),'frameRounding':(0,40)}
 
@@ -118,8 +119,8 @@ def main():
                 name=a.args[0]
                 if name not in ('normal','focused','presentation','minimal','meeting','music','docked'):raise ValueError('Unknown desktop preset')
                 data=load()
-                baseline=data.get('normalSnapshot') if data.get('preset','normal')!='normal' else {k:data[k] for k in DEFAULTS}
-                baseline=baseline or dict(DEFAULTS)
+                baseline=data.get('normalSnapshot') if data.get('preset','normal')!='normal' else {k:data[k] for k in PRESET_KEYS}
+                baseline={k:v for k,v in (baseline or DEFAULTS).items() if k in PRESET_KEYS}
                 overrides={'normal':{},'focused':dict(blur=False,shadow=False,animations=False,dnd=True),
                     'presentation':dict(leftDrawer=False,topEdge=False,leftEdge=False,rightEdge=False,bottomEdge=False,dnd=True),
                     'meeting':dict(dnd=True,blur=False),'music':dict(dnd=True),'docked':dict(dnd=False,lockMedia=True,lockWeather=True,lockNotifications=True,lockNotificationContents=False,weatherLocation="",weatherFahrenheit=False),
