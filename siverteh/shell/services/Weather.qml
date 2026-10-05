@@ -11,7 +11,7 @@ Singleton {
  property string location:""
  property string error:""
  property bool stale:false
- readonly property string displayTemperature:(DesktopSettings.data.weatherFahrenheit?Math.round(temperature*9/5+32)+"°F":Math.round(temperature)+"°C")+(stale?" (cached)":"")
+ readonly property string displayTemperature:description?(DesktopSettings.data.weatherFahrenheit?Math.round(temperature*9/5+32)+"°F":Math.round(temperature)+"°C")+(stale?" (cached)":""):""
  function reload(){if(!worker.running)worker.running=true;}
  Connections {target:DesktopSettings;function onDataChanged(){if(root.lastLocation!==(DesktopSettings.data.weatherLocation??"")){root.lastLocation=DesktopSettings.data.weatherLocation??"";root.reload();}}}
  property string lastLocation:""

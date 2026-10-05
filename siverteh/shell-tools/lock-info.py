@@ -31,7 +31,7 @@ def label(kind,data,settings):
  if kind=='weather':
   if not settings.get('lockWeather',True):return ''
   w=data.get('weather',{});desc=w.get('description')
-  return '<b>'+plain(w.get('location') or 'Weather')+'</b>\n\n'+plain(w.get('temperature',''))+'\n'+plain(desc or w.get('error') or 'Weather unavailable')
+  return '<b>'+plain(w.get('location') or 'Weather')+'</b>\n\n'+plain(w.get('temperature','') if desc else '')+'\n'+plain(desc or w.get('error') or 'Weather unavailable')
  if kind=='media':
   if not settings.get('lockMedia',True):return ''
   m=data.get('media')
