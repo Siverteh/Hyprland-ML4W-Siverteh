@@ -227,7 +227,10 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files
 
 -- =====================================================
 
--- App launcher (rofi)
+-- A modifier-only release is shadowed by other keys/chords in Hyprland.
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"), { release = true })
+hl.bind("SUPER + SUPER_R", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"), { release = true })
+-- Categorized launcher; Super+A remains an alias.
 hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"))
 
 -- Window picker

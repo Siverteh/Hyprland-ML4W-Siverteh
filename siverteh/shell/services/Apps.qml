@@ -6,7 +6,8 @@ import Quickshell
 Singleton {
     id: root
 
-    readonly property list<DesktopEntry> list: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
+    readonly property list<DesktopEntry> all: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
+    readonly property list<DesktopEntry> list:all.filter(a=>!LauncherPreferences.hidden.includes(a.id))
     readonly property list<var> preppedApps: list.map(a => ({
                 name: Fuzzy.prepare(a.name),
                 comment: Fuzzy.prepare(a.comment),

@@ -1,0 +1,18 @@
+pragma Singleton
+import Quickshell
+import Quickshell.Io
+import QtQuick
+Singleton {
+ id:root
+ property var favorites:[]
+ property var hidden:[]
+ property string error:""
+ property bool ready:false
+ property var pending:[]
+ function update(action,id,enabled){pending.push({action:action,id:id,enabled:enabled});next();}
+ function next(){if(!worker.running&&pending.length){worker.change=pending.shift();worker.command=["python3",Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/tools/launcher-preferences.py",worker.change.action];worker.running=true;}}
+ function accept(line){try{const data=JSON.parse(line);if(data.error){error=data.error;return;}favorites=data.favorites??[];hidden=data.hidden??[];error="";}catch(e){error="Could not read launcher preferences";}}
+ Process {id:reader;running:true;command:["python3",Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/tools/launcher-preferences.py","load"];stdout:SplitParser {splitMarker:"";onRead:line=>root.accept(line)}onExited:{root.ready=true;watcher.reload();}}
+ Process {id:worker;property var change;stdinEnabled:true;onStarted:write(JSON.stringify(change)+"\n");stdout:SplitParser {splitMarker:"";onRead:line=>root.accept(line)}onExited:root.next()}
+ FileView {id:watcher;preload:root.ready;path:Quickshell.env("HOME")+"/.config/siverteh-shell/launcher.json";watchChanges:true;onFileChanged:reload();onLoaded:root.accept(text())}
+}

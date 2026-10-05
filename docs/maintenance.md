@@ -151,3 +151,22 @@ location. Manual timezone selection turns automatic mode off. Enabling it again
 uses the same reviewed root-owned helper and normal administrator authentication.
 No passwordless privilege rule or credential storage is installed. The existing
 NTP service and UTC hardware-clock mode are preserved.
+
+## Categorized bottom launcher
+
+Tap and release either Super key to toggle Apps; Super+A remains an alias.
+Hyprland's modifier-only release handling suppresses the tap binding after a
+chord. Super+W opens Wallpaper directly. The bottom drawer has no hover trigger.
+
+The app browser opens Favorites when there are visible favorites, otherwise
+All apps. Categories come from desktop-entry metadata and empty categories are
+omitted. Typing searches all visible apps; `>` searches built-in actions.
+The heart toggles a favorite; right-click offers favorite/hide, and the hidden
+apps button restores hidden entries. Ctrl+D toggles the selected app's favorite.
+Tab moves into the category rail, arrows navigate and Enter launches; Escape
+closes. Power actions stay in the existing power menu.
+
+Preferences are private atomic JSON in `~/.config/siverteh-shell/launcher.json`,
+with mode0600 and locked read/modify/write operations. They are outside source
+and desktop rollback, and malformed data is preserved rather than overwritten.
+The browser loads only while open/closing and uses the shared fast scrolling.
