@@ -73,3 +73,36 @@ For launcher focus changes, also run the opt-in target-host check:
 `python3 tools/check-overlays.py --keyboard /path/to/wtype` with shell panels closed.
 It tests the launcher routes and real Wayland Escape events. Offscreen Qt tests
 cannot detect layer-surface/focus-grab conflicts in the running compositor.
+
+## Complete releases and recovery
+
+`./install.sh --apply` now uses a desktop release transaction. It snapshots only
+owned software/runtime and managed static configuration, exercises the actual
+Wayland launcher/Escape paths, then promotes the candidate. A failed gate restores
+all captured components. Accounts, wallets, browser profiles, conversations and
+personal preferences are outside these snapshots. Operating-system packages
+remain owned by the distribution's package manager.
+
+`~/.local/bin/siverteh-os doctor`, `profile`, `session`, `check`, and `rollback`
+provide the same maintenance actions as the Settings page. Rollback refuses later
+edits instead of silently overwriting them. The sidebar worker stays alive while
+its renderer is replaced; code changes to that worker are activated after it is
+idle. Before pressing Restart/Restore, allow any unsent draft to finish saving.
+
+The session observer records actual login, before-sleep, resume and display-hotplug
+checks in private state. A manual check is labelled manual and cannot establish
+that cold boot or physical suspend/resume passed. Verify those paths on the real
+hardware after saving work; review the recorded event/result in Maintenance.
+
+Focused/Presentation/Minimal now accompany Meeting/Music/Docked. Use Personal
+workflow setup to save current audio defaults, connected display geometry and
+selected startup apps for a preset. Missing devices are skipped; microphone mute
+is preserved. These choices remain private, and selecting a preset never closes
+working apps or chats.
+
+Sidebar drafts are stored per native conversation with private permissions.
+Attach selects local files; image attachments use native Codex image input,
+other files are provided as user-selected local paths. Screenshot requests area
+selection and stores the result privately. Sending is explicit. Message/code copy
+buttons use the clipboard only when clicked. Attachment controls become available
+when the updated assistant backend advertises support.

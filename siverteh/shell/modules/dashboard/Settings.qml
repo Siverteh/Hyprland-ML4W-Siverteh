@@ -7,6 +7,7 @@ import QtQuick.Controls
 Item {
     id:root
     implicitWidth:900;implicitHeight:Math.min(content.implicitHeight,Math.max(360,Quickshell.screens[0].height-210))
+    property var workflowRoles:[]
     property string primary:DesktopSettings.monitors[0]?.name??""
     Flickable {
         id:settingsScroll
@@ -20,10 +21,39 @@ Item {
                 text:DesktopSettings.message
                 width:parent.width;wrapMode:Text.WordWrap;color:Colours.palette.m3error
             }
+            Section {width:900;heading:"Maintenance"
+                StyledText {width:parent.width;text:"Installed release: "+(Maintenance.data.release?.revision??"Unrecorded").slice(0,12);color:Colours.palette.m3onSurfaceVariant}
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:Object.entries(Maintenance.data.services??{}).map(([name,status])=>name.replace(".service","")+": "+status).join("   ")}
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:(Maintenance.data.configErrors||"Compositor configuration is valid")+" · "+(Maintenance.data.drift??[]).length+" locally changed managed files";color:Maintenance.data.configErrors?Colours.palette.m3error:Colours.palette.m3onSurfaceVariant}
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:Maintenance.data.performance?.cpuCorePercent!==undefined?"Last sample: "+Maintenance.data.performance.cpuCorePercent+"% of one core · "+Maintenance.data.performance.memoryMiB+" MiB ("+Maintenance.data.performance.label+")":"No performance sample yet"}
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Session: "+(Maintenance.data.session?.event??"not checked")+" · Wallet: "+(Maintenance.data.session?.wallet??"unknown")+" · Update cache: "+(Maintenance.data.updatesAgeSeconds===null?"not available":Math.round((Maintenance.data.updatesAgeSeconds??0)/60)+" minutes old")}
+                Flow {width:parent.width;spacing:8
+                    Action {label:"Refresh status";enabled:!Maintenance.busy;onActivated:Maintenance.refresh()}
+                    Action {label:"Sample resource use";enabled:!Maintenance.busy;onActivated:Maintenance.request("profile")}
+                    Action {label:"Check session";enabled:!Maintenance.busy;onActivated:Maintenance.request("session")}
+                    Action {label:"Restart desktop";onActivated:Maintenance.recover("restart")}
+                    Action {label:"Restore previous release";enabled:!!Maintenance.data.release?.release;onActivated:rollbackConfirm.visible=true}
+                }
+                Row {id:rollbackConfirm;visible:false;spacing:8
+                    StyledText {text:"Restore the previous desktop release?";anchors.verticalCenter:parent.verticalCenter}
+                    Action {label:"Restore";onActivated:{rollbackConfirm.visible=false;Maintenance.recover("rollback")}}
+                    Action {label:"Cancel";onActivated:rollbackConfirm.visible=false}
+                }
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:Maintenance.message;visible:text.length>0;color:Colours.palette.m3onSurfaceVariant}
+            }
             Section {width:900;heading:"Desktop presets"
-                Row {spacing:10
-                    Repeater {model:["normal","focused","presentation","minimal"]
+                Flow {width:parent.width;spacing:10
+                    Repeater {model:["normal","focused","presentation","minimal","meeting","music","docked"]
                         Action {required property string modelData;label:modelData.charAt(0).toUpperCase()+modelData.slice(1);selected:(DesktopSettings.data.preset??"normal")===modelData;onActivated:DesktopSettings.request(["preset",modelData])}
+                    }
+                }
+            }
+            Section {width:900;heading:"Personal workflow setup"
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Select a preset above, set your audio devices and display layout, then save them here. The preset recalls connected devices only and keeps microphone mute unchanged."}
+                Action {label:"Save current audio and display setup";onActivated:DesktopSettings.request(["save-workflow",DesktopSettings.data.preset??"normal",JSON.stringify(root.workflowRoles)])}
+                Flow {width:parent.width;spacing:8
+                    Repeater {model:["Browser","Siverteh AI","Discord","Spotify","Mail","Brain"]
+                        Action {required property string modelData;label:modelData;selected:root.workflowRoles.includes(modelData);onActivated:root.workflowRoles=selected?root.workflowRoles.filter(name=>name!==modelData):[...root.workflowRoles,modelData]}
                     }
                 }
             }

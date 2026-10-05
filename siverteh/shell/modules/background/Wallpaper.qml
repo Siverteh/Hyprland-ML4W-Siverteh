@@ -4,6 +4,7 @@ import "root:/widgets"
 import "root:/services"
 import "root:/config"
 import QtQuick
+import QtQuick.Window
 
 Item {
     id: root
@@ -41,6 +42,8 @@ Item {
 
         anchors.fill: parent
 
+        sourceSize.width:Math.ceil(width*Screen.devicePixelRatio)
+        sourceSize.height:Math.ceil(height*Screen.devicePixelRatio)
         loadOriginal: true
         asynchronous: true
         cache: false

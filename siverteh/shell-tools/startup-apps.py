@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Idempotent six-workspace session profile; ordinary terminals stay unrestricted."""
-import fcntl,json,os,subprocess,time
+import fcntl,json,os,subprocess,time,shutil,importlib.util
 from pathlib import Path
 HOME=Path.home()
 def plan(clients):
@@ -17,11 +17,17 @@ def main():
  with lock.open('w') as guard:
   try:fcntl.flock(guard,fcntl.LOCK_EX|fcntl.LOCK_NB)
   except BlockingIOError:return
+  spec=importlib.util.spec_from_file_location('session',Path(__file__).with_name('session-watch.py'));session=importlib.util.module_from_spec(spec);spec.loader.exec_module(session);session.readiness()
   clients=json.loads(subprocess.check_output(['hyprctl','clients','-j']))
   for label,workspace,argv,exists in plan(clients):
-   if exists:continue
+   if exists or not shutil.which(argv[0]):continue
    subprocess.run(['hyprctl','eval',f'hl.dispatch(hl.dsp.focus({{workspace={workspace},on_current_monitor=true}}))'],stdout=subprocess.DEVNULL,check=True)
    subprocess.Popen(['systemd-run','--user','--scope','--collect','--quiet',*argv],start_new_session=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-   time.sleep(.35)
+   # Wait for a real window/service acknowledgement; never relaunch a slow app.
+   deadline=time.monotonic()+8
+   while time.monotonic()<deadline:
+    current=json.loads(subprocess.check_output(['hyprctl','clients','-j']))
+    if next((entry[3] for entry in plan(current) if entry[0]==label),False) or label=='Brain':break
+    time.sleep(.2)
   subprocess.run(['hyprctl','eval','hl.dispatch(hl.dsp.focus({workspace=1,on_current_monitor=true}))'],check=True,stdout=subprocess.DEVNULL)
 if __name__=='__main__':main()

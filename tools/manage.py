@@ -26,9 +26,8 @@ def main():
     if not args.apply:
         print('Plan only. Read docs/maintenance.md and tools/check.py output before applying.')
         return
-    subprocess.run([sys.executable, str(ROOT / 'tools/check.py')], check=True)
-    for name in components:
-        subprocess.run(commands[name], check=True)
+    if 'ai' in components:raise RuntimeError('AI workflow deployment is separate; use ai/install.py to preserve account setup')
+    subprocess.run([sys.executable,str(ROOT/'tools/releases.py'),'deploy',str(ROOT),*[part for name in components for part in ('--component',name)]],check=True)
 
 
 if __name__ == '__main__':

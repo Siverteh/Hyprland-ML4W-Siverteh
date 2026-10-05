@@ -6,6 +6,7 @@ import Quickshell
 Item {
     id:root
     required property PersistentProperties visibilities
+    function codeBlocks(text){const result=[];const pattern=/```[^\n]*\n([\s\S]*?)```/g;let match;while((match=pattern.exec(text))!==null)result.push(match[1]);return result;}
     property bool active:false
     onActiveChanged:if(active){SidebarChat.start();if(transcript.follow)transcript.latest();}
     Component.onCompleted:transcript.latest()
@@ -58,16 +59,23 @@ Item {
             id:bubble
             required property string role
             required property string text
-            width:transcript.width;implicitHeight:message.implicitHeight+45;radius:13
+            width:transcript.width;implicitHeight:message.implicitHeight+45+copyActions.implicitHeight;radius:13
             color:role==="user"?Colours.palette.m3secondaryContainer:Colours.palette.m3surfaceContainer
             StyledText {x:12;y:9;text:bubble.role==="user"?"You":"Siverteh AI";font.pointSize:9;color:Colours.palette.m3primary}
-            TextEdit {id:message;x:12;y:29;width:parent.width-24;text:bubble.text;readOnly:true;selectByMouse:true;wrapMode:TextEdit.Wrap;textFormat:TextEdit.PlainText
+            Flow {id:copyActions;anchors.top:message.bottom;anchors.topMargin:5;anchors.left:parent.left;anchors.right:parent.right;spacing:5
+                ActionButton {text:"Copy";onClicked:SidebarChat.copy(bubble.text)}
+                Repeater {model:root.codeBlocks(bubble.text)
+                    ActionButton {required property string modelData;text:"Copy code";onClicked:SidebarChat.copy(modelData)}
+                }
+            }
+            TextEdit {id:message;x:12;y:29;width:parent.width-24;text:bubble.text;readOnly:true;selectByMouse:true;wrapMode:TextEdit.Wrap;textFormat:bubble.role==="assistant"?TextEdit.MarkdownText:TextEdit.PlainText
                 color:Colours.palette.m3onSurface;font.family:"IBM Plex Sans";font.pointSize:12;selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary
             }
         }
         StyledText {anchors.centerIn:parent;visible:transcript.count===0;text:"Start a conversation";color:Colours.palette.m3onSurfaceVariant}
     }
     Connections {target:SidebarChat;function onHistoryReplacing(){transcript.savePosition();}function onHistoryReplaced(){transcript.restorePosition();}function onThreadIdChanged(){transcript.savedPosition={bottom:true};transcript.latest();}}
+    DropArea {anchors.fill:parent;enabled:SidebarChat.attachmentsSupported;onDropped:drop=>{if(drop.hasUrls){SidebarChat.addFiles(drop.urls);drop.acceptProposedAction();}}}
     Column {
         id:footer;anchors.bottom:parent.bottom;width:parent.width;spacing:8
         StyledText {width:parent.width;wrapMode:Text.Wrap;visible:SidebarChat.error.length>0||SidebarChat.status.length>0;text:SidebarChat.error||SidebarChat.status;color:SidebarChat.error?Colours.palette.m3error:Colours.palette.m3onSurfaceVariant;font.pointSize:10}
@@ -92,6 +100,11 @@ Item {
             ActionButton {objectName:"sidebarReply";text:"Reply";enabled:!SidebarChat.inWorkspace&&SidebarChat.question!==null&&SidebarChat.question.questions.every(q=>(SidebarChat.answers[q.id]?.answers?.[0]??"").trim().length>0);onClicked:SidebarChat.answer()}
         }
         }
+        Flow {width:parent.width;spacing:5
+            Repeater {model:SidebarChat.attachments??[]
+                ActionButton {required property var modelData;text:modelData.name;icon:"close";onClicked:SidebarChat.removeAttachment(modelData.path)}
+            }
+        }
         ScrollView {
             id:composer;objectName:"sidebarComposerScroll";width:parent.width;height:Math.min(160,Math.max(100,input.implicitHeight));clip:true
             ScrollBar.horizontal.policy:ScrollBar.AlwaysOff
@@ -108,11 +121,13 @@ Item {
             }
         }
         Connections {target:SidebarChat;function onDraftChanged(){if(input.text!==SidebarChat.draft)input.text=SidebarChat.draft;}}
-        Row {spacing:8
-            ActionButton {text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&input.text.trim().length>0;onClicked:root.send()}
+        Flow {width:parent.width;spacing:8
+            ActionButton {text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&(input.text.trim().length>0||(SidebarChat.attachments??[]).length>0);onClicked:root.send()}
+            ActionButton {text:"Attach";icon:"attach_file";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.pickFiles()}
+            ActionButton {text:"Screenshot";icon:"screenshot";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.screenshot()}
             ActionButton {text:"Stop";icon:"stop";visible:SidebarChat.busy;onClicked:SidebarChat.stop()}
             ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.latest();}}
         }
     }
-    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){transcript.latest();SidebarChat.send(input.text);SidebarChat.draft="";input.text="";}}
+    function send(){if(!SidebarChat.inWorkspace&&(input.text.trim()||(SidebarChat.attachments??[]).length)){transcript.latest();if(SidebarChat.send(input.text)===false)return;SidebarChat.draft="";SidebarChat.attachments=[];input.text="";}}
 }

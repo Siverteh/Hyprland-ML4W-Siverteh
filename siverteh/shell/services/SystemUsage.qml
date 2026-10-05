@@ -7,6 +7,7 @@ import QtQuick
 Singleton {
     id: root
 
+    readonly property bool visibleDashboard:Object.values(Visibilities.screens).some(v=>v.dashboard)
     property string kernel
     property string loadAverage
     FileView {path:"/proc/sys/kernel/osrelease";onLoaded:root.kernel=text().trim()}
@@ -54,7 +55,7 @@ Singleton {
 
     Timer {
         running: true
-        interval: 3000
+        interval:visibleDashboard?3000:60000
         repeat: true
         onTriggered: {
             load.reload();
@@ -124,7 +125,7 @@ Singleton {
         id: cpuTemp
 
         running: true
-        command: ["fish", "-c", "cat /sys/class/thermal/thermal_zone*/temp | string join ' '"]
+        command: ["sh", "-c", "cat /sys/class/thermal/thermal_zone*/temp | tr '\\n' ' '"]
         stdout: SplitParser {
             onRead: data => {
                 const temps = data.trim().split(" ");

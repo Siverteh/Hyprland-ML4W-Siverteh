@@ -16,7 +16,9 @@ Singleton {
     function refresh(){if(!busy&&queue.length===0)request(["state"]);}
     Component.onCompleted:request(["state"])
     FileView {path:Quickshell.env("HOME")+"/.config/siverteh-shell/desktop.json";watchChanges:true;onFileChanged:reload();onLoaded:{try{root.data=JSON.parse(text());}catch(e){}}}
-    Timer {interval:2000;repeat:true;running:true;onTriggered:root.refresh()}
+    readonly property bool visibleSettings:Object.values(Visibilities.screens).some(v=>v.dashboard&&v.dashboardTab===4)
+    onVisibleSettingsChanged:if(visibleSettings)refresh()
+    Timer {interval:visibleSettings?3000:60000;repeat:true;running:true;onTriggered:root.refresh()}
     Process {
         id:worker
         stdout:SplitParser {splitMarker:"";onRead:line=>{try{const result=JSON.parse(line);root.data=result.data;root.monitors=result.monitors??root.monitors;root.pending=result.pending;root.message=result.error??result.message;}catch(e){root.message="Could not read desktop settings";}}}

@@ -23,6 +23,10 @@ def text_content(content):
  if isinstance(content,str):return content
  return '\n'.join(c.get('text','') for c in content or [] if c.get('type')=='text')
 
+def selected_files(values):
+ spec=spec_from_file_location('composer',Path(__file__).with_name('composer.py'));m=module_from_spec(spec);spec.loader.exec_module(m);return m.attachments(values or [])
+def model_input(text,files):return [{'type':'text','text':text},*[{'type':'localImage','path':f['path']} for f in files if f['image']]]
+
 class CodexPeer:
  def __init__(self,manager,metadata):
   self.manager=manager;self.generation=manager.generation;self.metadata=metadata;self.sequence=0;self.waiting={};self.lock=threading.Lock();self.turn=''
@@ -92,16 +96,16 @@ class CodexPeer:
    turn=p.get('turn',{});self.turn='';error=friendly_error(turn.get('error')) if turn.get('status')=='failed' else '';m.finish(error)
   elif method=='thread/name/updated':self.metadata['title']=p.get('threadName') or p.get('name') or self.metadata['title'];m.save();m.update()
   elif method=='error' and not p.get('willRetry',False):m.finish(friendly_error(p.get('error')))
- def send(self,text):
-  result=self.call('turn/start',{'threadId':self.metadata['id'],'input':[{'type':'text','text':text}]});self.turn=result['turn']['id']
- def steer(self,text):
+ def send(self,text,files=None):
+  result=self.call('turn/start',{'threadId':self.metadata['id'],'input':model_input(text,files or [])});self.turn=result['turn']['id']
+ def steer(self,text,files=None):
   turn=self.turn
-  if not turn:return self.send(text)
+  if not turn:return self.send(text,files) if files else self.send(text)
   try:
-   self.call('turn/steer',{'threadId':self.metadata['id'],'expectedTurnId':turn,'input':[{'type':'text','text':text}]})
+   self.call('turn/steer',{'threadId':self.metadata['id'],'expectedTurnId':turn,'input':model_input(text,files or [])})
   except RuntimeError as error:
    # The response can finish between clicking Send and the RPC arriving.
-   if not self.turn or 'no active turn' in str(error).lower():return self.send(text)
+   if not self.turn or 'no active turn' in str(error).lower():return self.send(text,files) if files else self.send(text)
    raise
  def stop(self):
   if self.turn:self.call('turn/interrupt',{'threadId':self.metadata['id'],'turnId':self.turn})
@@ -132,7 +136,7 @@ print(json.dumps(rows[-300:]))
     if result.returncode==0:
      self.manager.messages=json.loads(result.stdout);self.manager.broadcast(dict(type='history',messages=self.manager.messages))
   self.manager.save();self.manager.update()
- def send(self,text):
+ def send(self,text,files=None):
   argv=[str(HOME/'.local/bin/claude'),'-p','--output-format','stream-json','--verbose','--include-partial-messages','--dangerously-skip-permissions','--append-system-prompt',INSTRUCTIONS]
   argv+=['--resume',self.metadata['id']] if self.metadata.get('started') else ['--session-id',self.metadata['id']]
   self.process=subprocess.Popen(argv,cwd=self.metadata['cwd'],env=env_for('claude',self.metadata['account']),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,start_new_session=True)
@@ -176,7 +180,7 @@ class Manager:
    meta=dict(agent=agent,account=account,cwd=str(cwd),title='New chat')
   self.metadata=meta;self.messages=[];self.pending_users=[];self.question=None;self.async_questions=[];self.status='';self.error='';self.peer=None;self.save()
  def save(self):atomic(self.path,self.metadata)
- def state(self):return dict(type='state',defaultProvider=preferences()[0],inWorkspace=self.metadata.get('in_workspace',False),provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
+ def state(self):return dict(type='state',defaultProvider=preferences()[0],inWorkspace=self.metadata.get('in_workspace',False),provider=self.metadata.get('agent'),account=self.metadata.get('account') or 'Default',title=self.metadata.get('title','New chat'),threadId=self.metadata.get('id',''),model=self.metadata.get('model',''),features=['attachments'],composerKey=self.metadata.get('id') or hashlib.sha256(self.metadata.get('cwd','').encode()).hexdigest(),busy=self.busy,status=self.status,error=self.error,question=self.question and {k:v for k,v in self.question.items() if k not in ('peer','raw_id')})
  def broadcast(self,value):
   encoded=(json.dumps(value)+'\n').encode()
   with self.lock:
@@ -234,28 +238,31 @@ class Manager:
     self.peer=(CodexPeer if self.metadata['agent']=='codex' else ClaudePeer)(self,self.metadata)
     if not self.busy:self.status='';self.update()
    except Exception as e:self.finish(friendly_error(e));raise
- def send(self,text):
+ def send(self,text,files=None):
   # Serialise submissions, not the UI. Codex returns from send immediately;
   # Claude's current CLI transport queues here until its response completes.
-  with self.send_lock:self.submit(text)
- def submit(self,text):
-  item=None
+  with self.send_lock:self.submit(text,files)
+ def submit(self,text,files=None):
+  item=None;original=text
   try:
+   files=selected_files(files)
    self.ensure_peer()
    if not self.metadata.get('id'):raise RuntimeError('No assistant session')
    if self.metadata.get('title')=='New chat':
     self.metadata['title']=' '.join(text.split()[:7])[:80];self.save()
     if isinstance(self.peer,CodexPeer):self.peer.call('thread/name/set',{'threadId':self.metadata['id'],'name':self.metadata['title']})
-   self.pending_users.append(text);item=dict(id='user-'+uuid.uuid4().hex,role='user',text=text);self.messages.append(item);self.broadcast(item|{'type':'message'})
+   display=text+('\n\nAttached: '+', '.join(f['name'] for f in files) if files else '')
+   if files:text+='\n\nUser-selected local files:\n'+'\n'.join(f['path'] for f in files)
+   self.pending_users.append(text);item=dict(id='user-'+uuid.uuid4().hex,role='user',text=display);self.messages.append(item);self.broadcast(item|{'type':'message'})
    self.busy=True;self.status='Working';self.update()
-   if isinstance(self.peer,CodexPeer) and self.peer.turn:self.peer.steer(text)
-   else:self.peer.send(text)
+   if isinstance(self.peer,CodexPeer) and self.peer.turn:self.peer.steer(text,files) if files else self.peer.steer(text)
+   else:self.peer.send(text,files) if files else self.peer.send(text)
   except Exception as e:
    with self.lock:
     if text in self.pending_users:self.pending_users.remove(text)
     if item in self.messages:self.messages.remove(item)
    self.broadcast(dict(type='history',messages=self.messages))
-   self.broadcast(dict(type='sendFailed',text=text))
+   self.broadcast(dict(type='sendFailed',text=original,attachments=files))
    if isinstance(self.peer,CodexPeer) and self.peer.turn:
     self.error=friendly_error(e);self.update()
    else:self.finish(friendly_error(e))
@@ -265,7 +272,7 @@ class Manager:
    text=str(command.get('text','')).strip()
    if not text or len(text)>64000:return
    if self.metadata.get('in_workspace'):return
-   self.busy=True;self.error='';self.update();threading.Thread(target=self.send,args=(text,),daemon=True).start()
+   self.busy=True;self.error='';self.update();threading.Thread(target=self.send,args=(text,command.get('attachments',[])) if command.get('attachments') else (text,),daemon=True).start()
   elif action=='stop':
    if self.peer:threading.Thread(target=self.peer.stop,daemon=True).start()
   elif action in ('new','load'):

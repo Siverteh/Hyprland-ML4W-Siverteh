@@ -49,7 +49,10 @@ def deploy(code_only=False):
  chat_service=HOME/".config/systemd/user/siverteh-sidebar-ai.service"
  chat_service.parent.mkdir(parents=True,exist_ok=True)
  shutil.copyfile(ROOT/"siverteh-sidebar-ai.service",chat_service)
+ observer=HOME/'.config/systemd/user/siverteh-session-watch.service'
+ shutil.copyfile(ROOT/'siverteh-session-watch.service',observer)
  subprocess.run(["systemctl","--user","daemon-reload"],check=True)
+ subprocess.run(['systemctl','--user','enable','--now','siverteh-session-watch.service'],check=True,capture_output=True)
  subprocess.run(["python3",str(ROOT/"desktop-settings.py"),"init"],check=True,stdout=subprocess.DEVNULL)
  old_dbus=HOME/'.local/share/dbus-1/services/org.erikreider.swaync.service'
  if old_dbus.is_file() and 'start siverteh-os-shell.service' in old_dbus.read_text():old_dbus.unlink()
@@ -135,6 +138,7 @@ def validate_live(expected=None):
   except ValueError:ready=False
   if ready:
    if expected is not None and source_digest(DEST/'source')!=expected:raise RuntimeError('The candidate failed to load; the previous validated desktop was restored.')
+   if os.environ.get("SIVERTEH_RELEASE_TRANSACTION"):return
    good=DEST/'source.good';pending=DEST/'source.good.next'
    if pending.exists():shutil.rmtree(pending)
    shutil.copytree(DEST/'source',pending)

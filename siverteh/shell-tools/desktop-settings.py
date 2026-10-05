@@ -95,7 +95,7 @@ def state():
     data=load();return dict(data=data,monitors=monitor_state(),pending=PENDING.exists(),message='Changes save automatically')
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','confirm','revert','rollback-after','preset']);p.add_argument('args',nargs='*');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','confirm','revert','rollback-after','preset','save-workflow']);p.add_argument('args',nargs='*');a=p.parse_args()
     if a.action=='rollback-after':
         time.sleep(20)
     STATE.parent.mkdir(parents=True,exist_ok=True)
@@ -112,15 +112,21 @@ def main():
                 persist(data)
             elif a.action=='preset':
                 name=a.args[0]
-                if name not in ('normal','focused','presentation','minimal'):raise ValueError('Unknown desktop preset')
+                if name not in ('normal','focused','presentation','minimal','meeting','music','docked'):raise ValueError('Unknown desktop preset')
                 data=load()
                 baseline=data.get('normalSnapshot') if data.get('preset','normal')!='normal' else {k:data[k] for k in DEFAULTS}
                 baseline=baseline or dict(DEFAULTS)
                 overrides={'normal':{},'focused':dict(blur=False,shadow=False,animations=False,dnd=True),
                     'presentation':dict(leftDrawer=False,topEdge=False,leftEdge=False,rightEdge=False,bottomEdge=False,dnd=True),
+                    'meeting':dict(dnd=True,blur=False),'music':dict(dnd=True),'docked':dict(dnd=False),
                     'minimal':dict(topEdge=True,leftEdge=False,rightEdge=False,bottomEdge=False,frameWidth=0,gapsIn=3,gapsOut=6,borderSize=0,shadow=False)}
                 data.update(baseline);data.update(overrides[name]);data['preset']=name;data['normalSnapshot']=baseline
                 hypr('eval',config_lua(data));persist(data)
+                import importlib.util
+                spec=importlib.util.spec_from_file_location('workflows',Path(__file__).with_name('workflow-profiles.py'));workflow=importlib.util.module_from_spec(spec);spec.loader.exec_module(workflow);workflow.HOME=HOME;workflow.PATH=HOME/'.config/siverteh-shell/workflows.json';workflow.apply(name)
+            elif a.action=='save-workflow':
+                import importlib.util
+                spec=importlib.util.spec_from_file_location('workflows',Path(__file__).with_name('workflow-profiles.py'));workflow=importlib.util.module_from_spec(spec);spec.loader.exec_module(workflow);workflow.save(a.args[0],json.loads(a.args[1]) if len(a.args)>1 else [])
             elif a.action=='display':
                 if PENDING.exists():raise ValueError('Keep or revert the current display change first')
                 mode,primary=a.args;data=load();monitors=monitor_state();plan=display_plan(monitors,primary,mode);token=uuid.uuid4().hex

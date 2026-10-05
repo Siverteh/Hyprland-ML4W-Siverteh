@@ -25,7 +25,7 @@ Singleton {
     }
     onPidChanged:{if(pid&&titles[pid]===undefined){pending=[pid,...pending.filter(p=>p!==pid)];next();}}
     Connections {target:Hyprland;function onClientsChanged(){root.scan();}}
-    Timer {interval:2000;running:true;repeat:true;onTriggered:root.scan()}
+    Timer {interval:15000;running:Hyprland.clients.some(c=>c.wmClass==="siverteh-ai-task");repeat:true;onTriggered:root.scan()}
     Component.onCompleted:scan()
     Process {
         id:reader
