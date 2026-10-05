@@ -20,4 +20,13 @@ TestCase {
   const view=createTemporaryObject(settings,test);wait(20);
   for(const page of ["displays","network","bluetooth","notifications","workflows","lock","ai","maintenance"]){view.open(page);wait(20);verify(findChild(view,"settingsPage").item,page);}
  }
+ Component {id:lockPreview;LockPreview {width:1280;height:800}}
+ function test_lock_preview_contents_belong_to_the_window(){
+  const view=createTemporaryObject(lockPreview,test);verify(view);wait(30);
+  const window=findChild(view,"lockPreviewWindow");const content=findChild(view,"lockPreviewContent");verify(window);verify(content);
+  compare(content.parent,window);compare(content.width,window.width);compare(content.height,window.height);
+  verify(window.children.length>=3);window.widgetData={count:1,notifications:[{app:"Mail"}],weather:{location:"Test city",temperature:"10°C",description:"Overcast"}};wait(20);
+  verify(content.visible);
+ }
+
 }

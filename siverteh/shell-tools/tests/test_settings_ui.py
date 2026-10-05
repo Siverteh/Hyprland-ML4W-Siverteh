@@ -18,7 +18,11 @@ class SettingsUITests(unittest.TestCase):
    pages=target/'settings';pages.mkdir()
    for path in (ROOT.parent/'shell/modules/dashboard/settings').glob('*.qml'):
     (pages/path.name).write_text(adapted(path,'../fixtures'))
+   preview=adapted(ROOT.parent/'shell/lock-preview.qml').replace('import "widgets"','import "fixtures"').replace('import "services"','').replace('ShellRoot {','Item {').replace('FloatingWindow {','Rectangle {').replace('title:"Siverteh lock screen preview"','property string title:"Siverteh lock screen preview"')
+   preview='\n'.join(line for line in preview.splitlines() if not line.lstrip().startswith(('Process {id:reader','Timer {interval:3000')))
+   (target/'LockPreview.qml').write_text(preview)
    services={
+    'Time':'function format(pattern){return \"12:34\"}',
     'Wallpapers':'property string current:"";property var list:[];function setWallpaper(path){}',
     'AppLaunch':'function run(command){}', 'DesktopActions':'function execute(action){}',
     'Network':'property var active:null;property var networks:[]',

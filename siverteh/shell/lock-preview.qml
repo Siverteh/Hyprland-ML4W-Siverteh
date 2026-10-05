@@ -5,11 +5,11 @@ import Quickshell.Io
 import QtQuick
 ShellRoot {
  FloatingWindow {
-  id:window;visible:true;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
-  property var data:({})
-  Image {anchors.fill:parent;source:"file://"+Wallpapers.current;fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
+  id:window;objectName:"lockPreviewWindow";visible:true;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
+  property var widgetData:({})
+  Image {anchors.fill:parent;source:Wallpapers.current?"file://"+Wallpapers.current:"";fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
   Rectangle {anchors.fill:parent;color:"#99000000"}
-  Item {anchors.fill:parent;focus:true;Keys.onEscapePressed:Qt.quit()
+  Item {objectName:"lockPreviewContent";anchors.fill:parent;focus:true;Keys.onEscapePressed:Qt.quit()
    StyledText {x:24;y:20;text:"Lock screen preview · Esc to close";color:"white";font.pointSize:11}
    Column {anchors.centerIn:parent;spacing:14
     StyledText {anchors.horizontalCenter:parent.horizontalCenter;text:Time.format("HH:mm");font.pointSize:70;color:"white"}
@@ -20,12 +20,12 @@ ShellRoot {
     StyledText {anchors.horizontalCenter:parent.horizontalCenter;text:"Siverteh OS";font.pointSize:20;color:Colours.palette.m3primary}
    }
    Column {x:30;width:Math.max(160,Math.min(300,(window.width-360)/2-30));anchors.verticalCenter:parent.verticalCenter;spacing:18
-    PreviewCard {visible:window.data.preferences?.lockWeather!==false;heading:"Weather";body:(window.data.weather?.location??"")+"\n"+(window.data.weather?.temperature??"")+"\n"+(window.data.weather?.description??"Weather unavailable")}
-    PreviewCard {visible:window.data.preferences?.lockMedia!==false;heading:"Media";art:window.data.media?.art??"";mediaControls:!!window.data.media;body:window.data.media?(window.data.media.title??"")+"\n"+(window.data.media.artist??"")+"\n"+(window.data.media.playing?"Playing":"Paused"):"Nothing playing"}
+    PreviewCard {visible:window.widgetData.preferences?.lockWeather!==false;heading:"Weather";body:(window.widgetData.weather?.location??"")+"\n"+(window.widgetData.weather?.temperature??"")+"\n"+(window.widgetData.weather?.description??"Weather unavailable")}
+    PreviewCard {visible:window.widgetData.preferences?.lockMedia!==false;heading:"Media";art:window.widgetData.media?.art??"";mediaControls:!!window.widgetData.media;body:window.widgetData.media?(window.widgetData.media.title??"")+"\n"+(window.widgetData.media.artist??"")+"\n"+(window.widgetData.media.playing?"Playing":"Paused"):"Nothing playing"}
    }
-   PreviewCard {visible:window.data.preferences?.lockNotifications!==false;x:parent.width-width-30;width:Math.max(160,Math.min(300,(window.width-360)/2-30));anchors.verticalCenter:parent.verticalCenter;heading:"Notifications · "+(window.data.count??0);body:(window.data.notifications??[]).slice(0,4).map(n=>n.app+(n.summary?"\n"+n.summary:"")).join("\n\n")||"You are all caught up"}
+   PreviewCard {visible:window.widgetData.preferences?.lockNotifications!==false;x:parent.width-width-30;width:Math.max(160,Math.min(300,(window.width-360)/2-30));anchors.verticalCenter:parent.verticalCenter;heading:"Notifications · "+(window.widgetData.count??0);body:(window.widgetData.notifications??[]).slice(0,4).map(n=>n.app+(n.summary?"\n"+n.summary:"")).join("\n\n")||"You are all caught up"}
   }
-  Process {id:reader;running:true;command:[Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/bin/qs","-c","siverteh_shell","ipc","call","lockWidgets","state"];stdout:SplitParser {splitMarker:"";onRead:line=>{try{window.data=JSON.parse(line);}catch(e){}}}}
+  Process {id:reader;running:true;command:[Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/bin/qs","-c","siverteh_shell","ipc","call","lockWidgets","state"];stdout:SplitParser {splitMarker:"";onRead:line=>{try{window.widgetData=JSON.parse(line);}catch(e){}}}}
   Timer {interval:3000;repeat:true;running:window.visible;onTriggered:if(!reader.running)reader.running=true}
  }
  component PreviewCard:StyledRect {
