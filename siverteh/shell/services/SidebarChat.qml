@@ -13,6 +13,7 @@ Singleton {
     property string model:""
     property bool busy:false
     property bool connected:false
+    property bool wantedConnection:false
     property string status:""
     property string error:""
     property var question:null
@@ -48,7 +49,8 @@ Singleton {
     signal historyReplaced()
     property alias messages:messages
     ListModel {id:messages;dynamicRoles:true}
-    function start(){if(!wire.running)wire.running=true;}
+    function start(){wantedConnection=true;if(!wire.running)wire.running=true;}
+    Timer {interval:1000;repeat:true;running:root.wantedConnection&&!root.inWorkspace&&!wire.running;onTriggered:wire.running=true;}
     function command(value){start();if(connected)wire.write(JSON.stringify(value)+"\n");else outgoing.push(value);}
     function send(text){if(inWorkspace||(!text.trim()&&attachments.length===0))return false;if(attachments.length&&!attachmentsSupported){error="Reconnect the assistant before sending attachments";return false;}busy=true;command({action:"send",text:text||"Please review the attached files.",attachments:attachments});return true;}
     function newChat(){if(!busy)command({action:"new"});}

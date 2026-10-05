@@ -11,6 +11,7 @@ import time
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--keyboard', default=shutil.which('wtype'), help='wtype executable; may be an isolated temporary build')
+    parser.add_argument('--dismiss-hover',action='store_true',help='allow release checks to close transient dashboard/OSD hover panels')
     args = parser.parse_args()
     if not args.keyboard:
         raise SystemExit('Provide wtype to send Wayland key events; headless Qt tests cannot check compositor focus.')
@@ -21,8 +22,10 @@ def main():
         return json.loads(subprocess.check_output([*ipc, 'state'], text=True))
 
     initial = state()
-    if any(initial.get(k) for k in ('launcher', 'session', 'left', 'dashboard', 'osd')):
+    blockers=('launcher','session','left') if args.dismiss_hover else ('launcher','session','left','dashboard','osd')
+    if any(initial.get(k) for k in blockers):
         raise SystemExit('Close shell panels first; this check must not disturb an existing view or draft.')
+    if args.dismiss_hover:subprocess.run([*ipc,'close'],check=True)
     try:
         for action, mode in (('launcher', 'apps'), ('wallpaper', 'wallpaper')):
             subprocess.run([str(home / '.local/bin/siverteh-os-shell'), action], check=True)

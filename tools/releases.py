@@ -92,7 +92,7 @@ def deploy(repo,components,keyboard):
   for component in components:
    commands={'configs':[sys.executable,str(repo/'tools/configure.py'),'--apply'],'shell':[sys.executable,str(repo/'siverteh/shell-tools/install.py'),'--code-only'],'brain':[sys.executable,str(repo/'brain/install.py')]}
    subprocess.run(commands[component],env=environment,check=True)
-  subprocess.run([sys.executable,str(repo/'tools/check-overlays.py'),'--keyboard',keyboard],check=True)
+  subprocess.run([sys.executable,str(repo/'tools/check-overlays.py'),'--keyboard',keyboard,'--dismiss-hover'],check=True)
   for service in ('siverteh-os-shell.service','siverteh-sidebar-ai.service','siverteh-observatory-brain.service'):subprocess.run(['systemctl','--user','is-active','--quiet',service],check=True)
   errors=subprocess.check_output(['hyprctl','configerrors'],text=True).strip()
   if errors:raise RuntimeError(errors)
