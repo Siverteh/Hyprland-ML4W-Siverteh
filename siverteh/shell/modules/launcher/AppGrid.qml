@@ -11,7 +11,7 @@ Item {
  id:root
  required property PersistentProperties visibilities
  implicitWidth:Math.min(980,Quickshell.screens[0].width-90)
- implicitHeight:Math.min(category==="favorites"&&!search.text.trim()?Math.min(450,Math.max(300,156+Math.ceil(entries.length/5)*119)):(category==="all"?6*119+160:570),Quickshell.screens[0].height-170)
+ implicitHeight:Math.min(category==="favorites"&&!search.text.trim()?Math.min(450,Math.max(300,156+Math.ceil(entries.length/5)*119)):(category==="all"?Math.ceil(heading.y+heading.height+grid.anchors.topMargin+6*119+grid.anchors.bottomMargin+62):570),Quickshell.screens[0].height-170)
  property string category:"favorites"
  property bool userSelected:false
  property var contextEntry:null
