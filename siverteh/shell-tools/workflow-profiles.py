@@ -13,6 +13,8 @@ def devices():
  return result
 
 def save(name,roles):
+ if name not in ('normal','focused','presentation','minimal','meeting','music','docked'):raise ValueError('Unknown workflow preset')
+ if not isinstance(roles,list) or any(r not in ('Browser','Siverteh AI','Discord','Spotify','Mail','Brain') for r in roles):raise ValueError('Invalid startup roles')
  profiles=load();profiles[name]=dict(sink=run(['pactl','get-default-sink']),source=run(['pactl','get-default-source']),displays=json.loads(run(['hyprctl','monitors','-j'])),roles=roles)
  PATH.parent.mkdir(parents=True,exist_ok=True);PATH.write_text(json.dumps(profiles,indent=2));PATH.chmod(0o600)
 def apply(name):

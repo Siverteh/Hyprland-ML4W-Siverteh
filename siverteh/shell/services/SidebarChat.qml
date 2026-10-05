@@ -42,7 +42,7 @@ Singleton {
         property string action
         property var payload:({})
         onStarted:{if(["load","save","files","copy"].includes(action)){write(JSON.stringify(payload)+"\n");}}
-        stdout:SplitParser {splitMarker:"";onRead:line=>{try{const value=JSON.parse(line);if(value.error)root.error=value.error;else if(composerWorker.action==="load"&&composerWorker.payload.key===root.composerKey&&composerWorker.payload.revision===root.draftRevision){root.loadingDraft=true;root.draft=value.text??"";root.attachments=value.attachments??[];root.loadingDraft=false;}else if(value.attachments){const unique=Object.fromEntries([...root.attachments,...value.attachments].map(f=>[f.path,f]));root.attachments=Object.values(unique);}}catch(e){root.error="Could not update the draft";}}}
+        stdout:SplitParser {splitMarker:"";onRead:line=>{try{const value=JSON.parse(line);if(value.error)root.error=value.error;else if(composerWorker.action==="load"&&composerWorker.payload.key===root.composerKey&&composerWorker.payload.revision===root.draftRevision){root.loadingDraft=true;root.draft=value.text??"";root.attachments=value.attachments??[];root.loadingDraft=false;}else if(composerWorker.action!=="load"&&value.attachments){const unique=Object.fromEntries([...root.attachments,...value.attachments].map(f=>[f.path,f]));root.attachments=Object.values(unique);}}catch(e){root.error="Could not update the draft";}}}
         onExited:root.nextComposer()
     }
     signal historyReplacing()

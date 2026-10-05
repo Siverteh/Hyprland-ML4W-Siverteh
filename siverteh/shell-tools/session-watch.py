@@ -40,7 +40,7 @@ def readiness(timeout=15):
 
 def watch():
  # login1 records actual resume, not a simulated success. The compositor socket records hotplug.
- check('login');restore_connected_displays()
+ check('observer-start');restore_connected_displays()
  observer=subprocess.Popen(['gdbus','monitor','--system','--dest','org.freedesktop.login1','--object-path','/org/freedesktop/login1'],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
  sockpath=Path(os.environ.get('XDG_RUNTIME_DIR',f'/run/user/{os.getuid()}'))/'hypr'/os.environ.get('HYPRLAND_INSTANCE_SIGNATURE','')/'.socket2.sock'
  compositor=socket.socket(socket.AF_UNIX);compositor.connect(str(sockpath));compositor.setblocking(False)
