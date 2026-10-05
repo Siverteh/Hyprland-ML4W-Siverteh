@@ -46,7 +46,7 @@ Variants {
                 : visibilities.launcher||visibilities.session ? WlrKeyboardFocus.Exclusive
                 : visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-            mask:!Visibilities.hidden&&!visibilities.previewOnly&&visibilities.launcher?null:frameMask
+            mask:!Visibilities.hidden&&!visibilities.previewOnly&&(visibilities.launcher||(visibilities.dashboard&&visibilities.dashboardPinned))?null:frameMask
             readonly property Region frameMask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
                 y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
@@ -139,6 +139,8 @@ Variants {
                 property bool left
                 property bool leftPinned
                 property bool dashboard
+                property bool dashboardPinned:false
+                onDashboardChanged:if(!dashboard)dashboardPinned=false
                 property int dashboardTab: 0
                 property string launcherQuery: ""
                 property string launcherMode: "apps"

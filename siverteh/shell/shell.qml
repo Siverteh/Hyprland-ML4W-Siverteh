@@ -23,7 +23,7 @@ ShellRoot {
         function state(): string { const v=Visibilities.getForActive();return JSON.stringify({active:Hyprland.activeWsId,workspaces:Hyprland.workspaces.values.length,dashboard:v?.dashboard,tab:v?.dashboardTab,launcher:v?.launcher,session:v?.session,osd:v?.osd,hidden:Visibilities.hidden,left:v?.left,leftPinned:v?.leftPinned,query:v?.launcherQuery,launcherMode:v?.launcherMode,reveal:Visibilities.reveal,notificationsSuppressed:Object.values(Visibilities.panels).some(p=>p.notifications.suppressed)}); }
         function restoreViews(data:string):void {
             const saved=JSON.parse(data),v=Visibilities.getForActive();if(!v)return;v.previewOnly=false;
-            if(saved.dashboard===true){v.dashboard=true;v.dashboardTab=Math.max(0,Math.min(4,Number(saved.tab)||0));}
+            if(saved.dashboard===true){v.dashboard=true;v.dashboardTab=Math.max(0,Math.min(4,Number(saved.tab)||0));v.dashboardPinned=v.dashboardTab===4;}
             if(saved.left===true){v.left=true;v.leftPinned=saved.leftPinned===true;const p=Visibilities.panels[Hyprland.focusedMonitor?.name];if(p&&["chat","chats","brain","settings"].includes(saved.leftSection))p.leftDrawer.section=saved.leftSection;}
             if(saved.launcher===true&&["apps","wallpaper","palette","overview","clipboard","keys"].includes(saved.mode))Visibilities.openMode(saved.mode);
         }

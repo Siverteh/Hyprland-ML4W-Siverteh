@@ -34,13 +34,18 @@ MouseArea {
     anchors.fill: parent
     hoverEnabled: true
 
-    acceptedButtons:visibilities.launcher?(Qt.LeftButton|Qt.RightButton|Qt.MiddleButton):Qt.LeftButton
+    acceptedButtons:(visibilities.launcher||(visibilities.dashboard&&visibilities.dashboardPinned))?(Qt.LeftButton|Qt.RightButton|Qt.MiddleButton):Qt.LeftButton
     onPressed: event => {
         if(visibilities.launcher){
             const p=panels.launcher.mapFromItem(root,event.x,event.y);
             if(p.x<0||p.y<0||p.x>panels.launcher.width||p.y>panels.launcher.height)visibilities.launcher=false;
             event.accepted=true;
             return;
+        }
+        if(visibilities.dashboard&&visibilities.dashboardPinned){
+            const p=panels.dashboard.mapFromItem(root,event.x,event.y);
+            if(p.x<0||p.y<0||p.x>panels.dashboard.width||p.y>panels.dashboard.height){visibilities.dashboard=false;visibilities.dashboardPinned=false;}
+            event.accepted=true;return;
         }
         dragStart=Qt.point(event.x,event.y);
     }
@@ -49,7 +54,7 @@ MouseArea {
         if (!containsMouse) {
             visibilities.osd = false;
             osdHovered = false;
-            visibilities.dashboard = false;
+            if(!visibilities.dashboardPinned)visibilities.dashboard = false;
             exitDelay.restart();
         }
     }
@@ -76,7 +81,7 @@ MouseArea {
         if(visibilities.left&&!visibilities.leftPinned&&!((x<bar.implicitWidth+panels.leftDrawer.width+BorderConfig.rounding)&&withinPanelHeight(panels.leftDrawer,x,y)))visibilities.left=false;
 
         // Show dashboard on hover
-        visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
+        if(!visibilities.dashboardPinned)visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
 
         // Header popouts extend down from the top edge and remain while entered.
         if(popouts.hasCurrent&&!popouts.headerHovered&&!popouts.pinned){

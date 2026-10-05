@@ -152,7 +152,7 @@ def main():
                 token=uuid.uuid4().hex
                 saved=dict(token=token,previous=data.get('displays',[]),monitors=monitors)
                 palette.atomic_write(PENDING,json.dumps(saved));data['displays']=plan
-                subprocess.Popen([sys.executable,__file__,'rollback-after',token],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
+                subprocess.Popen(['systemd-run','--user','--collect','--quiet','--unit=siverteh-display-revert-'+token,sys.executable,__file__,'rollback-after',token],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
                 try:hypr('eval',monitor_lua(plan));persist(data)
                 except Exception:revert(token);raise
             elif a.action=='confirm':PENDING.unlink(missing_ok=True)
