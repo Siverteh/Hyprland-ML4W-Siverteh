@@ -158,8 +158,9 @@ Tap and release either Super key to toggle Apps; Super+A remains an alias.
 Hyprland's modifier-only release handling suppresses the tap binding after a
 chord. Super+W opens Wallpaper directly. The bottom drawer has no hover trigger.
 
-The app browser opens Favorites when there are visible favorites, otherwise
-All apps. Categories come from desktop-entry metadata and empty categories are
+The app browser always opens a compact Favorites view, including when empty.
+Selecting All apps or another category expands upward; the bottom search field
+stays anchored. Typing also expands the results view. Categories come from desktop-entry metadata and empty categories are
 omitted. Typing searches all visible apps; `>` searches built-in actions.
 The heart toggles a favorite; right-click offers favorite/hide, and the hidden
 apps button restores hidden entries. Ctrl+D toggles the selected app's favorite.

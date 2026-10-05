@@ -31,6 +31,7 @@ Item {
     Component {id:apps;AppGrid {visibilities:root.visibilities}}
     Loader {
         id: content
+        anchors.fill:parent
         active:root.visibilities.launcher||root.height>0
         sourceComponent:({palette:palette,overview:overview,clipboard:clipboard,keys:keys,legacy:commands,wallpaper:gallery,apps:apps})[root.visibilities.launcherMode]??apps
         Component { id: gallery; WallpaperGallery { visibilities: root.visibilities } }

@@ -11,8 +11,8 @@ Item {
  id:root
  required property PersistentProperties visibilities
  implicitWidth:Math.min(980,Quickshell.screens[0].width-90)
- implicitHeight:Math.min(570,Quickshell.screens[0].height-170)
- property string category:"all"
+ implicitHeight:Math.min(category==="favorites"&&!search.text.trim()?Math.min(450,Math.max(300,156+Math.ceil(entries.length/5)*119)):570,Quickshell.screens[0].height-170)
+ property string category:"favorites"
  property bool userSelected:false
  property var contextEntry:null
  readonly property string query:search.text
@@ -26,15 +26,15 @@ Item {
   if(category==="all")return Array.from(Apps.list);
   return Browser.browse(Apps.list,category,LauncherPreferences.favorites);
  }
- function start(){if(!userSelected)category=Apps.list.some(a=>LauncherPreferences.favorites.includes(a.id))?"favorites":"all";nav.currentIndex=Math.max(0,categories.findIndex(c=>c.id===category));search.forceActiveFocus();}
+ function start(){userSelected=false;category="favorites";search.text="";nav.currentIndex=Math.max(0,categories.findIndex(c=>c.id===category));search.forceActiveFocus();}
  function select(id){userSelected=true;category=id;nav.currentIndex=Math.max(0,categories.findIndex(c=>c.id===id));search.text="";grid.currentIndex=entries.length?0:-1;search.forceActiveFocus();}
  function choose(){const entry=entries[grid.currentIndex];if(!entry)return;if(commands)DesktopActions.execute(entry.action,entry.value);else {Apps.launch(entry);visibilities.launcher=false;}}
  function move(delta){if(commands)grid.currentIndex=Math.max(0,Math.min(entries.length-1,grid.currentIndex+delta));else if(delta>0)grid.moveCurrentIndexDown();else grid.moveCurrentIndexUp();grid.positionViewAtIndex(grid.currentIndex,GridView.Contain);}
  function menuFor(entry,tile){contextEntry=entry;const point=tile.mapToItem(root,0,0);appMenu.x=Math.max(12,Math.min(root.width-appMenu.width-12,point.x));appMenu.y=Math.max(12,Math.min(search.y-appMenu.height-8,point.y+tile.height));appMenu.open();}
  Component.onCompleted:if(visibilities.launcher)start()
- Connections {target:LauncherPreferences;function onReadyChanged(){if(LauncherPreferences.ready&&!root.userSelected&&root.visibilities.launcher)root.start();}}
+ Connections {target:LauncherPreferences;function onReadyChanged(){if(LauncherPreferences.ready&&!root.userSelected&&root.visibilities.launcher&&!search.text.trim())root.start();}}
  Connections {target:root.visibilities;function onLauncherChanged(){if(root.visibilities.launcher)root.start();}}
- StyledRect {id:rail;x:16;y:16;width:190;height:parent.height-92;radius:17;color:Colours.palette.m3surfaceContainer
+ StyledRect {id:rail;x:16;y:16;width:190;height:Math.max(0,parent.height-92);radius:17;color:Colours.palette.m3surfaceContainer
   ListView {id:nav;objectName:"appCategories";anchors.fill:parent;anchors.margins:8;clip:true;spacing:3;model:root.categories;currentIndex:0
    FastScroll {view:nav}
    ScrollBar.vertical:ScrollBar {}
@@ -109,5 +109,5 @@ Item {
   MenuItem {text:LauncherPreferences.favorites.includes(root.contextEntry?.id)?"Remove favorite":"Add favorite";onTriggered:if(root.contextEntry)LauncherPreferences.update("favorite",root.contextEntry.id,!LauncherPreferences.favorites.includes(root.contextEntry.id))}
   MenuItem {text:root.category==="hidden"?"Show in launcher":"Hide app";onTriggered:if(root.contextEntry)LauncherPreferences.update("hide",root.contextEntry.id,root.category!=="hidden")}
  }
- IpcHandler {target:"appBrowser";function state():string{return JSON.stringify({category:root.category,query:search.text,count:root.entries.length,categories:root.categories.map(c=>c.id),width:root.width,height:root.height});}}
+ IpcHandler {target:"appBrowser";function selectCategory(id:string):void{if(root.categories.some(c=>c.id===id))root.select(id);}function state():string{return JSON.stringify({top:root.mapToItem(null,0,0).y,searchBottom:search.mapToItem(null,0,search.height).y,category:root.category,query:search.text,count:root.entries.length,categories:root.categories.map(c=>c.id),width:root.width,height:root.height});}}
 }
