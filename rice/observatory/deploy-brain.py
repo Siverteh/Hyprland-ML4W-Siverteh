@@ -43,6 +43,7 @@ def main():
     rules=HOME/'.config/hypr/conf/observatory.lua';text=rules.read_text();shutil.copy2(rules,backup/'observatory.lua')
     for name in ('observatory-brain','observatory-brain-chrome'):
         lines=text.splitlines();text='\n'.join(line.replace('workspace="6 silent"','workspace="6 silent",fullscreen_state="0 0",suppress_event="fullscreen maximize"') if ('name="'+name+'"') in line and 'fullscreen_state=' not in line else line for line in lines)+'\n'
+    text=text.replace(', title="^Siverteh Brain$"','')
     rules.write_text(text);subprocess.run(['hyprctl','reload'],check=True,stdout=subprocess.DEVNULL)
     subprocess.run(['systemctl','--user','start','siverteh-observatory-brain.service'],check=True)
     for _ in range(50):

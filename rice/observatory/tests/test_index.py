@@ -146,3 +146,20 @@ class ConversationEntities(unittest.TestCase):
         topics=[n for n in graph['nodes'] if n['kind']=='topic' and n['label']=='Learning'];self.assertEqual(len(topics),2)
         note=next(n for n in graph['nodes'] if n['label']=='A useful skill')
         self.assertEqual(sum(e['target']==note['id'] and e['source'] in [n['id'] for n in topics] for e in graph['links']),2)
+
+
+class BrainStartupTests(unittest.TestCase):
+    def test_loading_window_is_reused_and_workspace_six_is_preferred(self):
+        windows=[{'address':'0x111','class':'chrome-127.0.0.1__-Default','title':'127.0.0.1_/','workspace':{'id':3}},
+                 {'address':'0x222','class':'chrome-127.0.0.1__-Default','title':'127.0.0.1_/','workspace':{'id':6}}]
+        with patch.object(module,'run',return_value=json.dumps(windows)):
+            self.assertEqual(module.brain_window()['address'],'0x222')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(module,'STATE',Path(tmp)),patch.object(module,'ensure_server'),patch.object(module,'run',return_value=json.dumps(windows)),patch.object(module,'launch') as launch:
+            for _ in range(3):module.ensure_brain()
+            launch.assert_not_called()
+
+    def test_unavailable_compositor_never_launches_a_browser(self):
+        for response in ('','broken','{}'):
+            with tempfile.TemporaryDirectory() as tmp,patch.object(module,'STATE',Path(tmp)),patch.object(module,'ensure_server'),patch.object(module,'run',return_value=response),patch.object(module,'launch') as launch:
+                with self.assertRaises(RuntimeError):module.ensure_brain()
+                launch.assert_not_called()

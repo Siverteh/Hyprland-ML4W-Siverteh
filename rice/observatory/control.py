@@ -461,8 +461,20 @@ def ensure_server():
     raise ValueError('Observatory server did not start')
 
 def brain_window():
-    clients=json.loads(run(['hyprctl','clients','-j'],'[]'))
-    return next((c for c in clients if c['class']=='siverteh-brain' or (c['class'].startswith('chrome-127.0.0.1') and c['title'] in ('Siverteh · Observatory','Siverteh Brain'))),None)
+    # A failed query is not evidence that the window is absent. In particular,
+    # resume/startup may briefly make the compositor unavailable.
+    try:
+        clients=json.loads(run(['hyprctl','clients','-j']))
+    except ValueError as exc:
+        raise RuntimeError('Cannot query Brain windows yet') from exc
+    if not isinstance(clients,list):
+        raise RuntimeError('Invalid compositor window list')
+    windows=[c for c in clients if c.get('class') in
+             ('siverteh-brain','chrome-127.0.0.1__-Default')]
+    # Chrome's initial title is its URL, not the final page title. Prefer the
+    # existing workspace-six instance when old duplicates are still present.
+    return next((c for c in windows if c.get('workspace',{}).get('id')==6),
+                next(iter(windows),None))
 
 def ensure_brain(focus=False):
     STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
@@ -495,7 +507,10 @@ def watch_brain():
         while True:
             # A missing compositor is a session boundary, not a reason to open
             # browser windows outside the desktop session.
-            if run(['hyprctl','activeworkspace','-j']): ensure_brain(focus=False)
+            try:
+                if run(['hyprctl','activeworkspace','-j']): ensure_brain(focus=False)
+            except RuntimeError:
+                pass  # Retry next poll, without opening another window.
             time.sleep(3)
 
 def main():
