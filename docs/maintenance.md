@@ -173,3 +173,11 @@ Preferences are private atomic JSON in `~/.config/siverteh-shell/launcher.json`,
 with mode0600 and locked read/modify/write operations. They are outside source
 and desktop rollback, and malformed data is preserved rather than overwritten.
 The browser loads only while open/closing and uses the shared fast scrolling.
+
+
+Output geometry or pixel-density changes can leave stale Qt/Wayland render
+buffers after fractional-scale transitions. DisplayRecovery coalesces actual
+screen changes and recreates only the desktop renderer after700ms settled.
+Visible settings/drawer modes are restored; display confirmation stays available.
+The sidebar backend, conversations, accounts and application windows are not
+restarted. Only UI visibility flags are handed off, never draft or password text.
