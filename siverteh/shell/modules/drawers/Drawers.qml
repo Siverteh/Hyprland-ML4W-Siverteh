@@ -46,7 +46,8 @@ Variants {
                 : visibilities.launcher||visibilities.session ? WlrKeyboardFocus.Exclusive
                 : visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-            mask: Region {
+            mask:!Visibilities.hidden&&!visibilities.previewOnly&&visibilities.launcher?null:frameMask
+            readonly property Region frameMask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
                 y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
                 width: Visibilities.hidden || visibilities.previewOnly ? win.width : win.width - bar.implicitWidth - BorderConfig.right

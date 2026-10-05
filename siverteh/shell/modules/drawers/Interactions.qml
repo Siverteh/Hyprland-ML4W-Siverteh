@@ -34,7 +34,16 @@ MouseArea {
     anchors.fill: parent
     hoverEnabled: true
 
-    onPressed: event => dragStart = Qt.point(event.x, event.y)
+    acceptedButtons:visibilities.launcher?(Qt.LeftButton|Qt.RightButton|Qt.MiddleButton):Qt.LeftButton
+    onPressed: event => {
+        if(visibilities.launcher){
+            const p=panels.launcher.mapFromItem(root,event.x,event.y);
+            if(p.x<0||p.y<0||p.x>panels.launcher.width||p.y>panels.launcher.height)visibilities.launcher=false;
+            event.accepted=true;
+            return;
+        }
+        dragStart=Qt.point(event.x,event.y);
+    }
     Timer {id:exitDelay;interval:120;onTriggered:{if(!root.containsMouse&&!root.popouts.headerHovered&&!root.popouts.pinned)root.popouts.hasCurrent=false;if(!root.containsMouse&&!visibilities.leftPinned)visibilities.left=false;}}
     onContainsMouseChanged: {
         if (!containsMouse) {
@@ -46,6 +55,7 @@ MouseArea {
     }
 
     onPositionChanged: ({x, y}) => {
+        if(visibilities.launcher)return;
         // The existing border responds immediately, matching the right-side drawer.
         if(DesktopSettings.data.leftDrawer!==false&&!visibilities.session&&!visibilities.launcher&&x<bar.implicitWidth&&withinPanelHeight(panels.leftDrawer,x,y)){visibilities.dashboard=false;visibilities.left=true;}
 
