@@ -29,9 +29,22 @@ Variants {
             name: "drawers"
             contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
-            contentItem.Keys.onEscapePressed: {visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;visibilities.session=false;visibilities.left=false;visibilities.leftPinned=false;panels.popouts.hasCurrent=false;}
+            function dismissOverlays() {
+                visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;
+                visibilities.session=false;visibilities.left=false;visibilities.leftPinned=false;visibilities.previewOnly=false;
+                panels.popouts.hasCurrent=false;panels.popouts.pinned=false;
+            }
+            contentItem.Keys.onEscapePressed: dismissOverlays()
+            Shortcut {
+                sequence:"Escape";context:Qt.WindowShortcut
+                enabled:!Visibilities.hidden&&(visibilities.launcher||visibilities.session||visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent)
+                onActivated:win.dismissOverlays()
+            }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.leftPinned || panels.popouts.pinned) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            // Modal keyboard launchers must receive keys before the first mouse click.
+            WlrLayershell.keyboardFocus: Visibilities.hidden||visibilities.previewOnly ? WlrKeyboardFocus.None
+                : visibilities.launcher||visibilities.session ? WlrKeyboardFocus.Exclusive
+                : visibilities.leftPinned||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth

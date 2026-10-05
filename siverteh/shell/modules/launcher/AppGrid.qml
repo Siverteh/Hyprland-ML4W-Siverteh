@@ -17,6 +17,7 @@ Item {
         height:45;placeholderText:"Search apps"
         leftPadding:16;rightPadding:16
         background:StyledRect {color:Colours.palette.m3surfaceContainer;radius:Appearance.rounding.full}
+        Keys.onEscapePressed:root.visibilities.launcher=false
         Keys.onDownPressed:{grid.forceActiveFocus();grid.currentIndex=Math.max(0,grid.currentIndex);}
         onAccepted:root.choose()
     }
