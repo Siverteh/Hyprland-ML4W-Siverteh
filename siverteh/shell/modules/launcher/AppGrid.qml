@@ -11,7 +11,7 @@ Item {
  id:root
  required property PersistentProperties visibilities
  implicitWidth:Math.min(980,Quickshell.screens[0].width-90)
- implicitHeight:Math.min(category==="favorites"&&!search.text.trim()?Math.min(450,Math.max(300,156+Math.ceil(entries.length/5)*119)):570,Quickshell.screens[0].height-170)
+ implicitHeight:Math.min(category==="favorites"&&!search.text.trim()?Math.min(450,Math.max(300,156+Math.ceil(entries.length/5)*119)):(category==="all"?6*119+160:570),Quickshell.screens[0].height-170)
  property string category:"favorites"
  property bool userSelected:false
  property var contextEntry:null
@@ -109,5 +109,5 @@ Item {
   MenuItem {text:LauncherPreferences.favorites.includes(root.contextEntry?.id)?"Remove favorite":"Add favorite";onTriggered:if(root.contextEntry)LauncherPreferences.update("favorite",root.contextEntry.id,!LauncherPreferences.favorites.includes(root.contextEntry.id))}
   MenuItem {text:root.category==="hidden"?"Show in launcher":"Hide app";onTriggered:if(root.contextEntry)LauncherPreferences.update("hide",root.contextEntry.id,root.category!=="hidden")}
  }
- IpcHandler {target:"appBrowser";function selectCategory(id:string):void{if(root.categories.some(c=>c.id===id))root.select(id);}function state():string{return JSON.stringify({top:root.mapToItem(null,0,0).y,searchBottom:search.mapToItem(null,0,search.height).y,category:root.category,query:search.text,count:root.entries.length,categories:root.categories.map(c=>c.id),width:root.width,height:root.height});}}
+ IpcHandler {target:"appBrowser";function selectCategory(id:string):void{if(root.categories.some(c=>c.id===id))root.select(id);}function state():string{return JSON.stringify({visibleRows:grid.height/grid.cellHeight,top:root.mapToItem(null,0,0).y,searchBottom:search.mapToItem(null,0,search.height).y,category:root.category,query:search.text,count:root.entries.length,categories:root.categories.map(c=>c.id),width:root.width,height:root.height});}}
 }
