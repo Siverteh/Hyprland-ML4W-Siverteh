@@ -105,11 +105,12 @@ def apply_palette(home, wallpaper=None, live=True):
     if brand.exists():
         import importlib.util
         spec=importlib.util.spec_from_file_location('brand',brand);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.publish(colors,home)
-    lock_template=Path(__file__).with_name('hyprlock.conf.in').read_text()
     selected = str(Path(wallpaper).expanduser().resolve()) if wallpaper else ((state/'wallpaper/last.txt').read_text().strip() if (state/'wallpaper/last.txt').exists() else '')
-    lock_template=lock_template.replace('{{wallpaper}}', selected)
-    for role,value in colors.items():lock_template=lock_template.replace('{{'+role+'}}',value)
-    atomic_write(home/'.config/hypr/hyprlock.conf', lock_template)
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('lock_config',Path(__file__).with_name('lock-config.py'));lock_config=importlib.util.module_from_spec(spec);spec.loader.exec_module(lock_config)
+    try:preferences=json.loads((home/'.config/siverteh-shell/desktop.json').read_text())
+    except (OSError,ValueError):preferences={}
+    atomic_write(home/'.config/hypr/hyprlock.conf',lock_config.render(colors,selected,preferences,home/'.local/share/siverteh-ai/siverteh-shell/tools/lock-info.py'))
     # Login appearance is public wallpaper/color data; authentication remains SDDM-owned.
     publisher=Path(__file__).with_name('login-appearance.py')
     if selected and publisher.exists():

@@ -5,7 +5,7 @@ from pathlib import Path
 from importlib.util import spec_from_file_location,module_from_spec
 spec=spec_from_file_location('palette',Path(__file__).with_name('classic-state.py'));palette=module_from_spec(spec);spec.loader.exec_module(palette)
 HOME=Path.home();STATE=HOME/'.config/siverteh-shell/desktop.json';LUA=STATE.with_name('desktop.lua');PENDING=STATE.with_name('display-pending.json')
-DEFAULTS=dict(animations=True,blur=True,shadow=True,followMouse=True,naturalScroll=True,gapsIn=6,gapsOut=12,borderSize=1,rounding=10,frameWidth=10,frameRounding=25,topEdge=True,leftEdge=True,rightEdge=True,bottomEdge=True,leftDrawer=True,livePreviews=True,nativePalette=True,nativeOverview=True,nativeClipboard=True,dnd=False)
+DEFAULTS=dict(animations=True,blur=True,shadow=True,followMouse=True,naturalScroll=True,gapsIn=6,gapsOut=12,borderSize=1,rounding=10,frameWidth=10,frameRounding=25,topEdge=True,leftEdge=True,rightEdge=True,bottomEdge=True,leftDrawer=True,livePreviews=True,nativePalette=True,nativeOverview=True,nativeClipboard=True,dnd=False,lockMedia=True,lockWeather=True,lockNotifications=True,lockNotificationContents=False,weatherLocation="",weatherFahrenheit=False)
 OPTIONS={'animations':'animations.enabled','blur':'decoration.blur.enabled','shadow':'decoration.shadow.enabled','followMouse':'input.follow_mouse','naturalScroll':'input.touchpad.natural_scroll','gapsIn':'general.gaps_in','gapsOut':'general.gaps_out','borderSize':'general.border_size','rounding':'decoration.rounding'}
 RANGES={'gapsIn':(0,30),'gapsOut':(0,80),'borderSize':(0,8),'rounding':(0,40),'frameWidth':(0,30),'frameRounding':(0,40)}
 
@@ -14,7 +14,7 @@ def hypr(*args):
     if result.returncode:raise RuntimeError(result.stderr.strip() or result.stdout.strip() or 'Hyprland command failed')
     return result.stdout
 
-def monitor_state():return [{k:m.get(k) for k in ('name','width','height','refreshRate','scale','x','y','transform','disabled','mirrorOf')} for m in json.loads(hypr('monitors','all','-j')) if not m.get('disabled')]
+def monitor_state():return [{k:m.get(k) for k in ('name','width','height','refreshRate','scale','x','y','transform','disabled','mirrorOf','availableModes')} for m in json.loads(hypr('monitors','all','-j')) if not m.get('disabled')]
 
 def initial():
     data=dict(DEFAULTS)
@@ -37,6 +37,8 @@ def validate(key,value):
     if key in RANGES:
         low,high=RANGES[key]
         if type(value) is not int or not low<=value<=high:raise ValueError(f'{key} must be an integer from {low} to {high}')
+    elif key=='weatherLocation':
+        if not isinstance(value,str) or len(value)>80 or any(ord(c)<32 for c in value):raise ValueError('Weather location must be a city name up to80characters')
     elif type(value) is not bool:raise ValueError(f'{key} must be true or false')
     return value
 
@@ -95,7 +97,7 @@ def state():
     data=load();return dict(data=data,monitors=monitor_state(),pending=PENDING.exists(),message='Changes save automatically')
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','confirm','revert','rollback-after','preset','save-workflow']);p.add_argument('args',nargs='*');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['state','init','set','display','display-edit','confirm','revert','rollback-after','preset','save-workflow']);p.add_argument('args',nargs='*');a=p.parse_args()
     if a.action=='rollback-after':
         time.sleep(20)
     STATE.parent.mkdir(parents=True,exist_ok=True)
@@ -110,6 +112,8 @@ def main():
                 key,raw=a.args;value=validate(key,json.loads(raw));data=load();data[key]=value
                 if key in OPTIONS:hypr('eval','hl.config({['+lua_value(OPTIONS[key])+']='+lua_value(int(value) if key=='followMouse' else value)+'})')
                 persist(data)
+                if key.startswith('lock'):
+                    spec=spec_from_file_location('lockconfig',Path(__file__).with_name('lock-config.py'));module=module_from_spec(spec);spec.loader.exec_module(module);module.publish(HOME)
             elif a.action=='preset':
                 name=a.args[0]
                 if name not in ('normal','focused','presentation','minimal','meeting','music','docked'):raise ValueError('Unknown desktop preset')
@@ -118,7 +122,7 @@ def main():
                 baseline=baseline or dict(DEFAULTS)
                 overrides={'normal':{},'focused':dict(blur=False,shadow=False,animations=False,dnd=True),
                     'presentation':dict(leftDrawer=False,topEdge=False,leftEdge=False,rightEdge=False,bottomEdge=False,dnd=True),
-                    'meeting':dict(dnd=True,blur=False),'music':dict(dnd=True),'docked':dict(dnd=False),
+                    'meeting':dict(dnd=True,blur=False),'music':dict(dnd=True),'docked':dict(dnd=False,lockMedia=True,lockWeather=True,lockNotifications=True,lockNotificationContents=False,weatherLocation="",weatherFahrenheit=False),
                     'minimal':dict(topEdge=True,leftEdge=False,rightEdge=False,bottomEdge=False,frameWidth=0,gapsIn=3,gapsOut=6,borderSize=0,shadow=False)}
                 data.update(baseline);data.update(overrides[name]);data['preset']=name;data['normalSnapshot']=baseline
                 hypr('eval',config_lua(data));persist(data)
@@ -127,9 +131,24 @@ def main():
             elif a.action=='save-workflow':
                 import importlib.util
                 spec=importlib.util.spec_from_file_location('workflows',Path(__file__).with_name('workflow-profiles.py'));workflow=importlib.util.module_from_spec(spec);spec.loader.exec_module(workflow);workflow.save(a.args[0],json.loads(a.args[1]) if len(a.args)>1 else [])
-            elif a.action=='display':
+            elif a.action in ('display','display-edit'):
                 if PENDING.exists():raise ValueError('Keep or revert the current display change first')
-                mode,primary=a.args;data=load();monitors=monitor_state();plan=display_plan(monitors,primary,mode);token=uuid.uuid4().hex
+                data=load();monitors=monitor_state()
+                if a.action=='display':
+                    mode,primary=a.args;plan=display_plan(monitors,primary,mode)
+                else:
+                    name,scale,mode=a.args;scale=float(scale)
+                    if scale not in (1,1.25,1.5,1.75,2,2.5,3):raise ValueError('Unsupported display scale')
+                    plan=[dict(m) for m in monitors];selected=next((m for m in plan if m['name']==name),None)
+                    if selected is None:raise ValueError('Selected display is disconnected')
+                    if mode:
+                        if mode not in selected.get('availableModes',[]):raise ValueError('Unavailable display mode')
+                        import re
+                        match=re.fullmatch(r'(\d+)x(\d+)@(\d+(?:\.\d+)?)Hz',mode)
+                        if not match:raise ValueError('Unsupported mode format')
+                        selected.update(width=int(match[1]),height=int(match[2]),refreshRate=float(match[3]))
+                    selected['scale']=scale
+                token=uuid.uuid4().hex
                 saved=dict(token=token,previous=data.get('displays',[]),monitors=monitors)
                 palette.atomic_write(PENDING,json.dumps(saved));data['displays']=plan
                 subprocess.Popen([sys.executable,__file__,'rollback-after',token],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)

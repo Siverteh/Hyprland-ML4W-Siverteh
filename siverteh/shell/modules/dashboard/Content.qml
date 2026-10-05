@@ -95,7 +95,7 @@ Item {
 
                 Performance {}
                 WorkspacePage { visibilities:root.visibilities }
-                Settings {}
+                Settings {active:root.visibilities.dashboard&&view.currentIndex===4}
             }
 
             Behavior on contentX {

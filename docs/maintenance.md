@@ -106,3 +106,31 @@ other files are provided as user-selected local paths. Screenshot requests area
 selection and stores the result privately. Sending is explicit. Message/code copy
 buttons use the clipboard only when clicked. Attachment controls become available
 when the updated assistant backend advertises support.
+
+## Detailed settings and lock-screen widgets
+
+Settings remains inside the top-menu dashboard. Its navigation rail groups
+Appearance, Desktop, Displays, Sound, Network, Bluetooth, Notifications,
+Workflows, Lock screen, Siverteh AI and Maintenance. Search matches page names
+and setting keywords. Only the active page is loaded while Settings is open.
+Display scale/mode changes use the same20-second Keep/Revert safeguard as layouts.
+
+Sound uses the existing PipeWire graph for device selection and application
+volumes. Network password entry uses NetworkManager's native `nmcli --ask`
+prompt in a terminal; no password is passed through shell IPC or arguments.
+Advanced connection editing and Bluetooth discovery/pairing use the existing
+native managers; known Bluetooth devices have inline connect/trust controls.
+
+Hyprlock still owns PAM authentication and secure session locking. Generated
+appearance adds weather, media artwork/playback controls, battery and retained
+notification summaries. Notification message previews default off and can be
+changed on the Lock screen page. Playback actions are an allowlist; none can
+unlock the session. Weather retrieval is bounded HTTPS with a private cache;
+failed refreshes retain their original timestamp and display a cached label.
+Lock widget IPC/cache contains presentation data only, never authentication.
+
+`siverteh-os-shell lock-preview` opens a clearly labelled layout preview with
+Escape dismissal; it does not lock or authenticate. Changes take effect on the
+next real lock. Source changes require actual Hyprlock render checks in an
+isolated nested compositor, followed by the user's password-unlock check on the
+real session. Do not unlock the live session through IPC for testing.

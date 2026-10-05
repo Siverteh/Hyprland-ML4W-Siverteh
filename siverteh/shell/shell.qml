@@ -9,6 +9,7 @@ import Quickshell.Io
 import QtQuick
 
 ShellRoot {
+    property var lockWidgets:LockWidgets
     Background {}
     Drawers {}
     TopBar {}

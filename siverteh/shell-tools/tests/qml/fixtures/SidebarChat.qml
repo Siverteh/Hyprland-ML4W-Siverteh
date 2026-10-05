@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 QtObject {
+ property string defaultProvider:"codex";function setProvider(name){}
  property bool busy:false;property bool inWorkspace:false;property string threadId:"fixture";property string provider:"codex";property string title:"Test"
  property string status:"";property string error:"";property var question:null;property var answers:({});property string draft:"";property var attachments:[];property bool attachmentsSupported:false
  property var messages:ListModel {};property int replies:0;property int sends:0;property int stops:0;property string lastText:""

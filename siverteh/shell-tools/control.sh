@@ -11,6 +11,7 @@ case "${1:-start}" in
  scheme-mode) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/siverteh_shell" scheme set -m "${2:-light}" ;;
  wallpaper) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher ">wallpaper " ;;
  doctor|profile|check|rollback) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/maintenance.py" "${1/doctor/state}" ;;
+ lock-preview) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -p "$HOME/.local/share/siverteh-ai/siverteh-shell/source/lock-preview.qml" ;;
  settings) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh settings ;;
  left) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh left ;;
  palette|overview|keys) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh mode "$1" ;;

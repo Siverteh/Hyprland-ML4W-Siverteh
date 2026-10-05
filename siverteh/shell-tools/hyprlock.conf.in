@@ -6,33 +6,36 @@ background {
     path = {{wallpaper}}
     color = rgba({{surface}}ff)
     blur_passes = 3
+    brightness = 0.65
 }
 input-field {
     monitor =
-    size = 300, 54
+    size = 320, 58
     position = 0, -70
     halign = center
     valign = center
     inner_color = rgba({{surfaceContainer}}ff)
     outer_color = rgba({{primary}}ff)
     font_color = rgba({{onSurface}}ff)
-    outline_thickness = 1
-    rounding = 12
+    font_family = IBM Plex Sans
+    outline_thickness = 2
+    rounding = 29
     dots_size = 0.2
     dots_spacing = 0.3
     fade_on_empty = false
-    placeholder_text = Unlock your space
+    placeholder_text = Password
     fail_text = $FAIL
     check_color = rgba({{primary}}ff)
     fail_color = rgba({{error}}ff)
+    zindex = 2
 }
 label {
     monitor =
     text = cmd[update:1000] date '+%H:%M'
     color = rgba({{onSurface}}ff)
-    font_size = 72
-    font_family = Cantarell
-    position = 0, 140
+    font_size = 88
+    font_family = IBM Plex Sans
+    position = 0, 145
     halign = center
     valign = center
 }
@@ -40,9 +43,32 @@ label {
     monitor =
     text = cmd[update:60000] date '+%A, %d %B'
     color = rgba({{primary}}ff)
-    font_size = 16
-    font_family = Cantarell
-    position = 0, 65
+    font_size = 17
+    font_family = IBM Plex Sans
+    position = 0, 55
     halign = center
     valign = center
 }
+label {
+    monitor =
+    text = Siverteh OS
+    color = rgba({{primary}}ff)
+    font_size = 22
+    font_family = IBM Plex Sans
+    position = 0, -145
+    halign = center
+    valign = center
+}
+label {
+    monitor =
+    text = cmd[update:10000] {{helper}} status
+    color = rgba({{onSurface}}ff)
+    font_size = 12
+    font_family = IBM Plex Sans
+    position = 0, -190
+    halign = center
+    valign = center
+}
+{{weather_widgets}}
+{{media_widgets}}
+{{notifications_widgets}}
