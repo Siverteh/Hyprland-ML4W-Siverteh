@@ -24,11 +24,11 @@ TestCase {
   const first=findChild(view,"questionAnswer-0");const second=findChild(view,"questionAnswer-1");first.text="Custom choice";second.text="My answer";verify(reply.enabled,"answers="+JSON.stringify(SidebarChat.answers));reply.clicked();compare(SidebarChat.replies,1)
   SidebarChat.question=null;wait(20);compare(questions.height,0)
  }
- function test_chat_wheel_moves_330_pixels_per_notch(){
+ function test_chat_wheel_glides_then_settles_480_pixels_per_notch(){
   for(let i=0;i<80;i++)SidebarChat.messages.append({id:String(i),role:"assistant",text:"A transcript message to make the list scrollable."})
   const view=createTemporaryObject(pane,test);verify(view);wait(100)
   const transcript=findChild(view,"sidebarTranscript");transcript.follow=false;transcript.contentY=transcript.originY;wait(20)
-  const before=transcript.contentY;mouseWheel(transcript,230,80,0,-120);wait(150);verify(transcript.contentY-before>=329,"scroll delta="+(transcript.contentY-before));verify(transcript.contentY-before<=331)
+  const before=transcript.contentY;mouseWheel(transcript,230,80,0,-120);wait(100);const mid=transcript.contentY;verify(mid-before>0&&mid-before<479);wait(230);verify(transcript.contentY-mid>10);verify(transcript.contentY-before>=479,"scroll delta="+(transcript.contentY-before));verify(transcript.contentY-before<=481)
  }
 
  Component {id:roundButton;Rectangle {width:80;height:80;radius:40;color:"white";StateLayer {objectName:"roundHover"}}}
@@ -36,6 +36,37 @@ TestCase {
   const button=createTemporaryObject(roundButton,test);verify(button);const layer=findChild(button,"roundHover");compare(layer.radius,40)
   mouseMove(button,40,40);wait(20);verify(layer.hovered);compare(layer.radius,button.radius)
   button.radius=17;compare(layer.radius,17)
+ }
+
+ function rows(){return Array.from({length:80},(_,i)=>({id:String(i),role:"assistant",text:"Message "+i+" with enough text for a scrolling transcript."}));}
+ function test_initial_chat_and_history_refresh_stay_at_latest(){
+  const data=rows();for(const row of data)SidebarChat.messages.append(row);
+  const view=createTemporaryObject(pane,test);wait(150);const transcript=findChild(view,"sidebarTranscript");verify(transcript.atYEnd)
+  SidebarChat.replaceHistory(data.concat([{id:"new",role:"assistant",text:"Newest message"}]));wait(200);verify(transcript.atYEnd);verify(transcript.follow)
+ }
+ function test_refresh_preserves_reading_anchor_when_older_messages_are_inserted(){
+  const data=rows();for(const row of data)SidebarChat.messages.append(row);
+  const view=createTemporaryObject(pane,test);wait(150);const transcript=findChild(view,"sidebarTranscript");transcript.follow=false;transcript.positionViewAtIndex(30,ListView.Beginning);wait(50)
+  const item=transcript.itemAtIndex(30);verify(item);const offset=transcript.contentY-item.y;
+  SidebarChat.replaceHistory([{id:"older",role:"assistant",text:"An older message inserted above"}].concat(data));wait(200)
+  const restored=transcript.itemAtIndex(31);verify(restored);verify(Math.abs(transcript.contentY-restored.y-offset)<2);verify(!transcript.follow)
+ }
+ function test_touchpad_continues_after_release_and_stops_at_rest(){
+  for(const row of rows())SidebarChat.messages.append(row);
+  const view=createTemporaryObject(pane,test);wait(150);const transcript=findChild(view,"sidebarTranscript");const wheel=findChild(view,"sidebarWheel");transcript.follow=false;transcript.contentY=transcript.originY;
+  wheel.pixelScroll(50);wait(16);wheel.pixelScroll(50);const released=transcript.contentY;wait(150);verify(transcript.contentY>released+10);wait(600);verify(!transcript.flicking)
+ }
+
+ function test_loaded_different_chat_opens_at_bottom(){
+  const data=rows();for(const row of data)SidebarChat.messages.append(row);
+  const view=createTemporaryObject(pane,test);wait(150);const transcript=findChild(view,"sidebarTranscript");transcript.follow=false;transcript.positionViewAtIndex(30,ListView.Beginning);
+  SidebarChat.replaceHistory(data);SidebarChat.threadId="different-thread";wait(200);verify(transcript.atYEnd);verify(transcript.follow)
+ }
+ function test_scroll_back_to_bottom_resumes_following_streamed_messages(){
+  const data=rows();for(const row of data)SidebarChat.messages.append(row);
+  const view=createTemporaryObject(pane,test);wait(150);const transcript=findChild(view,"sidebarTranscript");transcript.follow=false;transcript.contentY=transcript.originY+transcript.contentHeight-transcript.height-100;
+  mouseWheel(transcript,230,80,0,-120);wait(350);verify(transcript.follow)
+  SidebarChat.messages.append({id:"incoming",role:"assistant",text:"New output after reaching bottom"});wait(150);verify(transcript.atYEnd)
  }
 
 }

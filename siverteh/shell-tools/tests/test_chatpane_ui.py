@@ -16,3 +16,4 @@ class ChatPaneUITests(unittest.TestCase):
    (target/'fixtures/StateLayer.qml').write_text(layer)
    result=subprocess.run([str(runner),'-input',str(target),'-o','-,txt'],env=dict(os.environ,QT_QPA_PLATFORM='offscreen'),capture_output=True,text=True,timeout=30)
    self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+   self.assertNotIn("QWARN",result.stdout+result.stderr)

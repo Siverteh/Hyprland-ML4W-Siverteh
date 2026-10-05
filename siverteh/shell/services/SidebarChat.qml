@@ -19,6 +19,8 @@ Singleton {
     property var answers:({})
     property var outgoing:[]
     property string draft:""
+    signal historyReplacing()
+    signal historyReplaced()
     property alias messages:messages
     ListModel {id:messages;dynamicRoles:true}
     function start(){if(!wire.running)wire.running=true;}
@@ -43,7 +45,9 @@ Singleton {
         }else if(event.type==="sendFailed"){
             draft=event.text+(draft?"\n\n"+draft:"");
         }else if(event.type==="history"){
+            historyReplacing();
             messages.clear();for(const item of event.messages)messages.append(item);
+            historyReplaced();
         }else if(event.type==="delta"){
             const index=itemIndex(event.id);
             if(index<0)messages.append({id:event.id,role:"assistant",text:event.text});else messages.setProperty(index,"text",messages.get(index).text+event.text);
