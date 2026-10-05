@@ -78,5 +78,5 @@ Item {
     Component {id:lock;LockPage {}}
     Component {id:ai;AiPage {}}
     Component {id:notifications;NotificationPage {}}
-    IpcHandler {target:"settingsView";function open(page:string):void{if(root.pages.some(p=>p.id===page))root.open(page);}function state():string{return JSON.stringify({page:root.page,search:root.query,width:root.width,height:root.height,tiles:pageLoader.item?.tileGeometry??[]});}}
+    IpcHandler {target:"settingsView";function open(page:string):void{if(root.pages.some(p=>p.id===page))root.open(page);}function state():string{return JSON.stringify({page:root.page,search:root.query,width:root.width,height:root.height});}}
 }

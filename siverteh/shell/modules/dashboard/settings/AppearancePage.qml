@@ -5,7 +5,6 @@ import QtQuick.Controls
 import ".."
 SettingsPage {
  id:root
- readonly property var tileGeometry:wallGrid.children.filter(c=>c.objectName==="wallpaperTile").map(c=>({x:c.x,y:c.y,width:c.width,height:c.height}))
  SettingsSection {title:"Wallpaper and colors";description:"Your wallpaper supplies the palette across the desktop, login and lock screen."
   Row {width:parent.width;spacing:16
    Image {width:Math.min(340,parent.width*.48);height:180;source:"file://"+Wallpapers.current;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:680;sourceSize.height:360}
@@ -23,15 +22,15 @@ SettingsPage {
     ActionButton {text:"Wallpaper picker";icon:"wallpaper";onClicked:AppLaunch.run(["siverteh-os-shell","wallpaper"])}
    }
   }
-  Grid {id:wallGrid;columns:Math.max(1,Math.floor(width/158));width:parent.width;spacing:10
-   Repeater {model:Wallpapers.list
-    Item {objectName:"wallpaperTile";required property var modelData;width:148;height:105
-     Image {anchors.fill:parent;source:"file://"+modelData.path;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:296;sourceSize.height:210}
-     Rectangle {anchors.fill:parent;color:"transparent";border.width:Wallpapers.current===modelData.path?3:0;border.color:Colours.palette.m3primary}
-     MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:Wallpapers.setWallpaper(parent.modelData.path)}
-    }
+  GridView {id:wallGrid;objectName:"settingsWallpaperGrid";width:parent.width;cellWidth:158;cellHeight:115;height:Math.ceil(count/Math.max(1,Math.floor(width/cellWidth)))*cellHeight;interactive:false;model:Wallpapers.list
+   delegate:Item {objectName:"wallpaperTile";required property var modelData;width:wallGrid.cellWidth;height:wallGrid.cellHeight
+    Image {x:0;y:0;width:148;height:105;source:"file://"+parent.modelData.path;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:296;sourceSize.height:210}
+    Rectangle {x:0;y:0;width:148;height:105;color:"transparent";border.width:Wallpapers.current===parent.modelData.path?3:0;border.color:Colours.palette.m3primary}
+    MouseArea {x:0;y:0;width:148;height:105;cursorShape:Qt.PointingHandCursor;onClicked:Wallpapers.setWallpaper(parent.modelData.path)}
    }
   }
  }
- DesktopControls {width:parent.width;height:implicitHeight;page:"appearance"}
+ SettingsSection {title:"Panels and frame";description:"Desktop edges, previews and panel behavior";collapsible:true
+  DesktopControls {width:parent.width;height:implicitHeight;page:"appearance"}
+ }
 }

@@ -5,7 +5,7 @@ import Quickshell.Io
 import QtQuick
 ShellRoot {
  FloatingWindow {
-  id:window;title:"Siverteh lock screen preview";width:1280;height:800;color:Colours.palette.m3surface
+  id:window;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
   property var data:({})
   Image {anchors.fill:parent;source:"file://"+Wallpapers.current;fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
   Rectangle {anchors.fill:parent;color:"#99000000"}
