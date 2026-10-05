@@ -22,6 +22,7 @@ Item {
         {id:"notifications",label:"Notifications",icon:"notifications",detail:"Quiet mode and notification history",terms:"notifications history alerts do not disturb quiet"},
         {id:"workflows",label:"Workflows",icon:"workspaces",detail:"Presets and personal startup apps",terms:"presets normal focused presentation minimal meeting music docked startup apps workflow"},
         {id:"lock",label:"Lock screen",icon:"lock",detail:"Media, weather and notification visibility",terms:"lockscreen password weather location temperature media notification privacy clock"},
+        {id:"time",label:"Date and time",icon:"schedule",detail:"Local time and automatic travel timezone",terms:"date time timezone clock travel automatic location"},
         {id:"ai",label:"Siverteh AI",icon:"neurology",detail:"Assistants, accounts and sidebar",terms:"ai codex claude accounts usage sidebar brain"},
         {id:"maintenance",label:"Maintenance",icon:"build",detail:"Health, releases and recovery",terms:"maintenance health release rollback restart resources cpu memory wallet updates diagnostics"}
     ]
@@ -56,7 +57,7 @@ Item {
     Loader {
         id:pageLoader;objectName:"settingsPage";anchors.top:heading.bottom;anchors.topMargin:20;anchors.left:rail.right;anchors.leftMargin:24;anchors.right:parent.right;anchors.bottom:parent.bottom
         active:root.active&&!root.query.trim();visible:active
-        sourceComponent:root.page==="appearance"?appearance:root.page==="sound"?sound:root.page==="network"?network:root.page==="bluetooth"?bluetooth:root.page==="lock"?lock:root.page==="ai"?ai:root.page==="notifications"?notifications:controls
+        sourceComponent:root.page==="appearance"?appearance:root.page==="sound"?sound:root.page==="network"?network:root.page==="bluetooth"?bluetooth:root.page==="lock"?lock:root.page==="time"?timePage:root.page==="ai"?ai:root.page==="notifications"?notifications:controls
         onLoaded:if(item&&item.hasOwnProperty("page"))item.page=Qt.binding(()=>root.page)
     }
     ListView {id:results;objectName:"settingsResults";anchors.fill:pageLoader;visible:root.query.trim().length>0;model:root.matches;spacing:8;clip:true
@@ -76,6 +77,7 @@ Item {
     Component {id:network;NetworkPage {}}
     Component {id:bluetooth;BluetoothPage {}}
     Component {id:lock;LockPage {}}
+    Component {id:timePage;TimePage {}}
     Component {id:ai;AiPage {}}
     Component {id:notifications;NotificationPage {}}
     IpcHandler {target:"settingsView";function open(page:string):void{if(root.pages.some(p=>p.id===page))root.open(page);}function state():string{return JSON.stringify({page:root.page,search:root.query,width:root.width,height:root.height});}}

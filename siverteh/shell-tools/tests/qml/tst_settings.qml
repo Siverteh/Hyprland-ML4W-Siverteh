@@ -18,7 +18,7 @@ TestCase {
  }
  function test_all_device_and_lock_pages_load_without_warnings(){
   const view=createTemporaryObject(settings,test);wait(20);
-  for(const page of ["displays","network","bluetooth","notifications","workflows","lock","ai","maintenance"]){view.open(page);wait(20);verify(findChild(view,"settingsPage").item,page);}
+  for(const page of ["displays","network","bluetooth","notifications","workflows","lock","time","ai","maintenance"]){view.open(page);wait(20);verify(findChild(view,"settingsPage").item,page);}
  }
  Component {id:lockPreview;LockPreview {width:1280;height:800}}
  function test_lock_preview_contents_belong_to_the_window(){

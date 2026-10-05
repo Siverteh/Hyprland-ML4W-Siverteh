@@ -134,3 +134,20 @@ Escape dismissal; it does not lock or authenticate. Changes take effect on the
 next real lock. Source changes require actual Hyprlock render checks in an
 isolated nested compositor, followed by the user's password-unlock check on the
 real session. Do not unlock the live session through IPC for testing.
+
+## Automatic travel timezone
+
+The Date and time page separates NTP clock synchronization from local timezone
+selection. Optional system integration is installed with administrator
+authentication: `pkexec /usr/bin/python3 siverteh/shell-tools/timezone.py install`.
+The root-owned helper lives in `/usr/local/libexec`, with a system timer checking
+every15minutes and a NetworkManager dispatcher hook for connection changes.
+The bounded HTTPS lookup accepts only valid IANA timezone names. Failed lookups
+keep the current timezone. Root integration is separate from desktop release
+rollback; installation backups are under `/var/lib/siverteh-os/timezone`.
+
+Automatic mode follows public IP location, so a VPN may identify its exit
+location. Manual timezone selection turns automatic mode off. Enabling it again
+uses the same reviewed root-owned helper and normal administrator authentication.
+No passwordless privilege rule or credential storage is installed. The existing
+NTP service and UTC hardware-clock mode are preserved.

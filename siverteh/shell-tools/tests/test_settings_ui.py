@@ -22,6 +22,7 @@ class SettingsUITests(unittest.TestCase):
    preview='\n'.join(line for line in preview.splitlines() if not line.lstrip().startswith(('Process {id:reader','Timer {interval:3000')))
    (target/'LockPreview.qml').write_text(preview)
    services={
+    'TimezoneSettings':'property var status:({timezone:\"UTC\",localTime:\"12:34\",automatic:false,installed:false});property string message:\"\";property bool busy:false;function refresh(){} function change(kind,value){}',
     'Time':'function format(pattern){return \"12:34\"}',
     'Wallpapers':'property string current:"";property var list:[];function setWallpaper(path){}',
     'AppLaunch':'function run(command){}', 'DesktopActions':'function execute(action){}',
