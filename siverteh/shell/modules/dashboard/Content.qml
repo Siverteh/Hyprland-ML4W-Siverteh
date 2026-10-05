@@ -28,7 +28,7 @@ Item {
 
         nonAnimWidth: root.nonAnimWidth
         currentIndex: root.visibilities.dashboardTab
-        onCurrentIndexChanged: root.visibilities.dashboardTab=currentIndex
+        onCurrentIndexChanged:{root.visibilities.dashboardTab=currentIndex;if(root.visibilities.dashboard)root.visibilities.dashboardPinned=currentIndex===4;}
     }
 
     ClippingRectangle {

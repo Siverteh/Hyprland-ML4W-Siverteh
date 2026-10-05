@@ -192,3 +192,10 @@ Qt Multimedia with its FFmpeg backend and the ffmpeg utility provide local video
 playback. Videos have no audio output and disable their audio track. Playback
 pauses on lock/sleep, can pause behind tiled apps, and temporarily runs while the
 picker is open for browsing. Switching to a static wallpaper destroys the player.
+
+Output geometry or pixel-density changes can leave stale Qt/Wayland render
+buffers after fractional-scale transitions. DisplayRecovery coalesces actual
+screen changes and recreates only the desktop renderer after700ms settled.
+Visible settings/drawer modes are restored; display confirmation stays available.
+The sidebar backend, conversations, accounts and application windows are not
+restarted. Only UI visibility flags are handed off, never draft or password text.
