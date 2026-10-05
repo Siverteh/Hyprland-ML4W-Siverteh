@@ -22,7 +22,7 @@ ShellRoot {
         function preview(name:string):void{Visibilities.openMode(name,"",true);}
         function previewDashboard(index:int):void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.dashboardTab=index;v.dashboard=true;}}
         function previewSliders():void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.osd=true;}}
-        function previewLeft():void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.left=true;v.leftPinned=true;}}
+        function previewLeft():void{const v=Visibilities.getForActive();if(v){v.previewOnly=true;v.left=true;}}
         function mode(name:string):void{Visibilities.openMode(name,"");}
         function settings():void{Visibilities.openSettings();}
         function left():void{Visibilities.toggleLeft();}

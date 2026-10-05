@@ -51,21 +51,18 @@ Item {
             }
             StyledTextField {id:search;visible:root.section==="brain";width:438;height:42;leftPadding:13;rightPadding:13;placeholderText:"Search your brain";text:DesktopExtras.brainQuery
                 background:StyledRect {color:Colours.palette.m3surfaceContainerHigh;radius:21}
-                onPressed:root.visibilities.leftPinned=true
-                onActiveFocusChanged:if(activeFocus)root.visibilities.leftPinned=true
                 onTextChanged:{DesktopExtras.brainQuery=text;DesktopExtras.notes=[];searchDelay.restart();}
                 Connections {target:DesktopExtras;function onBrainQueryChanged(){if(search.text!==DesktopExtras.brainQuery)search.text=DesktopExtras.brainQuery;}}
                 Timer {id:searchDelay;interval:250;onTriggered:DesktopExtras.request("brain",{query:search.text})}
             }
             Row {visible:root.section==="brain";spacing:8
                 ActionButton {text:"Open brain";icon:"neurology";onClicked:DesktopActions.execute("brain")}
-                ActionButton {text:"Capture";icon:"edit_note";selected:root.captureOpen;onClicked:{root.captureOpen=!selected;root.visibilities.leftPinned=true;if(root.captureOpen)capture.forceActiveFocus();}}
+                ActionButton {text:"Capture";icon:"edit_note";selected:root.captureOpen;onClicked:{root.captureOpen=!selected;if(root.captureOpen)capture.forceActiveFocus();}}
             }
             Column {width:438;spacing:8;visible:root.section==="brain"&&root.captureOpen
                 TextArea {id:capture;width:438;height:105;placeholderText:"A thought worth keeping";wrapMode:TextEdit.Wrap;color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant;selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary
                     background:StyledRect {color:Colours.palette.m3surfaceContainerHigh;radius:12}
-                    onActiveFocusChanged:if(activeFocus)root.visibilities.leftPinned=true
-                }
+                    }
                 ActionButton {text:"Save to brain";icon:"save";enabled:capture.text.trim().length>0&&!DesktopExtras.busy.capture;onClicked:{DesktopExtras.captured="";DesktopExtras.request("capture",{text:capture.text});}}
                 Connections {target:DesktopExtras;function onCapturedChanged(){if(DesktopExtras.captured){capture.text="";root.captureOpen=false;}}}
             }
@@ -97,7 +94,7 @@ Item {
                 }
                 StyledText {visible:!!DesktopExtras.busy.chats;text:"Reading saved chats…";font.pointSize:10;color:Colours.palette.m3onSurfaceVariant}
                 Repeater {model:DesktopExtras.chats.filter(c=>!Object.values(ChatWindowTitle.threadIds).includes(c.id)).slice(0,6)
-                    ChatCard {required property var modelData;label:modelData.title;detail:modelData.agent+" · "+modelData.account+" · "+modelData.state;onClicked:{root.visibilities.leftPinned=true;SidebarChat.load(modelData.key);root.section="chat";}}
+                    ChatCard {required property var modelData;label:modelData.title;detail:modelData.agent+" · "+modelData.account+" · "+modelData.state;onClicked:{SidebarChat.load(modelData.key);root.section="chat";}}
                 }
                 ActionButton {text:"All saved chats";icon:"forum";onClicked:DesktopActions.execute("load")}
             }

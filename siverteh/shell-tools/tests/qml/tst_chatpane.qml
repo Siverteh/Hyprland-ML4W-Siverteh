@@ -69,4 +69,10 @@ TestCase {
   SidebarChat.messages.append({id:"incoming",role:"assistant",text:"New output after reaching bottom"});wait(150);verify(transcript.atYEnd)
  }
 
+ function test_focusing_and_sending_does_not_pin_chat(){
+  const view=createTemporaryObject(pane,test,{visibilities:{leftPinned:false}});verify(view);const input=findChild(view,"sidebarComposer")
+  input.forceActiveFocus();input.text="A followup";compare(view.visibilities.leftPinned,false)
+  keyClick(Qt.Key_Return);compare(SidebarChat.sends,1);compare(view.visibilities.leftPinned,false)
+ }
+
 }

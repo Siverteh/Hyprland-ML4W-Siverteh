@@ -68,3 +68,8 @@ that every physical device or cold-boot path works.
 Publishing uses ordinary fast-forward pushes after checks. Repository renames
 preserve GitHub history and redirects; update local remotes to the new URL as
 recommended by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository).
+
+For launcher focus changes, also run the opt-in target-host check:
+`python3 tools/check-overlays.py --keyboard /path/to/wtype` with shell panels closed.
+It tests the launcher routes and real Wayland Escape events. Offscreen Qt tests
+cannot detect layer-surface/focus-grab conflicts in the running compositor.

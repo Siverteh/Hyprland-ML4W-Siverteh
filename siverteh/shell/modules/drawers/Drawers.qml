@@ -41,10 +41,10 @@ Variants {
                 onActivated:win.dismissOverlays()
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            // Modal keyboard launchers must receive keys before the first mouse click.
+            // Exclusive mode gives modal controls keyboard focus before a mouse click.
             WlrLayershell.keyboardFocus: Visibilities.hidden||visibilities.previewOnly ? WlrKeyboardFocus.None
                 : visibilities.launcher||visibilities.session ? WlrKeyboardFocus.Exclusive
-                : visibilities.leftPinned||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+                : visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
@@ -79,14 +79,17 @@ Variants {
                 }
             }
 
+            // Changing keyboard interactivity remaps the layer surface. Arm click-away
+            // capture only after that remap, so its cleared signal cannot close a new popup.
+            readonly property bool wantsPopupGrab: !Visibilities.hidden&&!visibilities.previewOnly&&(visibilities.launcher||visibilities.session||panels.popouts.pinned)
+            property bool popupGrabReady:false
+            onWantsPopupGrabChanged:{popupGrabReady=false;if(wantsPopupGrab)popupGrabDelay.restart();else popupGrabDelay.stop();}
+            Timer {id:popupGrabDelay;interval:150;onTriggered:win.popupGrabReady=win.wantsPopupGrab}
             HyprlandFocusGrab {
-                active: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+                active:win.popupGrabReady&& !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
-                    visibilities.launcher = false;
-                    visibilities.session = false;
-                    visibilities.left=false;visibilities.leftPinned=false;
-                    panels.popouts.hasCurrent=false;
+                    if(win.popupGrabReady&&win.wantsPopupGrab)win.dismissOverlays();
                 }
             }
 

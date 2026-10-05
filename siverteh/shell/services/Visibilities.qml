@@ -29,7 +29,7 @@ Singleton {
         v.launcherMode=mode;v.launcherQuery=query||"";v.launcherRequest++;v.launcher=!same;
     }
     function openSettings(){const v=getForActive();if(v){v.previewOnly=false;hidden=false;v.launcher=false;v.session=false;v.left=false;v.leftPinned=false;v.dashboardTab=4;v.dashboard=true;}}
-    function toggleLeft(){const v=getForActive();if(!v)return;v.previewOnly=false;hidden=false;v.launcher=false;v.session=false;v.dashboard=false;v.left=!v.left;v.leftPinned=v.left;}
+    function toggleLeft(){const v=getForActive();if(!v)return;v.previewOnly=false;hidden=false;v.launcher=false;v.session=false;v.dashboard=false;v.left=!v.left;if(!v.left)v.leftPinned=false;}
     function getForActive(): PersistentProperties {
         return screens[Hyprland.focusedMonitor?.name] || Object.values(screens)[0] || null;
     }

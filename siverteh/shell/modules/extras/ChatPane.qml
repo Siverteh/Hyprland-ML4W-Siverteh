@@ -86,7 +86,7 @@ Item {
                             ActionButton {required property var modelData;text:modelData.label;selected:SidebarChat.answers[q.modelData.id]?.answers?.[0]===text;onClicked:SidebarChat.setAnswer(q.modelData.id,text)}
                         }
                     }
-                    StyledTextField {objectName:"questionAnswer-"+q.modelData.id;width:parent.width;height:35;placeholderText:"Your answer";leftPadding:10;background:StyledRect {radius:10;color:Colours.palette.m3surfaceContainerHigh} onPressed:root.visibilities.leftPinned=true;onTextChanged:SidebarChat.setAnswer(q.modelData.id,text)}
+                    StyledTextField {objectName:"questionAnswer-"+q.modelData.id;width:parent.width;height:35;placeholderText:"Your answer";leftPadding:10;background:StyledRect {radius:10;color:Colours.palette.m3surfaceContainerHigh} onTextChanged:SidebarChat.setAnswer(q.modelData.id,text)}
                 }
             }
             ActionButton {objectName:"sidebarReply";text:"Reply";enabled:!SidebarChat.inWorkspace&&SidebarChat.question!==null&&SidebarChat.question.questions.every(q=>(SidebarChat.answers[q.id]?.answers?.[0]??"").trim().length>0);onClicked:SidebarChat.answer()}
@@ -104,7 +104,6 @@ Item {
                 color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant
                 selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary;font.family:"IBM Plex Sans";font.pointSize:12
                 background:StyledRect {radius:14;color:Colours.palette.m3surfaceContainerHigh}
-                TapHandler {onTapped:root.visibilities.leftPinned=true}
                 Keys.onReturnPressed:event=>{if(event.modifiers&Qt.ShiftModifier){event.accepted=false;}else{root.send();event.accepted=true;}}
             }
         }
@@ -115,5 +114,5 @@ Item {
             ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.latest();}}
         }
     }
-    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.latest();SidebarChat.send(input.text);SidebarChat.draft="";input.text="";}}
+    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){transcript.latest();SidebarChat.send(input.text);SidebarChat.draft="";input.text="";}}
 }

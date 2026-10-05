@@ -39,7 +39,7 @@ Singleton {
         v.previewOnly=false;v.launcher=false;v.left=false;v.leftPinned=false;
         if(["apps","palette","overview","clipboard","keys","wallpaper"].includes(action)){Visibilities.openMode(action);return;}
         if(action==="settings"){Visibilities.openSettings();return;}
-        if(action==="left"){v.left=true;v.leftPinned=true;return;}
+        if(action==="left"){v.left=true;return;}
         if(action==="preset"){DesktopSettings.request(["preset",value]);return;}
         if(action==="toggle-setting"&&["animations","blur","shadow"].includes(value)){DesktopSettings.set(value,!DesktopSettings.data[value]);return;}
         if(action==="dnd"){DesktopSettings.set("dnd",!DesktopSettings.data.dnd);return;}
