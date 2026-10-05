@@ -69,13 +69,7 @@ Item {
 
         }
 
-        Behavior on x {
-            Anim {}
-        }
-
-        Behavior on implicitWidth {
-            Anim {}
-        }
+        // Selection feedback follows the clicked tab in the same frame.
     }
 
     StyledRect {
