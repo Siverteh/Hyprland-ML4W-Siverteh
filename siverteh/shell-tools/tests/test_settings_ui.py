@@ -24,7 +24,7 @@ class SettingsUITests(unittest.TestCase):
    services={
     'TimezoneSettings':'property var status:({timezone:\"UTC\",localTime:\"12:34\",automatic:false,installed:false});property string message:\"\";property bool busy:false;function refresh(){} function change(kind,value){}',
     'Time':'function format(pattern){return \"12:34\"}',
-    'Wallpapers':'property string current:"";property var list:[];function setWallpaper(path){}',
+    'Wallpapers':'property string poster:"";property string current:"";property var list:[];function setWallpaper(path){}',
     'AppLaunch':'function run(command){}', 'DesktopActions':'function execute(action){}',
     'Network':'property var active:null;property var networks:[]',
     'Bluetooth':'property bool powered:false;property var devices:[]',

@@ -6,7 +6,7 @@ HOME=Path.home();ROOT=Path(__file__).resolve().parent;RUNTIME=HOME/'.local/share
 def main():
  RUNTIME.mkdir(parents=True,exist_ok=True)
  cache=HOME/'.cache/siverteh-shell-packages';cache.mkdir(parents=True,exist_ok=True)
- for record in subprocess.check_output(['pacman','-Sp','--print-format','%l %h','quickshell','qt6-imageformats','ddcutil','cpptrace','libdwarf','wtype'],text=True).splitlines():
+ for record in subprocess.check_output(['pacman','-Sp','--print-format','%l %h','quickshell','qt6-imageformats','ddcutil','cpptrace','libdwarf','wtype','qt6-multimedia','qt6-multimedia-ffmpeg'],text=True).splitlines():
   url,expected=record.split()
   package=cache/url.rsplit('/',1)[-1]
   if not package.exists():urllib.request.urlretrieve(url,package)

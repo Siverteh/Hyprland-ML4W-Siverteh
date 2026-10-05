@@ -9,7 +9,13 @@ import QtQuick.Window
 Item {
     id: root
 
-    property url source: Wallpapers.current ? `file://${Wallpapers.current}` : ""
+    property string screenName:""
+    property url source: Wallpapers.poster ? `file://${Wallpapers.poster}` : ""
+    readonly property var monitor:Hyprland.monitors.values.find(m=>m.name===screenName)
+    readonly property int workspaceId:monitor?.activeWorkspace?.id??Hyprland.activeWsId
+    readonly property bool pickerOpen:Object.values(Visibilities.screens).some(v=>v.launcher&&v.launcherMode==="wallpaper")
+    readonly property bool covered:Hyprland.clients.some(c=>c.workspace?.id===workspaceId&&(c.fullscreen||(WallpaperPlayback.pauseCovered&&!c.floating)))
+    readonly property bool motionAllowed:!WallpaperPlayback.sleeping&&!WallpaperPlayback.locked&&!WallpaperPlayback.paused&&(!covered||pickerOpen)
     property Image current: one
 
     anchors.fill: parent
@@ -28,6 +34,9 @@ Item {
     Img {
         id: two
     }
+
+    AnimatedImage {anchors.fill:parent;source:Wallpapers.dynamic&&Wallpapers.animated?"file://"+Wallpapers.current:"";fillMode:Image.PreserveAspectCrop;playing:root.motionAllowed;visible:source.toString().length>0&&status===Image.Ready;asynchronous:true;cache:false}
+    Loader {id:video;anchors.fill:parent;active:Wallpapers.dynamic&&!Wallpapers.animated;source:"DynamicWallpaper.qml";onLoaded:{item.screenName=root.screenName;item.path=Qt.binding(()=>Wallpapers.current);item.running=Qt.binding(()=>root.motionAllowed);}}
 
     component Img: CachingImage {
         id: img

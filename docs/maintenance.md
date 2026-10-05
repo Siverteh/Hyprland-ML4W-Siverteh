@@ -173,3 +173,22 @@ Preferences are private atomic JSON in `~/.config/siverteh-shell/launcher.json`,
 with mode0600 and locked read/modify/write operations. They are outside source
 and desktop rollback, and malformed data is preserved rather than overwritten.
 The browser loads only while open/closing and uses the shared fast scrolling.
+
+## Wallpaper library and layouts
+
+Super+W remains a wallpaper-only drawer. Static/Dynamic filters distinguish still
+images from local videos/animated GIFs. Carousel, Spotlight and Hexagons share
+selection, arrow/scroll navigation and Escape/outside-click dismissal. Search
+matches descriptive names and paths; Enter applies the current result. Add or
+drop local files to import private copies into Pictures/Wallpapers. Original
+files are preserved, and matching import names never overwrite existing files.
+
+Media selection prepares a cached still poster before running the existing
+palette pipeline; only after that succeeds is media identity published. Login,
+Hyprlock and previews use the still poster. Video/GIF data and picker preferences
+stay private; assets are not part of public Git or software rollback. Static CLI
+palette operations remain compatible because the poster is the committed image.
+Qt Multimedia with its FFmpeg backend and the ffmpeg utility provide local video
+playback. Videos have no audio output and disable their audio track. Playback
+pauses on lock/sleep, can pause behind tiled apps, and temporarily runs while the
+picker is open for browsing. Switching to a static wallpaper destroys the player.

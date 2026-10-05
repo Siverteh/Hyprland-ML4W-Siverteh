@@ -21,6 +21,6 @@ Variants {
         anchors.left: true
         anchors.right: true
 
-        Wallpaper {}
+        Wallpaper {screenName:win.modelData.name}
     }
 }

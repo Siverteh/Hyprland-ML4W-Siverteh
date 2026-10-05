@@ -12,7 +12,7 @@ Item {
     function galleryStep(delta) { if(visibilities.launcher && visibilities.launcherMode === "wallpaper") content.item?.move(delta); }
 
     visible: height > 0
-    implicitHeight: !visibilities.launcher ? 0 : visibilities.launcherMode === "wallpaper" ? LauncherConfig.sizes.wallpaperHeight + Appearance.padding.large * 4 : content.item?.implicitHeight ?? 0
+    implicitHeight: !visibilities.launcher ? 0 : content.item?.implicitHeight ?? 0
     implicitWidth: content.item?.implicitWidth ?? LauncherConfig.sizes.itemWidth
 
     // Retarget on mode changes, including while an opening animation is in flight.

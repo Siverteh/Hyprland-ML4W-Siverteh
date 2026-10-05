@@ -7,7 +7,7 @@ ShellRoot {
  FloatingWindow {
   id:window;objectName:"lockPreviewWindow";visible:true;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
   property var widgetData:({})
-  Image {anchors.fill:parent;source:Wallpapers.current?"file://"+Wallpapers.current:"";fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
+  Image {anchors.fill:parent;source:Wallpapers.poster?"file://"+Wallpapers.poster:"";fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
   Rectangle {anchors.fill:parent;color:"#99000000"}
   Item {objectName:"lockPreviewContent";anchors.fill:parent;focus:true;Keys.onEscapePressed:Qt.quit()
    StyledText {x:24;y:20;text:"Lock screen preview · Esc to close";color:"white";font.pointSize:11}
