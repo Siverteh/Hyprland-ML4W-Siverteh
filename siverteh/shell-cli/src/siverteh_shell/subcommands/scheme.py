@@ -9,7 +9,6 @@ from siverteh_shell.utils.scheme import (
     get_scheme_names,
     scheme_variants,
 )
-from siverteh_shell.utils.theme import apply_colours
 
 
 class Set:
@@ -26,7 +25,6 @@ class Set:
 
         if self.args.random:
             scheme.set_random()
-            apply_colours(scheme.colours, scheme.mode)
         elif self.args.name or self.args.flavour or self.args.mode or self.args.variant:
             if self.args.name:
                 scheme.name = self.args.name
@@ -36,7 +34,6 @@ class Set:
                 scheme.mode = self.args.mode
             if self.args.variant:
                 scheme.variant = self.args.variant
-            apply_colours(scheme.colours, scheme.mode)
         else:
             print("No args given. Use --name, --flavour, --mode, --variant or --random to set a scheme")
 

@@ -31,7 +31,6 @@ if [[ -n "$existing_window" && "$existing_window" != "null" ]]; then
 fi
 
 pkill -TERM -u "$UID" -f "$app" >/dev/null 2>&1 || true
-pkill -x wlogout >/dev/null 2>&1 || true
 
 setsid -f kitty \
     --class "$class_name" \

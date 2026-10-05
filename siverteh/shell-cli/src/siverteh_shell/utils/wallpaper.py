@@ -22,7 +22,6 @@ from siverteh_shell.utils.paths import (
     wallpapers_cache_dir,
 )
 from siverteh_shell.utils.scheme import Scheme, get_scheme
-from siverteh_shell.utils.theme import apply_colours
 
 
 def is_valid_image(path: Path) -> bool:
@@ -182,7 +181,6 @@ def set_wallpaper(wall: Path, no_smart: bool) -> None:
 
     # Update colours
     scheme.update_colours()
-    apply_colours(scheme.colours, scheme.mode)
 
     # Run custom post-hook if configured
     cfg = get_config().get("wallpaper", {})

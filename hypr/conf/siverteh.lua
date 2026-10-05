@@ -8,20 +8,6 @@
 
 --
 
--- SwayNC
-hl.layer_rule({
-    name = "swaync-control-center-glass",
-    match = { namespace = "swaync-control-center" },
-    blur = true,
-    ignore_alpha = 0.5,
-})
-hl.layer_rule({
-    name = "swaync-notification-glass",
-    match = { namespace = "swaync-notification-window" },
-    blur = true,
-    ignore_alpha = 0.5,
-})
-
 -- Siverteh Shell
 hl.layer_rule({
     name = "siverteh-shell-glass",
@@ -41,18 +27,6 @@ hl.window_rule({
     center = true,
     pin = true,
     size = "700 600",
-})
-
--- Waypaper
-hl.window_rule({
-    name = "waypaper",
-    match = {
-        class = "(.*waypaper.*)",
-    },
-    float = true,
-    center = true,
-    pin = true,
-    size = "900 700",
 })
 
 -- Newelle
@@ -205,7 +179,7 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 -- QT
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
--- Qt6 desktop apps use the wallpaper-backed qt6ct palette.
+-- Qt6 apps use wallpaper-backed qt6ct.
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 

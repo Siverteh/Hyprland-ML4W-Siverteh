@@ -10,7 +10,7 @@ def plan(clients):
  ('Siverteh AI',2,[str(HOME/'.local/bin/siverteh-os-shell'),'tasks'],'siverteh-ai-dashboard' in classes),
  ('Discord',3,['discord'],bool(classes&{'discord'})),
  ('Spotify',4,['spotify'],'spotify' in classes),
- ('Mail',5,['bash',str(HOME/'.config/siverteh/core/settings/email.sh')],bool(classes&{'evolution','org.gnome.evolution','thunderbird','chrome-mail.google.com__-default'})),
+ ('Mail',5,[str(HOME/'.local/bin/siverteh-os-app'),'mail'],bool(classes&{'evolution','org.gnome.evolution','thunderbird','chrome-mail.google.com__-default'})),
  ('Brain',6,['systemctl','--user','start','siverteh-observatory-brain.service'],any(c['class']=='siverteh-brain' or c.get('title')=='Siverteh Brain' for c in clients))]
 def main():
  lock=Path(os.environ.get('XDG_RUNTIME_DIR',f'/run/user/{os.getuid()}'))/'siverteh-startup-apps.lock'

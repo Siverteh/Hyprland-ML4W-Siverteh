@@ -29,9 +29,9 @@ Variants {
         readonly property var visibility:Visibilities.screens[screen.name]
         Process { id: connectionManager }
         property int updateCount:0
-        Process {id:updateCheck;command:[Quickshell.env("HOME")+"/.config/hypr/scripts/waybar/updates_status.sh"];running:true}
+        Process {id:updateCheck;command:["python3",Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/tools/updates.py"];running:true}
         Timer {interval:1800000;repeat:true;running:true;onTriggered:if(!updateCheck.running)updateCheck.running=true}
-        FileView { path:Quickshell.env("HOME")+"/.cache/siverteh/updates-waybar.json";watchChanges:true;onFileChanged:reload()
+        FileView { path:Quickshell.env("HOME")+"/.cache/siverteh-os/updates.json";watchChanges:true;onFileChanged:reload()
             onLoaded:{try{const d=JSON.parse(text());win.updateCount=parseInt(String(d.text??0).match(/\d+/)?.[0]??"0");}catch(e){win.updateCount=0;}}
         }
         Timer {

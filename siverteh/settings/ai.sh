@@ -1,1 +1,0 @@
-$(cat ~/.config/siverteh/core/settings/browser.sh) --new-window https://chat.openai.com

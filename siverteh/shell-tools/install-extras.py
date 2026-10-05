@@ -10,12 +10,6 @@ def put(path,text):
   backup.parent.mkdir(parents=True,exist_ok=True);backup.write_text(path.read_text())
  path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
 def install():
- path=HOME/'.config/hypr/conf/keybinding.lua';text=path.read_text()
- routes={'rofi -show window':'~/.local/bin/siverteh-os-shell overview','cliphist list | rofi -dmenu | cliphist decode | wl-copy':'~/.local/bin/siverteh-os-shell clipboard','brightnessctl set 5%-':'brightnessctl -c backlight set 5%-','brightnessctl set 5%+':'brightnessctl -c backlight set 5%+'}
- for old,new in routes.items():
-  # Only the complete command argument, not keyboard-backlight shortcuts.
-  text=text.replace('hl.dsp.exec_cmd("'+old+'")','hl.dsp.exec_cmd("'+new+'")')
- put(path,text)
  put(HOME/'.config/siverteh-shell/shortcuts.lua',(ROOT/'shortcuts.lua').read_text())
  main=HOME/'.config/hypr/hyprland.lua';text=main.read_text();marker='-- Siverteh native desktop shortcuts'
  if marker not in text:

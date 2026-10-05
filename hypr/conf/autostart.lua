@@ -1,59 +1,10 @@
--- ___       __           __           __
-
--- / _ |__ __/ /____  ___ / /____ _____/ /_
-
--- / __ / // / __/ _ \(_-</ __/ _ `/ __/ __/
-
--- /_/ |_\_,_/\__/\___/___/\__/\_,_/_/  \__/
-
---
-
--- Start Listeners
+-- One owner per desktop function. UWSM handles the graphical session and XDG autostart.
 hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.config/siverteh/core/listeners.sh --start low-bat-notification")
-end)
-
--- Start Polkit
-hl.on("hyprland.start", function()
-    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-end)
-
--- Load Wallpaper
-hl.on("hyprland.start", function()
-    -- Native shell restores its committed wallpaper.
-end)
-
--- Load Notification Daemon
-hl.on("hyprland.start", function()
-    hl.exec_cmd("swaync")
-end)
-
--- Load GTK settings
-hl.on("hyprland.start", function()
-    -- Committed native palette manages GTK settings.
-end)
-
--- Using hypridle to start hyprlock
-hl.on("hyprland.start", function()
-    hl.exec_cmd("hypridle")
-end)
-
--- Load cliphist history
-hl.on("hyprland.start", function()
-    hl.exec_cmd("wl-paste --watch cliphist store")
-end)
-
--- Start autostart cleanup
-hl.on("hyprland.start", function()
-    hl.exec_cmd("~/.config/hypr/scripts/cleanup.sh")
-    hl.exec_cmd("swayosd-server")
-    -- Send the graphical session environment to the wallet started by SDDM PAM.
     hl.exec_cmd("/usr/lib/pam_kwallet_init")
-    hl.exec_cmd("kanshi")
-    hl.exec_cmd("~/.config/hypr/scripts/monitor-rules.sh")
-    hl.exec_cmd("~/.local/bin/siverteh-observatory start")
-    hl.exec_cmd("~/.config/hypr/scripts/cleanup-locks.sh")
-    -- Calendar is integrated in the Observatory panel.
-    -- Observatory owns the center dropdown.
+    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+    hl.exec_cmd("hypridle")
+    hl.exec_cmd("wl-paste --watch cliphist store")
+    hl.exec_cmd("systemctl --user start siverteh-os-shell.service")
+    hl.exec_cmd("~/.config/hypr/scripts/low-battery.sh")
     hl.exec_cmd("~/.config/hypr/scripts/coding-setup.sh")
 end)

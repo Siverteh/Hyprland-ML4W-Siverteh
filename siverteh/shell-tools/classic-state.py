@@ -82,9 +82,7 @@ def apply_palette(home, wallpaper=None, live=True):
             atomic_write(settings, text)
     # Existing updater prompts and terminal apps share the committed colors too.
     for name,role in {'primary':'primary','secondary':'secondary','onsurface':'onSurface','onprimary':'onPrimary','surface':'surface','surfacecontainer':'surfaceContainer'}.items():
-        atomic_write(home/('.config/siverteh/core/colors/'+name), '#'+colors[role])
-    legacy='\n'.join('var_'+name+' = "rgba('+colors[role]+'ff)"' for name,role in [('primary','primary'),('on_primary','onPrimary'),('on_surface','onSurface')])+'\n'
-    atomic_write(home/'.config/hypr/colors.lua', legacy)
+        atomic_write(home/('.config/siverteh-shell/colors/'+name), '#'+colors[role])
     # Terminal TUIs often paint dark input panels regardless of the desktop mode.
     # Use the same palette's inverse roles on light wallpapers, preserving its hue.
     term_bg=colors['inverseSurface'] if data['mode']=='light' else colors['surface']
@@ -102,7 +100,7 @@ def apply_palette(home, wallpaper=None, live=True):
         value=term_bg if i==0 else term_fg if i==7 else term_accent if i==4 else readable(colors.get(role,colors['primary']),term_bg)
         bright=term_muted if i==0 else readable(colors['secondary'],term_bg) if i==6 else value
         terminal+=f'color{i} #{value}\ncolor{i+8} #{bright}\n'
-    atomic_write(home/'.config/kitty/colors-matugen.conf', terminal)
+    atomic_write(home/'.config/siverteh-shell/kitty-colors.conf', terminal)
     brand=Path(__file__).with_name('branding.py')
     if brand.exists():
         import importlib.util

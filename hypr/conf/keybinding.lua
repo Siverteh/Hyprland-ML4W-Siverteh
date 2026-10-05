@@ -47,10 +47,10 @@ hl.bind("F3", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
 -- -------------------- Screen Brightness (with OSD) --------------------
 
 -- F5 = Brightness Down
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -c backlight set 5%-"))
 
 -- F6 = Brightness Up
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -c backlight set 5%+"))
 
 -- -------------------- Keyboard Backlight (with OSD) --------------------
 
@@ -61,7 +61,7 @@ hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%- --device
 -- -------------------- Emoji picker --------------------
 
 -- Emoji picker (works on both laptop F8 and external keyboard F7)
-hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.config/siverteh/core/settings/emojipicker.sh"))
+hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app emoji"))
 
 -- -------------------- Microphone Controls (with OSD) --------------------
 
@@ -139,8 +139,8 @@ hl.bind("SUPER + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/window-minimize.sh 
 hl.bind("SUPER + SHIFT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/window-minimize.sh restore-last"))
 hl.bind("SUPER + ALT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/window-minimize.sh restore-current"))
 
--- Reload kanshi configuration
-hl.bind("SUPER + ALT + K", hl.dsp.exec_cmd("killall kanshi && sleep 0.5 && kanshi &"))
+-- Display settings
+hl.bind("SUPER + ALT + K", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell settings"))
 
 -- Window states
 hl.bind("SUPER + T", hl.dsp.window.float({ action = "toggle" }))
@@ -219,7 +219,7 @@ hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("cursor"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("discord"))
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("spotify"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("flatpak run io.missioncenter.MissionCenter"))
-hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.config/siverteh/core/settings/filemanager.sh"))
+hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files"))
 
 -- =====================================================
 
@@ -227,18 +227,18 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.config/siverteh/core/settings/f
 
 -- =====================================================
 
--- Native bottom app launcher
+-- App launcher (rofi)
 hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"))
 
 -- Window picker
-hl.bind("SUPER + D", hl.dsp.exec_cmd("rofi -show window"))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell overview"))
 
 -- Scratchpad
 hl.bind("SUPER + grave", hl.dsp.workspace.toggle_special(""))
 hl.bind("SUPER + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
 
 -- Clipboard manager
-hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell clipboard"))
 
 -- =====================================================
 
@@ -258,7 +258,7 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 -- =====================================================
 hl.bind("SUPER + W", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell wallpaper"))
 hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell hide"))
-hl.bind("SUPER + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-observatory toggle"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell toggle"))
 hl.bind("SUPER + SHIFT + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell settings"))
 hl.bind("SUPER + CTRL + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/matrix-rest.sh"))
 

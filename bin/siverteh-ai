@@ -721,7 +721,7 @@ def main():
         binary = str(Path.home() / ".local/bin/codex")
         os.execvpe(binary, [binary, "login"], env)
     elif args.command == "brain":
-        explorer = Path.home() / ".local/bin/siverteh-observatory"
+        explorer = Path.home() / ".local/bin/siverteh-brain-ui"
         if explorer.exists() and os.environ.get("SIVERTEH_BRAIN_VIEW") != "notes":
             subprocess.Popen([str(explorer), "brain"], start_new_session=True)
             return

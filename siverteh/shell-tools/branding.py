@@ -43,7 +43,7 @@ def build():
  widget.write_text(text)
 
  (root/'login/Logo.qml').write_text('import QtQuick\n'+common.replace('DEFAULT_PRIMARY','"#dbc492"').replace('DEFAULT_SECONDARY','"#d2c5ad"'))
- web=root.parent/'rice/observatory/web/index.html';text=web.read_text();a=text.index('<symbol id="sh"');b=text.index('</symbol>',a)+len('</symbol>');inner=template.split('>',1)[1].rsplit('</svg>',1)[0].replace('@PRIMARY@','currentColor').replace('@SECONDARY@','currentColor');text=text[:a]+'<symbol id="sh" viewBox="0 0 34 28">'+inner+'</symbol>'+text[b:];web.write_text(text)
+ web=root.parent/'brain/web/index.html';text=web.read_text();a=text.index('<symbol id="sh"');b=text.index('</symbol>',a)+len('</symbol>');inner=template.split('>',1)[1].rsplit('</svg>',1)[0].replace('@PRIMARY@','currentColor').replace('@SECONDARY@','currentColor');text=text[:a]+'<symbol id="sh" viewBox="0 0 34 28">'+inner+'</symbol>'+text[b:];web.write_text(text)
 if __name__=='__main__':
  import sys
  if '--build' in sys.argv:build()

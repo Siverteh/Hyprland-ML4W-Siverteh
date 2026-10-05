@@ -1,40 +1,20 @@
-# Cache and logs
+__pycache__/
+*.py[cod]
 *.log
-*.cache
-**/cache/
-**/.cache/
-
-# Backup files
-*.backup
-*.backup-*
-*~
-
-# Temporary files
 *.tmp
 *.swp
-*.swo
-*.pyc
-__pycache__/
-
-# Exclude images EXCEPT in specific directories
-*.jpg
+*.backup*
+**/build/
+**/dist/
+**/*.egg-info/
+.venv/
+# Host state, images and authentication never belong in this source tree.
 *.png
+*.jpg
 *.jpeg
-!siverteh/wallpapers/*.jpg
-!siverteh/wallpapers/*.png
-!siverteh/wallpapers/*.jpeg
-!wlogout/icons/*.png
-
-# Sensitive data
-**/*password*
-**/*secret*
-**/*token*
-
-# This file names a D-Bus provider and contains no credentials.
-!/ai/dbus/org.freedesktop.secrets.service
-
-
-# Native desktop shell build output
-siverteh/shell/build/
-siverteh/shell-cli/dist/
-siverteh/shell-cli/**/*.egg-info/
+*.webp
+*.kwl
+*.salt
+auth.json
+.env
+.env.*

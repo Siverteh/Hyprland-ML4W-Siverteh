@@ -51,7 +51,9 @@ def deploy(code_only=False):
  shutil.copyfile(ROOT/"siverteh-sidebar-ai.service",chat_service)
  subprocess.run(["systemctl","--user","daemon-reload"],check=True)
  subprocess.run(["python3",str(ROOT/"desktop-settings.py"),"init"],check=True,stdout=subprocess.DEVNULL)
- dbus=HOME/'.local/share/dbus-1/services/org.erikreider.swaync.service'
+ old_dbus=HOME/'.local/share/dbus-1/services/org.erikreider.swaync.service'
+ if old_dbus.is_file() and 'start siverteh-os-shell.service' in old_dbus.read_text():old_dbus.unlink()
+ dbus=HOME/'.local/share/dbus-1/services/org.freedesktop.Notifications.service'
  dbus.parent.mkdir(parents=True,exist_ok=True)
  dbus.write_text('[D-BUS Service]\nName=org.freedesktop.Notifications\nExec=/usr/bin/systemctl --user start siverteh-os-shell.service\nSystemdService=siverteh-os-shell.service\n')
  subprocess.run(['systemctl','--user','mask','--now','swaync.service','waybar.service'],check=True,stdout=subprocess.DEVNULL)
@@ -59,6 +61,8 @@ def deploy(code_only=False):
   for src,dest in [('control.sh',HOME/'.local/bin/siverteh-os-shell'),('cli-bridge.sh',DEST/'bin/siverteh_shell'),('launch.sh',DEST/'bin/qs')]:
    shutil.copyfile(ROOT/src,dest);dest.chmod(0o755)
   subprocess.run(["python3",str(ROOT/"install-extras.py")],check=True)
+  if (HOME/'.local/state/siverteh_shell/scheme.json').exists():
+   subprocess.run(['python3',str(DEST/'tools/classic-state.py')],check=True)
   subprocess.run(['python3',str(ROOT/'isolate-apps.py')],check=True)
   subprocess.run(['systemctl','--user','restart','siverteh-os-shell'],check=True)
   validate_live(source_digest(SHELL));return
@@ -84,19 +88,6 @@ def deploy(code_only=False):
  write(HOME/'.config/siverteh-shell/rofi.rasi',(ROOT/'rofi.rasi').read_text())
  write(HOME/'.config/rofi/config.rasi','@import "'+str(HOME/'.config/siverteh-shell/rofi.rasi')+'"\n')
  write(HOME/'.config/systemd/user/siverteh-os-shell.service',(ROOT/'siverteh-os-shell.service').read_text())
- # Source-owned profile aliases keep the base OS startup integration small.
- for name in ['autostart','keybinding']:
-  path=HOME/'.config/hypr/conf'/f'{name}.lua';text=path.read_text()
-  text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory start")','hl.exec_cmd("systemctl --user start siverteh-os-shell.service")').replace('~/.local/bin/siverteh-observatory toggle','~/.local/bin/siverteh-os-shell toggle').replace('~/.config/hypr/scripts/launcher.sh','~/.local/bin/siverteh-os-shell launcher')
-  if name=='keybinding':
-   for old,new in json.loads((ROOT/'shortcut-routes.json').read_text()).items():text=text.replace(old,new)
-  if name=='autostart':
-   text=text.replace('~/.config/siverteh/core/listeners.sh --startall','~/.config/siverteh/core/listeners.sh --start low-bat-notification')
-   text=text.replace('hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")','-- Committed native palette manages GTK settings.')
-   text=text.replace('hl.exec_cmd("~/.local/bin/siverteh-observatory restore-wallpaper")','-- Native shell restores its committed wallpaper.')
-   text=text.replace('hl.exec_cmd("swaync")','-- Native Siverteh shell owns notification rendering.')
-   text=text.replace('hl.exec_cmd("swayosd-server")','-- Native Siverteh shell owns the audio/brightness OSD.')
-  if text!=path.read_text():write(path,text)
  # Apply the selected palette last, after any older profile overrides.
  path=HOME/'.config/hypr/hyprland.lua'
  marker='-- Siverteh committed wallpaper palette'
@@ -112,7 +103,7 @@ def deploy(code_only=False):
  if (HOME/'.local/state/siverteh_shell/scheme.json').exists():
   # Palette generation also owns these files; include them in cutover rollback.
   tracked={e['target'] for e in entries}
-  outputs=['.config/siverteh-shell/palette.lua','.config/siverteh-shell/qt.conf','.config/kitty/colors-matugen.conf','.config/hypr/colors.lua','.config/hypr/hyprlock.conf','.config/siverteh/core/colors/primary','.config/siverteh/core/colors/secondary','.config/siverteh/core/colors/onsurface','.config/siverteh/core/colors/onprimary','.config/siverteh/core/colors/surface','.config/siverteh/core/colors/surfacecontainer']
+  outputs=['.config/siverteh-shell/palette.lua','.config/siverteh-shell/qt.conf','.config/siverteh-shell/kitty-colors.conf','.config/hypr/hyprlock.conf','.config/siverteh-shell/colors/primary','.config/siverteh-shell/colors/secondary','.config/siverteh-shell/colors/onsurface','.config/siverteh-shell/colors/onprimary','.config/siverteh-shell/colors/surface','.config/siverteh-shell/colors/surfacecontainer']
   outputs += [f'.config/gtk-{v}/{name}' for v in ['3.0','4.0'] for name in ['gtk.css','settings.ini']]
   outputs += [f'.config/qt{v}ct/qt{v}ct.conf' for v in [5,6]]
   for rel in outputs:
