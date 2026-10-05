@@ -5,7 +5,7 @@ import Quickshell.Io
 import QtQuick
 ShellRoot {
  FloatingWindow {
-  id:window;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
+  id:window;visible:true;title:"Siverteh lock screen preview";implicitWidth:1280;implicitHeight:800;color:Colours.palette.m3surface
   property var data:({})
   Image {anchors.fill:parent;source:"file://"+Wallpapers.current;fillMode:Image.PreserveAspectCrop;sourceSize.width:1280;sourceSize.height:800;asynchronous:true}
   Rectangle {anchors.fill:parent;color:"#99000000"}
@@ -19,21 +19,27 @@ ShellRoot {
     }
     StyledText {anchors.horizontalCenter:parent.horizontalCenter;text:"Siverteh OS";font.pointSize:20;color:Colours.palette.m3primary}
    }
-   Column {x:30;width:300;anchors.verticalCenter:parent.verticalCenter;spacing:18
+   Column {x:30;width:Math.max(160,Math.min(300,(window.width-360)/2-30));anchors.verticalCenter:parent.verticalCenter;spacing:18
     PreviewCard {visible:window.data.preferences?.lockWeather!==false;heading:"Weather";body:(window.data.weather?.location??"")+"\n"+(window.data.weather?.temperature??"")+"\n"+(window.data.weather?.description??"Weather unavailable")}
-    PreviewCard {visible:window.data.preferences?.lockMedia!==false;heading:"Media";body:window.data.media?(window.data.media.title??"")+"\n"+(window.data.media.artist??"")+"\n"+(window.data.media.playing?"Playing":"Paused"):"Nothing playing"}
+    PreviewCard {visible:window.data.preferences?.lockMedia!==false;heading:"Media";art:window.data.media?.art??"";mediaControls:!!window.data.media;body:window.data.media?(window.data.media.title??"")+"\n"+(window.data.media.artist??"")+"\n"+(window.data.media.playing?"Playing":"Paused"):"Nothing playing"}
    }
-   PreviewCard {visible:window.data.preferences?.lockNotifications!==false;x:parent.width-width-30;width:300;anchors.verticalCenter:parent.verticalCenter;heading:"Notifications · "+(window.data.count??0);body:(window.data.notifications??[]).slice(0,4).map(n=>n.app+(n.summary?"\n"+n.summary:"")).join("\n\n")||"You are all caught up"}
+   PreviewCard {visible:window.data.preferences?.lockNotifications!==false;x:parent.width-width-30;width:Math.max(160,Math.min(300,(window.width-360)/2-30));anchors.verticalCenter:parent.verticalCenter;heading:"Notifications · "+(window.data.count??0);body:(window.data.notifications??[]).slice(0,4).map(n=>n.app+(n.summary?"\n"+n.summary:"")).join("\n\n")||"You are all caught up"}
   }
   Process {id:reader;running:true;command:[Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/bin/qs","-c","siverteh_shell","ipc","call","lockWidgets","state"];stdout:SplitParser {splitMarker:"";onRead:line=>{try{window.data=JSON.parse(line);}catch(e){}}}}
   Timer {interval:3000;repeat:true;running:window.visible;onTriggered:if(!reader.running)reader.running=true}
  }
  component PreviewCard:StyledRect {
-  property string heading;property string body
+  property string heading;property string body;property string art:"";property bool mediaControls:false
   width:parent.width;implicitHeight:copy.implicitHeight+40;radius:22;color:Colours.palette.m3surfaceContainer
   Column {id:copy;x:20;y:20;width:parent.width-40;spacing:12
    StyledText {text:parent.parent.heading;color:Colours.palette.m3primary;font.pointSize:14}
+   Image {visible:parent.parent.art.length>0;width:90;height:visible?90:0;source:parent.parent.art;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:180;sourceSize.height:180}
    StyledText {width:parent.width;text:parent.parent.body;wrapMode:Text.Wrap;font.pointSize:12}
+   Row {visible:parent.parent.mediaControls;spacing:8
+    Repeater {model:[{icon:"skip_previous",action:"previous"},{icon:"play_pause",action:"toggle"},{icon:"skip_next",action:"next"}]
+     ActionButton {required property var modelData;text:"";icon:modelData.icon;onClicked:AppLaunch.run(["python3",Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/tools/lock-info.py",modelData.action])}
+    }
+   }
   }
  }
 }

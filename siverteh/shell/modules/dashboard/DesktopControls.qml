@@ -102,7 +102,7 @@ Item {
                         }
                     }
                 }
-                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Display changes revert after20seconds unless you keep them.";font.pointSize:10;color:Colours.palette.m3onSurfaceVariant}
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Display changes revert after 20 seconds unless you keep them.";font.pointSize:10;color:Colours.palette.m3onSurfaceVariant}
             }
             Row {visible:root.page==="desktop";spacing:16
                 Section {heading:"Windows & spacing"

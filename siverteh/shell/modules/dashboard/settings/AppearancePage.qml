@@ -24,7 +24,8 @@ SettingsPage {
   }
   GridView {id:wallGrid;objectName:"settingsWallpaperGrid";width:parent.width;cellWidth:158;cellHeight:115;height:Math.ceil(count/Math.max(1,Math.floor(width/cellWidth)))*cellHeight;interactive:false;model:Wallpapers.list
    delegate:Item {objectName:"wallpaperTile";required property var modelData;width:wallGrid.cellWidth;height:wallGrid.cellHeight
-    Image {x:0;y:0;width:148;height:105;source:"file://"+parent.modelData.path;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:296;sourceSize.height:210}
+    StyledRect {x:0;y:0;width:148;height:105;radius:8;visible:thumb.status!==Image.Ready;color:Colours.palette.m3surfaceContainerHigh;MaterialIcon {anchors.centerIn:parent;text:"landscape";color:Colours.palette.m3onSurfaceVariant}}
+    Image {id:thumb;x:0;y:0;width:148;height:105;source:"file://"+parent.modelData.path;fillMode:Image.PreserveAspectCrop;asynchronous:true;sourceSize.width:296;sourceSize.height:210}
     Rectangle {x:0;y:0;width:148;height:105;color:"transparent";border.width:Wallpapers.current===parent.modelData.path?3:0;border.color:Colours.palette.m3primary}
     MouseArea {x:0;y:0;width:148;height:105;cursorShape:Qt.PointingHandCursor;onClicked:Wallpapers.setWallpaper(parent.modelData.path)}
    }
