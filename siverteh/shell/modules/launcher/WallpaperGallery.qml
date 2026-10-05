@@ -52,6 +52,8 @@ Item {
   }
  }
  Row {id:footer;anchors.bottom:parent.bottom;anchors.bottomMargin:15;x:22;spacing:12
+  ActionButton {compact:true;text:"";icon:"chevron_left";enabled:root.count>1;onClicked:root.move(-1)}
+  ActionButton {compact:true;text:"";icon:"chevron_right";enabled:root.count>1;onClicked:root.move(1)}
   StyledText {text:root.currentEntry?.name??"";font.pointSize:11;color:Colours.palette.m3primary;anchors.verticalCenter:parent.verticalCenter}
   StyledText {text:root.count?(root.currentIndex+1)+" / "+root.count:"";font.pointSize:10;anchors.verticalCenter:parent.verticalCenter;color:Colours.palette.m3onSurfaceVariant}
   ActionButton {compact:true;text:"Pause behind tiled apps";visible:root.kind==="dynamic";selected:Wallpapers.preferences.pauseCovered??true;onClicked:Wallpapers.preference({pauseCovered:!Wallpapers.preferences.pauseCovered})}
@@ -89,6 +91,8 @@ Item {
   radius:17;color:Colours.palette.m3surfaceContainer;border.width:selected?2:0;border.color:Colours.palette.m3primary
   Image {x:6;y:6;width:parent.width-12;height:parent.height-42;source:card.entry?.poster?"file://"+card.entry.poster:"";sourceSize.width:1000;sourceSize.height:600;fillMode:Image.PreserveAspectCrop;asynchronous:true}
   StyledText {anchors.bottom:parent.bottom;anchors.bottomMargin:12;width:parent.width-12;anchors.horizontalCenter:parent.horizontalCenter;text:card.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:10}
+  ToolTip.text:card.entry?.name??"";ToolTip.visible:cardHover.hovered;ToolTip.delay:500
+  HoverHandler {id:cardHover}
   MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:card.clicked()}
  }
  DropArea {anchors.fill:parent;onDropped:drop=>{if(drop.hasUrls){Wallpapers.addFiles(drop.urls);drop.acceptProposedAction();}}}

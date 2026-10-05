@@ -1,6 +1,7 @@
 import "root:/widgets"
 import "root:/services"
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Shapes
 import QtQuick.Effects
 Item {
@@ -25,5 +26,7 @@ Item {
  StyledRect {x:25;y:parent.height-50;width:parent.width-50;height:28;radius:14;color:Qt.alpha(Colours.palette.m3surface,0.85)
   StyledText {anchors.fill:parent;anchors.margins:5;text:root.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:9}
  }
+ ToolTip.text:root.entry?.name??"";ToolTip.visible:hover.hovered;ToolTip.delay:500
+ HoverHandler {id:hover}
  MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:mouse=>{if(root.inside(mouse.x,mouse.y))root.clicked();else mouse.accepted=false;}}
 }
