@@ -16,7 +16,7 @@ class LauncherUITests(unittest.TestCase):
     'DesktopActions':'property var list:[{name:"Settings",description:"Desktop settings",action:"settings",icon:"settings"},{name:"Power menu",description:"Power controls",action:"power",icon:"power"}];function execute(action,value){}'}
    for name,body in fixtures.items():(target/'fixtures'/ (name+'.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {'+body+'}')
    (target/'fixtures/ScriptModel.qml').write_text('import QtQuick\nListModel {property var values:[];onValuesChanged:{clear();for(const entry of values)append({modelData:entry})}}')
-   (target/'fixtures/MaterialIcon.qml').write_text('import QtQuick\nText {}')
+   (target/'fixtures/MaterialIcon.qml').write_text('import QtQuick\nText {property real fill:0}')
    with (target/'fixtures/qmldir').open('a') as manifest:
     for name in fixtures:manifest.write('\nsingleton '+name+' 1.0 '+name+'.qml')
     manifest.write('\nScriptModel 1.0 ScriptModel.qml\nMaterialIcon 1.0 MaterialIcon.qml\n')

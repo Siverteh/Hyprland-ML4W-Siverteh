@@ -22,4 +22,9 @@ TestCase {
   keyClick(Qt.Key_Left);keyClick(Qt.Key_Right);keyClick(Qt.Key_M);wait(20);compare(input.text,"m");verify(input.activeFocus);
   keyClick(Qt.Key_Escape);compare(view.visibilities.launcher,false);
  }
+ function test_favorite_change_keeps_all_apps_selection(){
+  const view=createTemporaryObject(launcher,test);wait(30);view.select("all");wait(20);
+  const grid=findChild(view,"launcherApps");grid.currentIndex=2;LauncherPreferences.update("favorite","editor",true);wait(30);compare(grid.currentIndex,2);
+ }
+
 }
