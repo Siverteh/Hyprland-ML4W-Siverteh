@@ -476,6 +476,19 @@ def brain_window():
     return next((c for c in windows if c.get('workspace',{}).get('id')==6),
                 next(iter(windows),None))
 
+def brain_browser_running():
+    # Chrome can be alive without a mapped window while the keyring dialog
+    # blocks startup. Do not keep asking that same profile for another app.
+    profile=('--user-data-dir='+str(HOME/'.local/share/siverteh-ai/observatory-browser')).encode()
+    for process in Path('/proc').iterdir():
+        if not process.name.isdigit():continue
+        try:
+            if process.stat().st_uid!=os.getuid():continue
+            args=(process/'cmdline').read_bytes().split(b'\0')
+        except OSError:continue
+        if profile in args and not any(arg.startswith(b'--type=') for arg in args):return True
+    return False
+
 def ensure_brain(focus=False):
     STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
     with (STATE/'brain-launch.lock').open('w') as lock:
@@ -483,6 +496,7 @@ def ensure_brain(focus=False):
         ensure_server()
         window=brain_window()
         if not window:
+            if not focus and brain_browser_running():return
             previous=json.loads(run(['hyprctl','activeworkspace','-j'],'{}')).get('id')
             browser=next((p for p in ['/opt/google/chrome/chrome',shutil.which('chromium')] if p and Path(p).exists()),None)
             if not browser: raise ValueError('Chrome or Chromium is required for the observatory')

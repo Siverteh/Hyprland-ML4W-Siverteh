@@ -87,11 +87,20 @@ class CodexPeer:
    if kind in ('commandExecution','fileChange','mcpToolCall','webSearch'):
     m.status={'commandExecution':'Running a command','fileChange':'Editing files','mcpToolCall':'Using a tool','webSearch':'Searching the web'}[kind];m.update()
   elif method=='turn/completed':
-   turn=p.get('turn',{});error=friendly_error(turn.get('error')) if turn.get('status')=='failed' else '';m.finish(error)
+   turn=p.get('turn',{});self.turn='';error=friendly_error(turn.get('error')) if turn.get('status')=='failed' else '';m.finish(error)
   elif method=='thread/name/updated':self.metadata['title']=p.get('threadName') or p.get('name') or self.metadata['title'];m.save();m.update()
   elif method=='error' and not p.get('willRetry',False):m.finish(friendly_error(p.get('error')))
  def send(self,text):
   result=self.call('turn/start',{'threadId':self.metadata['id'],'input':[{'type':'text','text':text}]});self.turn=result['turn']['id']
+ def steer(self,text):
+  turn=self.turn
+  if not turn:return self.send(text)
+  try:
+   self.call('turn/steer',{'threadId':self.metadata['id'],'expectedTurnId':turn,'input':[{'type':'text','text':text}]})
+  except RuntimeError as error:
+   # The response can finish between clicking Send and the RPC arriving.
+   if not self.turn or 'no active turn' in str(error).lower():return self.send(text)
+   raise
  def stop(self):
   if self.turn:self.call('turn/interrupt',{'threadId':self.metadata['id'],'turnId':self.turn})
  def close(self):
@@ -150,7 +159,7 @@ print(json.dumps(rows[-300:]))
 
 class Manager:
  def __init__(self):
-  self.lock=threading.RLock();self.connect_lock=threading.Lock();self.generation=0;self.clients=[];self.messages=[];self.busy=False;self.status='';self.error='';self.peer=None;self.question=None;self.pending_user=''
+  self.lock=threading.RLock();self.connect_lock=threading.Lock();self.send_lock=threading.Lock();self.generation=0;self.clients=[];self.messages=[];self.busy=False;self.status='';self.error='';self.peer=None;self.question=None;self.pending_users=[]
   self.metadata={};self.path=None;self.choose()
  def choose(self,item=None,fresh=False):
   self.generation+=1
@@ -194,7 +203,8 @@ class Manager:
    else:item['text']=text
   self.broadcast(dict(type='message',id=ident,role='assistant',text=text))
  def native_user(self,ident,text):
-  if self.pending_user==text:self.pending_user='';return
+  with self.lock:
+   if text in self.pending_users:self.pending_users.remove(text);return
   self.messages.append(dict(id=ident,role='user',text=text));self.broadcast(self.messages[-1]|{'type':'message'})
  def finish(self,error=''):self.busy=False;self.status='';self.error=error;self.question=None;self.update()
  def ask(self,peer,ident,questions,kind):
@@ -209,21 +219,36 @@ class Manager:
     if not self.busy:self.status='';self.update()
    except Exception as e:self.finish(friendly_error(e));raise
  def send(self,text):
+  # Serialise submissions, not the UI. Codex returns from send immediately;
+  # Claude's current CLI transport queues here until its response completes.
+  with self.send_lock:self.submit(text)
+ def submit(self,text):
+  item=None
   try:
    self.ensure_peer()
    if not self.metadata.get('id'):raise RuntimeError('No assistant session')
    if self.metadata.get('title')=='New chat':
     self.metadata['title']=' '.join(text.split()[:7])[:80];self.save()
     if isinstance(self.peer,CodexPeer):self.peer.call('thread/name/set',{'threadId':self.metadata['id'],'name':self.metadata['title']})
-   self.pending_user=text;item=dict(id='user-'+uuid.uuid4().hex,role='user',text=text);self.messages.append(item);self.broadcast(item|{'type':'message'})
-   self.status='Working';self.update();self.peer.send(text)
-  except Exception as e:self.finish(friendly_error(e))
+   self.pending_users.append(text);item=dict(id='user-'+uuid.uuid4().hex,role='user',text=text);self.messages.append(item);self.broadcast(item|{'type':'message'})
+   self.busy=True;self.status='Working';self.update()
+   if isinstance(self.peer,CodexPeer) and self.peer.turn:self.peer.steer(text)
+   else:self.peer.send(text)
+  except Exception as e:
+   with self.lock:
+    if text in self.pending_users:self.pending_users.remove(text)
+    if item in self.messages:self.messages.remove(item)
+   self.broadcast(dict(type='history',messages=self.messages))
+   self.broadcast(dict(type='sendFailed',text=text))
+   if isinstance(self.peer,CodexPeer) and self.peer.turn:
+    self.error=friendly_error(e);self.update()
+   else:self.finish(friendly_error(e))
  def handle(self,command):
   action=command.get('action')
   if action=='send':
    text=str(command.get('text','')).strip()
    if not text or len(text)>64000:return
-   if self.busy or self.metadata.get('in_workspace'):return
+   if self.metadata.get('in_workspace'):return
    self.busy=True;self.error='';self.update();threading.Thread(target=self.send,args=(text,),daemon=True).start()
   elif action=='stop':
    if self.peer:threading.Thread(target=self.peer.stop,daemon=True).start()

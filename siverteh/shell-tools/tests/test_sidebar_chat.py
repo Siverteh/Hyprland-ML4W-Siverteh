@@ -62,4 +62,40 @@ class SidebarTests(unittest.TestCase):
     self.assertEqual(manager.metadata['agent'],'codex')
  def test_error_messages_do_not_echo_credentials_or_prompts(self):
   self.assertEqual(module.friendly_error('Invalid secret_key sensitive-value'), 'The assistant could not finish this request. Try again or open AI settings.')
+ def test_busy_codex_followup_steers_same_turn_and_deduplicates_native_echo(self):
+  from unittest.mock import Mock
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();manager.metadata.update(id='fixture',title='Fixture');manager.busy=True
+    peer=module.CodexPeer.__new__(module.CodexPeer);peer.turn='active-turn';peer.metadata=manager.metadata;peer.call=Mock(return_value={'turnId':'active-turn'});manager.peer=peer
+    manager.send('Correction one');manager.send('Correction two')
+    self.assertEqual([c.args[0] for c in peer.call.call_args_list],['turn/steer','turn/steer'])
+    self.assertEqual(peer.call.call_args.args[1]['expectedTurnId'],'active-turn')
+    manager.native_user('native-one','Correction one');manager.native_user('native-two','Correction two')
+    self.assertEqual(len(manager.messages),2);self.assertTrue(manager.busy);self.assertEqual(manager.pending_users,[])
+ def test_busy_send_is_accepted_at_command_boundary(self):
+  from unittest.mock import Mock
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();manager.busy=True
+    with patch.object(module.threading,'Thread') as worker:
+     manager.handle({'action':'send','text':'While working'})
+     worker.assert_called_once();worker.return_value.start.assert_called_once()
+ def test_completed_turn_race_starts_followup_once(self):
+  from unittest.mock import Mock
+  peer=module.CodexPeer.__new__(module.CodexPeer);peer.metadata={'id':'fixture'};peer.turn='old';peer.send=Mock()
+  def complete(*args):peer.turn='';raise RuntimeError('No active turn')
+  peer.call=Mock(side_effect=complete);peer.steer('Follow up');peer.send.assert_called_once_with('Follow up')
+ def test_failed_steer_restores_draft_without_marking_active_turn_finished(self):
+  from unittest.mock import Mock
+  with tempfile.TemporaryDirectory() as directory:
+   p,q=self.manager(Path(directory))
+   with p,q:
+    manager=module.Manager();manager.metadata.update(id='fixture',title='Fixture');manager.busy=True
+    peer=module.CodexPeer.__new__(module.CodexPeer);peer.turn='active';peer.metadata=manager.metadata;peer.call=Mock(side_effect=RuntimeError('Unavailable'));manager.peer=peer;manager.broadcast=Mock()
+    manager.send('Keep this draft')
+    self.assertTrue(manager.busy);self.assertEqual(manager.messages,[]);self.assertEqual(manager.pending_users,[])
+    self.assertTrue(any(c.args[0].get('type')=='sendFailed' and c.args[0]['text']=='Keep this draft' for c in manager.broadcast.call_args_list))
 if __name__=='__main__':unittest.main()

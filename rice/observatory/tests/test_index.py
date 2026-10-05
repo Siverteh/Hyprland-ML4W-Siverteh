@@ -123,7 +123,7 @@ class IndexTests(unittest.TestCase):
             module.ensure_brain(focus=False)
             launch.assert_not_called();action.assert_not_called()
     def test_background_brain_launch_restores_workspace_and_routes_to_six(self):
-        with patch.object(module,'STATE',self.root/'state'),patch.object(module,'ensure_server'),patch.object(module,'brain_window',side_effect=[None,{'address':'0x123'}]),patch.object(module,'run',return_value='{"id":2}') as run,patch.object(module,'launch') as launch:
+        with patch.object(module,'STATE',self.root/'state'),patch.object(module,'ensure_server'),patch.object(module,'brain_window',side_effect=[None,{'address':'0x123'}]),patch.object(module,'brain_browser_running',return_value=False),patch.object(module,'run',return_value='{"id":2}') as run,patch.object(module,'launch') as launch:
             module.ensure_brain(focus=False)
             launch.assert_called_once()
             calls=[c.args[0] for c in run.call_args_list]
@@ -163,3 +163,8 @@ class BrainStartupTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as tmp,patch.object(module,'STATE',Path(tmp)),patch.object(module,'ensure_server'),patch.object(module,'run',return_value=response),patch.object(module,'launch') as launch:
                 with self.assertRaises(RuntimeError):module.ensure_brain()
                 launch.assert_not_called()
+
+    def test_wallet_blocked_browser_does_not_get_more_launch_requests(self):
+        with tempfile.TemporaryDirectory() as tmp,patch.object(module,'STATE',Path(tmp)),patch.object(module,'ensure_server'),patch.object(module,'brain_window',return_value=None),patch.object(module,'brain_browser_running',return_value=True),patch.object(module,'launch') as launch:
+            for _ in range(10):module.ensure_brain(focus=False)
+            launch.assert_not_called()

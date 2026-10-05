@@ -17,7 +17,7 @@ Item {
         StyledText {width:parent.width;elide:Text.ElideRight;text:(SidebarChat.provider?SidebarChat.provider.charAt(0).toUpperCase()+SidebarChat.provider.slice(1):"Assistant")+" · "+SidebarChat.title;color:Colours.palette.m3onSurfaceVariant;font.pointSize:10}
     }
     ListView {
-        id:transcript;anchors.top:tools.bottom;anchors.bottom:footer.top;anchors.left:parent.left;anchors.right:parent.right;anchors.topMargin:12;anchors.bottomMargin:10
+        id:transcript;objectName:"sidebarTranscript";anchors.top:tools.bottom;anchors.bottom:footer.top;anchors.left:parent.left;anchors.right:parent.right;anchors.topMargin:12;anchors.bottomMargin:10
         model:SidebarChat.messages;clip:true;spacing:12;cacheBuffer:100
         ScrollBar.vertical:ScrollBar {}
         FastScroll {view:transcript;onScrolled:transcript.follow=false}
@@ -54,17 +54,27 @@ Item {
             }
             ActionButton {text:"Reply";onClicked:SidebarChat.answer()}
         }
-        TextArea {
-            id:input;enabled:!SidebarChat.inWorkspace;width:parent.width;height:100;wrapMode:TextEdit.Wrap;placeholderText:SidebarChat.inWorkspace?"Chat moved to the workspace":"Message Siverteh AI";color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant
-            selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary;font.family:"IBM Plex Sans";font.pointSize:12
-            background:StyledRect {radius:14;color:Colours.palette.m3surfaceContainerHigh}
-            TapHandler {onTapped:root.visibilities.leftPinned=true}
-            Keys.onReturnPressed:event=>{if(event.modifiers&Qt.ShiftModifier){event.accepted=false;}else{root.send();event.accepted=true;}}
+        ScrollView {
+            id:composer;objectName:"sidebarComposerScroll";width:parent.width;height:Math.min(160,Math.max(100,input.implicitHeight));clip:true
+            ScrollBar.horizontal.policy:ScrollBar.AlwaysOff
+            ScrollBar.vertical.policy:ScrollBar.AsNeeded
+            TextArea {
+                id:input;objectName:"sidebarComposer";enabled:!SidebarChat.inWorkspace;width:composer.availableWidth;wrapMode:TextEdit.Wrap
+                text:SidebarChat.draft
+                onTextChanged:if(SidebarChat.draft!==text)SidebarChat.draft=text
+                placeholderText:SidebarChat.inWorkspace?"Chat moved to the workspace":SidebarChat.busy?"Add a message while I work":"Message Siverteh AI"
+                color:Colours.palette.m3onSurface;placeholderTextColor:Colours.palette.m3onSurfaceVariant
+                selectionColor:Colours.palette.m3primary;selectedTextColor:Colours.palette.m3onPrimary;font.family:"IBM Plex Sans";font.pointSize:12
+                background:StyledRect {radius:14;color:Colours.palette.m3surfaceContainerHigh}
+                TapHandler {onTapped:root.visibilities.leftPinned=true}
+                Keys.onReturnPressed:event=>{if(event.modifiers&Qt.ShiftModifier){event.accepted=false;}else{root.send();event.accepted=true;}}
+            }
         }
         Row {spacing:8
-            ActionButton {text:SidebarChat.busy?"Stop":"Send";icon:SidebarChat.busy?"stop":"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&(SidebarChat.busy||input.text.trim().length>0);onClicked:SidebarChat.busy?SidebarChat.stop():root.send()}
+            ActionButton {text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&input.text.trim().length>0;onClicked:root.send()}
+            ActionButton {text:"Stop";icon:"stop";visible:SidebarChat.busy;onClicked:SidebarChat.stop()}
             ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.follow=true;transcript.positionViewAtEnd();}}
         }
     }
-    function send(){if(!SidebarChat.busy&&!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);input.text="";}}
+    function send(){if(!SidebarChat.inWorkspace&&input.text.trim()){root.visibilities.leftPinned=true;transcript.follow=true;SidebarChat.send(input.text);input.text="";}}
 }

@@ -1,0 +1,8 @@
+module Fixtures
+singleton SidebarChat 1.0 SidebarChat.qml
+singleton Colours 1.0 Colours.qml
+StyledRect 1.0 StyledRect.qml
+StyledText 1.0 StyledText.qml
+ActionButton 1.0 ActionButton.qml
+StyledTextField 1.0 StyledTextField.qml
+FastScroll 1.0 FastScroll.qml

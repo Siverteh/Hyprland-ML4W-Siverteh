@@ -18,11 +18,12 @@ Singleton {
     property var question:null
     property var answers:({})
     property var outgoing:[]
+    property string draft:""
     property alias messages:messages
     ListModel {id:messages;dynamicRoles:true}
     function start(){if(!wire.running)wire.running=true;}
     function command(value){start();if(connected)wire.write(JSON.stringify(value)+"\n");else outgoing.push(value);}
-    function send(text){if(!busy&&text.trim()){busy=true;command({action:"send",text:text});}}
+    function send(text){if(!inWorkspace&&text.trim()){busy=true;command({action:"send",text:text});}}
     function newChat(){if(!busy)command({action:"new"});}
     function load(key){if(!busy)command({action:"load",key:key});}
     function stop(){command({action:"stop"});}
@@ -39,6 +40,8 @@ Singleton {
             if(question?.id!==event.question?.id)answers={};question=event.question??null;
             connected=true;
             while(outgoing.length)wire.write(JSON.stringify(outgoing.shift())+"\n");
+        }else if(event.type==="sendFailed"){
+            draft=event.text+(draft?"\n\n"+draft:"");
         }else if(event.type==="history"){
             messages.clear();for(const item of event.messages)messages.append(item);
         }else if(event.type==="delta"){
