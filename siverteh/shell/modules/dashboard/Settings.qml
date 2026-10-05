@@ -6,13 +6,21 @@ import QtQuick
 import QtQuick.Controls
 Item {
     id:root
-    implicitWidth:900;implicitHeight:Math.min(content.implicitHeight,Math.max(360,Quickshell.screens[0].height-210))
+    implicitWidth:900;implicitHeight:Math.min(content.implicitHeight+navigation.height+16,Math.max(360,Quickshell.screens[0].height-210))
+    property string page:"desktop"
+    onPageChanged:{settingsWheel.cancel();settingsScroll.contentY=0;rollbackConfirm.visible=false;}
+    Row {
+        id:navigation;objectName:"settingsNavigation";width:parent.width;spacing:8
+        Repeater {model:[{id:"desktop",title:"Desktop"},{id:"appearance",title:"Appearance"},{id:"workflows",title:"Workflows"},{id:"maintenance",title:"Maintenance"}]
+            Action {required property var modelData;label:modelData.title;selected:root.page===modelData.id;onActivated:root.page=modelData.id}
+        }
+    }
     property var workflowRoles:[]
     property string primary:DesktopSettings.monitors[0]?.name??""
     Flickable {
-        id:settingsScroll
-        FastScroll {view:settingsScroll}
-        anchors.fill:parent;clip:true;contentWidth:width;contentHeight:content.implicitHeight;flickableDirection:Flickable.VerticalFlick
+        id:settingsScroll;objectName:"settingsScroll"
+        FastScroll {id:settingsWheel;view:settingsScroll}
+        anchors.top:navigation.bottom;anchors.topMargin:16;anchors.bottom:parent.bottom;anchors.left:parent.left;anchors.right:parent.right;clip:true;contentWidth:width;contentHeight:content.implicitHeight;flickableDirection:Flickable.VerticalFlick
         ScrollBar.vertical:ScrollBar {}
         Column {
             id:content;width:parent.width;spacing:16
@@ -21,9 +29,13 @@ Item {
                 text:DesktopSettings.message
                 width:parent.width;wrapMode:Text.WordWrap;color:Colours.palette.m3error
             }
-            Section {width:900;heading:"Maintenance"
+            Section {objectName:"settingsHealth";width:parent.width;visible:root.page==="maintenance";heading:"Desktop health"
                 StyledText {width:parent.width;text:"Installed release: "+(Maintenance.data.release?.revision??"Unrecorded").slice(0,12);color:Colours.palette.m3onSurfaceVariant}
-                StyledText {width:parent.width;wrapMode:Text.Wrap;text:Object.entries(Maintenance.data.services??{}).map(([name,status])=>name.replace(".service","")+": "+status).join("   ")}
+                Flow {width:parent.width;spacing:16
+                    Repeater {model:Object.entries(Maintenance.data.services??{})
+                        StyledText {required property var modelData;text:({"siverteh-os-shell.service":"Desktop","siverteh-sidebar-ai.service":"AI chat","siverteh-observatory-brain.service":"Brain","siverteh-session-watch.service":"Session monitor"}[modelData[0]]??modelData[0])+": "+modelData[1];color:modelData[1]==="active"?Colours.palette.m3onSurfaceVariant:Colours.palette.m3error}
+                    }
+                }
                 StyledText {width:parent.width;wrapMode:Text.Wrap;text:(Maintenance.data.configErrors||"Compositor configuration is valid")+" · "+(Maintenance.data.drift??[]).length+" locally changed managed files";color:Maintenance.data.configErrors?Colours.palette.m3error:Colours.palette.m3onSurfaceVariant}
                 StyledText {width:parent.width;wrapMode:Text.Wrap;text:Maintenance.data.performance?.cpuCorePercent!==undefined?"Last sample: "+Maintenance.data.performance.cpuCorePercent+"% of one core · "+Maintenance.data.performance.memoryMiB+" MiB ("+Maintenance.data.performance.label+")":"No performance sample yet"}
                 StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Session: "+(Maintenance.data.session?.event??"not checked")+" · Wallet: "+(Maintenance.data.session?.wallet??"unknown")+" · Update cache: "+(Maintenance.data.updatesAgeSeconds===null?"not available":Math.round((Maintenance.data.updatesAgeSeconds??0)/60)+" minutes old")}
@@ -41,15 +53,15 @@ Item {
                 }
                 StyledText {width:parent.width;wrapMode:Text.Wrap;text:Maintenance.message;visible:text.length>0;color:Colours.palette.m3onSurfaceVariant}
             }
-            Section {width:900;heading:"Desktop presets"
+            Section {objectName:"settingsPresets";width:parent.width;visible:root.page==="workflows";heading:"Desktop presets"
                 Flow {width:parent.width;spacing:10
                     Repeater {model:["normal","focused","presentation","minimal","meeting","music","docked"]
                         Action {required property string modelData;label:modelData.charAt(0).toUpperCase()+modelData.slice(1);selected:(DesktopSettings.data.preset??"normal")===modelData;onActivated:DesktopSettings.request(["preset",modelData])}
                     }
                 }
             }
-            Section {width:900;heading:"Personal workflow setup"
-                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Select a preset above, set your audio devices and display layout, then save them here. The preset recalls connected devices only and keeps microphone mute unchanged."}
+            Section {width:parent.width;visible:root.page==="workflows";heading:"Personal workflow setup"
+                StyledText {width:parent.width;wrapMode:Text.Wrap;text:"Save your current audio devices and display layout for the selected preset. Only connected devices are recalled; microphone mute stays unchanged."}
                 Action {label:"Save current audio and display setup";onActivated:DesktopSettings.request(["save-workflow",DesktopSettings.data.preset??"normal",JSON.stringify(root.workflowRoles)])}
                 Flow {width:parent.width;spacing:8
                     Repeater {model:["Browser","Siverteh AI","Discord","Spotify","Mail","Brain"]
@@ -58,7 +70,7 @@ Item {
                 }
             }
             StyledRect {
-                width:900;height:DesktopSettings.pending?175:140;radius:17;color:Colours.palette.m3surfaceContainer
+                objectName:"settingsDisplays";visible:root.page==="desktop";width:parent.width;height:DesktopSettings.pending?175:140;radius:17;color:Colours.palette.m3surfaceContainer
                 Column {anchors.fill:parent;anchors.margins:16;spacing:12
                     StyledText {text:"Displays";font.weight:500}
                     Row {spacing:10
@@ -80,7 +92,7 @@ Item {
                     }
                 }
             }
-            Row {spacing:16
+            Row {visible:root.page==="desktop";spacing:16
                 Section {heading:"Windows & spacing"
                     NumberSetting {label:"Space between windows";setting:"gapsIn";maximum:30}
                     NumberSetting {label:"Space from screen edges";setting:"gapsOut";maximum:80}
@@ -95,7 +107,7 @@ Item {
                     Toggle {label:"Natural touchpad scrolling";setting:"naturalScroll"}
                 }
             }
-            Row {spacing:16
+            Row {visible:root.page==="appearance";spacing:16
                 Section {heading:"Desktop panels"
                     Toggle {label:"Left-edge hover drawer";setting:"leftDrawer"}
                     Toggle {label:"Native command palette";setting:"nativePalette"}
@@ -108,7 +120,7 @@ Item {
                 }
             }
             Section {
-                width:900;heading:"Desktop frame"
+                visible:root.page==="appearance";width:parent.width;heading:"Desktop frame"
                 Row {spacing:12
                     Action {label:"Top bar";selected:DesktopSettings.data.topEdge!==false;onActivated:DesktopSettings.set("topEdge",!selected)}
                     Action {label:"Left edge";selected:DesktopSettings.data.leftEdge!==false;onActivated:DesktopSettings.set("leftEdge",!selected)}

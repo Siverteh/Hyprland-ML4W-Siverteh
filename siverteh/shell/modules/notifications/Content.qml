@@ -53,6 +53,7 @@ Item {
 
         ListView {
             id: list
+            FastScroll {view:list}
 
             model: ScriptModel {
                 values: [...Notifs.popups].reverse()

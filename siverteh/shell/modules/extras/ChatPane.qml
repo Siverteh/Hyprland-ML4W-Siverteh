@@ -22,7 +22,7 @@ Item {
         id:transcript;objectName:"sidebarTranscript";anchors.top:tools.bottom;anchors.bottom:footer.top;anchors.left:parent.left;anchors.right:parent.right;anchors.topMargin:12;anchors.bottomMargin:10
         model:SidebarChat.messages;clip:true;spacing:12;cacheBuffer:100
         ScrollBar.vertical:ScrollBar {onPressedChanged:{if(pressed){wheel.cancel();transcript.follow=false;}else if(!transcript.restoring)transcript.follow=transcript.nearBottom();}}
-        FastScroll {id:wheel;objectName:"sidebarWheel";view:transcript;step:480;pixelMultiplier:2.4;smoothDuration:260;kinetic:true;onScrolled:transcript.follow=false;onSettled:if(!transcript.restoring)transcript.follow=transcript.nearBottom()}
+        FastScroll {id:wheel;objectName:"sidebarWheel";view:transcript;onScrolled:transcript.follow=false;onSettled:if(!transcript.restoring)transcript.follow=transcript.nearBottom()}
         boundsBehavior:Flickable.StopAtBounds;maximumFlickVelocity:4000;flickDeceleration:6500
         property bool follow:true
         property bool restoring:false
@@ -80,6 +80,7 @@ Item {
         id:footer;anchors.bottom:parent.bottom;width:parent.width;spacing:8
         StyledText {width:parent.width;wrapMode:Text.Wrap;visible:SidebarChat.error.length>0||SidebarChat.status.length>0;text:SidebarChat.error||SidebarChat.status;color:SidebarChat.error?Colours.palette.m3error:Colours.palette.m3onSurfaceVariant;font.pointSize:10}
         ScrollView {
+            FastScroll {view:questionScroll.contentItem;parent:questionScroll.contentItem}
             id:questionScroll;objectName:"sidebarQuestions";width:parent.width
             height:visible?Math.min(240,root.height*0.35,Math.max(80,questionColumn.implicitHeight)):0
             visible:SidebarChat.question!==null;clip:true
@@ -106,6 +107,7 @@ Item {
             }
         }
         ScrollView {
+            FastScroll {view:composer.contentItem;parent:composer.contentItem}
             id:composer;objectName:"sidebarComposerScroll";width:parent.width;height:Math.min(160,Math.max(100,input.implicitHeight));clip:true
             ScrollBar.horizontal.policy:ScrollBar.AlwaysOff
             ScrollBar.vertical.policy:ScrollBar.AsNeeded
@@ -121,12 +123,12 @@ Item {
             }
         }
         Connections {target:SidebarChat;function onDraftChanged(){if(input.text!==SidebarChat.draft)input.text=SidebarChat.draft;}}
-        Flow {width:parent.width;spacing:8
-            ActionButton {text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&(input.text.trim().length>0||(SidebarChat.attachments??[]).length>0);onClicked:root.send()}
-            ActionButton {text:"Attach";icon:"attach_file";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.pickFiles()}
-            ActionButton {text:"Screenshot";icon:"screenshot";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.screenshot()}
-            ActionButton {text:"Stop";icon:"stop";visible:SidebarChat.busy;onClicked:SidebarChat.stop()}
-            ActionButton {text:"Latest";icon:"arrow_downward";onClicked:{transcript.latest();}}
+        Row {objectName:"sidebarActions";width:parent.width;spacing:6
+            ActionButton {objectName:"sidebarSend";compact:true;text:"Send";icon:"arrow_upward";selected:true;enabled:!SidebarChat.inWorkspace&&(input.text.trim().length>0||(SidebarChat.attachments??[]).length>0);onClicked:root.send()}
+            ActionButton {compact:true;text:"Attach";icon:"attach_file";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.pickFiles()}
+            ActionButton {compact:true;text:SidebarChat.busy?"":"Screenshot";icon:"screenshot";enabled:SidebarChat.attachmentsSupported;onClicked:SidebarChat.screenshot()}
+            ActionButton {compact:true;text:"";icon:"stop";visible:SidebarChat.busy;onClicked:SidebarChat.stop()}
+            ActionButton {objectName:"sidebarLatest";compact:true;text:"Latest";icon:"arrow_downward";onClicked:transcript.latest()}
         }
     }
     function send(){if(!SidebarChat.inWorkspace&&(input.text.trim()||(SidebarChat.attachments??[]).length)){transcript.latest();if(SidebarChat.send(input.text)===false)return;SidebarChat.draft="";SidebarChat.attachments=[];input.text="";}}

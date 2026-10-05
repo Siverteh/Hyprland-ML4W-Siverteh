@@ -2,11 +2,11 @@ import QtQuick
 WheelHandler {
     id:root
     required property var view
-    property real step:150
-    property real pixelMultiplier:1
+    property real step:480
+    property real pixelMultiplier:2.4
     property real destination:0
-    property int smoothDuration:100
-    property bool kinetic:false
+    property int smoothDuration:260
+    property bool kinetic:true
     property real velocity:0
     property real lastPixelTime:0
     property int pixelSamples:0

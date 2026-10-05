@@ -9,6 +9,7 @@ import QtQuick.Controls
 
 ListView {
     id: root
+    FastScroll {view:root}
 
     required property int padding
     required property TextField search

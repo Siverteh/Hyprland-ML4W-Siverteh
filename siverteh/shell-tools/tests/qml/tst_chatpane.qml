@@ -75,4 +75,11 @@ TestCase {
   keyClick(Qt.Key_Return);compare(SidebarChat.sends,1);compare(view.visibilities.leftPinned,false)
  }
 
+ function test_chat_actions_fit_one_row_idle_and_busy(){
+  const view=createTemporaryObject(pane,test,{width:438});verify(view);wait(20);
+  const actions=findChild(view,"sidebarActions");const send=findChild(view,"sidebarSend");const latest=findChild(view,"sidebarLatest");
+  compare(send.y,latest.y);verify(latest.x+latest.width<=actions.width,"idle action row overflow");
+  SidebarChat.busy=true;wait(20);compare(send.y,latest.y);verify(latest.x+latest.width<=actions.width,"busy action row overflow");
+ }
+
 }
