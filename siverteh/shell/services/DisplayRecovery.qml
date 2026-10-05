@@ -6,7 +6,8 @@ Singleton {
  readonly property string signature:Quickshell.screens.map(s=>[s.name,s.x,s.y,s.width,s.height,s.devicePixelRatio].join(":")).sort().join(";")
  property string previous:""
  property bool ready:false
- Timer {interval:2000;running:true;onTriggered:{root.previous=root.signature;root.ready=true;}}
+ Component.onCompleted:previous=signature
+ Timer {interval:2000;running:true;onTriggered:{root.ready=true;if(root.previous&&root.signature!==root.previous){root.previous=root.signature;settle.restart();}else root.previous=root.signature;}}
  onSignatureChanged:if(ready&&signature!==previous){previous=signature;settle.restart();}
  Timer {id:settle;interval:700;onTriggered:{
   const v=Visibilities.getForActive();if(!v)return;
