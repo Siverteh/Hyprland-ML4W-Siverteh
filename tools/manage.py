@@ -27,7 +27,7 @@ def main():
         print('Plan only. Read docs/maintenance.md and tools/check.py output before applying.')
         return
     if 'ai' in components:raise RuntimeError('AI workflow deployment is separate; use ai/install.py to preserve account setup')
-    subprocess.run([sys.executable,str(ROOT/'tools/releases.py'),'deploy',str(ROOT),*[part for name in components for part in ('--component',name)]],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tools/releases.py'),'deploy',str(ROOT),*(['--migrate-owned'] if args.migrate_owned else []),*[part for name in components for part in ('--component',name)]],check=True)
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ import shutil
 import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
-ACTIVE_DIRS=('hypr','kitty','fastfetch','gtk-3.0','gtk-4.0','rofi')
+ACTIVE_DIRS=('hypr','kitty','fastfetch','fish','gtk-3.0','gtk-4.0','rofi')
 RETIRED_DIRS=('waybar','swaync','waypaper','wlogout','matugen','nwg-dock-hyprland','kanshi')
 
 
@@ -50,8 +50,12 @@ def plan(home, root=ROOT, migrate=False):
         path = home / '.config' / name
         if path.is_symlink():
             target = path.resolve()
-            # Only a source tree bearing our tracked component may be migrated.
-            if not migrate or not (target.parent / '.git').exists() or target.name != name:
+            managed = {relative: value for relative, value in known.items()
+                       if Path(relative).is_relative_to(Path('.config') / name)}
+            managed_fish = name == 'fish' and bool(managed) and all(
+                digest(home / relative) == value for relative, value in managed.items())
+            source_tree = (target.parent / '.git').exists()
+            if not migrate or target.name != name or not target.is_dir() or not (source_tree or managed_fish):
                 raise RuntimeError(f'Refusing to replace configuration symlink: {path}; review --migrate-owned')
             links[path] = target
     changed = []
@@ -96,6 +100,9 @@ def apply(home, root=ROOT, migrate=False):
         saved = backup / dest.relative_to(home)
         dest.unlink()
         if dest.name in RETIRED_DIRS:continue
+        if dest.name == 'fish':
+            shutil.copytree(saved, dest, symlinks=True)
+            continue
         dest.mkdir()
         # Preserve explicit user overrides and the current lock appearance.
         for rel in ('custom.conf', 'hyprlock.conf', 'settings.ini', 'config.rasi'):

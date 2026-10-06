@@ -1,5 +1,6 @@
 import importlib.util
 from pathlib import Path
+import json
 import tempfile
 import unittest
 
@@ -46,6 +47,24 @@ class ConfigurationTests(unittest.TestCase):
             self.assertEqual((backup / '.config/hypr/old.conf').read_text(), 'retired')
             self.assertFalse((home / '.config/hypr/old.conf').exists())
             self.assertFalse((home / '.config/hypr').is_symlink())
+
+    def test_managed_fish_link_migration_preserves_personal_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base=Path(directory);root=base/'repo';home=base/'home';old=base/'legacy/fish'
+            for path in (root/'fish/functions',root/'bin',old/'functions',home/'.config',home/'.local/state/siverteh-os'):
+                path.mkdir(parents=True)
+            for name in ('siverteh-os-app','xdg-open'):(root/'bin'/name).write_text('helper')
+            (root/'fish/functions/fish_title.fish').write_text('owned title')
+            (old/'functions/fish_title.fish').write_text('owned title');(old/'config.fish').write_text('personal setup')
+            (home/'.config/fish').symlink_to(old)
+            manifest={'.config/fish/functions/fish_title.fish':module.digest(old/'functions/fish_title.fish')}
+            (home/'.local/state/siverteh-os/configuration.json').write_text(json.dumps(manifest))
+            with self.assertRaises(RuntimeError):module.plan(home,root)
+            backup=module.apply(home,root,migrate=True)
+            self.assertFalse((home/'.config/fish').is_symlink())
+            self.assertEqual((home/'.config/fish/config.fish').read_text(),'personal setup')
+            self.assertEqual((backup/'.config/fish/config.fish').read_text(),'personal setup')
+            self.assertEqual((old/'config.fish').read_text(),'personal setup')
 
     def test_removed_managed_file_is_backed_up_and_pruned_only_when_unmodified(self):
         with tempfile.TemporaryDirectory() as directory:

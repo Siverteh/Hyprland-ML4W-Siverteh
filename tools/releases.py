@@ -30,6 +30,9 @@ def paths(repo):
   p=Path(rel)
   if p.is_absolute() or '..' in p.parts:raise RuntimeError('Invalid managed path')
   result.append(HOME/p)
+ for name in ('hypr','kitty','fastfetch','fish'):
+  path=HOME/'.config'/name
+  if path.is_symlink():result.append(path)
  for folder in ('hypr','kitty','fastfetch','fish'):
   for source in (repo/folder).rglob('*'):
    if source.is_file():result.append(HOME/'.config'/source.relative_to(repo))
@@ -79,18 +82,18 @@ def install_controller(repo):
  for name in ('releases.py','check-overlays.py'):shutil.copy2(repo/'tools'/name,CONTROL/name)
  wrapper=HOME/'.local/bin/siverteh-os';wrapper.parent.mkdir(parents=True,exist_ok=True);wrapper.write_text('#!/bin/sh\nexec python3 "$HOME/.local/share/siverteh-os/control/releases.py" "$@"\n');wrapper.chmod(0o755)
 
-def deploy(repo,components,keyboard):
+def deploy(repo,components,keyboard,migrate=False):
  repo=repo.resolve();revision=subprocess.check_output(['git','-C',str(repo),'rev-parse','HEAD'],text=True).strip()
  if subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True).strip():raise RuntimeError('Commit the reviewed candidate before deploying a release')
  subprocess.run([sys.executable,str(repo/'tools/check.py')],check=True)
  # Configuration preflight runs before any snapshot/cutover.
- if 'configs' in components:subprocess.run([sys.executable,str(repo/'tools/configure.py')],check=True)
+ if 'configs' in components:subprocess.run([sys.executable,str(repo/'tools/configure.py'),*(['--migrate-owned'] if migrate else [])],check=True)
  keyboard=keyboard or shutil.which('wtype') or str(HOME/'.local/share/siverteh-ai/shell-runtime/usr/bin/wtype')
  if not Path(keyboard).is_file():raise RuntimeError('Provision wtype for the live release gate')
  release,record=capture(repo,revision);environment=dict(os.environ,SIVERTEH_RELEASE_TRANSACTION='1')
  try:
   for component in components:
-   commands={'configs':[sys.executable,str(repo/'tools/configure.py'),'--apply'],'shell':[sys.executable,str(repo/'siverteh/shell-tools/install.py'),'--code-only'],'brain':[sys.executable,str(repo/'brain/install.py')]}
+   commands={'configs':[sys.executable,str(repo/'tools/configure.py'),'--apply',*(['--migrate-owned'] if migrate else [])],'shell':[sys.executable,str(repo/'siverteh/shell-tools/install.py'),'--code-only'],'brain':[sys.executable,str(repo/'brain/install.py')]}
    subprocess.run(commands[component],env=environment,check=True)
   subprocess.run([sys.executable,str(repo/'tools/check-overlays.py'),'--keyboard',keyboard,'--dismiss-hover'],check=True)
   for service in ('siverteh-os-shell.service','siverteh-sidebar-ai.service','siverteh-observatory-brain.service'):subprocess.run(['systemctl','--user','is-active','--quiet',service],check=True)
@@ -108,12 +111,12 @@ def deploy(repo,components,keyboard):
   record['status']='failed';record['error']=str(error);atomic(release/'release.json',record);restore(release,record,force=True);raise
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('action',choices=['deploy','status','rollback','doctor','profile','check','session','restart']);p.add_argument('repo',nargs='?',type=Path);p.add_argument('--component',action='append',choices=['configs','shell','brain']);p.add_argument('--keyboard');a=p.parse_args();STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
+ p=argparse.ArgumentParser();p.add_argument('action',choices=['deploy','status','rollback','doctor','profile','check','session','restart']);p.add_argument('repo',nargs='?',type=Path);p.add_argument('--component',action='append',choices=['configs','shell','brain']);p.add_argument('--keyboard');p.add_argument('--migrate-owned',action='store_true');a=p.parse_args();STATE.mkdir(parents=True,exist_ok=True,mode=0o700)
  if a.action in ('doctor','profile','check','session','restart'):
   subprocess.run([sys.executable,str(HOME/'.local/share/siverteh-ai/siverteh-shell/tools/maintenance.py'),'state' if a.action=='doctor' else a.action],check=True);return
  with (STATE/'release.lock').open('w') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX)
-  if a.action=='deploy':print(json.dumps(deploy(a.repo or Path.cwd(),a.component or ['configs','shell','brain'],a.keyboard)))
+  if a.action=='deploy':print(json.dumps(deploy(a.repo or Path.cwd(),a.component or ['configs','shell','brain'],a.keyboard,a.migrate_owned)))
   elif a.action=='status':print((STATE/'current.json').read_text() if (STATE/'current.json').exists() else '{}')
   else:
    current=json.loads((STATE/'current.json').read_text());print(json.dumps(dict(restored=restore(Path(current['release'])))))
