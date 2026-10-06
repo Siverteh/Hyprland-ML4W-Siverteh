@@ -190,7 +190,7 @@ stay private; assets are not part of public Git or software rollback. Static CLI
 palette operations remain compatible because the poster is the committed image.
 Qt Multimedia with its FFmpeg backend and the ffmpeg utility provide local video
 playback. Videos have no audio output and disable their audio track. Playback
-pauses on lock/sleep, can pause behind tiled apps, and temporarily runs while the
+pauses on lock/sleep, can pause behind tiled apps, and is shown inside the selected tile while the
 picker is open for browsing. Switching to a static wallpaper destroys the player.
 
 Output geometry or pixel-density changes can leave stale Qt/Wayland render
@@ -269,3 +269,12 @@ actual launcher inheritance. A complete new login, physical Fn-row behavior and
 real 15-minute password unlock still require checks on the actual session; avoid
 logging out active workers merely to claim those tests passed. See the
 [overview](overview.md) and [optional boundary proposal](repository-boundaries.md).
+
+Dynamic chooser tiles now show the selected local video or animated GIF rather
+than just its still poster. Selection settles for 180 ms before a player starts;
+rapid browsing cancels that work. Carousel, Spotlight and the masked hexagon
+view share the same silent preview component. Only the selected tile decodes,
+and the desktop motion pauses while the chooser is open, so this does not run
+a video grid or add a second active desktop decoder. Closing, changing tabs or
+manual pause destroys the preview player. Static thumbnails remain underneath
+until a video frame arrives. Decoder errors retain the still preview.

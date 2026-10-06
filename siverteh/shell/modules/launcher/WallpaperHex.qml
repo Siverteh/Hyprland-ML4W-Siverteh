@@ -9,6 +9,8 @@ Item {
     id: root
     property var entry
     property bool selected: false
+    property bool previewMotion: false
+    signal motionChanged(var data)
     signal clicked
     width: 200
     height: 174
@@ -69,6 +71,19 @@ Item {
         maskSource: mask
         maskThresholdMin: 0.5
         maskSpreadAtMin: 1
+    }
+    WallpaperMotionPreview {
+        anchors.fill: parent
+        entry: root.entry
+        running: root.selected && root.previewMotion && root.visible
+        onStateChanged: data => root.motionChanged(data)
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            maskEnabled: true
+            maskSource: mask
+            maskThresholdMin: 0.5
+            maskSpreadAtMin: 1
+        }
     }
     Shape {
         anchors.fill: parent

@@ -32,7 +32,7 @@ class WallpaperPickerUITests(unittest.TestCase):
             (target / "ThemePresentation.qml").write_text(
                 remove_objects(presentation, r"\bFileView\s*\{")
             )
-            for name in ("WallpaperGallery", "WallpaperHex"):
+            for name in ("WallpaperGallery", "WallpaperHex", "WallpaperMotionPreview"):
                 source = (
                     (ROOT.parent / "shell/modules/launcher" / (name + ".qml"))
                     .read_text()

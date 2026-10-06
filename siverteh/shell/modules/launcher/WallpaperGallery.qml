@@ -19,6 +19,13 @@ Item {
     property int currentIndex: 0
     readonly property var currentEntry: entries[currentIndex] ?? null
     property bool initializing: true
+    property var motionStatus: ({})
+    readonly property bool motionEnabled: visibilities.launcher && kind === "dynamic" && !Wallpapers.preferences.paused
+    onCurrentEntryChanged: motionStatus = ({})
+    function receiveMotion(data) {
+        if (data.path === currentEntry?.path)
+            motionStatus = data;
+    }
     property string shownLayout: "carousel"
     onLayoutChanged: {
         if (bodyView?.item?.snapBeforeUnload)
@@ -299,6 +306,8 @@ Item {
                 height: Math.min(compactStrip.height - 8, width * .70 + 36)
                 entry: modelData
                 selected: index === root.currentIndex
+                previewMotion: root.motionEnabled
+                onMotionChanged: data => root.receiveMotion(data)
                 visible: PathView.onPath
                 scale: PathView.isCurrentItem ? 1 : .91
                 z: PathView.isCurrentItem ? 2 : 1
@@ -361,6 +370,8 @@ Item {
                     height: Math.min(wideStrip.height - 12, wideStrip.heroWidth * .70)
                     entry: modelData
                     selected: offset === 0
+                    previewMotion: root.motionEnabled
+                    onMotionChanged: data => root.receiveMotion(data)
                     imageOnly: true
                     imageEnabled: Math.abs(offset) <= wideStrip.sideSlots + 1
                     z: selected ? 2 : 1
@@ -423,6 +434,8 @@ Item {
                     y: Math.floor(index / view.columns) * view.rowStep + (index % view.columns) % 2 * view.rowStep / 2
                     entry: modelData
                     selected: index === root.currentIndex
+                    previewMotion: root.motionEnabled
+                    onMotionChanged: data => root.receiveMotion(data)
                     onClicked: root.select(index)
                 }
             }
@@ -432,6 +445,8 @@ Item {
         id: card
         property var entry
         property bool selected: false
+        property bool previewMotion: false
+        signal motionChanged(var data)
         property bool imageOnly: false
         property bool imageEnabled: true
         signal clicked
@@ -464,6 +479,13 @@ Item {
                     duration: 160
                 }
             }
+        }
+
+        WallpaperMotionPreview {
+            anchors.fill: quickImage
+            entry: card.entry
+            running: card.selected && card.previewMotion && card.visible && card.imageEnabled
+            onStateChanged: data => card.motionChanged(data)
         }
 
         StyledText {
@@ -515,7 +537,8 @@ Item {
                 index: root.currentIndex,
                 width: root.width,
                 height: root.height,
-                fullScreen: root.fullScreen
+                fullScreen: root.fullScreen,
+                motion: root.motionStatus
             });
         }
     }

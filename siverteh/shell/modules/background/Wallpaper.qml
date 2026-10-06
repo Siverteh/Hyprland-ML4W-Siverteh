@@ -16,7 +16,7 @@ Item {
     readonly property int workspaceId: monitor?.activeWorkspace?.id ?? Hyprland.activeWsId
     readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
     readonly property bool covered: Hyprland.clients.some(c => c.workspace?.id === workspaceId && (c.fullscreen || (WallpaperPlayback.pauseCovered && !c.floating)))
-    readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && (!covered || pickerOpen)
+    readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && !pickerOpen && !covered
     property Image current: one
 
     anchors.fill: parent

@@ -44,6 +44,41 @@ TestCase {
         Wallpapers.current = "one";
         Wallpapers.browsed = "";
     }
+    Component {
+        id: motionPreview
+        WallpaperMotionPreview {
+            width: 300
+            height: 180
+        }
+    }
+    function test_preview_cancels_decode_when_selection_moves_before_settling() {
+        const view = createTemporaryObject(motionPreview, test, {
+            entry: {
+                path: "unused.mp4",
+                dynamic: true
+            },
+            running: true
+        });
+        wait(60);
+        verify(!view.active);
+        view.running = false;
+        wait(220);
+        verify(!view.active);
+    }
+    function test_gallery_motion_respects_pause_and_close() {
+        const view = createTemporaryObject(picker, test);
+        Wallpapers.preference({
+            kind: "dynamic",
+            paused: true
+        });
+        verify(!view.motionEnabled);
+        Wallpapers.preference({
+            paused: false
+        });
+        verify(view.motionEnabled);
+        view.visibilities.launcher = false;
+        verify(!view.motionEnabled);
+    }
     function test_static_dynamic_filter_and_search() {
         const view = createTemporaryObject(picker, test);
         wait(40);
