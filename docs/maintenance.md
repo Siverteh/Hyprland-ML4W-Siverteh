@@ -11,6 +11,10 @@ The target host needs Hyprland with Lua support, UWSM, Hypridle/Hyprlock, Kitty,
 Python 3.13+, PipeWire/WirePlumber, NetworkManager, wl-clipboard/cliphist, jq,
 brightnessctl, polkit's graphical agent and fonts used by the shell. Package update
 checking uses `checkupdates` from pacman-contrib and optionally paru/yay. The
+bar updater uses `paru -Syu --skipreview` so routine updates do not display every
+AUR package file, including long licence documents. Package lists, installation
+confirmation and checksum validation remain enabled. This also skips manual
+inspection of community package scripts; use `paru -Syu --review` when desired.
 Brain needs Chrome/Chromium and Node.js, or the installed `siverteh-ai-tools node`
 wrapper. Its local semantic model is optional. Qt's QML parser/test runner provide
 the target-host UI checks; skipped checks are reported explicitly.
