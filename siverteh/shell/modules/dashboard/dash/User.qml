@@ -19,10 +19,10 @@ Row {
         radius: Appearance.rounding.full
         color: Colours.palette.m3surfaceContainerHigh
 
-        ShLogo {anchors.centerIn:parent;scale:parent.width/48}
-
-
-
+        ShLogo {
+            anchors.centerIn: parent
+            scale: parent.width / 48
+        }
     }
 
     Column {
@@ -30,7 +30,11 @@ Row {
 
         spacing: Appearance.spacing.normal
 
-        InfoLine { icon:"badge";text:Quickshell.env("USER") || "Siverteh";colour:Colours.palette.m3primary }
+        InfoLine {
+            icon: "badge"
+            text: Quickshell.env("USER") || "Siverteh"
+            colour: Colours.palette.m3primary
+        }
         InfoLine {
             icon: "computer"
             text: Icons.osName

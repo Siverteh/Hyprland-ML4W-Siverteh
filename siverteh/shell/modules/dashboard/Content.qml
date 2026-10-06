@@ -28,7 +28,11 @@ Item {
 
         nonAnimWidth: root.nonAnimWidth
         currentIndex: root.visibilities.dashboardTab
-        onCurrentIndexChanged:{root.visibilities.dashboardTab=currentIndex;if(root.visibilities.dashboard)root.visibilities.dashboardPinned=currentIndex===4;}
+        onCurrentIndexChanged: {
+            root.visibilities.dashboardTab = currentIndex;
+            if (root.visibilities.dashboard)
+                root.visibilities.dashboardPinned = currentIndex === 4;
+        }
     }
 
     ClippingRectangle {
@@ -94,8 +98,12 @@ Item {
                 }
 
                 Performance {}
-                WorkspacePage { visibilities:root.visibilities }
-                Settings {active:root.visibilities.dashboard&&view.currentIndex===4}
+                WorkspacePage {
+                    visibilities: root.visibilities
+                }
+                Settings {
+                    active: root.visibilities.dashboard && view.currentIndex === 4
+                }
             }
 
             Behavior on contentX {

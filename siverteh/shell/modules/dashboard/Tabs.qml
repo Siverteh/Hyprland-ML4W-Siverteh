@@ -42,7 +42,10 @@ Item {
             iconName: "workspaces"
             text: qsTr("Workspaces")
         }
-        Tab {iconName:"settings";text:qsTr("Settings")}
+        Tab {
+            iconName: "settings"
+            text: qsTr("Settings")
+        }
     }
 
     Item {
@@ -66,7 +69,6 @@ Item {
 
             color: Colours.palette.m3primary
             radius: Appearance.rounding.full
-
         }
 
         // Selection feedback follows the clicked tab in the same frame.
@@ -99,14 +101,17 @@ Item {
 
             cursorShape: Qt.PointingHandCursor
 
-            onPressed: ({x,y}) => {
+            onPressed: ({
+                    x,
+                    y
+                }) => {
                 tab.TabBar.tabBar.setCurrentIndex(tab.TabBar.index);
 
                 const stateY = stateWrapper.y;
                 rippleAnim.x = x;
                 rippleAnim.y = y - stateY;
 
-                const dist = (ox,oy) => ox * ox + oy * oy;
+                const dist = (ox, oy) => ox * ox + oy * oy;
                 const stateEndY = stateY + stateWrapper.height;
                 rippleAnim.radius = Math.sqrt(Math.max(dist(0, stateY), dist(0, stateEndY), dist(width, stateY), dist(width, stateEndY)));
 
@@ -229,7 +234,6 @@ Item {
                 font.pointSize: 11
                 color: tab.current ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
             }
-
         }
     }
 

@@ -10,13 +10,13 @@ import QtQuick.Window
 Item {
     id: root
 
-    property string screenName:""
+    property string screenName: ""
     property url source: Wallpapers.pendingPoster ? `file://${Wallpapers.pendingPoster}` : ""
-    readonly property var monitor:Hyprland.monitors.values.find(m=>m.name===screenName)
-    readonly property int workspaceId:monitor?.activeWorkspace?.id??Hyprland.activeWsId
-    readonly property bool pickerOpen:Object.values(Visibilities.screens).some(v=>v.launcher&&v.launcherMode==="wallpaper")
-    readonly property bool covered:Hyprland.clients.some(c=>c.workspace?.id===workspaceId&&(c.fullscreen||(WallpaperPlayback.pauseCovered&&!c.floating)))
-    readonly property bool motionAllowed:!WallpaperPlayback.sleeping&&!WallpaperPlayback.locked&&!WallpaperPlayback.paused&&(!covered||pickerOpen)
+    readonly property var monitor: Hyprland.monitors.values.find(m => m.name === screenName)
+    readonly property int workspaceId: monitor?.activeWorkspace?.id ?? Hyprland.activeWsId
+    readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
+    readonly property bool covered: Hyprland.clients.some(c => c.workspace?.id === workspaceId && (c.fullscreen || (WallpaperPlayback.pauseCovered && !c.floating)))
+    readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && (!covered || pickerOpen)
     property Image current: one
 
     anchors.fill: parent
@@ -36,15 +36,45 @@ Item {
         id: two
     }
 
-    AnimatedImage {anchors.fill:parent;source:Wallpapers.displayDynamic&&Wallpapers.displayAnimated?"file://"+Wallpapers.displayPath:"";fillMode:Image.PreserveAspectCrop;playing:root.motionAllowed;visible:source.toString().length>0&&status===Image.Ready;asynchronous:true;cache:false}
-    Loader {id:video;anchors.fill:parent;active:Wallpapers.displayDynamic&&!Wallpapers.displayAnimated;source:"DynamicWallpaper.qml";onLoaded:{item.screenName=root.screenName;item.path=Qt.binding(()=>Wallpapers.displayPath);item.running=Qt.binding(()=>root.motionAllowed);}}
+    AnimatedImage {
+        anchors.fill: parent
+        source: Wallpapers.displayDynamic && Wallpapers.displayAnimated ? "file://" + Wallpapers.displayPath : ""
+        fillMode: Image.PreserveAspectCrop
+        playing: root.motionAllowed
+        visible: source.toString().length > 0 && status === Image.Ready
+        asynchronous: true
+        cache: false
+    }
+    Loader {
+        id: video
+        anchors.fill: parent
+        active: Wallpapers.displayDynamic && !Wallpapers.displayAnimated
+        source: "DynamicWallpaper.qml"
+        onLoaded: {
+            item.screenName = root.screenName;
+            item.path = Qt.binding(() => Wallpapers.displayPath);
+            item.running = Qt.binding(() => root.motionAllowed);
+        }
+    }
 
-    IpcHandler {target:"wallpaperFrame-"+root.screenName;function state():string{return JSON.stringify({displayed:root.current.path,status:root.current.status,pending:ThemePresentation.pending.poster,active:ThemePresentation.active.poster,color:String(Colours.palette.m3primary),expected:ThemePresentation.active.colours?.primary??""});}}
+    IpcHandler {
+        target: "wallpaperFrame-" + root.screenName
+        function state(): string {
+            return JSON.stringify({
+                displayed: root.current.path,
+                status: root.current.status,
+                pending: ThemePresentation.pending.poster,
+                active: ThemePresentation.active.poster,
+                color: String(Colours.palette.m3primary),
+                expected: ThemePresentation.active.colours?.primary ?? ""
+            });
+        }
+    }
 
     component Img: Image {
         id: img
-        property string path:""
-        source:path?"file://"+path:""
+        property string path: ""
+        source: path ? "file://" + path : ""
 
         function update(): void {
             const srcPath = decodeURIComponent(`${root.source}`.slice(7));
@@ -57,8 +87,8 @@ Item {
 
         anchors.fill: parent
 
-        sourceSize.width:Math.ceil(width*Screen.devicePixelRatio)
-        sourceSize.height:Math.ceil(height*Screen.devicePixelRatio)
+        sourceSize.width: Math.ceil(width * Screen.devicePixelRatio)
+        sourceSize.height: Math.ceil(height * Screen.devicePixelRatio)
         asynchronous: true
         cache: true
         fillMode: Image.PreserveAspectCrop

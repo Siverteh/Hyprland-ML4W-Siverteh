@@ -4,55 +4,56 @@ import qs.config
 import QtQuick
 
 Item {
-    implicitWidth:metrics.implicitWidth
-    implicitHeight:metrics.implicitHeight+summary.implicitHeight+Appearance.padding.large*2
-Row {
-    id: metrics
+    implicitWidth: metrics.implicitWidth
+    implicitHeight: metrics.implicitHeight + summary.implicitHeight + Appearance.padding.large * 2
+    Row {
+        id: metrics
 
-    spacing: Appearance.spacing.large * 3
-    padding: Appearance.padding.large
-    leftPadding: padding * 2
-    rightPadding: padding * 3
+        spacing: Appearance.spacing.large * 3
+        padding: Appearance.padding.large
+        leftPadding: padding * 2
+        rightPadding: padding * 3
 
-    Resource {
-        value1: Math.min(1, SystemUsage.gpuTemp / 90)
-        value2: SystemUsage.gpuPerc
+        Resource {
+            value1: Math.min(1, SystemUsage.gpuTemp / 90)
+            value2: SystemUsage.gpuPerc
 
-        label1: SystemUsage.gpuTemp>0 ? `${Math.ceil(SystemUsage.gpuTemp)}°C` : "—°C"
-        label2: SystemUsage.gpuUsageAvailable ? `${Math.round(SystemUsage.gpuPerc * 100)}%` : "—"
+            label1: SystemUsage.gpuTemp > 0 ? `${Math.ceil(SystemUsage.gpuTemp)}°C` : "—°C"
+            label2: SystemUsage.gpuUsageAvailable ? `${Math.round(SystemUsage.gpuPerc * 100)}%` : "—"
 
-        sublabel1: qsTr("GPU temp")
-        sublabel2: qsTr("Usage")
-    }
-
-    Resource {
-        primary: true
-
-        value1: Math.min(1, SystemUsage.cpuTemp / 90)
-        value2: SystemUsage.cpuPerc
-
-        label1: `${Math.ceil(SystemUsage.cpuTemp)}°C`
-        label2: `${Math.round(SystemUsage.cpuPerc * 100)}%`
-
-        sublabel1: qsTr("CPU temp")
-        sublabel2: qsTr("Usage")
-    }
-
-    Resource {
-        value1: SystemUsage.memPerc
-        value2: SystemUsage.storagePerc
-
-        label1: {
-            const fmt = SystemUsage.formatKib(SystemUsage.memUsed);
-            return `${+fmt.value.toFixed(1)}${fmt.unit}`;
-        }
-        label2: {
-            const fmt = SystemUsage.formatKib(SystemUsage.storageUsed);
-            return `${Math.floor(fmt.value)}${fmt.unit}`;
+            sublabel1: qsTr("GPU temp")
+            sublabel2: qsTr("Usage")
         }
 
-        sublabel1: qsTr("Memory")
-        sublabel2: qsTr("Root storage")
+        Resource {
+            primary: true
+
+            value1: Math.min(1, SystemUsage.cpuTemp / 90)
+            value2: SystemUsage.cpuPerc
+
+            label1: `${Math.ceil(SystemUsage.cpuTemp)}°C`
+            label2: `${Math.round(SystemUsage.cpuPerc * 100)}%`
+
+            sublabel1: qsTr("CPU temp")
+            sublabel2: qsTr("Usage")
+        }
+
+        Resource {
+            value1: SystemUsage.memPerc
+            value2: SystemUsage.storagePerc
+
+            label1: {
+                const fmt = SystemUsage.formatKib(SystemUsage.memUsed);
+                return `${+fmt.value.toFixed(1)}${fmt.unit}`;
+            }
+            label2: {
+                const fmt = SystemUsage.formatKib(SystemUsage.storageUsed);
+                return `${Math.floor(fmt.value)}${fmt.unit}`;
+            }
+
+            sublabel1: qsTr("Memory")
+            sublabel2: qsTr("Root storage")
+        }
     }
 
     component Resource: Item {
@@ -230,10 +231,13 @@ Row {
             }
         }
     }
-}
 
-    StyledText {id:summary;anchors.top:metrics.bottom;anchors.horizontalCenter:parent.horizontalCenter
-        text:`Load (1/5/15m)  ${SystemUsage.loadAverage}   ·   RAM ${+(SystemUsage.memTotal/1048576).toFixed(1)} GiB   ·   / free ${+((SystemUsage.storageTotal-SystemUsage.storageUsed)/1048576).toFixed(1)} GiB\nKernel  ${SystemUsage.kernel}`
-        horizontalAlignment:Text.AlignHCenter;color:Colours.palette.m3onSurfaceVariant
+    StyledText {
+        id: summary
+        anchors.top: metrics.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: `Load (1/5/15m)  ${SystemUsage.loadAverage}   ·   RAM ${+(SystemUsage.memTotal / 1048576).toFixed(1)} GiB   ·   / free ${+((SystemUsage.storageTotal - SystemUsage.storageUsed) / 1048576).toFixed(1)} GiB\nKernel  ${SystemUsage.kernel}`
+        horizontalAlignment: Text.AlignHCenter
+        color: Colours.palette.m3onSurfaceVariant
     }
 }

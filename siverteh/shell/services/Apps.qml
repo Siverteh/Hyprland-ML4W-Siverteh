@@ -7,7 +7,7 @@ Singleton {
     id: root
 
     readonly property list<DesktopEntry> all: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
-    readonly property list<DesktopEntry> list:all.filter(a=>!LauncherPreferences.hidden.includes(a.id))
+    readonly property list<DesktopEntry> list: all.filter(a => !LauncherPreferences.hidden.includes(a.id))
     readonly property list<var> preppedApps: list.map(a => ({
                 name: Fuzzy.prepare(a.name),
                 comment: Fuzzy.prepare(a.comment),
@@ -23,6 +23,6 @@ Singleton {
     }
 
     function launch(entry: DesktopEntry): void {
-        AppLaunch.run(entry.runInTerminal?["kitty","--",...entry.command]:entry.command,entry.workingDirectory);
+        AppLaunch.run(entry.runInTerminal ? ["kitty", "--", ...entry.command] : entry.command, entry.workingDirectory);
     }
 }

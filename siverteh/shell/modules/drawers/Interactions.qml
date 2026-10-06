@@ -34,35 +34,57 @@ MouseArea {
     anchors.fill: parent
     hoverEnabled: true
 
-    acceptedButtons:(visibilities.launcher||(visibilities.dashboard&&visibilities.dashboardPinned))?(Qt.LeftButton|Qt.RightButton|Qt.MiddleButton):Qt.LeftButton
+    acceptedButtons: (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? (Qt.LeftButton | Qt.RightButton | Qt.MiddleButton) : Qt.LeftButton
     onPressed: event => {
-        if(visibilities.launcher){
-            const p=panels.launcher.mapFromItem(root,event.x,event.y);
-            if(p.x<0||p.y<0||p.x>panels.launcher.width||p.y>panels.launcher.height)visibilities.launcher=false;
-            event.accepted=true;
+        if (visibilities.launcher) {
+            const p = panels.launcher.mapFromItem(root, event.x, event.y);
+            if (p.x < 0 || p.y < 0 || p.x > panels.launcher.width || p.y > panels.launcher.height)
+                visibilities.launcher = false;
+            event.accepted = true;
             return;
         }
-        if(visibilities.dashboard&&visibilities.dashboardPinned){
-            const p=panels.dashboard.mapFromItem(root,event.x,event.y);
-            if(p.x<0||p.y<0||p.x>panels.dashboard.width||p.y>panels.dashboard.height){visibilities.dashboard=false;visibilities.dashboardPinned=false;}
-            event.accepted=true;return;
+        if (visibilities.dashboard && visibilities.dashboardPinned) {
+            const p = panels.dashboard.mapFromItem(root, event.x, event.y);
+            if (p.x < 0 || p.y < 0 || p.x > panels.dashboard.width || p.y > panels.dashboard.height) {
+                visibilities.dashboard = false;
+                visibilities.dashboardPinned = false;
+            }
+            event.accepted = true;
+            return;
         }
-        dragStart=Qt.point(event.x,event.y);
+        dragStart = Qt.point(event.x, event.y);
     }
-    Timer {id:exitDelay;interval:120;onTriggered:{if(!root.containsMouse&&!root.popouts.headerHovered&&!root.popouts.pinned)root.popouts.hasCurrent=false;if(!root.containsMouse&&!visibilities.leftPinned)visibilities.left=false;}}
+    Timer {
+        id: exitDelay
+        interval: 120
+        onTriggered: {
+            if (!root.containsMouse && !root.popouts.headerHovered && !root.popouts.pinned)
+                root.popouts.hasCurrent = false;
+            if (!root.containsMouse && !visibilities.leftPinned)
+                visibilities.left = false;
+        }
+    }
     onContainsMouseChanged: {
         if (!containsMouse) {
             visibilities.osd = false;
             osdHovered = false;
-            if(!visibilities.dashboardPinned)visibilities.dashboard = false;
+            if (!visibilities.dashboardPinned)
+                visibilities.dashboard = false;
             exitDelay.restart();
         }
     }
 
-    onPositionChanged: ({x, y}) => {
-        if(visibilities.launcher)return;
+    onPositionChanged: ({
+            x,
+            y
+        }) => {
+        if (visibilities.launcher)
+            return;
         // The existing border responds immediately, matching the right-side drawer.
-        if(DesktopSettings.data.leftDrawer!==false&&!visibilities.session&&!visibilities.launcher&&x<bar.implicitWidth&&withinPanelHeight(panels.leftDrawer,x,y)){visibilities.dashboard=false;visibilities.left=true;}
+        if (DesktopSettings.data.leftDrawer !== false && !visibilities.session && !visibilities.launcher && x < bar.implicitWidth && withinPanelHeight(panels.leftDrawer, x, y)) {
+            visibilities.dashboard = false;
+            visibilities.left = true;
+        }
 
         // Show osd on hover
         const showOsd = !visibilities.session && inRightPanel(panels.osd, x, y);
@@ -78,17 +100,19 @@ MouseArea {
                 visibilities.session = false;
         }
 
-        if(visibilities.left&&!visibilities.leftPinned&&!((x<bar.implicitWidth+panels.leftDrawer.width+BorderConfig.rounding)&&withinPanelHeight(panels.leftDrawer,x,y)))visibilities.left=false;
+        if (visibilities.left && !visibilities.leftPinned && !((x < bar.implicitWidth + panels.leftDrawer.width + BorderConfig.rounding) && withinPanelHeight(panels.leftDrawer, x, y)))
+            visibilities.left = false;
 
         // Show dashboard on hover
-        if(!visibilities.dashboardPinned)visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
+        if (!visibilities.dashboardPinned)
+            visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
 
         // Header popouts extend down from the top edge and remain while entered.
-        if(popouts.hasCurrent&&!popouts.headerHovered&&!popouts.pinned){
-            const px=bar.implicitWidth+popouts.x,py=panels.y+popouts.y;
-            if(y>py+popouts.height+BorderConfig.rounding||x<px-BorderConfig.rounding||x>px+popouts.width+BorderConfig.rounding)popouts.hasCurrent=false;
+        if (popouts.hasCurrent && !popouts.headerHovered && !popouts.pinned) {
+            const px = bar.implicitWidth + popouts.x, py = panels.y + popouts.y;
+            if (y > py + popouts.height + BorderConfig.rounding || x < px - BorderConfig.rounding || x > px + popouts.width + BorderConfig.rounding)
+                popouts.hasCurrent = false;
         }
-
     }
 
     Osd.Interactions {

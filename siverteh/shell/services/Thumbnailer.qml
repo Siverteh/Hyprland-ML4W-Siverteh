@@ -32,7 +32,7 @@ Singleton {
 
         readonly property Process proc: Process {
             running: true
-            command: ["python3",Quickshell.shellDir+"/utils/thumbnail.py",obj.originalPath,String(obj.width),String(obj.height),root.thumbDir]
+            command: ["python3", Quickshell.shellDir + "/utils/thumbnail.py", obj.originalPath, String(obj.width), String(obj.height), root.thumbDir]
             stdout: SplitParser {
                 onRead: data => {
                     if (data === "start") {

@@ -9,7 +9,7 @@ PathView {
     id: root
 
     property string filter: ""
-    property bool initialized:false
+    property bool initialized: false
     required property PersistentProperties visibilities
     readonly property int numItems: {
         const screenWidth = QsWindow.window?.screen.width * 0.8;
@@ -34,7 +34,10 @@ PathView {
         onValuesChanged: root.currentIndex = search ? 0 : values.findIndex(w => w.path === Wallpapers.current)
     }
 
-    Component.onCompleted: { currentIndex = Math.max(0,model.values.findIndex(w => w.path === Wallpapers.current)); initialized=true; }
+    Component.onCompleted: {
+        currentIndex = Math.max(0, model.values.findIndex(w => w.path === Wallpapers.current));
+        initialized = true;
+    }
     Component.onDestruction: Wallpapers.commitSelection()
 
     onCurrentItemChanged: {

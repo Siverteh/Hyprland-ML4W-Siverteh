@@ -21,8 +21,12 @@ MaterialIcon {
 
         function onClicked(): void {
             const v = Visibilities.screens[QsWindow.window.screen.name];
-            v.osd=false;v.launcher=false;v.dashboard=false;
-            const p=Visibilities.panels[QsWindow.window.screen.name];if(p)p.popouts.hasCurrent=false;
+            v.osd = false;
+            v.launcher = false;
+            v.dashboard = false;
+            const p = Visibilities.panels[QsWindow.window.screen.name];
+            if (p)
+                p.popouts.hasCurrent = false;
             v.session = !v.session;
         }
     }

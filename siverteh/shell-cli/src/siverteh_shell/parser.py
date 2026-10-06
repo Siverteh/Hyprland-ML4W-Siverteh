@@ -4,10 +4,11 @@ from siverteh_shell.utils.paths import wallpapers_dir
 from siverteh_shell.utils.scheme import get_scheme_names, scheme_variants
 from siverteh_shell.utils.wallpaper import get_wallpaper
 
+
 def parse_args():
-    parser=argparse.ArgumentParser(prog="siverteh_shell",description="Siverteh OS wallpaper and palette engine")
-    parser.add_argument('-v','--version',action='store_true')
-    command_parser=parser.add_subparsers(title='subcommands')
+    parser = argparse.ArgumentParser(prog="siverteh_shell", description="Siverteh OS wallpaper and palette engine")
+    parser.add_argument("-v", "--version", action="store_true")
+    command_parser = parser.add_subparsers(title="subcommands")
     # Create parser for scheme opts
     scheme_parser = command_parser.add_parser("scheme", help="manage the colour scheme")
     scheme_command_parser = scheme_parser.add_subparsers(title="subcommands")

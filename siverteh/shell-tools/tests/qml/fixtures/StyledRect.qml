@@ -1,2 +1,3 @@
 import QtQuick
+
 Rectangle {}

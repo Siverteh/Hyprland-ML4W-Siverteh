@@ -19,28 +19,32 @@ Item {
     readonly property Item battery: battery
 
     clip: true
-    implicitWidth: Math.max(speaker.implicitWidth,network.implicitWidth,bluetooth.implicitWidth,battery.implicitWidth,bell.implicitWidth)
-    implicitHeight:speaker.implicitHeight+network.implicitHeight+bluetooth.implicitHeight+battery.implicitHeight+bell.implicitHeight+Appearance.spacing.small*4
+    implicitWidth: Math.max(speaker.implicitWidth, network.implicitWidth, bluetooth.implicitWidth, battery.implicitWidth, bell.implicitWidth)
+    implicitHeight: speaker.implicitHeight + network.implicitHeight + bluetooth.implicitHeight + battery.implicitHeight + bell.implicitHeight + Appearance.spacing.small * 4
 
     MaterialIcon {
-        id:speaker;rotation:root.horizontal?90:0;text:Audio.muted?"volume_off":"volume_up";color:root.colour
-        anchors.horizontalCenter:parent.horizontalCenter
+        id: speaker
+        rotation: root.horizontal ? 90 : 0
+        text: Audio.muted ? "volume_off" : "volume_up"
+        color: root.colour
+        anchors.horizontalCenter: parent.horizontalCenter
     }
     MaterialIcon {
-        rotation:root.horizontal?90:0
         id: network
+        rotation: root.horizontal ? 90 : 0
 
         animate: true
         text: Network.active ? Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
         color: root.colour
 
-        anchors.horizontalCenter:parent.horizontalCenter
-        anchors.top:speaker.bottom;anchors.topMargin:Appearance.spacing.small
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: speaker.bottom
+        anchors.topMargin: Appearance.spacing.small
     }
 
     MaterialIcon {
-        rotation:root.horizontal?90:0
         id: bluetooth
+        rotation: root.horizontal ? 90 : 0
 
         anchors.horizontalCenter: network.horizontalCenter
         anchors.top: network.bottom
@@ -52,8 +56,8 @@ Item {
     }
 
     MaterialIcon {
-        rotation:root.horizontal?90:0
         id: battery
+        rotation: root.horizontal ? 90 : 0
 
         anchors.horizontalCenter: bluetooth.horizontalCenter
         anchors.top: bluetooth.bottom
@@ -83,13 +87,30 @@ Item {
     }
 
     Item {
-        id:bell
-        anchors.horizontalCenter:battery.horizontalCenter;anchors.top:battery.bottom;anchors.topMargin:Appearance.spacing.small
-        implicitWidth:root.horizontal?bellRow.implicitHeight:bellRow.implicitWidth
-        implicitHeight:root.horizontal?bellRow.implicitWidth:bellRow.implicitHeight
-        Row {id:bellRow;anchors.centerIn:parent;rotation:root.horizontal?90:0;spacing:2
-            MaterialIcon {text:"notifications";color:root.colour;fill:Notifs.list.length?1:0}
-            StyledText {anchors.verticalCenter:parent.verticalCenter;anchors.verticalCenterOffset:4;visible:Notifs.list.length>0;text:Notifs.list.length;font.pointSize:10;color:root.colour}
+        id: bell
+        anchors.horizontalCenter: battery.horizontalCenter
+        anchors.top: battery.bottom
+        anchors.topMargin: Appearance.spacing.small
+        implicitWidth: root.horizontal ? bellRow.implicitHeight : bellRow.implicitWidth
+        implicitHeight: root.horizontal ? bellRow.implicitWidth : bellRow.implicitHeight
+        Row {
+            id: bellRow
+            anchors.centerIn: parent
+            rotation: root.horizontal ? 90 : 0
+            spacing: 2
+            MaterialIcon {
+                text: "notifications"
+                color: root.colour
+                fill: Notifs.list.length ? 1 : 0
+            }
+            StyledText {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: 4
+                visible: Notifs.list.length > 0
+                text: Notifs.list.length
+                font.pointSize: 10
+                color: root.colour
+            }
         }
     }
 

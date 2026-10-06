@@ -13,7 +13,9 @@ import tty
 from pathlib import Path
 
 
-SYMBOLS = "01<>[]{}()/\\|+-=*&#@!?%$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+SYMBOLS = (
+    "01<>[]{}()/\\|+-=*&#@!?%$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+)
 FRAME_DELAY = 0.1
 
 
@@ -101,9 +103,15 @@ def ansi_bg(rgb):
 
 
 def load_palette():
-    primary = hex_to_rgb(read_color_file("primary", read_color_from_rasi("primary", "#6effa0")))
-    secondary = hex_to_rgb(read_color_file("secondary", read_color_from_rasi("secondary", "#b0ffd2")))
-    on_surface = hex_to_rgb(read_color_file("onsurface", read_color_from_rasi("on-surface", "#e8f3ec")))
+    primary = hex_to_rgb(
+        read_color_file("primary", read_color_from_rasi("primary", "#6effa0"))
+    )
+    secondary = hex_to_rgb(
+        read_color_file("secondary", read_color_from_rasi("secondary", "#b0ffd2"))
+    )
+    on_surface = hex_to_rgb(
+        read_color_file("onsurface", read_color_from_rasi("on-surface", "#e8f3ec"))
+    )
     surface = hex_to_rgb(read_color_from_rasi("surface", "#08110c"))
     background = hex_to_rgb(read_color_from_rasi("background", "#050705"))
 
@@ -160,16 +168,23 @@ class MatrixRain:
             stream["head"] += stream["speed"]
 
             if random.random() < 0.12:
-                stream["symbols"][random.randrange(len(stream["symbols"]))] = random.choice(SYMBOLS)
+                stream["symbols"][random.randrange(len(stream["symbols"]))] = (
+                    random.choice(SYMBOLS)
+                )
 
             if random.random() < 0.018:
-                stream["speed"] = max(0.45, min(2.1, stream["speed"] + random.uniform(-0.12, 0.12)))
+                stream["speed"] = max(
+                    0.45, min(2.1, stream["speed"] + random.uniform(-0.12, 0.12))
+                )
 
             if stream["head"] - stream["trail"] > rows:
                 self.reset_stream(stream, rows)
 
     def draw(self, palette):
-        rows, cols = shutil.get_terminal_size((120, 40))[1], shutil.get_terminal_size((120, 40))[0]
+        rows, cols = (
+            shutil.get_terminal_size((120, 40))[1],
+            shutil.get_terminal_size((120, 40))[0],
+        )
         rows = max(rows, 1)
         cols = max(cols, 1)
         self.configure(rows, cols)
@@ -196,7 +211,9 @@ class MatrixRain:
                     color = palette["primary"]
                 else:
                     fade = max(0.0, 1.0 - (offset / max(trail, 1)))
-                    color = mix_rgb(palette["background"], palette["secondary"], 0.25 + fade * 0.55)
+                    color = mix_rgb(
+                        palette["background"], palette["secondary"], 0.25 + fade * 0.55
+                    )
 
                 symbol = stream["symbols"][(y + offset) % len(stream["symbols"])]
                 output.append(f"\033[{y + 1};{x + 1}H{ansi_fg(color)}{symbol}")

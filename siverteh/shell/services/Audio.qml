@@ -17,10 +17,17 @@ Singleton {
     readonly property real micVolume: source?.audio?.volume ?? 0
     readonly property bool micAvailable: !!source?.ready && !!source?.audio
     function setMicVolume(value: real): void {
-        if (micAvailable) source.audio.volume = Math.max(0, Math.min(1, value));
+        if (micAvailable)
+            source.audio.volume = Math.max(0, Math.min(1, value));
     }
-    function toggleMute(): void { if (sink?.ready && sink?.audio) sink.audio.muted = !sink.audio.muted; }
-    function toggleMic(): void { if (micAvailable) source.audio.muted = !source.audio.muted; }
+    function toggleMute(): void {
+        if (sink?.ready && sink?.audio)
+            sink.audio.muted = !sink.audio.muted;
+    }
+    function toggleMic(): void {
+        if (micAvailable)
+            source.audio.muted = !source.audio.muted;
+    }
 
     function setVolume(volume: real): void {
         if (sink?.ready && sink?.audio) {
@@ -29,7 +36,21 @@ Singleton {
         }
     }
 
-    IpcHandler {target:"audioControls";function state():string{return JSON.stringify({micAvailable:root.micAvailable,micVolume:root.micVolume,micMuted:root.micMuted,volume:root.volume,muted:root.muted});}function microphone(value:real):void{root.setMicVolume(value);}}
+    IpcHandler {
+        target: "audioControls"
+        function state(): string {
+            return JSON.stringify({
+                micAvailable: root.micAvailable,
+                micVolume: root.micVolume,
+                micMuted: root.micMuted,
+                volume: root.volume,
+                muted: root.muted
+            });
+        }
+        function microphone(value: real): void {
+            root.setMicVolume(value);
+        }
+    }
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]

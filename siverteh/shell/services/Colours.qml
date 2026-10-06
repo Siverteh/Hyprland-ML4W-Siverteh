@@ -40,13 +40,22 @@ Singleton {
             if (colours.hasOwnProperty(name))
                 colours[name] = `#${colour.trim()}`;
         }
-
-
     }
 
-    function present(){const data=ThemePresentation.active;if(!data.colours)return;root.light=data.mode==="light";root.load(Object.entries(data.colours).map(([key,value])=>key+" "+value).join("\n"));}
-    Connections {target:ThemePresentation;function onActiveChanged(){root.present();}}
-    Component.onCompleted:present()
+    function present() {
+        const data = ThemePresentation.active;
+        if (!data.colours)
+            return;
+        root.light = data.mode === "light";
+        root.load(Object.entries(data.colours).map(([key, value]) => key + " " + value).join("\n"));
+    }
+    Connections {
+        target: ThemePresentation
+        function onActiveChanged() {
+            root.present();
+        }
+    }
+    Component.onCompleted: present()
 
     function setMode(mode: string): void {
         setModeProc.command = ["siverteh-os-shell", "scheme-mode", mode];
@@ -61,14 +70,16 @@ Singleton {
         path: `${Paths.state}/scheme/current-mode.txt`
         watchChanges: true
         onFileChanged: reload()
-        onLoaded: if(!ThemePresentation.available)root.light = text() === "light"
+        onLoaded: if (!ThemePresentation.available)
+            root.light = text() === "light"
     }
 
     FileView {
         path: `${Paths.state}/scheme/current.txt`
         watchChanges: true
         onFileChanged: reload()
-        onLoaded: if(!ThemePresentation.available)root.load(text())
+        onLoaded: if (!ThemePresentation.available)
+            root.load(text())
     }
 
     component Transparency: QtObject {

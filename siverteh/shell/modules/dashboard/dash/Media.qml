@@ -209,12 +209,13 @@ Item {
         }
     }
 
-
-
     Spectrum {
-        anchors.top:controls.bottom;anchors.bottom:parent.bottom;anchors.left:parent.left;anchors.right:parent.right
-        anchors.margins:Appearance.padding.large
-        active:root.shouldUpdate && (Players.active?.isPlaying ?? false)
+        anchors.top: controls.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: Appearance.padding.large
+        active: root.shouldUpdate && (Players.active?.isPlaying ?? false)
     }
 
     component Control: StyledRect {

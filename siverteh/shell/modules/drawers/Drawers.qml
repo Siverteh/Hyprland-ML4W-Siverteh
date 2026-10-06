@@ -31,23 +31,28 @@ Variants {
             contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
             function dismissOverlays() {
-                visibilities.dashboard=false;visibilities.osd=false;visibilities.launcher=false;
-                visibilities.session=false;visibilities.left=false;visibilities.leftPinned=false;visibilities.previewOnly=false;
-                panels.popouts.hasCurrent=false;panels.popouts.pinned=false;
+                visibilities.dashboard = false;
+                visibilities.osd = false;
+                visibilities.launcher = false;
+                visibilities.session = false;
+                visibilities.left = false;
+                visibilities.leftPinned = false;
+                visibilities.previewOnly = false;
+                panels.popouts.hasCurrent = false;
+                panels.popouts.pinned = false;
             }
             contentItem.Keys.onEscapePressed: dismissOverlays()
             Shortcut {
-                sequence:"Escape";context:Qt.WindowShortcut
-                enabled:!Visibilities.hidden&&(visibilities.launcher||visibilities.session||visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent)
-                onActivated:win.dismissOverlays()
+                sequence: "Escape"
+                context: Qt.WindowShortcut
+                enabled: !Visibilities.hidden && (visibilities.launcher || visibilities.session || visibilities.left || visibilities.dashboard || visibilities.osd || panels.popouts.hasCurrent)
+                onActivated: win.dismissOverlays()
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             // Exclusive mode gives modal controls keyboard focus before a mouse click.
-            WlrLayershell.keyboardFocus: Visibilities.hidden||visibilities.previewOnly ? WlrKeyboardFocus.None
-                : visibilities.launcher||visibilities.session ? WlrKeyboardFocus.Exclusive
-                : visibilities.left||visibilities.dashboard||visibilities.osd||panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.dashboard || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-            mask:!Visibilities.hidden&&!visibilities.previewOnly&&(visibilities.launcher||(visibilities.dashboard&&visibilities.dashboardPinned))?null:frameMask
+            mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
             readonly property Region frameMask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
                 y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
@@ -83,15 +88,26 @@ Variants {
 
             // Changing keyboard interactivity remaps the layer surface. Arm click-away
             // capture only after that remap, so its cleared signal cannot close a new popup.
-            readonly property bool wantsPopupGrab: !Visibilities.hidden&&!visibilities.previewOnly&&(visibilities.launcher||visibilities.session||panels.popouts.pinned)
-            property bool popupGrabReady:false
-            onWantsPopupGrabChanged:{popupGrabReady=false;if(wantsPopupGrab)popupGrabDelay.restart();else popupGrabDelay.stop();}
-            Timer {id:popupGrabDelay;interval:150;onTriggered:win.popupGrabReady=win.wantsPopupGrab}
+            readonly property bool wantsPopupGrab: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+            property bool popupGrabReady: false
+            onWantsPopupGrabChanged: {
+                popupGrabReady = false;
+                if (wantsPopupGrab)
+                    popupGrabDelay.restart();
+                else
+                    popupGrabDelay.stop();
+            }
+            Timer {
+                id: popupGrabDelay
+                interval: 150
+                onTriggered: win.popupGrabReady = win.wantsPopupGrab
+            }
             HyprlandFocusGrab {
-                active:win.popupGrabReady&& !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+                active: win.popupGrabReady && !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
-                    if(win.popupGrabReady&&win.wantsPopupGrab)win.dismissOverlays();
+                    if (win.popupGrabReady && win.wantsPopupGrab)
+                        win.dismissOverlays();
                 }
             }
 
@@ -115,7 +131,10 @@ Variants {
                 anchors.fill: parent
                 visible: false
 
-                FrameSurface { panels: panels; bar: bar }
+                FrameSurface {
+                    panels: panels
+                    bar: bar
+                }
             }
 
             Item {
@@ -131,10 +150,16 @@ Variants {
             }
 
             Item {
-                anchors.fill:parent
-                visible:visibilities.launcher&&panels.launcher.fullScreenGallery
-                Launcher.WallpaperBackdrop {anchors.fill:parent;path:Wallpapers.displayPreview}
-                Rectangle {anchors.fill:parent;color:Qt.alpha(Colours.palette.m3scrim,0.64)}
+                anchors.fill: parent
+                visible: visibilities.launcher && panels.launcher.fullScreenGallery
+                Launcher.WallpaperBackdrop {
+                    anchors.fill: parent
+                    path: Wallpapers.displayPreview
+                }
+                Rectangle {
+                    anchors.fill: parent
+                    color: Qt.alpha(Colours.palette.m3scrim, 0.64)
+                }
             }
 
             PersistentProperties {
@@ -147,14 +172,19 @@ Variants {
                 property bool left
                 property bool leftPinned
                 property bool dashboard
-                property bool dashboardPinned:false
-                onDashboardChanged:if(!dashboard)dashboardPinned=false
+                property bool dashboardPinned: false
+                onDashboardChanged: if (!dashboard)
+                    dashboardPinned = false
                 property int dashboardTab: 0
                 property string launcherQuery: ""
                 property string launcherMode: "apps"
                 property int launcherRequest: 0
 
-                Component.onCompleted:{const mapping=Object.assign({},Visibilities.screens);mapping[scope.modelData.name]=this;Visibilities.screens=mapping;}
+                Component.onCompleted: {
+                    const mapping = Object.assign({}, Visibilities.screens);
+                    mapping[scope.modelData.name] = this;
+                    Visibilities.screens = mapping;
+                }
             }
 
             Interactions {
@@ -176,7 +206,9 @@ Variants {
             Item {
                 id: bar
                 implicitWidth: BorderConfig.left
-                function checkPopout(y) { panels.popouts.hasCurrent=false; }
+                function checkPopout(y) {
+                    panels.popouts.hasCurrent = false;
+                }
             }
         }
     }

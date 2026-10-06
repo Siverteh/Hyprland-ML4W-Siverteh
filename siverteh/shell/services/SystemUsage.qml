@@ -7,14 +7,21 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property bool visibleDashboard:Object.values(Visibilities.screens).some(v=>v.dashboard)
+    readonly property bool visibleDashboard: Object.values(Visibilities.screens).some(v => v.dashboard)
     property string kernel
     property string loadAverage
-    FileView {path:"/proc/sys/kernel/osrelease";onLoaded:root.kernel=text().trim()}
-    FileView {id:load;path:"/proc/loadavg";onLoaded:root.loadAverage=text().trim().split(" ").slice(0,3).join("  ")}
+    FileView {
+        path: "/proc/sys/kernel/osrelease"
+        onLoaded: root.kernel = text().trim()
+    }
+    FileView {
+        id: load
+        path: "/proc/loadavg"
+        onLoaded: root.loadAverage = text().trim().split(" ").slice(0, 3).join("  ")
+    }
     property real cpuPerc
     property real cpuTemp
-    property bool gpuUsageAvailable:false
+    property bool gpuUsageAvailable: false
     property real gpuPerc
     property real gpuTemp
     property int memUsed
@@ -55,7 +62,7 @@ Singleton {
 
     Timer {
         running: true
-        interval:visibleDashboard?3000:60000
+        interval: visibleDashboard ? 3000 : 60000
         repeat: true
         onTriggered: {
             load.reload();
@@ -143,8 +150,8 @@ Singleton {
         stdout: SplitParser {
             splitMarker: ""
             onRead: data => {
-                const percs = data.trim().split("\n").map(v=>parseFloat(v)).filter(v=>Number.isFinite(v));
-                root.gpuUsageAvailable=percs.length>0;
+                const percs = data.trim().split("\n").map(v => parseFloat(v)).filter(v => Number.isFinite(v));
+                root.gpuUsageAvailable = percs.length > 0;
                 const sum = percs.reduce((acc, d) => acc + d, 0);
                 root.gpuPerc = percs.length ? sum / percs.length / 100 : 0;
             }

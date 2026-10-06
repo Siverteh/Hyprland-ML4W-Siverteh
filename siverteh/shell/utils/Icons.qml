@@ -209,8 +209,10 @@ Singleton {
                 const osIdLike = lines.find(l => l.startsWith("ID_LIKE="))?.split("=")[1];
                 if (osIdLike)
                     for (const id of osIdLike.split(" "))
-                        if (root.osIcons.hasOwnProperty(id))
-                            {root.osIcon = root.osIcons[id];break;}
+                        if (root.osIcons.hasOwnProperty(id)) {
+                            root.osIcon = root.osIcons[id];
+                            break;
+                        }
             }
 
             let nameLine = lines.find(l => l.startsWith("PRETTY_NAME="));

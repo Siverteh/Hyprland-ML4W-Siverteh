@@ -125,5 +125,4 @@ Slider {
                 handle.moving = false;
         }
     }
-
 }

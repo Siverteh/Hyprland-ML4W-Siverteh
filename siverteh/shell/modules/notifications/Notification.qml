@@ -13,11 +13,13 @@ StyledRect {
     id: root
 
     required property Notifs.Notif modelData
-    HoverHandler { onHoveredChanged: root.modelData.hovered = hovered }
+    HoverHandler {
+        onHoveredChanged: root.modelData.hovered = hovered
+    }
     readonly property bool hasImage: modelData.image.length > 0
     readonly property bool hasAppIcon: modelData.appIcon.length > 0
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
-    property bool history:false
+    property bool history: false
     property bool expanded
 
     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
@@ -55,7 +57,7 @@ StyledRect {
         onReleased: event => {
             if (Math.abs(root.x) < NotifsConfig.sizes.width * NotifsConfig.clearThreshold)
                 root.x = 0;
-            else if(root.history)
+            else if (root.history)
                 Notifs.dismiss(root.modelData);
             else
                 root.modelData.popup = false;

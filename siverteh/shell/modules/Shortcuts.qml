@@ -42,7 +42,7 @@ Scope {
         function toggle(drawer: string): void {
             if (list().split("\n").includes(drawer)) {
                 const visibilities = Visibilities.getForActive();
-                visibilities.previewOnly=false;
+                visibilities.previewOnly = false;
                 visibilities[drawer] = !visibilities[drawer];
             } else {
                 console.warn(`[IPC] Drawer "${drawer}" does not exist`);

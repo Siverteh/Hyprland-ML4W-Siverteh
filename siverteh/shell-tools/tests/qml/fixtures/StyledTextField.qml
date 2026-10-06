@@ -1,2 +1,5 @@
 import QtQuick.Controls
-TextField {signal pressed()}
+
+TextField {
+    signal pressed
+}

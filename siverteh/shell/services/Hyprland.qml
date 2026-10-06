@@ -25,8 +25,10 @@ Singleton {
     }
 
     function dispatch(request: string): void {
-        if (request.startsWith("workspace ")) request='hl.dsp.focus({ workspace = '+JSON.stringify(request.slice(10))+' })';
-        else if (request.startsWith("togglespecialworkspace ")) request='hl.dsp.workspace.toggle_special('+JSON.stringify(request.slice(23))+')';
+        if (request.startsWith("workspace "))
+            request = 'hl.dsp.focus({ workspace = ' + JSON.stringify(request.slice(10)) + ' })';
+        else if (request.startsWith("togglespecialworkspace "))
+            request = 'hl.dsp.workspace.toggle_special(' + JSON.stringify(request.slice(23)) + ')';
         Hyprland.dispatch(request);
     }
 

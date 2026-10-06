@@ -1,2 +1,6 @@
 import QtQuick
-Item {property var view;signal scrolled()}
+
+Item {
+    property var view
+    signal scrolled
+}

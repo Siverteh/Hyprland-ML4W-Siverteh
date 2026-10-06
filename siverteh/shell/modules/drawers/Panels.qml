@@ -22,7 +22,7 @@ Item {
     readonly property Session.Wrapper session: session
     readonly property Launcher.Wrapper launcher: launcher
     readonly property Dashboard.Wrapper dashboard: dashboard
-    readonly property Extras.LeftDrawer leftDrawer:brainDrawer
+    readonly property Extras.LeftDrawer leftDrawer: brainDrawer
     readonly property BarPopouts.Wrapper popouts: popouts
 
     anchors.fill: parent
@@ -31,9 +31,19 @@ Item {
     anchors.leftMargin: bar.implicitWidth
     anchors.topMargin: BorderConfig.headerHeight
 
-    Component.onCompleted:{const mapping=Object.assign({},Visibilities.panels);mapping[screen.name]=this;Visibilities.panels=mapping;}
+    Component.onCompleted: {
+        const mapping = Object.assign({}, Visibilities.panels);
+        mapping[screen.name] = this;
+        Visibilities.panels = mapping;
+    }
 
-    Extras.LeftDrawer {id:brainDrawer;screen:root.screen;visibilities:root.visibilities;anchors.left:parent.left;anchors.verticalCenter:parent.verticalCenter}
+    Extras.LeftDrawer {
+        id: brainDrawer
+        screen: root.screen
+        visibilities: root.visibilities
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+    }
 
     Osd.Wrapper {
         id: osd
@@ -66,7 +76,7 @@ Item {
 
     Launcher.Wrapper {
         id: launcher
-        z:100
+        z: 100
 
         visibilities: root.visibilities
 
@@ -89,8 +99,7 @@ Item {
         screen: root.screen
 
         anchors.top: parent.top
-        readonly property bool joinsRight: currentCenter-root.bar.implicitWidth+targetWidth/2 > parent.width-BorderConfig.rounding*2
-        x: joinsRight ? parent.width-width : Math.max(BorderConfig.rounding*2,currentCenter-root.bar.implicitWidth-width/2)
-
+        readonly property bool joinsRight: currentCenter - root.bar.implicitWidth + targetWidth / 2 > parent.width - BorderConfig.rounding * 2
+        x: joinsRight ? parent.width - width : Math.max(BorderConfig.rounding * 2, currentCenter - root.bar.implicitWidth - width / 2)
     }
 }
