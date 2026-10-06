@@ -80,20 +80,20 @@ Item {
  }
  Component {id:spotlight
   Item {
-   id:wideStrip;clip:true
+   id:wideStrip;objectName:"spotlightStrip";clip:true
    readonly property int sideSlots:Math.min(4,Math.floor((root.count-1)/2))
    readonly property real heroWidth:Math.min(width*.52,1000)
    readonly property real sideWidth:Math.max(36,(width-heroWidth-sideSlots*2*10)/(Math.max(1,sideSlots*2)))
    Repeater {model:root.entries
     WallpaperCard {
-     id:motionCard;required property var modelData;required property int index
+     id:motionCard;objectName:"spotlightCard"+index;required property var modelData;required property int index
      property int previousOffset:0
      property bool animateTravel:false
      readonly property int offset:((index-root.currentIndex+Math.floor(root.count/2)+root.count)%root.count)-Math.floor(root.count/2)
      onOffsetChanged:{animateTravel=Math.abs(offset-previousOffset)<=1;previousOffset=offset;}
      Component.onCompleted:previousOffset=offset
      x:offset===0?(wideStrip.width-wideStrip.heroWidth)/2:offset<0?(wideStrip.width-wideStrip.heroWidth)/2+offset*(wideStrip.sideWidth+10):(wideStrip.width+wideStrip.heroWidth)/2+10+(offset-1)*(wideStrip.sideWidth+10)
-     anchors.verticalCenter:parent.verticalCenter
+     anchors.verticalCenter:wideStrip.verticalCenter
      width:offset===0?wideStrip.heroWidth:wideStrip.sideWidth
      height:Math.min(wideStrip.height-12,wideStrip.heroWidth*.70)
      entry:modelData;selected:offset===0;imageOnly:true;z:selected?2:1

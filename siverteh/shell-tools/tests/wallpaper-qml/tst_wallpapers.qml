@@ -29,6 +29,19 @@ TestCase {
    for(const layout of ["spotlight","hexagons"]){Wallpapers.preference({layout:layout});wait(40);verify(view.fullScreen);compare(view.implicitHeight,1100);}
   } finally {Wallpapers.list=original;}
  }
+ function test_spotlight_motion_has_intermediate_position_and_width(){
+  const original=Wallpapers.list;
+  try {
+   Wallpapers.list=Array.from({length:9},(_,i)=>({path:"wall"+i,name:"Wallpaper "+i,poster:original[0].poster,dynamic:false}));
+   Wallpapers.preference({layout:"spotlight"});
+   const view=createTemporaryObject(picker,test);wait(400);
+   const strip=findChild(view,"spotlightStrip"),next=findChild(view,"spotlightCard1");
+   const startX=next.x,startWidth=next.width,endX=(strip.width-strip.heroWidth)/2;
+   view.select(1);wait(110);
+   verify(next.x<startX&&next.x>endX);verify(next.width>startWidth&&next.width<strip.heroWidth);
+   wait(300);compare(next.x,endX);compare(next.width,strip.heroWidth);
+  } finally {Wallpapers.list=original;}
+ }
  function test_backdrop_holds_loaded_image_until_replacement_ready(){
   const path=Wallpapers.list[0].poster;
   const view=createTemporaryObject(backdrop,test,{path:path});tryCompare(view,"hasImage",true);
