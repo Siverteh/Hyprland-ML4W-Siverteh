@@ -170,6 +170,8 @@ def apply_palette(home, wallpaper=None, live=True):
             try:
                 if proc.stat().st_uid==os.getuid() and (proc/'comm').read_text().strip()=='kitty':os.kill(int(proc.name),signal.SIGUSR1)
             except (OSError,ProcessLookupError):pass
+        subprocess.run(['gsettings','set','org.gnome.desktop.interface','cursor-theme','breeze_cursors'], capture_output=True)
+        subprocess.run(['gsettings','set','org.gnome.desktop.interface','cursor-size','24'], capture_output=True)
         subprocess.run(['gsettings','set','org.gnome.desktop.interface','color-scheme','prefer-'+data['mode']], capture_output=True)
         subprocess.run(['gsettings','set','org.gnome.desktop.interface','gtk-theme','Adwaita'+('-dark' if data['mode']=='dark' else '')], capture_output=True)
         result = subprocess.run(['hyprctl', 'eval', lua], capture_output=True, text=True)
