@@ -1,4 +1,5 @@
 import importlib.util,tempfile,unittest,os,configparser
+from unittest.mock import patch
 from pathlib import Path
 from PIL import Image
 BASE=Path(__file__).resolve().parents[1]
@@ -19,6 +20,14 @@ class LoginTests(unittest.TestCase):
    before=(public/'theme.conf').read_bytes();colors['primary']='bad\n[Autologin]'
    with self.assertRaises(ValueError):appearance.publish(colors,image,preview,public)
    self.assertEqual((public/'theme.conf').read_bytes(),before)
+ def test_prepared_login_image_is_reused_and_invalidated_by_source_change(self):
+  with tempfile.TemporaryDirectory() as folder:
+   base=Path(folder);source=base/'image.png';Image.new('RGB',(80,40),'red').save(source)
+   first,_=appearance.prepare(source,base/'cache');stamp=first.stat().st_mtime_ns
+   with patch.object(appearance.Image,'open',side_effect=AssertionError('Must use the cache')):
+    reused,_=appearance.prepare(source,base/'cache')
+   self.assertEqual(first,reused);self.assertEqual(stamp,reused.stat().st_mtime_ns)
+   Image.new('RGB',(80,40),'blue').save(source);changed,_=appearance.prepare(source,base/'cache');self.assertNotEqual(first,changed)
  def test_system_install_keeps_authentication_and_backs_up_previous_theme_selection(self):
   with tempfile.TemporaryDirectory() as d:
    base=Path(d);source=base/'source';source.mkdir()

@@ -23,10 +23,20 @@ TestCase {
    Wallpapers.list=Array.from({length:12},(_,i)=>({path:"wall"+i,name:"Wallpaper "+i,poster:original[0].poster,dynamic:false}));
    const view=createTemporaryObject(picker,test);wait(60);
    verify(!view.fullScreen);compare(view.implicitHeight,360);
-   const strip=findChild(view,"carouselStrip"),cards=findChild(view,"carouselCards");
-   verify(strip.slots%2===1);verify(cards.width<=strip.width);
-   for(const card of cards.children){if(card.entry===undefined)continue;const point=card.mapToItem(strip,0,0),end=card.mapToItem(strip,card.width,card.height);verify(point.x>=0,"left "+point.x);verify(end.x<=strip.width+1,"right "+end.x+" / "+strip.width);verify(point.y>=0,"top "+point.y);verify(end.y<=strip.height+1,"bottom "+end.y+" / "+strip.height);}
+   const strip=findChild(view,"carouselStrip");
+   verify(strip.slots%2===1);
+   for(let i=0;i<12;i++){const card=findChild(view,"carouselCard"+i);if(!card||!card.visible)continue;const point=card.mapToItem(strip,0,0),end=card.mapToItem(strip,card.width,card.height);verify(point.x>=0,"left "+point.x);verify(end.x<=strip.width+1,"right "+end.x+" / "+strip.width);verify(point.y>=0,"top "+point.y);verify(end.y<=strip.height+1,"bottom "+end.y+" / "+strip.height);}
    for(const layout of ["spotlight","hexagons"]){Wallpapers.preference({layout:layout});wait(40);verify(view.fullScreen);compare(view.implicitHeight,1100);}
+  } finally {Wallpapers.list=original;}
+ }
+ function test_carousel_slides_through_intermediate_position(){
+  const original=Wallpapers.list;
+  try {
+   Wallpapers.list=Array.from({length:9},(_,i)=>({path:"wall"+i,name:"Wallpaper "+i,poster:original[0].poster,dynamic:false}));
+   const view=createTemporaryObject(picker,test);wait(400);
+   const strip=findChild(view,"carouselStrip"),next=findChild(view,"carouselCard1");
+   const start=next.x,end=(strip.width-next.width)/2;view.move(1);wait(110);
+   verify(next.x<start&&next.x>end);wait(300);fuzzyCompare(next.x,end,1);
   } finally {Wallpapers.list=original;}
  }
  function test_spotlight_motion_has_intermediate_position_and_width(){

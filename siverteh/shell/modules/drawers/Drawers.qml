@@ -133,7 +133,7 @@ Variants {
             Item {
                 anchors.fill:parent
                 visible:visibilities.launcher&&panels.launcher.fullScreenGallery
-                Launcher.WallpaperBackdrop {anchors.fill:parent;path:Wallpapers.poster}
+                Launcher.WallpaperBackdrop {anchors.fill:parent;path:Wallpapers.preview}
                 Rectangle {anchors.fill:parent;color:Qt.alpha(Colours.palette.m3scrim,0.64)}
             }
 

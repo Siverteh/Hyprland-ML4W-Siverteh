@@ -213,3 +213,14 @@ Expanded wallpaper tiles animate position/width; their decode size stays stable
 to avoid reloading images during selection. The backdrop holds its previous
 loaded buffer until the next is ready and coalesces changes during crossfade.
 Closing clips fixed-height content rather than shrinking its internal anchors.
+
+Wallpaper assets use shared private JPEG thumbnails (640px) and larger previews
+(1600px), keyed by source path, size, modification time and cache format version.
+Carousel, hexagons and Settings use thumbnails; Spotlight and its backdrop use
+previews; the actual desktop retains the original wallpaper quality. A low
+priority startup worker prepares palette results and per-wallpaper login blurs
+without changing the active wallpaper/theme. Completed palette warm markers avoid
+repeating the work on renderer recovery. Publication remains owned by the existing
+palette bridge, with shell colors published before compatibility/login assets.
+The normal carousel uses a bounded PathView with animated movement, complete odd
+card count and two nearby cached delegates rather than swapping a row's images.

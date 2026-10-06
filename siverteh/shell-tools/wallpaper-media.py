@@ -2,7 +2,7 @@
 """Local wallpaper catalog, video posters, private picker preferences and selection."""
 import argparse,fcntl,hashlib,json,os,shutil,subprocess,sys,tempfile,urllib.parse
 from pathlib import Path
-from PIL import Image
+from PIL import Image,ImageOps
 HOME=Path.home();LIBRARY=HOME/'Pictures/Wallpapers';CACHE=HOME/'.cache/siverteh-os/wallpaper-media';STATE=HOME/'.local/state/siverteh_shell/wallpaper';PREFS=HOME/'.config/siverteh-shell/wallpaper-picker.json'
 IMAGES={'.jpg','.jpeg','.png','.webp','.gif','.tif','.tiff'};VIDEOS={'.mp4','.webm','.mkv','.mov','.avi','.m4v'}
 def atomic(path,data):
@@ -27,6 +27,21 @@ def preference(value):
  with PREFS.with_suffix('.lock').open('w') as lock:
   os.chmod(lock.name,0o600);fcntl.flock(lock,fcntl.LOCK_EX);result=settings();result.update(value);atomic(PREFS,result);return result
 
+def previews(poster):
+ stat=poster.stat();key=hashlib.sha256((str(poster)+str(stat.st_size)+str(stat.st_mtime_ns)+"preview-v1").encode()).hexdigest()
+ CACHE.mkdir(parents=True,exist_ok=True)
+ files={name:CACHE/(key+"-"+name+".jpg") for name in ('thumbnail','preview')}
+ if any(not path.exists() for path in files.values()):
+  with Image.open(poster) as image:
+   image=ImageOps.exif_transpose(image).convert('RGB')
+   for name,size in [('thumbnail',(640,400)),('preview',(1600,1000))]:
+    if files[name].exists():continue
+    resized=image.copy();resized.thumbnail(size,Image.Resampling.LANCZOS)
+    fd,temp=tempfile.mkstemp(dir=CACHE,suffix='.jpg');os.close(fd)
+    try:resized.save(temp,quality=88,optimize=False);os.chmod(temp,0o600);os.replace(temp,files[name])
+    finally:Path(temp).unlink(missing_ok=True)
+ return {name:str(path) for name,path in files.items()}
+
 def describe(path):
  path=Path(path).expanduser().resolve()
  if not path.is_file() or path.suffix.lower() not in IMAGES|VIDEOS:raise ValueError('Select a local image, GIF or video')
@@ -37,7 +52,7 @@ def describe(path):
  if dynamic:
   stat=path.stat();key=hashlib.sha256((str(path)+str(stat.st_size)+str(stat.st_mtime_ns)).encode()).hexdigest();CACHE.mkdir(parents=True,exist_ok=True);poster=CACHE/(key+'.png')
   if not poster.exists():
-   temporary=CACHE/(key+'.next.png')
+   fd,name=tempfile.mkstemp(dir=CACHE,suffix='.png');os.close(fd);temporary=Path(name)
    try:
     if animated:
      with Image.open(path) as image:
@@ -47,7 +62,7 @@ def describe(path):
     with Image.open(temporary) as image:image.verify()
     temporary.chmod(0o600);temporary.replace(poster)
    finally:temporary.unlink(missing_ok=True)
- return dict(path=str(path),name=path.stem.replace('_',' '),poster=str(poster),dynamic=dynamic,animated=animated)
+ return dict(path=str(path),name=path.stem.replace('_',' '),poster=str(poster),dynamic=dynamic,animated=animated,**previews(poster))
 
 def catalog():
  LIBRARY.mkdir(parents=True,exist_ok=True);(LIBRARY/'Dynamic').mkdir(exist_ok=True);rows=[];errors=[]
@@ -56,6 +71,30 @@ def catalog():
    try:rows.append(describe(path))
    except Exception:errors.append(path.name)
  return dict(entries=rows,preferences=settings(),media=read(STATE/'media.json',{}),errors=errors)
+
+def warm():
+ # Read-only preparation never publishes a wallpaper, palette or login theme.
+ # One low-priority worker survives overlapping startup requests via a lock.
+ CACHE.mkdir(parents=True,exist_ok=True)
+ with (CACHE/'warm.lock').open('w') as lock:
+  os.chmod(lock.name,0o600)
+  try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+  except BlockingIOError:return {'busy':True}
+  cli=HOME/'.local/share/siverteh-ai/shell-runtime/venv/bin/siverteh_shell'
+  import importlib.util
+  spec=importlib.util.spec_from_file_location('login',Path(__file__).with_name('login-appearance.py'));login=importlib.util.module_from_spec(spec);spec.loader.exec_module(login)
+  prepared=0;computed=0
+  flavour=read(HOME/'.local/state/siverteh_shell/scheme.json',{}).get('flavour','default')
+  for item in catalog()['entries']:
+   try:
+    poster=Path(item['poster']);stat=poster.stat()
+    key=hashlib.sha256((str(poster)+str(stat.st_size)+str(stat.st_mtime_ns)+str(flavour)+'palette-warm-v1').encode()).hexdigest();marker=CACHE/(key+'.palette.json')
+    if cli.exists() and not marker.exists():
+     result=subprocess.run([str(cli),'wallpaper','-p',str(poster)],capture_output=True,text=True,check=True,timeout=30)
+     atomic(marker,json.loads(result.stdout));computed+=1
+    login.prepare(item['poster']);prepared+=1
+   except (OSError,ValueError,subprocess.SubprocessError):continue
+  return {'prepared':prepared,'computed':computed}
 
 def select(path):
  item=describe(path)
@@ -78,7 +117,7 @@ def import_files(paths):
  return copied
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('action',choices=['catalog','select','preferences','import','pick','session']);p.add_argument('path',nargs='?');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('action',choices=['catalog','select','preferences','import','pick','session','warm']);p.add_argument('path',nargs='?');a=p.parse_args()
  try:
   if a.action=='session':
    display=subprocess.check_output(['loginctl','show-user',str(os.getuid()),'--property=Display','--value'],text=True,timeout=3).strip()
@@ -88,6 +127,7 @@ def main():
     raw=subprocess.check_output(['busctl','--system','call','org.freedesktop.login1','/org/freedesktop/login1','org.freedesktop.login1.Manager','GetSession','s',display],text=True,timeout=3).strip()
     result={'locked':locked,'path':raw.split(' ',1)[1].strip('"')}
   elif a.action=='catalog':result=catalog()
+  elif a.action=='warm':result=warm()
   elif a.action=='select':result=select(a.path)
   elif a.action=='preferences':result=preference(json.loads(sys.stdin.readline()))
   else:

@@ -39,6 +39,9 @@ def apply_palette(home, wallpaper=None, live=True):
         raise ValueError('Invalid palette color')
     # Validate required roles before publishing any state.
     primary, secondary, inactive, shadow = (colors[k] for k in ('primary', 'secondary', 'outlineVariant', 'shadow'))
+    # Publish the native shell palette before slower compatibility/login assets.
+    atomic_write(state / 'scheme/current-mode.txt', data['mode'])
+    atomic_write(state / 'scheme/current.txt', '\n'.join(k+' '+v for k,v in colors.items())+'\n')
     lua = 'hl.config({general={col={active_border={colors={"rgba(' + primary + 'ff)","rgba(' + secondary + 'ff)"},angle=45},inactive_border="rgba(' + inactive + 'aa)"}},decoration={shadow={color="rgba(' + shadow + '40)"}}})\n'
     atomic_write(home / '.config/siverteh-shell/palette.lua', lua)
     template = Path(__file__).with_name('rofi.rasi').read_text()
@@ -121,8 +124,6 @@ def apply_palette(home, wallpaper=None, live=True):
         except (OSError,ValueError,ImportError):pass  # A login-theme image failure must not interrupt the desktop palette.
 
 
-    atomic_write(state / 'scheme/current-mode.txt', data['mode'])
-    atomic_write(state / 'scheme/current.txt', '\n'.join(k+' '+v for k,v in colors.items())+'\n')
     if wallpaper is not None:
         atomic_write(state / 'wallpaper/last.txt', str(Path(wallpaper).expanduser().resolve()))
     if live:

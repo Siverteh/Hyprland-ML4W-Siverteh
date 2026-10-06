@@ -65,16 +65,18 @@ Item {
   ActionButton {compact:true;text:"Pause behind tiled apps";selected:Wallpapers.preferences.pauseCovered??true;onClicked:Wallpapers.preference({pauseCovered:!Wallpapers.preferences.pauseCovered})}
  }
  Component {id:carousel
-  Item {
+  PathView {
    id:compactStrip;objectName:"carouselStrip"
    readonly property int candidateSlots:Math.min(root.count,Math.max(1,Math.floor(width/246)))
    readonly property int slots:candidateSlots>1&&candidateSlots%2===0?candidateSlots-1:candidateSlots
    readonly property real cardWidth:Math.min(280,(width-(slots-1)*16)/slots)
-   Row {objectName:"carouselCards";anchors.centerIn:parent;spacing:16
-    Repeater {model:compactStrip.slots
-     WallpaperCard {required property int index;readonly property int entryIndex:(root.currentIndex+index-Math.floor(compactStrip.slots/2)+root.count)%root.count;width:compactStrip.cardWidth;height:Math.min(parent.parent.height-8,width*0.70+36);entry:root.entries[entryIndex];selected:entryIndex===root.currentIndex;scale:selected?1:0.91;onClicked:root.select(entryIndex)}
-    }
-   }
+   model:root.entries;pathItemCount:slots;cacheItemCount:Math.min(2,Math.max(0,root.count-slots));currentIndex:root.currentIndex
+   preferredHighlightBegin:.5;preferredHighlightEnd:.5;highlightRangeMode:PathView.StrictlyEnforceRange;snapMode:PathView.SnapToItem
+   highlightMoveDuration:300;clip:true
+   onCurrentIndexChanged:if(currentIndex>=0&&currentIndex<count&&root.visibilities.launcher&&!root.initializing&&currentIndex!==root.currentIndex)root.select(currentIndex)
+   delegate:WallpaperCard {required property var modelData;required property int index;objectName:"carouselCard"+index;width:compactStrip.cardWidth;height:Math.min(compactStrip.height-8,width*.70+36);entry:modelData;selected:index===root.currentIndex;visible:PathView.onPath;scale:PathView.isCurrentItem?1:.91;z:PathView.isCurrentItem?2:1;onClicked:root.select(index);Behavior on scale {NumberAnimation {duration:260;easing.type:Easing.InOutCubic}}}
+   path:Path {startX:0;startY:compactStrip.height/2;PathLine {x:compactStrip.width;y:compactStrip.height/2}}
+   Connections {target:root;function onCurrentIndexChanged(){if(root.currentIndex>=0&&root.currentIndex<compactStrip.count&&compactStrip.currentIndex!==root.currentIndex)compactStrip.currentIndex=root.currentIndex;}}
    WheelHandler {target:null;onWheel:event=>root.wheel(event)}
   }
  }
@@ -96,7 +98,7 @@ Item {
      anchors.verticalCenter:wideStrip.verticalCenter
      width:offset===0?wideStrip.heroWidth:wideStrip.sideWidth
      height:Math.min(wideStrip.height-12,wideStrip.heroWidth*.70)
-     entry:modelData;selected:offset===0;imageOnly:true;z:selected?2:1
+     entry:modelData;selected:offset===0;imageOnly:true;imageEnabled:Math.abs(offset)<=wideStrip.sideSlots+1;z:selected?2:1
      opacity:Math.abs(offset)>wideStrip.sideSlots?0:offset===0?1:0.68
      visible:opacity>0.001
      onClicked:offset===0?root.choose():root.select(index)
@@ -125,9 +127,9 @@ Item {
   }
  }
  component WallpaperCard:StyledRect {
-  id:card;property var entry;property bool selected:false;property bool imageOnly:false;signal clicked()
+  id:card;property var entry;property bool selected:false;property bool imageOnly:false;property bool imageEnabled:true;signal clicked()
   radius:imageOnly?8:17;color:Colours.palette.m3surfaceContainer;border.width:selected?2:0;border.color:Colours.palette.m3primary
-  Image {x:6;y:6;width:parent.width-12;height:parent.height-(card.imageOnly?12:42);source:card.entry?.poster?"file://"+card.entry.poster:"";sourceSize.width:card.imageOnly?1200:600;sourceSize.height:card.imageOnly?840:600;fillMode:Image.PreserveAspectCrop;asynchronous:true}
+  Image {x:6;y:6;width:parent.width-12;height:parent.height-(card.imageOnly?12:42);source:card.imageEnabled&&card.entry?.poster?"file://"+(card.imageOnly?(card.entry.preview??card.entry.poster):(card.entry.thumbnail??card.entry.poster)):"";sourceSize.width:card.imageOnly?1200:600;sourceSize.height:card.imageOnly?840:600;fillMode:Image.PreserveAspectCrop;asynchronous:true}
   StyledText {visible:!card.imageOnly;anchors.bottom:parent.bottom;anchors.bottomMargin:12;width:parent.width-12;anchors.horizontalCenter:parent.horizontalCenter;text:card.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:10}
   ToolTip.text:card.entry?.name??"";ToolTip.visible:cardHover.hovered;ToolTip.delay:500
   HoverHandler {id:cardHover}
