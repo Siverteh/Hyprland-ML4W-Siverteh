@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import "root:/widgets"
 import "root:/services"
 import "root:/config"
+import Quickshell.Io
 import QtQuick
 import QtQuick.Window
 
@@ -37,6 +38,8 @@ Item {
 
     AnimatedImage {anchors.fill:parent;source:Wallpapers.displayDynamic&&Wallpapers.displayAnimated?"file://"+Wallpapers.displayPath:"";fillMode:Image.PreserveAspectCrop;playing:root.motionAllowed;visible:source.toString().length>0&&status===Image.Ready;asynchronous:true;cache:false}
     Loader {id:video;anchors.fill:parent;active:Wallpapers.displayDynamic&&!Wallpapers.displayAnimated;source:"DynamicWallpaper.qml";onLoaded:{item.screenName=root.screenName;item.path=Qt.binding(()=>Wallpapers.displayPath);item.running=Qt.binding(()=>root.motionAllowed);}}
+
+    IpcHandler {target:"wallpaperFrame-"+root.screenName;function state():string{return JSON.stringify({displayed:root.current.path,status:root.current.status,pending:ThemePresentation.pending.poster,active:ThemePresentation.active.poster,color:String(Colours.palette.m3primary),expected:ThemePresentation.active.colours?.primary??""});}}
 
     component Img: Image {
         id: img
