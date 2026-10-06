@@ -199,3 +199,13 @@ screen changes and recreates only the desktop renderer after700ms settled.
 Visible settings/drawer modes are restored; display confirmation stays available.
 The sidebar backend, conversations, accounts and application windows are not
 restarted. Only UI visibility flags are handed off, never draft or password text.
+
+Wallpaper presentation: Carousel remains a compact bottom drawer with an odd
+number of complete cards and centered controls. Spotlight and Hexagons use the
+active screen's available panel area, with a dimmed wallpaper backdrop instead
+of an oversized bottom-frame notch. Empty overlay space, the Close button and
+Escape dismiss the picker; images and controls consume their own clicks.
+The native Qt tests include card-bound checks. Reference screenshots prompted
+this presentation; current caelestia-kde main/dev use a different compact QML
+PathView, so these expanded views are maintained locally rather than relying on
+another wallpaper manager or upstream plugin.

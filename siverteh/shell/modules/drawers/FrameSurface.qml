@@ -48,7 +48,7 @@ Shape {
         if(side.width>0.5&&T+side.y-r>rightStart)notch(side.y,side.height,side.width,(u,v)=>[R-v,T+u]);
         line(R,B-br);quad(R,B,R-br,B);
         const launcher=panels.launcher;
-        if(launcher.height>0.5)notch(R-(L+launcher.x+launcher.width),launcher.width,launcher.height,(u,v)=>[R-u,B-v]);
+        if(launcher.height>0.5&&!launcher.fullScreenGallery)notch(R-(L+launcher.x+launcher.width),launcher.width,launcher.height,(u,v)=>[R-u,B-v]);
         line(L+bl,B);quad(L,B,L,B-bl);const left=panels.leftDrawer;
         if(left.width>0.5)notch(B-(T+left.y+left.height),left.height,left.width,(u,v)=>[L+v,B-u]);
         line(L,T+tl);quad(L,T,L+tl,T);commands.push("Z");

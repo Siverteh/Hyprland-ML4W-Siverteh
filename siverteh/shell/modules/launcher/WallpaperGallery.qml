@@ -8,8 +8,9 @@ import QtQuick.Controls
 Item {
  id:root
  required property PersistentProperties visibilities
- implicitWidth:Math.min(1160,Quickshell.screens[0].width-100)
- implicitHeight:Math.min(layout==="carousel"?360:layout==="spotlight"?560:650,Quickshell.screens[0].height-160)
+ implicitWidth:Math.min(1560,Quickshell.screens[0].width-140)
+ implicitHeight:fullScreen?Quickshell.screens[0].height-100:410
+ readonly property bool fullScreen:layout!=="carousel"
  readonly property string kind:Wallpapers.preferences.kind??"static"
  readonly property string layout:Wallpapers.preferences.layout??"carousel"
  readonly property var entries:Wallpapers.list.filter(w=>w.dynamic===(kind==="dynamic")&&search.text.toLowerCase().trim().split(/\s+/).every(word=>(w.name+" "+w.path).toLowerCase().includes(word)))
@@ -32,7 +33,8 @@ Item {
  Keys.onDownPressed:move(1)
  Keys.onReturnPressed:choose()
  Keys.onEscapePressed:visibilities.launcher=false
- Row {id:toolbar;x:20;y:14;spacing:8
+ MouseArea {anchors.fill:parent;z:-1;onClicked:root.visibilities.launcher=false}
+ Row {id:toolbar;anchors.horizontalCenter:parent.horizontalCenter;y:root.fullScreen?22:16;spacing:8
   ActionButton {text:"Static";icon:"image";selected:root.kind==="static";onClicked:Wallpapers.preference({kind:"static"})}
   ActionButton {text:"Dynamic";icon:"motion_photos_on";selected:root.kind==="dynamic";onClicked:Wallpapers.preference({kind:"dynamic"})}
   Rectangle {width:1;height:26;color:Colours.palette.m3outlineVariant;anchors.verticalCenter:parent.verticalCenter}
@@ -41,60 +43,81 @@ Item {
   }
   ActionButton {text:"";icon:"add_photo_alternate";onClicked:Wallpapers.pickFiles();ToolTip.text:"Add local wallpapers";ToolTip.visible:addHover.hovered;HoverHandler {id:addHover}}
   ActionButton {text:"";icon:Wallpapers.preferences.paused?"play_arrow":"pause";visible:root.kind==="dynamic";onClicked:Wallpapers.preference({paused:!Wallpapers.preferences.paused})}
+  ActionButton {text:"";icon:"close";onClicked:root.visibilities.launcher=false}
  }
- StyledTextField {id:search;objectName:"wallpaperSearch";x:20;anchors.top:toolbar.bottom;anchors.topMargin:10;width:parent.width-40;height:38;leftPadding:14;placeholderText:"Search wallpapers";background:StyledRect {radius:19;color:Colours.palette.m3surfaceContainer}Keys.onEscapePressed:root.visibilities.launcher=false;Keys.onDownPressed:{root.forceActiveFocus();root.move(1);}onAccepted:root.choose()}
+ StyledTextField {id:search;objectName:"wallpaperSearch";anchors.horizontalCenter:parent.horizontalCenter;anchors.top:toolbar.bottom;anchors.topMargin:12;width:Math.min(640,parent.width-80);height:42;leftPadding:14;placeholderText:"Search wallpapers";background:StyledRect {radius:19;color:Colours.palette.m3surfaceContainer}Keys.onEscapePressed:root.visibilities.launcher=false;Keys.onDownPressed:{root.forceActiveFocus();root.move(1);}onAccepted:root.choose()}
  StyledText {anchors.top:search.bottom;anchors.topMargin:8;x:24;width:parent.width-48;text:Wallpapers.error;visible:text.length>0;color:Colours.palette.m3error;font.pointSize:10;elide:Text.ElideRight}
- Item {id:body;anchors.top:search.bottom;anchors.topMargin:16;anchors.left:parent.left;anchors.right:parent.right;anchors.bottom:footer.top;anchors.bottomMargin:12
+ Item {id:body;anchors.top:search.bottom;anchors.topMargin:16;anchors.left:parent.left;anchors.right:parent.right;anchors.leftMargin:root.fullScreen?16:56;anchors.rightMargin:root.fullScreen?16:56;anchors.bottom:footer.top;anchors.bottomMargin:20
   Loader {anchors.fill:parent;active:root.count>0;sourceComponent:root.layout==="hexagons"?honeycomb:root.layout==="spotlight"?spotlight:carousel}
   Column {anchors.centerIn:parent;spacing:14;visible:root.count===0
    StyledText {text:Wallpapers.loading?"Loading wallpapers…":search.text.trim()?"No matching wallpapers":root.kind==="dynamic"?"Add a local video or animated GIF":"No static wallpapers yet";color:Colours.palette.m3onSurfaceVariant;font.pointSize:15}
    ActionButton {anchors.horizontalCenter:parent.horizontalCenter;text:"Add wallpapers";icon:"add";onClicked:Wallpapers.pickFiles()}
   }
  }
- Row {id:footer;anchors.bottom:parent.bottom;anchors.bottomMargin:15;x:22;spacing:12
+ Row {id:footer;anchors.bottom:motionOptions.visible?motionOptions.top:parent.bottom;anchors.bottomMargin:root.fullScreen?22:16;anchors.horizontalCenter:parent.horizontalCenter;spacing:14
   ActionButton {compact:true;text:"";icon:"chevron_left";enabled:root.count>1;onClicked:root.move(-1)}
+  Column {anchors.verticalCenter:parent.verticalCenter;spacing:4;width:Math.min(560,root.width-180)
+   StyledText {width:parent.width;text:root.currentEntry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:12;color:Colours.palette.m3primary}
+   StyledText {width:parent.width;text:root.count?(root.currentIndex+1)+" / "+root.count:"";horizontalAlignment:Text.AlignHCenter;font.pointSize:10;color:Colours.palette.m3onSurfaceVariant}
+  }
   ActionButton {compact:true;text:"";icon:"chevron_right";enabled:root.count>1;onClicked:root.move(1)}
-  StyledText {text:root.currentEntry?.name??"";font.pointSize:11;color:Colours.palette.m3primary;anchors.verticalCenter:parent.verticalCenter}
-  StyledText {text:root.count?(root.currentIndex+1)+" / "+root.count:"";font.pointSize:10;anchors.verticalCenter:parent.verticalCenter;color:Colours.palette.m3onSurfaceVariant}
-  ActionButton {compact:true;text:"Pause behind tiled apps";visible:root.kind==="dynamic";selected:Wallpapers.preferences.pauseCovered??true;onClicked:Wallpapers.preference({pauseCovered:!Wallpapers.preferences.pauseCovered})}
+ }
+ Row {id:motionOptions;anchors.bottom:parent.bottom;anchors.bottomMargin:16;anchors.horizontalCenter:parent.horizontalCenter;visible:root.kind==="dynamic"
+  ActionButton {compact:true;text:"Pause behind tiled apps";selected:Wallpapers.preferences.pauseCovered??true;onClicked:Wallpapers.preference({pauseCovered:!Wallpapers.preferences.pauseCovered})}
  }
  Component {id:carousel
-  PathView {id:strip;anchors.fill:parent;model:root.entries;pathItemCount:5;currentIndex:root.currentIndex;preferredHighlightBegin:0.5;preferredHighlightEnd:0.5;highlightRangeMode:PathView.StrictlyEnforceRange;snapMode:PathView.SnapToItem;clip:true
-   onCurrentIndexChanged:if(!root.initializing&&currentIndex!==root.currentIndex)root.select(currentIndex)
-   delegate:Item {required property var modelData;required property int index;width:240;height:200;scale:PathView.isCurrentItem?1:0.82;z:PathView.isCurrentItem?2:1
-    WallpaperCard {anchors.fill:parent;entry:parent.modelData;selected:parent.index===root.currentIndex;onClicked:root.select(parent.index)}
+  Item {
+   id:compactStrip;objectName:"carouselStrip"
+   readonly property int candidateSlots:Math.min(root.count,Math.max(1,Math.floor(width/246)))
+   readonly property int slots:candidateSlots>1&&candidateSlots%2===0?candidateSlots-1:candidateSlots
+   readonly property real cardWidth:Math.min(280,(width-(slots-1)*16)/slots)
+   Row {objectName:"carouselCards";anchors.centerIn:parent;spacing:16
+    Repeater {model:compactStrip.slots
+     WallpaperCard {required property int index;readonly property int entryIndex:(root.currentIndex+index-Math.floor(compactStrip.slots/2)+root.count)%root.count;width:compactStrip.cardWidth;height:Math.min(parent.parent.height-8,width*0.70+36);entry:root.entries[entryIndex];selected:entryIndex===root.currentIndex;scale:selected?1:0.91;onClicked:root.select(entryIndex)}
+    }
    }
-   path:Path {startX:-60;startY:strip.height/2;PathLine {x:strip.width+60;y:strip.height/2}}
    WheelHandler {target:null;onWheel:event=>root.wheel(event)}
-   Connections {target:root;function onCurrentIndexChanged(){if(strip.currentIndex!==root.currentIndex)strip.currentIndex=root.currentIndex;}}
   }
  }
  Component {id:spotlight
   Item {
-   WallpaperCard {x:30;anchors.verticalCenter:parent.verticalCenter;width:230;height:190;opacity:0.6;entry:root.entries[(root.currentIndex-1+root.count)%root.count];selected:false;onClicked:root.move(-1)}
-   WallpaperCard {anchors.centerIn:parent;width:Math.min(parent.width*.55,630);height:parent.height-10;entry:root.currentEntry;selected:true;onClicked:root.choose()}
-   WallpaperCard {anchors.right:parent.right;anchors.rightMargin:30;anchors.verticalCenter:parent.verticalCenter;width:230;height:190;opacity:0.6;entry:root.entries[(root.currentIndex+1)%root.count];selected:false;onClicked:root.move(1)}
+   id:wideStrip
+   readonly property int sideSlots:Math.min(4,Math.floor((root.count-1)/2))
+   readonly property real heroWidth:Math.min(width*.52,1000)
+   readonly property real sideWidth:Math.max(36,(width-heroWidth-sideSlots*2*10)/(Math.max(1,sideSlots*2)))
+   Row {anchors.centerIn:parent;spacing:10
+    Repeater {model:wideStrip.sideSlots*2+1
+     WallpaperCard {required property int index;readonly property bool hero:index===wideStrip.sideSlots;readonly property int entryIndex:(root.currentIndex+index-wideStrip.sideSlots+root.count)%root.count;width:hero?wideStrip.heroWidth:wideStrip.sideWidth;height:Math.min(wideStrip.height-12,wideStrip.heroWidth*.70);entry:root.entries[entryIndex];selected:hero;imageOnly:true;opacity:hero?1:0.68;onClicked:hero?root.choose():root.select(entryIndex)}
+    }
+   }
    WheelHandler {target:null;onWheel:event=>root.wheel(event)}
   }
  }
  Component {id:honeycomb
-  Flickable {id:view;anchors.fill:parent;contentWidth:width;contentHeight:Math.ceil(root.count/columns)*184+92;clip:true;readonly property int columns:Math.max(1,Math.floor((width-60)/160))
+  Flickable {id:view;anchors.fill:parent;contentWidth:width;clip:true
+   readonly property int columns:Math.max(3,Math.min(7,Math.floor(width/230)))
+   readonly property real hexWidth:Math.min(340,(width-48)/(1+(columns-1)*.77))
+   readonly property real hexHeight:hexWidth*.87
+   readonly property real rowStep:hexHeight+12
+   readonly property real gridWidth:hexWidth+(columns-1)*hexWidth*.77
+   readonly property real startX:(width-gridWidth)/2
+   contentHeight:Math.ceil(root.count/columns)*rowStep+rowStep/2
    FastScroll {view:view}
    ScrollBar.vertical:ScrollBar {}
    Repeater {model:root.entries
-    WallpaperHex {required property var modelData;required property int index;x:20+(index%view.columns)*160;y:Math.floor(index/view.columns)*184+(index%view.columns)%2*92;entry:modelData;selected:index===root.currentIndex;onClicked:root.select(index)}
+    WallpaperHex {required property var modelData;required property int index;width:view.hexWidth;height:view.hexHeight;x:view.startX+(index%view.columns)*view.hexWidth*.77;y:Math.floor(index/view.columns)*view.rowStep+(index%view.columns)%2*view.rowStep/2;entry:modelData;selected:index===root.currentIndex;onClicked:root.select(index)}
    }
   }
  }
  component WallpaperCard:StyledRect {
-  id:card;property var entry;property bool selected:false;signal clicked()
-  radius:17;color:Colours.palette.m3surfaceContainer;border.width:selected?2:0;border.color:Colours.palette.m3primary
-  Image {x:6;y:6;width:parent.width-12;height:parent.height-42;source:card.entry?.poster?"file://"+card.entry.poster:"";sourceSize.width:1000;sourceSize.height:600;fillMode:Image.PreserveAspectCrop;asynchronous:true}
-  StyledText {anchors.bottom:parent.bottom;anchors.bottomMargin:12;width:parent.width-12;anchors.horizontalCenter:parent.horizontalCenter;text:card.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:10}
+  id:card;property var entry;property bool selected:false;property bool imageOnly:false;signal clicked()
+  radius:imageOnly?8:17;color:Colours.palette.m3surfaceContainer;border.width:selected?2:0;border.color:Colours.palette.m3primary
+  Image {x:6;y:6;width:parent.width-12;height:parent.height-(card.imageOnly?12:42);source:card.entry?.poster?"file://"+card.entry.poster:"";sourceSize.width:card.imageOnly&&card.selected?1600:600;sourceSize.height:1000;fillMode:Image.PreserveAspectCrop;asynchronous:true}
+  StyledText {visible:!card.imageOnly;anchors.bottom:parent.bottom;anchors.bottomMargin:12;width:parent.width-12;anchors.horizontalCenter:parent.horizontalCenter;text:card.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:10}
   ToolTip.text:card.entry?.name??"";ToolTip.visible:cardHover.hovered;ToolTip.delay:500
   HoverHandler {id:cardHover}
   MouseArea {anchors.fill:parent;cursorShape:Qt.PointingHandCursor;onClicked:card.clicked()}
  }
  DropArea {anchors.fill:parent;onDropped:drop=>{if(drop.hasUrls){Wallpapers.addFiles(drop.urls);drop.acceptProposedAction();}}}
- IpcHandler {target:"wallpaperPicker";function view(kind:string,layout:string):void{Wallpapers.preference({kind:kind,layout:layout});}function state():string{return JSON.stringify({query:search.text,kind:root.kind,layout:root.layout,count:root.count,index:root.currentIndex,width:root.width,height:root.height});}}
+ IpcHandler {target:"wallpaperPicker";function view(kind:string,layout:string):void{Wallpapers.preference({kind:kind,layout:layout});}function state():string{return JSON.stringify({query:search.text,kind:root.kind,layout:root.layout,count:root.count,index:root.currentIndex,width:root.width,height:root.height,fullScreen:root.fullScreen});}}
 }

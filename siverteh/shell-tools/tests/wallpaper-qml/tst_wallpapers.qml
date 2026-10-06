@@ -16,6 +16,18 @@ TestCase {
   for(const layout of ["spotlight","hexagons","carousel"]){Wallpapers.preference({layout:layout});wait(40);compare(view.currentEntry.path,"two");}
   view.forceActiveFocus();keyClick(Qt.Key_Escape);compare(view.visibilities.launcher,false);
  }
+ function test_full_screen_modes_and_complete_carousel_cards(){
+  const original=Wallpapers.list;
+  try {
+   Wallpapers.list=Array.from({length:12},(_,i)=>({path:"wall"+i,name:"Wallpaper "+i,poster:original[0].poster,dynamic:false}));
+   const view=createTemporaryObject(picker,test);wait(60);
+   verify(!view.fullScreen);compare(view.implicitHeight,410);
+   const strip=findChild(view,"carouselStrip"),cards=findChild(view,"carouselCards");
+   verify(strip.slots%2===1);verify(cards.width<=strip.width);
+   for(const card of cards.children){if(card.entry===undefined)continue;const point=card.mapToItem(strip,0,0),end=card.mapToItem(strip,card.width,card.height);verify(point.x>=0,"left "+point.x);verify(end.x<=strip.width+1,"right "+end.x+" / "+strip.width);verify(point.y>=0,"top "+point.y);verify(end.y<=strip.height+1,"bottom "+end.y+" / "+strip.height);}
+   for(const layout of ["spotlight","hexagons"]){Wallpapers.preference({layout:layout});wait(40);verify(view.fullScreen);compare(view.implicitHeight,1100);}
+  } finally {Wallpapers.list=original;}
+ }
  function test_hexagonal_hit_shape_excludes_transparent_corners(){
   const view=createTemporaryObject(hex,test);verify(view.inside(100,80));verify(!view.inside(0,0));verify(!view.inside(199,1));verify(view.inside(1,87));
  }

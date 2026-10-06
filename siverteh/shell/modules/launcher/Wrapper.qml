@@ -1,4 +1,5 @@
 import "root:/config"
+import "root:/services"
 import "root:/modules/extras" as Extras
 import Quickshell
 import QtQuick
@@ -11,9 +12,10 @@ Item {
     readonly property int galleryIndex: visibilities.launcherMode === "wallpaper" ? content.item?.currentIndex ?? -1 : -1
     function galleryStep(delta) { if(visibilities.launcher && visibilities.launcherMode === "wallpaper") content.item?.move(delta); }
 
+    readonly property bool fullScreenGallery:visibilities.launcherMode==="wallpaper"&&(Wallpapers.preferences.layout??"carousel")!=="carousel"
     visible: height > 0
-    implicitHeight: !visibilities.launcher ? 0 : content.item?.implicitHeight ?? 0
-    implicitWidth: content.item?.implicitWidth ?? LauncherConfig.sizes.itemWidth
+    implicitHeight: !visibilities.launcher ? 0 : fullScreenGallery ? Math.max(0,parent.height-24) : content.item?.implicitHeight ?? 0
+    implicitWidth: fullScreenGallery ? Math.max(0,parent.width-48) : content.item?.implicitWidth ?? LauncherConfig.sizes.itemWidth
 
     // Retarget on mode changes, including while an opening animation is in flight.
     Behavior on implicitHeight {

@@ -66,6 +66,7 @@ Item {
 
     Launcher.Wrapper {
         id: launcher
+        z:100
 
         visibilities: root.visibilities
 
