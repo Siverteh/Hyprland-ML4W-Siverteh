@@ -16,30 +16,19 @@
 
 -- -------------------- Audio Controls (with OSD) --------------------
 
--- F1 = Mute/Unmute
+-- Media key: Mute/Unmute
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
     locked = true,
 })
-hl.bind("F1", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
-    locked = true,
-})
 
--- F2 = Volume Down
+-- Media key: Volume Down
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
     repeating = true,
     locked = true,
 })
-hl.bind("F2", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
-    repeating = true,
-    locked = true,
-})
 
--- F3 = Volume Up
+-- Media key: Volume Up
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), {
-    repeating = true,
-    locked = true,
-})
-hl.bind("F3", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), {
     repeating = true,
     locked = true,
 })
@@ -70,7 +59,6 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURC
 
 -- -------------------- Screenshot Tools --------------------
 hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy && notify-send \"Screenshot\" \"Copied to clipboard\""))
-hl.bind("F8", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy && notify-send \"Screenshot\" \"Copied to clipboard\""))
 hl.bind("SUPER + Print", hl.dsp.exec_cmd("grim ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png && notify-send \"Screenshot\" \"Saved to Pictures/Screenshots\""))
 
 -- =====================================================
