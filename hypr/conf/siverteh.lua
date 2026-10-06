@@ -1,12 +1,4 @@
--- __  _____  _____      __  _____          ___
-
--- /  |/  / / / / / | /| / / / ___/__  ___  / _/
-
--- / /|_/ / /_/_  _/ |/ |/ / / /__/ _ \/ _ \/ _/
-
--- /_/  /_/____//_/ |__/|__/  \___/\___/_//_/_/
-
---
+-- Siverteh desktop layers and application dialog behavior.
 
 -- Siverteh Shell
 hl.layer_rule({

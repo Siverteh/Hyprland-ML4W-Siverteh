@@ -264,4 +264,4 @@ hl.bind("ALT + SHIFT + TAB", hl.dsp.window.cycle_next({ next = false }))
 -- SUPER COMMANDS (Multi-Workspace Setups)
 
 -- =====================================================
-hl.bind("SUPER + ALT + C", hl.dsp.exec_cmd("~/.config/hypr/scripts/coding-setup.sh"))
+hl.bind("SUPER + ALT + C", hl.dsp.exec_cmd("~/.config/hypr/scripts/startup-apps.sh"))

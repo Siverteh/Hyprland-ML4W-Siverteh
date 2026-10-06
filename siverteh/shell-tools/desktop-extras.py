@@ -15,7 +15,7 @@ def save(path,value):
     module.atomic_write(path,json.dumps(value))
 
 def launch(command):
-    return subprocess.Popen(['systemd-run','--user','--scope','--collect','--quiet','env','-u','LD_LIBRARY_PATH','-u','QML_IMPORT_PATH','-u','QT_PLUGIN_PATH','-u','SIVERTEH_LIB_DIR',*command],start_new_session=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    return subprocess.Popen(['systemd-run','--user','--scope','--collect','--quiet','env','-u','LD_LIBRARY_PATH','-u','QML_IMPORT_PATH','-u','QML2_IMPORT_PATH','-u','QT_PLUGIN_PATH','-u','SIVERTEH_LIB_DIR',*command],start_new_session=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 
 def ai():return runpy.run_path(str((HOME/'.local/bin/siverteh-ai').resolve()))
 def chat_list():
