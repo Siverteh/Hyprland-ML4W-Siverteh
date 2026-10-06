@@ -2,7 +2,7 @@
 
 | Component | Source | Owner and deployed location |
 |---|---|---|
-| Session and compositor | `hypr/` | SDDM → UWSM → Hyprland; installed configuration copies in `~/.config/hypr` |
+| Session and compositor | `hypr/`, `uwsm/` | SDDM → UWSM → Hyprland; installed configuration copies in `~/.config/hypr` |
 | Desktop UI | `siverteh/shell/` | `siverteh-os-shell.service`; validated source in `~/.local/share/siverteh-ai/siverteh-shell` |
 | Desktop helpers | `siverteh/shell-tools/` | Native settings, notifications, clipboard, update checks, startup apps and assistant bridge |
 | Palette and wallpaper engine | `siverteh/shell-cli/` | Isolated Python package; the native bridge is the sole palette publisher |
@@ -14,7 +14,7 @@
 The desktop shell owns the bar, frame, dashboard, notifications, launcher,
 wallpaper chooser and audio/brightness controls. Display settings are stored in
 private native state; the old display-rearrangement scripts and competing display
-daemon are removed. Hypridle handles locking around suspend. KWallet PAM unlocks
+daemon are removed. The enabled Hypridle user service locks after 15 idle minutes and before suspend. KWallet PAM unlocks
 the encrypted wallet using password login, with its initialization hook in the
 Hyprland startup configuration.
 

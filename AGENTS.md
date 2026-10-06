@@ -21,3 +21,8 @@ palette engine, Brain, AI workflow and optional SDDM appearance. See
   restart a busy sidebar backend as part of routine UI deployment.
 - Retain applicable LICENSE/NOTICE files for adapted code. Old releases remain in
   Git history; the current tree contains only maintained components.
+
+Prefer readable multiline Python and QML over compressed statements. Use Ruff
+for Python and qmlformat for QML, keep formatting-only changes separate, and run
+the same checks before and after formatting. Generated host language-server
+configuration belongs outside Git.
