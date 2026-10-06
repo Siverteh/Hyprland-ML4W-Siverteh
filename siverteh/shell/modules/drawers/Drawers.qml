@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import "root:/widgets"
 import "root:/services"
 import "root:/config"
+import "root:/modules/launcher" as Launcher
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
@@ -132,8 +133,7 @@ Variants {
             Item {
                 anchors.fill:parent
                 visible:visibilities.launcher&&panels.launcher.fullScreenGallery
-                Image {id:wallpaperBackdrop;anchors.fill:parent;source:Wallpapers.poster?"file://"+Wallpapers.poster:"";sourceSize.width:1600;fillMode:Image.PreserveAspectCrop;asynchronous:true;visible:false}
-                MultiEffect {anchors.fill:parent;source:wallpaperBackdrop;blurEnabled:true;blur:0.65;blurMax:24}
+                Launcher.WallpaperBackdrop {anchors.fill:parent;path:Wallpapers.poster}
                 Rectangle {anchors.fill:parent;color:Qt.alpha(Colours.palette.m3scrim,0.64)}
             }
 

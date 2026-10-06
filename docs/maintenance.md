@@ -154,9 +154,9 @@ NTP service and UTC hardware-clock mode are preserved.
 
 ## Categorized bottom launcher
 
-Tap and release either Super key to toggle Apps; Super+A remains an alias.
-Hyprland's modifier-only release handling suppresses the tap binding after a
-chord. Super+W opens Wallpaper directly. The bottom drawer has no hover trigger.
+Super+A toggles Apps. Super by itself has no launcher binding, avoiding
+accidental opens. Super+W opens Wallpaper directly. The bottom drawer has no
+hover trigger.
 
 The app browser always opens a compact Favorites view, including when empty.
 All apps expands upward to six full rows when the screen has room;
@@ -203,9 +203,13 @@ restarted. Only UI visibility flags are handed off, never draft or password text
 Wallpaper presentation: Carousel remains a compact bottom drawer with an odd
 number of complete cards and centered controls. Spotlight and Hexagons use the
 active screen's available panel area, with a dimmed wallpaper backdrop instead
-of an oversized bottom-frame notch. Empty overlay space, the Close button and
-Escape dismiss the picker; images and controls consume their own clicks.
+of an oversized bottom-frame notch. Empty overlay space and Escape dismiss the picker; images and controls consume their own clicks.
 The native Qt tests include card-bound checks. Reference screenshots prompted
 this presentation; current caelestia-kde main/dev use a different compact QML
 PathView, so these expanded views are maintained locally rather than relying on
 another wallpaper manager or upstream plugin.
+
+Expanded wallpaper tiles animate position/width; their decode size stays stable
+to avoid reloading images during selection. The backdrop holds its previous
+loaded buffer until the next is ready and coalesces changes during crossfade.
+Closing clips fixed-height content rather than shrinking its internal anchors.
