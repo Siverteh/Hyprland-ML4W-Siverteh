@@ -40,6 +40,11 @@ def main():
         elif path.suffix == '.sh' or (path.parent == ROOT / 'bin' and 'bash' in path.read_text().splitlines()[0]):
             run(['bash', '-n', str(path)])
     print('Python, JSON, shell syntax and retired-tree checks passed.', flush=True)
+    from window_rules import conflicts
+    contradictory = conflicts(ROOT / 'hypr/conf')
+    if contradictory:
+        raise RuntimeError('Conflicting window rules:\n' + '\n'.join(contradictory))
+    print('Window class routing and floating rules are consistent.', flush=True)
     lua = shutil.which('luac')
     if lua:
         for path in (ROOT / 'hypr').rglob('*.lua'):

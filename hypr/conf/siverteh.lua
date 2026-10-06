@@ -85,18 +85,6 @@ hl.window_rule({
     size = "900 600",
 })
 
--- System Mission Center
-hl.window_rule({
-    name = "missioncenter",
-    match = {
-        class = "(io.missioncenter.MissionCenter)",
-    },
-    float = true,
-    center = true,
-    pin = true,
-    size = "900 600",
-})
-
 -- Gnome Calculator
 hl.window_rule({
     name = "gnome-calculator",
@@ -210,3 +198,6 @@ hl.config({
 
 -- SDL version
 hl.env("SDL_VIDEODRIVER", "wayland")
+
+-- Native OS control windows
+hl.window_rule({name="siverteh-controls",match={class="^(siverteh-os-control)$"},float=true,center=true,size="720 500"})

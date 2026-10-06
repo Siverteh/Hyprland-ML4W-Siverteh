@@ -96,6 +96,7 @@ hl.bind("SUPER + 3", hl.dsp.focus({ workspace = 3, on_current_monitor = true }))
 hl.bind("SUPER + 4", hl.dsp.focus({ workspace = 4, on_current_monitor = true }))
 hl.bind("SUPER + 5", hl.dsp.focus({ workspace = 5, on_current_monitor = true }))
 hl.bind("SUPER + 6", hl.dsp.focus({ workspace = 6, on_current_monitor = true }))
+hl.bind("SUPER + 7", hl.dsp.focus({ workspace = 7, on_current_monitor = true }))
 
 -- Workspace cycling
 hl.bind("SUPER + TAB", hl.dsp.focus({ workspace = "m+1", on_current_monitor = true }))
@@ -112,6 +113,7 @@ hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
 hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
 hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
 hl.bind("SUPER + SHIFT + 6", hl.dsp.window.move({ workspace = 6 }))
+hl.bind("SUPER + SHIFT + 7", hl.dsp.window.move({ workspace = 7 }))
 
 -- Move to adjacent workspace
 hl.bind("SUPER + CTRL + SHIFT + left", hl.dsp.window.move({ workspace = "r-1" }))
@@ -218,7 +220,6 @@ hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("code"))
 hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("cursor"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("discord"))
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("spotify"))
-hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("flatpak run io.missioncenter.MissionCenter"))
 hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files"))
 
 -- =====================================================

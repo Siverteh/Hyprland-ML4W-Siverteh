@@ -1,137 +1,66 @@
--- =====================================================
-
--- Laptop Mode: Siverteh Workspace Map
-
--- =====================================================
+-- Workspace map: browser, AI, Discord, Spotify, mail, Brain, editors.
 
 -- Workspace 1: Browser
 hl.window_rule({
-    match = {
-        class = "^(Google-chrome)$",
-    },
+    name = "browser-chrome",
+    match = { class = "^([Gg]oogle-chrome)$" },
     workspace = "1 silent",
 })
 hl.window_rule({
-    match = {
-        class = "^(google-chrome)$",
-    },
+    name = "browser-chromium",
+    match = { class = "^([Cc]hromium)$" },
     workspace = "1 silent",
 })
 hl.window_rule({
-    match = {
-        class = "^(chromium)$",
-    },
-    workspace = "1 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(firefox)$",
-    },
-    workspace = "1 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(Firefox)$",
-    },
+    name = "browser-firefox",
+    match = { class = "^([Ff]irefox)$" },
     workspace = "1 silent",
 })
 
--- Workspace 2: Code
+-- Workspace 2: AI
 hl.window_rule({
-    match = {
-        class = "^(Code)$",
-    },
-    workspace = "2 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(code)$",
-    },
-    workspace = "2 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(VSCodium)$",
-    },
-    workspace = "2 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(cursor)$",
-    },
-    workspace = "2 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(Cursor)$",
-    },
+    name = "ai-workers",
+    match = { class = "^(siverteh-ai-task|siverteh-ai-dashboard)$" },
     workspace = "2 silent",
 })
 
 -- Workspace 3: Discord
 hl.window_rule({
-    match = {
-        class = "^(discord)$",
-    },
-    workspace = "3 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(Discord)$",
-    },
+    name = "discord",
+    match = { class = "^([Dd]iscord)$" },
     workspace = "3 silent",
 })
 
 -- Workspace 4: Spotify
 hl.window_rule({
-    match = {
-        class = "^(Spotify)$",
-    },
-    workspace = "4 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(spotify)$",
-    },
+    name = "spotify",
+    match = { class = "^([Ss]potify)$" },
     workspace = "4 silent",
 })
 
 -- Workspace 5: Mail
 hl.window_rule({
-    match = {
-        class = "^(evolution)$",
-    },
-    workspace = "5 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(org.gnome.Evolution)$",
-    },
+    name = "mail-evolution",
+    match = { class = "^(evolution|org[.]gnome[.]Evolution)$" },
     workspace = "5 silent",
 })
 
--- Workspace 6: System and misc
+-- Workspace 6: Brain
+-- Dedicated Brain routing is in brain.lua.
+
+-- Workspace 7: Editors
 hl.window_rule({
-    match = {
-        class = "^(mission-center)$",
-    },
-    workspace = "6 silent",
+    name = "editor-code",
+    match = { class = "^([Cc]ode|com[.]microsoft[.]VSCode)$" },
+    workspace = "7 silent",
 })
 hl.window_rule({
-    match = {
-        class = "^(mission-center)$",
-    },
-    float = false,
+    name = "editor-codium",
+    match = { class = "^([Vv][Ss][Cc]odium)$" },
+    workspace = "7 silent",
 })
 hl.window_rule({
-    match = {
-        class = "^(io.missioncenter.MissionCenter)$",
-    },
-    workspace = "6 silent",
-})
-hl.window_rule({
-    match = {
-        class = "^(io.missioncenter.MissionCenter)$",
-    },
-    float = false,
+    name = "editor-cursor",
+    match = { class = "^([Cc]ursor)$" },
+    workspace = "7 silent",
 })
