@@ -30,6 +30,7 @@ class WallpaperMediaTests(unittest.TestCase):
    first=media.import_files([str(source)]);second=media.import_files([str(source)])
    self.assertNotEqual(first,second);self.assertTrue(source.exists());self.assertTrue(Path(first[0]).exists())
  def test_failed_palette_commit_does_not_publish_media_state(self):
-  with tempfile.TemporaryDirectory() as folder,patch.object(media,'STATE',Path(folder)/'state'),patch.object(media,'describe',return_value={'path':'video','poster':'poster'}),patch.object(media.subprocess,'run',side_effect=RuntimeError):
-   with self.assertRaises(RuntimeError):media.select('video')
+  with tempfile.TemporaryDirectory() as folder,patch.object(media,'STATE',Path(folder)/'state'),patch.object(media,'CACHE',Path(folder)/'cache'),patch.object(media.subprocess,'run',side_effect=RuntimeError):
+   source=Path(folder)/'image.png';Image.new('RGB',(32,24),'red').save(source)
+   with self.assertRaises(RuntimeError):media.select(source)
    self.assertFalse((media.STATE/'media.json').exists())

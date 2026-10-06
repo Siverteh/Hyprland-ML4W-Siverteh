@@ -4,6 +4,7 @@ import "fixtures"
 TestCase {
  id:test;name:"WallpaperPicker";width:1160;height:650;visible:true;when:windowShown
  Component {id:picker;WallpaperGallery {width:1160;height:implicitHeight;visibilities:QtObject {property bool launcher:true}}}
+ Component {id:presentation;ThemePresentation {}}
  Component {id:backdrop;WallpaperBackdrop {width:500;height:300}}
  Component {id:hex;WallpaperHex {entry:Wallpapers.list[0]}}
  function init(){Wallpapers.preferences={kind:"static",layout:"carousel"};Wallpapers.current="one";Wallpapers.browsed="";}
@@ -51,6 +52,13 @@ TestCase {
    verify(next.x<startX&&next.x>endX);verify(next.width>startWidth&&next.width<strip.heroWidth);
    wait(300);compare(next.x,endX);compare(next.width,strip.heroWidth);
   } finally {Wallpapers.list=original;}
+ }
+ function test_theme_waits_for_matching_image_ready_and_rejects_stale_ack(){
+  const view=createTemporaryObject(presentation,test);
+  const first={poster:"one",mode:"dark",colours:{primary:"112233"}},next={poster:"two",mode:"light",colours:{primary:"aabbcc"}};
+  view.accept(first);compare(view.active.poster,"one");view.accept(next);compare(view.active.poster,"one");
+  view.activate("one");compare(view.active.poster,"one");view.activate("two");compare(view.active.poster,"two");compare(view.active.colours.primary,"aabbcc");
+  view.accept({poster:"two",mode:"dark",colours:{primary:"445566"}});compare(view.active.mode,"dark");
  }
  function test_backdrop_holds_loaded_image_until_replacement_ready(){
   const path=Wallpapers.list[0].poster;

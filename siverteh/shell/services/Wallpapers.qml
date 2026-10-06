@@ -22,6 +22,12 @@ Singleton {
  readonly property string poster:currentEntry?.poster??current
  readonly property string preview:currentEntry?.preview??poster
  readonly property string thumbnail:currentEntry?.thumbnail??poster
+ readonly property string pendingPoster:ThemePresentation.pending.poster??poster
+ readonly property var displayEntry:media.poster===ThemePresentation.active.poster?media:list.find(w=>w.poster===ThemePresentation.active.poster)??null
+ readonly property string displayPath:displayEntry?.path??actualCurrent
+ readonly property string displayPreview:displayEntry?.preview??ThemePresentation.active.poster??preview
+ readonly property bool displayDynamic:displayEntry?.dynamic??false
+ readonly property bool displayAnimated:displayEntry?.animated??false
  readonly property bool dynamic:currentEntry?.dynamic??false
  readonly property bool animated:currentEntry?.animated??false
  readonly property list<var> preppedWalls:list.map(w=>({name:Fuzzy.prepare(w.name),path:Fuzzy.prepare(w.path),wall:w}))
@@ -39,7 +45,7 @@ Singleton {
  function addFiles(paths){if(importer.running)return;importer.files=paths;importer.command=["python3",tool,"import"];importer.running=true;}
  function pickFiles(){if(importer.running)return;importer.files=null;importer.command=["python3",tool,"pick"];importer.running=true;}
  readonly property string tool:Quickshell.env("HOME")+"/.local/share/siverteh-ai/siverteh-shell/tools/wallpaper-media.py"
- Timer {id:settle;interval:300;onTriggered:root.commitSelection()}
+ Timer {id:settle;interval:150;onTriggered:root.commitSelection()}
  FileView {path:root.currentNamePath;watchChanges:true;onFileChanged:reload();onLoaded:root.lastImage=text().trim()}
  FileView {id:mediaFile;path:`${Paths.state}/wallpaper/media.json`;watchChanges:true;preload:false;onFileChanged:reload();onLoaded:{try{root.media=JSON.parse(text());}catch(e){}}}
  Process {id:catalog;running:true;command:["python3",root.tool,"catalog"];stdout:SplitParser {splitMarker:"";onRead:line=>{try{const data=JSON.parse(line);if(data.error){root.error=data.error;return;}wallpapers.model=data.entries;root.preferences=data.preferences;root.media=data.media;root.error=data.errors?.length?"Could not prepare "+data.errors.join(", "):"";}catch(e){root.error="Could not read wallpapers";}}}}

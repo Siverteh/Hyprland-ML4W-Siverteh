@@ -53,16 +53,13 @@ Item {
    ActionButton {anchors.horizontalCenter:parent.horizontalCenter;text:"Add wallpapers";icon:"add";onClicked:Wallpapers.pickFiles()}
   }
  }
- Row {id:footer;anchors.bottom:motionOptions.visible?motionOptions.top:parent.bottom;anchors.bottomMargin:root.fullScreen?22:16;anchors.horizontalCenter:parent.horizontalCenter;spacing:14
+ Row {id:footer;anchors.bottom:parent.bottom;anchors.bottomMargin:root.fullScreen?22:16;anchors.horizontalCenter:parent.horizontalCenter;spacing:14
   ActionButton {compact:true;text:"";icon:"chevron_left";enabled:root.count>1;onClicked:root.move(-1)}
   Column {anchors.verticalCenter:parent.verticalCenter;spacing:4;width:Math.min(420,root.width-180)
    StyledText {width:parent.width;text:root.currentEntry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:12;color:Colours.palette.m3primary}
    StyledText {width:parent.width;text:root.count?(root.currentIndex+1)+" / "+root.count:"";horizontalAlignment:Text.AlignHCenter;font.pointSize:10;color:Colours.palette.m3onSurfaceVariant}
   }
   ActionButton {compact:true;text:"";icon:"chevron_right";enabled:root.count>1;onClicked:root.move(1)}
- }
- Row {id:motionOptions;anchors.bottom:parent.bottom;anchors.bottomMargin:16;anchors.horizontalCenter:parent.horizontalCenter;visible:root.kind==="dynamic"
-  ActionButton {compact:true;text:"Pause behind tiled apps";selected:Wallpapers.preferences.pauseCovered??true;onClicked:Wallpapers.preference({pauseCovered:!Wallpapers.preferences.pauseCovered})}
  }
  Component {id:carousel
   PathView {
@@ -129,7 +126,9 @@ Item {
  component WallpaperCard:StyledRect {
   id:card;property var entry;property bool selected:false;property bool imageOnly:false;property bool imageEnabled:true;signal clicked()
   radius:imageOnly?8:17;color:Colours.palette.m3surfaceContainer;border.width:selected?2:0;border.color:Colours.palette.m3primary
-  Image {x:6;y:6;width:parent.width-12;height:parent.height-(card.imageOnly?12:42);source:card.imageEnabled&&card.entry?.poster?"file://"+(card.imageOnly?(card.entry.preview??card.entry.poster):(card.entry.thumbnail??card.entry.poster)):"";sourceSize.width:card.imageOnly?1200:600;sourceSize.height:card.imageOnly?840:600;fillMode:Image.PreserveAspectCrop;asynchronous:true}
+  Image {id:quickImage;x:6;y:6;width:parent.width-12;height:parent.height-(card.imageOnly?12:42);source:card.imageEnabled&&card.entry?.poster?"file://"+(card.entry.thumbnail??card.entry.poster):"";sourceSize.width:600;sourceSize.height:600;fillMode:Image.PreserveAspectCrop;asynchronous:!card.entry?.thumbnail}
+  Image {anchors.fill:quickImage;source:card.imageEnabled&&card.imageOnly&&card.entry?.preview?"file://"+card.entry.preview:"";sourceSize.width:1200;sourceSize.height:840;fillMode:Image.PreserveAspectCrop;asynchronous:true;opacity:status===Image.Ready?1:0;Behavior on opacity {NumberAnimation {duration:160}}}
+
   StyledText {visible:!card.imageOnly;anchors.bottom:parent.bottom;anchors.bottomMargin:12;width:parent.width-12;anchors.horizontalCenter:parent.horizontalCenter;text:card.entry?.name??"";horizontalAlignment:Text.AlignHCenter;elide:Text.ElideRight;font.pointSize:10}
   ToolTip.text:card.entry?.name??"";ToolTip.visible:cardHover.hovered;ToolTip.delay:500
   HoverHandler {id:cardHover}

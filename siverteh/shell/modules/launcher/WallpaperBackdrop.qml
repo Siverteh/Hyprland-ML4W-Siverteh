@@ -14,8 +14,8 @@ Item {
  Component.onCompleted:request()
  NumberAnimation {id:crossfade;target:root;property:"blend";from:0;to:1;duration:280;easing.type:Easing.InOutCubic}
  Timer {id:fadeGate;interval:300;onTriggered:root.loadPending()}
- Image {id:one;property string requestTag:"";property string loadedTag:"";anchors.fill:parent;sourceSize.width:1600;fillMode:Image.PreserveAspectCrop;asynchronous:true;visible:false;onStatusChanged:root.ready(this)}
- Image {id:two;property string requestTag:"";property string loadedTag:"";anchors.fill:parent;sourceSize.width:1600;fillMode:Image.PreserveAspectCrop;asynchronous:true;visible:false;onStatusChanged:root.ready(this)}
+ Image {id:one;property string requestTag:"";property string loadedTag:"";anchors.fill:parent;sourceSize.width:1600;fillMode:Image.PreserveAspectCrop;asynchronous:false;visible:false;onStatusChanged:root.ready(this)}
+ Image {id:two;property string requestTag:"";property string loadedTag:"";anchors.fill:parent;sourceSize.width:1600;fillMode:Image.PreserveAspectCrop;asynchronous:false;visible:false;onStatusChanged:root.ready(this)}
  MultiEffect {anchors.fill:parent;source:one;blurEnabled:true;blur:0.65;blurMax:24;z:root.current===one?1:0;opacity:root.hasImage?(root.current===one?root.blend:fadeGate.running?1:0):0}
  MultiEffect {anchors.fill:parent;source:two;blurEnabled:true;blur:0.65;blurMax:24;z:root.current===two?1:0;opacity:root.hasImage?(root.current===two?root.blend:fadeGate.running?1:0):0}
 }

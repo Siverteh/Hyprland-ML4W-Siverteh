@@ -72,6 +72,11 @@ def catalog():
    except Exception:errors.append(path.name)
  return dict(entries=rows,preferences=settings(),media=read(STATE/'media.json',{}),errors=errors)
 
+def palette_marker(poster,flavour):
+ poster=Path(poster);stat=poster.stat()
+ key=hashlib.sha256((str(poster)+str(stat.st_size)+str(stat.st_mtime_ns)+str(flavour)+'palette-warm-v1').encode()).hexdigest()
+ return CACHE/(key+'.palette.json')
+
 def warm():
  # Read-only preparation never publishes a wallpaper, palette or login theme.
  # One low-priority worker survives overlapping startup requests via a lock.
@@ -87,8 +92,7 @@ def warm():
   flavour=read(HOME/'.local/state/siverteh_shell/scheme.json',{}).get('flavour','default')
   for item in catalog()['entries']:
    try:
-    poster=Path(item['poster']);stat=poster.stat()
-    key=hashlib.sha256((str(poster)+str(stat.st_size)+str(stat.st_mtime_ns)+str(flavour)+'palette-warm-v1').encode()).hexdigest();marker=CACHE/(key+'.palette.json')
+    poster=Path(item['poster']);marker=palette_marker(poster,flavour)
     if cli.exists() and not marker.exists():
      result=subprocess.run([str(cli),'wallpaper','-p',str(poster)],capture_output=True,text=True,check=True,timeout=30)
      atomic(marker,json.loads(result.stdout));computed+=1
@@ -98,9 +102,22 @@ def warm():
 
 def select(path):
  item=describe(path)
- # The existing palette pipeline only sees a still image. Publish media identity
- # after its palette/lock/login poster commits successfully.
- subprocess.run([str(HOME/'.local/bin/siverteh-os-shell'),'wallpaper-image',item['poster']],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,timeout=60)
+ # Prepared colors still pass through the single publisher and its shared lock.
+ # Missing/stale/invalid cache or custom CLI hooks use the normal CLI pipeline.
+ prepared=False
+ scheme=read(HOME/'.local/state/siverteh_shell/scheme.json',{})
+ marker=palette_marker(item['poster'],scheme.get('flavour','default'))
+ if marker.exists():
+  try:
+   data=read(marker,{})
+   digest=hashlib.sha256(Path(item['poster']).read_bytes()).hexdigest()
+   thumbnail=HOME/'.cache/siverteh_shell/wallpapers'/digest/'thumbnail.jpg'
+   import importlib.util
+   spec=importlib.util.spec_from_file_location('palette',Path(__file__).with_name('classic-state.py'));palette=importlib.util.module_from_spec(spec);spec.loader.exec_module(palette)
+   prepared=palette.commit_prepared(HOME,item['poster'],data,thumbnail)
+  except (OSError,ValueError,KeyError):prepared=False
+ if not prepared:
+  subprocess.run([str(HOME/'.local/bin/siverteh-os-shell'),'wallpaper-image',item['poster']],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,timeout=60)
  atomic(STATE/'media.json',item);return item
 
 def import_files(paths):

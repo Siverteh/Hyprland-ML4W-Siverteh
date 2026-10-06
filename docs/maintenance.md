@@ -224,3 +224,15 @@ repeating the work on renderer recovery. Publication remains owned by the existi
 palette bridge, with shell colors published before compatibility/login assets.
 The normal carousel uses a bounded PathView with animated movement, complete odd
 card count and two nearby cached delegates rather than swapping a row's images.
+
+Prepared palette commits use the same publisher and palette lock as the CLI,
+validate roles/mode/flavour, preserve CLI wallpaper identity and fall back to the
+CLI for stale/missing caches or custom wallpaper hooks. `presentation.json`
+carries the wallpaper poster and palette together. Native Colors waits for the
+matching desktop image to be ready before presenting the new colors; late image
+acknowledgements cannot activate an older selection. The desktop loads the
+original image directly with bounded decode size, avoiding a thumbnail subprocess
+for each background change. Cached small tiles decode immediately; Spotlight
+uses them beneath its asynchronous large preview. These are event-driven changes,
+with no periodic palette/image work; background warmers run once at low priority.
+Automatic covered-app pausing stays enabled without a picker button/footer row.

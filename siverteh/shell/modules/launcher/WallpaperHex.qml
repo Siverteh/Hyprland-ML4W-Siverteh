@@ -11,7 +11,7 @@ Item {
  signal clicked()
  width:200;height:174
  function inside(x,y){return x>=0&&x<=width&&y>=0&&y<=height&&(x>=width/4&&x<=width*3/4||Math.abs(y-height/2)<=height/2*(Math.min(x,width-x)/(width/4)));}
- Image {id:image;anchors.fill:parent;source:root.entry?.poster?"file://"+(root.entry.thumbnail??root.entry.poster):"";sourceSize.width:400;sourceSize.height:348;fillMode:Image.PreserveAspectCrop;asynchronous:true;visible:false}
+ Image {id:image;anchors.fill:parent;source:root.entry?.poster?"file://"+(root.entry.thumbnail??root.entry.poster):"";sourceSize.width:400;sourceSize.height:348;fillMode:Image.PreserveAspectCrop;asynchronous:!root.entry?.thumbnail;visible:false}
  Shape {id:mask;anchors.fill:parent;visible:false;layer.enabled:true;layer.smooth:true
   ShapePath {strokeWidth:0;fillColor:"white";startX:root.width/4;startY:0
    PathLine {x:root.width*3/4;y:0}PathLine {x:root.width;y:root.height/2}PathLine {x:root.width*3/4;y:root.height}PathLine {x:root.width/4;y:root.height}PathLine {x:0;y:root.height/2}PathLine {x:root.width/4;y:0}

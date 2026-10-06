@@ -8,6 +8,8 @@ class WallpaperPickerUITests(unittest.TestCase):
   if not runner.exists():self.skipTest('Qt Quick Test unavailable')
   with tempfile.TemporaryDirectory() as folder:
    target=Path(folder);shutil.copytree(ROOT/'tests/qml/fixtures',target/'fixtures');Image.new('RGB',(32,24),'blue').save(target/'poster.png');Image.new('RGB',(32,24),'green').save(target/'second.png');shutil.copy2(ROOT.parent/'shell/modules/launcher/WallpaperBackdrop.qml',target/'WallpaperBackdrop.qml')
+   presentation=(ROOT.parent/'shell/services/ThemePresentation.qml').read_text().replace('pragma Singleton','').replace('import "root:/utils"','').replace('import Quickshell.Io','').replace('import Quickshell','').replace('Singleton {','Item {')
+   (target/'ThemePresentation.qml').write_text('\n'.join(line for line in presentation.splitlines() if 'FileView {' not in line))
    for name in ('WallpaperGallery','WallpaperHex'):
     source=(ROOT.parent/'shell/modules/launcher'/ (name+'.qml')).read_text().replace('import "root:/widgets"','import "fixtures"').replace('import "root:/services"','').replace('import Quickshell.Io','').replace('import Quickshell','').replace('required property PersistentProperties visibilities','required property var visibilities').replace('Quickshell.screens[0].width','1920').replace('Quickshell.screens[0].height','1200')
     source='\n'.join(line for line in source.splitlines() if 'IpcHandler {' not in line);(target/(name+'.qml')).write_text(source)

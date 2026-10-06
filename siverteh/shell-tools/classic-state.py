@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Commit one wallpaper palette to the shell, window frame and native choosers."""
-import json, os, re, signal, subprocess, sys, tempfile
+import fcntl, json, os, re, signal, subprocess, sys, tempfile
 from pathlib import Path
 
 
@@ -14,6 +14,41 @@ def atomic_write(path, text):
     finally:
         if os.path.exists(temp): os.unlink(temp)
 
+
+def atomic_symlink(path,target):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    fd,name=tempfile.mkstemp(dir=path.parent);os.close(fd);os.unlink(name)
+    try:Path(name).symlink_to(target);os.replace(name,path)
+    finally:Path(name).unlink(missing_ok=True)
+
+def commit_prepared(home,wallpaper,data,thumbnail,live=True):
+    """Use a validated read-only cache through this same palette publisher."""
+    home=Path(home);state=home/'.local/state/siverteh_shell'
+    image=Path(wallpaper).resolve();thumbnail=Path(thumbnail).resolve()
+    if not image.is_file() or not thumbnail.is_file():return False
+    if not thumbnail.is_relative_to((home/'.cache/siverteh_shell/wallpapers').resolve()):return False
+    try:
+        roles=json.loads(Path(__file__).with_name('reference-style.json').read_text())['colours']
+        colors=data['colours']
+        if data['name']!='dynamic' or data['mode'] not in ('light','dark'):return False
+        if not isinstance(colors,dict) or not roles.keys()<=colors.keys():return False
+        if any(not isinstance(v,str) or not re.fullmatch('#?[0-9a-fA-F]{6}',v) for v in colors.values()):return False
+        if any(not isinstance(data[k],str) or not re.fullmatch('[a-zA-Z0-9_-]{1,40}',data[k]) for k in ('flavour','variant')):return False
+        config=home/'.config/siverteh_shell/cli.json'
+        if config.exists() and json.loads(config.read_text()).get('wallpaper',{}).get('postHook'):return False
+    except (OSError,ValueError,KeyError,TypeError):return False
+    state.mkdir(parents=True,exist_ok=True)
+    with (state/'palette-commit.lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        try:current=json.loads((state/'scheme.json').read_text())
+        except (OSError,ValueError):return False
+        if current.get('name')!='dynamic' or current.get('flavour')!=data['flavour']:return False
+        atomic_write(state/'scheme.json',json.dumps(data))
+        atomic_write(state/'wallpaper/path.txt',str(image))
+        atomic_symlink(state/'wallpaper/current',image)
+        atomic_symlink(state/'wallpaper/thumbnail.jpg',thumbnail)
+        apply_palette(home,str(image),live=live)
+    return True
 
 def luminance(value):
     rgb=[int(value.lstrip('#')[i:i+2],16)/255 for i in (0,2,4)]
@@ -39,6 +74,8 @@ def apply_palette(home, wallpaper=None, live=True):
         raise ValueError('Invalid palette color')
     # Validate required roles before publishing any state.
     primary, secondary, inactive, shadow = (colors[k] for k in ('primary', 'secondary', 'outlineVariant', 'shadow'))
+    selected = str(Path(wallpaper).expanduser().resolve()) if wallpaper else ((state/'wallpaper/last.txt').read_text().strip() if (state/'wallpaper/last.txt').exists() else '')
+    if selected:atomic_write(state/'presentation.json',json.dumps({'version':1,'mode':data['mode'],'colours':colors,'poster':selected}))
     # Publish the native shell palette before slower compatibility/login assets.
     atomic_write(state / 'scheme/current-mode.txt', data['mode'])
     atomic_write(state / 'scheme/current.txt', '\n'.join(k+' '+v for k,v in colors.items())+'\n')

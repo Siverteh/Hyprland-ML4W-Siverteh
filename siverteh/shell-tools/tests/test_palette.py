@@ -1,3 +1,4 @@
+from unittest.mock import patch
 import importlib.util
 import json
 from pathlib import Path
@@ -36,6 +37,24 @@ class PaletteCommitTest(unittest.TestCase):
             term=(home/'.config/siverteh-shell/kitty-colors.conf').read_text()
             self.assertIn('background #'+colors['inverseSurface'],term)
             self.assertIn('foreground #'+colors['inverseOnSurface'],term)
+
+    def test_prepared_commit_uses_shared_publisher_and_preserves_cli_identity(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home=Path(folder);state=home/'.local/state/siverteh_shell';state.mkdir(parents=True)
+            colors=json.loads((Path(__file__).resolve().parents[1]/'reference-style.json').read_text())['colours']
+            data={'name':'dynamic','flavour':'default','variant':'tonalspot','mode':'dark','colours':colors}
+            (state/'scheme.json').write_text(json.dumps(data))
+            image=home/'wall.png';image.write_bytes(b'fixture')
+            thumbnail=home/'.cache/siverteh_shell/wallpapers/key/thumbnail.jpg';thumbnail.parent.mkdir(parents=True);thumbnail.write_bytes(b'fixture')
+            with patch.object(palette,'apply_palette') as publisher:
+                self.assertTrue(palette.commit_prepared(home,image,data,thumbnail,live=False));publisher.assert_called_once_with(home,str(image),live=False)
+            self.assertEqual((state/'wallpaper/current').resolve(),image)
+            self.assertEqual((state/'wallpaper/thumbnail.jpg').resolve(),thumbnail)
+            before=(state/'scheme.json').read_bytes()
+            bad=dict(data,colours=dict(colors,primary='bad'))
+            self.assertFalse(palette.commit_prepared(home,image,bad,thumbnail,live=False));self.assertEqual((state/'scheme.json').read_bytes(),before)
+            config=home/'.config/siverteh_shell/cli.json';config.parent.mkdir(parents=True);config.write_text(json.dumps({'wallpaper':{'postHook':'custom hook'}}))
+            self.assertFalse(palette.commit_prepared(home,image,data,thumbnail,live=False))
 
     def test_dim_ansi_text_remains_readable_on_light_and_dark_backgrounds(self):
         for background in ('fbf9f8','141318'):
