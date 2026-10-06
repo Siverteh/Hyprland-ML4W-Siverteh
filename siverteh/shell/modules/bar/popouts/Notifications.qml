@@ -1,7 +1,7 @@
-import "root:/widgets"
-import "root:/services"
-import "root:/config"
-import "root:/modules/notifications" as Cards
+import qs.widgets
+import qs.services
+import qs.config
+import qs.modules.notifications as Cards
 import Quickshell
 import QtQuick
 Column {

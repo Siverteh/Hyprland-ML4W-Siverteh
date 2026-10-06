@@ -3,7 +3,7 @@ import "modules/drawers"
 import "modules/background"
 import "modules/topbar"
 import "modules/extras"
-import "root:/services"
+import qs.services
 import Quickshell
 import Quickshell.Io
 import QtQuick

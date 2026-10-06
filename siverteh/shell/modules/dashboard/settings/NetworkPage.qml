@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import QtQuick
 SettingsPage {
  SettingsSection {title:"Connection";description:"Wi-Fi networks reported by NetworkManager."

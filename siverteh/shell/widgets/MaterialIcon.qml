@@ -1,4 +1,4 @@
-import "root:/config"
+import qs.config
 
 StyledText {
     property real fill

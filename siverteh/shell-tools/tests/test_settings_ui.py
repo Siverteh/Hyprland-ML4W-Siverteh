@@ -1,4 +1,6 @@
+from qml_source import remove_objects
 """Exercise settings navigation and the shared wheel handler in native Qt."""
+import re
 import os, shutil, subprocess, tempfile, unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,16 +12,17 @@ class SettingsUITests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as directory:
    target=Path(directory);shutil.copytree(ROOT/'tests/qml/fixtures',target/'fixtures')
    def adapted(path,imports='fixtures'):
-    return path.read_text().replace('import "root:/widgets"','import "'+imports+'"').replace('import "root:/services"','').replace('import "root:/config"','').replace('import Quickshell.Io','').replace('import Quickshell.Services.Pipewire','').replace('import Quickshell','').replace('Quickshell.screens[0].height','1080').replace('Quickshell.screens[0].width','1920')
+    return path.read_text().replace('import qs.widgets','import "'+imports+'"').replace('import qs.services','').replace('import qs.config','').replace('import Quickshell.Io','').replace('import Quickshell.Services.Pipewire','').replace('import Quickshell','').replace('Quickshell.screens[0].height','1080').replace('Quickshell.screens[0].width','1920')
    source=adapted(ROOT.parent/'shell/modules/dashboard/Settings.qml')
-   source='\n'.join(line for line in source.splitlines() if 'IpcHandler {' not in line)
+   source=remove_objects(source, r'\bIpcHandler\s*\{')
    (target/'Settings.qml').write_text(source)
    (target/'DesktopControls.qml').write_text(adapted(ROOT.parent/'shell/modules/dashboard/DesktopControls.qml'))
    pages=target/'settings';pages.mkdir()
    for path in (ROOT.parent/'shell/modules/dashboard/settings').glob('*.qml'):
     (pages/path.name).write_text(adapted(path,'../fixtures'))
-   preview=adapted(ROOT.parent/'shell/lock-preview.qml').replace('import "widgets"','import "fixtures"').replace('import "services"','').replace('ShellRoot {','Item {').replace('FloatingWindow {','Rectangle {').replace('title:"Siverteh lock screen preview"','property string title:"Siverteh lock screen preview"')
-   preview='\n'.join(line for line in preview.splitlines() if not line.lstrip().startswith(('Process {id:reader','Timer {interval:3000')))
+   preview=adapted(ROOT.parent/'shell/lock-preview.qml').replace('import "widgets"','import "fixtures"').replace('import "services"','').replace('ShellRoot {','Item {').replace('FloatingWindow {','Rectangle {')
+   preview=re.sub(r'title\s*:\s*"Siverteh lock screen preview"', 'property string title: "Siverteh lock screen preview"', preview)
+   preview=remove_objects(preview, r'\bProcess\s*\{\s*id\s*:\s*reader\b');preview=remove_objects(preview,r'\bTimer\s*\{\s*interval\s*:\s*3000\b')
    (target/'LockPreview.qml').write_text(preview)
    services={
     'TimezoneSettings':'property var status:({timezone:\"UTC\",localTime:\"12:34\",automatic:false,installed:false});property string message:\"\";property bool busy:false;function refresh(){} function change(kind,value){}',

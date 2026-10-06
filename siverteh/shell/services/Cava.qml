@@ -1,7 +1,7 @@
 pragma Singleton
 
-import "root:/config"
-import "root:/utils/scripts/beat.js" as Beats
+import qs.config
+import "../utils/scripts/beat.js" as Beats
 import Quickshell
 import Quickshell.Io
 import QtQuick

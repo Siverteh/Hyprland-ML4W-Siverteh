@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
-import "root:/widgets"
-import "root:/services"
-import "root:/config"
+import qs.widgets
+import qs.services
+import qs.config
 import "launcher.js" as Browser
 import Quickshell
 import Quickshell.Io

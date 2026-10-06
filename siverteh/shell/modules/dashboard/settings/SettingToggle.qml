@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import QtQuick
 Item {
  id:root;property string label;property string setting;readonly property bool checked:DesktopSettings.data[setting]===true

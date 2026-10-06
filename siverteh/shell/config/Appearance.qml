@@ -1,6 +1,6 @@
 pragma Singleton
 
-import "root:/services"
+import qs.services
 import Quickshell
 import QtQuick
 

@@ -1,6 +1,6 @@
-import "root:/config"
-import "root:/services"
-import "root:/modules/extras" as Extras
+import qs.config
+import qs.services
+import qs.modules.extras as Extras
 import Quickshell
 import QtQuick
 

@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import QtQuick
 SettingsPage {
  SettingsSection {title:"Local time";description:"The system clock stays synchronized in UTC. Your timezone sets the local time shown by apps."

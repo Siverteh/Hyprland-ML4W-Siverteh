@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import Quickshell
 import Quickshell.Io
 import QtQuick

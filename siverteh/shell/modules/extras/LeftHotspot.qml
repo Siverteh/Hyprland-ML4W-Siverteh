@@ -1,6 +1,6 @@
-import "root:/services"
-import "root:/widgets"
-import "root:/config"
+import qs.services
+import qs.widgets
+import qs.config
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland

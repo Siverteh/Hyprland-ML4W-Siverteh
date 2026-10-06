@@ -7,7 +7,7 @@ class ClickAwayTests(unittest.TestCase):
   if not runner.exists():self.skipTest('Qt Quick Test unavailable')
   with tempfile.TemporaryDirectory() as folder:
    path=Path(folder);shutil.copytree(ROOT/'tests/qml/fixtures',path/'fixtures')
-   source=(ROOT.parent/'shell/modules/drawers/Interactions.qml').read_text().replace('import "root:/services"','import "fixtures"').replace('import "root:/config"','').replace('import "root:/modules/bar/popouts" as BarPopouts','').replace('import "root:/modules/osd" as Osd','').replace('import Quickshell','')
+   source=(ROOT.parent/'shell/modules/drawers/Interactions.qml').read_text().replace('import qs.services','import "fixtures"').replace('import qs.config','').replace('import qs.modules.bar.popouts as BarPopouts','').replace('import qs.modules.osd as Osd','').replace('import Quickshell','')
    for typename in ['ShellScreen','BarPopouts.Wrapper','PersistentProperties','Panels','Item']:source=source.replace('required property '+typename,'required property var')
    source=source[:source.index('    Osd.Interactions {')]+'}\n';(path/'Interactions.qml').write_text(source)
    (path/'fixtures/DesktopSettings.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject {property var data:({leftDrawer:true})}')

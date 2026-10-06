@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/config"
+import qs.widgets
+import qs.config
 import QtQuick
 Item {
     implicitWidth:370

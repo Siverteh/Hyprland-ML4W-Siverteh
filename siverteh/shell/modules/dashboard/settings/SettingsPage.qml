@@ -1,4 +1,4 @@
-import "root:/widgets"
+import qs.widgets
 import QtQuick
 import QtQuick.Controls
 Flickable {

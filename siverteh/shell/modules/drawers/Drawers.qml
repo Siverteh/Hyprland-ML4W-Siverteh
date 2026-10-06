@@ -1,9 +1,9 @@
 pragma ComponentBehavior: Bound
 
-import "root:/widgets"
-import "root:/services"
-import "root:/config"
-import "root:/modules/launcher" as Launcher
+import qs.widgets
+import qs.services
+import qs.config
+import qs.modules.launcher as Launcher
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland

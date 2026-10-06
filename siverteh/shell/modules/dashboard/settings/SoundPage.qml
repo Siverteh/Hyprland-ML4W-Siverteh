@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Controls

@@ -1,9 +1,9 @@
 pragma ComponentBehavior: Bound
 
-import "root:/widgets"
-import "root:/services"
-import "root:/utils"
-import "root:/config"
+import qs.widgets
+import qs.services
+import qs.utils
+import qs.config
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
@@ -512,7 +512,7 @@ Item {
         readonly property bool enabledForBeat:root.shouldUpdate && (Players.active?.isPlaying??false)
         AnimatedImage {
             id:catImage
-            anchors.fill:parent;source:"root:/assets/bongocat.gif";fillMode:Image.PreserveAspectFit
+            anchors.fill:parent;source:Qt.resolvedUrl("../../assets/bongocat.gif");fillMode:Image.PreserveAspectFit
             playing:false;cache:true
         }
         Connections {target:Cava;function onBeat(){if(cat.enabledForBeat){catImage.currentFrame=(catImage.currentFrame+1)%Math.max(1,catImage.frameCount);}}}

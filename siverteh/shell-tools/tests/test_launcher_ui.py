@@ -1,3 +1,4 @@
+from qml_source import remove_objects
 """Native category/search/navigation behavior with production QML and a fixture app index."""
 import os,shutil,subprocess,tempfile,unittest
 from pathlib import Path
@@ -8,8 +9,8 @@ class LauncherUITests(unittest.TestCase):
   if not runner.exists():self.skipTest('Qt Quick Test unavailable')
   with tempfile.TemporaryDirectory() as directory:
    target=Path(directory);shutil.copytree(ROOT/'tests/qml/fixtures',target/'fixtures')
-   source=(ROOT.parent/'shell/modules/launcher/AppGrid.qml').read_text().replace('import "root:/widgets"','import "fixtures"').replace('import "root:/services"','').replace('import "root:/config"','').replace('import Quickshell.Io','').replace('import Quickshell','').replace('required property PersistentProperties visibilities','required property var visibilities').replace('Quickshell.screens[0].width','1920').replace('Quickshell.screens[0].height','1200').replace('Quickshell.iconPath(tile.modelData.icon)','""')
-   source='\n'.join(line for line in source.splitlines() if 'IpcHandler {' not in line)
+   source=(ROOT.parent/'shell/modules/launcher/AppGrid.qml').read_text().replace('import qs.widgets','import "fixtures"').replace('import qs.services','').replace('import qs.config','').replace('import Quickshell.Io','').replace('import Quickshell','').replace('required property PersistentProperties visibilities','required property var visibilities').replace('Quickshell.screens[0].width','1920').replace('Quickshell.screens[0].height','1200').replace('Quickshell.iconPath(tile.modelData.icon)','""')
+   source=remove_objects(source, r'\bIpcHandler\s*\{')
    (target/'AppGrid.qml').write_text(source);shutil.copy2(ROOT.parent/'shell/modules/launcher/launcher.js',target/'launcher.js');shutil.copy2(ROOT.parent/'shell/widgets/FastScroll.qml',target/'fixtures/FastScroll.qml')
    fixtures={'Apps':'property var all:[{id:"editor",name:"Editor",categories:["Development"],icon:""},{id:"music",name:"Music",categories:["AudioVideo"],icon:""},{id:"browser",name:"Browser",categories:["Network"],icon:""}];readonly property var list:all.filter(a=>!LauncherPreferences.hidden.includes(a.id));function fuzzyQuery(q){return list.filter(a=>a.name.toLowerCase().includes(q.toLowerCase()))} function launch(app){}',
     'LauncherPreferences':'property var favorites:[];property var hidden:[];property string error:"";property bool ready:true;function update(action,id,enabled){const key=action===\"favorite\"?\"favorites\":\"hidden\";let rows=this[key].filter(x=>x!==id);if(enabled)rows.push(id);this[key]=rows;}',

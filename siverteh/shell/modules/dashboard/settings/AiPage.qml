@@ -1,5 +1,5 @@
-import "root:/widgets"
-import "root:/services"
+import qs.widgets
+import qs.services
 import QtQuick
 SettingsPage {
  SettingsSection {title:"Default assistant";description:"Used for new chats. Existing conversations keep their assistant and account."
