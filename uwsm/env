@@ -1,0 +1,9 @@
+# Shared graphical-session toolkit settings, loaded by UWSM before user services.
+export QT_QPA_PLATFORM='wayland;xcb'
+export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export GDK_SCALE=1
+export GDK_BACKEND='wayland,x11,*'
+export XCURSOR_SIZE=24
+export OZONE_PLATFORM=wayland
+export ELECTRON_OZONE_PLATFORM_HINT=wayland

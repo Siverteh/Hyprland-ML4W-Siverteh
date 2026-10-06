@@ -48,6 +48,18 @@ class ConfigurationTests(unittest.TestCase):
             self.assertFalse((home / '.config/hypr/old.conf').exists())
             self.assertFalse((home / '.config/hypr').is_symlink())
 
+    def test_uwsm_environment_is_deployed_and_drift_protected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)/'repo';home=Path(directory)/'home'
+            (root/'uwsm').mkdir(parents=True);(root/'bin').mkdir()
+            for name in ('siverteh-os-app','xdg-open'):(root/'bin'/name).write_text('helper')
+            (root/'uwsm/env').write_text('export XCURSOR_SIZE=24\n')
+            (root/'uwsm/env-hyprland').write_text('export HYPRCURSOR_SIZE=24\n')
+            module.apply(home,root);self.assertEqual(module.plan(home,root)[0],[])
+            (home/'.config/uwsm/env').write_text('personal environment')
+            (root/'uwsm/env').write_text('export XCURSOR_SIZE=32\n')
+            with self.assertRaisesRegex(RuntimeError,'Local edit preserved'):module.apply(home,root)
+
     def test_managed_fish_link_migration_preserves_personal_files(self):
         with tempfile.TemporaryDirectory() as directory:
             base=Path(directory);root=base/'repo';home=base/'home';old=base/'legacy/fish'

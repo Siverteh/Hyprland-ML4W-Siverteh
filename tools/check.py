@@ -37,7 +37,7 @@ def main():
             run(['fish','--no-config','-n',str(path)])
         elif path.suffix == '.json':
             json.loads(path.read_text())
-        elif path.suffix == '.sh' or (path.parent == ROOT / 'bin' and 'bash' in path.read_text().splitlines()[0]):
+        elif path.suffix == '.sh' or path.parent == ROOT / 'uwsm' or (path.parent == ROOT / 'bin' and 'bash' in path.read_text().splitlines()[0]):
             run(['bash', '-n', str(path)])
     print('Python, JSON, shell syntax and retired-tree checks passed.', flush=True)
     from window_rules import conflicts

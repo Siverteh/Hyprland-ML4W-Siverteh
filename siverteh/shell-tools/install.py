@@ -52,6 +52,7 @@ def deploy(code_only=False):
  observer=HOME/'.config/systemd/user/siverteh-session-watch.service'
  shutil.copyfile(ROOT/'siverteh-session-watch.service',observer)
  subprocess.run(["systemctl","--user","daemon-reload"],check=True)
+ subprocess.run(["systemctl","--user","enable","hypridle.service"],check=True,capture_output=True)
  subprocess.run(['systemctl','--user','enable','--now','siverteh-session-watch.service'],check=True,capture_output=True)
  subprocess.run(["python3",str(ROOT/"desktop-settings.py"),"init"],check=True,stdout=subprocess.DEVNULL)
  old_dbus=HOME/'.local/share/dbus-1/services/org.erikreider.swaync.service'

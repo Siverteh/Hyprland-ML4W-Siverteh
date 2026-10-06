@@ -30,10 +30,10 @@ def paths(repo):
   p=Path(rel)
   if p.is_absolute() or '..' in p.parts:raise RuntimeError('Invalid managed path')
   result.append(HOME/p)
- for name in ('hypr','kitty','fastfetch','fish'):
+ for name in ('hypr','kitty','fastfetch','fish','uwsm'):
   path=HOME/'.config'/name
   if path.is_symlink():result.append(path)
- for folder in ('hypr','kitty','fastfetch','fish'):
+ for folder in ('hypr','kitty','fastfetch','fish','uwsm'):
   for source in (repo/folder).rglob('*'):
    if source.is_file():result.append(HOME/'.config'/source.relative_to(repo))
  return sorted(set(result),key=str)

@@ -10,7 +10,7 @@ import shutil
 import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
-ACTIVE_DIRS=('hypr','kitty','fastfetch','fish','gtk-3.0','gtk-4.0','rofi')
+ACTIVE_DIRS=('uwsm','hypr','kitty','fastfetch','fish','gtk-3.0','gtk-4.0','rofi')
 RETIRED_DIRS=('waybar','swaync','waypaper','wlogout','matugen','nwg-dock-hyprland','kanshi')
 
 
@@ -20,7 +20,7 @@ def digest(path):
 
 def files(root=ROOT):
     result = {}
-    for folder in ('hypr', 'kitty', 'fastfetch','fish'):
+    for folder in ('hypr', 'kitty', 'fastfetch','fish','uwsm'):
         for source in (root / folder).rglob('*'):
             if source.is_file():
                 result[Path('.config') / source.relative_to(root)] = source
