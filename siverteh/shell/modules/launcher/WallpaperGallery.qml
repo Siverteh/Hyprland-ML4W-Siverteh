@@ -18,6 +18,8 @@ Item {
  property int currentIndex:0
  readonly property var currentEntry:entries[currentIndex]??null
  property bool initializing:true
+ property string shownLayout:"carousel"
+ onLayoutChanged:{if(bodyView?.item?.snapBeforeUnload)bodyView.item.snapBeforeUnload();shownLayout=layout;}
  function restoreIndex(){initializing=true;currentIndex=Math.max(0,entries.findIndex(w=>w.path===Wallpapers.current));Qt.callLater(()=>initializing=false);}
  function select(index){if(!count)return;currentIndex=Math.max(0,Math.min(count-1,index));if(currentEntry)Wallpapers.browse(currentEntry.path);}
  function move(delta){if(count)select((currentIndex+delta+count)%count);}
@@ -25,7 +27,7 @@ Item {
  function wheel(event){const angle=event.angleDelta.y;if(angle)move(angle>0?-1:1);else {wheelDistance+=event.pixelDelta.y;if(Math.abs(wheelDistance)>=80){move(wheelDistance>0?-1:1);wheelDistance=0;}}event.accepted=true;}
  function choose(){if(currentEntry)Wallpapers.setWallpaper(currentEntry.path);}
  onEntriesChanged:restoreIndex()
- Component.onCompleted:{restoreIndex();forceActiveFocus();}
+ Component.onCompleted:{shownLayout=layout;restoreIndex();forceActiveFocus();}
  Connections {target:root.visibilities;function onLauncherChanged(){if(root.visibilities.launcher)root.forceActiveFocus();else Wallpapers.commitSelection();}}
  Keys.onLeftPressed:move(-1)
  Keys.onRightPressed:move(1)
@@ -47,7 +49,7 @@ Item {
  StyledTextField {id:search;objectName:"wallpaperSearch";anchors.horizontalCenter:parent.horizontalCenter;anchors.top:toolbar.bottom;anchors.topMargin:12;width:Math.min(640,parent.width-80);height:42;leftPadding:14;placeholderText:"Search wallpapers";background:StyledRect {radius:19;color:Colours.palette.m3surfaceContainer}Keys.onEscapePressed:root.visibilities.launcher=false;Keys.onDownPressed:{root.forceActiveFocus();root.move(1);}onAccepted:root.choose()}
  StyledText {anchors.top:search.bottom;anchors.topMargin:8;x:24;width:parent.width-48;text:Wallpapers.error;visible:text.length>0;color:Colours.palette.m3error;font.pointSize:10;elide:Text.ElideRight}
  Item {id:body;anchors.top:search.bottom;anchors.topMargin:16;anchors.left:parent.left;anchors.right:parent.right;anchors.leftMargin:root.fullScreen?16:24;anchors.rightMargin:root.fullScreen?16:24;anchors.bottom:footer.top;anchors.bottomMargin:20
-  Loader {anchors.fill:parent;active:root.count>0;sourceComponent:root.layout==="hexagons"?honeycomb:root.layout==="spotlight"?spotlight:carousel}
+  Loader {id:bodyView;anchors.fill:parent;active:root.count>0;sourceComponent:root.shownLayout==="hexagons"?honeycomb:root.shownLayout==="spotlight"?spotlight:carousel}
   Column {anchors.centerIn:parent;spacing:14;visible:root.count===0
    StyledText {text:Wallpapers.loading?"Loading wallpapers…":search.text.trim()?"No matching wallpapers":root.kind==="dynamic"?"Add a local video or animated GIF":"No static wallpapers yet";color:Colours.palette.m3onSurfaceVariant;font.pointSize:15}
    ActionButton {anchors.horizontalCenter:parent.horizontalCenter;text:"Add wallpapers";icon:"add";onClicked:Wallpapers.pickFiles()}
@@ -64,6 +66,8 @@ Item {
  Component {id:carousel
   PathView {
    id:compactStrip;objectName:"carouselStrip"
+   function snapBeforeUnload(){if(count>0&&currentIndex>=0)positionViewAtIndex(currentIndex,PathView.SnapPosition);}
+   Component.onDestruction:snapBeforeUnload()
    readonly property int candidateSlots:Math.min(root.count,Math.max(1,Math.floor(width/246)))
    readonly property int slots:candidateSlots>1&&candidateSlots%2===0?candidateSlots-1:candidateSlots
    readonly property real cardWidth:Math.min(280,(width-(slots-1)*16)/slots)

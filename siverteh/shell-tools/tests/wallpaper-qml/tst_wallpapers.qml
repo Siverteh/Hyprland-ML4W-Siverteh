@@ -18,6 +18,10 @@ TestCase {
   for(const layout of ["spotlight","hexagons","carousel"]){Wallpapers.preference({layout:layout});wait(40);compare(view.currentEntry.path,"two");}
   view.forceActiveFocus();keyClick(Qt.Key_Escape);compare(view.visibilities.launcher,false);
  }
+ function test_repeated_layout_switch_during_carousel_animation(){
+  const view=createTemporaryObject(picker,test);wait(40);
+  for(let i=0;i<12;i++){Wallpapers.preference({layout:"carousel"});view.select(i%2);wait(10);Wallpapers.preference({layout:"spotlight"});wait(10);compare(view.currentEntry.path,i%2===0?"one":"two");}
+ }
  function test_full_screen_modes_and_complete_carousel_cards(){
   const original=Wallpapers.list;
   try {
