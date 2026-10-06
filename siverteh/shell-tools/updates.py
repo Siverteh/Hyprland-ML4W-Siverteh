@@ -19,7 +19,10 @@ def count_updates():
         if not shutil.which(command[0]):
             continue
         result = subprocess.run(command, capture_output=True, text=True, timeout=90)
-        if result.returncode not in ((0, 1) if command[0] == "pacman" else (0, 2)):
+        allowed = (0, 2) if command[0] == "checkupdates" else (0, 1)
+        if result.returncode not in allowed or (
+            result.returncode == 1 and result.stderr.strip()
+        ):
             raise RuntimeError("Update check failed")
         total += len([line for line in result.stdout.splitlines() if line.strip()])
     return {"text": str(total), "count": total, "checked": time.time()}

@@ -9,7 +9,10 @@ else
     read -r -p 'Update system packages now? [y/N] ' answer
     [[ "$answer" == [yY] ]] || exit 0
 fi
-if command -v paru >/dev/null; then paru -Syu
+if command -v paru >/dev/null; then
+    printf '\nUpdating packages without opening the AUR file-review screen.\n'
+    printf 'For manual package-script review, run: paru -Syu --review\n\n'
+    paru -Syu --skipreview
 elif command -v yay >/dev/null; then yay -Syu
 else sudo pacman -Syu; fi
 if command -v flatpak >/dev/null; then flatpak update; fi
