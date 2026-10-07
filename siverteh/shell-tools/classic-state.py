@@ -172,6 +172,14 @@ def apply_palette(home, wallpaper=None, live=True):
                 }
             ),
         )
+    brand = Path(__file__).with_name("branding.py")
+    if brand.exists():
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("brand", brand)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.publish(colors, home)
     # Publish the native shell palette before slower compatibility/login assets.
     atomic_write(state / "scheme/current-mode.txt", data["mode"])
     atomic_write(
@@ -401,14 +409,6 @@ def apply_palette(home, wallpaper=None, live=True):
         )
         terminal += f"color{i} #{value}\ncolor{i + 8} #{bright}\n"
     atomic_write(home / ".config/siverteh-shell/kitty-colors.conf", terminal)
-    brand = Path(__file__).with_name("branding.py")
-    if brand.exists():
-        import importlib.util
-
-        spec = importlib.util.spec_from_file_location("brand", brand)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        module.publish(colors, home)
     selected = (
         str(Path(wallpaper).expanduser().resolve())
         if wallpaper

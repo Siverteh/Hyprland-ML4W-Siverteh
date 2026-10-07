@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One layered SH geometry for web, Qt and Kitty, with wallpaper palette roles."""
 
-import json, io, os, tempfile
+import json, io, os, tempfile, signal
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -45,6 +45,47 @@ def atomic(path, data):
     os.replace(tmp, path)
 
 
+def refresh_terminal_menus(home, proc=Path("/proc")):
+    """Wake the logo renderer with ncurses' normal resize event; never restart it."""
+    expected = str(Path(home) / ".local/bin/siverteh-ai")
+    for entry in proc.iterdir():
+        if not entry.name.isdigit():
+            continue
+        descriptor = None
+        try:
+            if entry.stat().st_uid != os.getuid():
+                continue
+            arguments = [
+                part.decode()
+                for part in (entry / "cmdline").read_bytes().split(b"\0")
+                if part
+            ]
+            # Kitty also includes this command in its argv. Only notify Python's
+            # menu controller, never its terminal server or assistant workers.
+            if (
+                len(arguments) < 3
+                or not Path(arguments[0]).name.startswith("python")
+                or arguments[1:3] != [expected, "dashboard"]
+            ):
+                continue
+            descriptor = os.pidfd_open(int(entry.name))
+            # Recheck after opening the stable process handle in case the PID
+            # exited/recycled between discovery and notification.
+            current = [
+                part.decode()
+                for part in (entry / "cmdline").read_bytes().split(b"\0")
+                if part
+            ]
+            if current != arguments:
+                continue
+            signal.pidfd_send_signal(descriptor, signal.SIGWINCH)
+        except (OSError, UnicodeError):
+            continue
+        finally:
+            if descriptor is not None:
+                os.close(descriptor)
+
+
 def publish(colors, home=Path.home()):
     g = json.loads(GEOMETRY.read_text())
     scale = 16
@@ -65,6 +106,7 @@ def publish(colors, home=Path.home()):
     folder = home / ".local/share/siverteh-ai/branding"
     atomic(folder / "sh.png", out.getvalue())
     atomic(folder / "sh.svg", svg(False, colors).encode())
+    refresh_terminal_menus(home)
 
 
 def build():
