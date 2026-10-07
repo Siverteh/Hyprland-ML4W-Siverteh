@@ -28,6 +28,7 @@ def put(path, text):
 
 
 def install():
+    subprocess.run(["python3", str(ROOT / "file-manager-style.py")], check=True)
     put(
         HOME / ".config/siverteh-shell/shortcuts.lua",
         (ROOT / "shortcuts.lua").read_text(),

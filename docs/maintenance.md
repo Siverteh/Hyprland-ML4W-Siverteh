@@ -314,3 +314,21 @@ scheme owner; fixed presets do not introduce a second scheme installation.
 The temporary wallpaper tournament is separate from maintained desktop code.
 Completed user results and archived originals remain private; its launcher,
 shortcut, isolated worktree and scratch files can be removed after completion.
+
+## Native file manager appearance
+
+GNOME Files remains the file manager for the Files route (Super+Shift+F; Super+F
+is the existing fullscreen shortcut). The palette publisher now writes both old
+GTK color names and current libadwaita CSS variables, including focused/unfocused
+sidebar and header colors. This keeps the main view, navigation and toolbars in
+the same palette family. GTK 3 receives only its compatible named colors.
+
+Provisioning also installs the distribution's checksum-verified Papirus icons in
+the user icon directory. `file-icons.py` generates small folder-only theme overlays
+that inherit the full Papirus app/MIME set; folder colors track the nearest accent
+family. Both GTK settings files and GNOME's icon preference use the same overlay.
+Generated themes and original icon assets remain local, outside Git. A compact
+Files grid default is applied once; its previous value is recorded privately and
+later user zoom choices are preserved. Already-running GTK applications may need
+to be reopened to load an updated custom stylesheet; no file-manager processes or
+active file operations are terminated automatically on palette changes.
