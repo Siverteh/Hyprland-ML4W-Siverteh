@@ -1,69 +1,127 @@
 import qs.widgets
 import qs.services
-import qs.config
-import Quickshell.Io
+import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Controls
 
-Column {
-    width: 300
-    spacing: 12
-    StyledText {
-        text: "Sound"
-        font.weight: 500
+Item {
+    id: root
+    implicitWidth: 340
+    width: implicitWidth
+    implicitHeight: body.implicitHeight
+    readonly property var outputs: Pipewire.nodes.values.filter(n => !n.isStream && n.isSink)
+    PwObjectTracker {
+        objects: root.outputs
     }
-    StyledText {
-        width: 300
-        elide: Text.ElideRight
-        text: Audio.sink?.description ?? "No output device"
-        color: Colours.palette.m3onSurfaceVariant
-    }
-    Slider {
-        width: 300
-        from: 0
-        to: 1
-        value: Audio.volume
-        onMoved: Audio.setVolume(value)
-    }
-    Row {
-        spacing: 10
-        StyledRect {
-            implicitWidth: 90
-            implicitHeight: 36
-            radius: 18
-            color: Colours.palette.m3surfaceContainer
+    Column {
+        id: body
+        width: root.width
+        spacing: 12
+        StyledText {
+            text: "Sound"
+            font.pointSize: 14
+            color: Colours.palette.m3primary
+        }
+        Row {
+            width: parent.width
             StyledText {
-                anchors.centerIn: parent
-                text: Audio.muted ? "Unmute" : "Mute"
+                width: parent.width - 65
+                text: Audio.sink?.description ?? "No output device"
+                elide: Text.ElideRight
+                font.pointSize: 11
             }
-            Process {
-                id: mute
-                command: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"]
+            StyledText {
+                text: Math.round(Audio.volume * 100) + "%"
+                font.pointSize: 11
             }
-            StateLayer {
-                function onClicked() {
-                    mute.startDetached();
+        }
+        QuickSlider {
+            objectName: "quickOutputVolume"
+            width: parent.width
+            from: 0
+            to: 1
+            enabled: !!Audio.sink?.ready
+            value: Audio.volume
+            onMoved: Audio.setVolume(value)
+        }
+        Flow {
+            width: parent.width
+            spacing: 8
+            ActionButton {
+                objectName: "quickOutputMute"
+                text: Audio.muted ? "Unmute output" : "Mute output"
+                selected: Audio.muted
+                enabled: !!Audio.sink?.ready
+                onClicked: Audio.toggleMute()
+            }
+            ActionButton {
+                objectName: "quickMicMute"
+                text: Audio.micMuted ? "Unmute mic" : "Mute mic"
+                selected: Audio.micMuted
+                enabled: Audio.micAvailable
+                onClicked: Audio.toggleMic()
+            }
+        }
+        StyledText {
+            text: "Microphone"
+            font.pointSize: 10
+            color: Colours.palette.m3onSurfaceVariant
+        }
+        QuickSlider {
+            objectName: "quickMicVolume"
+            width: parent.width
+            from: 0
+            to: 1
+            enabled: Audio.micAvailable
+            value: Audio.micVolume
+            onMoved: Audio.setMicVolume(value)
+        }
+        StyledText {
+            text: "Output device"
+            font.pointSize: 10
+            color: Colours.palette.m3onSurfaceVariant
+        }
+        QuickList {
+            maximumHeight: 132
+            Repeater {
+                model: root.outputs
+                StyledRect {
+                    id: device
+                    required property var modelData
+                    property bool chosen: Pipewire.defaultAudioSink === modelData
+                    width: parent.width
+                    height: 40
+                    radius: 10
+                    color: chosen ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainerHigh
+                    StyledText {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 12
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: parent.width - 44
+                        text: device.modelData.description || device.modelData.name
+                        elide: Text.ElideRight
+                        font.pointSize: 10
+                    }
+                    MaterialIcon {
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: device.chosen ? "check" : "speaker"
+                        font.pointSize: 13
+                    }
+                    StateLayer {
+                        function onClicked() {
+                            Pipewire.preferredDefaultAudioSink = device.modelData;
+                        }
+                    }
                 }
             }
         }
-        StyledRect {
-            implicitWidth: 190
-            implicitHeight: 36
-            radius: 18
-            color: Colours.palette.m3surfaceContainer
-            StyledText {
-                anchors.centerIn: parent
-                text: "Sound settings"
-            }
-            Process {
-                id: settings
-                command: ["pavucontrol"]
-            }
-            StateLayer {
-                function onClicked() {
-                    AppLaunch.run(settings.command);
-                }
-            }
+        ActionButton {
+            objectName: "quickSettingsLink"
+            text: "Sound settings"
+            icon: "settings"
+            onClicked: Visibilities.openSettings("sound")
         }
     }
 }

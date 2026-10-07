@@ -35,9 +35,6 @@ Variants {
             color: Colours.palette.m3surface
         }
         readonly property var visibility: Visibilities.screens[screen.name]
-        Process {
-            id: connectionManager
-        }
         Timer {
             id: dismissPopout
             interval: 120
@@ -49,18 +46,6 @@ Variants {
                         p.popouts.hasCurrent = false;
                 }
             }
-        }
-        function openConnections(name, item) {
-            if (name === "audio") {
-                connectionManager.command = ["pavucontrol"];
-                AppLaunch.run(connectionManager.command);
-                return;
-            }
-            const p = Visibilities.panels[screen.name];
-            if (p)
-                p.popouts.hasCurrent = false;
-            connectionManager.command = ["siverteh-os-shell", name === "network" ? "wifi" : "bluetooth"];
-            AppLaunch.run(connectionManager.command);
         }
         function hoverMenu(name, item) {
             dismissPopout.stop();
@@ -193,7 +178,7 @@ Variants {
                     }
                     onClicked: {
                         const name = menuName(), p = Visibilities.panels[win.screen.name];
-                        if (name === "notifications") {
+                        if (["audio", "network", "bluetooth", "notifications"].includes(name)) {
                             if (p.popouts.hasCurrent && p.popouts.pinned && p.popouts.currentName === name)
                                 p.popouts.hasCurrent = false;
                             else {
@@ -203,7 +188,7 @@ Variants {
                         } else if (name === "battery")
                             showMenu();
                         else
-                            win.openConnections(name, this);
+                            showMenu();
                     }
                 }
             }

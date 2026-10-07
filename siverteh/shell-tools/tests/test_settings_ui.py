@@ -58,6 +58,7 @@ class SettingsUITests(unittest.TestCase):
             preview = remove_objects(preview, r"\bTimer\s*\{\s*interval\s*:\s*3000\b")
             (target / "LockPreview.qml").write_text(preview)
             services = {
+                "Visibilities": 'property string settingsPage:"appearance";function openSettings(page){settingsPage=page}',
                 "TimezoneSettings": 'property var status:({timezone:"UTC",localTime:"12:34",automatic:false,installed:false});property string message:"";property bool busy:false;function refresh(){} function change(kind,value){}',
                 "Time": 'function format(pattern){return "12:34"}',
                 "Wallpapers": 'property string poster:"";property string preview:"";property string current:"";property var list:[];property var preferences:({rotationEnabled:true,rotationMinutes:30,rotationKind:"all",rotationShuffle:true,palettePreset:"wallpaper"});property var palettePresets:[{id:"ocean",name:"Ocean",group:"vivid",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property bool themeBusy:false;property bool rotationReady:true;property string error:"";function preference(value){preferences=Object.assign({},preferences,value)} function advanceRotation(manual){} function setWallpaper(path){}',

@@ -5,10 +5,12 @@ import Quickshell.Io
 Singleton {
     id: root
     property string message: ""
+    property string lastAction: ""
     readonly property bool busy: worker.running
     function request(args) {
         if (busy)
             return;
+        lastAction = args[0];
         message = "Working…";
         worker.command = ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/device-actions.py", ...args];
         worker.running = true;
@@ -18,6 +20,12 @@ Singleton {
     }
     Process {
         id: worker
+        onExited: {
+            if (root.lastAction.startsWith("bluetooth"))
+                Bluetooth.refresh();
+            else if (root.lastAction.startsWith("wifi"))
+                Network.refresh();
+        }
         stdout: SplitParser {
             splitMarker: ""
             onRead: line => {

@@ -11,13 +11,19 @@ Singleton {
     property bool discovering
     readonly property list<Device> devices: []
 
+    function refresh() {
+        if (!getInfo.running)
+            getInfo.running = true;
+        if (!getDevices.running)
+            getDevices.running = true;
+    }
+
     Process {
         running: true
         command: ["bluetoothctl"]
         stdout: SplitParser {
             onRead: {
-                getInfo.running = true;
-                getDevices.running = true;
+                root.refresh();
             }
         }
     }
