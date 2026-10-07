@@ -202,6 +202,13 @@ def apply_palette(home, wallpaper=None, live=True):
         "popover_fg_color": "onSurface",
         "view_bg_color": "surface",
         "view_fg_color": "onSurface",
+        "sidebar_bg_color": "surfaceContainerLow",
+        "sidebar_fg_color": "onSurface",
+        "sidebar_backdrop_color": "surfaceContainerLow",
+        "secondary_sidebar_bg_color": "surfaceContainer",
+        "secondary_sidebar_fg_color": "onSurface",
+        "secondary_sidebar_backdrop_color": "surfaceContainer",
+        "headerbar_backdrop_color": "surfaceContainer",
         "card_bg_color": "surfaceContainerLow",
         "card_fg_color": "onSurface",
         "theme_bg_color": "surface",
@@ -215,9 +222,33 @@ def apply_palette(home, wallpaper=None, live=True):
         "@define-color " + name + " #" + colors[role] + ";\n"
         for name, role in gtk_roles.items()
     )
+    import importlib.util
+
+    icon_spec = importlib.util.spec_from_file_location(
+        "file_icons", Path(__file__).with_name("file-icons.py")
+    )
+    icon_module = importlib.util.module_from_spec(icon_spec)
+    icon_spec.loader.exec_module(icon_module)
+    icon_theme = icon_module.theme(home, colors["primary"], data["mode"])
     for version in ("3.0", "4.0"):
         directory = home / (".config/gtk-" + version)
-        atomic_write(directory / "gtk.css", gtk)
+        css = gtk
+        if version == "4.0":
+            # Libadwaita 1.6+ consumes CSS variables rather than the old names.
+            modern = {
+                name.replace("_", "-"): role
+                for name, role in gtk_roles.items()
+                if not name.startswith("theme_")
+            }
+            css += (
+                "\n:root {\n"
+                + "".join(
+                    "  --" + name + ": #" + colors[role] + ";\n"
+                    for name, role in modern.items()
+                )
+                + "}\n"
+            )
+        atomic_write(directory / "gtk.css", css)
         settings = directory / "settings.ini"
         if settings.exists():
             text = settings.read_text()
@@ -232,6 +263,14 @@ def apply_palette(home, wallpaper=None, live=True):
                 "gtk-theme-name=Adwaita" + ("-dark" if data["mode"] == "dark" else ""),
                 text,
             )
+            if icon_theme:
+                text = re.sub(
+                    r"(?m)^gtk-icon-theme-name\s*=.*$",
+                    "gtk-icon-theme-name=" + icon_theme,
+                    text,
+                )
+                if not re.search(r"(?m)^gtk-icon-theme-name=", text):
+                    text += "\ngtk-icon-theme-name=" + icon_theme + "\n"
             atomic_write(settings, text)
     # Numeric order follows Qt QPalette::ColorRole, including Accent in Qt 6.
     qt_roles = [
@@ -452,6 +491,17 @@ def apply_palette(home, wallpaper=None, live=True):
             ],
             capture_output=True,
         )
+        if icon_theme:
+            subprocess.run(
+                [
+                    "gsettings",
+                    "set",
+                    "org.gnome.desktop.interface",
+                    "icon-theme",
+                    icon_theme,
+                ],
+                capture_output=True,
+            )
         result = subprocess.run(
             ["hyprctl", "eval", lua], capture_output=True, text=True
         )

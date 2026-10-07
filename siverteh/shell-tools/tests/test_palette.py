@@ -78,6 +78,43 @@ class PaletteCommitTest(unittest.TestCase):
             self.assertIn("background #" + colors["inverseSurface"], term)
             self.assertIn("foreground #" + colors["inverseOnSurface"], term)
 
+    def test_modern_gtk_sidebar_roles_and_available_icons_are_consistent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            state = home / ".local/state/siverteh_shell"
+            state.mkdir(parents=True)
+            colors = json.loads(
+                Path(palette.__file__).with_name("reference-style.json").read_text()
+            )["colours"]
+            (state / "scheme.json").write_text(
+                json.dumps({"mode": "dark", "colours": colors})
+            )
+            theme = home / ".local/share/icons/Papirus-Dark"
+            theme.mkdir(parents=True)
+            (theme / "index.theme").write_text("[Icon Theme]\nName=Papirus-Dark\n")
+            for version in ("3.0", "4.0"):
+                path = home / (".config/gtk-" + version)
+                path.mkdir(parents=True)
+                (path / "settings.ini").write_text(
+                    "[Settings]\ngtk-icon-theme-name=breeze-dark\nother-setting=keep\n"
+                )
+            palette.apply_palette(home, "/tmp/wallpaper.png", live=False)
+            css = (home / ".config/gtk-4.0/gtk.css").read_text()
+            self.assertIn(
+                "--sidebar-bg-color: #" + colors["surfaceContainerLow"].lstrip("#"), css
+            )
+            self.assertIn(
+                "--sidebar-backdrop-color: #"
+                + colors["surfaceContainerLow"].lstrip("#"),
+                css,
+            )
+            self.assertIn("--headerbar-bg-color:", css)
+            for version in ("3.0", "4.0"):
+                ini = (home / (".config/gtk-" + version) / "settings.ini").read_text()
+                self.assertIn("gtk-icon-theme-name=Papirus-Dark", ini)
+                self.assertIn("other-setting=keep", ini)
+            self.assertNotIn(":root", (home / ".config/gtk-3.0/gtk.css").read_text())
+
     def test_fixed_palette_survives_different_wallpaper_colors_and_modes(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
