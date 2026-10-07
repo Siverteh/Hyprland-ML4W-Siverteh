@@ -407,3 +407,29 @@ Kitty servers, assistant workers and unrelated processes are excluded. No pollin
 loop, keyboard injection, menu restart or second brand producer is added. Native
 pseudo-terminal tests verify a new graphics packet without sending a key.
 The Qt sidebar uses live SVG palette bindings and is a separate rendering path.
+
+
+## Hover input and retained notifications
+
+The hover dashboard has no keyboard interactivity until Settings is explicitly
+pinned. Closing immediately removes its input region while the visual animation
+finishes; its content is clipped to the shrinking panel. This prevents the closing
+panel from reopening or consuming clicks on application controls beneath it.
+Pinned Settings retains exclusive keyboard focus and its existing outside-click
+and Escape behavior.
+
+The notification popup stream is separate from retained history. Notifications
+marked transient and narrowly identified screenshot/window-action feedback appear
+briefly but do not populate history, the unread badge or lock widgets. A shared
+`notification-policy.json` defines the internal feedback sources and summaries;
+legacy history uses the same policy. Messages, assistant completion and error
+notifications remain retained. Clearing the history still removes retained items.
+
+Lock labels wrap using measured IBM Plex Sans widths with a bounded line count
+and ellipsis. Weather and media have dedicated text/artwork/control space;
+notification cards leave padding around three detailed previews. Media buttons
+use fixed pixel spacing around the per-output card center. Native Hyprlock uses
+framebuffer coordinates for these widgets even at fractional scale; using logical
+width displaces the controls. Output-mode recovery regenerates the next lock
+layout using current monitor dimensions, while preserving renderer recovery if
+that refresh fails. Authentication remains owned by Hyprlock/PAM.

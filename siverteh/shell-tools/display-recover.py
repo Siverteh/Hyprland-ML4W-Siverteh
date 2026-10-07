@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Recreate renderer surfaces after output geometry/DPR changes, preserving safe UI flags."""
 
-import argparse, fcntl, json, os, subprocess, time
+import argparse, fcntl, json, os, subprocess, time, sys
 from pathlib import Path
 
 HOME = Path.home()
@@ -18,6 +18,18 @@ def main():
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             return
+        try:
+            subprocess.run(
+                ["python3", str(Path(__file__).with_name("lock-config.py"))],
+                check=True,
+                capture_output=True,
+                timeout=4,
+            )
+        except (OSError, subprocess.SubprocessError):
+            print(
+                "Could not refresh lock layout; preserving the previous configuration",
+                file=sys.stderr,
+            )
         subprocess.run(
             ["systemctl", "--user", "restart", "siverteh-os-shell.service"],
             check=True,

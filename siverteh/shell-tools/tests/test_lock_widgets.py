@@ -69,6 +69,49 @@ class LockAndDeviceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             config.render(colors, "/tmp/evil\nlabel {}", {}, Path("/tmp/helper.py"))
 
+    def test_long_labels_fit_the_card_and_are_bounded(self):
+        import html
+
+        for font in (14, 16):
+            text = html.unescape(info.plain("WWWW" * 200, lines=2, font=font))
+            self.assertLessEqual(len(text.splitlines()), 2)
+            self.assertTrue(text.endswith("…"))
+            self.assertTrue(
+                all(
+                    info.text_font(font).getlength(line) <= 288
+                    for line in text.splitlines()
+                )
+            )
+
+    def test_media_controls_have_fixed_card_relative_spacing_on_4k(self):
+        colors = json.loads((ROOT / "reference-style.json").read_text())["colours"]
+        import re
+
+        for width in (1920, 2880, 3840, 7680):
+            output = config.widgets("media", colors, Path("/tmp/helper"), "test", width)
+            positions = [
+                int(v) for v in re.findall(r"position = (-?\d+), -280", output)
+            ]
+            self.assertEqual(
+                sorted(positions),
+                [
+                    round(-0.32 * width) - 64,
+                    round(-0.32 * width),
+                    round(-0.32 * width) + 64,
+                ],
+            )
+
+    def test_control_center_uses_native_pixel_coordinates_and_rotation(self):
+        self.assertEqual(
+            config.output_width({"width": 2880, "height": 1800, "scale": 1.5}), 2880
+        )
+        self.assertEqual(
+            config.output_width(
+                {"width": 2880, "height": 1800, "scale": 1.5, "transform": 1}
+            ),
+            1800,
+        )
+
     def test_device_names_are_arguments_and_actions_are_bounded(self):
         self.assertEqual(
             devices.command("wifi-connect", "$(anything); space")[-1],

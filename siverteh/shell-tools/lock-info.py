@@ -2,7 +2,9 @@
 """Read-only lock widgets and an allowlist of media actions. No authentication data."""
 
 import argparse, fcntl, html, json, os, subprocess, time, textwrap, urllib.request, urllib.parse, io
-from PIL import Image
+from PIL import Image, ImageFont
+from functools import lru_cache
+import math
 from pathlib import Path
 
 HOME = Path.home()
@@ -51,9 +53,42 @@ def snapshot():
         return data
 
 
-def plain(value, width=34, lines=2):
-    text = " ".join(str(value or "").split())
-    return html.escape("\n".join(textwrap.wrap(text, width=width)[:lines]))
+@lru_cache(maxsize=4)
+def text_font(size):
+    path = subprocess.check_output(
+        ["fc-match", "--format=%{file}", "IBM Plex Sans:style=Bold"],
+        text=True,
+        timeout=2,
+    )
+    return ImageFont.truetype(path, math.ceil(size * 96 / 72))
+
+
+def plain(value, width=288, lines=2, font=14):
+    text = " ".join(str(value or "").split())[:2048]
+    face = text_font(font)
+    wrapped, line = [], ""
+    for character in text:
+        candidate = line + character
+        if face.getlength(candidate) > width and line:
+            space = line.rfind(" ")
+            if space > 0:
+                wrapped.append(line[:space].rstrip())
+                line = line[space + 1 :] + character
+            else:
+                wrapped.append(line.rstrip())
+                line = character.lstrip()
+            if len(wrapped) > lines:
+                break
+        else:
+            line = candidate
+    if line:
+        wrapped.append(line.rstrip())
+    if len(wrapped) > lines:
+        wrapped = wrapped[:lines]
+        while wrapped[-1] and face.getlength(wrapped[-1] + "…") > width:
+            wrapped[-1] = wrapped[-1][:-1]
+        wrapped[-1] += "…"
+    return html.escape("\n".join(wrapped))
 
 
 def label(kind, data, settings):
@@ -64,11 +99,11 @@ def label(kind, data, settings):
         desc = w.get("description")
         return (
             "<b>"
-            + plain(w.get("location") or "Weather")
+            + plain(w.get("location") or "Weather", lines=1, font=16)
             + "</b>\n\n"
-            + plain(w.get("temperature", "") if desc else "")
+            + plain(w.get("temperature", "") if desc else "", lines=1, font=16)
             + "\n"
-            + plain(desc or w.get("error") or "Weather unavailable")
+            + plain(desc or w.get("error") or "Weather unavailable", font=16)
         )
     if kind == "media":
         if not settings.get("lockMedia", True):
