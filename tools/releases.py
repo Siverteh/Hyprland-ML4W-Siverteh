@@ -46,7 +46,12 @@ def paths(repo):
     # Explicit code/config allowlist. Never snapshot accounts, browser profiles, chats or wallets.
     result = [
         HOME / ".local/share/siverteh-ai" / p
-        for p in ("siverteh-shell", "shell-runtime", "observatory")
+        for p in (
+            "siverteh-shell",
+            "shell-runtime",
+            "observatory",
+            "file-manager-runtime",
+        )
     ]
     result += [
         HOME / ".local/bin" / p
@@ -70,6 +75,7 @@ def paths(repo):
     result += [
         HOME / ".local/state/siverteh-os/configuration.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
+        HOME / ".local/share/applications/org.kde.dolphin.desktop",
     ]
     managed = HOME / ".local/state/siverteh-os/configuration.json"
     for rel in json.loads(managed.read_text()) if managed.exists() else []:
