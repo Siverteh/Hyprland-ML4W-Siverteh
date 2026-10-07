@@ -223,12 +223,14 @@ SettingsPage {
         Flow {
             width: parent.width
             spacing: 10
+            objectName: "paletteOptions"
             Repeater {
                 model: Wallpapers.palettePresets.filter(p => root.paletteGroup === "all" || (p.group ?? "soft") === root.paletteGroup)
                 StyledRect {
                     required property var modelData
+                    objectName: "paletteColorTile"
                     property bool chosen: Wallpapers.preferences.palettePreset === modelData.id
-                    width: parent.width >= 840 ? (parent.width - 50) / 6 : (parent.width - 20) / 3
+                    width: Math.floor(parent.width >= 840 ? (parent.width - 50) / 6 : (parent.width - 20) / 3)
                     height: 86
                     radius: 12
                     color: "#" + modelData.surface.replace("#", "")
