@@ -22,25 +22,49 @@ class TravelTimezoneTests(unittest.TestCase):
             with self.assertRaises((ValueError, KeyError)):
                 tz.valid_zone(value)
 
-    def test_failed_lookup_keeps_current_zone_and_last_success(self):
+    def test_failed_device_lookup_keeps_confirmed_zone_not_ip_zone(self):
         with tempfile.TemporaryDirectory() as directory:
             state = Path(directory)
             config = state / "config.json"
-            config.write_text('{"automatic":true}')
-            tz.atomic(
-                state / "status.json", {"checked": "old", "detected": "America/Chicago"}
+            config.write_text(
+                '{"automatic":true,"confirmedTimezone":"America/Chicago"}'
             )
             with (
                 patch.object(tz, "STATE", state),
                 patch.object(tz, "CONFIG", config),
-                patch.object(tz, "detect", side_effect=TimeoutError),
-                patch.object(tz, "run") as run,
+                patch.object(tz, "device_detect", side_effect=TimeoutError),
+                patch.object(tz, "run", return_value="America/New_York") as run,
             ):
                 tz.update(force=True)
-            run.assert_not_called()
+            run.assert_any_call("timedatectl", "set-timezone", "America/Chicago")
             data = json.loads((state / "status.json").read_text())
-            self.assertEqual(data["checked"], "old")
-            self.assertIn("kept", data["error"])
+            self.assertEqual(data["detected"], "America/Chicago")
+            self.assertIn("IP location is not used", data["error"])
+
+    def test_trustworthy_device_zone_applies_and_becomes_fallback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            config = state / "config.json"
+            config.write_text('{"automatic":true}')
+            with (
+                patch.object(tz, "STATE", state),
+                patch.object(tz, "CONFIG", config),
+                patch.object(
+                    tz,
+                    "device_detect",
+                    return_value={
+                        "timezone": "Europe/Oslo",
+                        "source": "Device location",
+                        "accuracyMeters": 100,
+                    },
+                ),
+                patch.object(tz, "run", return_value="America/Chicago") as run,
+            ):
+                tz.update(force=True)
+            run.assert_any_call("timedatectl", "set-timezone", "Europe/Oslo")
+            self.assertEqual(
+                json.loads(config.read_text())["lastTrustedTimezone"], "Europe/Oslo"
+            )
 
     def test_disabled_automatic_mode_never_queries_location(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -48,7 +72,8 @@ class TravelTimezoneTests(unittest.TestCase):
             config.write_text('{"automatic":false}')
             with (
                 patch.object(tz, "CONFIG", config),
-                patch.object(tz, "detect") as detect,
+                patch.object(tz, "STATE", Path(directory)),
+                patch.object(tz, "device_detect") as detect,
             ):
                 tz.update(force=True)
             detect.assert_not_called()
