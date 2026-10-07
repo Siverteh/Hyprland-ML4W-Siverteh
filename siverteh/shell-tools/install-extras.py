@@ -28,6 +28,8 @@ def put(path, text):
 
 
 def install():
+    if __import__("shutil").which("dolphin"):
+        subprocess.run(["python3", str(ROOT / "file-manager-runtime.py")], check=True)
     subprocess.run(["python3", str(ROOT / "file-manager-style.py")], check=True)
     put(
         HOME / ".config/siverteh-shell/shortcuts.lua",

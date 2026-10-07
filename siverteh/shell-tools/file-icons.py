@@ -48,7 +48,7 @@ def theme(home, primary, mode):
     if source is None:
         return fallback
     color = family(primary)
-    name = "Siverteh-Papirus-" + color + "-" + mode
+    name = "Siverteh-Papirus-v2-" + color + "-" + mode
     target = bases[0] / name
     if (target / "index.theme").exists():
         return name
@@ -67,6 +67,16 @@ def theme(home, primary, mode):
             alias = destination / ("folder" + icon.name[len(prefix) :])
             if not alias.exists():
                 alias.symlink_to(icon.resolve())
+        # KDE asks for the MIME name, while GTK usually asks for folder.
+        for alias_name, source_name in {
+            "inode-directory.svg": "folder.svg",
+            "user-desktop.svg": "folder-desktop.svg",
+            "desktop.svg": "folder-desktop.svg",
+        }.items():
+            source_icon = destination / source_name
+            alias_icon = destination / alias_name
+            if source_icon.exists() and not alias_icon.exists():
+                alias_icon.symlink_to(source_icon.resolve())
         directories.append((relative, size))
     if not directories:
         return fallback

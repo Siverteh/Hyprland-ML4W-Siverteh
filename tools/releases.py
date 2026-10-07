@@ -46,7 +46,12 @@ def paths(repo):
     # Explicit code/config allowlist. Never snapshot accounts, browser profiles, chats or wallets.
     result = [
         HOME / ".local/share/siverteh-ai" / p
-        for p in ("siverteh-shell", "shell-runtime", "observatory")
+        for p in (
+            "siverteh-shell",
+            "shell-runtime",
+            "observatory",
+            "file-manager-runtime",
+        )
     ]
     result += [
         HOME / ".local/bin" / p
@@ -70,6 +75,7 @@ def paths(repo):
     result += [
         HOME / ".local/state/siverteh-os/configuration.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
+        HOME / ".local/share/applications/org.kde.dolphin.desktop",
     ]
     managed = HOME / ".local/state/siverteh-os/configuration.json"
     for rel in json.loads(managed.read_text()) if managed.exists() else []:
@@ -219,11 +225,12 @@ def deploy(repo, components, keyboard, migrate=False):
         raise RuntimeError("Commit the reviewed candidate before deploying a release")
     subprocess.run([sys.executable, str(repo / "tools/check.py")], check=True)
     # Configuration preflight runs before any snapshot/cutover.
-    if "configs" in components:
+    if "configs" in components or "apps" in components:
         subprocess.run(
             [
                 sys.executable,
                 str(repo / "tools/configure.py"),
+                *(["--app-routes-only"] if "configs" not in components else []),
                 *(["--migrate-owned"] if migrate else []),
             ],
             check=True,
@@ -245,6 +252,12 @@ def deploy(repo, components, keyboard, migrate=False):
                     str(repo / "tools/configure.py"),
                     "--apply",
                     *(["--migrate-owned"] if migrate else []),
+                ],
+                "apps": [
+                    sys.executable,
+                    str(repo / "tools/configure.py"),
+                    "--app-routes-only",
+                    "--apply",
                 ],
                 "shell": [
                     sys.executable,
@@ -324,7 +337,7 @@ def main():
     )
     p.add_argument("repo", nargs="?", type=Path)
     p.add_argument(
-        "--component", action="append", choices=["configs", "shell", "brain"]
+        "--component", action="append", choices=["configs", "apps", "shell", "brain"]
     )
     p.add_argument("--keyboard")
     p.add_argument("--migrate-owned", action="store_true")

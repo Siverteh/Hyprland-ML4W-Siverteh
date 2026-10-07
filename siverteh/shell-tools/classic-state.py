@@ -297,6 +297,12 @@ def apply_palette(home, wallpaper=None, live=True):
                 if not re.search(r"(?m)^gtk-icon-theme-name=", text):
                     text += "\ngtk-icon-theme-name=" + icon_theme + "\n"
             atomic_write(settings, text)
+    kde_spec = importlib.util.spec_from_file_location(
+        "kde_palette", Path(__file__).with_name("kde-palette.py")
+    )
+    kde_module = importlib.util.module_from_spec(kde_spec)
+    kde_spec.loader.exec_module(kde_module)
+    kde_module.publish(home, colors, icon_theme)
     # Numeric order follows Qt QPalette::ColorRole, including Accent in Qt 6.
     qt_roles = [
         "onSurface",
@@ -337,7 +343,27 @@ def apply_palette(home, wallpaper=None, live=True):
                 settings.read_text(),
             )
             text = re.sub(r"(?m)^custom_palette\s*=.*$", "custom_palette=true", text)
+            if icon_theme:
+                text = re.sub(
+                    r"(?m)^icon_theme\s*=.*$", "icon_theme=" + icon_theme, text
+                )
             atomic_write(settings, text)
+    if live:
+        # Native KDE apps react in-place; no polling or application restarts.
+        for change in (0, 4):
+            subprocess.run(
+                [
+                    "dbus-send",
+                    "--session",
+                    "--type=signal",
+                    "/KGlobalSettings",
+                    "org.kde.KGlobalSettings.notifyChange",
+                    "int32:" + str(change),
+                    "int32:0",
+                ],
+                capture_output=True,
+                timeout=3,
+            )
     # Existing updater prompts and terminal apps share the committed colors too.
     for name, role in {
         "primary": "primary",

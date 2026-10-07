@@ -60,11 +60,20 @@ def atomic(path, data, mode=0o644):
             os.unlink(temp)
 
 
-def plan(home, root=ROOT, migrate=False):
+def plan(home, root=ROOT, migrate=False, app_routes_only=False):
     manifest = home / ".local/state/siverteh-os/configuration.json"
     known = json.loads(manifest.read_text()) if manifest.exists() else {}
+    desired = files(root)
+    if app_routes_only:
+        desired = {
+            path: source
+            for path, source in desired.items()
+            if path.parent == Path(".local/bin")
+        }
     links = {}
     for name in (*ACTIVE_DIRS, *RETIRED_DIRS):
+        if app_routes_only:
+            continue
         path = home / ".config" / name
         if path.is_symlink():
             target = path.resolve()
@@ -93,7 +102,7 @@ def plan(home, root=ROOT, migrate=False):
                 )
             links[path] = target
     changed = []
-    for relative, source in files(root).items():
+    for relative, source in desired.items():
         dest = home / relative
         current, wanted = digest(dest), digest(source)
         if current == wanted and not any(dest.is_relative_to(p) for p in links):
@@ -113,7 +122,12 @@ def plan(home, root=ROOT, migrate=False):
             raise RuntimeError(f"Local edit preserved: {dest}")
         changed.append((relative, source))
     for relative, previous in known.items():
-        if Path(relative) in files(root):
+        if app_routes_only and Path(relative).name not in (
+            "siverteh-os-app",
+            "xdg-open",
+        ):
+            continue
+        if Path(relative) in desired:
             continue
         dest = home / relative
         if not dest.exists():
@@ -124,13 +138,25 @@ def plan(home, root=ROOT, migrate=False):
     return changed, links, known
 
 
-def apply(home, root=ROOT, migrate=False):
-    changed, links, known = plan(home, root, migrate)
+def apply(home, root=ROOT, migrate=False, app_routes_only=False):
+    changed, links, known = plan(home, root, migrate, app_routes_only)
     if not changed and not links:
         atomic(
             home / ".local/state/siverteh-os/configuration.json",
             json.dumps(
-                {str(p): digest(home / p) for p in files(root)}, indent=2
+                (
+                    {
+                        **known,
+                        **{
+                            str(p): digest(home / p)
+                            for p in files(root)
+                            if p.parent == Path(".local/bin")
+                        },
+                    }
+                    if app_routes_only
+                    else {str(p): digest(home / p) for p in files(root)}
+                ),
+                indent=2,
             ).encode(),
             0o600,
         )
@@ -201,15 +227,27 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--apply", action="store_true")
     p.add_argument("--migrate-owned", action="store_true")
+    p.add_argument(
+        "--app-routes-only",
+        action="store_true",
+        help="deploy native app launch routes without touching compositor config",
+    )
     args = p.parse_args()
-    changed, links, _ = plan(Path.home(), migrate=args.migrate_owned)
+    changed, links, _ = plan(
+        Path.home(), migrate=args.migrate_owned, app_routes_only=args.app_routes_only
+    )
     print(
         f"{len(changed)} configuration files to deploy; {len(links)} source symlinks to migrate"
     )
     if args.apply:
         print(
             "Private configuration backup:",
-            apply(Path.home(), migrate=args.migrate_owned) or "no changes",
+            apply(
+                Path.home(),
+                migrate=args.migrate_owned,
+                app_routes_only=args.app_routes_only,
+            )
+            or "no changes",
         )
 
 

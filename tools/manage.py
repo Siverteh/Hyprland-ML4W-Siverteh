@@ -20,7 +20,7 @@ def main():
     parser.add_argument(
         "--component",
         action="append",
-        choices=["configs", "shell", "brain", "ai"],
+        choices=["configs", "apps", "shell", "brain", "ai"],
         help="repeat to select components; default configs, shell, brain",
     )
     args = parser.parse_args()
@@ -30,6 +30,12 @@ def main():
             "python3",
             str(ROOT / "tools/configure.py"),
             *(["--migrate-owned"] if args.migrate_owned else []),
+            "--apply",
+        ],
+        "apps": [
+            "python3",
+            str(ROOT / "tools/configure.py"),
+            "--app-routes-only",
             "--apply",
         ],
         "shell": [

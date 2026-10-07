@@ -30,6 +30,37 @@ class ConfigurationTests(unittest.TestCase):
                 module.apply(home, root)
             self.assertEqual(target.read_text(), "personal edit")
 
+    def test_app_routes_scope_preserves_unrelated_edits_and_their_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "bin").mkdir(parents=True)
+            (root / "hypr").mkdir()
+            for name in ("siverteh-os-app", "xdg-open"):
+                (root / "bin" / name).write_text("old route")
+            (root / "hypr/hypridle.conf").write_text("original idle")
+            module.apply(home, root)
+            manifest = home / ".local/state/siverteh-os/configuration.json"
+            before = json.loads(manifest.read_text())[".config/hypr/hypridle.conf"]
+            (home / ".config/hypr/hypridle.conf").write_text("personal idle choice")
+            (root / "bin/siverteh-os-app").write_text("new route")
+            module.apply(home, root, app_routes_only=True)
+            self.assertEqual(
+                (home / ".local/bin/siverteh-os-app").read_text(), "new route"
+            )
+            self.assertEqual(
+                (home / ".config/hypr/hypridle.conf").read_text(),
+                "personal idle choice",
+            )
+            self.assertEqual(
+                json.loads(manifest.read_text())[".config/hypr/hypridle.conf"], before
+            )
+            module.apply(home, root, app_routes_only=True)
+            self.assertEqual(
+                json.loads(manifest.read_text())[".config/hypr/hypridle.conf"], before
+            )
+            with self.assertRaisesRegex(RuntimeError, "Local edit preserved"):
+                module.plan(home, root)
+
     def test_owned_symlink_migration_preserves_private_monitors_and_backup(self):
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
