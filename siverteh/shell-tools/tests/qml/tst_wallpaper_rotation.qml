@@ -54,7 +54,7 @@ TestCase {
             rotationEnabled: true
         });
         verify(clock.running);
-        compare(clock.interval, 30 * 60000);
+        verify(clock.interval > 30 * 60000 - 1000 && clock.interval <= 30 * 60000);
         WallpaperPlayback.locked = true;
         verify(!clock.running);
         WallpaperPlayback.locked = false;
@@ -82,7 +82,7 @@ TestCase {
         view.preferences = Object.assign({}, view.preferences, {
             rotationMinutes: 60
         });
-        compare(clock.interval, 60 * 60000);
+        verify(clock.interval > 60 * 60000 - 1000 && clock.interval <= 60 * 60000);
         view.preferences = Object.assign({}, view.preferences, {
             rotationEnabled: false
         });
@@ -92,14 +92,111 @@ TestCase {
         const view = createTemporaryObject(walls, test);
         view.preferences = Object.assign({}, view.preferences, {
             rotationEnabled: true,
-            rotationShuffle: false
+            rotationShuffle: false,
+            rotationAnchorMs: Date.now() - 30 * 60000 + 50
         });
         const clock = findChild(view, "wallpaperRotationTimer");
-        clock.interval = 20;
         tryCompare(view.commit, "running", true, 300);
         compare(view.commit.requestPath, "a");
         verify(!clock.running);
         view.advanceRotation(true);
         compare(view.commit.requestPath, "a");
+    }
+    function test_temporary_pauses_and_unrelated_preferences_keep_deadline() {
+        const view = createTemporaryObject(walls, test);
+        const anchor = Date.now();
+        view.preferences = Object.assign({}, view.preferences, {
+            rotationEnabled: true,
+            rotationAnchorMs: anchor
+        });
+        const due = view.rotationDueMs;
+        const clock = findChild(view, "wallpaperRotationTimer");
+        wait(60);
+        WallpaperPlayback.locked = true;
+        wait(60);
+        WallpaperPlayback.locked = false;
+        compare(view.rotationDueMs, due);
+        verify(clock.interval < 30 * 60000 - 90);
+        view.preferences = Object.assign({}, view.preferences, {
+            layout: "hexagons",
+            palettePreset: "ocean"
+        });
+        compare(view.rotationDueMs, due);
+        verify(clock.interval < 30 * 60000 - 90);
+    }
+    function test_renderer_restart_keeps_saved_schedule() {
+        const anchor = Date.now() - 10 * 60000;
+        const saved = {
+            rotationEnabled: true,
+            rotationMinutes: 30,
+            rotationAnchorMs: anchor
+        };
+        const first = createTemporaryObject(walls, test);
+        first.preferences = saved;
+        const second = createTemporaryObject(walls, test);
+        second.preferences = saved;
+        compare(first.rotationDueMs, anchor + 30 * 60000);
+        compare(second.rotationDueMs, first.rotationDueMs);
+        verify(findChild(second, "wallpaperRotationTimer").interval <= 20 * 60000);
+    }
+    function test_overdue_pause_rotates_once_after_resume() {
+        WallpaperPlayback.locked = true;
+        const view = createTemporaryObject(walls, test);
+        view.preferences = {
+            rotationEnabled: true,
+            rotationMinutes: 30,
+            rotationShuffle: false,
+            rotationAnchorMs: Date.now() - 30 * 60000 + 30
+        };
+        wait(80);
+        verify(!view.commit.running);
+        WallpaperPlayback.locked = false;
+        tryCompare(view.commit, "running", true, 400);
+        compare(view.commit.requestPath, "a");
+        view.media = {
+            path: "a",
+            poster: "a",
+            appliedAtMs: Date.now()
+        };
+        view.lastImage = "a";
+        view.selectedPath = "";
+        view.commit.running = false;
+        wait(80);
+        verify(!view.commit.running);
+        verify(findChild(view, "wallpaperRotationTimer").running);
+        verify(view.rotationDueMs > Date.now() + 29 * 60000);
+    }
+    function test_palette_publication_without_photo_change_keeps_deadline() {
+        const view = createTemporaryObject(walls, test);
+        const changed = Date.now() - 50000;
+        view.media = {
+            path: "a",
+            poster: "a",
+            appliedAtMs: changed
+        };
+        view.lastImage = "a";
+        view.preferences = {
+            rotationEnabled: true,
+            rotationMinutes: 30,
+            rotationAnchorMs: changed - 10000
+        };
+        const due = view.rotationDueMs;
+        ThemePresentation.active = {
+            poster: "a",
+            changedAtMs: changed,
+            colours: {
+                primary: "ffffff"
+            }
+        };
+        compare(view.rotationDueMs, due);
+        ThemePresentation.active = {
+            poster: "a",
+            changedAtMs: changed,
+            colours: {
+                primary: "abcdef"
+            }
+        };
+        compare(view.rotationDueMs, due);
+        ThemePresentation.active = ({});
     }
 }

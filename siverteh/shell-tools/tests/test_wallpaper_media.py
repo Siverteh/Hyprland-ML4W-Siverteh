@@ -116,6 +116,37 @@ class WallpaperMediaTests(unittest.TestCase):
                 self.assertEqual(media.settings()["palettePreset"], "wallpaper")
                 self.assertTrue(poster.exists())
 
+    def test_rotation_anchor_survives_preferences_and_legacy_reload(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(media, "PREFS", Path(folder) / "picker.json"),
+        ):
+            with patch.object(media.time, "time", return_value=1000):
+                media.preference({"rotationEnabled": True, "rotationMinutes": 30})
+            self.assertEqual(media.settings()["rotationAnchorMs"], 1000000)
+            with patch.object(media.time, "time", return_value=2000):
+                media.preference({"layout": "hexagons", "palettePreset": "ocean"})
+                self.assertEqual(media.settings()["rotationAnchorMs"], 1000000)
+                media.preference({"rotationMinutes": 60})
+                self.assertEqual(media.settings()["rotationAnchorMs"], 2000000)
+            media.PREFS.write_text(
+                json.dumps({"rotationEnabled": True, "rotationMinutes": 30})
+            )
+            os.utime(media.PREFS, (800, 800))
+            self.assertEqual(media.settings()["rotationAnchorMs"], 800000)
+            self.assertEqual(media.settings()["rotationAnchorMs"], 800000)
+
+    def test_media_migration_preserves_success_time_without_rewriting(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(media, "STATE", Path(folder)),
+        ):
+            path = media.STATE / "media.json"
+            path.write_text(json.dumps({"path": "old.mp4", "poster": "poster.png"}))
+            os.utime(path, (500, 500))
+            self.assertEqual(media.media_state()["appliedAtMs"], 500000)
+            self.assertNotIn("appliedAtMs", json.loads(path.read_text()))
+
     def test_import_preserves_original_and_does_not_overwrite_names(self):
         with (
             tempfile.TemporaryDirectory() as folder,
@@ -128,6 +159,35 @@ class WallpaperMediaTests(unittest.TestCase):
             self.assertNotEqual(first, second)
             self.assertTrue(source.exists())
             self.assertTrue(Path(first[0]).exists())
+
+    def test_only_successful_selection_advances_persisted_photo_time(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "STATE", home / "state"),
+                patch.object(media, "CACHE", home / "cache"),
+            ):
+                source = home / "image.png"
+                Image.new("RGB", (30, 30), "red").save(source)
+                with (
+                    patch.object(media.subprocess, "run"),
+                    patch.object(media.time, "time", return_value=1234),
+                ):
+                    item = media.select(source)
+                self.assertEqual(item["appliedAtMs"], 1234000)
+                with (
+                    patch.object(
+                        media.subprocess, "run", side_effect=RuntimeError("failed")
+                    ),
+                    patch.object(media.time, "time", return_value=9999),
+                ):
+                    with self.assertRaises(RuntimeError):
+                        media.select(source)
+                self.assertEqual(
+                    json.loads((media.STATE / "media.json").read_text())["appliedAtMs"],
+                    1234000,
+                )
 
     def test_failed_palette_commit_does_not_publish_media_state(self):
         with (

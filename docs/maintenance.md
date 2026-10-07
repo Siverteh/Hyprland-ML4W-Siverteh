@@ -291,7 +291,8 @@ Presets offer 15, 30, 60 and 120 minutes; the custom interval accepts 5–1440 m
 The pool can include all, static or dynamic wallpapers. Shuffle walks through the
 pool before repeating; ordered rotation follows the catalog. Manual selection
 starts a fresh interval. Sleep, lock, the picker, Settings and an in-flight commit
-pause the one-shot timer; returning starts a full interval without catch-up bursts.
+pause the one-shot timer but preserve its absolute deadline. Returning resumes
+the remaining interval, or makes one overdue change without catch-up bursts.
 There is one timer in the existing Wallpapers singleton, independent of monitor
 count, and it uses the existing serialized commit queue. No polling worker or
 second wallpaper manager is installed.
@@ -362,3 +363,14 @@ Connected and offer Disconnect in both the popup and detailed Network page.
 Grouping reads every AP's active/signal fields so roaming updates the row without
 waiting for a list rebuild. Read-only `networkStatus.state` IPC reports whether
 the current SSID's grouped row is connected for troubleshooting.
+
+Rotation deadlines derive from persistent successful photo timestamps and the
+saved rotation enable/interval/filter anchor, so renderer restarts and unrelated
+picker/color preferences cannot postpone them indefinitely. Old private records
+migrate using their existing modification time, without changing the selected
+wallpaper. The publisher preserves the photo timestamp for color-only commits.
+Only a successful wallpaper change advances it; failures retry after one minute.
+Settings shows the real schedule or specific pause reason, and `wallpaper.state`
+IPC includes timer-running, due-time, remaining-seconds and pause-reason fields.
+There is still one one-shot timer, no recurring countdown polling and no new
+wallpaper owner. Deadline values are epoch milliseconds, independent of timezone.

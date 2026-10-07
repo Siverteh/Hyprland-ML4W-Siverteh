@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Commit one wallpaper palette to the shell, window frame and native choosers."""
 
-import fcntl, json, os, re, signal, subprocess, sys, tempfile
+import fcntl, json, os, re, signal, subprocess, sys, tempfile, time
 from pathlib import Path
 
 
@@ -144,11 +144,28 @@ def apply_palette(home, wallpaper=None, live=True):
         )
     )
     if selected:
+        presentation = state / "presentation.json"
+        previous = json.loads(presentation.read_text()) if presentation.exists() else {}
+        changed_at = (
+            previous.get("changedAtMs", 0) if previous.get("poster") == selected else 0
+        )
+        if not changed_at and previous.get("poster") == selected:
+            media_path = state / "wallpaper/media.json"
+            media = json.loads(media_path.read_text()) if media_path.exists() else {}
+            if media.get("poster") == selected:
+                changed_at = media.get("appliedAtMs") or int(
+                    media_path.stat().st_mtime * 1000
+                )
+            else:
+                changed_at = int(presentation.stat().st_mtime * 1000)
+        if not changed_at:
+            changed_at = int(time.time() * 1000)
         atomic_write(
             state / "presentation.json",
             json.dumps(
                 {
                     "version": 1,
+                    "changedAtMs": changed_at,
                     "mode": data["mode"],
                     "colours": colors,
                     "poster": selected,

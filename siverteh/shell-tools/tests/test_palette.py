@@ -208,6 +208,32 @@ class PaletteCommitTest(unittest.TestCase):
                     )
                     self.assertGreaterEqual((b + 0.05) / (a + 0.05), 4.5)
 
+    def test_photo_timestamp_does_not_reset_on_palette_republication(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            state = home / ".local/state/siverteh_shell"
+            state.mkdir(parents=True)
+            colors = json.loads(
+                Path(palette.__file__).with_name("reference-style.json").read_text()
+            )["colours"]
+            (state / "scheme.json").write_text(
+                json.dumps({"mode": "dark", "colours": colors})
+            )
+            with patch.object(palette.time, "time", return_value=1000):
+                palette.apply_palette(home, "/tmp/a.png", live=False)
+            with patch.object(palette.time, "time", return_value=2000):
+                palette.apply_palette(home, "/tmp/a.png", live=False)
+            self.assertEqual(
+                json.loads((state / "presentation.json").read_text())["changedAtMs"],
+                1000000,
+            )
+            with patch.object(palette.time, "time", return_value=3000):
+                palette.apply_palette(home, "/tmp/b.png", live=False)
+            self.assertEqual(
+                json.loads((state / "presentation.json").read_text())["changedAtMs"],
+                3000000,
+            )
+
     def test_prepared_commit_uses_shared_publisher_and_preserves_cli_identity(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)

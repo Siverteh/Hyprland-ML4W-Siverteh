@@ -27,7 +27,14 @@ Singleton {
     readonly property bool canRotate: rotationReady && !pickerOpen && !appearanceOpen
     readonly property bool rotationAllowed: preferences.rotationEnabled === true && canRotate
     readonly property bool themeBusy: prefWorker.running
-    readonly property string rotationStatus: !preferences.rotationEnabled ? "Rotation is off" : rotationPool.length < 2 ? "Add at least two matching wallpapers" : !canRotate ? "Paused while locked, asleep, browsing or applying changes" : "Next change in " + preferences.rotationMinutes + " minutes"
+    readonly property real rotationIntervalMs: Math.max(5, Math.min(1440, preferences.rotationMinutes ?? 30)) * 60000
+    property real rotationStartupMs: Date.now()
+    property real rotationRetryMs: 0
+    readonly property real rotationAnchorMs: Math.max(media.appliedAtMs ?? 0, ThemePresentation.active.changedAtMs ?? 0, preferences.rotationAnchorMs ?? 0) || rotationStartupMs
+    readonly property real rotationDueMs: Math.max(rotationAnchorMs + rotationIntervalMs, rotationRetryMs)
+    readonly property string rotationPauseReason: WallpaperPlayback.sleeping ? "asleep" : WallpaperPlayback.locked ? "locked" : pickerOpen ? "wallpaper picker open" : appearanceOpen ? "Settings open" : rotationPool.length < 2 ? "fewer than two wallpapers" : !rotationReady ? "applying changes" : ""
+    readonly property string rotationStatus: !preferences.rotationEnabled ? "Rotation is off" : rotationPauseReason ? "Paused: " + rotationPauseReason + ". The scheduled change is preserved." : "Next wallpaper at " + Qt.formatTime(new Date(rotationDueMs), "hh:mm")
+    onRotationDueMsChanged: scheduleRotation()
     onRotationAllowedChanged: scheduleRotation()
     onRotationKeyChanged: {
         rotationRemaining = [];
@@ -36,9 +43,13 @@ Singleton {
     onPreferencesChanged: scheduleRotation()
     onActualCurrentChanged: scheduleRotation()
     function scheduleRotation() {
+        if (!rotationClock)
+            return;
         rotationClock.stop();
-        if (rotationAllowed)
+        if (rotationAllowed) {
+            rotationClock.interval = Math.max(50, Math.min(2147483647, Math.ceil(rotationDueMs - Date.now())));
             rotationClock.start();
+        }
     }
     function advanceRotation(manual) {
         if (!rotationReady || (!manual && !rotationAllowed))
@@ -52,8 +63,12 @@ Singleton {
     Timer {
         id: rotationClock
         objectName: "wallpaperRotationTimer"
-        interval: Math.max(5, Math.min(1440, root.preferences.rotationMinutes ?? 30)) * 60000
-        onTriggered: root.advanceRotation(false)
+        onTriggered: {
+            if (Date.now() >= root.rotationDueMs)
+                root.advanceRotation(false);
+            else
+                root.scheduleRotation();
+        }
     }
     property var media: ({})
     property string lastImage: ""
@@ -230,10 +245,13 @@ Singleton {
         }
         onExited: code => {
             if (code === 0) {
+                root.rotationRetryMs = 0;
                 if (root.selectedPath === requestPath && !root.queuedPath)
                     root.selectedPath = "";
-            } else
+            } else {
+                root.rotationRetryMs = Date.now() + 60000;
                 root.selectedPath = "";
+            }
             root.startCommit();
         }
     }
@@ -310,6 +328,10 @@ Singleton {
                 error: root.error,
                 count: root.list.length,
                 rotationAllowed: root.rotationAllowed,
+                rotationTimerRunning: rotationClock.running,
+                rotationDueMs: root.rotationDueMs,
+                rotationRemainingSeconds: Math.max(0, Math.ceil((root.rotationDueMs - Date.now()) / 1000)),
+                rotationPauseReason: root.rotationPauseReason,
                 rotationStatus: root.rotationStatus,
                 rotationPool: root.rotationPool.length
             });
