@@ -317,15 +317,16 @@ shortcut, isolated worktree and scratch files can be removed after completion.
 
 ## Quick sound and connection controls
 
-Clicking the Sound, Wi-Fi or Bluetooth top-bar icon opens and pins its native
-quick popup; clicking the same icon again closes it. Escape and outside-click
-use the existing drawer grab. Hover previews remain available. Sound offers
+Hovering the Sound, Wi-Fi or Bluetooth top-bar icon shows its native quick
+controls. Clicking the icon opens its matching built-in Settings page and closes
+the preview. The quick popups have no Settings footer button. Escape dismisses
+open overlays; moving away closes hover previews. Sound offers
 volume/mute, microphone volume/mute and output selection; Wi-Fi offers its
 radio, refresh, connection status, nearby networks and disconnect; Bluetooth
 shows power and connect/disconnect for already known devices. Lists have bounded
 height and use the shared fast scroll. Error text is bounded inside the popup.
 
-Each footer opens the matching built-in Settings page and dismisses the quick
+The icon click opens the matching built-in Settings page and dismisses the quick
 popup through shared visibility/navigation state. Application audio streams,
 connection profiles, pairing and trust controls remain in detailed Settings.
 Password entry remains in NetworkManager's native prompt, and pairing stays in

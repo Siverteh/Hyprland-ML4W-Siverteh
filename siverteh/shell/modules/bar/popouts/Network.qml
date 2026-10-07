@@ -104,11 +104,5 @@ Item {
             font.pointSize: 9
             color: Colours.palette.m3onSurfaceVariant
         }
-        ActionButton {
-            objectName: "quickSettingsLink"
-            text: "Network settings"
-            icon: "settings"
-            onClicked: Visibilities.openSettings("network")
-        }
     }
 }

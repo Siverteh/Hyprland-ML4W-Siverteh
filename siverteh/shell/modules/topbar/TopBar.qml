@@ -154,6 +154,8 @@ Variants {
                         return ["audio", "network", "bluetooth", "battery", "notifications"][index];
                     }
                     function showMenu() {
+                        if (win.visibility?.dashboard && win.visibility.dashboardPinned)
+                            return;
                         const name = menuName(), p = Visibilities.panels[win.screen.name];
                         dismissPopout.stop();
                         if (p)
@@ -178,7 +180,9 @@ Variants {
                     }
                     onClicked: {
                         const name = menuName(), p = Visibilities.panels[win.screen.name];
-                        if (["audio", "network", "bluetooth", "notifications"].includes(name)) {
+                        if (Visibilities.openDeviceSettings(name))
+                            return;
+                        if (name === "notifications") {
                             if (p.popouts.hasCurrent && p.popouts.pinned && p.popouts.currentName === name)
                                 p.popouts.hasCurrent = false;
                             else {

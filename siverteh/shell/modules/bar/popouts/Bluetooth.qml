@@ -83,11 +83,5 @@ Item {
             font.pointSize: 9
             color: Colours.palette.m3onSurfaceVariant
         }
-        ActionButton {
-            objectName: "quickSettingsLink"
-            text: "Bluetooth settings"
-            icon: "settings"
-            onClicked: Visibilities.openSettings("bluetooth")
-        }
     }
 }

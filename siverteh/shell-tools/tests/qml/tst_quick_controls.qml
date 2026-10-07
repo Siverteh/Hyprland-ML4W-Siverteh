@@ -46,7 +46,8 @@ TestCase {
         compare(Audio.volume, .5);
         findChild(popup, "quickMicMute").clicked();
         compare(Audio.micMuted, true);
-        findChild(popup, "quickSettingsLink").clicked();
+        verify(!findChild(popup, "quickSettingsLink"));
+        Visibilities.openDeviceSettings("audio");
         compare(Visibilities.settingsPage, "sound");
         compare(Visibilities.screens.test.dashboardTab, 4);
         verify(Visibilities.screens.test.dashboard);
@@ -59,7 +60,8 @@ TestCase {
         compare(popup.nearby[0].ssid, "ab");
         findChild(popup, "quickWifiPower").clicked();
         compare(DeviceActions.lastRequest.join("|"), "wifi-radio|off");
-        findChild(popup, "quickSettingsLink").clicked();
+        verify(!findChild(popup, "quickSettingsLink"));
+        Visibilities.openDeviceSettings("network");
         compare(Visibilities.settingsPage, "network");
     }
     function test_bluetooth_shows_known_devices_and_links_settings() {
@@ -68,7 +70,8 @@ TestCase {
         compare(popup.known[0].name, "Headphones");
         findChild(popup, "quickBluetoothPower").clicked();
         compare(DeviceActions.lastRequest.join("|"), "bluetooth-power|off");
-        findChild(popup, "quickSettingsLink").clicked();
+        verify(!findChild(popup, "quickSettingsLink"));
+        Visibilities.openDeviceSettings("bluetooth");
         compare(Visibilities.settingsPage, "bluetooth");
     }
 }

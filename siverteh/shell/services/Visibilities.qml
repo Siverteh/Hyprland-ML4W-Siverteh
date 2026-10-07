@@ -59,6 +59,18 @@ Singleton {
         v.launcherRequest++;
         v.launcher = !same;
     }
+    function openDeviceSettings(icon) {
+        const pages = {
+            audio: "sound",
+            network: "network",
+            bluetooth: "bluetooth"
+        };
+        const page = pages[icon];
+        if (!page)
+            return false;
+        openSettings(page);
+        return true;
+    }
     function openSettings(page) {
         if (page && ["appearance", "desktop", "displays", "sound", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"].includes(page))
             settingsPage = page;
