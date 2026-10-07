@@ -7,19 +7,10 @@ Item {
 
     required property PersistentProperties visibilities
 
+    clip: true
     visible: height > 0
     implicitHeight: 0
     implicitWidth: content.implicitWidth
-
-    states: State {
-        name: "visible"
-        when: root.visibilities.dashboard
-
-        PropertyChanges {
-            root.implicitHeight: content.implicitHeight
-        }
-    }
-
     transitions: [
         Transition {
             from: ""
@@ -32,6 +23,7 @@ Item {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
             }
+
         },
         Transition {
             from: "visible"
@@ -44,6 +36,7 @@ Item {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.emphasized
             }
+
         }
     ]
 
@@ -52,4 +45,15 @@ Item {
 
         visibilities: root.visibilities
     }
+
+    states: State {
+        name: "visible"
+        when: root.visibilities.dashboard
+
+        PropertyChanges {
+            root.implicitHeight: content.implicitHeight
+        }
+
+    }
+
 }

@@ -50,7 +50,7 @@ Variants {
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             // Exclusive mode gives modal controls keyboard focus before a mouse click.
-            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.dashboard || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || (visibilities.dashboard && visibilities.dashboardPinned) || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
             readonly property Region frameMask: Region {
@@ -80,8 +80,10 @@ Variants {
 
                     x: modelData.x + bar.implicitWidth
                     y: modelData.y + panels.y
-                    width: modelData.width
-                    height: modelData.height
+                    // Closing visuals must never keep intercepting browser clicks.
+                    readonly property bool acceptingInput: modelData !== panels.dashboard || visibilities.dashboard
+                    width: acceptingInput ? modelData.width : 0
+                    height: acceptingInput ? modelData.height : 0
                     intersection: Intersection.Subtract
                 }
             }
