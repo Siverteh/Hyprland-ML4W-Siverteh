@@ -58,12 +58,9 @@ Singleton {
     Component.onCompleted: present()
 
     function setMode(mode: string): void {
-        setModeProc.command = ["siverteh-os-shell", "scheme-mode", mode];
-        setModeProc.startDetached();
-    }
-
-    Process {
-        id: setModeProc
+        Wallpapers.preference({
+            paletteMode: mode
+        });
     }
 
     FileView {

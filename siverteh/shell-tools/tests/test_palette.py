@@ -78,6 +78,69 @@ class PaletteCommitTest(unittest.TestCase):
             self.assertIn("background #" + colors["inverseSurface"], term)
             self.assertIn("foreground #" + colors["inverseOnSurface"], term)
 
+    def test_fixed_palette_survives_different_wallpaper_colors_and_modes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            state = home / ".local/state/siverteh_shell"
+            state.mkdir(parents=True)
+            prefs = home / ".config/siverteh-shell/wallpaper-picker.json"
+            prefs.parent.mkdir(parents=True)
+            prefs.write_text(
+                json.dumps({"palettePreset": "ocean", "paletteMode": "dark"})
+            )
+            presets = json.loads(
+                Path(palette.__file__).with_name("palette-presets.json").read_text()
+            )
+            expected = next(p for p in presets if p["id"] == "ocean")["modes"]["dark"]
+            for primary, mode in [("ff0000", "light"), ("00ff00", "dark")]:
+                colors = json.loads(
+                    Path(palette.__file__).with_name("reference-style.json").read_text()
+                )["colours"]
+                colors["primary"] = primary
+                (state / "scheme.json").write_text(
+                    json.dumps({"name": "dynamic", "mode": mode, "colours": colors})
+                )
+                palette.apply_palette(home, "/tmp/" + primary + ".png", live=False)
+                presentation = json.loads((state / "presentation.json").read_text())
+                self.assertEqual(presentation["colours"], expected)
+                self.assertEqual(presentation["mode"], "dark")
+                self.assertEqual(presentation["poster"], "/tmp/" + primary + ".png")
+            prefs.write_text(json.dumps({"palettePreset": "wallpaper"}))
+            colors["primary"] = "ffaabb"
+            (state / "scheme.json").write_text(
+                json.dumps({"mode": "light", "colours": colors})
+            )
+            palette.apply_palette(home, "/tmp/follow.png", live=False)
+            self.assertEqual(
+                json.loads((state / "presentation.json").read_text())["colours"][
+                    "primary"
+                ],
+                "ffaabb",
+            )
+
+    def test_presets_have_all_roles_and_readable_foreground_pairs(self):
+        presets = json.loads(
+            Path(palette.__file__).with_name("palette-presets.json").read_text()
+        )
+        roles = json.loads(
+            Path(palette.__file__).with_name("reference-style.json").read_text()
+        )["colours"]
+        for preset in presets:
+            for colors in preset["modes"].values():
+                self.assertTrue(roles.keys() <= colors.keys())
+                for foreground, background in [
+                    ("onSurface", "surface"),
+                    ("onPrimary", "primary"),
+                    ("onSecondary", "secondary"),
+                ]:
+                    a, b = sorted(
+                        [
+                            palette.luminance(colors[foreground]),
+                            palette.luminance(colors[background]),
+                        ]
+                    )
+                    self.assertGreaterEqual((b + 0.05) / (a + 0.05), 4.5)
+
     def test_prepared_commit_uses_shared_publisher_and_preserves_cli_identity(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)

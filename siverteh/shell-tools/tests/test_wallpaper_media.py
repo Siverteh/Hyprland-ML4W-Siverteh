@@ -63,6 +63,59 @@ class WallpaperMediaTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 media.preference({"layout": "command-line"})
 
+    def test_rotation_and_palette_preferences_validate_without_clobbering_picker(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(media, "PREFS", Path(folder) / "picker.json"),
+        ):
+            media.preference(
+                {
+                    "layout": "hexagons",
+                    "rotationEnabled": True,
+                    "rotationMinutes": 30,
+                    "rotationKind": "dynamic",
+                    "rotationShuffle": False,
+                    "palettePreset": "ocean",
+                }
+            )
+            media.preference({"rotationMinutes": 60})
+            saved = media.settings()
+            self.assertEqual(saved["layout"], "hexagons")
+            self.assertEqual(saved["palettePreset"], "ocean")
+            self.assertEqual(saved["rotationMinutes"], 60)
+            for value in [True, 0, 4, 1441, 2.5, "30"]:
+                with self.assertRaises(ValueError):
+                    media.preference({"rotationMinutes": value})
+            for value in [
+                {"palettePreset": "arbitrary-file"},
+                {"paletteMode": "auto"},
+                {"rotationKind": "brain"},
+                {"rotationEnabled": "yes"},
+            ]:
+                with self.assertRaises(ValueError):
+                    media.preference(value)
+            self.assertEqual(media.settings(), saved)
+
+    def test_theme_failure_restores_preferences(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            poster = base / "poster.png"
+            Image.new("RGB", (20, 20), "red").save(poster)
+            state = base / "state"
+            state.mkdir()
+            (state / "media.json").write_text(json.dumps({"poster": str(poster)}))
+            with (
+                patch.object(media, "STATE", state),
+                patch.object(media, "PREFS", base / "picker.json"),
+                patch.object(
+                    media.subprocess, "run", side_effect=RuntimeError("test failure")
+                ),
+            ):
+                with self.assertRaises(RuntimeError):
+                    media.theme({"palettePreset": "ocean"})
+                self.assertEqual(media.settings()["palettePreset"], "wallpaper")
+                self.assertTrue(poster.exists())
+
     def test_import_preserves_original_and_does_not_overwrite_names(self):
         with (
             tempfile.TemporaryDirectory() as folder,

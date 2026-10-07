@@ -113,6 +113,20 @@ def readable(value, background, minimum=4.5):
 def apply_palette(home, wallpaper=None, live=True):
     state = home / ".local/state/siverteh_shell"
     data = json.loads((state / "scheme.json").read_text())
+    preferences = home / ".config/siverteh-shell/wallpaper-picker.json"
+    options = json.loads(preferences.read_text()) if preferences.exists() else {}
+    preset = options.get("palettePreset", "wallpaper")
+    if preset != "wallpaper":
+        presets = json.loads(
+            Path(__file__).with_name("palette-presets.json").read_text()
+        )
+        chosen = next((item for item in presets if item["id"] == preset), None)
+        mode = options.get("paletteMode", "dark")
+        if chosen is None or mode not in ("dark", "light"):
+            raise ValueError("Invalid fixed palette preference")
+        data = dict(data, mode=mode, colours=chosen["modes"][mode])
+        # The CLI remains the scheme owner; all publishers resolve this preference.
+        atomic_write(state / "scheme.json", json.dumps(data))
     colors = {k: v.lstrip("#") for k, v in data["colours"].items()}
     if any(not re.fullmatch("[0-9a-fA-F]{6}", v) for v in colors.values()):
         raise ValueError("Invalid palette color")

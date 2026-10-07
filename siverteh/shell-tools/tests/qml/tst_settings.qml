@@ -57,7 +57,7 @@ TestCase {
     function test_all_device_and_lock_pages_load_without_warnings() {
         const view = createTemporaryObject(settings, test);
         wait(20);
-        for (const page of ["displays", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"]) {
+        for (const page of ["appearance", "displays", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"]) {
             view.open(page);
             wait(20);
             verify(findChild(view, "settingsPage").item, page);

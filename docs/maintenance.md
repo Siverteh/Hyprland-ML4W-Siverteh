@@ -282,3 +282,31 @@ and the desktop motion pauses while the chooser is open, so this does not run
 a video grid or add a second active desktop decoder. Closing, changing tabs or
 manual pause destroys the preview player. Static thumbnails remain underneath
 until a video frame arrives. Decoder errors retain the still preview.
+
+## Appearance rotation and fixed palettes
+
+Appearance groups the current wallpaper, rotation, desktop colors and a collapsed
+collection grid. Rotation defaults to off, with a recommended 30-minute interval.
+Presets offer 15, 30, 60 and 120 minutes; the custom interval accepts 5–1440 minutes.
+The pool can include all, static or dynamic wallpapers. Shuffle walks through the
+pool before repeating; ordered rotation follows the catalog. Manual selection
+starts a fresh interval. Sleep, lock, the picker, Settings and an in-flight commit
+pause the one-shot timer; returning starts a full interval without catch-up bursts.
+There is one timer in the existing Wallpapers singleton, independent of monitor
+count, and it uses the existing serialized commit queue. No polling worker or
+second wallpaper manager is installed.
+
+Six named fixed palettes (Amethyst, Ocean, Forest, Rose, Ember and Slate) each
+provide complete light/dark roles, including readable foreground pairs. They are
+precomputed with the existing Material color generator and stored in
+`siverteh/shell-tools/palette-presets.json`. Match wallpaper restores image-derived
+colors. Private picker preferences also hold rotation options, the fixed preset
+and its chosen mode. `classic-state.py` resolves fixed colors inside the existing
+publisher before updating shell presentation, frame, GTK, Qt, terminal, lock and
+login assets. Wallpaper changes still publish the new poster together with the
+chosen colors, preserving image/palette synchronization. The CLI remains the
+scheme owner; fixed presets do not introduce a second scheme installation.
+
+The temporary wallpaper tournament is separate from maintained desktop code.
+Completed user results and archived originals remain private; its launcher,
+shortcut, isolated worktree and scratch files can be removed after completion.

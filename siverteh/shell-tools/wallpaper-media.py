@@ -36,25 +36,84 @@ def read(path, default):
 
 def settings():
     return dict(
-        {"kind": "static", "layout": "carousel", "paused": False, "pauseCovered": True},
+        {
+            "kind": "static",
+            "layout": "carousel",
+            "paused": False,
+            "pauseCovered": True,
+            "rotationEnabled": False,
+            "rotationMinutes": 30,
+            "rotationKind": "all",
+            "rotationShuffle": True,
+            "palettePreset": "wallpaper",
+            "paletteMode": "dark",
+        },
         **read(PREFS, {}),
     )
+
+
+def palette_presets():
+    return read(Path(__file__).with_name("palette-presets.json"), [])
+
+
+def theme(value):
+    if (
+        not isinstance(value, dict)
+        or not value
+        or set(value) - {"palettePreset", "paletteMode"}
+    ):
+        raise ValueError("Unknown appearance preference")
+    previous = settings()
+    result = preference(value)
+    poster = read(STATE / "media.json", {}).get("poster")
+    if not poster:
+        path = STATE / "last.txt"
+        poster = path.read_text().strip() if path.exists() else ""
+    if not poster or not Path(poster).is_file():
+        preference({key: previous[key] for key in value})
+        raise ValueError("Choose a wallpaper before changing its palette")
+    try:
+        cli = HOME / ".local/share/siverteh-ai/siverteh-shell/bin/siverteh_shell"
+        # Preserve the chosen light/dark mode while rebuilding from cached colors.
+        if "paletteMode" in value:
+            subprocess.run(
+                [str(cli), "scheme", "set", "-m", value["paletteMode"]],
+                check=True,
+                capture_output=True,
+                timeout=60,
+            )
+        subprocess.run(
+            [str(cli), "wallpaper", "-f", poster, "--no-smart"],
+            check=True,
+            capture_output=True,
+            timeout=60,
+        )
+    except Exception:
+        preference({key: previous[key] for key in value})
+        raise
+    return result
 
 
 def preference(value):
     allowed = {
         "kind": ("static", "dynamic"),
         "layout": ("carousel", "spotlight", "hexagons"),
+        "rotationKind": ("all", "static", "dynamic"),
+        "paletteMode": ("dark", "light"),
+        "palettePreset": ("wallpaper", *[item["id"] for item in palette_presets()]),
     }
+    boolean_keys = ("paused", "pauseCovered", "rotationEnabled", "rotationShuffle")
     if not isinstance(value, dict) or any(
-        k not in (*allowed, "paused", "pauseCovered") for k in value
+        k not in (*allowed, *boolean_keys, "rotationMinutes") for k in value
     ):
         raise ValueError("Unknown picker preference")
     for k, v in value.items():
         if k in allowed and v not in allowed[k]:
             raise ValueError("Invalid picker preference")
-        if k not in allowed and type(v) is not bool:
+        if k in boolean_keys and type(v) is not bool:
             raise ValueError("Expected a boolean preference")
+        if k == "rotationMinutes" and (type(v) is not int or not 5 <= v <= 1440):
+            raise ValueError("Choose a wallpaper interval between 5 and 1440 minutes")
     PREFS.parent.mkdir(parents=True, exist_ok=True)
     with PREFS.with_suffix(".lock").open("w") as lock:
         os.chmod(lock.name, 0o600)
@@ -177,6 +236,17 @@ def catalog():
         preferences=settings(),
         media=read(STATE / "media.json", {}),
         errors=errors,
+        palettes=[
+            dict(
+                {key: item[key] for key in ("id", "name", "seed")},
+                swatches=[
+                    item["modes"]["dark"][key]
+                    for key in ("primary", "secondary", "tertiary")
+                ],
+                surface=item["modes"]["dark"]["surface"],
+            )
+            for item in palette_presets()
+        ],
     )
 
 
@@ -321,6 +391,7 @@ def main():
             "catalog",
             "select",
             "preferences",
+            "theme",
             "import",
             "pick",
             "session",
@@ -381,8 +452,9 @@ def main():
             result = warm()
         elif a.action == "select":
             result = select(a.path)
-        elif a.action == "preferences":
-            result = preference(json.loads(sys.stdin.readline()))
+        elif a.action in ("preferences", "theme"):
+            value = json.loads(sys.stdin.readline())
+            result = theme(value) if a.action == "theme" else preference(value)
         else:
             if a.action == "pick":
                 picker = subprocess.run(

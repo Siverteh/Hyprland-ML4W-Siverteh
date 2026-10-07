@@ -1,5 +1,6 @@
 pragma Singleton
 import "../utils/scripts/fuzzysort.js" as Fuzzy
+import "../utils/scripts/wallpaper-rotation.js" as Rotation
 import qs.utils
 import Quickshell
 import Quickshell.Io
@@ -16,6 +17,44 @@ Singleton {
             paused: false,
             pauseCovered: true
         })
+    property var palettePresets: []
+    property var rotationRemaining: []
+    readonly property var rotationPool: Rotation.pool(list, preferences.rotationKind ?? "all")
+    readonly property string rotationKey: (preferences.rotationKind ?? "all") + ":" + (preferences.rotationShuffle ?? true) + ":" + rotationPool.join("|")
+    readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
+    readonly property bool appearanceOpen: Object.values(Visibilities.screens).some(v => v.dashboard && v.dashboardTab === 4)
+    readonly property bool rotationReady: rotationPool.length > 1 && !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !commit.running && !prefWorker.running && !catalog.running && !selectedPath && !queuedPath
+    readonly property bool canRotate: rotationReady && !pickerOpen && !appearanceOpen
+    readonly property bool rotationAllowed: preferences.rotationEnabled === true && canRotate
+    readonly property bool themeBusy: prefWorker.running
+    readonly property string rotationStatus: !preferences.rotationEnabled ? "Rotation is off" : rotationPool.length < 2 ? "Add at least two matching wallpapers" : !canRotate ? "Paused while locked, asleep, browsing or applying changes" : "Next change in " + preferences.rotationMinutes + " minutes"
+    onRotationAllowedChanged: scheduleRotation()
+    onRotationKeyChanged: {
+        rotationRemaining = [];
+        scheduleRotation();
+    }
+    onPreferencesChanged: scheduleRotation()
+    onActualCurrentChanged: scheduleRotation()
+    function scheduleRotation() {
+        rotationClock.stop();
+        if (rotationAllowed)
+            rotationClock.start();
+    }
+    function advanceRotation(manual) {
+        if (!rotationReady || (!manual && !rotationAllowed))
+            return;
+        const choice = Rotation.next(rotationPool, actualCurrent, preferences.rotationShuffle ?? true, rotationRemaining, Math.random());
+        if (choice.path) {
+            rotationRemaining = choice.remaining;
+            setWallpaper(choice.path);
+        }
+    }
+    Timer {
+        id: rotationClock
+        objectName: "wallpaperRotationTimer"
+        interval: Math.max(5, Math.min(1440, root.preferences.rotationMinutes ?? 30)) * 60000
+        onTriggered: root.advanceRotation(false)
+    }
     property var media: ({})
     property string lastImage: ""
     readonly property string actualCurrent: media.path && media.poster === lastImage ? media.path : lastImage
@@ -81,7 +120,7 @@ Singleton {
         commitSelection();
     }
     function startCommit(): void {
-        if (commit.running || !queuedPath)
+        if (commit.running || prefWorker.running || !queuedPath)
             return;
         if (queuedPath === actualCurrent) {
             queuedPath = "";
@@ -158,6 +197,7 @@ Singleton {
                     wallpapers.model = data.entries;
                     root.preferences = data.preferences;
                     root.media = data.media;
+                    root.palettePresets = data.palettes ?? [];
                     root.error = data.errors?.length ? "Could not prepare " + data.errors.join(", ") : "";
                 } catch (e) {
                     root.error = "Could not read wallpapers";
@@ -201,7 +241,7 @@ Singleton {
         id: prefWorker
         property var value
         stdinEnabled: true
-        command: ["python3", root.tool, "preferences"]
+        command: ["python3", root.tool, value?.palettePreset !== undefined || value?.paletteMode !== undefined ? "theme" : "preferences"]
         onStarted: write(JSON.stringify(value) + "\n")
         stdout: SplitParser {
             splitMarker: ""
@@ -217,7 +257,10 @@ Singleton {
                 }
             }
         }
-        onExited: root.nextPreference()
+        onExited: {
+            root.nextPreference();
+            root.startCommit();
+        }
     }
     Process {
         id: importer
@@ -246,6 +289,12 @@ Singleton {
         function set(path: string): void {
             root.setWallpaper(path);
         }
+        function configure(value: string): void {
+            root.preference(JSON.parse(value));
+        }
+        function next(): void {
+            root.advanceRotation(true);
+        }
         function list(): string {
             return root.list.map(w => w.path).join("\n");
         }
@@ -259,7 +308,10 @@ Singleton {
                 queued: root.queuedPath,
                 preferences: root.preferences,
                 error: root.error,
-                count: root.list.length
+                count: root.list.length,
+                rotationAllowed: root.rotationAllowed,
+                rotationStatus: root.rotationStatus,
+                rotationPool: root.rotationPool.length
             });
         }
     }
