@@ -64,3 +64,23 @@ drift checks. For live color tests, use an isolated compositor
 and private config/bus, change its palette, send standard notifications and
 check both pixels and the unchanged Dolphin PID. Do not unlock the real session
 or restart a working file manager merely to claim a visual check passed.
+
+## Yazi keyboard trial
+
+Super+Shift+F opens Yazi in Kitty at the home directory. Dolphin remains the GUI
+Files app and directory association. This trial adds no GUI handoff integration,
+plugins or global Yazi configuration. `siverteh-os-shell yazi /path` can open a
+specific directory. Press arrows or h/j/k/l to navigate, Enter to open, Space to
+select, `/` to find a name, `~` for key help and `q` to quit.
+
+The trial uses 14-point text, a nearly opaque background and ANSI terminal colors
+from the existing wallpaper palette. Native Kitty image previews need no overlay
+service. Its config lives beside the installed shell tools, separate from
+`~/.config/yazi`. A system Yazi is preferred; otherwise checksum-verified
+distribution packages provide a private runtime, included in release snapshots.
+No privileged package installation or background service is introduced.
+
+To end the trial, remove the final Yazi binding override from
+`siverteh/shell-tools/shortcuts.lua` and deploy the shell component. The earlier
+GUI Files binding becomes active again. Personal files and GUI preferences are
+untouched.

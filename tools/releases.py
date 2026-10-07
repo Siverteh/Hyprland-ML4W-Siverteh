@@ -51,6 +51,7 @@ def paths(repo):
             "shell-runtime",
             "observatory",
             "file-manager-runtime",
+            "yazi-runtime",
         )
     ]
     result += [

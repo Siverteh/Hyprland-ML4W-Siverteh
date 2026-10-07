@@ -6,6 +6,7 @@ export QML_IMPORT_PATH="$shell_runtime/usr/lib/qt6/qml:${QML_IMPORT_PATH:-}"
 export QT_PLUGIN_PATH="$shell_runtime/usr/lib/qt6/plugins:${QT_PLUGIN_PATH:-}"
 export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$shell_runtime/venv/bin:$PATH"
 case "${1:-start}" in
+ yazi) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/yazi-trial.py" "${@:2}" ;;
  start) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/shell-supervisor.py" ;;
  close) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh close ;;
  scheme-mode) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/siverteh_shell" scheme set -m "${2:-light}" ;;

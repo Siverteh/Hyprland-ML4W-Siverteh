@@ -28,6 +28,7 @@ def put(path, text):
 
 
 def install():
+    subprocess.run(["python3", str(ROOT / "install-yazi.py")], check=True)
     if __import__("shutil").which("dolphin"):
         subprocess.run(["python3", str(ROOT / "file-manager-runtime.py")], check=True)
     subprocess.run(["python3", str(ROOT / "file-manager-style.py")], check=True)
