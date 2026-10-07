@@ -117,11 +117,5 @@ Item {
                 }
             }
         }
-        ActionButton {
-            objectName: "quickSettingsLink"
-            text: "Sound settings"
-            icon: "settings"
-            onClicked: Visibilities.openSettings("sound")
-        }
     }
 }
