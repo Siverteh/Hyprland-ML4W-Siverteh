@@ -1,6 +1,7 @@
 import QtQuick
 import QtTest
 import "fixtures"
+import "wifi-networks.js" as Wifi
 
 TestCase {
     id: test
@@ -54,10 +55,44 @@ TestCase {
         verify(!Visibilities.panels.test.popouts.hasCurrent);
         verify(!Visibilities.panels.test.popouts.pinned);
     }
+    QtObject {
+        id: firstAP
+        property string ssid: "Shared network"
+        property bool active: false
+        property int strength: 90
+    }
+    QtObject {
+        id: secondAP
+        property string ssid: "Shared network"
+        property bool active: true
+        property int strength: 30
+    }
+    property var groupedAPs: Wifi.group([firstAP, secondAP])
+    function test_connected_ap_updates_when_same_name_roams() {
+        compare(groupedAPs.length, 1);
+        compare(groupedAPs[0], secondAP);
+        firstAP.active = true;
+        secondAP.active = false;
+        compare(groupedAPs[0], firstAP);
+        firstAP.active = false;
+        firstAP.strength = 10;
+        compare(groupedAPs[0], secondAP);
+        firstAP.strength = 90;
+        secondAP.active = true;
+    }
     function test_wifi_deduplicates_and_opens_network_settings() {
         const popup = createTemporaryObject(network, test);
         compare(popup.nearby.length, 2);
         compare(popup.nearby[0].ssid, "ab");
+        verify(popup.nearby[0].active);
+        compare(popup.nearby[0].strength, 30);
+        const disconnect = findChild(popup, "connectedWifiAction");
+        verify(disconnect);
+        compare(disconnect.text, "Disconnect");
+        disconnect.clicked();
+        compare(DeviceActions.lastRequest.join("|"), "wifi-disconnect|wlan0");
+        findChild(popup, "availableWifiAction").clicked();
+        compare(DeviceActions.lastRequest.join("|"), "wifi-connect|Guest");
         findChild(popup, "quickWifiPower").clicked();
         compare(DeviceActions.lastRequest.join("|"), "wifi-radio|off");
         verify(!findChild(popup, "quickSettingsLink"));

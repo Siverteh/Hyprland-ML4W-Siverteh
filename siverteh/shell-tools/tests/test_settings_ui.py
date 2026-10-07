@@ -64,7 +64,7 @@ class SettingsUITests(unittest.TestCase):
                 "Wallpapers": 'property string poster:"";property string preview:"";property string current:"";property var list:[];property var preferences:({rotationEnabled:true,rotationMinutes:30,rotationKind:"all",rotationShuffle:true,palettePreset:"wallpaper"});property var palettePresets:[{id:"ocean",name:"Ocean",group:"vivid",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property bool themeBusy:false;property bool rotationReady:true;property string error:"";function preference(value){preferences=Object.assign({},preferences,value)} function advanceRotation(manual){} function setWallpaper(path){}',
                 "AppLaunch": "function run(command){}",
                 "DesktopActions": "function execute(action){}",
-                "Network": "property var active:null;property var networks:[]",
+                "Network": 'property var active:null;property var networks:[];property var visibleNetworks:[];property string wifiInterface:""',
                 "Bluetooth": "property bool powered:false;property var devices:[]",
                 "DeviceActions": 'property bool busy:false;property string message:"";function request(args){} function connectWifi(ssid){}',
                 "Weather": 'property string description:"";property string location:"";property string error:"";property string displayTemperature:"";function reload(){}',

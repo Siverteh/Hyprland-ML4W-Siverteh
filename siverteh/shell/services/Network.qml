@@ -1,5 +1,6 @@
 pragma Singleton
 
+import "../utils/scripts/wifi-networks.js" as Wifi
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -8,6 +9,7 @@ Singleton {
     id: root
 
     readonly property list<AccessPoint> networks: []
+    readonly property var visibleNetworks: Wifi.group(networks)
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
 
     property bool wifiEnabled: true
@@ -79,6 +81,19 @@ Singleton {
                     }
                 }
             }
+        }
+    }
+
+    IpcHandler {
+        target: "networkStatus"
+        function state(): string {
+            return JSON.stringify({
+                enabled: root.wifiEnabled,
+                interface: root.wifiInterface,
+                connectedSsid: root.active?.ssid ?? "",
+                connectedRow: root.visibleNetworks.find(n => n.ssid === root.active?.ssid)?.active ?? false,
+                count: root.visibleNetworks.length
+            });
         }
     }
 

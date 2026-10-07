@@ -7,7 +7,7 @@ Item {
     implicitWidth: 340
     width: implicitWidth
     implicitHeight: body.implicitHeight
-    readonly property var nearby: Network.networks.filter((n, i, all) => all.findIndex(a => a.ssid === n.ssid) === i).sort((a, b) => Number(b.active) - Number(a.active) || b.strength - a.strength)
+    readonly property var nearby: Network.visibleNetworks
     Column {
         id: body
         width: root.width
@@ -39,12 +39,6 @@ Item {
                 enabled: Network.wifiEnabled && !DeviceActions.busy
                 onClicked: DeviceActions.request(["wifi-scan"])
             }
-            ActionButton {
-                text: "Disconnect"
-                visible: !!Network.wifiInterface
-                enabled: !DeviceActions.busy
-                onClicked: DeviceActions.request(["wifi-disconnect", Network.wifiInterface])
-            }
         }
         QuickList {
             visible: Network.wifiEnabled
@@ -70,7 +64,7 @@ Item {
                             font.pointSize: 10
                         }
                         StyledText {
-                            text: network.modelData.strength + "% signal"
+                            text: (network.modelData.active ? "Connected · " : "") + network.modelData.strength + "% signal"
                             font.pointSize: 9
                             color: Colours.palette.m3onSurfaceVariant
                         }
@@ -79,11 +73,17 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: 8
                         anchors.verticalCenter: parent.verticalCenter
-                        text: network.modelData.active ? "Connected" : "Connect"
+                        objectName: network.modelData.active ? "connectedWifiAction" : "availableWifiAction"
+                        text: network.modelData.active ? "Disconnect" : "Connect"
                         compact: true
                         selected: network.modelData.active
-                        enabled: !network.modelData.active && !DeviceActions.busy
-                        onClicked: DeviceActions.connectWifi(network.modelData.ssid)
+                        enabled: !DeviceActions.busy && (!network.modelData.active || !!Network.wifiInterface)
+                        onClicked: {
+                            if (network.modelData.active)
+                                DeviceActions.request(["wifi-disconnect", Network.wifiInterface]);
+                            else
+                                DeviceActions.connectWifi(network.modelData.ssid);
+                        }
                     }
                 }
             }

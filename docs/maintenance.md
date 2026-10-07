@@ -336,3 +336,11 @@ polling timer. Wi-Fi disconnect accepts a validated interface name, while the
 status helper selects only a connected Wi-Fi interface. Short SSIDs remain
 visible. Native tests use fake devices, so routine validation does not change
 the live connection or audio state.
+
+Wi-Fi lists share a grouped view that prefers the active access point for each
+SSID, even when another band or mesh node is stronger or appeared first. If none
+is active, the strongest access point represents the name. Connected rows show
+Connected and offer Disconnect in both the popup and detailed Network page.
+Grouping reads every AP's active/signal fields so roaming updates the row without
+waiting for a list rebuild. Read-only `networkStatus.state` IPC reports whether
+the current SSID's grouped row is connected for troubleshooting.
