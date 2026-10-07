@@ -6,3 +6,10 @@ hl.bind("SUPER + CTRL + B", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell left
 -- Temporary keyboard-only Files trial. The GUI Files route remains unchanged.
 hl.unbind("SUPER + SHIFT + F")
 hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell yazi"))
+hl.window_rule({
+    name = "siverteh-yazi-trial",
+    match = { class = "^(siverteh-yazi)$" },
+    float = true,
+    center = true,
+    size = "70% 75%",
+})

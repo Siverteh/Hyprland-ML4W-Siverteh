@@ -73,7 +73,8 @@ plugins or global Yazi configuration. `siverteh-os-shell yazi /path` can open a
 specific directory. Press arrows or h/j/k/l to navigate, Enter to open, Space to
 select, `/` to find a name, `~` for key help and `q` to quit.
 
-The trial uses 14-point text, a nearly opaque background and ANSI terminal colors
+The trial opens centered at 70% of screen width and 75% of screen height,
+with 14-point text, a nearly opaque background and ANSI terminal colors
 from the existing wallpaper palette. Native Kitty image previews need no overlay
 service. Its config lives beside the installed shell tools, separate from
 `~/.config/yazi`. A system Yazi is preferred; otherwise checksum-verified
