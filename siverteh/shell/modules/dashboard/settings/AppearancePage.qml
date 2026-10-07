@@ -159,10 +159,17 @@ SettingsPage {
             }
             StyledText {
                 width: parent.width
-                text: "Rotation pauses while you are locked, asleep or browsing settings and wallpapers. The interval starts fresh when you return."
+                text: "Rotation pauses while you are locked, asleep or browsing settings and wallpapers. A scheduled change waits until you return, without restarting the countdown."
                 wrapMode: Text.Wrap
                 font.pointSize: 10
                 color: Colours.palette.m3onSurfaceVariant
+            }
+            StyledText {
+                width: parent.width
+                text: Wallpapers.rotationStatus
+                wrapMode: Text.Wrap
+                font.pointSize: 10
+                color: Colours.palette.m3primary
             }
         }
     }

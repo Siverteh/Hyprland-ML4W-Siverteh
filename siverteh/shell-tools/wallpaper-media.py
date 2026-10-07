@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local wallpaper catalog, video posters, private picker preferences and selection."""
 
-import argparse, fcntl, hashlib, json, os, shutil, subprocess, sys, tempfile, urllib.parse
+import argparse, fcntl, hashlib, json, os, shutil, subprocess, sys, tempfile, urllib.parse, time
 from pathlib import Path
 from PIL import Image, ImageOps
 
@@ -35,7 +35,7 @@ def read(path, default):
 
 
 def settings():
-    return dict(
+    result = dict(
         {
             "kind": "static",
             "layout": "carousel",
@@ -50,6 +50,20 @@ def settings():
         },
         **read(PREFS, {}),
     )
+
+    if result["rotationEnabled"] and not result.get("rotationAnchorMs"):
+        result["rotationAnchorMs"] = (
+            int(PREFS.stat().st_mtime * 1000) if PREFS.exists() else 0
+        )
+    return result
+
+
+def media_state():
+    path = STATE / "media.json"
+    result = read(path, {})
+    if result and not result.get("appliedAtMs"):
+        result["appliedAtMs"] = int(path.stat().st_mtime * 1000)
+    return result
 
 
 def palette_presets():
@@ -119,7 +133,13 @@ def preference(value):
         os.chmod(lock.name, 0o600)
         fcntl.flock(lock, fcntl.LOCK_EX)
         result = settings()
+        previous = dict(result)
         result.update(value)
+        if (result["rotationEnabled"] and not previous["rotationEnabled"]) or any(
+            key in value and value[key] != previous[key]
+            for key in ("rotationMinutes", "rotationKind")
+        ):
+            result["rotationAnchorMs"] = int(time.time() * 1000)
         atomic(PREFS, result)
         return result
 
@@ -234,7 +254,7 @@ def catalog():
     return dict(
         entries=rows,
         preferences=settings(),
-        media=read(STATE / "media.json", {}),
+        media=media_state(),
         errors=errors,
         palettes=[
             dict(
@@ -345,6 +365,7 @@ def select(path):
             stderr=subprocess.PIPE,
             timeout=60,
         )
+    item["appliedAtMs"] = int(time.time() * 1000)
     atomic(STATE / "media.json", item)
     return item
 

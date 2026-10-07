@@ -41,13 +41,13 @@ SettingsPage {
         title: "Available Wi-Fi"
         description: "Connecting opens NetworkManager's password prompt when credentials are needed."
         Repeater {
-            model: Network.networks.filter((n, i, all) => all.findIndex(a => a.ssid === n.ssid) === i).sort((a, b) => b.strength - a.strength)
+            model: Network.visibleNetworks
             Row {
                 required property var modelData
                 width: parent.width
                 spacing: 8
                 Column {
-                    width: parent.width - 120
+                    width: parent.width - connectionAction.implicitWidth - parent.spacing
                     spacing: 3
                     StyledText {
                         width: parent.width
@@ -56,16 +56,22 @@ SettingsPage {
                         font.pointSize: 12
                     }
                     StyledText {
-                        text: parent.parent.modelData.strength + "% signal · " + Math.round(parent.parent.modelData.frequency / 1000 * 10) / 10 + " GHz"
+                        text: (parent.parent.modelData.active ? "Connected · " : "") + parent.parent.modelData.strength + "% signal · " + Math.round(parent.parent.modelData.frequency / 1000 * 10) / 10 + " GHz"
                         font.pointSize: 10
                         color: Colours.palette.m3onSurfaceVariant
                     }
                 }
                 ActionButton {
-                    text: parent.modelData.active ? "Connected" : "Connect"
+                    id: connectionAction
+                    text: parent.modelData.active ? "Disconnect" : "Connect"
                     selected: parent.modelData.active
-                    enabled: !parent.modelData.active
-                    onClicked: DeviceActions.connectWifi(parent.modelData.ssid)
+                    enabled: !DeviceActions.busy && (!parent.modelData.active || !!Network.wifiInterface)
+                    onClicked: {
+                        if (parent.modelData.active)
+                            DeviceActions.request(["wifi-disconnect", Network.wifiInterface]);
+                        else
+                            DeviceActions.connectWifi(parent.modelData.ssid);
+                    }
                 }
             }
         }
