@@ -85,3 +85,33 @@ To end the trial, remove the final Yazi binding override from
 `siverteh/shell-tools/shortcuts.lua` and deploy the shell component. The earlier
 GUI Files binding becomes active again. Personal files and GUI preferences are
 untouched.
+
+## Current Thunar trial
+
+Super+Shift+F now opens Thunar, replacing the Yazi shortcut trial. Dolphin remains
+the GUI Files association; Yazi is still available through `siverteh-os-shell yazi`.
+Thunar Files also appears in Apps. The trial uses a centered floating window,
+96-pixel icons, 24-pixel Places icons, breadcrumb navigation, a hidden menu bar
+and local image thumbnails through the installed Tumbler service. Ctrl+M reveals
+the menu; Ctrl+L edits the path; Ctrl+mouse-wheel adjusts zoom; F3 opens split view.
+
+The layout is applied once through Xfconf, recording previous values privately.
+Later user changes are preserved. No Xfce desktop/session is enabled. Native
+Thunar and its missing libraries come from checksum-verified distribution
+packages in the private `thunar-runtime`; subsequent installs compare package
+metadata and refresh it after upgrades. Package licenses stay with the runtime.
+
+`thunar.css` scopes spacing, toolbar, sidebar and selections to Thunar and uses
+existing generated GTK palette roles. A small app-scoped GTK3 module watches
+atomic replacements of the generated palette/settings files. It reloads the
+style and folder icon theme in the same process, with coalesced file events and
+no polling. It does not create another palette publisher or affect other apps.
+The native regression test verifies GTK parsing and an actual atomic palette
+replacement recoloring an existing widget. It requires a native display and GTK3
+headers; portable CI reports the skip when those are absent.
+
+Settings and styling use the [documented Xfce interfaces](https://docs.xfce.org/xfce/thunar/hidden-settings).
+The distribution's Tumbler/GVfs handle thumbnails, trash and mounts. No file
+operations are terminated when colors change. To end this trial, remove its
+shortcut override and window rule from `shortcuts.lua`, then deploy shell;
+Dolphin's earlier Files binding resumes. Preferences and files are preserved.

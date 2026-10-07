@@ -3,12 +3,12 @@ hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell palette
 hl.bind("SUPER + K", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell keys"))
 hl.bind("SUPER + CTRL + B", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell left"))
 
--- Temporary keyboard-only Files trial. The GUI Files route remains unchanged.
+-- Native graphical Files trial; directory associations retain Dolphin.
 hl.unbind("SUPER + SHIFT + F")
-hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell yazi"))
+hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell thunar"))
 hl.window_rule({
-    name = "siverteh-yazi-trial",
-    match = { class = "^(siverteh-yazi)$" },
+    name = "siverteh-thunar-trial",
+    match = { class = "^([Tt]hunar)$" },
     float = true,
     center = true,
     size = "70% 75%",

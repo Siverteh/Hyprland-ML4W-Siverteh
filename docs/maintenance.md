@@ -337,7 +337,7 @@ shortcut, isolated worktree and scratch files can be removed after completion.
 ## Native file manager appearance
 
 Dolphin is the default GUI Files route (Super+F remains the fullscreen
-shortcut); Super+Shift+F currently opens the isolated Yazi trial, with native KDE palette integration and an 80-pixel icon grid. Native
+shortcut); Super+Shift+F currently opens the styled Thunar trial, with native KDE palette integration and an 80-pixel icon grid. Native
 GNOME Files remains available as the fallback. See [file manager appearance](file-manager.md)
 for the research, live color updates, runtime and rollback details. The palette publisher now writes both old
 GTK color names and current libadwaita CSS variables, including focused/unfocused

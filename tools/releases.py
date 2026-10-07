@@ -52,6 +52,7 @@ def paths(repo):
             "observatory",
             "file-manager-runtime",
             "yazi-runtime",
+            "thunar-runtime",
         )
     ]
     result += [
@@ -77,6 +78,7 @@ def paths(repo):
         HOME / ".local/state/siverteh-os/configuration.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
         HOME / ".local/share/applications/org.kde.dolphin.desktop",
+        HOME / ".local/share/applications/siverteh-thunar.desktop",
     ]
     managed = HOME / ".local/state/siverteh-os/configuration.json"
     for rel in json.loads(managed.read_text()) if managed.exists() else []:
