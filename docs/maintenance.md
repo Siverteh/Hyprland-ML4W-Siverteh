@@ -296,9 +296,13 @@ There is one timer in the existing Wallpapers singleton, independent of monitor
 count, and it uses the existing serialized commit queue. No polling worker or
 second wallpaper manager is installed.
 
-Six named fixed palettes (Amethyst, Ocean, Forest, Rose, Ember and Slate) each
-provide complete light/dark roles, including readable foreground pairs. They are
-precomputed with the existing Material color generator and stored in
+Thirty fixed palettes provide complete light/dark roles, including readable
+foreground pairs. Vivid covers twelve saturated rainbow accents (including Super
+Red and Cobalt Blue); Soft includes eighteen gentler choices, preserving the
+original six. The page filters Vivid, Soft or All colors. Vivid accents preserve
+saturation while ensuring header and button contrast; light mode uses deeper
+accents for readable text. Regenerate the precomputed file with the maintained
+runtime's Python and `siverteh/shell-tools/generate-palettes.py`; output lives in
 `siverteh/shell-tools/palette-presets.json`. Match wallpaper restores image-derived
 colors. Private picker preferences also hold rotation options, the fixed preset
 and its chosen mode. `classic-state.py` resolves fixed colors inside the existing

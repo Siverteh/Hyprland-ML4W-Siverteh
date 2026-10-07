@@ -6,6 +6,7 @@ import ".."
 
 SettingsPage {
     id: root
+    property string paletteGroup: "vivid"
     SettingsSection {
         title: "Wallpaper"
         description: "Choose a scene from your personal collection."
@@ -195,9 +196,35 @@ SettingsPage {
         }
         Flow {
             width: parent.width
+            spacing: 8
+            Repeater {
+                model: [
+                    {
+                        id: "vivid",
+                        name: "Vivid"
+                    },
+                    {
+                        id: "soft",
+                        name: "Soft"
+                    },
+                    {
+                        id: "all",
+                        name: "All colors"
+                    }
+                ]
+                ActionButton {
+                    required property var modelData
+                    text: modelData.name
+                    selected: root.paletteGroup === modelData.id
+                    onClicked: root.paletteGroup = modelData.id
+                }
+            }
+        }
+        Flow {
+            width: parent.width
             spacing: 10
             Repeater {
-                model: Wallpapers.palettePresets
+                model: Wallpapers.palettePresets.filter(p => root.paletteGroup === "all" || (p.group ?? "soft") === root.paletteGroup)
                 StyledRect {
                     required property var modelData
                     property bool chosen: Wallpapers.preferences.palettePreset === modelData.id
@@ -210,6 +237,7 @@ SettingsPage {
                     opacity: Wallpapers.themeBusy ? .5 : 1
                     Column {
                         anchors.centerIn: parent
+                        width: parent.width
                         spacing: 10
                         Row {
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -226,6 +254,9 @@ SettingsPage {
                             }
                         }
                         StyledText {
+                            width: parent.parent.width - 16
+                            horizontalAlignment: Text.AlignHCenter
+                            elide: Text.ElideRight
                             text: parent.parent.modelData.name + (parent.parent.chosen ? "  ✓" : "")
                             color: "#f1edf6"
                             font.pointSize: 10
@@ -245,7 +276,7 @@ SettingsPage {
         }
         StyledText {
             width: parent.width
-            text: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" ? "Colors change with the wallpaper across the shell, apps, terminal, lock screen and login." : "This palette stays fixed as wallpapers change. Light and dark mode remain your choice."
+            text: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" ? "Colors change with the wallpaper across the shell, apps, terminal, lock screen and login." : (Wallpapers.palettePresets.find(p => p.id === Wallpapers.preferences.palettePreset)?.name ?? "This palette") + " stays fixed as wallpapers change. Light and dark mode remain your choice."
             wrapMode: Text.Wrap
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant

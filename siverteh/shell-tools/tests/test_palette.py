@@ -118,6 +118,36 @@ class PaletteCommitTest(unittest.TestCase):
                 "ffaabb",
             )
 
+    def test_vivid_presets_are_stronger_than_pastel_material_accents(self):
+        import colorsys
+
+        presets = json.loads(
+            Path(palette.__file__).with_name("palette-presets.json").read_text()
+        )
+        self.assertEqual(len(presets), 30)
+        self.assertEqual(len({p["id"] for p in presets}), 30)
+        vivid = [p for p in presets if p["group"] == "vivid"]
+        soft = [p for p in presets if p["id"].startswith("soft-")]
+        for preset, softened in zip(vivid, soft):
+            colors = preset["modes"]["dark"]
+            rgb = [int(colors["primary"][i : i + 2], 16) / 255 for i in (0, 2, 4)]
+            soft_rgb = [
+                int(softened["modes"]["dark"]["primary"][i : i + 2], 16) / 255
+                for i in (0, 2, 4)
+            ]
+            saturation = colorsys.rgb_to_hsv(*rgb)[1]
+            # Indigo needs more luminance for text contrast; measure it against
+            # its actual soft counterpart rather than imposing full saturation.
+            self.assertGreater(saturation, 0.5)
+            self.assertGreater(saturation - colorsys.rgb_to_hsv(*soft_rgb)[1], 0.2)
+            a, b = sorted(
+                [
+                    palette.luminance(colors["primary"]),
+                    palette.luminance(colors["surfaceContainer"]),
+                ]
+            )
+            self.assertGreaterEqual((b + 0.05) / (a + 0.05), 4.5)
+
     def test_presets_have_all_roles_and_readable_foreground_pairs(self):
         presets = json.loads(
             Path(palette.__file__).with_name("palette-presets.json").read_text()

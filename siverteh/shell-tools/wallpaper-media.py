@@ -238,7 +238,7 @@ def catalog():
         errors=errors,
         palettes=[
             dict(
-                {key: item[key] for key in ("id", "name", "seed")},
+                {key: item[key] for key in ("id", "name", "seed", "group")},
                 swatches=[
                     item["modes"]["dark"][key]
                     for key in ("primary", "secondary", "tertiary")
