@@ -27,11 +27,11 @@ SettingsPage {
     }
     SettingsSection {
         title: "Notification history"
-        description: Notifs.list.length + " retained notifications"
+        description: Notifs.retained.length + " retained notifications"
         ActionButton {
             text: "Clear history"
             icon: "clear_all"
-            enabled: Notifs.list.length > 0
+            enabled: Notifs.retained.length > 0
             onClicked: confirm.visible = !confirm.visible
         }
         Row {
@@ -52,7 +52,7 @@ SettingsPage {
             }
         }
         Repeater {
-            model: [...Notifs.list].reverse()
+            model: [...Notifs.retained].reverse()
             Column {
                 required property var modelData
                 width: parent.width

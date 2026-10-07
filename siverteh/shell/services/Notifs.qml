@@ -12,6 +12,7 @@ Singleton {
     id: root
 
     readonly property list<Notif> list: []
+    readonly property list<Notif> retained: list.filter(n => n.retain)
     readonly property list<Notif> popups: list.filter(n => n.popup && !DesktopSettings.data.dnd)
 
     Connections {
@@ -21,6 +22,24 @@ Singleton {
                 for (const n of root.list)
                     n.popup = false;
         }
+    }
+
+    FileView {
+        id: retentionRules
+        path: Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/notification-policy.json"
+        blockLoading: true
+    }
+    readonly property var retentionPolicy: {
+        try { return JSON.parse(retentionRules.text()); }
+        catch (e) { return {}; }
+    }
+    function shouldRetain(app, summary, transient) {
+        if (transient)
+            return false;
+        if (!(retentionPolicy.feedbackApps || []).includes(app.toLowerCase()))
+            return true;
+        return !(retentionPolicy.feedbackSummaries || []).includes(summary) &&
+            !(retentionPolicy.feedbackPatterns || []).some(pattern => new RegExp(pattern).test(summary));
     }
 
     property bool historyReady: false
@@ -91,7 +110,7 @@ Singleton {
         stdinEnabled: true
         command: ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/notification-history.py", "save"]
         onStarted: {
-            write(JSON.stringify(root.list.map(n => n.record())) + "\n");
+            write(JSON.stringify(root.retained.map(n => n.record())) + "\n");
         }
         onExited: code => {
             if (code !== 0)
@@ -139,7 +158,7 @@ Singleton {
         function counts(): string {
             return JSON.stringify({
                 popups: root.popups.length,
-                retained: root.list.length,
+                retained: root.retained.length,
                 timers: root.popups.map(n => ({
                             running: n.timer.running,
                             hovered: n.hovered,
@@ -164,6 +183,7 @@ Singleton {
     component Notif: QtObject {
         id: notif
 
+        readonly property bool retain: root.shouldRetain(appName, summary, notification?.transient ?? snapshot.transient ?? false)
         property bool hovered: false
         property bool popup: false
         property string key: Date.now().toString(36) + "-" + Math.random().toString(36).slice(2)
@@ -198,10 +218,15 @@ Singleton {
                 appName: appName,
                 appIcon: appIcon,
                 image: image.startsWith("file:") || image.startsWith("/") ? image : "",
+                transient: !retain,
                 urgency: urgency
             };
         }
         function freeze() {
+            if (!retain) {
+                root.dismiss(notif);
+                return;
+            }
             snapshot = record();
             popup = false;
             notification = null;
@@ -225,7 +250,10 @@ Singleton {
             interval: (notif.notification?.expireTimeout ?? 0) > 0 ? notif.notification.expireTimeout : NotifsConfig.defaultExpireTimeout
             onTriggered: {
                 if (NotifsConfig.expire)
-                    notif.popup = false;
+                    if (notif.retain)
+                        notif.popup = false;
+                    else
+                        root.dismiss(notif);
             }
         }
     }

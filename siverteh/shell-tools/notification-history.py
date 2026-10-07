@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
 """Private notification snapshots; native action handles stay in the renderer."""
 
-import json, sys, importlib.util
+import json, sys, importlib.util, re
 from pathlib import Path
 
 PATH = Path.home() / ".local/state/siverteh-native-shell/notifications/history.json"
 FIELDS = ("key", "time", "summary", "body", "appName", "appIcon", "image", "urgency")
+
+
+POLICY = json.loads(Path(__file__).with_name("notification-policy.json").read_text())
+
+
+def retained(row):
+    if row.get("transient"):
+        return False
+    if row.get("appName", "").lower() not in POLICY["feedbackApps"]:
+        return True
+    summary = row.get("summary", "")
+    return summary not in POLICY["feedbackSummaries"] and not any(
+        re.search(pattern, summary) for pattern in POLICY["feedbackPatterns"]
+    )
 
 
 def load(path=PATH):
@@ -14,14 +28,16 @@ def load(path=PATH):
     rows = json.loads(path.read_text())
     if not isinstance(rows, list):
         raise ValueError("Invalid notification history")
-    return rows
+    return [row for row in rows if retained(row)]
 
 
 def save(rows, path=PATH):
     if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
         raise ValueError("Invalid notification history")
     # Serialize display data only, never action objects or application handles.
-    rows = [{key: row[key] for key in FIELDS if key in row} for row in rows]
+    rows = [
+        {key: row[key] for key in FIELDS if key in row} for row in rows if retained(row)
+    ]
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     path.parent.chmod(0o700)
     spec = importlib.util.spec_from_file_location(

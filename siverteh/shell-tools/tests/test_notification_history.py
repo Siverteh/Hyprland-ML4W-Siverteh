@@ -31,6 +31,27 @@ class HistoryTests(unittest.TestCase):
             m.save([], p)
             self.assertEqual(m.load(p), [])
 
+    def test_feedback_is_removed_but_messages_and_completion_are_kept(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "history.json"
+            rows = [
+                dict(
+                    key="shot", appName="siverteh_shell-cli", summary="Screenshot saved"
+                ),
+                dict(
+                    key="trash", appName="notify-send", summary="Window moved to trash"
+                ),
+                dict(
+                    key="transient", appName="Desktop", summary="Volume", transient=True
+                ),
+                dict(key="message", appName="Discord", summary="Screenshot saved"),
+                dict(key="done", appName="Siverteh AI", summary="Task complete"),
+            ]
+            path.write_text(json.dumps(rows))
+            self.assertEqual([r["key"] for r in m.load(path)], ["message", "done"])
+            m.save(rows, path)
+            self.assertEqual([r["key"] for r in m.load(path)], ["message", "done"])
+
     def test_invalid_input_cannot_overwrite_existing_history(self):
         with tempfile.TemporaryDirectory() as directory:
             p = Path(directory) / "notifications/history.json"

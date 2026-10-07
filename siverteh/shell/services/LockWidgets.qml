@@ -28,12 +28,12 @@ Singleton {
                     playing: p.isPlaying,
                     canToggle: p.canTogglePlaying
                 } : null,
-                notifications: Notifs.list.slice(-8).reverse().map(n => ({
+                notifications: Notifs.retained.slice(-8).reverse().map(n => ({
                             app: n.appName,
                             summary: DesktopSettings.data.lockNotificationContents ? n.summary : "",
                             body: DesktopSettings.data.lockNotificationContents ? n.body : ""
                         })),
-                count: Notifs.list.length
+                count: Notifs.retained.length
             });
         }
     }

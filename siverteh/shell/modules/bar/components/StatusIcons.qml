@@ -101,13 +101,13 @@ Item {
             MaterialIcon {
                 text: "notifications"
                 color: root.colour
-                fill: Notifs.list.length ? 1 : 0
+                fill: Notifs.retained.length ? 1 : 0
             }
             StyledText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 4
-                visible: Notifs.list.length > 0
-                text: Notifs.list.length
+                visible: Notifs.retained.length > 0
+                text: Notifs.retained.length
                 font.pointSize: 10
                 color: root.colour
             }

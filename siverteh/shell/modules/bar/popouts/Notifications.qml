@@ -13,7 +13,7 @@ Column {
         spacing: 12
         StyledText {
             width: 310
-            text: "Notifications · " + Notifs.list.length
+            text: "Notifications · " + Notifs.retained.length
             font.weight: 500
         }
         StyledRect {
@@ -27,7 +27,7 @@ Column {
                 font.pointSize: 10
             }
             StateLayer {
-                disabled: Notifs.list.length === 0
+                disabled: Notifs.retained.length === 0
                 function onClicked() {
                     Notifs.clearHistory();
                 }
@@ -40,7 +40,7 @@ Column {
         StyledText {
             anchors.centerIn: parent
             text: "No notifications"
-            visible: Notifs.list.length === 0
+            visible: Notifs.retained.length === 0
             color: Colours.palette.m3onSurfaceVariant
         }
         ListView {
@@ -52,7 +52,7 @@ Column {
                 view: historyList
             }
             model: ScriptModel {
-                values: [...Notifs.list].reverse()
+                values: [...Notifs.retained].reverse()
             }
             delegate: Cards.Notification {
                 history: true
