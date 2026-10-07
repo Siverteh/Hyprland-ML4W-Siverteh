@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Small desktop application routes; executable arguments are never shell strings."""
 
-import json, os, shutil, subprocess, sys
+import json, os, shutil, sys
 from pathlib import Path
 
 DEFAULTS = {
     "browser": ["google-chrome-stable"],
-    "files": ["dolphin", "--new-window"],
+    "files": ["siverteh-os-shell", "thunar"],
     "mail": ["google-chrome-stable", "--app=https://mail.google.com/"],
     "emoji": ["rofimoji", "--action", "copy"],
 }
@@ -25,53 +25,12 @@ def main():
         raise SystemExit("Unknown or invalid app route")
     if name == "mail" and name not in choices and shutil.which("evolution"):
         argv = ["evolution"]
-    if (
-        name == "files"
-        and name not in choices
-        and not shutil.which(argv[0])
-        and shutil.which("nautilus")
-    ):
-        argv = ["nautilus", "--new-window"]
+    if name == "files" and name not in choices:
+        argv = [str(Path.home() / ".local/bin/siverteh-os-shell"), "thunar"]
     if not shutil.which(argv[0]):
         raise SystemExit(
             "Install the selected application or edit ~/.config/siverteh-shell/apps.json"
         )
-    if name == "files" and Path(argv[0]).name == "dolphin":
-        runtime = Path.home() / ".local/share/siverteh-ai/file-manager-runtime"
-        system_plugin = Path(
-            "/usr/lib/qt6/plugins/platformthemes/KDEPlasmaPlatformTheme6.so"
-        )
-        available = system_plugin.is_file()
-        if not available:
-            try:
-                info = json.loads((runtime / "manifest.json").read_text())
-                qt = subprocess.check_output(
-                    ["/usr/lib/qt6/bin/qtpaths", "--qt-version"], text=True
-                ).strip()
-                available = (
-                    info["qt"].split(".")[:2] == qt.split(".")[:2]
-                    and (
-                        runtime
-                        / "usr/lib/qt6/plugins/platformthemes/KDEPlasmaPlatformTheme6.so"
-                    ).is_file()
-                )
-            except (OSError, ValueError, KeyError, subprocess.SubprocessError):
-                available = False
-            if available:
-                os.environ["QT_PLUGIN_PATH"] = (
-                    str(runtime / "usr/lib/qt6/plugins")
-                    + ":"
-                    + os.environ.get("QT_PLUGIN_PATH", "")
-                )
-                os.environ["LD_LIBRARY_PATH"] = (
-                    str(runtime / "usr/lib")
-                    + ":"
-                    + os.environ.get("LD_LIBRARY_PATH", "")
-                )
-        if available:
-            os.environ["QT_QPA_PLATFORMTHEME"] = "kde"
-        elif name not in choices and shutil.which("nautilus"):
-            argv = ["nautilus", "--new-window"]
     os.execvp(argv[0], [*argv, *sys.argv[2:]])
 
 

@@ -29,9 +29,6 @@ def put(path, text):
 
 def install():
     subprocess.run(["python3", str(ROOT / "install-thunar.py")], check=True)
-    if __import__("shutil").which("dolphin"):
-        subprocess.run(["python3", str(ROOT / "file-manager-runtime.py")], check=True)
-    subprocess.run(["python3", str(ROOT / "file-manager-style.py")], check=True)
     put(
         HOME / ".config/siverteh-shell/shortcuts.lua",
         (ROOT / "shortcuts.lua").read_text(),

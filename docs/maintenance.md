@@ -336,20 +336,19 @@ shortcut, isolated worktree and scratch files can be removed after completion.
 
 ## Native file manager appearance
 
-Dolphin is the default GUI Files route (Super+F remains the fullscreen
-shortcut); Super+Shift+F currently opens the styled Thunar trial, with native KDE palette integration and an 80-pixel icon grid. Native
-GNOME Files remains available as the fallback. See [file manager appearance](file-manager.md)
-for the research, live color updates, runtime and rollback details. The palette publisher now writes both old
-GTK color names and current libadwaita CSS variables, including focused/unfocused
-sidebar and header colors. This keeps the main view, navigation and toolbars in
-the same palette family. GTK 3 receives only its compatible named colors.
+Thunar is the default Files route and directory handler. Super+Shift+F opens its
+styled window; Super+F remains fullscreen. The native GTK3 style uses the existing
+wallpaper palette, comfortable 96-pixel icons, breadcrumbs and local thumbnails.
+The app-scoped file-event hook updates an open window's colors and folder icons
+without restarting it. See [file manager appearance](file-manager.md) for the
+runtime, controls and validation. GTK and Qt colors remain shared with other apps.
 
 Provisioning also installs the distribution's checksum-verified Papirus icons in
 the user icon directory. `file-icons.py` generates small folder-only theme overlays
 that inherit the full Papirus app/MIME set; folder colors track the nearest accent
 family. Both GTK settings files and GNOME's icon preference use the same overlay.
 Generated themes and original icon assets remain local, outside Git. Comfortable grid defaults are applied once; previous values are recorded privately
-and later user zoom choices are preserved. Already-running GTK applications may need
+and later user zoom choices are preserved. Other GTK applications may need
 to be reopened to load an updated custom stylesheet; no file-manager processes or
 active file operations are terminated automatically on palette changes.
 

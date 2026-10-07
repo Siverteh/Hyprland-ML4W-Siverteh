@@ -1,4 +1,4 @@
-"""Native Files route retains safe fallbacks and explicit application choices."""
+"""Files routes use styled Thunar and preserve explicit application choices."""
 
 import importlib.util
 from importlib.machinery import SourceFileLoader
@@ -11,25 +11,26 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class FilesRouteTests(unittest.TestCase):
-    def test_missing_dolphin_falls_back_to_nautilus(self):
+    def test_default_uses_styled_thunar_with_literal_path(self):
         loader = SourceFileLoader("app_route", str(ROOT / "bin/siverteh-os-app"))
         spec = importlib.util.spec_from_loader(loader.name, loader)
         app = importlib.util.module_from_spec(spec)
         loader.exec_module(app)
         with tempfile.TemporaryDirectory() as directory:
-
-            def installed(name):
-                return None if name == "dolphin" else "/usr/bin/" + name
-
             with (
                 patch.object(app.Path, "home", return_value=Path(directory)),
                 patch.object(app.sys, "argv", ["route", "files", "/tmp/with spaces"]),
-                patch.object(app.shutil, "which", side_effect=installed),
+                patch.object(app.shutil, "which", return_value="/usr/bin/installed"),
                 patch.object(app.os, "execvp") as execute,
             ):
                 app.main()
                 execute.assert_called_once_with(
-                    "nautilus", ["nautilus", "--new-window", "/tmp/with spaces"]
+                    str(Path(directory) / ".local/bin/siverteh-os-shell"),
+                    [
+                        str(Path(directory) / ".local/bin/siverteh-os-shell"),
+                        "thunar",
+                        "/tmp/with spaces",
+                    ],
                 )
 
     def test_explicit_file_manager_is_preserved(self):

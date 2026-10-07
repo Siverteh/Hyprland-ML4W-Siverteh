@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Provision a private Thunar trial from checksum-verified distribution packages."""
+"""Provision a private Thunar file manager from checksum-verified distribution packages."""
 
 import hashlib
 import json
@@ -112,8 +112,23 @@ def install():
         "[Desktop Entry]\nType=Application\nName=Thunar Files\n"
         "Comment=Browse files with Siverteh colors\nIcon=system-file-manager\n"
         "Exec=" + str(HOME / ".local/bin/siverteh-os-shell") + " thunar %U\n"
-        "Terminal=false\nCategories=System;FileManager;\n"
+        "Terminal=false\nDBusActivatable=false\nMimeType=inode/directory;\nCategories=System;FileManager;\n"
     )
+
+    marker = HOME / ".local/state/siverteh-os/thunar-default.json"
+    if not marker.exists():
+        before = subprocess.check_output(
+            ["xdg-mime", "query", "default", "inode/directory"], text=True
+        ).strip()
+        subprocess.run(
+            ["xdg-mime", "default", "siverteh-thunar.desktop", "inode/directory"],
+            check=True,
+        )
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(
+            json.dumps({"before": before, "applied": "siverteh-thunar.desktop"}) + "\n"
+        )
+        marker.chmod(0o600)
 
 
 if __name__ == "__main__":

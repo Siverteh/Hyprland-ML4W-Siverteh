@@ -50,8 +50,6 @@ def paths(repo):
             "siverteh-shell",
             "shell-runtime",
             "observatory",
-            "file-manager-runtime",
-            "yazi-runtime",
             "thunar-runtime",
         )
     ]
@@ -77,7 +75,6 @@ def paths(repo):
     result += [
         HOME / ".local/state/siverteh-os/configuration.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
-        HOME / ".local/share/applications/org.kde.dolphin.desktop",
         HOME / ".local/share/applications/siverteh-thunar.desktop",
     ]
     managed = HOME / ".local/state/siverteh-os/configuration.json"
