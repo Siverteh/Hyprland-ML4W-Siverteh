@@ -4,6 +4,7 @@ import Quickshell
 import QtQuick
 
 Singleton {
+    property string settingsPage: "appearance"
     property bool hidden: false
     property real reveal: hidden ? 0 : 1
     Behavior on reveal {
@@ -58,7 +59,13 @@ Singleton {
         v.launcherRequest++;
         v.launcher = !same;
     }
-    function openSettings() {
+    function openSettings(page) {
+        if (page && ["appearance", "desktop", "displays", "sound", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"].includes(page))
+            settingsPage = page;
+        for (const panel of Object.values(panels)) {
+            panel.popouts.hasCurrent = false;
+            panel.popouts.pinned = false;
+        }
         const v = getForActive();
         if (v) {
             v.previewOnly = false;

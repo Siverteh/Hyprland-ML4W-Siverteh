@@ -50,7 +50,7 @@ Variants {
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             // Exclusive mode gives modal controls keyboard focus before a mouse click.
-            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.dashboard || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.dashboard || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
             readonly property Region frameMask: Region {

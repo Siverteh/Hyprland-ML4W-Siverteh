@@ -11,7 +11,7 @@ Item {
     implicitWidth: Math.min(1120, Quickshell.screens[0].width - 100)
     implicitHeight: Math.min(740, Quickshell.screens[0].height - 220)
     property bool active: true
-    property string page: "appearance"
+    property string page: Visibilities.settingsPage
     property string query: ""
     readonly property var pages: [
         {
@@ -102,9 +102,18 @@ Item {
     readonly property var current: pages.find(p => p.id === page) ?? pages[0]
     readonly property var matches: pages.filter(p => query.trim().toLowerCase().split(/\s+/).every(word => (p.label + " " + p.detail + " " + p.terms).toLowerCase().includes(word)))
     function open(id) {
+        if (!pages.some(p => p.id === id))
+            return;
+        Visibilities.settingsPage = id;
         page = id;
         query = "";
         search.text = "";
+    }
+    Connections {
+        target: Visibilities
+        function onSettingsPageChanged() {
+            root.open(Visibilities.settingsPage);
+        }
     }
     StyledRect {
         id: rail

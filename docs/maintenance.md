@@ -314,3 +314,24 @@ scheme owner; fixed presets do not introduce a second scheme installation.
 The temporary wallpaper tournament is separate from maintained desktop code.
 Completed user results and archived originals remain private; its launcher,
 shortcut, isolated worktree and scratch files can be removed after completion.
+
+## Quick sound and connection controls
+
+Clicking the Sound, Wi-Fi or Bluetooth top-bar icon opens and pins its native
+quick popup; clicking the same icon again closes it. Escape and outside-click
+use the existing drawer grab. Hover previews remain available. Sound offers
+volume/mute, microphone volume/mute and output selection; Wi-Fi offers its
+radio, refresh, connection status, nearby networks and disconnect; Bluetooth
+shows power and connect/disconnect for already known devices. Lists have bounded
+height and use the shared fast scroll. Error text is bounded inside the popup.
+
+Each footer opens the matching built-in Settings page and dismisses the quick
+popup through shared visibility/navigation state. Application audio streams,
+connection profiles, pairing and trust controls remain in detailed Settings.
+Password entry remains in NetworkManager's native prompt, and pairing stays in
+the Bluetooth manager. Device actions reuse the bounded helper and existing
+network/Bluetooth state owners; completion requests a fresh snapshot without a
+polling timer. Wi-Fi disconnect accepts a validated interface name, while the
+status helper selects only a connected Wi-Fi interface. Short SSIDs remain
+visible. Native tests use fake devices, so routine validation does not change
+the live connection or audio state.

@@ -10,20 +10,47 @@ Singleton {
     readonly property list<AccessPoint> networks: []
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
 
+    property bool wifiEnabled: true
+    property string wifiInterface: ""
     reloadableId: "network"
+
+    function refresh() {
+        if (!getNetworks.running)
+            getNetworks.running = true;
+        if (!getStatus.running)
+            getStatus.running = true;
+    }
 
     Process {
         running: true
         command: ["nmcli", "m"]
         stdout: SplitParser {
-            onRead: getNetworks.running = true
+            onRead: {
+                root.refresh();
+            }
         }
     }
 
     Process {
+        id: getStatus
+        running: true
+        command: ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/device-actions.py", "network-status"]
+        stdout: SplitParser {
+            onRead: data => {
+                try {
+                    const status = JSON.parse(data);
+                    if (!status.error) {
+                        root.wifiEnabled = status.enabled;
+                        root.wifiInterface = status.interface;
+                    }
+                } catch (e) {}
+            }
+        }
+    }
+    Process {
         id: getNetworks
         running: true
-        command: ["sh", "-c", `nmcli -g ACTIVE,SIGNAL,FREQ,SSID,BSSID d w | jq -ncR '[(inputs | split("(?<!\\\\\\\\):"; "g")) | select(.[3] | length >= 4)]'`]
+        command: ["sh", "-c", `nmcli -g ACTIVE,SIGNAL,FREQ,SSID,BSSID d w | jq -ncR '[(inputs | split("(?<!\\\\\\\\):"; "g")) | select(.[3] | length > 0)]'`]
         stdout: SplitParser {
             onRead: data => {
                 const networks = JSON.parse(data).map(n => [n[0] === "yes", parseInt(n[1]), parseInt(n[2]), n[3], n[4].replace(/\\/g, "")]);

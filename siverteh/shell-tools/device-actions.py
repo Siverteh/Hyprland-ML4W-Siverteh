@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bounded device actions; authentication stays in the native managers."""
 
-import argparse, json, re, subprocess
+import argparse, json, re, subprocess, os
 
 
 def command(action, value=""):
@@ -9,6 +9,8 @@ def command(action, value=""):
         return ["nmcli", "device", "wifi", "rescan"]
     if action == "wifi-radio" and value in ("on", "off"):
         return ["nmcli", "radio", "wifi", value]
+    if action == "wifi-disconnect" and re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}", value):
+        return ["nmcli", "device", "disconnect", value]
     if action == "bluetooth-power" and value in ("on", "off"):
         return ["bluetoothctl", "power", value]
     operations = {
@@ -31,12 +33,43 @@ def command(action, value=""):
     raise ValueError("Unsupported device action")
 
 
+def network_status():
+    environment = dict(os.environ, LC_ALL="C")
+    enabled = (
+        subprocess.check_output(
+            ["nmcli", "radio", "wifi"], text=True, timeout=5, env=environment
+        ).strip()
+        == "enabled"
+    )
+    devices = subprocess.check_output(
+        ["nmcli", "-t", "-f", "DEVICE,TYPE,STATE", "device"],
+        text=True,
+        timeout=5,
+        env=environment,
+    )
+    interface = ""
+    for line in devices.splitlines():
+        parts = line.split(":")
+        if (
+            len(parts) == 3
+            and parts[1] == "wifi"
+            and parts[2] == "connected"
+            and re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}", parts[0])
+        ):
+            interface = parts[0]
+            break
+    return {"enabled": enabled, "interface": interface}
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("action")
     p.add_argument("value", nargs="?", default="")
     a = p.parse_args()
     try:
+        if a.action == "network-status":
+            print(json.dumps(network_status()))
+            return
         cmd = command(a.action, a.value)
         if a.action == "wifi-connect":
             subprocess.run(cmd, check=True)
