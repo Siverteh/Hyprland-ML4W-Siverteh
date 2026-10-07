@@ -15,7 +15,8 @@ SettingsPage {
             text: TimezoneSettings.status.timezone ?? ""
             font.pointSize: 12
         }
-        Row {
+        Flow {
+            width: parent.width
             spacing: 8
             ActionButton {
                 text: "Refresh status"
@@ -23,16 +24,29 @@ SettingsPage {
                 onClicked: TimezoneSettings.refresh()
             }
             ActionButton {
-                text: TimezoneSettings.status.automatic ? "Turn off automatic timezone" : "Enable automatic timezone"
+                text: "Check device location"
+                icon: "my_location"
+                enabled: !TimezoneSettings.busy && TimezoneSettings.status.deviceLocation === true && TimezoneSettings.status.automatic === true
+                onClicked: TimezoneSettings.change("update", "force")
+            }
+            ActionButton {
+                text: !TimezoneSettings.status.deviceLocation ? "Upgrade automatic timezone" : TimezoneSettings.status.automatic ? "Turn off automatic timezone" : "Enable automatic timezone"
                 selected: TimezoneSettings.status.automatic ?? false
                 enabled: !TimezoneSettings.busy
-                onClicked: TimezoneSettings.change(TimezoneSettings.status.installed ? "automatic" : "install", TimezoneSettings.status.installed ? (TimezoneSettings.status.automatic ? "off" : "on") : "")
+                onClicked: TimezoneSettings.change(TimezoneSettings.status.deviceLocation ? "automatic" : "install", TimezoneSettings.status.deviceLocation ? (TimezoneSettings.status.automatic ? "off" : "on") : (TimezoneSettings.status.timezone ?? ""))
             }
         }
         StyledText {
             width: parent.width
             wrapMode: Text.Wrap
-            text: "Automatic mode follows your public network location on connection changes and checks every 15 minutes. It keeps the current timezone when lookup is unavailable."
+            text: "Automatic mode checks device location through GeoClue on connection changes and every 15 minutes. GPS or nearby Wi-Fi can locate you even on mobile data or a VPN. Imprecise or unavailable fixes keep the last confirmed timezone; public IP location never changes the clock."
+            font.pointSize: 10
+            color: Colours.palette.m3onSurfaceVariant
+        }
+        StyledText {
+            width: parent.width
+            wrapMode: Text.Wrap
+            text: "Source: " + (TimezoneSettings.status.source ?? "Not checked") + (TimezoneSettings.status.city ? " · " + TimezoneSettings.status.city : "") + (TimezoneSettings.status.accuracyMeters !== undefined ? " · accuracy " + TimezoneSettings.status.accuracyMeters + " m" : "")
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant
         }
@@ -46,8 +60,8 @@ SettingsPage {
         }
     }
     SettingsSection {
-        title: "Manual timezone"
-        description: "A manual override turns off automatic changes. Use an IANA name such as America/Chicago or Europe/Oslo."
+        title: "Confirm your local timezone"
+        description: "Confirm where you are if device location is unavailable. America/Chicago covers Houston and Dallas; Europe/Oslo covers Norway. Automatic mode remains available."
         StyledTextField {
             id: zone
             width: parent.width
@@ -61,7 +75,12 @@ SettingsPage {
             }
         }
         ActionButton {
-            text: "Use this timezone"
+            text: "Confirm current timezone"
+            enabled: !TimezoneSettings.busy && TimezoneSettings.status.deviceLocation === true
+            onClicked: TimezoneSettings.change("confirm", zone.text.trim())
+        }
+        ActionButton {
+            text: "Use manually (turn off automatic)"
             enabled: !TimezoneSettings.busy && TimezoneSettings.status.installed
             onClicked: TimezoneSettings.change("manual", zone.text.trim())
         }

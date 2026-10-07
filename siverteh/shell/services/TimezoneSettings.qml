@@ -17,7 +17,7 @@ Singleton {
         if (busy)
             return;
         message = "Waiting for administrator authentication…";
-        action.command = ["pkexec", "/usr/bin/python3", status.installed ? "/usr/local/libexec/siverteh-timezone.py" : helper, kind, value];
+        action.command = ["pkexec", "/usr/bin/python3", status.installed && kind !== "install" ? "/usr/local/libexec/siverteh-timezone.py" : helper, kind, value];
         action.running = true;
     }
     Process {

@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """Automatic travel timezone updates. The UTC clock remains NTP-owned."""
 
-import argparse, datetime as dt, json, os, re, shutil, subprocess, time, urllib.request
+import argparse, datetime as dt, json, os, re, shutil, subprocess, time, fcntl, contextlib
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 CONFIG = Path("/etc/siverteh-os/timezone.json")
 STATE = Path("/var/lib/siverteh-os/timezone")
 PROGRAM = Path("/usr/local/libexec/siverteh-timezone.py")
+LOCATION = Path("/usr/local/libexec/siverteh-device-location.py")
+GEOCONFIG = Path("/etc/geoclue/conf.d/80-siverteh-timezone.conf")
+GEODESKTOP = Path("/usr/share/applications/siverteh-os-timezone.desktop")
+GEO_PERMISSION = "[siverteh-os-timezone]\nallowed=true\nsystem=true\nusers=0\n"
+GEO_DESKTOP = "[Desktop Entry]\nType=Application\nName=Siverteh travel timezone\nExec=/usr/local/libexec/siverteh-timezone.py update\nNoDisplay=true\nX-Geoclue-Reason=Set the local timezone while travelling\n"
 SERVICE = """[Unit]
 Description=Siverteh automatic travel timezone
 After=network-online.target
@@ -22,7 +27,7 @@ NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=yes
 PrivateTmp=yes
-ReadWritePaths=/var/lib/siverteh-os/timezone
+ReadWritePaths=/var/lib/siverteh-os/timezone /etc/siverteh-os
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
 CapabilityBoundingSet=
 """
@@ -38,7 +43,9 @@ WantedBy=timers.target
 """
 DISPATCH = """#!/bin/sh
 case "$2" in
- up|dhcp4-change|dhcp6-change|connectivity-change) /usr/bin/systemctl start --no-block siverteh-timezone.service ;;
+ up|dhcp4-change|dhcp6-change|connectivity-change)
+  /usr/bin/touch /var/lib/siverteh-os/timezone/network-change
+  /usr/bin/systemctl start --no-block siverteh-timezone.service ;;
 esac
 """
 
@@ -84,38 +91,84 @@ def state():
     return dict(
         installed=PROGRAM.exists(),
         automatic=read(CONFIG, {}).get("automatic", False),
+        confirmedTimezone=read(CONFIG, {}).get("confirmedTimezone", ""),
+        deviceLocation=LOCATION.exists() and GEOCONFIG.exists(),
         timezone=zone,
         localTime=dt.datetime.now(ZoneInfo(zone)).strftime("%A, %d %B · %H:%M %Z"),
         **{
             k: v
             for k, v in data.items()
-            if k in ("checked", "detected", "error", "source")
+            if k in ("checked", "detected", "error", "source", "city", "accuracyMeters")
         },
     )
 
 
-def detect():
-    with urllib.request.urlopen(
-        urllib.request.Request(
-            "https://ipinfo.io/json", headers={"User-Agent": "Siverteh-OS/1.0"}
-        ),
-        timeout=8,
-    ) as response:
-        raw = response.read(20001)
-        if len(raw) > 20000:
-            raise ValueError("Location response too large")
-        return valid_zone(json.loads(raw)["timezone"])
+@contextlib.contextmanager
+def operation_lock():
+    STATE.mkdir(parents=True, exist_ok=True)
+    with (STATE / "operation.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        yield
+
+
+def device_detect():
+    result = subprocess.run(
+        ["/usr/bin/python3", str(LOCATION)],
+        capture_output=True,
+        text=True,
+        timeout=16,
+        check=True,
+    )
+    data = json.loads(result.stdout)
+    data["timezone"] = valid_zone(data["timezone"])
+    return data
 
 
 def update(force=False):
-    if not read(CONFIG, {}).get("automatic", False):
+    with operation_lock():
+        return update_locked(force)
+
+
+def update_locked(force=False):
+    config = read(CONFIG, {})
+    if not config.get("automatic", False):
         return
     old = read(STATE / "status.json", {})
-    if not force and time.time() - old.get("epoch", 0) < 300:
+    network_change = STATE / "network-change"
+    changed = network_change.exists() and network_change.stat().st_mtime > old.get(
+        "epoch", 0
+    )
+    if not force and not changed and time.time() - old.get("epoch", 0) < 300:
         return
     try:
-        zone = detect()
+        fix = device_detect()
+        zone = fix["timezone"]
         current = run("timedatectl", "show", "--property=Timezone", "--value")
+        if current != zone:
+            run("timedatectl", "set-timezone", zone)
+        # Last trustworthy zone becomes the fallback; precise coordinates are never stored.
+        config["lastTrustedTimezone"] = zone
+        atomic(CONFIG, config)
+        atomic(
+            STATE / "status.json",
+            dict(
+                epoch=time.time(),
+                checked=dt.datetime.now(dt.timezone.utc).isoformat(),
+                detected=zone,
+                source=fix["source"],
+                city=fix.get("city", ""),
+                accuracyMeters=fix.get("accuracyMeters"),
+                error="",
+            ),
+        )
+    except Exception:
+        current = run("timedatectl", "show", "--property=Timezone", "--value")
+        fallback = (
+            config.get("lastTrustedTimezone")
+            or config.get("confirmedTimezone")
+            or current
+        )
+        zone = valid_zone(fallback)
         if current != zone:
             run("timedatectl", "set-timezone", zone)
         atomic(
@@ -124,15 +177,28 @@ def update(force=False):
                 epoch=time.time(),
                 checked=dt.datetime.now(dt.timezone.utc).isoformat(),
                 detected=zone,
-                source="Public IP location",
-                error="",
+                source="Last confirmed timezone",
+                error="Device location unavailable or imprecise; kept the last confirmed timezone. IP location is not used to change the clock.",
             ),
         )
-    except Exception:
+
+
+def confirm(zone):
+    require_root()
+    zone = valid_zone(zone)
+    with operation_lock():
+        config = read(CONFIG, {})
+        config.update(confirmedTimezone=zone, lastTrustedTimezone=zone)
+        atomic(CONFIG, config)
+        run("timedatectl", "set-timezone", zone)
         atomic(
             STATE / "status.json",
             dict(
-                old, error="Automatic lookup unavailable; the current timezone was kept"
+                epoch=time.time(),
+                checked=dt.datetime.now(dt.timezone.utc).isoformat(),
+                detected=zone,
+                source="Confirmed location",
+                error="",
             ),
         )
 
@@ -143,6 +209,12 @@ def require_root():
 
 
 def install(zone=None):
+    require_root()
+    with operation_lock():
+        return install_locked(zone)
+
+
+def install_locked(zone=None):
     require_root()
     STATE.mkdir(parents=True, exist_ok=True)
     zone = zone or None
@@ -158,6 +230,9 @@ def install(zone=None):
         Path("/etc/systemd/system/siverteh-timezone.service"),
         Path("/etc/systemd/system/siverteh-timezone.timer"),
         Path("/etc/NetworkManager/dispatcher.d/80-siverteh-timezone"),
+        LOCATION,
+        GEOCONFIG,
+        GEODESKTOP,
     ]
     entries = []
     for index, path in enumerate(paths):
@@ -184,46 +259,85 @@ def install(zone=None):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(body)
         path.chmod(0o755 if path == paths[4] else 0o644)
-    atomic(CONFIG, dict(automatic=True))
+    LOCATION.parent.mkdir(parents=True, exist_ok=True)
+    location_source = Path(__file__).with_name("device-location.py")
+    if not location_source.exists():
+        location_source = LOCATION
+    if location_source.resolve() != LOCATION.resolve():
+        shutil.copyfile(location_source, LOCATION)
+    LOCATION.chmod(0o755)
+    GEOCONFIG.parent.mkdir(parents=True, exist_ok=True)
+    GEOCONFIG.write_text(GEO_PERMISSION)
+    GEODESKTOP.parent.mkdir(parents=True, exist_ok=True)
+    GEODESKTOP.write_text(GEO_DESKTOP)
+    config = read(CONFIG, {})
+    config["automatic"] = True
+    if zone:
+        config.update(confirmedTimezone=zone, lastTrustedTimezone=zone)
+    atomic(CONFIG, config)
     if zone:
         run("timedatectl", "set-timezone", zone)
+    run("systemctl", "try-restart", "geoclue.service")
     run("systemctl", "daemon-reload")
     run("systemctl", "enable", "--now", "siverteh-timezone.timer")
-    update(force=True)
+    update_locked(force=True)
+
+
+def automatic(value):
+    require_root()
+    if value not in ("on", "off"):
+        raise ValueError("Choose on or off")
+    with operation_lock():
+        config = read(CONFIG, {})
+        config["automatic"] = value == "on"
+        atomic(CONFIG, config)
+        run(
+            "systemctl",
+            "enable" if value == "on" else "disable",
+            "--now",
+            "siverteh-timezone.timer",
+        )
+        if value == "on":
+            update_locked(force=True)
+
+
+def manual(zone):
+    require_root()
+    zone = valid_zone(zone)
+    with operation_lock():
+        config = read(CONFIG, {})
+        config.update(automatic=False, confirmedTimezone=zone, lastTrustedTimezone=zone)
+        atomic(CONFIG, config)
+        run("systemctl", "disable", "--now", "siverteh-timezone.timer")
+        run("timedatectl", "set-timezone", zone)
+        atomic(
+            STATE / "status.json",
+            dict(source="Manual timezone", detected=zone, error=""),
+        )
 
 
 def main():
     p = argparse.ArgumentParser()
     p.add_argument(
-        "action", choices=["state", "install", "update", "automatic", "manual"]
+        "action",
+        choices=["state", "install", "update", "automatic", "manual", "confirm"],
     )
     p.add_argument("value", nargs="?")
     a = p.parse_args()
     try:
         if a.action == "install":
             install(a.value)
+        elif a.action == "confirm":
+            confirm(a.value)
         elif a.action == "update":
             require_root()
-            update()
+            if a.value not in (None, "force"):
+                raise ValueError("Unsupported location refresh")
+            update(force=a.value == "force")
         elif a.action == "automatic":
-            require_root()
-            if a.value not in ("on", "off"):
-                raise ValueError("Choose on or off")
-            atomic(CONFIG, dict(automatic=a.value == "on"))
-            run(
-                "systemctl",
-                "enable" if a.value == "on" else "disable",
-                "--now",
-                "siverteh-timezone.timer",
-            )
-            if a.value == "on":
-                update(force=True)
+            automatic(a.value)
         elif a.action == "manual":
-            require_root()
-            zone = valid_zone(a.value)
-            atomic(CONFIG, dict(automatic=False))
-            run("systemctl", "disable", "--now", "siverteh-timezone.timer")
-            run("timedatectl", "set-timezone", zone)
+            manual(a.value)
         print(json.dumps(state()))
     except Exception as e:
         print(json.dumps(dict(error=str(e))))
