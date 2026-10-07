@@ -50,9 +50,19 @@ Variants {
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             // Exclusive mode gives modal controls keyboard focus before a mouse click.
-            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || (visibilities.dashboard && visibilities.dashboardPinned) || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left || visibilities.osd || panels.popouts.hasCurrent ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || (visibilities.dashboard && visibilities.dashboardPinned) || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
             mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
+            function panelAcceptsInput(item) {
+                if (item === panels.dashboard) return visibilities.dashboard;
+                if (item === panels.popouts) return panels.popouts.hasCurrent;
+                if (item === panels.launcher) return visibilities.launcher;
+                if (item === panels.osd) return visibilities.osd;
+                if (item === panels.session) return visibilities.session;
+                if (item === panels.leftDrawer) return visibilities.left;
+                if (item === panels.notifications) return !panels.notifications.suppressed && Notifs.popups.length > 0;
+                return item.visible;
+            }
             readonly property Region frameMask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
                 y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
@@ -81,7 +91,7 @@ Variants {
                     x: modelData.x + bar.implicitWidth
                     y: modelData.y + panels.y
                     // Closing visuals must never keep intercepting browser clicks.
-                    readonly property bool acceptingInput: modelData !== panels.dashboard || visibilities.dashboard
+                    readonly property bool acceptingInput: win.panelAcceptsInput(modelData)
                     width: acceptingInput ? modelData.width : 0
                     height: acceptingInput ? modelData.height : 0
                     intersection: Intersection.Subtract

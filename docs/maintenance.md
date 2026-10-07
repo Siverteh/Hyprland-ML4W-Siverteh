@@ -411,9 +411,10 @@ The Qt sidebar uses live SVG palette bindings and is a separate rendering path.
 
 ## Hover input and retained notifications
 
-The hover dashboard has no keyboard interactivity until Settings is explicitly
-pinned. Closing immediately removes its input region while the visual animation
-finishes; its content is clipped to the shrinking panel. This prevents the closing
+Passive top-menu, device-popup and OSD hovers have no keyboard interactivity.
+Pinned Settings, launcher/session and pinned popups retain keyboard support; the
+chat drawer keeps its existing on-demand focus. Closing a drawer or popup removes
+its input region immediately while the visual animation finishes; its content is clipped to the shrinking panel. This prevents the closing
 panel from reopening or consuming clicks on application controls beneath it.
 Pinned Settings retains exclusive keyboard focus and its existing outside-click
 and Escape behavior.
