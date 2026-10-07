@@ -57,7 +57,10 @@ private. The small native runtime and owned desktop launcher are included in
 release snapshots; one-time settings record their previous values separately.
 
 Validate with `python3 tools/check.py`, the Hyprland config check and the normal
-install plan/apply procedure. For live color tests, use an isolated compositor
+install plan/apply procedure. `./install.sh --component apps --component shell`
+limits a Files-only deployment to app launch routes and shell software, preserving
+unrelated compositor configuration edits; the usual full deployment retains its
+drift checks. For live color tests, use an isolated compositor
 and private config/bus, change its palette, send standard notifications and
 check both pixels and the unchanged Dolphin PID. Do not unlock the real session
 or restart a working file manager merely to claim a visual check passed.
