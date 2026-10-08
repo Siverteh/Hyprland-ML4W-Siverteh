@@ -11,6 +11,8 @@
 | Login appearance | `siverteh/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
 | Terminal presentation | `kitty/`, `fastfetch/` | Installed static config plus private generated SH logo and terminal palette |
 
+The desktop shell and its desktop-actions helper own core control commands.
+Brain owns knowledge navigation/capture and its authenticated browser API.
 The desktop shell owns the bar, frame, dashboard, notifications, launcher,
 wallpaper chooser and audio/brightness controls. Display settings are stored in
 private native state; the old display-rearrangement scripts and competing display
@@ -75,3 +77,15 @@ only while controls are visible, and on opening controls. DDC monitors are read
 at discovery and after writes, without a periodic DDC poll. Update launch and
 completion share one Qt-version check. Errors remain readable in the update
 terminal; a failed shell startup uses Hyprland's own notification channel.
+
+Wallpaper preparation is event-driven through one native watcher, with debounced
+catalogue/engine invalidation. Optional battery motion policy reuses cached posters;
+shared wallpaper/video state survives per-output UI recovery. Display recovery
+captures only UI state and retains the existing full restart fallback, using
+private stdin/runtime files for draft-bearing snapshots.
+
+Health queries include on-demand portals and private sync status. Config deployment
+owns the shared sync helper and service, adopting only recognized previous bytes
+and retaining backups. AI workers are not restarted by this update. Browser auth
+uses rotating bootstrap tokens and a private restart-safe cookie credential; no
+secret-bearing command arguments or public source snapshots are introduced.

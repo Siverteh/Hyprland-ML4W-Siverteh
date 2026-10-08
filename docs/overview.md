@@ -8,7 +8,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
 - **UWSM** starts the graphical session and gives user services their environment.
 - **Hyprland** places windows, handles workspaces and runs keyboard shortcuts.
 - **Quickshell** draws the bar, frame, top settings menu, launchers, notifications,
-  wallpaper views and AI sidebar. Its renderer is separate from the AI worker.
+  wallpaper views and AI sidebar. Desktop/AI launch actions live in desktop helpers,
+  separately from Brain knowledge actions. Its renderer is separate from the AI worker.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,
   GTK/Qt settings, Kitty, lock screen and login appearance.
 - **Hypridle and Hyprlock** handle managed sleep locking and private idle timeouts and password authentication.
@@ -39,7 +40,7 @@ on lock and on sleep; the picker temporarily allows a live preview.
 2. Hyprland loads its base window, appearance, routing and shortcut files. Private
    monitor overrides, the generated palette, saved desktop settings and private
    shortcuts load afterward, so host preferences keep their priority.
-3. Enabled user services start the desktop shell, Brain and Hypridle. Hyprland's
+3. Enabled user services start the desktop shell, authenticated Brain server and Hypridle. Hyprland's
    small startup hook launches wallet initialization, the authentication agent,
    clipboard watcher and selected apps through UWSM.
 4. Startup apps reuse existing windows: browser 1, AI 2, Discord 3, Spotify 4,
@@ -79,3 +80,7 @@ Quickshell, Thunar, Qt plugins and Papirus are system packages updated by pacman
 Only the palette engine's Python environment and compiled Thunar style module
 remain private. Fixed palettes are reproducible, checked-in generated presets;
 wallpaper-derived host colors remain private.
+
+The [health and recovery guide](features/health-and-recovery.md) explains sync,
+portal status and per-output view recovery. [Brain authentication](features/brain-authentication.md)
+explains the automatic local browser session and private credential boundary.

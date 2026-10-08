@@ -66,3 +66,16 @@ with no periodic palette/image work; background warmers run once at low priority
 Automatic covered-app pausing stays enabled without a picker button/footer row.
 
 
+
+## Quiet preparation and motion policy
+
+One native inotify watcher observes completed writes, moves and removals in the
+wallpaper library, plus palette flavour/engine changes. Events are debounced and
+queue preparation after catalogue refresh. There is no repeated idle warm-up
+process. File identity and the installed engine invalidate prepared palettes.
+Hexagon previews retain a viewport buffer rather than decoding distant rows.
+
+Appearance offers Full motion (default), Still on battery and Always still.
+The latter two reuse the scene's cached poster and retain its colors, unloading
+the desktop video/GIF decoder when motion is disabled. Picker previews remain
+available. Covered, locked and sleeping playback guards remain active.
