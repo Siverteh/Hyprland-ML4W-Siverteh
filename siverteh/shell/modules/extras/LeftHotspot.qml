@@ -14,7 +14,7 @@ Variants {
         screen: modelData
         name: "brain-edge"
         readonly property var visibility: Visibilities.screens[screen.name]
-        visible: DesktopSettings.data.leftDrawer !== false && !Visibilities.hidden && !!visibility && !visibility.session && !visibility.launcher && !visibility.left
+        visible: DesktopSettings.data.clickEdgeMenus === false && DesktopSettings.data.leftDrawer !== false && !Visibilities.hidden && !!visibility && !visibility.session && !visibility.launcher && !visibility.left
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Top
         anchors.left: true

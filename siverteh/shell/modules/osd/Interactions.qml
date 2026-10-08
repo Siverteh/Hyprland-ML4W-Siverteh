@@ -43,7 +43,7 @@ Scope {
 
         interval: OsdConfig.hideDelay
         onTriggered: {
-            if (!root.hovered)
+            if (!root.hovered && root.visibilities.edgeMenu !== "osd")
                 root.visibilities.osd = false;
         }
     }

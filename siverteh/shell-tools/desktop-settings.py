@@ -25,6 +25,7 @@ DEFAULTS = dict(
     frameWidth=10,
     frameRounding=25,
     topEdge=True,
+    clickEdgeMenus=True,
     leftEdge=True,
     rightEdge=True,
     bottomEdge=True,
@@ -370,6 +371,7 @@ def main():
                     ),
                     "minimal": dict(
                         topEdge=True,
+                        clickEdgeMenus=True,
                         leftEdge=False,
                         rightEdge=False,
                         bottomEdge=False,

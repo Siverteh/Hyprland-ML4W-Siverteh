@@ -15,6 +15,7 @@ ShellRoot {
     Drawers {}
     TopBar {}
     LeftHotspot {}
+    EdgeHandles {}
 
     Shortcuts {}
     Component.onCompleted: ChatWindowTitle.scan()
@@ -26,6 +27,8 @@ ShellRoot {
                 active: Hyprland.activeWsId,
                 workspaces: Hyprland.workspaces.values.length,
                 dashboard: v?.dashboard,
+                edgeMenu: v?.edgeMenu,
+                clickEdgeMenus: DesktopSettings.data.clickEdgeMenus !== false,
                 tab: v?.dashboardTab,
                 launcher: v?.launcher,
                 session: v?.session,

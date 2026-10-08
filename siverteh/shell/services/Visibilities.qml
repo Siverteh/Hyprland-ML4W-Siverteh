@@ -16,6 +16,20 @@ Singleton {
     property var screens: ({})
     property var panels: ({})
 
+    function openEdge(name, screenName) {
+        const v = screenName ? screens[screenName] : getForActive();
+        if (!v || !["dashboard", "left", "osd"].includes(name)) return;
+        for (const p of Object.values(panels)) { p.popouts.hasCurrent = false; p.popouts.pinned = false; }
+        v.launcher = false;
+        v.session = false;
+        v.dashboard = false;
+        v.left = false;
+        v.leftPinned = false;
+        v.osd = false;
+        v.previewOnly = false;
+        v.edgeMenu = name;
+        v[name] = true;
+    }
     function popout(name, center, screenName) {
         const v = screens[screenName], p = panels[screenName];
         if (!v || !p || v.session)

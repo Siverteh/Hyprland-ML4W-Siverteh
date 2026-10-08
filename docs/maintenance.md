@@ -434,3 +434,23 @@ framebuffer coordinates for these widgets even at fractional scale; using logica
 width displaces the controls. Output-mode recovery regenerates the next lock
 layout using current monitor dimensions, while preserving renderer recovery if
 that refresh fails. Authentication remains owned by Hyprlock/PAM.
+
+
+## Clickable edge handles
+
+Desktop → Edge menu activation offers Click handles (default) and Hover. Handles
+fade in after a160ms hover and allow280ms to leave before hiding. They use the
+current shell palette and layer surfaces with no reserved space; window geometry
+and desktop spacing are unchanged. The top-center handle opens the dashboard;
+small targets at the middle of the left and right edges open AI and quick sliders.
+Hovering top-bar status icons shows a short label; clicking keeps the existing
+Sound/Network/Bluetooth Settings routes and opens the other controls explicitly.
+Calendar and notification popups remain open until dismissed.
+
+Clicked edge panels close with Escape or outside click, and do not close merely
+because the pointer leaves. Opening AI leaves its pin false; explicitly pinning
+it releases the click-away grab and keeps the existing pinned behavior. Audio and
+brightness hotkeys still show temporary OSD feedback. Hover mode restores the
+previous automatic edge entry while retaining immediate input release on close.
+The saved clickEdgeMenus preference is a validated private boolean, included in
+normal desktop presets. Keyboard shortcuts are unchanged. The bar remains on top.

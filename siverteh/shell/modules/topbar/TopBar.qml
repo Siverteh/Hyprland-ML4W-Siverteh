@@ -30,6 +30,8 @@ Variants {
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Top
         color: "transparent"
+        readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus !== false
+        property string hoverHint: ""
         Rectangle {
             anchors.fill: parent
             color: Colours.palette.m3surface
@@ -49,6 +51,7 @@ Variants {
         }
         function hoverMenu(name, item) {
             dismissPopout.stop();
+            if (win.clickMenus) return;
             const panel = Visibilities.panels[screen.name];
             if (panel)
                 panel.popouts.headerHovered = true;
@@ -85,7 +88,14 @@ Variants {
                 }
             }
         }
+        StyledText {
+            anchors.centerIn: parent
+            visible: win.hoverHint !== ""
+            text: win.hoverHint
+            color: Colours.palette.m3onSurfaceVariant
+        }
         Native.ActiveWindow {
+            visible: win.hoverHint === ""
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             width: Math.max(100, Math.min(650, win.width - 2 * Math.max(leftGroup.width, rightGroup.width) - 50))
@@ -153,7 +163,11 @@ Variants {
                         }
                         return ["audio", "network", "bluetooth", "battery", "notifications"][index];
                     }
-                    function showMenu() {
+                    function showMenu(clicked = false) {
+                        if (win.clickMenus && !clicked) {
+                            win.hoverHint = ({audio:"Open Sound settings", network:"Open Network settings", bluetooth:"Open Bluetooth settings", battery:"Open Battery", notifications:"Open Notifications"})[menuName()];
+                            return;
+                        }
                         if (win.visibility?.dashboard && win.visibility.dashboardPinned)
                             return;
                         const name = menuName(), p = Visibilities.panels[win.screen.name];
@@ -173,6 +187,7 @@ Variants {
                     onPositionChanged: if (containsMouse)
                         showMenu()
                     onExited: {
+                        win.hoverHint = "";
                         const p = Visibilities.panels[win.screen.name];
                         if (p)
                             p.popouts.headerHovered = calendarHover.containsMouse;
@@ -186,13 +201,13 @@ Variants {
                             if (p.popouts.hasCurrent && p.popouts.pinned && p.popouts.currentName === name)
                                 p.popouts.hasCurrent = false;
                             else {
-                                showMenu();
+                                showMenu(true);
                                 p.popouts.pinned = true;
                             }
-                        } else if (name === "battery")
-                            showMenu();
-                        else
-                            showMenu();
+                        } else {
+                            showMenu(true);
+                            if (win.clickMenus) p.popouts.pinned = true;
+                        }
                     }
                 }
             }
@@ -218,32 +233,52 @@ Variants {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onEntered: win.hoverMenu("calendar", this)
+                    onEntered: {
+                        if (win.clickMenus) win.hoverHint = "Open Calendar";
+                        else win.hoverMenu("calendar", this);
+                    }
                     onExited: {
+                        win.hoverHint = "";
                         const p = Visibilities.panels[win.screen.name];
                         if (p)
                             p.popouts.headerHovered = statusHover.containsMouse;
                         dismissPopout.restart();
                     }
-                    onClicked: win.hoverMenu("calendar", this)
+                    onClicked: {
+                        if (win.clickMenus) {
+                            const p = Visibilities.panels[win.screen.name];
+                            const pt = mapToItem(win.contentItem, width / 2, 0);
+                            Visibilities.popout("calendar", pt.x, win.screen.name);
+                            p.popouts.pinned = true;
+                        } else win.hoverMenu("calendar", this);
+                    }
                 }
             }
             Native.Power {}
         }
         MouseArea {
+            id: dashboardHover
             anchors.horizontalCenter: parent.horizontalCenter
             width: Math.min(700, parent.width * 0.45)
             height: win.height
             hoverEnabled: true
             acceptedButtons: Qt.NoButton
-            onEntered: if (win.visibility && !win.visibility.session) {
+            onEntered: if (!win.clickMenus && win.visibility && !win.visibility.session) {
                 const p = Visibilities.panels[win.screen.name];
                 if (p)
                     p.popouts.hasCurrent = false;
                 win.visibility.dashboard = true;
             }
-            onExited: if (win.visibility && mouseY < height - 2)
+            onExited: if (!win.clickMenus && win.visibility && mouseY < height - 2)
                 win.visibility.dashboard = false
+        }
+        EdgeMenuHandle {
+            anchors.centerIn: parent
+            z: 3
+            visible: win.clickMenus && !Visibilities.hidden && win.visibility?.edgeMenu === "" && !win.visibility?.dashboard && !win.visibility?.launcher && !win.visibility?.session
+            externalHovered: dashboardHover.containsMouse
+            icon: "expand_more"
+            onClicked: Visibilities.openEdge("dashboard", win.screen.name)
         }
     }
 }

@@ -31,6 +31,7 @@ Variants {
             contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
             function dismissOverlays() {
+                visibilities.edgeMenu = "";
                 visibilities.dashboard = false;
                 visibilities.osd = false;
                 visibilities.launcher = false;
@@ -50,9 +51,9 @@ Variants {
             }
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             // Exclusive mode gives modal controls keyboard focus before a mouse click.
-            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || (visibilities.dashboard && visibilities.dashboardPinned) || panels.popouts.pinned ? WlrKeyboardFocus.Exclusive : visibilities.left ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: Visibilities.hidden || visibilities.previewOnly ? WlrKeyboardFocus.None : visibilities.launcher || visibilities.session || (visibilities.dashboard && visibilities.dashboardPinned) || panels.popouts.pinned || visibilities.edgeMenu !== "" ? WlrKeyboardFocus.Exclusive : visibilities.left ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-            mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
+            mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.edgeMenu !== "" || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
             function panelAcceptsInput(item) {
                 if (item === panels.dashboard) return visibilities.dashboard;
                 if (item === panels.popouts) return panels.popouts.hasCurrent;
@@ -100,7 +101,7 @@ Variants {
 
             // Changing keyboard interactivity remaps the layer surface. Arm click-away
             // capture only after that remap, so its cleared signal cannot close a new popup.
-            readonly property bool wantsPopupGrab: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+            readonly property bool wantsPopupGrab: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.edgeMenu !== "" || panels.popouts.pinned)
             property bool popupGrabReady: false
             onWantsPopupGrabChanged: {
                 popupGrabReady = false;
@@ -115,7 +116,7 @@ Variants {
                 onTriggered: win.popupGrabReady = win.wantsPopupGrab
             }
             HyprlandFocusGrab {
-                active: win.popupGrabReady && !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || panels.popouts.pinned)
+                active: win.popupGrabReady && !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.edgeMenu !== "" || panels.popouts.pinned)
                 windows: [win]
                 onCleared: {
                     if (win.popupGrabReady && win.wantsPopupGrab)
@@ -182,11 +183,18 @@ Variants {
                 property bool session
                 property bool launcher
                 property bool left
+                onLeftPinnedChanged: if (left && DesktopSettings.data.clickEdgeMenus !== false)
+                    edgeMenu = leftPinned ? "" : "left"
                 property bool leftPinned
                 property bool dashboard
+                property string edgeMenu: ""
+                onLeftChanged: if (!left && edgeMenu === "left") edgeMenu = ""
+                onOsdChanged: if (!osd && edgeMenu === "osd") edgeMenu = ""
                 property bool dashboardPinned: false
-                onDashboardChanged: if (!dashboard)
-                    dashboardPinned = false
+                onDashboardChanged: if (!dashboard) {
+                    dashboardPinned = false;
+                    if (edgeMenu === "dashboard") edgeMenu = "";
+                }
                 property int dashboardTab: 0
                 property string launcherQuery: ""
                 property string launcherMode: "apps"

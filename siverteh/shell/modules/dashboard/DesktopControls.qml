@@ -368,7 +368,7 @@ Item {
                 Section {
                     heading: "Desktop panels"
                     Toggle {
-                        label: "Left-edge hover drawer"
+                        label: "AI sidebar edge"
                         setting: "leftDrawer"
                     }
                     Toggle {
@@ -393,6 +393,29 @@ Item {
                     Toggle {
                         label: "Do not disturb"
                         setting: "dnd"
+                    }
+                }
+            }
+            Section {
+                visible: root.page === "desktop"
+                width: parent.width
+                heading: "Edge menu activation"
+                StyledText {
+                    width: parent.width
+                    wrapMode: Text.Wrap
+                    text: "Click handles appear over the desktop without moving windows. Hover restores automatic edge opening."
+                }
+                Row {
+                    spacing: 12
+                    Action {
+                        label: "Click handles"
+                        selected: DesktopSettings.data.clickEdgeMenus !== false
+                        onActivated: DesktopSettings.set("clickEdgeMenus", true)
+                    }
+                    Action {
+                        label: "Hover"
+                        selected: DesktopSettings.data.clickEdgeMenus === false
+                        onActivated: DesktopSettings.set("clickEdgeMenus", false)
                     }
                 }
             }
