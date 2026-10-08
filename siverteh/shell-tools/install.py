@@ -138,6 +138,12 @@ def deploy(code_only=False):
     shutil.copyfile(ROOT / "siverteh-sidebar-ai.service", chat_service)
     observer = HOME / ".config/systemd/user/siverteh-session-watch.service"
     shutil.copyfile(ROOT / "siverteh-session-watch.service", observer)
+    subprocess.run(["python3", str(ROOT / "idle-policy.py")], check=True)
+    idle_dropin = HOME / ".config/systemd/user/hypridle.service.d/siverteh.conf"
+    idle_dropin.parent.mkdir(parents=True, exist_ok=True)
+    idle_dropin.write_text(
+        "[Service]\nExecStartPre=/usr/bin/python3 %h/.local/share/siverteh-ai/siverteh-shell/tools/idle-policy.py\n"
+    )
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
     subprocess.run(
         ["systemctl", "--user", "enable", "hypridle.service"],
