@@ -4,6 +4,9 @@ shell_runtime="$HOME/.local/share/siverteh-ai/shell-runtime"
 unset LD_LIBRARY_PATH QT_PLUGIN_PATH QML_IMPORT_PATH QML2_IMPORT_PATH
 export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$shell_runtime/venv/bin:$PATH"
 case "${1:-start}" in
+ brightness|keyboard-light)
+  target=brightness; [[ "$1" != keyboard-light ]] || target=keyboardLight
+  exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call "$target" step "${2:-up}" ;;
  thunar) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/thunar-files.py" "${@:2}" ;;
  start) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/shell-supervisor.py" ;;
  close) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh close ;;

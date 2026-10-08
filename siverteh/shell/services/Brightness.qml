@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 
 import qs.widgets
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
 
@@ -11,6 +12,11 @@ Singleton {
 
     property var ddcMonitors: []
     property string backlightDevice: ""
+    readonly property bool controlsVisible: Object.values(Visibilities.screens).some(v => v.dashboard || v.osd)
+    onControlsVisibleChanged: if (controlsVisible)
+        for (const m of monitors)
+            if (!m.isDdc)
+                m.refresh()
     Process {
         running: true
         command: ["brightnessctl", "-c", "backlight", "-m"]
@@ -31,6 +37,12 @@ Singleton {
                         device: root.backlightDevice,
                         available: m.available
                     })));
+        }
+        function step(direction: string): void {
+            if (direction === "up")
+                root.increaseBrightness();
+            else if (direction === "down")
+                root.decreaseBrightness();
         }
         function set(value: real): string {
             const m = root.monitors[0];
@@ -68,12 +80,13 @@ Singleton {
     }
 
     Timer {
-        interval: 1000
-        running: true
+        interval: 5000
+        running: root.controlsVisible
         repeat: true
         onTriggered: {
             for (const m of root.monitors)
-                m.refresh();
+                if (!m.isDdc)
+                    m.refresh();
         }
     }
     reloadableId: "brightness"
@@ -153,8 +166,29 @@ Singleton {
         function refresh() {
             if (!available)
                 return;
-            initProc.command = isDdc ? ["ddcutil", "-b", busNum, "getvcp", "10", "--brief"] : ["sh", "-c", 'echo "a b c $(brightnessctl -c backlight -d ' + root.backlightDevice + ' get) $(brightnessctl -c backlight -d ' + root.backlightDevice + ' max)"'];
-            initProc.running = true;
+            if (isDdc) {
+                if (!initProc.running) {
+                    initProc.command = ["ddcutil", "-b", busNum, "getvcp", "10", "--brief"];
+                    initProc.running = true;
+                }
+            } else {
+                maximum.reload();
+                current.reload();
+            }
+        }
+        function readNative() {
+            const max = parseInt(maximum.text());
+            const value = parseInt(current.text());
+            if (max > 0 && Number.isFinite(value) && !writer.running && pendingPercent < 0)
+                brightness = value / max;
+        }
+        readonly property FileView maximum: FileView {
+            path: root.backlightDevice && !monitor.isDdc ? "/sys/class/backlight/" + root.backlightDevice + "/max_brightness" : ""
+            onLoaded: monitor.readNative()
+        }
+        readonly property FileView current: FileView {
+            path: root.backlightDevice && !monitor.isDdc ? "/sys/class/backlight/" + root.backlightDevice + "/brightness" : ""
+            onLoaded: monitor.readNative()
         }
 
         readonly property Process initProc: Process {

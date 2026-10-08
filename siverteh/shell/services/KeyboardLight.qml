@@ -11,9 +11,17 @@ Singleton {
     property int pending: -1
     property string error: ""
     readonly property bool available: device.length > 0 && maximum > 0
+    readonly property bool controlsVisible: Object.values(Visibilities.screens).some(v => v.dashboard || v.osd)
+    onControlsVisibleChanged: if (controlsVisible)
+        refresh()
     function refresh() {
-        if (!reader.running)
-            reader.running = true;
+        maximumFile.reload();
+        currentFile.reload();
+    }
+    function readNative() {
+        maximum = parseInt(maximumFile.text()) || 0;
+        if (!writer.running && pending < 0)
+            brightness = maximum ? (parseInt(currentFile.text()) || 0) / maximum : 0;
     }
     function setBrightness(value) {
         if (!available)
@@ -29,10 +37,10 @@ Singleton {
         pending = -1;
         writer.running = true;
     }
-    Component.onCompleted: refresh()
+
     Timer {
-        interval: 2000
-        running: true
+        interval: 5000
+        running: root.controlsVisible
         repeat: true
         onTriggered: root.refresh()
     }
@@ -42,21 +50,25 @@ Singleton {
         onTriggered: root.write()
     }
     Process {
-        id: reader
-        command: ["python3", "-c", "import json;from pathlib import Path;p=next((p for p in Path('/sys/class/leds').glob('*kbd_backlight*') if (p/'max_brightness').exists()),None);print(json.dumps(dict(device=p.name,maximum=int((p/'max_brightness').read_text()),current=int((p/'brightness').read_text())) if p else {}))"]
+        running: true
+        command: ["brightnessctl", "-c", "leds", "-m"]
         stdout: SplitParser {
             onRead: line => {
-                try {
-                    const s = JSON.parse(line);
-                    root.device = s.device ?? "";
-                    root.maximum = s.maximum ?? 0;
-                    if (!writer.running && root.pending < 0)
-                        root.brightness = root.maximum ? (s.current / root.maximum) : 0;
-                } catch (e) {
-                    root.device = "";
-                }
+                const device = line.split(",")[0];
+                if (/kbd.*backlight/i.test(device))
+                    root.device = device;
             }
         }
+    }
+    FileView {
+        id: maximumFile
+        path: root.device ? "/sys/class/leds/" + root.device + "/max_brightness" : ""
+        onLoaded: root.readNative()
+    }
+    FileView {
+        id: currentFile
+        path: root.device ? "/sys/class/leds/" + root.device + "/brightness" : ""
+        onLoaded: root.readNative()
     }
     Process {
         id: writer
@@ -68,6 +80,12 @@ Singleton {
     }
     IpcHandler {
         target: "keyboardLight"
+        function step(direction: string): void {
+            if (direction === "up")
+                root.setBrightness(root.brightness + 0.1);
+            else if (direction === "down")
+                root.setBrightness(root.brightness - 0.1);
+        }
         function state(): string {
             return JSON.stringify({
                 available: root.available,

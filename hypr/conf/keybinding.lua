@@ -36,16 +36,16 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAUL
 -- -------------------- Screen Brightness (with OSD) --------------------
 
 -- F5 = Brightness Down
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -c backlight set 5%-"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell brightness down"))
 
 -- F6 = Brightness Up
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -c backlight set 5%+"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell brightness up"))
 
 -- -------------------- Keyboard Backlight (with OSD) --------------------
 
 -- F4 = Keyboard brightness up
-hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("brightnessctl --device kbd_backlight set 5%+"))
-hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%- --device kbd_backlight"))
+hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell keyboard-light up"))
+hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell keyboard-light down"))
 
 -- -------------------- Emoji picker --------------------
 
