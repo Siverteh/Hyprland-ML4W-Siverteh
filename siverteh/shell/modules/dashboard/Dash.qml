@@ -1,5 +1,5 @@
 import QtQuick.Layouts
-import "dash"
+import "dash" as Cards
 import qs.config
 import qs.services
 import qs.widgets
@@ -18,7 +18,7 @@ GridLayout {
         Layout.preferredWidth: user.implicitWidth
         Layout.preferredHeight: user.implicitHeight
 
-        User {
+        Cards.User {
             id: user
         }
     }
@@ -29,7 +29,7 @@ GridLayout {
         Layout.preferredWidth: DashboardConfig.sizes.weatherWidth
         Layout.fillHeight: true
 
-        Weather {}
+        Cards.Weather {}
     }
 
     Rect {
@@ -37,7 +37,7 @@ GridLayout {
         Layout.preferredWidth: dateTime.implicitWidth
         Layout.fillHeight: true
 
-        DateTime {
+        Cards.DateTime {
             id: dateTime
         }
     }
@@ -49,7 +49,7 @@ GridLayout {
         Layout.fillWidth: true
         Layout.preferredHeight: calendar.implicitHeight
 
-        Calendar {
+        Cards.Calendar {
             id: calendar
         }
     }
@@ -60,7 +60,7 @@ GridLayout {
         Layout.preferredWidth: resources.implicitWidth
         Layout.fillHeight: true
 
-        Resources {
+        Cards.Resources {
             id: resources
         }
     }
@@ -72,7 +72,7 @@ GridLayout {
         Layout.preferredWidth: media.implicitWidth
         Layout.fillHeight: true
 
-        Media {
+        Cards.Media {
             id: media
 
             shouldUpdate: root.shouldUpdate
