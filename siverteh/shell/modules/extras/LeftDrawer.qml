@@ -409,7 +409,7 @@ Item {
         }
     }
     IpcHandler {
-        target: "leftDrawer"
+        target: "leftDrawer-" + root.screen.name
         function section(name: string): void {
             if (["chat", "chats", "brain", "settings"].includes(name))
                 root.section = name;

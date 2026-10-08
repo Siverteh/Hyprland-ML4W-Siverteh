@@ -36,6 +36,7 @@ Item {
     function captureUiState() {
         return {
             category: category,
+            userSelected: userSelected,
             query: search.text,
             index: grid.currentIndex,
             y: grid.contentY
@@ -43,6 +44,7 @@ Item {
     }
     function restoreUiState(data) {
         category = data.category || "favorites";
+        userSelected = data.userSelected === true || category !== "favorites";
         search.text = data.query || "";
         nav.currentIndex = Math.max(0, categories.findIndex(c => c.id === category));
         Qt.callLater(() => {

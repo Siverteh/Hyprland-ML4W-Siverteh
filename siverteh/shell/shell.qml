@@ -20,6 +20,22 @@ ShellRoot {
     Shortcuts {}
     Component.onCompleted: ChatWindowTitle.scan()
     IpcHandler {
+        target: "leftDrawer"
+        function section(name: string): void {
+            const panel = Visibilities.panels[Hyprland.focusedMonitor?.name];
+            if (panel && ["chat", "chats", "brain", "settings"].includes(name))
+                panel.leftDrawer.section = name;
+        }
+        function state(): string {
+            const drawer = Visibilities.panels[Hyprland.focusedMonitor?.name]?.leftDrawer;
+            return JSON.stringify({
+                section: drawer?.section,
+                width: drawer?.width,
+                height: drawer?.height
+            });
+        }
+    }
+    IpcHandler {
         target: "siverteh"
         function state(): string {
             const v = Visibilities.getForActive();
