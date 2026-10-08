@@ -28,6 +28,41 @@ def run(args, default="", timeout=5):
         return default
 
 
+def service_health():
+    output = run(
+        [
+            "systemctl",
+            "--user",
+            "show",
+            *SERVICES,
+            "-p",
+            "Id",
+            "-p",
+            "ActiveState",
+            "-p",
+            "Result",
+            "-p",
+            "ExecMainStatus",
+        ]
+    )
+    states, details = {}, {}
+    for block in output.split("\n\n"):
+        values = dict(line.split("=", 1) for line in block.splitlines() if "=" in line)
+        name = values.get("Id")
+        if not name:
+            continue
+        state = values.get("ActiveState", "unavailable")
+        if (
+            name.startswith("xdg-")
+            and state == "inactive"
+            and values.get("Result", "success") != "exit-code"
+        ):
+            state = "ready on demand"
+        states[name] = state
+        details[name] = values
+    return {name: states.get(name, "unavailable") for name in SERVICES}, details
+
+
 def state():
     release = STATE / "releases/current.json"
     managed = STATE / "configuration.json"
@@ -52,30 +87,14 @@ def state():
             "Python": [sys.executable, "--version"],
         }.items()
     }
+    services, details = service_health()
     return dict(
         release=current,
-        services={
-            s: run(["systemctl", "--user", "is-active", s], "unavailable")
-            for s in SERVICES
-        },
+        services=services,
         brainSync=json.loads((STATE / "brain-sync.json").read_text())
         if (STATE / "brain-sync.json").exists()
         else {"state": "unrecorded", "message": "No synchronization attempt recorded"},
-        serviceDetails={
-            s: run(
-                [
-                    "systemctl",
-                    "--user",
-                    "show",
-                    s,
-                    "-p",
-                    "Result",
-                    "-p",
-                    "ExecMainStatus",
-                ]
-            )
-            for s in SERVICES
-        },
+        serviceDetails=details,
         failedServices=run(
             ["systemctl", "--user", "--failed", "--no-legend", "--plain"]
         ).splitlines(),

@@ -69,7 +69,7 @@ Item {
                                     "xdg-desktop-portal-hyprland.service": "Screen sharing portal",
                                     "xdg-document-portal.service": "File access portal"
                                 }[modelData[0]] ?? modelData[0]) + ": " + modelData[1]
-                            color: modelData[1] === "active" ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3error
+                            color: ["active", "ready on demand"].includes(modelData[1]) ? Colours.palette.m3onSurfaceVariant : modelData[1] === "failed" ? Colours.palette.m3error : Colours.palette.m3primary
                         }
                     }
                 }

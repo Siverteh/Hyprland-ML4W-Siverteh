@@ -54,7 +54,7 @@ Singleton {
         interval: 15000
         repeat: true
         running: Object.values(Visibilities.screens).some(v => {
-            return v.dashboard && v.dashboardTab === 4;
+            return v.dashboard && v.dashboardTab === 4 && Visibilities.settingsPage === "maintenance";
         })
         onTriggered: root.refresh()
     }
