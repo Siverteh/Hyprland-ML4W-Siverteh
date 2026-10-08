@@ -28,7 +28,7 @@ ShellRoot {
                 workspaces: Hyprland.workspaces.values.length,
                 dashboard: v?.dashboard,
                 edgeMenu: v?.edgeMenu,
-                clickEdgeMenus: DesktopSettings.data.clickEdgeMenus !== false,
+                clickEdgeMenus: DesktopSettings.data.clickEdgeMenus === true,
                 tab: v?.dashboardTab,
                 launcher: v?.launcher,
                 session: v?.session,

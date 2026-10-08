@@ -13,7 +13,7 @@ Variants {
 
         required property ShellScreen modelData
         readonly property var visibility: Visibilities.screens[modelData.name]
-        readonly property bool available: DesktopSettings.data.clickEdgeMenus !== false && !Visibilities.hidden && !!visibility && !visibility.launcher && !visibility.session && visibility.edgeMenu === "" && !visibility.dashboardPinned
+        readonly property bool available: DesktopSettings.data.clickEdgeMenus === true && !Visibilities.hidden && !!visibility && !visibility.launcher && !visibility.session && visibility.edgeMenu === "" && !visibility.dashboardPinned
 
         StyledWindow {
             id: left

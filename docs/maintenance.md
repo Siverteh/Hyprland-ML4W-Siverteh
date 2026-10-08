@@ -438,7 +438,7 @@ that refresh fails. Authentication remains owned by Hyprlock/PAM.
 
 ## Clickable edge handles
 
-Desktop → Edge menu activation offers Click handles (default) and Hover. Handles
+Desktop → Edge menu activation offers Hover (default) and optional Click handles. Handles
 fade in after a160ms hover and allow280ms to leave before hiding. They use the
 current shell palette and layer surfaces with no reserved space; window geometry
 and desktop spacing are unchanged. The top-center handle opens the dashboard;

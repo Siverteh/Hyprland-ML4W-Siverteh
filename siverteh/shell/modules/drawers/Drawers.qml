@@ -183,7 +183,7 @@ Variants {
                 property bool session
                 property bool launcher
                 property bool left
-                onLeftPinnedChanged: if (left && DesktopSettings.data.clickEdgeMenus !== false)
+                onLeftPinnedChanged: if (left && DesktopSettings.data.clickEdgeMenus === true)
                     edgeMenu = leftPinned ? "" : "left"
                 property bool leftPinned
                 property bool dashboard

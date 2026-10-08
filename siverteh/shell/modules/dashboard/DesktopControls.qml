@@ -409,7 +409,7 @@ Item {
                     spacing: 12
                     Action {
                         label: "Click handles"
-                        selected: DesktopSettings.data.clickEdgeMenus !== false
+                        selected: DesktopSettings.data.clickEdgeMenus === true
                         onActivated: DesktopSettings.set("clickEdgeMenus", true)
                     }
                     Action {

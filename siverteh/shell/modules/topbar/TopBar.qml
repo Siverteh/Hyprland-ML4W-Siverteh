@@ -30,7 +30,7 @@ Variants {
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Top
         color: "transparent"
-        readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus !== false
+        readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus === true
         property string hoverHint: ""
         Rectangle {
             anchors.fill: parent
