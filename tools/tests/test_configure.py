@@ -164,3 +164,50 @@ class ConfigurationTests(unittest.TestCase):
                 (backup / ".config/hypr/retired.lua").read_text(),
                 "owned old configuration",
             )
+
+
+class IdleMigrationTests(unittest.TestCase):
+    def test_idle_migration_preserves_policy_and_other_drift_protection(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "bin").mkdir(parents=True)
+            (root / "hypr").mkdir()
+            (root / "tools/defaults").mkdir(parents=True)
+            for name in ("siverteh-os-app", "xdg-open"):
+                (root / "bin" / name).write_text("helper")
+            source = root / "hypr/hypridle.conf"
+            source.write_text("original")
+            module.apply(home, root)
+            target = home / ".config/hypr/hypridle.conf"
+            target.write_text("manual locking only")
+            source.write_text(module.IDLE_WRAPPER)
+            (root / "tools/defaults/hypridle.conf").write_text("factory policy")
+            with self.assertRaisesRegex(RuntimeError, "Local edit preserved"):
+                module.plan(home, root)
+            backup = module.apply(home, root, migrate_idle=True)
+            self.assertEqual(
+                (home / ".config/siverteh-shell/hypridle.local.conf").read_text(),
+                "manual locking only",
+            )
+            self.assertEqual(
+                (backup / ".config/hypr/hypridle.conf").read_text(),
+                "manual locking only",
+            )
+            self.assertEqual(module.plan(home, root)[0], [])
+            (home / ".local/bin/xdg-open").write_text("another personal edit")
+            with self.assertRaisesRegex(RuntimeError, "Local edit preserved"):
+                module.plan(home, root, migrate_idle=True)
+
+    def test_conflicting_private_idle_policy_is_not_overwritten(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "hypr").mkdir(parents=True)
+            (root / "hypr/hypridle.conf").write_text(module.IDLE_WRAPPER)
+            (home / ".config/hypr").mkdir(parents=True)
+            (home / ".config/hypr/hypridle.conf").write_text("manual policy")
+            (home / ".config/siverteh-shell").mkdir()
+            (home / ".config/siverteh-shell/hypridle.local.conf").write_text(
+                "different policy"
+            )
+            with self.assertRaisesRegex(RuntimeError, "Private idle policy differs"):
+                module.plan(home, root, migrate_idle=True)

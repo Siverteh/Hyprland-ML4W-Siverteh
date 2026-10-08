@@ -63,3 +63,8 @@ if desktop_file then desktop_file:close(); dofile(desktop_path) end
 local shortcuts_path = os.getenv("HOME") .. "/.config/siverteh-shell/shortcuts.lua"
 local shortcuts_file = io.open(shortcuts_path, "r")
 if shortcuts_file then shortcuts_file:close(); dofile(shortcuts_path) end
+
+-- Optional private host behavior.
+local host_path = os.getenv("HOME") .. "/.config/siverteh-shell/host.lua"
+local host_file = io.open(host_path, "r")
+if host_file then host_file:close(); dofile(host_path) end
