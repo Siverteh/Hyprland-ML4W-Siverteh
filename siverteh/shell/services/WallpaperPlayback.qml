@@ -16,6 +16,18 @@ Singleton {
     property string sessionPath: ""
     property bool sessionSignal: false
 
+    IpcHandler {
+        target: "wallpaperPlayback"
+        function state(): string {
+            return JSON.stringify({
+                motionMode: Wallpapers.preferences.motionMode,
+                onBattery: UPower.onBattery,
+                batteryPaused: root.batteryPaused,
+                locked: root.locked,
+                sleeping: root.sleeping
+            });
+        }
+    }
     Process {
         running: true
         command: ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/wallpaper-media.py", "session"]

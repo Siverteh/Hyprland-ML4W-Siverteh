@@ -66,6 +66,9 @@ Item {
                 pending: ThemePresentation.pending.poster,
                 active: ThemePresentation.active.poster,
                 color: String(Colours.palette.m3primary),
+                motionAllowed: root.motionAllowed,
+                decoderActive: video.active,
+                batteryPaused: WallpaperPlayback.batteryPaused,
                 expected: ThemePresentation.active.colours?.primary ?? ""
             });
         }
