@@ -3,7 +3,15 @@ set -euo pipefail
 shell_runtime="$HOME/.local/share/siverteh-ai/shell-runtime"
 # Desktop binaries and Qt plugins are owned and updated together by pacman.
 unset LD_LIBRARY_PATH QT_PLUGIN_PATH QML_IMPORT_PATH QML2_IMPORT_PATH
-export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$shell_runtime/venv/bin:/usr/local/bin:/usr/bin:/bin"
+clean_path=""
+IFS=: read -ra path_entries <<< "${PATH:-/usr/bin:/bin}"
+for entry in "${path_entries[@]}"; do
+    case "$entry" in
+        */shell-runtime/usr/*|*/rice-runtime/usr/*|*/thunar-runtime/usr/*) continue ;;
+    esac
+    clean_path+="${clean_path:+:}$entry"
+done
+export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$shell_runtime/venv/bin:$HOME/.local/bin:$clean_path"
 export QT_LOGGING_RULES='*.debug=false'
 if [[ ! -x /usr/bin/quickshell ]]; then
     echo 'Install quickshell with pacman before starting Siverteh OS.' >&2

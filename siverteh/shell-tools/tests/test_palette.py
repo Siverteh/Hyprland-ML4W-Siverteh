@@ -113,7 +113,7 @@ class PaletteCommitTest(unittest.TestCase):
                 ini = (home / (".config/gtk-" + version) / "settings.ini").read_text()
                 self.assertRegex(
                     ini,
-                    r"gtk-icon-theme-name=(?:Papirus-Dark|Siverteh-Papirus-v2-[a-z]+-dark)\n",
+                    r"gtk-icon-theme-name=(?:Papirus-Dark|Siverteh-Papirus-v[23]-[a-z]+-dark)\n",
                 )
                 theme_name = next(
                     line.split("=", 1)[1]

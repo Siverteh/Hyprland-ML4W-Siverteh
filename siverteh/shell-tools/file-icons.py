@@ -49,7 +49,7 @@ def theme(home, primary, mode):
     if source is None:
         return fallback
     color = family(primary)
-    name = "Siverteh-Papirus-v2-" + color + "-" + mode
+    name = "Siverteh-Papirus-v3-" + color + "-" + mode
     target = bases[0] / name
     if (target / "index.theme").exists():
         return name

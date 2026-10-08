@@ -60,3 +60,8 @@ replace/rebuild it alongside Qt rather than bypassing dependency checks. Source
 is pinned to the upstream Git commit; package installation tracks its files in
 pacman, while a local build has no distribution package signature. Verify the
 isolated build probe and live desktop release gates before retiring rollback code.
+
+The folder overlay has a new versioned name when migrating to system artwork,
+so an old cached overlay cannot keep symlinks into retired native icon copies.
+Old private artwork/overlay directories are removed only when verified as owned;
+custom user icon themes are preserved.
