@@ -142,7 +142,7 @@ siverteh-ai new --project REMOTE_PROJECT --account second
 
 Local sessions use `codex agents` and `codex --worktree`. Remote workers use SSH,
 tmux, and an explicit Git worktree. New Codex workers explicitly select danger-full-access with approval prompts
-disabled. Claude retains its native permission settings.
+disabled. Sidebar and worker Claude sessions run with `--dangerously-skip-permissions`, matching Codex full access.
 SSH children advertise the widely available `xterm-256color` terminal type;
 the desktop retains its own terminal setting. Copy the `siverteh-ai-remote` and
 `siverteh-brain` helpers and personal guidance to a trusted development host;

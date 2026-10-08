@@ -1,11 +1,16 @@
 from qml_source import remove_objects
 import os, shutil, subprocess, tempfile, unittest
 from pathlib import Path
-from PIL import Image
+
+try:
+    from PIL import Image
+except ImportError:
+    Image = None
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@unittest.skipIf(Image is None, "Pillow unavailable")
 class WallpaperPickerUITests(unittest.TestCase):
     def test_filter_search_layouts_and_hex_hit_testing(self):
         runner = Path("/usr/lib/qt6/bin/qmltestrunner")

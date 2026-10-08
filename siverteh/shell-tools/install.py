@@ -263,7 +263,7 @@ def deploy(code_only=False):
         )
     if not (scheme / "current-mode.txt").exists():
         write(scheme / "current-mode.txt", style["mode"])
-    wallpaper = HOME / "Pictures/Wallpapers/Caelestia/reference-landscape.jpg"
+    wallpaper = HOME / "Pictures/Wallpapers/Default/default.jpg"
     if (
         wallpaper.exists()
         and not (HOME / ".local/state/siverteh_shell/wallpaper/last.txt").exists()

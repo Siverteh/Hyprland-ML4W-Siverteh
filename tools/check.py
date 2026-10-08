@@ -29,15 +29,12 @@ def run(command, env=None):
     result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, env=env)
     if result.returncode:
         raise RuntimeError(result.stdout + result.stderr)
-    return result.stdout + result.stderr
+    return result.stdout
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--portable", action="store_true", help="skip compositor-specific tools in CI"
-    )
-    args = parser.parse_args()
+    parser.parse_args()
     for path in RETIRED:
         if (ROOT / path).exists():
             raise RuntimeError("Retired desktop tree reintroduced: " + path)
