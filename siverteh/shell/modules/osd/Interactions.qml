@@ -38,6 +38,13 @@ Scope {
         }
     }
 
+    Connections {
+        target: KeyboardLight
+        function onBrightnessChanged(): void {
+            root.show();
+        }
+    }
+
     Timer {
         id: timer
 
