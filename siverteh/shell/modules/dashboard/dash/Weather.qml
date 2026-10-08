@@ -1,16 +1,14 @@
-import qs.widgets
-import qs.services
-import qs.config
-import qs.utils
 import QtQuick
+import qs.config
+import qs.services
+import qs.utils
+import qs.widgets
 
 Item {
     id: root
 
     anchors.centerIn: parent
-
     implicitWidth: icon.implicitWidth + info.implicitWidth + info.anchors.leftMargin
-
     onVisibleChanged: {
         if (visible)
             Weather.reload();
@@ -21,13 +19,12 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-
         animate: true
         text: Weather.icon || "cloud_alert"
         color: Colours.palette.m3secondary
         font.pointSize: Appearance.font.size.extraLarge * 2
         font.variableAxes: ({
-                opsz: Appearance.font.size.extraLarge * 1.2
+                "opsz": Appearance.font.size.extraLarge * 1.2
             })
     }
 
@@ -37,12 +34,10 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: icon.right
         anchors.leftMargin: Appearance.spacing.large
-
         spacing: Appearance.spacing.small
 
         StyledText {
             anchors.horizontalCenter: parent.horizontalCenter
-
             animate: true
             text: Weather.displayTemperature
             color: Colours.palette.m3primary
@@ -52,10 +47,8 @@ Item {
 
         StyledText {
             anchors.horizontalCenter: parent.horizontalCenter
-
             animate: true
             text: Weather.description || qsTr("No weather")
-
             elide: Text.ElideRight
             width: Math.min(implicitWidth, root.parent.width - icon.implicitWidth - info.anchors.leftMargin - Appearance.padding.large * 2)
         }

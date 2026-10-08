@@ -11,7 +11,7 @@ Item {
     property bool shown: false
     readonly property bool hovered: externalHovered || mouse.containsMouse
 
-    signal clicked()
+    signal clicked
 
     implicitWidth: 40
     implicitHeight: 36
@@ -66,7 +66,6 @@ Item {
             NumberAnimation {
                 duration: DesktopSettings.data.animations === false ? 0 : 140
             }
-
         }
 
         Behavior on scale {
@@ -74,9 +73,7 @@ Item {
                 duration: DesktopSettings.data.animations === false ? 0 : 140
                 easing.type: Easing.OutCubic
             }
-
         }
-
     }
 
     MouseArea {
@@ -88,5 +85,4 @@ Item {
         cursorShape: root.shown ? Qt.PointingHandCursor : Qt.ArrowCursor
         onClicked: root.clicked()
     }
-
 }

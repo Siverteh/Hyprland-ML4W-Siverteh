@@ -4,21 +4,7 @@ import "fixtures"
 
 TestCase {
     id: test
-    name: "SidebarComposer"
-    width: 460
-    height: 700
-    visible: true
-    when: windowShown
-    Component {
-        id: pane
-        ChatPane {
-            width: 460
-            height: 700
-            visibilities: ({
-                    leftPinned: true
-                })
-        }
-    }
+
     function init() {
         SidebarChat.draft = "";
         SidebarChat.busy = false;
@@ -29,6 +15,7 @@ TestCase {
         SidebarChat.messages.clear();
         SidebarChat.replies = 0;
     }
+
     function test_long_draft_scrolls_and_cursor_stays_visible() {
         const view = createTemporaryObject(pane, test);
         verify(view);
@@ -49,6 +36,7 @@ TestCase {
         const transcript = findChild(view, "sidebarTranscript");
         verify(transcript.height > 250);
     }
+
     function test_enter_sends_while_busy_and_shift_enter_adds_newline() {
         const view = createTemporaryObject(pane, test);
         verify(view);
@@ -67,28 +55,29 @@ TestCase {
         compare(SidebarChat.sends, 1);
         verify(input.text.indexOf("\n") >= 0);
     }
+
     function test_question_cards_accept_free_text_and_stay_bounded() {
         const view = createTemporaryObject(pane, test);
         verify(view);
         SidebarChat.question = {
-            id: "card",
-            questions: [
+            "id": "card",
+            "questions": [
                 {
-                    id: "0",
-                    question: "A question with a choice",
-                    options: [
+                    "id": "0",
+                    "question": "A question with a choice",
+                    "options": [
                         {
-                            label: "First"
+                            "label": "First"
                         },
                         {
-                            label: "Second"
+                            "label": "Second"
                         }
                     ]
                 },
                 {
-                    id: "1",
-                    question: "Another question",
-                    options: []
+                    "id": "1",
+                    "question": "Another question",
+                    "options": []
                 }
             ]
         };
@@ -109,12 +98,13 @@ TestCase {
         wait(20);
         compare(questions.height, 0);
     }
+
     function test_chat_wheel_glides_then_settles_480_pixels_per_notch() {
         for (let i = 0; i < 80; i++)
             SidebarChat.messages.append({
-                id: String(i),
-                role: "assistant",
-                text: "A transcript message to make the list scrollable."
+                "id": String(i),
+                "role": "assistant",
+                "text": "A transcript message to make the list scrollable."
             });
         const view = createTemporaryObject(pane, test);
         verify(view);
@@ -134,18 +124,6 @@ TestCase {
         verify(transcript.contentY - before <= 481);
     }
 
-    Component {
-        id: roundButton
-        Rectangle {
-            width: 80
-            height: 80
-            radius: 40
-            color: "white"
-            StateLayer {
-                objectName: "roundHover"
-            }
-        }
-    }
     function test_hover_layer_follows_round_button_shape() {
         const button = createTemporaryObject(roundButton, test);
         verify(button);
@@ -161,13 +139,16 @@ TestCase {
 
     function rows() {
         return Array.from({
-            length: 80
-        }, (_, i) => ({
-                    id: String(i),
-                    role: "assistant",
-                    text: "Message " + i + " with enough text for a scrolling transcript."
-                }));
+            "length": 80
+        }, (_, i) => {
+            return ({
+                    "id": String(i),
+                    "role": "assistant",
+                    "text": "Message " + i + " with enough text for a scrolling transcript."
+                });
+        });
     }
+
     function test_initial_chat_and_history_refresh_stay_at_latest() {
         const data = rows();
         for (const row of data)
@@ -178,15 +159,16 @@ TestCase {
         verify(transcript.atYEnd);
         SidebarChat.replaceHistory(data.concat([
             {
-                id: "new",
-                role: "assistant",
-                text: "Newest message"
+                "id": "new",
+                "role": "assistant",
+                "text": "Newest message"
             }
         ]));
         wait(200);
         verify(transcript.atYEnd);
         verify(transcript.follow);
     }
+
     function test_refresh_preserves_reading_anchor_when_older_messages_are_inserted() {
         const data = rows();
         for (const row of data)
@@ -202,9 +184,9 @@ TestCase {
         const offset = transcript.contentY - item.y;
         SidebarChat.replaceHistory([
             {
-                id: "older",
-                role: "assistant",
-                text: "An older message inserted above"
+                "id": "older",
+                "role": "assistant",
+                "text": "An older message inserted above"
             }
         ].concat(data));
         wait(200);
@@ -213,6 +195,7 @@ TestCase {
         verify(Math.abs(transcript.contentY - restored.y - offset) < 2);
         verify(!transcript.follow);
     }
+
     function test_touchpad_continues_after_release_and_stops_at_rest() {
         for (const row of rows())
             SidebarChat.messages.append(row);
@@ -247,6 +230,7 @@ TestCase {
         verify(transcript.atYEnd);
         verify(transcript.follow);
     }
+
     function test_scroll_back_to_bottom_resumes_following_streamed_messages() {
         const data = rows();
         for (const row of data)
@@ -260,9 +244,9 @@ TestCase {
         wait(350);
         verify(transcript.follow);
         SidebarChat.messages.append({
-            id: "incoming",
-            role: "assistant",
-            text: "New output after reaching bottom"
+            "id": "incoming",
+            "role": "assistant",
+            "text": "New output after reaching bottom"
         });
         wait(150);
         verify(transcript.atYEnd);
@@ -270,8 +254,8 @@ TestCase {
 
     function test_focusing_and_sending_does_not_pin_chat() {
         const view = createTemporaryObject(pane, test, {
-            visibilities: {
-                leftPinned: false
+            "visibilities": {
+                "leftPinned": false
             }
         });
         verify(view);
@@ -286,7 +270,7 @@ TestCase {
 
     function test_chat_actions_fit_one_row_idle_and_busy() {
         const view = createTemporaryObject(pane, test, {
-            width: 438
+            "width": 438
         });
         verify(view);
         wait(20);
@@ -299,5 +283,38 @@ TestCase {
         wait(20);
         compare(send.y, latest.y);
         verify(latest.x + latest.width <= actions.width, "busy action row overflow");
+    }
+
+    name: "SidebarComposer"
+    width: 460
+    height: 700
+    visible: true
+    when: windowShown
+
+    Component {
+        id: pane
+
+        ChatPane {
+            width: 460
+            height: 700
+            visibilities: ({
+                    "leftPinned": true
+                })
+        }
+    }
+
+    Component {
+        id: roundButton
+
+        Rectangle {
+            width: 80
+            height: 80
+            radius: 40
+            color: "white"
+
+            StateLayer {
+                objectName: "roundHover"
+            }
+        }
     }
 }

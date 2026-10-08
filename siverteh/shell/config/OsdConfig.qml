@@ -1,7 +1,6 @@
 pragma Singleton
-
-import Quickshell
 import QtQuick
+import Quickshell
 
 Singleton {
     readonly property int hideDelay: 2000

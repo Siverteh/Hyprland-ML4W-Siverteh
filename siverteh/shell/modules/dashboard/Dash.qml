@@ -1,8 +1,8 @@
-import qs.widgets
-import qs.services
-import qs.config
-import "dash"
 import QtQuick.Layouts
+import "dash"
+import qs.config
+import qs.services
+import qs.widgets
 
 GridLayout {
     id: root

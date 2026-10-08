@@ -2,10 +2,13 @@ import QtQuick
 
 Item {
     id: root
-    implicitWidth: 30
-    implicitHeight: 30
+
     property color primary: "#dbc492"
     property color secondary: "#d2c5ad"
+
+    implicitWidth: 30
+    implicitHeight: 30
+
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit

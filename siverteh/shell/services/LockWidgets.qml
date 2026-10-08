@@ -1,8 +1,8 @@
+pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.UPower
-pragma Singleton
 
 Singleton {
     id: root
@@ -34,12 +34,12 @@ Singleton {
                 "playing": p.isPlaying,
                 "canToggle": p.canTogglePlaying
             } : null,
-            "notifications": Notifs.retained.slice(-8).reverse().map((n) => {
+            "notifications": Notifs.retained.slice(-8).reverse().map(n => {
                 return ({
-                    "app": n.appName,
-                    "summary": DesktopSettings.data.lockNotificationContents ? n.summary : "",
-                    "body": DesktopSettings.data.lockNotificationContents ? n.body : ""
-                });
+                        "app": n.appName,
+                        "summary": DesktopSettings.data.lockNotificationContents ? n.summary : "",
+                        "body": DesktopSettings.data.lockNotificationContents ? n.body : ""
+                    });
             }),
             "count": Notifs.retained.length,
             "battery": Math.round(UPower.displayDevice.percentage)
@@ -73,16 +73,14 @@ Singleton {
         onExited: {
             if (root.dirty)
                 settle.restart();
-
         }
     }
 
     IpcHandler {
-        function state() : string {
+        function state(): string {
             return root.presentation;
         }
 
         target: "lockWidgets"
     }
-
 }

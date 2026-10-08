@@ -1,36 +1,39 @@
-import qs.config
 import QtQuick
 import QtQuick.Shapes
+import qs.config
 
 // One silhouette: an outer surface minus the desktop opening and its panel notches.
 Shape {
     id: root
+
     required property Panels panels
     required property Item bar
-    anchors.fill: parent
-    preferredRendererType: Shape.CurveRenderer
+
     function outline() {
-        const r = BorderConfig.rounding, L = bar.implicitWidth, T = panels.y, R = width - BorderConfig.right, B = height - BorderConfig.bottom;
-        const tl = L > 0 && BorderConfig.headerHeight > 0 ? r : 0, tr = BorderConfig.right > 0 && BorderConfig.headerHeight > 0 ? r : 0;
-        const bl = L > 0 && BorderConfig.bottom > 0 ? r : 0, br = BorderConfig.right > 0 && BorderConfig.bottom > 0 ? r : 0;
-        const commands = [];
         function point(x, y) {
             return x.toFixed(3) + "," + y.toFixed(3);
         }
+
         function move(x, y) {
             commands.push("M" + point(x, y));
         }
+
         function line(x, y) {
             commands.push("L" + point(x, y));
         }
+
         function quad(cx, cy, x, y) {
             commands.push("Q" + point(cx, cy) + " " + point(x, y));
         }
+
         function notch(u, w, d, map) {
             if (w < 0.01 || d < 0.01)
                 return;
+
             const rr = Math.min(r, w / 2), ry = Math.min(r, d / 2);
-            const p = (a, b) => map(a, b);
+            const p = (a, b) => {
+                return map(a, b);
+            };
             let a = p(u - rr, 0);
             line(a[0], a[1]);
             a = p(u, 0);
@@ -52,6 +55,11 @@ Shape {
             a = p(u + w, 0);
             quad(a[0], a[1], b[0], b[1]);
         }
+
+        const r = BorderConfig.rounding, L = bar.implicitWidth, T = panels.y, R = width - BorderConfig.right, B = height - BorderConfig.bottom;
+        const tl = L > 0 && BorderConfig.headerHeight > 0 ? r : 0, tr = BorderConfig.right > 0 && BorderConfig.headerHeight > 0 ? r : 0;
+        const bl = L > 0 && BorderConfig.bottom > 0 ? r : 0, br = BorderConfig.right > 0 && BorderConfig.bottom > 0 ? r : 0;
+        const commands = [];
         move(0, 0);
         line(width, 0);
         line(width, height);
@@ -61,11 +69,17 @@ Shape {
         const top = [];
         if (panels.dashboard.height > 0.5)
             top.push(panels.dashboard);
+
         if (panels.popouts.height > 0.5 && panels.popouts.width > 0.5 && !panels.popouts.joinsRight)
             top.push(panels.popouts);
-        top.sort((a, b) => a.x - b.x);
+
+        top.sort((a, b) => {
+            return a.x - b.x;
+        });
         for (const p of top)
-            notch(p.x, p.width, p.height, (u, v) => [L + u, T + v]);
+            notch(p.x, p.width, p.height, (u, v) => {
+                return [L + u, T + v];
+            });
         const n = panels.popouts.joinsRight && panels.popouts.height > 0.01 && panels.popouts.width > 0.01 ? panels.popouts : panels.notifications;
         let rightStart = T + r;
         if (n.height > 0.01) {
@@ -83,26 +97,40 @@ Shape {
         }
         const side = panels.session.width > 0.5 ? panels.session : panels.osd;
         if (side.width > 0.5 && T + side.y - r > rightStart)
-            notch(side.y, side.height, side.width, (u, v) => [R - v, T + u]);
+            notch(side.y, side.height, side.width, (u, v) => {
+                return [R - v, T + u];
+            });
+
         line(R, B - br);
         quad(R, B, R - br, B);
         const launcher = panels.launcher;
         if (launcher.height > 0.5 && !launcher.fullScreenGallery)
-            notch(R - (L + launcher.x + launcher.width), launcher.width, launcher.height, (u, v) => [R - u, B - v]);
+            notch(R - (L + launcher.x + launcher.width), launcher.width, launcher.height, (u, v) => {
+                return [R - u, B - v];
+            });
+
         line(L + bl, B);
         quad(L, B, L, B - bl);
         const left = panels.leftDrawer;
         if (left.width > 0.5)
-            notch(B - (T + left.y + left.height), left.height, left.width, (u, v) => [L + v, B - u]);
+            notch(B - (T + left.y + left.height), left.height, left.width, (u, v) => {
+                return [L + v, B - u];
+            });
+
         line(L, T + tl);
         quad(L, T, L + tl, T);
         commands.push("Z");
         return commands.join(" ");
     }
+
+    anchors.fill: parent
+    preferredRendererType: Shape.CurveRenderer
+
     ShapePath {
         fillColor: BorderConfig.colour
         strokeWidth: -1
         fillRule: ShapePath.OddEvenFill
+
         PathSvg {
             path: root.outline()
         }

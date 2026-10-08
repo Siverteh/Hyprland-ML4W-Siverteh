@@ -5,33 +5,41 @@ import Quickshell.Io
 
 Singleton {
     id: root
+
     property var data: ({})
     property string message: ""
     readonly property bool busy: worker.running
+
     function refresh() {
         if (!busy)
             request("state");
     }
+
     function request(action) {
         if (busy)
             return;
+
         worker.command = ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/maintenance.py", action];
         worker.running = true;
     }
+
     function recover(action) {
         AppLaunch.run(["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/maintenance.py", action]);
     }
+
     Component.onCompleted: refresh()
+
     Process {
         id: worker
+
         stdout: SplitParser {
             splitMarker: ""
             onRead: line => {
                 try {
                     const value = JSON.parse(line);
-                    if (value.error)
+                    if (value.error) {
                         root.message = value.error;
-                    else {
+                    } else {
                         root.data = value;
                         root.message = "Checked " + new Date().toLocaleTimeString();
                     }
@@ -41,10 +49,13 @@ Singleton {
             }
         }
     }
+
     Timer {
         interval: 15000
         repeat: true
-        running: Object.values(Visibilities.screens).some(v => v.dashboard && v.dashboardTab === 4)
+        running: Object.values(Visibilities.screens).some(v => {
+            return v.dashboard && v.dashboardTab === 4;
+        })
         onTriggered: root.refresh()
     }
 }

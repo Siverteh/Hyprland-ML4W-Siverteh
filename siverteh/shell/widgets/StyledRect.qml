@@ -1,5 +1,5 @@
-import qs.config
 import QtQuick
+import qs.config
 
 Rectangle {
     id: root

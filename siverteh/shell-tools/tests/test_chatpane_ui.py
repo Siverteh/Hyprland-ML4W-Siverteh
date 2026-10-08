@@ -14,7 +14,9 @@ class ChatPaneUITests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory)
             shutil.copytree(ROOT / "tests/qml/fixtures", target / "fixtures")
-            shutil.copy2(ROOT / "tests/qml/tst_chatpane.qml", target / "tst_chatpane.qml")
+            shutil.copy2(
+                ROOT / "tests/qml/tst_chatpane.qml", target / "tst_chatpane.qml"
+            )
             source = (ROOT.parent / "shell/modules/extras/ChatPane.qml").read_text()
             source = (
                 source.replace("import qs.widgets", 'import "fixtures"')

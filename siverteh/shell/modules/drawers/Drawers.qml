@@ -56,13 +56,20 @@ Variants {
 
             mask: !Visibilities.hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.edgeMenu !== "" || (visibilities.dashboard && visibilities.dashboardPinned)) ? null : frameMask
             function panelAcceptsInput(item) {
-                if (item === panels.dashboard) return visibilities.dashboard;
-                if (item === panels.popouts) return panels.popouts.hasCurrent;
-                if (item === panels.launcher) return visibilities.launcher;
-                if (item === panels.osd) return visibilities.osd;
-                if (item === panels.session) return visibilities.session;
-                if (item === panels.leftDrawer) return visibilities.left;
-                if (item === panels.notifications) return !panels.notifications.suppressed && Notifs.popups.length > 0;
+                if (item === panels.dashboard)
+                    return visibilities.dashboard;
+                if (item === panels.popouts)
+                    return panels.popouts.hasCurrent;
+                if (item === panels.launcher)
+                    return visibilities.launcher;
+                if (item === panels.osd)
+                    return visibilities.osd;
+                if (item === panels.session)
+                    return visibilities.session;
+                if (item === panels.leftDrawer)
+                    return visibilities.left;
+                if (item === panels.notifications)
+                    return !panels.notifications.suppressed && Notifs.popups.length > 0;
                 return item.visible;
             }
             readonly property Region frameMask: Region {
@@ -189,12 +196,15 @@ Variants {
                 property bool leftPinned
                 property bool dashboard
                 property string edgeMenu: ""
-                onLeftChanged: if (!left && edgeMenu === "left") edgeMenu = ""
-                onOsdChanged: if (!osd && edgeMenu === "osd") edgeMenu = ""
+                onLeftChanged: if (!left && edgeMenu === "left")
+                    edgeMenu = ""
+                onOsdChanged: if (!osd && edgeMenu === "osd")
+                    edgeMenu = ""
                 property bool dashboardPinned: false
                 onDashboardChanged: if (!dashboard) {
                     dashboardPinned = false;
-                    if (edgeMenu === "dashboard") edgeMenu = "";
+                    if (edgeMenu === "dashboard")
+                        edgeMenu = "";
                 }
                 property int dashboardTab: 0
                 property string launcherQuery: ""

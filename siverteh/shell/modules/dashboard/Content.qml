@@ -1,9 +1,9 @@
-import qs.widgets
-import qs.services
-import qs.config
+import QtQuick
 import Quickshell
 import Quickshell.Widgets
-import QtQuick
+import qs.config
+import qs.services
+import qs.widgets
 
 Item {
     id: root
@@ -13,7 +13,6 @@ Item {
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
-
     implicitWidth: nonAnimWidth
     implicitHeight: tabs.implicitHeight + tabs.anchors.topMargin + view.implicitHeight + viewWrapper.anchors.margins * 2
 
@@ -25,7 +24,6 @@ Item {
         anchors.right: parent.right
         anchors.topMargin: Appearance.padding.normal
         anchors.margins: Appearance.padding.large
-
         nonAnimWidth: root.nonAnimWidth
         currentIndex: root.visibilities.dashboardTab
         onCurrentIndexChanged: {
@@ -43,7 +41,6 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: Appearance.padding.large
-
         radius: Appearance.rounding.normal
         color: "transparent"
 
@@ -54,16 +51,12 @@ Item {
             readonly property Item currentItem: row.children[currentIndex]
 
             anchors.fill: parent
-
             flickableDirection: Flickable.HorizontalFlick
-
             implicitWidth: currentItem.implicitWidth
             implicitHeight: currentItem.implicitHeight
-
             contentX: currentItem.x
             contentWidth: row.implicitWidth
             contentHeight: row.implicitHeight
-
             onContentXChanged: {
                 if (!moving)
                     return;
@@ -74,7 +67,6 @@ Item {
                 else if (x < -currentItem.implicitWidth / 2)
                     tabs.bar.decrementCurrentIndex();
             }
-
             onDragEnded: {
                 const x = contentX - currentItem.x;
                 if (x > currentItem.implicitWidth / 10)
@@ -82,7 +74,9 @@ Item {
                 else if (x < -currentItem.implicitWidth / 10)
                     tabs.bar.decrementCurrentIndex();
                 else
-                    contentX = Qt.binding(() => currentItem.x);
+                    contentX = Qt.binding(() => {
+                        return currentItem.x;
+                    });
             }
 
             Row {
@@ -98,9 +92,11 @@ Item {
                 }
 
                 Performance {}
+
                 WorkspacePage {
                     visibilities: root.visibilities
                 }
+
                 Settings {
                     active: root.visibilities.dashboard && view.currentIndex === 4
                 }

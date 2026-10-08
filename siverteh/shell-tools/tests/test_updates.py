@@ -13,9 +13,13 @@ spec.loader.exec_module(updates)
 
 class UpdateTests(unittest.TestCase):
     def check(self, helper_result):
-        results = [subprocess.CompletedProcess(["checkupdates"], 2, "", ""), helper_result]
-        with patch.object(updates.shutil, "which", side_effect=lambda name: name), patch.object(
-            updates.subprocess, "run", side_effect=results
+        results = [
+            subprocess.CompletedProcess(["checkupdates"], 2, "", ""),
+            helper_result,
+        ]
+        with (
+            patch.object(updates.shutil, "which", side_effect=lambda name: name),
+            patch.object(updates.subprocess, "run", side_effect=results),
         ):
             return updates.count_updates()
 
@@ -33,7 +37,9 @@ class UpdateTests(unittest.TestCase):
     def test_failed_aur_query_does_not_report_zero(self):
         with self.assertRaises(RuntimeError):
             self.check(
-                subprocess.CompletedProcess(["paru", "-Qua"], 1, "", "error: network failure")
+                subprocess.CompletedProcess(
+                    ["paru", "-Qua"], 1, "", "error: network failure"
+                )
             )
 
 

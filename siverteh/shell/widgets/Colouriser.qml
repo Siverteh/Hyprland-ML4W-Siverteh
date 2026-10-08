@@ -1,6 +1,6 @@
-import qs.config
 import QtQuick
 import QtQuick.Effects
+import qs.config
 
 MultiEffect {
     colorization: 1

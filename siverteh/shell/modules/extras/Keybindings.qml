@@ -1,30 +1,50 @@
-import qs.widgets
-import qs.services
 import QtQuick
 import QtQuick.Controls
+import qs.services
+import qs.widgets
 
 SearchSurface {
     id: root
+
+    readonly property var matches: DesktopExtras.keys.filter(k => {
+        return (k.key + " " + k.description).toLowerCase().includes(query.toLowerCase());
+    })
+
     title: "Keyboard shortcuts"
     placeholder: "Search a shortcut or action"
     Component.onCompleted: DesktopExtras.request("keys", {})
-    readonly property var matches: DesktopExtras.keys.filter(k => (k.key + " " + k.description).toLowerCase().includes(query.toLowerCase()))
+    onMoved: delta => {
+        return list.contentY = Math.max(0, Math.min(list.contentHeight - list.height, list.contentY + delta * 47));
+    }
+
     ListView {
         id: list
+
         anchors.fill: parent
         clip: true
         spacing: 5
         model: root.matches
-        ScrollBar.vertical: ScrollBar {}
+
         FastScroll {
             view: list
         }
+
+        StyledText {
+            anchors.centerIn: parent
+            visible: list.count === 0
+            text: DesktopExtras.busy.keys ? "Reading shortcuts…" : "No matching shortcuts"
+        }
+
+        ScrollBar.vertical: ScrollBar {}
+
         delegate: StyledRect {
             required property var modelData
+
             width: list.width
             height: 42
             radius: 10
             color: Colours.palette.m3surfaceContainer
+
             StyledText {
                 anchors.left: parent.left
                 anchors.leftMargin: 12
@@ -35,6 +55,7 @@ SearchSurface {
                 font.pointSize: 11
                 color: Colours.palette.m3primary
             }
+
             StyledText {
                 anchors.left: parent.left
                 anchors.leftMargin: 365
@@ -46,11 +67,5 @@ SearchSurface {
                 font.pointSize: 11
             }
         }
-        StyledText {
-            anchors.centerIn: parent
-            visible: list.count === 0
-            text: DesktopExtras.busy.keys ? "Reading shortcuts…" : "No matching shortcuts"
-        }
     }
-    onMoved: delta => list.contentY = Math.max(0, Math.min(list.contentHeight - list.height, list.contentY + delta * 47))
 }

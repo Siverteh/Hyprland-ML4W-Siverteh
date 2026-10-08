@@ -43,7 +43,6 @@ Variants {
                 width: leftHandle.shown ? left.width : 6
                 height: left.height
             }
-
         }
 
         StyledWindow {
@@ -74,9 +73,6 @@ Variants {
                 width: rightHandle.shown ? right.width : 6
                 height: right.height
             }
-
         }
-
     }
-
 }

@@ -30,16 +30,18 @@ Singleton {
         blockLoading: true
     }
     readonly property var retentionPolicy: {
-        try { return JSON.parse(retentionRules.text()); }
-        catch (e) { return {}; }
+        try {
+            return JSON.parse(retentionRules.text());
+        } catch (e) {
+            return {};
+        }
     }
     function shouldRetain(app, summary, transient) {
         if (transient)
             return false;
         if (!(retentionPolicy.feedbackApps || []).includes(app.toLowerCase()))
             return true;
-        return !(retentionPolicy.feedbackSummaries || []).includes(summary) &&
-            !(retentionPolicy.feedbackPatterns || []).some(pattern => new RegExp(pattern).test(summary));
+        return !(retentionPolicy.feedbackSummaries || []).includes(summary) && !(retentionPolicy.feedbackPatterns || []).some(pattern => new RegExp(pattern).test(summary));
     }
 
     property bool historyReady: false

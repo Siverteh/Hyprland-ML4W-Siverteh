@@ -1,15 +1,14 @@
-import qs.widgets
-import qs.services
-import qs.config
 import QtQuick
 import QtQuick.Controls
+import qs.config
+import qs.services
+import qs.widgets
 
 Row {
     id: root
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-
     padding: Appearance.padding.large
     spacing: Appearance.spacing.normal
 
@@ -48,9 +47,7 @@ Row {
             anchors.top: parent.top
             anchors.bottom: icon.top
             anchors.bottomMargin: Appearance.spacing.small
-
             implicitWidth: DashboardConfig.sizes.resourceProgessThickness
-
             color: Colours.palette.m3surfaceContainerHigh
             radius: Appearance.rounding.full
 
@@ -59,7 +56,6 @@ Row {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 implicitHeight: res.value * parent.height
-
                 color: res.colour
                 radius: Appearance.rounding.full
             }
@@ -69,7 +65,6 @@ Row {
             id: icon
 
             anchors.bottom: parent.bottom
-
             text: res.icon
             color: res.colour
         }

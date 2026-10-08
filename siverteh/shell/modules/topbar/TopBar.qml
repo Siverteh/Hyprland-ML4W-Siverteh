@@ -53,7 +53,8 @@ Variants {
             const cursor = item.mapToItem(win.contentItem, item.mouseX, item.mouseY);
             HoverIntent.observe(win.screen, cursor.x, cursor.y);
             dismissPopout.stop();
-            if (win.clickMenus || !HoverIntent.canOpen("popouts", win.screen, item.pressedButtons)) return;
+            if (win.clickMenus || !HoverIntent.canOpen("popouts", win.screen, item.pressedButtons))
+                return;
             const panel = Visibilities.panels[screen.name];
             if (panel)
                 panel.popouts.headerHovered = true;
@@ -168,9 +169,16 @@ Variants {
                     function showMenu(clicked = false) {
                         const cursor = statusHover.mapToItem(win.contentItem, statusHover.mouseX, statusHover.mouseY);
                         HoverIntent.observe(win.screen, cursor.x, cursor.y);
-                        if (!clicked && !HoverIntent.canOpen("popouts", win.screen, statusHover.pressedButtons)) return;
+                        if (!clicked && !HoverIntent.canOpen("popouts", win.screen, statusHover.pressedButtons))
+                            return;
                         if (win.clickMenus && !clicked) {
-                            win.hoverHint = ({audio:"Open Sound settings", network:"Open Network settings", bluetooth:"Open Bluetooth settings", battery:"Open Battery", notifications:"Open Notifications"})[menuName()];
+                            win.hoverHint = ({
+                                    audio: "Open Sound settings",
+                                    network: "Open Network settings",
+                                    bluetooth: "Open Bluetooth settings",
+                                    battery: "Open Battery",
+                                    notifications: "Open Notifications"
+                                })[menuName()];
                             return;
                         }
                         if (win.visibility?.dashboard && win.visibility.dashboardPinned)
@@ -216,7 +224,8 @@ Variants {
                             }
                         } else {
                             showMenu(true);
-                            if (win.clickMenus) p.popouts.pinned = true;
+                            if (win.clickMenus)
+                                p.popouts.pinned = true;
                         }
                     }
                 }
@@ -245,8 +254,10 @@ Variants {
                     cursorShape: Qt.PointingHandCursor
                     onEntered: {
                         HoverIntent.popupHovered[win.screen.name] = true;
-                        if (win.clickMenus) win.hoverHint = "Open Calendar";
-                        else win.hoverMenu("calendar", this);
+                        if (win.clickMenus)
+                            win.hoverHint = "Open Calendar";
+                        else
+                            win.hoverMenu("calendar", this);
                     }
                     onExited: {
                         HoverIntent.popupHovered[win.screen.name] = false;
@@ -263,7 +274,8 @@ Variants {
                             const pt = mapToItem(win.contentItem, width / 2, 0);
                             Visibilities.popout("calendar", pt.x, win.screen.name);
                             p.popouts.pinned = true;
-                        } else win.hoverMenu("calendar", this);
+                        } else
+                            win.hoverMenu("calendar", this);
                     }
                 }
             }
@@ -281,7 +293,8 @@ Variants {
                 HoverIntent.headers[win.screen.name] = containsMouse;
                 if (!win.clickMenus && localY <= HoverIntent.dashboardDepth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
                     const p = Visibilities.panels[win.screen.name];
-                    if (p) p.popouts.hasCurrent = false;
+                    if (p)
+                        p.popouts.hasCurrent = false;
                     win.visibility.dashboard = true;
                 }
             }

@@ -1,5 +1,4 @@
 pragma Singleton
-
 import Quickshell
 
 Singleton {
@@ -15,6 +14,7 @@ Singleton {
 
     SystemClock {
         id: clock
+
         precision: SystemClock.Seconds
     }
 }

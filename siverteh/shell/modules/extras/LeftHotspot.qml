@@ -27,7 +27,7 @@ Variants {
         margins.bottom: BorderConfig.bottom
 
         IpcHandler {
-            function state() : string {
+            function state(): string {
                 return JSON.stringify({
                     "registered": !!win.visibility,
                     "visible": win.visible,
@@ -54,16 +54,13 @@ Variants {
             anchors.fill: parent
             hoverEnabled: true
             onEntered: enter(pressedButtons)
-            onPositionChanged: (event) => {
+            onPositionChanged: event => {
                 return enter(event.buttons);
             }
             onExited: {
-                if (!win.visibility.left) {
+                if (!win.visibility.left)
                     HoverIntent.rearm("left", win.screen);
-                }
             }
         }
-
     }
-
 }

@@ -2,6 +2,7 @@ import QtQuick
 
 WheelHandler {
     id: root
+
     required property var view
     property real step: 480
     property real pixelMultiplier: 2.4
@@ -11,10 +12,37 @@ WheelHandler {
     property real velocity: 0
     property real lastPixelTime: 0
     property int pixelSamples: 0
+    readonly property Timer release: Timer {
+        interval: 65
+        onTriggered: {
+            if (root.pixelSamples > 1 && Math.abs(root.velocity) > 100)
+                root.view.flick(0, -Math.max(-2600, Math.min(2600, root.velocity)));
+            else
+                root.settled();
+            root.velocity = 0;
+            root.pixelSamples = 0;
+        }
+    }
+
+    readonly property Connections movement: Connections {
+        function onMovementEnded() {
+            root.settled();
+        }
+
+        target: root.view
+    }
+
+    readonly property NumberAnimation motion: NumberAnimation {
+        target: root.view
+        property: "contentY"
+        duration: root.smoothDuration
+        easing.type: Easing.OutCubic
+        onFinished: root.settled()
+    }
+
     signal scrolled
     signal settled
-    target: null
-    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+
     function scrollBy(delta, smooth) {
         view.cancelFlick();
         const base = motion.running ? destination : view.contentY;
@@ -24,9 +52,11 @@ WheelHandler {
             motion.from = view.contentY;
             motion.to = destination;
             motion.start();
-        } else
+        } else {
             view.contentY = destination;
+        }
     }
+
     function pixelScroll(delta) {
         const now = Date.now();
         const elapsed = now - lastPixelTime;
@@ -44,6 +74,7 @@ WheelHandler {
         else
             settled();
     }
+
     function cancel() {
         release.stop();
         motion.stop();
@@ -51,40 +82,19 @@ WheelHandler {
         velocity = 0;
         pixelSamples = 0;
     }
+
+    target: null
+    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
     onWheel: event => {
         scrolled();
-        if (event.pixelDelta.y)
+        if (event.pixelDelta.y) {
             pixelScroll(-event.pixelDelta.y * pixelMultiplier);
-        else if (event.angleDelta.y) {
+        } else if (event.angleDelta.y) {
             release.stop();
             velocity = 0;
             pixelSamples = 0;
             scrollBy(-event.angleDelta.y / 120 * step, true);
         }
         event.accepted = true;
-    }
-    readonly property Timer release: Timer {
-        interval: 65
-        onTriggered: {
-            if (root.pixelSamples > 1 && Math.abs(root.velocity) > 100)
-                root.view.flick(0, -Math.max(-2600, Math.min(2600, root.velocity)));
-            else
-                root.settled();
-            root.velocity = 0;
-            root.pixelSamples = 0;
-        }
-    }
-    readonly property Connections movement: Connections {
-        target: root.view
-        function onMovementEnded() {
-            root.settled();
-        }
-    }
-    readonly property NumberAnimation motion: NumberAnimation {
-        target: root.view
-        property: "contentY"
-        duration: root.smoothDuration
-        easing.type: Easing.OutCubic
-        onFinished: root.settled()
     }
 }

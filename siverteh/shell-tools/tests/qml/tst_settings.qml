@@ -4,19 +4,7 @@ import "fixtures"
 
 TestCase {
     id: test
-    name: "SettingsControlCenter"
-    width: 1120
-    height: 300
-    visible: true
-    when: windowShown
-    Component {
-        id: settings
-        Settings {
-            width: 1120
-            height: 300
-            page: "desktop"
-        }
-    }
+
     function test_pages_search_and_visible_only_loading() {
         const view = createTemporaryObject(settings, test);
         verify(view);
@@ -39,31 +27,39 @@ TestCase {
         verify(!loader.active);
         verify(!loader.item);
     }
+
     function test_palette_rows_fit_the_available_width() {
         const prior = Wallpapers.palettePresets;
         Wallpapers.palettePresets = Array.from({
-            length: 12
-        }, (_, i) => ({
-                    id: "test" + i,
-                    name: "Color " + i,
-                    group: "vivid",
-                    surface: "102030",
-                    swatches: ["aabbcc", "ccbbaa", "abcabc"]
-                }));
+            "length": 12
+        }, (_, i) => {
+            return ({
+                    "id": "test" + i,
+                    "name": "Color " + i,
+                    "group": "vivid",
+                    "surface": "102030",
+                    "swatches": ["aabbcc", "ccbbaa", "abcabc"]
+                });
+        });
         const view = createTemporaryObject(settings, test);
         view.open("appearance");
         wait(30);
         const page = findChild(view, "settingsPage").item;
         const flow = findChild(page, "paletteOptions");
         verify(flow);
-        const tiles = flow.children.filter(child => child.objectName === "paletteColorTile");
+        const tiles = flow.children.filter(child => {
+            return child.objectName === "paletteColorTile";
+        });
         compare(tiles.length, 12);
         for (const tile of tiles)
-            verify(tile.x + tile.width <= flow.width + .01);
+            verify(tile.x + tile.width <= flow.width + 0.01);
         const columns = flow.width >= 840 ? 6 : 3;
-        compare(tiles.filter(tile => tile.y === tiles[0].y).length, columns);
+        compare(tiles.filter(tile => {
+            return tile.y === tiles[0].y;
+        }).length, columns);
         Wallpapers.palettePresets = prior;
     }
+
     function test_shared_wheel_glides_and_page_switch_resets_position() {
         const view = createTemporaryObject(settings, test);
         wait(30);
@@ -79,6 +75,7 @@ TestCase {
         wait(30);
         compare(scroll.contentY, 0);
     }
+
     function test_all_device_and_lock_pages_load_without_warnings() {
         const view = createTemporaryObject(settings, test);
         wait(20);
@@ -88,13 +85,7 @@ TestCase {
             verify(findChild(view, "settingsPage").item, page);
         }
     }
-    Component {
-        id: lockPreview
-        LockPreview {
-            width: 1280
-            height: 800
-        }
-    }
+
     function test_lock_preview_contents_belong_to_the_window() {
         const view = createTemporaryObject(lockPreview, test);
         verify(view);
@@ -108,19 +99,44 @@ TestCase {
         compare(content.height, window.height);
         verify(window.children.length >= 3);
         window.widgetData = {
-            count: 1,
-            notifications: [
+            "count": 1,
+            "notifications": [
                 {
-                    app: "Mail"
+                    "app": "Mail"
                 }
             ],
-            weather: {
-                location: "Test city",
-                temperature: "10°C",
-                description: "Overcast"
+            "weather": {
+                "location": "Test city",
+                "temperature": "10°C",
+                "description": "Overcast"
             }
         };
         wait(20);
         verify(content.visible);
+    }
+
+    name: "SettingsControlCenter"
+    width: 1120
+    height: 300
+    visible: true
+    when: windowShown
+
+    Component {
+        id: settings
+
+        Settings {
+            width: 1120
+            height: 300
+            page: "desktop"
+        }
+    }
+
+    Component {
+        id: lockPreview
+
+        LockPreview {
+            width: 1280
+            height: 800
+        }
     }
 }

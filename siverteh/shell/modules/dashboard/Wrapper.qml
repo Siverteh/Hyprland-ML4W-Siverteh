@@ -23,7 +23,6 @@ Item {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
             }
-
         },
         Transition {
             from: "visible"
@@ -36,7 +35,6 @@ Item {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.emphasized
             }
-
         }
     ]
 
@@ -53,7 +51,5 @@ Item {
         PropertyChanges {
             root.implicitHeight: content.implicitHeight
         }
-
     }
-
 }

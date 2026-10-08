@@ -1,6 +1,6 @@
-import qs.widgets
 import Quickshell
 import Quickshell.Wayland
+import qs.widgets
 
 Variants {
     model: Quickshell.screens
@@ -15,7 +15,6 @@ Variants {
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Background
         color: "black"
-
         anchors.top: true
         anchors.bottom: true
         anchors.left: true

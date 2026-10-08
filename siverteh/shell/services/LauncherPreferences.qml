@@ -1,23 +1,26 @@
 pragma Singleton
+import QtQuick
 import Quickshell
 import Quickshell.Io
-import QtQuick
 
 Singleton {
     id: root
+
     property var favorites: []
     property var hidden: []
     property string error: ""
     property bool ready: false
     property var pending: []
+
     function update(action, id, enabled) {
         pending.push({
-            action: action,
-            id: id,
-            enabled: enabled
+            "action": action,
+            "id": id,
+            "enabled": enabled
         });
         next();
     }
+
     function next() {
         if (!worker.running && pending.length) {
             worker.change = pending.shift();
@@ -25,6 +28,7 @@ Singleton {
             worker.running = true;
         }
     }
+
     function accept(line) {
         try {
             const data = JSON.parse(line);
@@ -38,39 +42,54 @@ Singleton {
             }
             if (JSON.stringify(favorites) !== JSON.stringify(data.favorites ?? []))
                 favorites = data.favorites ?? [];
+
             if (JSON.stringify(hidden) !== JSON.stringify(data.hidden ?? []))
                 hidden = data.hidden ?? [];
+
             error = "";
         } catch (e) {
             error = "Could not read launcher preferences";
         }
     }
+
     Process {
         id: reader
+
         running: true
         command: ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/launcher-preferences.py", "load"]
-        stdout: SplitParser {
-            splitMarker: ""
-            onRead: line => root.accept(line)
-        }
         onExited: {
             root.ready = true;
             watcher.reload();
         }
-    }
-    Process {
-        id: worker
-        property var change
-        stdinEnabled: true
-        onStarted: write(JSON.stringify(change) + "\n")
+
         stdout: SplitParser {
             splitMarker: ""
-            onRead: line => root.accept(line)
+            onRead: line => {
+                return root.accept(line);
+            }
         }
-        onExited: root.next()
     }
+
+    Process {
+        id: worker
+
+        property var change
+
+        stdinEnabled: true
+        onStarted: write(JSON.stringify(change) + "\n")
+        onExited: root.next()
+
+        stdout: SplitParser {
+            splitMarker: ""
+            onRead: line => {
+                return root.accept(line);
+            }
+        }
+    }
+
     FileView {
         id: watcher
+
         preload: root.ready
         path: Quickshell.env("HOME") + "/.config/siverteh-shell/launcher.json"
         watchChanges: true

@@ -1,18 +1,22 @@
-import qs.services
 import QtQuick
+import qs.services
 
 Item {
     id: root
+
+    property bool compact: false
+    property color primary: Colours.palette.m3primary
+    property color secondary: Colours.palette.m3secondary
+
+    function adjust(value) {
+        return compact ? value.replace(/L24 2 L24 12/g, "L24.6 2 L24.6 12").replace(/L24 14 L24 24/g, "L24.6 14 L24.6 24") : value;
+    }
+
     implicitWidth: 30
     implicitHeight: 30
     Accessible.name: "Siverteh OS apps"
     Accessible.role: Accessible.Button
-    property bool compact: false
-    function adjust(value) {
-        return compact ? value.replace(/L24 2 L24 12/g, "L24.6 2 L24.6 12").replace(/L24 14 L24 24/g, "L24.6 14 L24.6 24") : value;
-    }
-    property color primary: Colours.palette.m3primary
-    property color secondary: Colours.palette.m3secondary
+
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit

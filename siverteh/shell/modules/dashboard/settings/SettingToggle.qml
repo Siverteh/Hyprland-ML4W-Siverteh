@@ -1,14 +1,17 @@
-import qs.widgets
-import qs.services
 import QtQuick
+import qs.services
+import qs.widgets
 
 Item {
     id: root
+
     property string label
     property string setting
     readonly property bool checked: DesktopSettings.data[setting] === true
+
     width: parent.width
     height: 36
+
     StyledText {
         width: parent.width - 62
         anchors.verticalCenter: parent.verticalCenter
@@ -16,6 +19,7 @@ Item {
         elide: Text.ElideRight
         font.pointSize: 11
     }
+
     StyledRect {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
@@ -23,6 +27,7 @@ Item {
         height: 26
         radius: 13
         color: root.checked ? Colours.palette.m3primary : Colours.palette.m3surfaceContainerHighest
+
         Rectangle {
             x: root.checked ? 23 : 3
             y: 3
@@ -32,6 +37,7 @@ Item {
             color: root.checked ? Colours.palette.m3onPrimary : Colours.palette.m3onSurfaceVariant
         }
     }
+
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor

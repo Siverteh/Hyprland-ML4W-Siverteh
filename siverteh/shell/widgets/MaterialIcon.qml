@@ -6,6 +6,6 @@ StyledText {
     font.family: Appearance.font.family.material
     font.pointSize: Appearance.font.size.larger
     font.variableAxes: ({
-            FILL: fill.toFixed(1)
+            "FILL": fill.toFixed(1)
         })
 }

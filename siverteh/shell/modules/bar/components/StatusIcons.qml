@@ -1,17 +1,16 @@
-import qs.widgets
-import qs.services
-import qs.utils
-import qs.config
+import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
-import QtQuick
+import qs.config
+import qs.services
+import qs.utils
+import qs.widgets
 
 Item {
     id: root
+
     property bool horizontal: false
-
     property color colour: Colours.palette.m3secondary
-
     readonly property Item audioItem: speaker
     readonly property Item notificationsItem: bell
     readonly property Item network: network
@@ -24,19 +23,20 @@ Item {
 
     MaterialIcon {
         id: speaker
+
         rotation: root.horizontal ? 90 : 0
         text: Audio.muted ? "volume_off" : "volume_up"
         color: root.colour
         anchors.horizontalCenter: parent.horizontalCenter
     }
+
     MaterialIcon {
         id: network
-        rotation: root.horizontal ? 90 : 0
 
+        rotation: root.horizontal ? 90 : 0
         animate: true
         text: Network.active ? Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
         color: root.colour
-
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: speaker.bottom
         anchors.topMargin: Appearance.spacing.small
@@ -44,12 +44,11 @@ Item {
 
     MaterialIcon {
         id: bluetooth
-        rotation: root.horizontal ? 90 : 0
 
+        rotation: root.horizontal ? 90 : 0
         anchors.horizontalCenter: network.horizontalCenter
         anchors.top: network.bottom
         anchors.topMargin: Appearance.spacing.small
-
         animate: true
         text: Bluetooth.powered ? "bluetooth" : "bluetooth_disabled"
         color: root.colour
@@ -57,29 +56,31 @@ Item {
 
     MaterialIcon {
         id: battery
-        rotation: root.horizontal ? 90 : 0
 
+        rotation: root.horizontal ? 90 : 0
         anchors.horizontalCenter: bluetooth.horizontalCenter
         anchors.top: bluetooth.bottom
         anchors.topMargin: Appearance.spacing.small
-
         animate: true
         text: {
             if (!UPower.displayDevice.isLaptopBattery) {
                 if (PowerProfiles.profile === PowerProfile.PowerSaver)
                     return "energy_savings_leaf";
+
                 if (PowerProfiles.profile === PowerProfile.Performance)
                     return "rocket_launch";
+
                 return "balance";
             }
-
             const perc = UPower.displayDevice.percentage;
             const charging = !UPower.onBattery;
             if (perc === 1)
                 return charging ? "battery_charging_full" : "battery_full";
+
             let level = Math.floor(perc * 7);
             if (charging && (level === 4 || level === 1))
                 level--;
+
             return charging ? `battery_charging_${(level + 3) * 10}` : `battery_${level}_bar`;
         }
         color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
@@ -88,21 +89,26 @@ Item {
 
     Item {
         id: bell
+
         anchors.horizontalCenter: battery.horizontalCenter
         anchors.top: battery.bottom
         anchors.topMargin: Appearance.spacing.small
         implicitWidth: root.horizontal ? bellRow.implicitHeight : bellRow.implicitWidth
         implicitHeight: root.horizontal ? bellRow.implicitWidth : bellRow.implicitHeight
+
         Row {
             id: bellRow
+
             anchors.centerIn: parent
             rotation: root.horizontal ? 90 : 0
             spacing: 2
+
             MaterialIcon {
                 text: "notifications"
                 color: root.colour
                 fill: Notifs.retained.length ? 1 : 0
             }
+
             StyledText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 4

@@ -1,5 +1,5 @@
-import qs.services
 import QtQuick
+import qs.services
 
 Image {
     id: root

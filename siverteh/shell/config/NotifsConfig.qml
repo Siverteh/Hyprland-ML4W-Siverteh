@@ -1,7 +1,6 @@
 pragma Singleton
-
-import Quickshell
 import QtQuick
+import Quickshell
 
 Singleton {
     readonly property bool expire: true

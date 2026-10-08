@@ -18,8 +18,12 @@ Singleton {
 
     function openEdge(name, screenName) {
         const v = screenName ? screens[screenName] : getForActive();
-        if (!v || !["dashboard", "left", "osd"].includes(name)) return;
-        for (const p of Object.values(panels)) { p.popouts.hasCurrent = false; p.popouts.pinned = false; }
+        if (!v || !["dashboard", "left", "osd"].includes(name))
+            return;
+        for (const p of Object.values(panels)) {
+            p.popouts.hasCurrent = false;
+            p.popouts.pinned = false;
+        }
         v.launcher = false;
         v.session = false;
         v.dashboard = false;

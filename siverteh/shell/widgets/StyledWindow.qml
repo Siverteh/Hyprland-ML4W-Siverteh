@@ -1,7 +1,7 @@
-import qs.utils
-import qs.config
 import Quickshell
 import Quickshell.Wayland
+import qs.config
+import qs.utils
 
 PanelWindow {
     required property string name

@@ -5,46 +5,33 @@ import "wifi-networks.js" as Wifi
 
 TestCase {
     id: test
-    name: "QuickDeviceControls"
-    width: 700
-    height: 700
-    visible: true
-    when: windowShown
-    Component {
-        id: sound
-        AudioPopup {}
-    }
-    Component {
-        id: network
-        NetworkPopup {}
-    }
-    Component {
-        id: bluetooth
-        BluetoothPopup {}
-    }
+
+    property var groupedAPs: Wifi.group([firstAP, secondAP])
+
     function init() {
         Visibilities.screens = ({
-                test: {
-                    dashboard: false
+                "test": {
+                    "dashboard": false
                 }
             });
         Visibilities.panels = ({
-                test: {
-                    popouts: {
-                        hasCurrent: true,
-                        pinned: true
+                "test": {
+                    "popouts": {
+                        "hasCurrent": true,
+                        "pinned": true
                     }
                 }
             });
         DeviceActions.busy = false;
     }
+
     function test_sound_controls_and_settings_link() {
         const popup = createTemporaryObject(sound, test);
         verify(popup.implicitHeight > 100 && popup.implicitHeight < 600);
         const volume = findChild(popup, "quickOutputVolume");
-        volume.value = .5;
+        volume.value = 0.5;
         volume.moved();
-        compare(Audio.volume, .5);
+        compare(Audio.volume, 0.5);
         findChild(popup, "quickMicMute").clicked();
         compare(Audio.micMuted, true);
         verify(!findChild(popup, "quickSettingsLink"));
@@ -55,19 +42,7 @@ TestCase {
         verify(!Visibilities.panels.test.popouts.hasCurrent);
         verify(!Visibilities.panels.test.popouts.pinned);
     }
-    QtObject {
-        id: firstAP
-        property string ssid: "Shared network"
-        property bool active: false
-        property int strength: 90
-    }
-    QtObject {
-        id: secondAP
-        property string ssid: "Shared network"
-        property bool active: true
-        property int strength: 30
-    }
-    property var groupedAPs: Wifi.group([firstAP, secondAP])
+
     function test_connected_ap_updates_when_same_name_roams() {
         compare(groupedAPs.length, 1);
         compare(groupedAPs[0], secondAP);
@@ -80,6 +55,7 @@ TestCase {
         firstAP.strength = 90;
         secondAP.active = true;
     }
+
     function test_wifi_deduplicates_and_opens_network_settings() {
         const popup = createTemporaryObject(network, test);
         compare(popup.nearby.length, 2);
@@ -99,6 +75,7 @@ TestCase {
         Visibilities.openDeviceSettings("network");
         compare(Visibilities.settingsPage, "network");
     }
+
     function test_bluetooth_shows_known_devices_and_links_settings() {
         const popup = createTemporaryObject(bluetooth, test);
         compare(popup.known.length, 1);
@@ -108,5 +85,45 @@ TestCase {
         verify(!findChild(popup, "quickSettingsLink"));
         Visibilities.openDeviceSettings("bluetooth");
         compare(Visibilities.settingsPage, "bluetooth");
+    }
+
+    name: "QuickDeviceControls"
+    width: 700
+    height: 700
+    visible: true
+    when: windowShown
+
+    Component {
+        id: sound
+
+        AudioPopup {}
+    }
+
+    Component {
+        id: network
+
+        NetworkPopup {}
+    }
+
+    Component {
+        id: bluetooth
+
+        BluetoothPopup {}
+    }
+
+    QtObject {
+        id: firstAP
+
+        property string ssid: "Shared network"
+        property bool active: false
+        property int strength: 90
+    }
+
+    QtObject {
+        id: secondAP
+
+        property string ssid: "Shared network"
+        property bool active: true
+        property int strength: 30
     }
 }

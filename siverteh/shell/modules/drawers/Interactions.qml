@@ -70,7 +70,8 @@ MouseArea {
     }
     onContainsMouseChanged: {
         if (!containsMouse) {
-            if (visibilities.edgeMenu !== "osd") visibilities.osd = false;
+            if (visibilities.edgeMenu !== "osd")
+                visibilities.osd = false;
             osdHovered = false;
             exitDelay.restart();
             exitDelay.restart();
@@ -79,7 +80,8 @@ MouseArea {
 
     onPositionChanged: ({
             x,
-            y, buttons
+            y,
+            buttons
         }) => {
         HoverIntent.observe(root.screen, x, y);
         if (visibilities.launcher)
@@ -94,7 +96,8 @@ MouseArea {
         const inOsd = inRightPanel(panels.osd, x, y);
         const openOsd = DesktopSettings.data.clickEdgeMenus === false && x >= width - HoverIntent.edgeWidth && inOsd && HoverIntent.canOpen("osd", root.screen, buttons);
         const showOsd = !visibilities.session && (visibilities.osd ? inOsd : openOsd);
-        if (visibilities.edgeMenu !== "osd") visibilities.osd = showOsd;
+        if (visibilities.edgeMenu !== "osd")
+            visibilities.osd = showOsd;
         osdHovered = showOsd;
 
         // Show/hide session on drag

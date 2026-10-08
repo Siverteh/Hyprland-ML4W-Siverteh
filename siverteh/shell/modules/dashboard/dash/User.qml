@@ -1,10 +1,10 @@
-import qs.widgets
-import qs.services
-import qs.config
-import qs.utils
+import QtQuick
 import Quickshell
 import Quickshell.Io
-import QtQuick
+import qs.config
+import qs.services
+import qs.utils
+import qs.widgets
 
 Row {
     id: root
@@ -15,7 +15,6 @@ Row {
     StyledClippingRect {
         implicitWidth: info.implicitHeight
         implicitHeight: info.implicitHeight
-
         radius: Appearance.rounding.full
         color: Colours.palette.m3surfaceContainerHigh
 
@@ -35,6 +34,7 @@ Row {
             text: Quickshell.env("USER") || "Siverteh"
             colour: Colours.palette.m3primary
         }
+
         InfoLine {
             icon: "computer"
             text: Icons.osName
@@ -66,8 +66,11 @@ Row {
 
                 running: true
                 command: ["uptime", "-p"]
+
                 stdout: SplitParser {
-                    onRead: data => uptimeProc.uptime = data
+                    onRead: data => {
+                        return uptimeProc.uptime = data;
+                    }
                 }
             }
         }
@@ -88,12 +91,11 @@ Row {
 
             anchors.left: parent.left
             anchors.leftMargin: (DashboardConfig.sizes.infoIconSize - implicitWidth) / 2
-
             text: line.icon
             color: line.colour
             font.pointSize: Appearance.font.size.normal
             font.variableAxes: ({
-                    FILL: 1
+                    "FILL": 1
                 })
         }
 
@@ -105,7 +107,6 @@ Row {
             anchors.leftMargin: icon.anchors.leftMargin
             text: `:  ${line.text}`
             font.pointSize: Appearance.font.size.normal
-
             width: DashboardConfig.sizes.infoWidth
             elide: Text.ElideRight
         }

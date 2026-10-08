@@ -5,22 +5,18 @@ import "wallpaper-rotation.js" as Rotation
 
 TestCase {
     id: test
-    name: "WallpaperRotation"
-    when: windowShown
-    Component {
-        id: walls
-        RotatingWalls {}
-    }
+
     function cleanup() {
         WallpaperPlayback.sleeping = false;
         WallpaperPlayback.locked = false;
         Visibilities.screens = ({});
     }
+
     function test_shuffle_visits_each_scene_before_repeating() {
         const pool = ["a", "b", "c", "d"];
         let bag = [], current = "a", seen = [];
         for (let i = 0; i < 3; i++) {
-            const next = Rotation.next(pool, current, true, bag, .5);
+            const next = Rotation.next(pool, current, true, bag, 0.5);
             verify(next.path !== current);
             verify(!seen.includes(next.path));
             seen.push(next.path);
@@ -28,30 +24,32 @@ TestCase {
             bag = next.remaining;
         }
         compare(seen.length, 3);
-        compare(Rotation.next(["a"], "a", true, [], .5).path, "");
+        compare(Rotation.next(["a"], "a", true, [], 0.5).path, "");
     }
+
     function test_filter_and_sequential_order() {
         const entries = [
             {
-                path: "a",
-                dynamic: false
+                "path": "a",
+                "dynamic": false
             },
             {
-                path: "b",
-                dynamic: true
+                "path": "b",
+                "dynamic": true
             }
         ];
         compare(Rotation.pool(entries, "dynamic").join(","), "b");
         compare(Rotation.pool(entries, "static").join(","), "a");
-        compare(Rotation.next(["a", "b", "c"], "c", false, [], .5).path, "a");
+        compare(Rotation.next(["a", "b", "c"], "c", false, [], 0.5).path, "a");
     }
+
     function test_disabled_timer_and_lifecycle_pause() {
         const view = createTemporaryObject(walls, test);
         const clock = findChild(view, "wallpaperRotationTimer");
         verify(clock);
         verify(!clock.running);
         view.preferences = Object.assign({}, view.preferences, {
-            rotationEnabled: true
+            "rotationEnabled": true
         });
         verify(clock.running);
         verify(clock.interval > 30 * 60000 - 1000 && clock.interval <= 30 * 60000);
@@ -64,36 +62,37 @@ TestCase {
         WallpaperPlayback.sleeping = false;
         verify(clock.running);
         Visibilities.screens = ({
-                test: {
-                    launcher: true,
-                    launcherMode: "wallpaper"
+                "test": {
+                    "launcher": true,
+                    "launcherMode": "wallpaper"
                 }
             });
         verify(!clock.running);
         Visibilities.screens = ({
-                test: {
-                    dashboard: true,
-                    dashboardTab: 4
+                "test": {
+                    "dashboard": true,
+                    "dashboardTab": 4
                 }
             });
         verify(!clock.running);
         Visibilities.screens = ({});
         verify(clock.running);
         view.preferences = Object.assign({}, view.preferences, {
-            rotationMinutes: 60
+            "rotationMinutes": 60
         });
         verify(clock.interval > 60 * 60000 - 1000 && clock.interval <= 60 * 60000);
         view.preferences = Object.assign({}, view.preferences, {
-            rotationEnabled: false
+            "rotationEnabled": false
         });
         verify(!clock.running);
     }
+
     function test_timer_uses_single_existing_commit_queue() {
         const view = createTemporaryObject(walls, test);
         view.preferences = Object.assign({}, view.preferences, {
-            rotationEnabled: true,
-            rotationShuffle: false,
-            rotationAnchorMs: Date.now() - 30 * 60000 + 50
+            "rotationEnabled": true,
+            "rotationShuffle": false,
+            "rotationAnchorMs": Date.now() - 30 * 60000 + 50
         });
         const clock = findChild(view, "wallpaperRotationTimer");
         tryCompare(view.commit, "running", true, 300);
@@ -102,12 +101,13 @@ TestCase {
         view.advanceRotation(true);
         compare(view.commit.requestPath, "a");
     }
+
     function test_temporary_pauses_and_unrelated_preferences_keep_deadline() {
         const view = createTemporaryObject(walls, test);
         const anchor = Date.now();
         view.preferences = Object.assign({}, view.preferences, {
-            rotationEnabled: true,
-            rotationAnchorMs: anchor
+            "rotationEnabled": true,
+            "rotationAnchorMs": anchor
         });
         const due = view.rotationDueMs;
         const clock = findChild(view, "wallpaperRotationTimer");
@@ -118,18 +118,19 @@ TestCase {
         compare(view.rotationDueMs, due);
         verify(clock.interval < 30 * 60000 - 90);
         view.preferences = Object.assign({}, view.preferences, {
-            layout: "hexagons",
-            palettePreset: "ocean"
+            "layout": "hexagons",
+            "palettePreset": "ocean"
         });
         compare(view.rotationDueMs, due);
         verify(clock.interval < 30 * 60000 - 90);
     }
+
     function test_renderer_restart_keeps_saved_schedule() {
         const anchor = Date.now() - 10 * 60000;
         const saved = {
-            rotationEnabled: true,
-            rotationMinutes: 30,
-            rotationAnchorMs: anchor
+            "rotationEnabled": true,
+            "rotationMinutes": 30,
+            "rotationAnchorMs": anchor
         };
         const first = createTemporaryObject(walls, test);
         first.preferences = saved;
@@ -139,14 +140,15 @@ TestCase {
         compare(second.rotationDueMs, first.rotationDueMs);
         verify(findChild(second, "wallpaperRotationTimer").interval <= 20 * 60000);
     }
+
     function test_overdue_pause_rotates_once_after_resume() {
         WallpaperPlayback.locked = true;
         const view = createTemporaryObject(walls, test);
         view.preferences = {
-            rotationEnabled: true,
-            rotationMinutes: 30,
-            rotationShuffle: false,
-            rotationAnchorMs: Date.now() - 30 * 60000 + 30
+            "rotationEnabled": true,
+            "rotationMinutes": 30,
+            "rotationShuffle": false,
+            "rotationAnchorMs": Date.now() - 30 * 60000 + 30
         };
         wait(80);
         verify(!view.commit.running);
@@ -154,9 +156,9 @@ TestCase {
         tryCompare(view.commit, "running", true, 400);
         compare(view.commit.requestPath, "a");
         view.media = {
-            path: "a",
-            poster: "a",
-            appliedAtMs: Date.now()
+            "path": "a",
+            "poster": "a",
+            "appliedAtMs": Date.now()
         };
         view.lastImage = "a";
         view.selectedPath = "";
@@ -166,37 +168,47 @@ TestCase {
         verify(findChild(view, "wallpaperRotationTimer").running);
         verify(view.rotationDueMs > Date.now() + 29 * 60000);
     }
+
     function test_palette_publication_without_photo_change_keeps_deadline() {
         const view = createTemporaryObject(walls, test);
         const changed = Date.now() - 50000;
         view.media = {
-            path: "a",
-            poster: "a",
-            appliedAtMs: changed
+            "path": "a",
+            "poster": "a",
+            "appliedAtMs": changed
         };
         view.lastImage = "a";
         view.preferences = {
-            rotationEnabled: true,
-            rotationMinutes: 30,
-            rotationAnchorMs: changed - 10000
+            "rotationEnabled": true,
+            "rotationMinutes": 30,
+            "rotationAnchorMs": changed - 10000
         };
         const due = view.rotationDueMs;
         ThemePresentation.active = {
-            poster: "a",
-            changedAtMs: changed,
-            colours: {
-                primary: "ffffff"
+            "poster": "a",
+            "changedAtMs": changed,
+            "colours": {
+                "primary": "ffffff"
             }
         };
         compare(view.rotationDueMs, due);
         ThemePresentation.active = {
-            poster: "a",
-            changedAtMs: changed,
-            colours: {
-                primary: "abcdef"
+            "poster": "a",
+            "changedAtMs": changed,
+            "colours": {
+                "primary": "abcdef"
             }
         };
         compare(view.rotationDueMs, due);
         ThemePresentation.active = ({});
+    }
+
+    name: "WallpaperRotation"
+    when: windowShown
+
+    Component {
+        id: walls
+
+        RotatingWalls {}
     }
 }

@@ -18,18 +18,28 @@ Singleton {
         return buttons === Qt.NoButton && !fullscreenFor(screen.name);
     }
     function observe(screen, x, y) {
-        positions[screen.name] = {x:x, y:y, width:screen.width, height:screen.height};
+        positions[screen.name] = {
+            x: x,
+            y: y,
+            width: screen.width,
+            height: screen.height
+        };
         const b = blocked[screen.name];
-        if (!b) return;
-        if (y > dashboardDepth || Math.abs(x - screen.width / 2) > Math.min(350, screen.width * 0.225)) b.dashboard = false;
-        if (x >= edgeWidth) b.left = false;
-        if (x < screen.width - edgeWidth) b.osd = false;
+        if (!b)
+            return;
+        if (y > dashboardDepth || Math.abs(x - screen.width / 2) > Math.min(350, screen.width * 0.225))
+            b.dashboard = false;
+        if (x >= edgeWidth)
+            b.left = false;
+        if (x < screen.width - edgeWidth)
+            b.osd = false;
     }
     function canOpen(name, screen, buttons) {
         return canAuto(screen, buttons) && !blocked[screen.name]?.[name];
     }
     function rearm(name, screen) {
-        if (blocked[screen.name]) blocked[screen.name][name] = false;
+        if (blocked[screen.name])
+            blocked[screen.name][name] = false;
     }
     function dismiss(screen) {
         const p = positions[screen.name];

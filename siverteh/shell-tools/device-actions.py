@@ -9,7 +9,9 @@ def command(action, value=""):
         return ["nmcli", "device", "wifi", "rescan"]
     if action == "wifi-radio" and value in ("on", "off"):
         return ["nmcli", "radio", "wifi", value]
-    if action == "wifi-disconnect" and re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}", value):
+    if action == "wifi-disconnect" and re.fullmatch(
+        r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}", value
+    ):
         return ["nmcli", "device", "disconnect", value]
     if action == "bluetooth-power" and value in ("on", "off"):
         return ["bluetoothctl", "power", value]

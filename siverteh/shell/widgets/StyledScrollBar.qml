@@ -1,10 +1,21 @@
-import qs.services
-import qs.config
 import QtQuick
 import QtQuick.Controls
+import qs.config
+import qs.services
 
 ScrollBar {
     id: root
+
+    MouseArea {
+        z: -1
+        anchors.fill: parent
+        onWheel: event => {
+            if (event.angleDelta.y > 0)
+                root.decrease();
+            else if (event.angleDelta.y < 0)
+                root.increase();
+        }
+    }
 
     contentItem: StyledRect {
         implicitWidth: 6
@@ -18,17 +29,6 @@ ScrollBar {
                 easing.type: Easing.BezierSpline
                 easing.bezierCurve: Appearance.anim.curves.standard
             }
-        }
-    }
-
-    MouseArea {
-        z: -1
-        anchors.fill: parent
-        onWheel: event => {
-            if (event.angleDelta.y > 0)
-                root.decrease();
-            else if (event.angleDelta.y < 0)
-                root.increase();
         }
     }
 }

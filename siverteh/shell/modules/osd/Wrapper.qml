@@ -1,7 +1,7 @@
-import qs.services
-import qs.config
-import Quickshell
 import QtQuick
+import Quickshell
+import qs.config
+import qs.services
 
 Item {
     id: root
@@ -12,16 +12,6 @@ Item {
     visible: width > 0
     implicitWidth: 0
     implicitHeight: content.implicitHeight
-
-    states: State {
-        name: "visible"
-        when: root.visibility
-
-        PropertyChanges {
-            root.implicitWidth: content.implicitWidth
-        }
-    }
-
     transitions: [
         Transition {
             from: ""
@@ -53,5 +43,14 @@ Item {
         id: content
 
         monitor: Brightness.getMonitorForScreen(root.screen)
+    }
+
+    states: State {
+        name: "visible"
+        when: root.visibility
+
+        PropertyChanges {
+            root.implicitWidth: content.implicitWidth
+        }
     }
 }
