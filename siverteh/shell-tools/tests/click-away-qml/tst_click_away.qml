@@ -16,7 +16,7 @@ TestCase {
         verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
         HoverIntent.observe(screen, 250, 2);
         verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        HoverIntent.observe(screen, 250, 20);
+        HoverIntent.observe(screen, 250, 40);
         verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
         verify(!HoverIntent.canOpen("dashboard", screen, Qt.LeftButton));
         Hyprland.activeClient = {

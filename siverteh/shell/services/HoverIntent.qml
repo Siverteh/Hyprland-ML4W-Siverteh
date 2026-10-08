@@ -5,6 +5,7 @@ import Quickshell
 Singleton {
     id: root
     readonly property int edgeWidth: 3
+    readonly property int dashboardDepth: Math.max(edgeWidth, Math.floor((40 + (DesktopSettings.data.frameWidth ?? 10)) / 2))
     property var positions: ({})
     property var blocked: ({})
     property var headers: ({})
@@ -20,7 +21,7 @@ Singleton {
         positions[screen.name] = {x:x, y:y, width:screen.width, height:screen.height};
         const b = blocked[screen.name];
         if (!b) return;
-        if (y > edgeWidth || x < screen.width / 2 - 350 || x > screen.width / 2 + 350) b.dashboard = false;
+        if (y > dashboardDepth || Math.abs(x - screen.width / 2) > Math.min(350, screen.width * 0.225)) b.dashboard = false;
         if (x >= edgeWidth) b.left = false;
         if (x < screen.width - edgeWidth) b.osd = false;
     }
@@ -33,7 +34,7 @@ Singleton {
     function dismiss(screen) {
         const p = positions[screen.name];
         blocked[screen.name] = {
-            dashboard: !!p && p.y <= edgeWidth && Math.abs(p.x - p.width / 2) <= Math.min(350, p.width * 0.225),
+            dashboard: !!p && p.y <= dashboardDepth && Math.abs(p.x - p.width / 2) <= Math.min(350, p.width * 0.225),
             left: !!p && p.x < edgeWidth,
             osd: !!p && p.x >= p.width - edgeWidth,
             popouts: popupHovered[screen.name] === true

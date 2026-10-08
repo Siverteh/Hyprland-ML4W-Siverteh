@@ -458,8 +458,9 @@ normal desktop presets. Keyboard shortcuts are unchanged. The bar remains on top
 
 ## Precise immediate-hover activation
 
-Hover mode opens closed drawers only from a3-pixel outer-edge strip. The top
-strip uses the existing centre band; left/right use their panel-height bands.
+Hover mode opens the dashboard when the pointer reaches the middle/title line
+of the top bar, within its existing centre band. Left/right activation uses a
+3-pixel outer-edge strip within each panel-height band.
 Opening has no additional delay, while the existing panel animations remain.
 Opened panels retain a larger padded interaction area. A120–140ms exit grace
 allows moving from the header into content without adding an opening delay.

@@ -279,7 +279,7 @@ Variants {
             function updateEdge(buttons) {
                 HoverIntent.observe(win.screen, mouseX + x, mouseY);
                 HoverIntent.headers[win.screen.name] = containsMouse;
-                if (!win.clickMenus && mouseY <= HoverIntent.edgeWidth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
+                if (!win.clickMenus && mouseY <= HoverIntent.dashboardDepth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
                     const p = Visibilities.panels[win.screen.name];
                     if (p) p.popouts.hasCurrent = false;
                     win.visibility.dashboard = true;
