@@ -11,7 +11,7 @@ import QtQuick
 import QtQuick.Layouts
 
 Variants {
-    model: Quickshell.screens
+    model: DisplayRecovery.surfaceScreens
     StyledWindow {
         id: win
         required property ShellScreen modelData

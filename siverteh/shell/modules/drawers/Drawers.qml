@@ -11,12 +11,18 @@ import QtQuick
 import QtQuick.Effects
 
 Variants {
-    model: Quickshell.screens
+    model: DisplayRecovery.surfaceScreens
 
     Scope {
         id: scope
 
         required property ShellScreen modelData
+        property string stableName: ""
+        Component.onCompleted: stableName = modelData.name
+        Component.onDestruction: {
+            if (stableName)
+                DisplayRecovery.remember(stableName);
+        }
 
         Exclusions {
             screen: scope.modelData
@@ -211,6 +217,13 @@ Variants {
                 property string launcherMode: "apps"
                 property int launcherRequest: 0
 
+                Component.onDestruction: {
+                    if (Visibilities.screens[scope.stableName] === this) {
+                        const mapping = Object.assign({}, Visibilities.screens);
+                        delete mapping[scope.stableName];
+                        Visibilities.screens = mapping;
+                    }
+                }
                 Component.onCompleted: {
                     const mapping = Object.assign({}, Visibilities.screens);
                     mapping[scope.modelData.name] = this;

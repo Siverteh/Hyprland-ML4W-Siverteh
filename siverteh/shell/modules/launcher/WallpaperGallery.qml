@@ -32,6 +32,20 @@ Item {
             bodyView.item.snapBeforeUnload();
         shownLayout = layout;
     }
+    function captureUiState() {
+        return {
+            path: currentEntry?.path ?? "",
+            query: search.text
+        };
+    }
+    function restoreUiState(data) {
+        search.text = data.query || "";
+        Qt.callLater(() => {
+            const index = entries.findIndex(e => e.path === data.path);
+            if (index >= 0)
+                currentIndex = index;
+        });
+    }
     function restoreIndex() {
         initializing = true;
         currentIndex = Math.max(0, entries.findIndex(w => w.path === Wallpapers.current));

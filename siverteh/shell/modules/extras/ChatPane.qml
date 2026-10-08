@@ -7,6 +7,36 @@ import Quickshell
 Item {
     id: root
     required property PersistentProperties visibilities
+    function captureUiState() {
+        transcript.savePosition();
+        return {
+            position: transcript.savedPosition,
+            cursor: input.cursorPosition,
+            threadId: SidebarChat.threadId,
+            composerKey: SidebarChat.composerKey,
+            draft: SidebarChat.draft,
+            attachments: SidebarChat.attachments
+        };
+    }
+    property var pendingRecovery: null
+    function restoreUiState(data) {
+        SidebarChat.restoreComposer(data);
+        pendingRecovery = data;
+        if (!data.threadId || (SidebarChat.threadId === data.threadId && SidebarChat.messages.count > 0))
+            finishRecovery();
+    }
+    function finishRecovery() {
+        const data = pendingRecovery;
+        if (!data)
+            return;
+        pendingRecovery = null;
+        if (data.threadId && SidebarChat.threadId && data.threadId !== SidebarChat.threadId)
+            return;
+        transcript.savedPosition = data.position;
+        transcript.restoring = true;
+        transcript.restorePosition();
+        input.cursorPosition = Math.min(data.cursor || 0, input.text.length);
+    }
     function codeBlocks(text) {
         const result = [];
         const pattern = /```[^\n]*\n([\s\S]*?)```/g;

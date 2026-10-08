@@ -43,6 +43,11 @@ ShellRoot {
             });
         }
         function restoreViews(data: string): void {
+            const restored = JSON.parse(data);
+            if (restored.version === 2) {
+                DisplayRecovery.restoreSaved(restored);
+                return;
+            }
             const saved = JSON.parse(data), v = Visibilities.getForActive();
             if (!v)
                 return;

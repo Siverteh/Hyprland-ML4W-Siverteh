@@ -29,7 +29,16 @@ Item {
     anchors.bottomMargin: BorderConfig.bottom
     anchors.leftMargin: bar.implicitWidth
     anchors.topMargin: BorderConfig.headerHeight
+    property string stableName: ""
+    Component.onDestruction: {
+        if (Visibilities.panels[stableName] === this) {
+            const mapping = Object.assign({}, Visibilities.panels);
+            delete mapping[stableName];
+            Visibilities.panels = mapping;
+        }
+    }
     Component.onCompleted: {
+        stableName = screen.name;
         const mapping = Object.assign({}, Visibilities.panels);
         mapping[screen.name] = this;
         Visibilities.panels = mapping;

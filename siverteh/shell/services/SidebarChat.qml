@@ -27,6 +27,29 @@ Singleton {
     property bool loadingDraft: false
     property int draftRevision: 0
     property var composerQueue: []
+    property var recoveryComposer: null
+    function restoreComposer(data) {
+        if (!data.composerKey)
+            return;
+        recoveryComposer = data;
+        composer("save", {
+            key: data.composerKey,
+            text: data.draft || "",
+            attachments: data.attachments || []
+        });
+        applyRecoveryComposer();
+    }
+    function applyRecoveryComposer() {
+        const data = recoveryComposer;
+        if (!data || data.composerKey !== composerKey)
+            return;
+        loadingDraft = true;
+        draft = data.draft || "";
+        attachments = data.attachments || [];
+        draftRevision++;
+        loadingDraft = false;
+        recoveryComposer = null;
+    }
     function composer(action, payload) {
         composerQueue.push({
             action: action,
@@ -223,6 +246,7 @@ Singleton {
                 draft = "";
                 attachments = [];
                 loadingDraft = false;
+                applyRecoveryComposer();
                 composer("load", {
                     key: key,
                     revision: draftRevision

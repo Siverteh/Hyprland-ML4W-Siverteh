@@ -33,6 +33,23 @@ Item {
             return Array.from(Apps.list);
         return Browser.browse(Apps.list, category, LauncherPreferences.favorites);
     }
+    function captureUiState() {
+        return {
+            category: category,
+            query: search.text,
+            index: grid.currentIndex,
+            y: grid.contentY
+        };
+    }
+    function restoreUiState(data) {
+        category = data.category || "favorites";
+        search.text = data.query || "";
+        nav.currentIndex = Math.max(0, categories.findIndex(c => c.id === category));
+        Qt.callLater(() => {
+            grid.currentIndex = Math.min(data.index, entries.length - 1);
+            grid.contentY = Math.max(0, Math.min(data.y, grid.contentHeight - grid.height));
+        });
+    }
     function start() {
         userSelected = false;
         category = "favorites";

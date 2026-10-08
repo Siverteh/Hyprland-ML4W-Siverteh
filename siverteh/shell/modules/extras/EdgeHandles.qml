@@ -6,7 +6,7 @@ import qs.services
 import qs.widgets
 
 Variants {
-    model: Quickshell.screens
+    model: DisplayRecovery.surfaceScreens
 
     Scope {
         id: scope
