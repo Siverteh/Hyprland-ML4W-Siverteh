@@ -279,12 +279,14 @@ class BrainStartupTests(unittest.TestCase):
         windows = [
             {
                 "address": "0x111",
+                "pid": 123,
                 "class": "chrome-127.0.0.1__-Default",
                 "title": "127.0.0.1_/",
                 "workspace": {"id": 3},
             },
             {
                 "address": "0x222",
+                "pid": 123,
                 "class": "chrome-127.0.0.1__-Default",
                 "title": "127.0.0.1_/",
                 "workspace": {"id": 6},

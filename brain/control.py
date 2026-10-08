@@ -847,15 +847,7 @@ def ensure_server():
     raise ValueError("Observatory server did not start")
 
 
-def brain_window():
-    # A failed query is not evidence that the window is absent. In particular,
-    # resume/startup may briefly make the compositor unavailable.
-    try:
-        clients = json.loads(run(["hyprctl", "clients", "-j"]))
-    except ValueError as exc:
-        raise RuntimeError("Cannot query Brain windows yet") from exc
-    if not isinstance(clients, list):
-        raise RuntimeError("Invalid compositor window list")
+def browser_profile_pids():
     profile = (
         "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser")
     ).encode()
@@ -868,6 +860,19 @@ def brain_window():
                 profile_pids.add(int(process.name))
         except OSError:
             pass
+    return profile_pids
+
+
+def brain_window():
+    # A failed query is not evidence that the window is absent. In particular,
+    # resume/startup may briefly make the compositor unavailable.
+    try:
+        clients = json.loads(run(["hyprctl", "clients", "-j"]))
+    except ValueError as exc:
+        raise RuntimeError("Cannot query Brain windows yet") from exc
+    if not isinstance(clients, list):
+        raise RuntimeError("Invalid compositor window list")
+    profile_pids = browser_profile_pids()
     windows = [
         c
         for c in clients
