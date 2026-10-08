@@ -8,7 +8,7 @@ hl.bind("SUPER + N", hl.dsp.exec_cmd("~/.local/bin/siverteh-brain-ui capture"))
 -- A credential handoff updates an existing browser profile, then closes itself.
 hl.window_rule({
     name = "brain-auth-handoff",
-    match = { class = "^(siverteh-brain-auth)$" },
+    match = { class = "^(siverteh-brain-auth|chrome-.*siverteh-observatory_auth_handoff[.]html-.*)$" },
     float = true,
     no_initial_focus = true,
     size = "80 80",

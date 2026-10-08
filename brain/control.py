@@ -856,10 +856,26 @@ def brain_window():
         raise RuntimeError("Cannot query Brain windows yet") from exc
     if not isinstance(clients, list):
         raise RuntimeError("Invalid compositor window list")
+    profile = (
+        "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser")
+    ).encode()
+    profile_pids = set()
+    for process in Path("/proc").iterdir():
+        if not process.name.isdigit():
+            continue
+        try:
+            if profile in (process / "cmdline").read_bytes().split(b"\0"):
+                profile_pids.add(int(process.name))
+        except OSError:
+            pass
     windows = [
         c
         for c in clients
         if c.get("class") in ("siverteh-brain", "chrome-127.0.0.1__-Default")
+        or (
+            c.get("pid") in profile_pids
+            and "siverteh-observatory_auth_open.html" in c.get("class", "")
+        )
     ]
     # Chrome's initial title is its URL, not the final page title. Prefer the
     # existing workspace-six instance when old duplicates are still present.
