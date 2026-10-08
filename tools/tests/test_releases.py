@@ -55,3 +55,31 @@ class ReleaseTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "Later edit preserved"):
                     m.restore(release, record)
                 self.assertEqual(source.read_text(), "personal edit")
+
+
+class RuntimeRetirementTests(unittest.TestCase):
+    def test_retirement_preserves_palette_environment_and_is_repeatable(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            base = home / ".local/share/siverteh-ai"
+            native = base / "shell-runtime/usr/bin/quickshell"
+            native.parent.mkdir(parents=True)
+            native.write_text("old binary")
+            palette = base / "shell-runtime/venv/keep.txt"
+            palette.parent.mkdir()
+            palette.write_text("palette environment")
+            thunar = base / "thunar-runtime/usr/bin/thunar"
+            thunar.parent.mkdir(parents=True)
+            thunar.write_text("old file manager")
+            release = home / "release"
+            with patch.object(m, "HOME", home):
+                retired = m.retire_native_runtimes(release)
+                self.assertEqual(len(retired), 2)
+                self.assertFalse(native.exists())
+                self.assertFalse(thunar.exists())
+                self.assertEqual(palette.read_text(), "palette environment")
+                self.assertEqual(
+                    Path(retired[0]["backup"]).joinpath("bin/quickshell").read_text(),
+                    "old binary",
+                )
+                self.assertEqual(m.retire_native_runtimes(release), [])

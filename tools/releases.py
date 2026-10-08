@@ -216,6 +216,35 @@ def install_controller(repo):
     wrapper.chmod(0o755)
 
 
+def retire_native_runtimes(release):
+    """Move recognized obsolete package trees out of active paths after live gates."""
+    candidates = (
+        (HOME / ".local/share/siverteh-ai/shell-runtime/usr", "bin/quickshell"),
+        (HOME / ".local/share/siverteh-ai/thunar-runtime", "usr/bin/thunar"),
+    )
+    retired = []
+    for path, executable in candidates:
+        if not (path / executable).is_file():
+            continue
+        # Do not move a runtime still used by an independently launched app.
+        for proc in Path("/proc").iterdir():
+            if not proc.name.isdigit():
+                continue
+            try:
+                arguments = (proc / "cmdline").read_bytes().split(b"\0")
+            except OSError:
+                continue
+            if arguments and arguments[0].startswith(str(path).encode() + b"/"):
+                raise RuntimeError("Retired runtime is still in use: " + str(path))
+        saved = release / "retired-native" / path.parent.name / path.name
+        saved.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        path.rename(saved)
+        retired.append({"path": str(path), "backup": str(saved)})
+    if retired:
+        atomic(release / "retired-native.json", retired)
+    return retired
+
+
 def deploy(repo, components, keyboard, migrate=False):
     repo = repo.resolve()
     revision = subprocess.check_output(
@@ -295,6 +324,7 @@ def deploy(repo, components, keyboard, migrate=False):
         if good.exists():
             shutil.rmtree(good)
         pending.rename(good)
+        retire_native_runtimes(release)
         for entry in record["entries"]:
             entry["after"] = fingerprint(Path(entry["path"]))
         record["status"] = "good"
