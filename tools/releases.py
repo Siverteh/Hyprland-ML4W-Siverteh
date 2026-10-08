@@ -75,6 +75,7 @@ def paths(repo):
     ]
     result += [
         HOME / ".local/state/siverteh-os/configuration.json",
+        HOME / ".config/siverteh_shell/shell.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
         HOME / ".local/share/applications/siverteh-thunar.desktop",
     ]

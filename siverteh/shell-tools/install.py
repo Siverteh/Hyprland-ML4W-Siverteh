@@ -15,6 +15,27 @@ def digest(p):
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
 
 
+def retire_unused_config():
+    path = HOME / ".config/siverteh_shell/shell.json"
+    if not path.is_file() or path.is_symlink():
+        return
+    if (
+        digest(path)
+        != "05a4a1ffca4933456163dc394e2fe645457787304d2ea715a970b4da84cfe0f1"
+    ):
+        print("Unused shell.json has local edits; leaving it private and inactive")
+        return
+    saved = (
+        STATE
+        / "backups"
+        / dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        / "shell.json"
+    )
+    saved.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    shutil.copy2(path, saved)
+    path.unlink()
+
+
 def stop_other_shells():
     for proc in Path("/proc").iterdir():
         if not proc.name.isdigit():
@@ -146,6 +167,7 @@ def deploy(code_only=False):
         check=True,
         stdout=subprocess.DEVNULL,
     )
+    retire_unused_config()
     if code_only:
         for src, dest in [
             ("control.sh", HOME / ".local/bin/siverteh-os-shell"),

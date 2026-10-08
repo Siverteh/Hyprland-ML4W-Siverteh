@@ -211,3 +211,19 @@ class IdleMigrationTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(RuntimeError, "Private idle policy differs"):
                 module.plan(home, root, migrate_idle=True)
+
+
+class PowerMigrationTests(unittest.TestCase):
+    def test_only_recognized_power_hook_is_migrated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "hypr").mkdir(parents=True)
+            (home / ".config/hypr/conf").mkdir(parents=True)
+            source = root / "hypr/hyprland.lua"
+            source.write_text("base\n\n-- Optional private host behavior.\nnew hook\n")
+            current = home / ".config/hypr/hyprland.lua"
+            current.write_text("base\n" + module.POWER_TAIL)
+            (home / ".config/hypr/conf/manual-power.lua").write_text("host behavior")
+            self.assertEqual(module.power_policy(home, root, True), b"host behavior")
+            current.write_text(current.read_text() + "unrelated edit")
+            self.assertIsNone(module.power_policy(home, root, True))
