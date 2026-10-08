@@ -14,6 +14,6 @@ jobs:
         with:
           python-version: '3.14'
       - name: Install the pinned palette engine
-        run: pip install ./siverteh/shell-cli
+        run: pip install ./siverteh/shell-cli ruff==0.16.10
       - name: Source syntax and regression suites
         run: python tools/check.py --portable

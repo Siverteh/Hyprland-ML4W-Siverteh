@@ -41,6 +41,7 @@ def main():
     for path in RETIRED:
         if (ROOT / path).exists():
             raise RuntimeError("Retired desktop tree reintroduced: " + path)
+    python_files = []
     for path in ROOT.rglob("*"):
         if not path.is_file() or any(
             part in (".git", "__pycache__", "build", "dist", ".venv")
@@ -52,6 +53,7 @@ def main():
             and path.read_text().startswith("#!/usr/bin/env python3")
         ):
             ast.parse(path.read_text(), filename=str(path))
+            python_files.append(str(path))
         elif path.suffix == ".fish" and shutil.which("fish"):
             run(["fish", "--no-config", "-n", str(path)])
         elif path.suffix == ".json":
@@ -65,6 +67,12 @@ def main():
             )
         ):
             run(["bash", "-n", str(path)])
+    ruff = shutil.which("ruff")
+    if ruff:
+        run([ruff, "format", "--target-version", "py313", "--check", *python_files])
+        print("Python formatting passed.", flush=True)
+    else:
+        print("Ruff unavailable; Python formatting check skipped.", flush=True)
     print("Python, JSON, shell syntax and retired-tree checks passed.", flush=True)
     from window_rules import conflicts
 
@@ -78,9 +86,13 @@ def main():
             run([lua, "-p", str(path)])
         print("Lua syntax passed.", flush=True)
     formatter = Path("/usr/lib/qt6/bin/qmlformat")
-    if not args.portable and formatter.exists():
+    if formatter.exists():
         for path in (ROOT / "siverteh/shell").rglob("*.qml"):
-            run([str(formatter), str(path)])
+            formatted = run([str(formatter), str(path)])
+            if formatted != path.read_text():
+                raise RuntimeError(
+                    "QML formatting differs: " + str(path.relative_to(ROOT))
+                )
         print("All desktop QML parsed with local Qt.", flush=True)
     else:
         print(
