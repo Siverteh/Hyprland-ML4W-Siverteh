@@ -4,3 +4,12 @@ hl.window_rule({name="observatory-brain-chrome", match={class="^chrome-127[.]0[.
 hl.window_rule({name="observatory-obsidian", match={class="^([Oo]bsidian)$"}, workspace="6 silent"})
 hl.bind("SUPER + B", hl.dsp.exec_cmd("~/.local/bin/siverteh-brain-ui brain"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("~/.local/bin/siverteh-brain-ui capture"))
+
+-- A credential handoff updates an existing browser profile, then closes itself.
+hl.window_rule({
+    name = "brain-auth-handoff",
+    match = { class = "^(siverteh-brain-auth)$" },
+    float = true,
+    no_initial_focus = true,
+    size = "80 80",
+})

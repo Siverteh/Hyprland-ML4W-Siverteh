@@ -18,7 +18,13 @@ DEST = HOME / ".local/share/siverteh-ai/observatory"
 
 
 def main():
-    for name in ("control.py", "discovery.py", "semantic.py", "semantic-client.py"):
+    for name in (
+        "control.py",
+        "auth.py",
+        "discovery.py",
+        "semantic.py",
+        "semantic-client.py",
+    ):
         ast.parse((ROOT / name).read_text())
     node = shutil.which("node")
     node_cmd = (
@@ -66,7 +72,13 @@ def main():
             shutil.rmtree(old)
         elif old.exists():
             old.unlink()
-    for name in ("control.py", "discovery.py", "semantic.py", "semantic-client.py"):
+    for name in (
+        "control.py",
+        "auth.py",
+        "discovery.py",
+        "semantic.py",
+        "semantic-client.py",
+    ):
         shutil.copy2(ROOT / name, DEST / name)
     shutil.copytree(ROOT / "web", DEST / "web", dirs_exist_ok=True)
     for name in ("siverteh-brain-ui", "siverteh-observatory"):

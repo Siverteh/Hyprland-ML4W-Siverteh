@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from http.cookies import SimpleCookie, CookieError
 from urllib.parse import urlparse, parse_qs, quote, unquote
 
 ROOT = Path(__file__).resolve().parent
@@ -627,15 +628,73 @@ def action(name, value=""):
     raise ValueError("Unknown Brain action")
 
 
+def auth_module():
+    spec = importlib.util.spec_from_file_location(
+        "brain_browser_auth", ROOT / "auth.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class BrainServer(ThreadingHTTPServer):
+    def __init__(self, address, state=STATE):
+        super().__init__(address, Handler)
+        self.auth = auth_module().BrowserAuth(state, self.server_port)
+
+
+def browser_command(path, handoff=False):
+    browser = next(
+        (
+            p
+            for p in ["/opt/google/chrome/chrome", shutil.which("chromium")]
+            if p and Path(p).exists()
+        ),
+        None,
+    )
+    if not browser:
+        raise ValueError("Chrome or Chromium is required for the knowledge browser")
+    return [
+        browser,
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--ozone-platform=wayland",
+        "--class=" + ("siverteh-brain-auth" if handoff else "siverteh-brain"),
+        "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser"),
+        "--app=" + Path(path).as_uri(),
+    ]
+
+
+def bootstrap_existing_browser():
+    directory = STATE / "auth"
+    if not (directory / "session.json").exists():
+        return
+    # A cookie issued once remains valid across server restarts. Only the initial
+    # upgrade of an already-open old browser needs a tiny, auto-closing handoff.
+    auth = object.__new__(auth_module().BrowserAuth)
+    auth.directory = directory
+    auth.cookie = json.loads((directory / "session.json").read_text())["cookie"]
+    if not auth.browser_ready():
+        launch(browser_command(directory / "handoff.html", True))
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
     def allowed(self):
         return self.headers.get("Host") in (
-            "127.0.0.1:" + str(PORT),
-            "localhost:" + str(PORT),
+            "127.0.0.1:" + str(self.server.server_port),
+            "localhost:" + str(self.server.server_port),
         )
+
+    def authenticated(self):
+        try:
+            cookies = SimpleCookie(self.headers.get("Cookie", ""))
+            value = cookies.get("siverteh_brain")
+            return bool(value and self.server.auth.cookie_valid(value.value))
+        except (CookieError, AttributeError):
+            return False
 
     def send(self, body, mime="application/json", code=200):
         self.send_response(code)
@@ -653,6 +712,37 @@ class Handler(BaseHTTPRequestHandler):
         if not self.allowed():
             return self.send("{}", code=403)
         path = urlparse(self.path)
+        if path.path == "/" and "token" in parse_qs(path.query):
+            query = parse_qs(path.query)
+            if not self.server.auth.token_valid(query["token"][0]):
+                return self.send("{}", code=403)
+            self.server.auth.mark_browser()
+            self.send_response(303)
+            self.send_header(
+                "Set-Cookie",
+                "siverteh_brain="
+                + self.server.auth.cookie
+                + "; Path=/; HttpOnly; SameSite=Strict",
+            )
+            self.send_header(
+                "Location", "/auth-complete" if query.get("handoff") == ["1"] else "/"
+            )
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.end_headers()
+            return
+        if (
+            path.path.startswith("/api/")
+            and path.path != "/api/health"
+            and not self.authenticated()
+        ):
+            return self.send("{}", code=403)
+        if path.path == "/auth-complete":
+            return self.send(
+                '<!doctype html><script src="/auth-close.js"></script>', "text/html"
+            )
+        if path.path == "/auth-close.js":
+            return self.send("window.close();", "text/javascript")
         try:
             if path.path == "/api/brain":
                 return self.send(json.dumps(graph()))
@@ -674,7 +764,7 @@ class Handler(BaseHTTPRequestHandler):
                 p = note_path(parse_qs(path.query).get("path", [""])[0])
                 return self.send(json.dumps(dict(text=p.read_text(errors="replace"))))
             if path.path == "/api/health":
-                return self.send('{"ready":true}')
+                return self.send('{"ready":true,"authVersion":1}')
             assets = {"/": "index.html", "/app.js": "app.js", "/style.css": "style.css"}
             if path.path in assets:
                 name = assets[path.path]
@@ -695,7 +785,8 @@ class Handler(BaseHTTPRequestHandler):
         origin = self.headers.get("Origin")
         if (
             not self.allowed()
-            or origin != "http://127.0.0.1:" + str(PORT)
+            or not self.authenticated()
+            or origin != "http://127.0.0.1:" + str(self.server.server_port)
             or self.headers.get("Content-Type") != "application/json"
         ):
             return self.send("{}", code=403)
@@ -810,28 +901,7 @@ def ensure_brain(focus=False):
             previous = json.loads(run(["hyprctl", "activeworkspace", "-j"], "{}")).get(
                 "id"
             )
-            browser = next(
-                (
-                    p
-                    for p in ["/opt/google/chrome/chrome", shutil.which("chromium")]
-                    if p and Path(p).exists()
-                ),
-                None,
-            )
-            if not browser:
-                raise ValueError("Chrome or Chromium is required for the observatory")
-            launch(
-                [
-                    browser,
-                    "--no-first-run",
-                    "--no-default-browser-check",
-                    "--ozone-platform=wayland",
-                    "--class=siverteh-brain",
-                    "--user-data-dir="
-                    + str(HOME / ".local/share/siverteh-ai/observatory-browser"),
-                    "--app=http://127.0.0.1:" + str(PORT),
-                ]
-            )
+            launch(browser_command(STATE / "auth/open.html"))
             for _ in range(100):
                 window = brain_window()
                 if window:
@@ -864,6 +934,8 @@ def ensure_brain(focus=False):
                         f"hl.dispatch(hl.dsp.focus({{workspace={previous},on_current_monitor=true}}))",
                     ]
                 )
+        if window:
+            bootstrap_existing_browser()
         if focus:
             run([str(HOME / ".local/bin/siverteh-os-shell"), "workspace", "6"])
             if window:
@@ -901,7 +973,18 @@ def main():
     parser.add_argument("value", nargs="?", default="")
     args = parser.parse_args()
     if args.command == "serve":
-        ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+        server = BrainServer(("127.0.0.1", PORT))
+
+        def migrate_browser():
+            time.sleep(1)
+            try:
+                if brain_window():
+                    bootstrap_existing_browser()
+            except (OSError, ValueError, RuntimeError):
+                pass
+
+        threading.Thread(target=migrate_browser, daemon=True).start()
+        server.serve_forever()
     elif args.command == "watch-brain":
         watch_brain()
     elif args.command == "action":

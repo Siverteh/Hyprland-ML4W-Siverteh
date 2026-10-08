@@ -199,6 +199,7 @@ class IndexTests(unittest.TestCase):
         with (
             patch.object(module, "STATE", self.root / "state"),
             patch.object(module, "ensure_server"),
+            patch.object(module, "bootstrap_existing_browser"),
             patch.object(module, "brain_window", return_value={"address": "0x123"}),
             patch.object(module, "launch") as launch,
             patch.object(module, "action") as action,
@@ -214,6 +215,7 @@ class IndexTests(unittest.TestCase):
             patch.object(module.shutil, "which", return_value=str(browser)),
             patch.object(module, "STATE", self.root / "state"),
             patch.object(module, "ensure_server"),
+            patch.object(module, "bootstrap_existing_browser"),
             patch.object(
                 module, "brain_window", side_effect=[None, {"address": "0x123"}]
             ),
@@ -294,6 +296,7 @@ class BrainStartupTests(unittest.TestCase):
             tempfile.TemporaryDirectory() as tmp,
             patch.object(module, "STATE", Path(tmp)),
             patch.object(module, "ensure_server"),
+            patch.object(module, "bootstrap_existing_browser"),
             patch.object(module, "run", return_value=json.dumps(windows)),
             patch.object(module, "launch") as launch,
         ):
@@ -307,6 +310,7 @@ class BrainStartupTests(unittest.TestCase):
                 tempfile.TemporaryDirectory() as tmp,
                 patch.object(module, "STATE", Path(tmp)),
                 patch.object(module, "ensure_server"),
+                patch.object(module, "bootstrap_existing_browser"),
                 patch.object(module, "run", return_value=response),
                 patch.object(module, "launch") as launch,
             ):
@@ -319,6 +323,7 @@ class BrainStartupTests(unittest.TestCase):
             tempfile.TemporaryDirectory() as tmp,
             patch.object(module, "STATE", Path(tmp)),
             patch.object(module, "ensure_server"),
+            patch.object(module, "bootstrap_existing_browser"),
             patch.object(module, "brain_window", return_value=None),
             patch.object(module, "brain_browser_running", return_value=True),
             patch.object(module, "launch") as launch,
