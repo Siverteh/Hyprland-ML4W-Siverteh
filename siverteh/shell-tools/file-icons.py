@@ -37,10 +37,11 @@ def theme(home, primary, mode):
     fallback = "Papirus-Dark" if mode == "dark" else "Papirus"
     if not any((base / fallback / "index.theme").is_file() for base in bases):
         return ""
+    # Prefer the updated system artwork over legacy user copies.
     source = next(
         (
             base / "Papirus"
-            for base in bases
+            for base in reversed(bases)
             if (base / "Papirus/index.theme").is_file()
         ),
         None,

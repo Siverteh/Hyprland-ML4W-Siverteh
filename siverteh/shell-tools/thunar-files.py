@@ -11,41 +11,32 @@ import sys
 
 HOME = Path.home()
 ROOT = Path(__file__).resolve().parent
-RUNTIME = HOME / ".local/share/siverteh-ai/thunar-runtime"
+RUNTIME = HOME / ".local/share/siverteh-ai/thunar-style"
 
 
 def environment():
     env = os.environ.copy()
-    env["LD_LIBRARY_PATH"] = str(RUNTIME / "usr/lib")
-    env["PATH"] = str(RUNTIME / "usr/bin") + ":" + env.get("PATH", "")
+    for name in (
+        "LD_LIBRARY_PATH",
+        "QT_PLUGIN_PATH",
+        "QML_IMPORT_PATH",
+        "QML2_IMPORT_PATH",
+    ):
+        env.pop(name, None)
+    env["PATH"] = ":".join(
+        entry
+        for entry in env.get("PATH", "/usr/bin:/bin").split(":")
+        if "shell-runtime/usr/" not in entry and "thunar-runtime/usr/" not in entry
+    )
     return env
 
 
 def setup_locked(env):
-    # The standard Xfconf daemon owns its own preferences, without an Xfce session.
-    probe = subprocess.run(
-        ["busctl", "--user", "status", "org.xfce.Xfconf"],
-        capture_output=True,
-    )
-    if probe.returncode:
-        subprocess.run(
-            [
-                "systemd-run",
-                "--user",
-                "--collect",
-                "--unit=siverteh-thunar-xfconf",
-                "--property=Type=dbus",
-                "--property=BusName=org.xfce.Xfconf",
-                "--setenv=LD_LIBRARY_PATH=" + env["LD_LIBRARY_PATH"],
-                str(RUNTIME / "usr/lib/xfce4/xfconf/xfconfd"),
-            ],
-            check=True,
-            capture_output=True,
-        )
+    # The distribution D-Bus service activates Xfconf on demand.
     marker = HOME / ".local/state/siverteh-os/thunar-style.json"
     if marker.exists():
         return
-    query = str(RUNTIME / "usr/bin/xfconf-query")
+    query = "/usr/bin/xfconf-query"
     # xfconf-query waits for the service to become ready through its D-Bus client.
     defaults = {
         "default-view": ("string", "ThunarIconView"),
@@ -115,9 +106,7 @@ def main():
     setup(env)
     env["GTK_MODULES"] = str(RUNTIME / "siverteh-thunar-theme.so")
     env["SIVERTEH_THUNAR_STYLE"] = str(ROOT / "thunar.css")
-    os.execve(
-        str(RUNTIME / "usr/bin/thunar"), ["thunar", *(sys.argv[1:] or [str(HOME)])], env
-    )
+    os.execve("/usr/bin/thunar", ["thunar", *(sys.argv[1:] or [str(HOME)])], env)
 
 
 if __name__ == "__main__":

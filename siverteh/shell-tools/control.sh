@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 shell_runtime="$HOME/.local/share/siverteh-ai/shell-runtime"
-export LD_LIBRARY_PATH="$shell_runtime/usr/lib:${LD_LIBRARY_PATH:-}"
-export QML_IMPORT_PATH="$shell_runtime/usr/lib/qt6/qml:${QML_IMPORT_PATH:-}"
-export QT_PLUGIN_PATH="$shell_runtime/usr/lib/qt6/plugins:${QT_PLUGIN_PATH:-}"
+unset LD_LIBRARY_PATH QT_PLUGIN_PATH QML_IMPORT_PATH QML2_IMPORT_PATH
 export PATH="$HOME/.local/share/siverteh-ai/siverteh-shell/bin:$shell_runtime/venv/bin:$PATH"
 case "${1:-start}" in
  thunar) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/thunar-files.py" "${@:2}" ;;

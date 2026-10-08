@@ -50,7 +50,8 @@ def paths(repo):
             "siverteh-shell",
             "shell-runtime",
             "observatory",
-            "thunar-runtime",
+            "thunar-runtime",  # Retain old code in rollback during migration.
+            "thunar-style",
         )
     ]
     result += [

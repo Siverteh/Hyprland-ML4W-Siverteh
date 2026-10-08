@@ -75,10 +75,12 @@ def deploy(code_only=False):
                 )
     runtime = HOME / ".local/share/siverteh-ai/shell-runtime"
     if (
-        not (HOME / ".local/share/siverteh-ai/rice-runtime/usr/bin/quickshell").exists()
-        and not (runtime / "usr/bin/quickshell").exists()
+        not Path("/usr/bin/quickshell").is_file()
+        or not (runtime / "venv/bin/python").is_file()
     ):
-        raise RuntimeError("Provision the user-local dependencies first")
+        raise RuntimeError(
+            "Install system desktop packages and provision the palette engine first"
+        )
     pending = DEST / "source.next"
     if pending.exists():
         shutil.rmtree(pending)

@@ -1,90 +1,19 @@
 #!/usr/bin/env python3
-"""Provision a private Thunar file manager from checksum-verified distribution packages."""
+"""Build only the app-scoped style module for the pacman-managed Thunar."""
 
-import hashlib
 import json
-import os
 from pathlib import Path
-import shutil
 import subprocess
-import tempfile
-import urllib.request
 
 HOME = Path.home()
-DEST = HOME / ".local/share/siverteh-ai/thunar-runtime"
-
-
-def provision():
-    DEST.parent.mkdir(parents=True, exist_ok=True)
-    cache = HOME / ".cache/siverteh-shell-packages"
-    cache.mkdir(parents=True, exist_ok=True)
-    packages = ["thunar", "xfconf", "exo", "libxfce4ui", "libgtop"]
-    output = subprocess.check_output(
-        [
-            "pacman",
-            "-Sp",
-            "--print-format",
-            "%n %l %h",
-            *["extra/" + p for p in packages],
-        ],
-        text=True,
-    )
-    records = [
-        dict(zip(("name", "url", "sha256"), line.split()))
-        for line in output.splitlines()
-        if line.split()[0] in packages
-    ]
-    if len(records) != len(packages):
-        raise RuntimeError("Missing Thunar runtime package metadata")
-    manifest = DEST / "manifest.json"
-    if (
-        (DEST / "usr/bin/thunar").is_file()
-        and manifest.exists()
-        and json.loads(manifest.read_text()) == records
-    ):
-        return
-    with tempfile.TemporaryDirectory(dir=DEST.parent) as directory:
-        stage = Path(directory)
-        for record in records:
-            package, url, checksum = record["name"], record["url"], record["sha256"]
-            archive = cache / url.rsplit("/", 1)[-1]
-            if not archive.exists():
-                with (
-                    urllib.request.urlopen(url, timeout=30) as source,
-                    archive.open("wb") as destination,
-                ):
-                    shutil.copyfileobj(source, destination)
-            if hashlib.sha256(archive.read_bytes()).hexdigest() != checksum:
-                raise ValueError("Package checksum mismatch: " + package)
-            subprocess.run(
-                ["bsdtar", "-xf", str(archive), "-C", str(stage)], check=True
-            )
-        env = dict(os.environ, LD_LIBRARY_PATH=str(stage / "usr/lib"))
-        subprocess.run(
-            [str(stage / "usr/bin/thunar"), "--version"],
-            env=env,
-            check=True,
-            capture_output=True,
-        )
-        (stage / "manifest.json").write_text(json.dumps(records, indent=2) + "\n")
-        if DEST.exists():
-            old = DEST.with_name("thunar-runtime.previous")
-            if old.exists():
-                shutil.rmtree(old)
-            DEST.rename(old)
-            try:
-                shutil.copytree(stage, DEST)
-            except Exception:
-                shutil.rmtree(DEST, ignore_errors=True)
-                old.rename(DEST)
-                raise
-            shutil.rmtree(old)
-        else:
-            shutil.copytree(stage, DEST)
+DEST = HOME / ".local/share/siverteh-ai/thunar-style"
 
 
 def install():
-    provision()
+    subprocess.run(
+        ["pacman", "-Q", "thunar", "xfconf", "exo", "libxfce4ui", "libgtop"], check=True
+    )
+    DEST.mkdir(parents=True, exist_ok=True)
     flags = subprocess.check_output(
         ["pkg-config", "--cflags", "--libs", "gtk+-3.0"], text=True
     ).split()
