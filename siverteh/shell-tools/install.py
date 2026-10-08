@@ -145,6 +145,12 @@ def deploy(code_only=False):
         "[Service]\nExecStartPre=/usr/bin/python3 %h/.local/share/siverteh-ai/siverteh-shell/tools/idle-policy.py\n"
     )
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
+    subprocess.run(["python3", str(ROOT / "power-button-policy.py")], check=True)
+    subprocess.run(
+        ["systemctl", "--user", "enable", "--now", "siverteh-manual-power.service"],
+        check=True,
+        capture_output=True,
+    )
     subprocess.run(
         ["systemctl", "--user", "enable", "hypridle.service"],
         check=True,

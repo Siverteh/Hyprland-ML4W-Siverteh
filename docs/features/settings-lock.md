@@ -50,3 +50,20 @@ A transparent `sh-lock.png` uses the maintained SH geometry. The terminal's opaq
 before lock startup; live image reloads use identity-keyed paths. Album artwork
 preserves its alpha channel, downloads are bounded, and the private artwork cache
 retains at most12 prepared covers. No background polling worker is introduced.
+
+## Physical power button
+
+A desktop-session tap requests `loginctl lock-session` on the initial press,
+including while locked. It does not merely disable DPMS. Hypridle owns starting
+Hyprlock and its existing-instance guard. Mouse movement can wake the display
+but cannot bypass authentication.
+
+The managed user power-key inhibitor prevents logind's default short-press
+shutdown from competing with the compositor binding. The previous private
+release-time blanking binding is migrated with a backup; wake preferences and
+idle timeout choices are preserved. The existing service name remains compatible.
+
+Holding the physical button retains the machine's firmware emergency power-off;
+this is not a new timed software shutdown command. Its timing is hardware-specific.
+The OS does not prevent that hardware override. Actual shutdown is not performed
+as a deployment check. See [systemd's inhibitor ownership documentation](https://systemd.io/INHIBITOR_LOCKS/).

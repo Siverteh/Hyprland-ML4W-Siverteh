@@ -48,6 +48,9 @@ def files(root=ROOT):
     result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (
         root / "ai/systemd/siverteh-brain-sync.service"
     )
+    result[Path(".config/systemd/user/siverteh-manual-power.service")] = (
+        root / "siverteh/shell-tools/siverteh-manual-power.service"
+    )
     # Fixture repositories may not contain optional shared-knowledge helpers.
     return {path: source for path, source in result.items() if source.exists()}
 
@@ -108,6 +111,7 @@ def idle_policy(home, root, migrate_idle):
 
 
 LEGACY_SYNC = {
+    ".config/systemd/user/siverteh-manual-power.service": "e4ea2240157898be3c3f4355a04985681df0d9cd1a72163f6f6f2316a8b3b200",
     ".local/bin/siverteh-brain-sync": "b1f7eb81b42ab6c205fb3e9bf19df46371ef31bfe854c6d3e1d984b70ea0c799",
     ".config/systemd/user/siverteh-brain-sync.service": "8ea45eb1bf5536819ba8fdbda31fa8cae115910db406b950abc3aa5c30ecbc83",
 }

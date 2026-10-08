@@ -73,6 +73,7 @@ def paths(repo):
             "siverteh-observatory-brain.service",
             "siverteh-session-watch.service",
             "siverteh-brain-sync.service",
+            "siverteh-manual-power.service",
         )
     ]
     result += [

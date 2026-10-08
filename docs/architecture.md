@@ -89,3 +89,9 @@ owns the shared sync helper and service, adopting only recognized previous bytes
 and retaining backups. AI workers are not restarted by this update. Browser auth
 uses rotating bootstrap tokens and a private restart-safe cookie credential; no
 secret-bearing command arguments or public source snapshots are introduced.
+
+The managed power-button binding locks on press, with the compatible
+`siverteh-manual-power.service` owning low-level logind key inhibition. A
+backup-preserving migration removes the recognized private DPMS release binding;
+private display-wake and idle policies remain separate. Firmware continues to
+own physical hold-to-force-off behavior.

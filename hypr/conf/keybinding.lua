@@ -33,6 +33,9 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAUL
     locked = true,
 })
 
+-- Lock on the initial power-button press. Firmware retains emergency hold-to-off.
+hl.bind("XF86PowerOff", hl.dsp.exec_cmd("loginctl lock-session"), {locked = true})
+
 -- -------------------- Screen Brightness (with OSD) --------------------
 
 -- F5 = Brightness Down
