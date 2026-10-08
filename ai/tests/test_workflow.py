@@ -589,6 +589,7 @@ class LatestTaskTests(unittest.TestCase):
             patch.object(ai, "chat_projects", return_value=[project]),
             patch.object(ai, "project_chats", return_value=[item]),
             patch.object(ai, "local_environment", return_value={}),
+            patch.object(ai, "prepare_local_codex"),
             patch.object(ai.os, "execvpe") as execute,
         ):
             ai.load_task(SimpleNamespace(command="latest", project=None, account=None))
@@ -633,7 +634,10 @@ class NewProjectTests(unittest.TestCase):
                 )
                 with self.assertRaises(ValueError):
                     ai.create_project("My New Game")
-                with patch.object(ai.os, "execvpe") as execute:
+                with (
+                    patch.object(ai, "prepare_local_codex"),
+                    patch.object(ai.os, "execvpe") as execute,
+                ):
                     ai.run_project(
                         SimpleNamespace(command="new", project=p["id"], account=None)
                     )
@@ -728,6 +732,7 @@ class GeneralChatTests(unittest.TestCase):
             patch.dict(os.environ, {"HOME": temp}),
             patch.object(ai.os, "execvpe") as execute,
             patch.object(ai.subprocess, "run") as run,
+            patch.object(ai, "prepare_local_codex"),
         ):
             folders = []
             for _ in range(2):
@@ -777,6 +782,7 @@ class GeneralChatTests(unittest.TestCase):
         ai = module("siverteh-ai")
         with (
             patch.object(ai, "local_environment", return_value={}),
+            patch.object(ai, "prepare_local_codex"),
             patch.object(
                 ai.subprocess,
                 "run",

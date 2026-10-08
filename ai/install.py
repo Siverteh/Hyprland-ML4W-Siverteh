@@ -9,6 +9,42 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import tempfile
+
+
+def install_launcher(repo, home, apply=False):
+    """Update the known private launcher copy without reinstalling AI setup."""
+    target = (home / ".local/bin/siverteh-ai").resolve()
+    runtime = home / ".local/share/siverteh-ai/conversation-runtime"
+    if (
+        not target.is_relative_to(runtime)
+        or target.name != "siverteh-ai"
+        or not target.is_file()
+    ):
+        raise RuntimeError(
+            "Launcher-only deployment requires a recognized private runtime copy; existing files were left unchanged"
+        )
+    source = repo / "bin/siverteh-ai"
+    print("Launcher-only plan:", source, "→", target)
+    if not apply:
+        print("Plan only; add --apply to replace the launcher and save its prior copy.")
+        return
+    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    backup = home / ".local/state/siverteh-ai/backups" / stamp
+    backup.mkdir(parents=True, mode=0o700)
+    shutil.copy2(target, backup / "siverteh-ai")
+    old = target.read_bytes()
+    with tempfile.NamedTemporaryFile(dir=target.parent, delete=False) as out:
+        out.write(source.read_bytes())
+        pending = Path(out.name)
+    pending.chmod(target.stat().st_mode & 0o777)
+    if target.read_bytes() != old:
+        pending.unlink()
+        raise RuntimeError(
+            "Installed launcher changed during deployment; retry after review"
+        )
+    pending.replace(target)
+    print("Launcher updated; previous copy:", backup / "siverteh-ai")
 
 
 def main():
@@ -26,9 +62,22 @@ def main():
         type=Path,
         help="Also install guidance in an isolated Codex home",
     )
+    parser.add_argument(
+        "--launcher-only",
+        action="store_true",
+        help="Plan a code-only update of the recognized private launcher copy",
+    )
+    parser.add_argument(
+        "--apply", action="store_true", help="Apply the launcher-only update"
+    )
     args = parser.parse_args()
     repo = args.repo.resolve()
     home = Path.home()
+    if args.launcher_only:
+        install_launcher(repo, home, args.apply)
+        return
+    if args.apply:
+        parser.error("--apply is only used with --launcher-only")
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = home / ".local/state/siverteh-ai/backups" / stamp
 

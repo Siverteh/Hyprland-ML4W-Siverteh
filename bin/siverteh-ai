@@ -1034,6 +1034,56 @@ def load_task(args):
         "--add-dir",
         os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain")),
     ]
+    exec_local_codex(argv, env)
+
+
+def prepare_local_codex(executable, env):
+    """Let Codex prepare its shared server before replacing the launcher TUI.
+
+    The supported start operation is idempotent: it doesn't restart a live
+    server. Keep retries bounded and scoped to this account's CODEX_HOME.
+    """
+    import time
+
+    for attempt in range(3):
+        try:
+            result = subprocess.run(
+                [executable, "app-server", "daemon", "start"],
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            if result.returncode == 0:
+                return
+            detail = (result.stderr or "").lower()
+            transient = any(
+                word in detail
+                for word in (
+                    "draining",
+                    "reconnect",
+                    "connection refused",
+                    "no such file",
+                    "startup lock",
+                    "timed out",
+                )
+            )
+        except subprocess.TimeoutExpired:
+            transient = True
+        if not transient:
+            raise ValueError(
+                "Codex could not prepare its shared server. Run codex doctor for diagnostics; existing tasks were left running."
+            )
+        if attempt < 2:
+            print("Codex server is reconnecting; retrying startup…", flush=True)
+            time.sleep(1)
+    raise ValueError(
+        "Codex's shared server is still transitioning. Existing tasks were left running; retry shortly or inspect codex doctor."
+    )
+
+
+def exec_local_codex(argv, env):
+    prepare_local_codex(argv[0], env)
     os.execvpe(argv[0], argv, env)
 
 
@@ -1196,7 +1246,7 @@ def run_project(args):
                 "--add-dir",
                 str(vault),
             ]
-    os.execvpe(argv[0], argv, env)
+    exec_local_codex(argv, env)
 
 
 def main():

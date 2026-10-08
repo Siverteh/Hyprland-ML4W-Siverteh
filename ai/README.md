@@ -5,6 +5,30 @@ independent tasks, resume running sessions, or optionally browse private notes.
 Obsidian is never launched by the workspace launcher; agents use the Markdown
 files directly even while it is closed. `SUPER+ALT+C` uses the existing daily workspace launcher.
 
+## Shared Codex server recovery
+
+Local New and Resume operations first use Codex's supported, idempotent
+`app-server daemon start` command in the selected account environment. This
+replaces a missing server before TUI bootstrap, without restarting a live server.
+A draining/shutdown transition is retried at most three times with ten-second
+command limits. Other failures stop with diagnostics, rather than silently
+changing accounts, disabling the shared server or opening duplicate sessions.
+The server can still transition after the preflight check; retry the launch if
+that native race occurs. Existing chats and credentials are preserved.
+
+To update just an already installed private conversation launcher, review and
+apply its scoped plan:
+
+```sh
+python3 ai/install.py --launcher-only
+python3 ai/install.py --launcher-only --apply
+```
+
+This requires the recognized private `conversation-runtime` copy. It saves the
+previous launcher and atomically replaces only that file, retaining its symlink
+and executable mode. It does not reinstall Codex, edit guidance/accounts, restart
+workers or run the general AI installation. Unrecognized targets are refused.
+
 ## Daily use
 
 The compact dashboard has six actions: **New chat**, **Resume latest chat**,
