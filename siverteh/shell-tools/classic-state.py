@@ -507,12 +507,18 @@ def apply_palette(home, wallpaper=None, live=True):
                 "set",
                 "org.gnome.desktop.interface",
                 "cursor-theme",
-                "breeze_cursors",
+                os.environ.get("XCURSOR_THEME", "breeze_cursors"),
             ],
             capture_output=True,
         )
         subprocess.run(
-            ["gsettings", "set", "org.gnome.desktop.interface", "cursor-size", "24"],
+            [
+                "gsettings",
+                "set",
+                "org.gnome.desktop.interface",
+                "cursor-size",
+                os.environ.get("XCURSOR_SIZE", "24"),
+            ],
             capture_output=True,
         )
         subprocess.run(

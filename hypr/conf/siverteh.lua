@@ -3,7 +3,7 @@
 -- Siverteh Shell
 hl.layer_rule({
     name = "siverteh-shell-glass",
-    match = { namespace = "siverteh-shell" },
+    match = { namespace = "^siverteh-(drawers|topbar|lock-preview|left-menu-handle|right-menu-handle)$" },
     no_anim = true,
     blur = true,
     ignore_alpha = 0.5,

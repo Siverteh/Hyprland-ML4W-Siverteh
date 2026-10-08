@@ -6,6 +6,6 @@ import qs.utils
 PanelWindow {
     required property string name
 
-    WlrLayershell.namespace: `caelestia-${name}`
+    WlrLayershell.namespace: `siverteh-${name}`
     color: "transparent"
 }

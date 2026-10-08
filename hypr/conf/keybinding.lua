@@ -49,7 +49,7 @@ hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%- --device
 
 -- -------------------- Emoji picker --------------------
 
--- Emoji picker (works on both laptop F8 and external keyboard F7)
+-- Emoji picker
 hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app emoji"))
 
 -- -------------------- Microphone Controls (with OSD) --------------------
@@ -202,12 +202,12 @@ hl.bind("SUPER + ALT + down", hl.dsp.window.resize({ x = 0, y = 30, relative = t
 -- OPEN APPLICATIONS (SUPER + SHIFT + Letter)
 
 -- =====================================================
-hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("kitty"))
-hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("google-chrome-stable"))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("code"))
-hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("cursor"))
-hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("discord"))
-hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("spotify"))
+hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("uwsm app -- kitty"))
+hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("uwsm app -- google-chrome-stable"))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("uwsm app -- code"))
+hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- cursor"))
+hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("uwsm app -- discord"))
+hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- spotify"))
 hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files"))
 
 -- =====================================================
@@ -235,7 +235,7 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell clipboard")
 
 -- =====================================================
 hl.bind("SUPER + X", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell session"))
-hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("hyprlock"))
+hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
 -- bind = SUPER SHIFT, E, exit
