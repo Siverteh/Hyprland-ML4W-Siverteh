@@ -276,17 +276,17 @@ Variants {
             height: win.height
             hoverEnabled: true
             acceptedButtons: Qt.NoButton
-            function updateEdge(buttons) {
-                HoverIntent.observe(win.screen, mouseX + x, mouseY);
+            function updateEdge(buttons, localX, localY) {
+                HoverIntent.observe(win.screen, localX + x, localY);
                 HoverIntent.headers[win.screen.name] = containsMouse;
-                if (!win.clickMenus && mouseY <= HoverIntent.dashboardDepth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
+                if (!win.clickMenus && localY <= HoverIntent.dashboardDepth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
                     const p = Visibilities.panels[win.screen.name];
                     if (p) p.popouts.hasCurrent = false;
                     win.visibility.dashboard = true;
                 }
             }
-            onEntered: updateEdge(pressedButtons)
-            onPositionChanged: event => updateEdge(event.buttons)
+            onEntered: HoverIntent.headers[win.screen.name] = true
+            onPositionChanged: event => updateEdge(event.buttons, event.x, event.y)
             onExited: {
                 HoverIntent.headers[win.screen.name] = false;
                 HoverIntent.rearm("dashboard", win.screen);
