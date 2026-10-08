@@ -344,6 +344,12 @@ def deploy(repo, components, keyboard, migrate=False):
                 "brain": [sys.executable, str(repo / "brain/install.py")],
             }
             subprocess.run(commands[component], env=environment, check=True)
+            if component == "configs" and any(
+                Path(entry["path"]).is_relative_to(HOME / ".config/hypr")
+                and entry["before"] != fingerprint(Path(entry["path"]))
+                for entry in record["entries"]
+            ):
+                subprocess.run(["hyprctl", "reload"], check=True, capture_output=True)
         subprocess.run(
             [
                 sys.executable,

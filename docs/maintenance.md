@@ -3,7 +3,7 @@
 This is the maintained source for a CachyOS/Arch desktop using Hyprland's Lua API.
 It is not an installer for an arbitrary Linux distribution. Install OS packages
 through the distribution's package manager, then provision the isolated shell
-runtime with `python3 siverteh/shell-tools/provision.py`. Package archives are
+palette environment with `python3 siverteh/shell-tools/provision.py`. Native packages are
 checked against the SHA-256 values in the local package database before extraction;
 the palette engine's tested Python dependency versions are pinned.
 
@@ -106,13 +106,19 @@ rollback and recovery.
 
 ## Host overrides and dependency updates
 
-The managed idle file sources `~/.config/siverteh-shell/hypridle.local.conf`.
-Installation seeds the policy once from `tools/defaults/hypridle.conf`; later
-changes belong in the private file. The one-time `tools/configure.py
---migrate-idle-override` plan/apply preserves a recognized existing idle policy
-and manual power/wake addition in private files, backing up managed originals.
-Other configuration drift is still refused. `host.lua` loads last for optional
-host-specific Hyprland behavior.
+The managed idle file owns lock and sleep hooks and sources private idle listeners
+from `~/.config/siverteh-shell/hypridle.local.conf`. `idle-policy.py` migrates old
+full-policy overrides with a backup while preserving timeout values. A Hypridle
+service pre-start helper creates a missing listener file; missing preferences
+mean no idle timeout, with before-sleep locking still active. Private `host.lua`
+continues to own optional power-button and display-wake behavior.
+
+Successful promotion keeps ten newest good releases plus current, previous and
+any retired-native backup. Older eligible good snapshots are pruned only after
+live gates pass. `siverteh-os doctor` reports release disk usage. Failed or unknown
+snapshots remain diagnostic evidence; deletion of retired code requires a separate
+explicit cleanup. Only `tools/configure.py` writes managed `hyprland.lua`; private
+loaders catch errors and continue in monitor, palette, desktop, shortcuts, host order.
 
 Desktop binaries, native libraries and icon artwork are pacman-managed. Perform
 normal full system updates, rather than partial Qt updates. Quickshell uses Qt

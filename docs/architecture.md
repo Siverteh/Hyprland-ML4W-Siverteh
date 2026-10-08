@@ -14,8 +14,9 @@
 The desktop shell owns the bar, frame, dashboard, notifications, launcher,
 wallpaper chooser and audio/brightness controls. Display settings are stored in
 private native state; the old display-rearrangement scripts and competing display
-daemon are removed. The enabled Hypridle service reads a private full-policy override. Fresh installs
-seed fifteen-minute locking and sleep hooks; existing host policies are preserved. KWallet PAM unlocks
+daemon are removed. The enabled Hypridle service uses managed authentication/sleep hooks and private
+idle listeners. Existing idle timeouts are preserved; a missing private file is
+created before service startup, leaving sleep locking active. KWallet PAM unlocks
 the encrypted wallet using password login, with its initialization hook in the
 Hyprland startup configuration.
 
@@ -67,3 +68,10 @@ UI surfaces, excluding wallpaper and invisible edge/input surfaces.
 Feature behavior belongs in linked [feature guides](overview.md#feature-guides).
 The [runtime guide](features/runtime.md) documents compatibility paths; state is
 not renamed simply to tidy identifiers.
+
+Brightness services read native sysfs values through FileView; hardware-key IPC
+performs writes and drives the indicator. Native refresh runs every five seconds
+only while controls are visible, and on opening controls. DDC monitors are read
+at discovery and after writes, without a periodic DDC poll. Update launch and
+completion share one Qt-version check. Errors remain readable in the update
+terminal; a failed shell startup uses Hyprland's own notification channel.

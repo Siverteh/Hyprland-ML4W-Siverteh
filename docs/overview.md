@@ -11,7 +11,7 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   wallpaper views and AI sidebar. Its renderer is separate from the AI worker.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,
   GTK/Qt settings, Kitty, lock screen and login appearance.
-- **Hypridle and Hyprlock** handle the private host locking policy and password authentication.
+- **Hypridle and Hyprlock** handle managed sleep locking and private idle timeouts and password authentication.
   SDDM handles the initial login. Wallpaper code supplies appearance only.
 - **Siverteh AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
@@ -52,7 +52,7 @@ on lock and on sleep; the picker temporarily allows a live preview.
 | Workspaces and app placement | `hypr/conf/windowrule.lua`; Brain exceptions in `brain.lua` |
 | Keys and window appearance | `hypr/conf/keybinding.lua`, `siverteh/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
 | Environment and cursor defaults | `uwsm/env`, `uwsm/env-hyprland`, `hypr/conf/cursor.lua` |
-| Idle locking | Private `~/.config/siverteh-shell/hypridle.local.conf`; factory seed in `tools/defaults/hypridle.conf` |
+| Idle locking | Private listeners in `~/.config/siverteh-shell/hypridle.local.conf`; sleep hooks in `hypr/hypridle.conf` |
 | Bar, menus and picker layouts | `siverteh/shell/modules/` |
 | Shared UI state and background work | `siverteh/shell/services/` |
 | Wallpaper/palette publication | `siverteh/shell-tools/wallpaper-media.py`, `classic-state.py`; generator in `siverteh/shell-cli/` |

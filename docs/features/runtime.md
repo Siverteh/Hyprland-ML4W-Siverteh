@@ -67,3 +67,14 @@ The folder overlay has a new versioned name when migrating to system artwork,
 so an old cached overlay cannot keep symlinks into retired native icon copies.
 Old private artwork/overlay directories are removed only when verified as owned;
 custom user icon themes are preserved.
+
+## Update visibility
+
+Package updates retain `paru -Syu --skipreview`. Failures print their step and
+exit code and wait for Enter. Preflight blocks a known local recovery build when
+a Qt base update is pending, with rebuild instructions rather than an opaque
+package-dependency failure. The update widget displays that status. Cached
+repository archives can verify that a distribution Quickshell's build-time Qt
+matches installed Qt; absent build metadata means compatibility is not assumed.
+After updates the same Qt check as shell startup runs. Startup failure is shown
+through Hyprland, so it remains visible without the shell notification server.
