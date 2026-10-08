@@ -28,6 +28,24 @@ def count_updates():
     return {"text": str(total), "count": total, "checked": time.time()}
 
 
+def pending_qt_release_change(pending):
+    # Arch pkgrel changes (including CachyOS optimized rebuilds) do not change
+    # the Qt release or the local package's pkgrel-independent Qt dependency.
+    pinned = {"qt6-base", "qt6-declarative", "qt6-wayland"}
+    for line in pending.splitlines():
+        fields = line.split()
+        if not fields or fields[0] not in pinned:
+            continue
+        if len(fields) != 4 or fields[2] != "->":
+            raise RuntimeError("Could not parse the pending Qt update")
+        old, new = fields[1], fields[3]
+        old_release = old.rsplit("-", 1)[0] if "-" in old else old
+        new_release = new.rsplit("-", 1)[0] if "-" in new else new
+        if old_release != new_release:
+            return True
+    return False
+
+
 def qt_update_status(pending):
     version = subprocess.run(
         ["quickshell", "--version", "-v"], capture_output=True, text=True, timeout=10
@@ -38,9 +56,7 @@ def qt_update_status(pending):
             ["pacman", "-Q", "quickshell"], capture_output=True, text=True, timeout=10
         )
         local = package.returncode == 0 and package.stdout.strip().endswith("-1.2")
-    blocked = local and any(
-        line.split()[0] == "qt6-base" for line in pending.splitlines() if line.strip()
-    )
+    blocked = local and pending_qt_release_change(pending)
     message = "Quickshell rebuild needed before updating" if blocked else ""
     # Installed/cached distribution archives provide build-time Qt metadata without
     # executing downloaded binaries or guessing compatibility from package versions.

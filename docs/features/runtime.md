@@ -72,9 +72,15 @@ custom user icon themes are preserved.
 
 Package updates retain `paru -Syu --skipreview`. Failures print their step and
 exit code and wait for Enter. Preflight blocks a known local recovery build when
-a Qt base update is pending, with rebuild instructions rather than an opaque
+a Qt release change is pending for base, declarative or Wayland libraries, with rebuild instructions rather than an opaque
 package-dependency failure. The update widget displays that status. Cached
 repository archives can verify that a distribution Quickshell's build-time Qt
 matches installed Qt; absent build metadata means compatibility is not assumed.
 After updates the same Qt check as shell startup runs. Startup failure is shown
 through Hyprland, so it remains visible without the shell notification server.
+
+A package revision update such as `6.12.0-2` → `6.12.0-2.1` preserves the Qt
+release and does not require a Quickshell rebuild. The preflight compares release
+versions, including dependency epochs, rather than warning for every Qt package
+revision. Actual release changes still retain the rebuild guard and the post-update
+runtime/build check.
