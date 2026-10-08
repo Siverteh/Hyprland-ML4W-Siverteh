@@ -236,13 +236,9 @@ def deploy(repo, components, keyboard, migrate=False):
             ],
             check=True,
         )
-    keyboard = (
-        keyboard
-        or shutil.which("wtype")
-        or str(HOME / ".local/share/siverteh-ai/shell-runtime/usr/bin/wtype")
-    )
+    keyboard = keyboard or shutil.which("wtype") or "/usr/bin/wtype"
     if not Path(keyboard).is_file():
-        raise RuntimeError("Provision wtype for the live release gate")
+        raise RuntimeError("Install wtype for the live release gate")
     release, record = capture(repo, revision)
     environment = dict(os.environ, SIVERTEH_RELEASE_TRANSACTION="1")
     try:

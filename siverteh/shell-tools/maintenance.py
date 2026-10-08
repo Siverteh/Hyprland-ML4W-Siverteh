@@ -131,7 +131,7 @@ def main():
                 sys.executable,
                 str(HOME / ".local/share/siverteh-os/control/check-overlays.py"),
                 "--keyboard",
-                str(HOME / ".local/share/siverteh-ai/shell-runtime/usr/bin/wtype"),
+                "/usr/bin/wtype",
             ],
             check=True,
         )
