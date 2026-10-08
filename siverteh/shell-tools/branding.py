@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One layered SH geometry for web, Qt and Kitty, with wallpaper palette roles."""
 
-import json, io, os, tempfile, signal
+import json, io, os, tempfile, signal, subprocess, shutil
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -115,6 +115,9 @@ def publish(colors, home=Path.home()):
 
 
 def build():
+    formatter = shutil.which("qmlformat")
+    if not formatter:
+        raise RuntimeError("Regenerating QML branding requires qmlformat")
     root = HERE.parent
     template = svg()
     (root / "shell/branding/sh.svg").write_text(template)
@@ -128,7 +131,7 @@ def build():
 }
 """.replace("TEMPLATE", expression)
     (root / "shell/widgets/ShLogo.qml").write_text(
-        'import "root:/services"\nimport QtQuick\n'
+        "import qs.services\nimport QtQuick\n"
         + common.replace("DEFAULT_PRIMARY", "Colours.palette.m3primary")
         .replace("DEFAULT_SECONDARY", "Colours.palette.m3secondary")
         .replace(
@@ -153,6 +156,15 @@ def build():
             "DEFAULT_SECONDARY", '"#d2c5ad"'
         )
     )
+    for qml in (widget, root / "login/Logo.qml"):
+        for _ in range(3):
+            formatted = subprocess.check_output(
+                [formatter, str(qml.resolve())], text=True
+            )
+            if formatted == qml.read_text():
+                break
+            qml.write_text(formatted)
+
     web = root.parent / "brain/web/index.html"
     text = web.read_text()
     a = text.index('<symbol id="sh"')
