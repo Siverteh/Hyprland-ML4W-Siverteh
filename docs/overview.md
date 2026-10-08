@@ -50,7 +50,7 @@ on lock and on sleep; the picker temporarily allows a live preview.
 | Change | Edit |
 |---|---|
 | Workspaces and app placement | `hypr/conf/windowrule.lua`; Brain exceptions in `brain.lua` |
-| Keys and window appearance | `hypr/conf/keybinding.lua`, `window.lua`, `decoration.lua` |
+| Keys and window appearance | `hypr/conf/keybinding.lua`, `siverteh/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
 | Environment and cursor defaults | `uwsm/env`, `uwsm/env-hyprland`, `hypr/conf/cursor.lua` |
 | Idle locking | `hypr/hypridle.conf` |
 | Bar, menus and picker layouts | `siverteh/shell/modules/` |

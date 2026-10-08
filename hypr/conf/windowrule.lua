@@ -64,3 +64,13 @@ hl.window_rule({
     match = { class = "^([Cc]ursor)$" },
     workspace = "7 silent",
 })
+
+-- Thunar uses the shared Files route bound in keybinding.lua.
+hl.window_rule({
+    name = "siverteh-thunar-files",
+    match = { class = "^([Tt]hunar)$" },
+    float = true,
+    center = true,
+    size = "70% 75%",
+})
+

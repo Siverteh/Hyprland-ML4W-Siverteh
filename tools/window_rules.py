@@ -14,6 +14,8 @@ STRING = r'"(?:[^"\\]|\\.)*"|\x27(?:[^\x27\\]|\\.)*\x27'
 
 
 def balanced(source, start):
+    opening = source[start]
+    closing = {"{": "}", "(": ")"}[opening]
     depth = 0
     quote = None
     escaped = False
@@ -28,9 +30,9 @@ def balanced(source, start):
                 quote = None
         elif char in '"\x27':
             quote = char
-        elif char == "{":
+        elif char == opening:
             depth += 1
-        elif char == "}":
+        elif char == closing:
             depth -= 1
             if depth == 0:
                 return index + 1
@@ -47,10 +49,20 @@ def fields(table):
     return values
 
 
-def rules(folder):
+def lua_sources(folder, extra=()):
+    return sorted(set(Path(folder).glob("*.lua")) | {Path(p) for p in extra})
+
+
+def without_comments(source):
+    return re.sub(
+        STRING + r"|--[^\n]*", lambda m: "" if m[0].startswith("--") else m[0], source
+    )
+
+
+def rules(folder, extra=()):
     result = []
-    for path in sorted(Path(folder).glob("*.lua")):
-        source = re.sub(r"--[^\n]*", "", path.read_text())
+    for path in lua_sources(folder, extra):
+        source = without_comments(path.read_text())
         for call in re.finditer(r"hl\.window_rule\s*\(\s*\{", source):
             start = source.index("{", call.start())
             block = source[start : balanced(source, start)]
@@ -93,9 +105,9 @@ def witnesses(pattern):
     return values
 
 
-def conflicts(folder):
+def conflicts(folder, extra=()):
     found = []
-    rows = rules(folder)
+    rows = rules(folder, extra)
     for left, right in itertools.combinations(rows, 2):
         if left[2] != right[2]:
             continue
@@ -118,4 +130,34 @@ def conflicts(folder):
                     found.append(
                         f"{left[0]} {left[1]} conflicts with {right[0]} {right[1]}: {field}"
                     )
+    return found
+
+
+def bind_conflicts(folder, extra=()):
+    found, seen = [], {}
+    for path in lua_sources(folder, extra):
+        source = without_comments(path.read_text())
+        submaps = []
+        for definition in re.finditer(r"hl\.define_submap\s*\(", source):
+            begin = source.index("(", definition.start())
+            submaps.append((begin, balanced(source, begin)))
+        for call in re.finditer(r"hl\.bind\s*\(\s*(" + STRING + r")", source):
+            if any(begin <= call.start() < end for begin, end in submaps):
+                continue
+            begin = source.index("(", call.start())
+            options = source[call.end() : balanced(source, begin)]
+            if re.search(r"\bsubmap\s*=\s*[\"'](?:[^\"']+)[\"']", options):
+                continue
+            key = ast.literal_eval(call[1])
+            parts = [p.strip().upper() for p in key.split("+")]
+            modifiers = {"CONTROL": "CTRL", "META": "SUPER", "MOD4": "SUPER"}
+            canonical = (
+                "+".join(sorted(modifiers.get(p, p) for p in parts[:-1]))
+                + "+"
+                + parts[-1]
+            )
+            if canonical in seen:
+                found.append(f"{path.name} {key} duplicates {seen[canonical]}")
+            else:
+                seen[canonical] = f"{path.name} {key}"
     return found

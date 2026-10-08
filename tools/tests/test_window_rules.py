@@ -37,6 +37,23 @@ class WindowRuleTests(unittest.TestCase):
             )
             self.assertEqual(rules.conflicts(root), [])
 
+    def test_extra_rules_and_normalized_global_bind_conflicts(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "base.lua").write_text(
+                'hl.bind("SUPER + SHIFT + A", hl.dsp.no_op())\nhl.window_rule({match={class="^(app)$"},workspace="2"})'
+            )
+            extra = root / "extras.txt"
+            extra.write_text(
+                'hl.bind("shift+super+a", hl.dsp.no_op())\nhl.window_rule({match={class="^(app)$"},workspace="7"})'
+            )
+            self.assertTrue(rules.conflicts(root, [extra]))
+            self.assertTrue(rules.bind_conflicts(root, [extra]))
+            extra.write_text(
+                'hl.define_submap("resize", function() hl.bind("SUPER + SHIFT + A", hl.dsp.no_op()) end)'
+            )
+            self.assertEqual(rules.bind_conflicts(root, [extra]), [])
+
     def test_title_scoped_exception_is_not_a_class_wide_conflict(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

@@ -74,15 +74,18 @@ def main():
     else:
         print("Ruff unavailable; Python formatting check skipped.", flush=True)
     print("Python, JSON, shell syntax and retired-tree checks passed.", flush=True)
-    from window_rules import conflicts
+    from window_rules import conflicts, bind_conflicts
 
-    contradictory = conflicts(ROOT / "hypr/conf")
+    extra_lua = [ROOT / "siverteh/shell-tools/shortcuts.lua"]
+    contradictory = conflicts(ROOT / "hypr/conf", extra_lua) + bind_conflicts(
+        ROOT / "hypr/conf", extra_lua
+    )
     if contradictory:
         raise RuntimeError("Conflicting window rules:\n" + "\n".join(contradictory))
     print("Window class routing and floating rules are consistent.", flush=True)
     lua = shutil.which("luac")
     if lua:
-        for path in (ROOT / "hypr").rglob("*.lua"):
+        for path in [*(ROOT / "hypr").rglob("*.lua"), *extra_lua]:
             run([lua, "-p", str(path)])
         print("Lua syntax passed.", flush=True)
     formatter = Path("/usr/lib/qt6/bin/qmlformat")
