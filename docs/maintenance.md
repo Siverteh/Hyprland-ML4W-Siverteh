@@ -473,3 +473,24 @@ Escape shortcut dismisses passive previews while allowing the application's
 Escape action to continue; pinned AI and explicit modal panels keep their own
 existing dismissal behavior. State follows pointer events and one-shot exit
 signals, with no global pointer polling or additional input process.
+
+## Prepared lock presentation
+
+Both wallpaper publication and direct lock-layout refresh use `prepare_config`,
+which reads actual output dimensions and retains the last known geometry if the
+compositor query temporarily fails. Neither production writer may use the generic
+1920px preview layout. Media controls and their card must share the same output.
+
+The existing LockWidgets singleton prepares text and artwork on metadata,
+notification, privacy, battery or palette events, coalescing bursts. Private ready
+files have mode0600 inside a0700 directory. Hyprlock reads them with short `cat`
+commands; no network requests, Python imports, font measuring or shell IPC happen
+in its widget render path. Safe and detailed notification labels are separate;
+current lock preferences select the safe file by default. Actions remain the
+existing bounded Python media allowlist, with PAM authentication unchanged.
+
+A transparent `sh-lock.png` uses the maintained SH geometry. The terminal's opaque
+`sh.png` remains separate. The stable initial artwork file is updated atomically
+before lock startup; live image reloads use identity-keyed paths. Album artwork
+preserves its alpha channel, downloads are bounded, and the private artwork cache
+retains at most12 prepared covers. No background polling worker is introduced.

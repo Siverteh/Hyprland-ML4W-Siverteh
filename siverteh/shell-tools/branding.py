@@ -90,9 +90,9 @@ def publish(colors, home=Path.home()):
     g = json.loads(GEOMETRY.read_text())
     scale = 16
     image = Image.new(
-        "RGB",
+        "RGBA",
         (g["size"][0] * scale, g["size"][1] * scale),
-        "#" + colors["surface"].lstrip("#"),
+        (0, 0, 0, 0),
     )
     draw = ImageDraw.Draw(image)
     for role, points in g["letters"].items():
@@ -104,7 +104,12 @@ def publish(colors, home=Path.home()):
     out = io.BytesIO()
     image.save(out, format="PNG")
     folder = home / ".local/share/siverteh-ai/branding"
-    atomic(folder / "sh.png", out.getvalue())
+    atomic(folder / "sh-lock.png", out.getvalue())
+    terminal = Image.new("RGB", image.size, "#" + colors["surface"].lstrip("#"))
+    terminal.paste(image, mask=image.getchannel("A"))
+    opaque = io.BytesIO()
+    terminal.save(opaque, format="PNG")
+    atomic(folder / "sh.png", opaque.getvalue())
     atomic(folder / "sh.svg", svg(False, colors).encode())
     refresh_terminal_menus(home)
 

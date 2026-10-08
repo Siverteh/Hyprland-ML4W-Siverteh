@@ -61,7 +61,7 @@ label {
 }
 label {
     monitor =
-    text = cmd[update:10000] {{helper}} status
+    text = cmd[update:10000] {{status}}
     color = rgba({{onSurface}}ff)
     font_size = 12
     font_family = IBM Plex Sans

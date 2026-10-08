@@ -5,7 +5,18 @@ import json, shlex, subprocess
 from pathlib import Path
 
 
-def widgets(kind, colors, helper, monitor="", width=1920):
+def widgets(
+    kind,
+    colors,
+    helper,
+    monitor="",
+    width=1920,
+    ready=None,
+    artwork=None,
+    private=False,
+):
+    ready = ready or Path.home() / ".cache/siverteh-os/lock-ready"
+
     def block(widget, **options):
         return (
             widget
@@ -36,10 +47,15 @@ def widgets(kind, colors, helper, monitor="", width=1920):
             zindex=0,
         )
 
+    def read_label(name):
+        if name == "notifications":
+            name += "-private" if private else "-safe"
+        return "/usr/bin/cat " + shlex.quote(str(ready / (name + ".txt")))
+
     def info(name, position, font=14):
         return block(
             "label",
-            text="cmd[update:2000] " + command + name,
+            text="cmd[update:2000] " + read_label(name),
             position=position,
             halign="center",
             valign="center",
@@ -58,7 +74,8 @@ def widgets(kind, colors, helper, monitor="", width=1920):
         result = card("340, 360", "-32%, -135") + info("media", "-32%, -155")
         result += block(
             "image",
-            path=str(Path.home() / ".local/share/siverteh-ai/branding/sh.png"),
+            path=artwork
+            or str(Path.home() / ".local/share/siverteh-ai/branding/sh-lock.png"),
             size=82,
             rounding=14,
             border_size=0,
@@ -66,13 +83,13 @@ def widgets(kind, colors, helper, monitor="", width=1920):
             halign="center",
             valign="center",
             reload_time=10,
-            reload_cmd=command + "art",
+            reload_cmd="/usr/bin/cat " + shlex.quote(str(ready / "art-path.txt")),
             zindex=1,
         )
         for x, icon, action in [
             (
                 str(round(-0.32 * width)),
-                "cmd[update:2000] " + command + "play-icon",
+                "cmd[update:2000] " + read_label("play-icon"),
                 "toggle",
             ),
             (str(round(-0.32 * width) - 64), "skip_previous", "previous"),
@@ -104,7 +121,9 @@ def output_width(monitor):
     return round(dimension)
 
 
-def render(colors, wallpaper, preferences, helper, monitors=None):
+def render(
+    colors, wallpaper, preferences, helper, monitors=None, ready=None, artwork=None
+):
     if any(c in wallpaper for c in "\n\r"):
         raise ValueError("Unsupported wallpaper path")
     template = (
@@ -115,7 +134,13 @@ def render(colors, wallpaper, preferences, helper, monitors=None):
     )
     for key, value in colors.items():
         template = template.replace("{{" + key + "}}", value.lstrip("#"))
-    template = template.replace("{{helper}}", "python3 " + shlex.quote(str(helper)))
+    template = template.replace(
+        "{{status}}",
+        "/usr/bin/cat "
+        + shlex.quote(
+            str((ready or Path.home() / ".cache/siverteh-os/lock-ready") / "status.txt")
+        ),
+    )
     for kind in ("weather", "media", "notifications"):
         key = {
             "weather": "lockWeather",
@@ -131,6 +156,9 @@ def render(colors, wallpaper, preferences, helper, monitors=None):
                     helper,
                     monitor.get("name", ""),
                     output_width(monitor),
+                    ready,
+                    artwork,
+                    preferences.get("lockNotificationContents", False),
                 )
                 for monitor in (monitors or [{"name": "", "width": 1920}])
             )
@@ -138,6 +166,37 @@ def render(colors, wallpaper, preferences, helper, monitors=None):
             else "",
         )
     return template
+
+
+def monitor_layout(home=Path.home()):
+    cache = home / ".cache/siverteh-os/lock-outputs.json"
+    try:
+        monitors = json.loads(
+            subprocess.check_output(["hyprctl", "-j", "monitors"], text=True, timeout=2)
+        )
+        if not isinstance(monitors, list) or not monitors:
+            raise ValueError("No current lock outputs")
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        temporary = cache.with_suffix(".next")
+        temporary.write_text(json.dumps(monitors))
+        temporary.chmod(0o600)
+        temporary.replace(cache)
+        return monitors
+    except (OSError, ValueError, subprocess.SubprocessError):
+        try:
+            return json.loads(cache.read_text())
+        except (OSError, ValueError):
+            return []
+
+
+def prepare_config(colors, wallpaper, preferences, helper, home=Path.home()):
+    ready = home / ".cache/siverteh-os/lock-ready"
+    artwork = str(ready / "initial-art.png")
+    if not Path(artwork).is_file():
+        artwork = str(home / ".local/share/siverteh-ai/branding/sh-lock.png")
+    return render(
+        colors, wallpaper, preferences, helper, monitor_layout(home), ready, artwork
+    )
 
 
 def publish(home=Path.home()):
@@ -157,15 +216,12 @@ def publish(home=Path.home()):
     )
     target = home / ".config/hypr/hyprlock.conf"
     target.parent.mkdir(parents=True, exist_ok=True)
-    monitors = json.loads(
-        subprocess.check_output(["hyprctl", "-j", "monitors"], text=True, timeout=2)
-    )
-    body = render(
+    body = prepare_config(
         colors,
         wallpaper,
         preferences,
         home / ".local/share/siverteh-ai/siverteh-shell/tools/lock-info.py",
-        monitors,
+        home,
     )
     temp = target.with_suffix(".next")
     temp.write_text(body)

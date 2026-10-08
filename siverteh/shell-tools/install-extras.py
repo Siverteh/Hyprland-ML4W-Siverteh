@@ -28,6 +28,9 @@ def put(path, text):
 
 
 def install():
+    subprocess.run(
+        ["python3", str(ROOT / "lock-prepare.py")], input="{}\n", text=True, check=True
+    )
     subprocess.run(["python3", str(ROOT / "install-thunar.py")], check=True)
     put(
         HOME / ".config/siverteh-shell/shortcuts.lua",

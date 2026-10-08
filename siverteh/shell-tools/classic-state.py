@@ -459,11 +459,12 @@ def apply_palette(home, wallpaper=None, live=True):
         preferences = {}
     atomic_write(
         home / ".config/hypr/hyprlock.conf",
-        lock_config.render(
+        lock_config.prepare_config(
             colors,
             selected,
             preferences,
             home / ".local/share/siverteh-ai/siverteh-shell/tools/lock-info.py",
+            home,
         ),
     )
     # Login appearance is public wallpaper/color data; authentication remains SDDM-owned.

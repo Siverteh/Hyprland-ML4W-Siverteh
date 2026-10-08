@@ -6,6 +6,7 @@ from PIL import Image, ImageFont
 from functools import lru_cache
 import math
 from pathlib import Path
+import hashlib
 
 HOME = Path.home()
 CACHE = HOME / ".cache/siverteh-os/lock-widgets.json"
@@ -159,13 +160,27 @@ def label(kind, data, settings):
 
 
 def artwork(data):
-    fallback = HOME / ".local/share/siverteh-ai/branding/sh.png"
+    fallback = HOME / ".local/share/siverteh-ai/branding/sh-lock.png"
     url = (data.get("media") or {}).get("art", "")
-    output = CACHE.with_name("lock-art.png")
+    fingerprint = url
+    if url.startswith("file:"):
+        try:
+            stat = Path(urllib.parse.unquote(urllib.parse.urlparse(url).path)).stat()
+            fingerprint += f":{stat.st_mtime_ns}:{stat.st_size}"
+        except OSError:
+            pass
+    output = CACHE.with_name(
+        "lock-art-" + hashlib.sha256(fingerprint.encode()).hexdigest()[:20] + ".png"
+    )
+    if output.exists():
+        return str(output)
     metadata = CACHE.with_name("lock-art-source.json")
     try:
         saved = json.loads(metadata.read_text())
-        if saved.get("url") == url and time.time() - saved.get("checked", 0) < 120:
+        if saved.get("fingerprint") == fingerprint and (
+            (saved.get("ok") and output.exists())
+            or time.time() - saved.get("checked", 0) < 120
+        ):
             return str(output if saved.get("ok") and output.exists() else fallback)
     except (OSError, ValueError):
         pass
@@ -187,12 +202,16 @@ def artwork(data):
             if picture.width * picture.height > 20000000:
                 raise ValueError("Artwork dimensions too large")
             picture.thumbnail((512, 512))
-            picture.convert("RGB").save(output, format="PNG")
+            temporary = output.with_suffix(".next")
+            picture.convert("RGBA").save(temporary, format="PNG")
+            temporary.replace(output)
             output.chmod(0o600)
             ok = True
     except Exception:
         pass
-    metadata.write_text(json.dumps(dict(url=url, checked=time.time(), ok=ok)))
+    metadata.write_text(
+        json.dumps(dict(fingerprint=fingerprint, checked=time.time(), ok=ok))
+    )
     metadata.chmod(0o600)
     return str(output if ok else fallback)
 
