@@ -98,19 +98,6 @@ checks in private state. A manual check is labelled manual and cannot establish
 that cold boot or physical suspend/resume passed. Verify those paths on the real
 hardware after saving work; review the recorded event/result in Maintenance.
 
-Focused/Presentation/Minimal now accompany Meeting/Music/Docked. Use Personal
-workflow setup to save current audio defaults, connected display geometry and
-selected startup apps for a preset. Missing devices are skipped; microphone mute
-is preserved. These choices remain private, and selecting a preset never closes
-working apps or chats.
-
-Sidebar drafts are stored per native conversation with private permissions.
-Attach selects local files; image attachments use native Codex image input,
-other files are provided as user-selected local paths. Screenshot requests area
-selection and stores the result privately. Sending is explicit. Message/code copy
-buttons use the clipboard only when clicked. Attachment controls become available
-when the updated assistant backend advertises support.
-
 ## Feature documentation
 
 Feature behavior lives in the [overview's feature index](overview.md#feature-guides).

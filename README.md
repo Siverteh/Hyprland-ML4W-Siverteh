@@ -13,7 +13,7 @@ Personal CachyOS/Hyprland desktop with a wallpaper-driven horizontal Quickshell 
 
 ## Deployment
 
-This repository contains the current desktop, rather than historical dotfile profiles. Waybar, SwayNC, Waypaper, Wlogout, the old dock/welcome app, old wallpaper assets, shader presets and generated color files have been removed. The shell and palette library retain their applicable licenses.
+This repository contains the current desktop, rather than historical dotfile profiles. Waybar, SwayNC, Waypaper, Wlogout, the old dock/welcome app, old wallpaper assets and shader presets have been removed. Host-generated color files stay private; reproducible fixed palette presets are retained and checked against the pinned engine. The shell and palette library retain their applicable licenses.
 
 Start with [component ownership](docs/architecture.md) and [maintenance](docs/maintenance.md).
 

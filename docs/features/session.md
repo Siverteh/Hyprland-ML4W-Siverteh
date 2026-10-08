@@ -43,3 +43,19 @@ a video grid or add a second active desktop decoder. Closing, changing tabs or
 manual pause destroys the preview player. Static thumbnails remain underneath
 until a video frame arrives. Decoder errors retain the still preview.
 
+
+## Workflow presets and sidebar drafts
+
+Focused/Presentation/Minimal now accompany Meeting/Music/Docked. Use Personal
+workflow setup to save current audio defaults, connected display geometry and
+selected startup apps for a preset. Missing devices are skipped; microphone mute
+is preserved. These choices remain private, and selecting a preset never closes
+working apps or chats.
+
+Sidebar drafts are stored per native conversation with private permissions.
+Attach selects local files; image attachments use native Codex image input,
+other files are provided as user-selected local paths. Screenshot requests area
+selection and stores the result privately. Sending is explicit. Message/code copy
+buttons use the clipboard only when clicked. Attachment controls become available
+when the updated assistant backend advertises support.
+
