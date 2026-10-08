@@ -93,7 +93,61 @@ SettingsPage {
                     font.pointSize: 10
                 }
                 SpinBox {
+                    id: intervalControl
                     objectName: "wallpaperRotationMinutes"
+                    implicitWidth: 150
+                    implicitHeight: 40
+                    leftPadding: 38
+                    rightPadding: 38
+                    font.family: Appearance.font.family.sans
+                    font.pointSize: 10
+                    background: StyledRect {
+                        radius: 20
+                        color: Colours.palette.m3surfaceContainerHigh
+                        border.width: 1
+                        border.color: intervalControl.activeFocus ? Colours.palette.m3primary : Qt.alpha(Colours.palette.m3outlineVariant, 0.6)
+                    }
+                    contentItem: TextInput {
+                        text: intervalControl.textFromValue(intervalControl.value, intervalControl.locale)
+                        font: intervalControl.font
+                        color: Colours.palette.m3onSurface
+                        selectionColor: Colours.palette.m3primary
+                        selectedTextColor: Colours.palette.m3onPrimary
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        readOnly: !intervalControl.editable
+                        validator: intervalControl.validator
+                        inputMethodHints: Qt.ImhDigitsOnly
+                        selectByMouse: true
+                    }
+                    up.indicator: StyledRect {
+                        x: intervalControl.mirrored ? 0 : intervalControl.width - width
+                        implicitWidth: 36
+                        height: intervalControl.height
+                        radius: 18
+                        color: intervalControl.up.pressed ? Qt.alpha(Colours.palette.m3primary, 0.18) : intervalControl.up.hovered ? Qt.alpha(Colours.palette.m3primary, 0.1) : "transparent"
+                        MaterialIcon {
+                            anchors.centerIn: parent
+                            text: "add"
+                            color: Colours.palette.m3primary
+                            opacity: intervalControl.up.enabled ? 1 : 0.4
+                            font.pointSize: 16
+                        }
+                    }
+                    down.indicator: StyledRect {
+                        x: intervalControl.mirrored ? intervalControl.width - width : 0
+                        implicitWidth: 36
+                        height: intervalControl.height
+                        radius: 18
+                        color: intervalControl.down.pressed ? Qt.alpha(Colours.palette.m3primary, 0.18) : intervalControl.down.hovered ? Qt.alpha(Colours.palette.m3primary, 0.1) : "transparent"
+                        MaterialIcon {
+                            anchors.centerIn: parent
+                            text: "remove"
+                            color: Colours.palette.m3primary
+                            opacity: intervalControl.down.enabled ? 1 : 0.4
+                            font.pointSize: 16
+                        }
+                    }
                     from: 5
                     to: 1440
                     stepSize: 5
