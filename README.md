@@ -37,4 +37,4 @@ The semantic model is optional: `siverteh-ai-tools python brain/provision-semant
 | Super+Z | Fade bar and frame |
 | Super+B | Brain on workspace 6 |
 
-Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under siverteh/; retained third-party licenses and notices are included alongside adapted components.
+Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under siverteh/; retained third-party licenses and notices are included alongside adapted components, including the [palette-engine NOTICE](siverteh/shell-cli/NOTICE).
