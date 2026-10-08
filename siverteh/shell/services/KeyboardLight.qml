@@ -51,7 +51,7 @@ Singleton {
     }
     Process {
         running: true
-        command: ["brightnessctl", "-c", "leds", "-m"]
+        command: ["brightnessctl", "-c", "leds", "-l", "-m"]
         stdout: SplitParser {
             onRead: line => {
                 const device = line.split(",")[0];
@@ -82,9 +82,9 @@ Singleton {
         target: "keyboardLight"
         function step(direction: string): void {
             if (direction === "up")
-                root.setBrightness(root.brightness + 0.1);
+                root.setBrightness(root.brightness + Math.max(0.05, 1 / root.maximum));
             else if (direction === "down")
-                root.setBrightness(root.brightness - 0.1);
+                root.setBrightness(root.brightness - Math.max(0.05, 1 / root.maximum));
         }
         function state(): string {
             return JSON.stringify({

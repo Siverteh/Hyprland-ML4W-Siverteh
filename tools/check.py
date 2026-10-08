@@ -25,11 +25,11 @@ RETIRED = (
 )
 
 
-def run(command, env=None):
+def run(command, env=None, stdout_only=False):
     result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, env=env)
     if result.returncode:
         raise RuntimeError(result.stdout + result.stderr)
-    return result.stdout
+    return result.stdout if stdout_only else result.stdout + result.stderr
 
 
 def main():
@@ -88,7 +88,7 @@ def main():
     formatter = Path("/usr/lib/qt6/bin/qmlformat")
     if formatter.exists():
         for path in (ROOT / "siverteh").rglob("*.qml"):
-            formatted = run([str(formatter), str(path)])
+            formatted = run([str(formatter), str(path)], stdout_only=True)
             if formatted != path.read_text():
                 raise RuntimeError(
                     "QML formatting differs: " + str(path.relative_to(ROOT))
