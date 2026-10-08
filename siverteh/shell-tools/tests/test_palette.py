@@ -111,7 +111,18 @@ class PaletteCommitTest(unittest.TestCase):
             self.assertIn("--headerbar-bg-color:", css)
             for version in ("3.0", "4.0"):
                 ini = (home / (".config/gtk-" + version) / "settings.ini").read_text()
-                self.assertIn("gtk-icon-theme-name=Papirus-Dark", ini)
+                self.assertRegex(
+                    ini,
+                    r"gtk-icon-theme-name=(?:Papirus-Dark|Siverteh-Papirus-v2-[a-z]+-dark)\n",
+                )
+                theme_name = next(
+                    line.split("=", 1)[1]
+                    for line in ini.splitlines()
+                    if line.startswith("gtk-icon-theme-name=")
+                )
+                self.assertTrue(
+                    (home / ".local/share/icons" / theme_name / "index.theme").is_file()
+                )
                 self.assertIn("other-setting=keep", ini)
             self.assertNotIn(":root", (home / ".config/gtk-3.0/gtk.css").read_text())
 
