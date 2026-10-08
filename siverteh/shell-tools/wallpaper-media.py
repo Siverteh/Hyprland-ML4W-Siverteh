@@ -40,6 +40,7 @@ def settings():
             "kind": "static",
             "layout": "carousel",
             "paused": False,
+            "motionMode": "full",
             "pauseCovered": True,
             "rotationEnabled": False,
             "rotationMinutes": 30,
@@ -111,6 +112,7 @@ def theme(value):
 def preference(value):
     allowed = {
         "kind": ("static", "dynamic"),
+        "motionMode": ("full", "battery", "still"),
         "layout": ("carousel", "spotlight", "hexagons"),
         "rotationKind": ("all", "static", "dynamic"),
         "paletteMode": ("dark", "light"),
@@ -273,13 +275,16 @@ def catalog():
 def palette_marker(poster, flavour):
     poster = Path(poster)
     stat = poster.stat()
+    cli = HOME / ".local/share/siverteh-ai/shell-runtime/venv/bin/siverteh_shell"
+    engine = str(cli.stat().st_mtime_ns) if cli.exists() else "uninstalled"
     key = hashlib.sha256(
         (
             str(poster)
             + str(stat.st_size)
             + str(stat.st_mtime_ns)
             + str(flavour)
-            + "palette-warm-v1"
+            + engine
+            + "palette-warm-v2"
         ).encode()
     ).hexdigest()
     return CACHE / (key + ".palette.json")

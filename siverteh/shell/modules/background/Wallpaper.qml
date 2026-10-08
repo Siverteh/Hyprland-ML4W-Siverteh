@@ -16,7 +16,7 @@ Item {
     readonly property int workspaceId: monitor?.activeWorkspace?.id ?? Hyprland.activeWsId
     readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
     readonly property bool covered: Hyprland.clients.some(c => c.workspace?.id === workspaceId && (c.fullscreen || (WallpaperPlayback.pauseCovered && !c.floating)))
-    readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && !pickerOpen && !covered
+    readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && !WallpaperPlayback.batteryPaused && !pickerOpen && !covered
     property Image current: one
 
     anchors.fill: parent
@@ -38,7 +38,7 @@ Item {
 
     AnimatedImage {
         anchors.fill: parent
-        source: Wallpapers.displayDynamic && Wallpapers.displayAnimated ? "file://" + Wallpapers.displayPath : ""
+        source: !WallpaperPlayback.batteryPaused && Wallpapers.displayDynamic && Wallpapers.displayAnimated ? "file://" + Wallpapers.displayPath : ""
         fillMode: Image.PreserveAspectCrop
         playing: root.motionAllowed
         visible: source.toString().length > 0 && status === Image.Ready
@@ -48,7 +48,7 @@ Item {
     Loader {
         id: video
         anchors.fill: parent
-        active: Wallpapers.displayDynamic && !Wallpapers.displayAnimated
+        active: !WallpaperPlayback.batteryPaused && Wallpapers.displayDynamic && !Wallpapers.displayAnimated
         source: "DynamicWallpaper.qml"
         onLoaded: {
             item.screenName = root.screenName;

@@ -102,14 +102,37 @@ Singleton {
             scoreFn: r => r[0].score * .9 + r[1].score * .1
         }).map(r => r.obj.wall);
     }
-    Timer {
-        interval: 2500
-        running: true
-        onTriggered: warm.running = true
+    property bool warmQueued: false
+    function prepareCache() {
+        if (warm.running)
+            warmQueued = true;
+        else
+            warm.running = true;
     }
     Process {
         id: warm
         command: ["nice", "-n", "19", "python3", root.tool, "warm"]
+        onExited: if (root.warmQueued) {
+            root.warmQueued = false;
+            root.prepareCache();
+        }
+    }
+    Process {
+        id: libraryWatch
+        running: true
+        command: ["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/wallpaper-watch.py"]
+        stdout: SplitParser {
+            onRead: line => root.refresh()
+        }
+        onExited: code => {
+            if (code !== 0)
+                watchRetry.restart();
+        }
+    }
+    Timer {
+        id: watchRetry
+        interval: 30000
+        onTriggered: libraryWatch.running = true
     }
     function refresh() {
         if (!catalog.running)
@@ -200,6 +223,7 @@ Singleton {
         id: catalog
         running: true
         command: ["python3", root.tool, "catalog"]
+        onExited: root.prepareCache()
         stdout: SplitParser {
             splitMarker: ""
             onRead: line => {

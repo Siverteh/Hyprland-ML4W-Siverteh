@@ -9,6 +9,7 @@ Item {
     id: root
     property var entry
     property bool selected: false
+    property bool imageEnabled: true
     property bool previewMotion: false
     signal motionChanged(var data)
     signal clicked
@@ -20,7 +21,7 @@ Item {
     Image {
         id: image
         anchors.fill: parent
-        source: root.entry?.poster ? "file://" + (root.entry.thumbnail ?? root.entry.poster) : ""
+        source: root.imageEnabled && root.entry?.poster ? "file://" + (root.entry.thumbnail ?? root.entry.poster) : ""
         sourceSize.width: 400
         sourceSize.height: 348
         fillMode: Image.PreserveAspectCrop

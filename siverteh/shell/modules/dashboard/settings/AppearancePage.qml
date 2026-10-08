@@ -41,6 +41,38 @@ SettingsPage {
         }
     }
     SettingsSection {
+        title: "Wallpaper motion"
+        description: "Choose desktop animation while keeping the same scene and colors. Picker previews remain available."
+        Flow {
+            width: parent.width
+            spacing: 8
+            Repeater {
+                model: [
+                    {
+                        id: "full",
+                        name: "Full motion"
+                    },
+                    {
+                        id: "battery",
+                        name: "Still on battery"
+                    },
+                    {
+                        id: "still",
+                        name: "Always still"
+                    }
+                ]
+                ActionButton {
+                    required property var modelData
+                    text: modelData.name
+                    selected: (Wallpapers.preferences.motionMode ?? "full") === modelData.id
+                    onClicked: Wallpapers.preference({
+                        motionMode: modelData.id
+                    })
+                }
+            }
+        }
+    }
+    SettingsSection {
         title: "Wallpaper rotation"
         description: "Automatically change scenes while you use the desktop."
         Flow {

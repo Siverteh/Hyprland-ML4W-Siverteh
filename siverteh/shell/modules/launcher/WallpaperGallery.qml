@@ -433,6 +433,7 @@ Item {
                     x: view.startX + (index % view.columns) * view.hexWidth * .77
                     y: Math.floor(index / view.columns) * view.rowStep + (index % view.columns) % 2 * view.rowStep / 2
                     entry: modelData
+                    imageEnabled: y + height >= view.contentY - view.height && y <= view.contentY + view.height * 2
                     selected: index === root.currentIndex
                     previewMotion: root.motionEnabled
                     onMotionChanged: data => root.receiveMotion(data)

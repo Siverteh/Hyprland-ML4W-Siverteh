@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import Quickshell.Services.UPower
 import Quickshell.Io
 
 Singleton {
@@ -9,6 +10,7 @@ Singleton {
     property bool sleeping: false
     property bool locked: false
     property string awaiting: ""
+    readonly property bool batteryPaused: Wallpapers.preferences.motionMode === "still" || (Wallpapers.preferences.motionMode === "battery" && UPower.onBattery)
     property bool paused: Wallpapers.preferences.paused ?? false
     readonly property bool pauseCovered: Wallpapers.preferences.pauseCovered ?? true
     property string sessionPath: ""
