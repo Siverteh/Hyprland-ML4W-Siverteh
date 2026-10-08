@@ -216,6 +216,56 @@ def install_controller(repo):
     wrapper.chmod(0o755)
 
 
+def prune_releases(keep=10):
+    current = (
+        json.loads((STATE / "current.json").read_text())
+        if (STATE / "current.json").exists()
+        else {}
+    )
+    rows = []
+    for path in sorted(STATE.iterdir(), reverse=True):
+        if (
+            not path.is_dir()
+            or path.is_symlink()
+            or not (path / "release.json").is_file()
+        ):
+            continue
+        try:
+            record = json.loads((path / "release.json").read_text())
+        except (OSError, ValueError):
+            continue
+        rows.append((path, record))
+    current_path = Path(current.get("release", "/nonexistent"))
+    current_record = next((record for path, record in rows if path == current_path), {})
+    good = [(path, record) for path, record in rows if record.get("status") == "good"]
+    preserved = {path for path, _ in good[:keep]} | {current_path}
+    previous = current_record.get("previous") or current.get("previous")
+    previous_path = next(
+        (
+            path
+            for path, record in rows
+            if record.get("revision") == previous and path != current_path
+        ),
+        None,
+    )
+    if previous_path:
+        preserved.add(previous_path)
+    removed = []
+    for path, _ in good:
+        if path in preserved or (path / "retired-native").exists():
+            continue
+        shutil.rmtree(path)
+        removed.append(str(path))
+    return removed
+
+
+def release_disk_usage():
+    result = subprocess.run(
+        ["du", "-s", "-B1", str(STATE)], capture_output=True, text=True, check=True
+    )
+    return int(result.stdout.split()[0])
+
+
 def retire_native_runtimes(release):
     """Move recognized obsolete package trees out of active paths after live gates."""
     candidates = (
@@ -339,6 +389,7 @@ def deploy(repo, components, keyboard, migrate=False):
             ),
         )
         install_controller(repo)
+        prune_releases()
         return record
     except BaseException as error:
         record["status"] = "failed"
@@ -372,6 +423,8 @@ def main():
     a = p.parse_args()
     STATE.mkdir(parents=True, exist_ok=True, mode=0o700)
     if a.action in ("doctor", "profile", "check", "session", "restart"):
+        if a.action == "doctor":
+            print(json.dumps({"releaseDiskBytes": release_disk_usage()}), flush=True)
         subprocess.run(
             [
                 sys.executable,

@@ -83,3 +83,29 @@ class RuntimeRetirementTests(unittest.TestCase):
                     "old binary",
                 )
                 self.assertEqual(m.retire_native_runtimes(release), [])
+
+
+class RetentionTests(unittest.TestCase):
+    def test_newest_current_previous_and_retired_are_protected(self):
+        import json
+
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            for i in range(15):
+                p = state / f"release-{i:02}"
+                p.mkdir()
+                (p / "release.json").write_text(
+                    json.dumps({"status": "good", "revision": str(i), "previous": "1"})
+                )
+            (state / "release-00/retired-native").mkdir()
+            (state / "current.json").write_text(
+                json.dumps({"release": str(state / "release-02")})
+            )
+            with patch.object(m, "STATE", state):
+                removed = m.prune_releases()
+            self.assertEqual(
+                {Path(p).name for p in removed}, {"release-03", "release-04"}
+            )
+            self.assertTrue((state / "release-00").exists())
+            self.assertTrue((state / "release-01").exists())
+            self.assertTrue((state / "release-02").exists())
