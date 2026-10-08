@@ -9,6 +9,18 @@ hl.layer_rule({
     ignore_alpha = 0.5,
 })
 
+-- Lock preview stays proportional to its output and does not take a tiled slot.
+hl.window_rule({
+    name = "siverteh-lock-preview",
+    match = {
+        class = "^org.quickshell$",
+        title = "^Siverteh lock screen preview$",
+    },
+    float = true,
+    center = true,
+    size = "70% 70%",
+})
+
 -- Pavucontrol
 hl.window_rule({
     name = "pavucontrol",

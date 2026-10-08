@@ -75,7 +75,8 @@ wallpaper tile, cards, gauges and presentation text. It alpha-composites translu
 cards over the blurred texture, leaving the wallpaper outside the tile sharp.
 Clock, password and playback controls remain native Hyprlock widgets. Both share
 one normalized coordinate system, scaled to native output pixels independently of
-compositor scale and rotation. The preview reads the same prepared PNG; it never
+compositor scale and rotation. The floating preview follows the output proportions and reads the same prepared
+PNG; it never
 accepts passwords or authenticates.
 
 The existing event-coalesced lock writer updates the panel on palette, media,

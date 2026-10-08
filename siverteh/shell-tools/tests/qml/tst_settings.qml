@@ -97,6 +97,7 @@ TestCase {
         compare(content.parent, window);
         compare(content.width, window.width);
         compare(content.height, window.height);
+        compare(findChild(view, "lockPreviewHour").text, "02");
         verify(window.children.length >= 3);
         window.widgetData = {
             "count": 1,

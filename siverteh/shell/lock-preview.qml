@@ -56,7 +56,8 @@ ShellRoot {
                     height: 134
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    text: Time.format("hh")
+                    objectName: "lockPreviewHour"
+                    text: Time.format("hh AP").split(" ")[0]
                     font.family: "IBM Plex Sans"
                     font.pixelSize: 104
                     color: panel.accent
@@ -116,12 +117,12 @@ ShellRoot {
                     spacing: 72
                     MaterialIcon {
                         text: "bedtime"
-                        font.pixelSize: 24
+                        font.pointSize: 18
                         color: panel.accent
                     }
                     MaterialIcon {
                         text: "lock"
-                        font.pixelSize: 24
+                        font.pointSize: 18
                         color: panel.accent
                     }
                 }
@@ -152,7 +153,7 @@ ShellRoot {
                         MaterialIcon {
                             anchors.centerIn: parent
                             text: parent.modelData.icon
-                            font.pixelSize: parent.modelData.action === "toggle" ? 28 : 22
+                            font.pointSize: parent.modelData.action === "toggle" ? 21 : 16.5
                             color: parent.modelData.action === "toggle" ? Colours.palette.m3onPrimary : panel.foreground
                         }
                         MouseArea {
