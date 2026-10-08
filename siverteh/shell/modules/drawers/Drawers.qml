@@ -20,7 +20,7 @@ Variants {
         property string stableName: ""
         Component.onCompleted: stableName = modelData.name
         Component.onDestruction: {
-            if (stableName)
+            if (stableName && !Quickshell.screens.some(s => s.name === stableName))
                 DisplayRecovery.remember(stableName);
         }
 

@@ -248,9 +248,14 @@ Item {
             transcript.savePosition();
         }
         function onHistoryReplaced() {
-            transcript.restorePosition();
+            if (root.pendingRecovery)
+                root.finishRecovery();
+            else
+                transcript.restorePosition();
         }
         function onThreadIdChanged() {
+            if (root.pendingRecovery && root.pendingRecovery.threadId === SidebarChat.threadId)
+                return;
             transcript.savedPosition = {
                 bottom: true
             };
