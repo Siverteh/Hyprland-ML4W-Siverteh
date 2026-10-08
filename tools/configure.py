@@ -44,7 +44,12 @@ def files(root=ROOT):
                 result[Path(".config") / source.relative_to(root)] = source
     for name in ("siverteh-os-app", "xdg-open"):
         result[Path(".local/bin") / name] = root / "bin" / name
-    return result
+    result[Path(".local/bin/siverteh-brain-sync")] = root / "bin/siverteh-brain-sync"
+    result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (
+        root / "ai/systemd/siverteh-brain-sync.service"
+    )
+    # Fixture repositories may not contain optional shared-knowledge helpers.
+    return {path: source for path, source in result.items() if source.exists()}
 
 
 def atomic(path, data, mode=0o644):
@@ -100,6 +105,12 @@ def idle_policy(home, root, migrate_idle):
     if not private.exists():
         return (root / "tools/defaults/hypridle.conf").read_bytes()
     return None
+
+
+LEGACY_SYNC = {
+    ".local/bin/siverteh-brain-sync": "b1f7eb81b42ab6c205fb3e9bf19df46371ef31bfe854c6d3e1d984b70ea0c799",
+    ".config/systemd/user/siverteh-brain-sync.service": "8ea45eb1bf5536819ba8fdbda31fa8cae115910db406b950abc3aa5c30ecbc83",
+}
 
 
 def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=False):
@@ -163,6 +174,7 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
             current is not None
             and not owned_link
             and current != known.get(str(relative))
+            and current != LEGACY_SYNC.get(str(relative))
             and not (
                 relative == Path(".config/hypr/hyprland.lua")
                 and power_policy(home, root, migrate_idle) is not None

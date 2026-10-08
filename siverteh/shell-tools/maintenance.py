@@ -11,6 +11,11 @@ SERVICES = [
     "siverteh-sidebar-ai.service",
     "siverteh-observatory-brain.service",
     "siverteh-session-watch.service",
+    "hypridle.service",
+    "siverteh-brain-sync.timer",
+    "xdg-desktop-portal.service",
+    "xdg-desktop-portal-hyprland.service",
+    "xdg-document-portal.service",
 ]
 
 
@@ -53,6 +58,27 @@ def state():
             s: run(["systemctl", "--user", "is-active", s], "unavailable")
             for s in SERVICES
         },
+        brainSync=json.loads((STATE / "brain-sync.json").read_text())
+        if (STATE / "brain-sync.json").exists()
+        else {"state": "unrecorded", "message": "No synchronization attempt recorded"},
+        serviceDetails={
+            s: run(
+                [
+                    "systemctl",
+                    "--user",
+                    "show",
+                    s,
+                    "-p",
+                    "Result",
+                    "-p",
+                    "ExecMainStatus",
+                ]
+            )
+            for s in SERVICES
+        },
+        failedServices=run(
+            ["systemctl", "--user", "--failed", "--no-legend", "--plain"]
+        ).splitlines(),
         drift=drift,
         configErrors=run(["hyprctl", "configerrors"]),
         updatesAgeSeconds=int(time.time() - cache.stat().st_mtime)
@@ -114,12 +140,35 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument(
         "action",
-        choices=["state", "check", "profile", "restart", "rollback", "session"],
+        choices=[
+            "state",
+            "check",
+            "profile",
+            "restart",
+            "repair-portals",
+            "sync-now",
+            "rollback",
+            "session",
+        ],
     )
     p.add_argument("--seconds", type=int, default=5)
     p.add_argument("--label", default="manual")
     a = p.parse_args()
-    if a.action == "restart":
+    if a.action == "repair-portals":
+        for unit in (
+            "xdg-document-portal.service",
+            "xdg-desktop-portal.service",
+            "xdg-desktop-portal-hyprland.service",
+        ):
+            if run(["systemctl", "--user", "is-failed", unit]) == "failed":
+                subprocess.run(["systemctl", "--user", "restart", unit], check=True)
+    elif a.action == "sync-now":
+        subprocess.run(
+            [str(HOME / ".local/bin/siverteh-brain-sync"), "--force"],
+            check=False,
+            timeout=75,
+        )
+    elif a.action == "restart":
         subprocess.run(["systemctl", "--user", "restart", SERVICES[0]], check=True)
     elif a.action == "rollback":
         subprocess.run([str(HOME / ".local/bin/siverteh-os"), "rollback"], check=True)

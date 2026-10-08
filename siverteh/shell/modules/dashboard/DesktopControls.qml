@@ -62,10 +62,33 @@ Item {
                                     "siverteh-os-shell.service": "Desktop",
                                     "siverteh-sidebar-ai.service": "AI chat",
                                     "siverteh-observatory-brain.service": "Brain",
-                                    "siverteh-session-watch.service": "Session monitor"
+                                    "siverteh-session-watch.service": "Session monitor",
+                                    "hypridle.service": "Sleep locking",
+                                    "siverteh-brain-sync.timer": "Knowledge sync schedule",
+                                    "xdg-desktop-portal.service": "Desktop portal",
+                                    "xdg-desktop-portal-hyprland.service": "Screen sharing portal",
+                                    "xdg-document-portal.service": "File access portal"
                                 }[modelData[0]] ?? modelData[0]) + ": " + modelData[1]
                             color: modelData[1] === "active" ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3error
                         }
+                    }
+                }
+                StyledText {
+                    width: parent.width
+                    wrapMode: Text.Wrap
+                    text: "Knowledge sync: " + (Maintenance.data.brainSync?.message ?? "Not checked") + " · Last success: " + (Maintenance.data.brainSync?.lastSuccess ? new Date(Maintenance.data.brainSync.lastSuccess * 1000).toLocaleString() : "not yet recorded")
+                    color: Maintenance.data.brainSync?.state === "success" ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3primary
+                }
+                Flow {
+                    width: parent.width
+                    spacing: 8
+                    Action {
+                        label: "Retry knowledge sync"
+                        onActivated: Maintenance.recover("sync-now")
+                    }
+                    Action {
+                        label: "Repair failed portals"
+                        onActivated: Maintenance.recover("repair-portals")
                     }
                 }
                 StyledText {

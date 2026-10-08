@@ -134,3 +134,28 @@ class SnapshotEnumerationTests(unittest.TestCase):
             (root / "raw/article.pdf").write_bytes(b"pdf")
             (root / "inbox/note.md").write_text("published")
             self.assertEqual(sync.snapshot(root), {"inbox/note.md": "published"})
+
+
+class HealthTests(unittest.TestCase):
+    def test_network_failure_is_distinct_from_authentication_and_protocol(self):
+        self.assertEqual(sync.exchange_error(255, "Connection timed out")[0], "offline")
+        self.assertEqual(
+            sync.exchange_error(255, "Permission denied (publickey)")[0],
+            "authentication",
+        )
+        self.assertEqual(sync.exchange_error(127, "not found")[0], "protocol")
+
+    def test_backoff_preserves_last_success(self):
+        from unittest.mock import patch
+
+        with tempfile.TemporaryDirectory() as directory:
+            status = Path(directory) / "status.json"
+            with (
+                patch.object(sync, "STATUS", status),
+                patch.object(sync.time, "time", return_value=1000),
+            ):
+                sync.report_status("success", "done")
+                first = sync.report_status("offline", "unavailable")
+                second = sync.report_status("offline", "unavailable")
+            self.assertEqual(second["lastSuccess"], 1000)
+            self.assertGreater(second["nextRetry"], first["nextRetry"])

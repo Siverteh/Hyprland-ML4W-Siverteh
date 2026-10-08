@@ -4,4 +4,5 @@ ConditionPathExists=%h/.config/siverteh-ai/brain-sync.json
 
 [Service]
 Type=oneshot
+SuccessExitStatus=75
 ExecStart=%h/.local/bin/siverteh-brain-sync

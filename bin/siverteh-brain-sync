@@ -15,6 +15,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 import uuid
 
 loader = importlib.machinery.SourceFileLoader(
@@ -178,9 +179,68 @@ def merge(root, incoming, base, excluded=()):
     return changed, conflicts
 
 
+STATUS = Path.home() / ".local/state/siverteh-os/brain-sync.json"
+
+
+def read_status():
+    try:
+        return json.loads(STATUS.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def report_status(state, message, **details):
+    previous = read_status()
+    now = time.time()
+    value = dict(previous, state=state, message=message, lastAttempt=now, **details)
+    if state in ("success", "conflicts"):
+        value.update(lastSuccess=now, failures=0, nextRetry=0)
+    elif state == "offline":
+        failures = previous.get("failures", 0) + 1
+        value.update(
+            failures=failures,
+            nextRetry=now + min(3600, 120 * 2 ** min(failures - 1, 5)),
+        )
+    atomic(STATUS, json.dumps(value))
+    return value
+
+
+def exchange_error(code, error):
+    text = error.lower()
+    if "permission denied" in text or "host key verification failed" in text:
+        return (
+            "authentication",
+            "Remote SSH authentication failed; check the existing SSH identity or host key",
+        )
+    if code == 255 and any(
+        word in text
+        for word in (
+            "timed out",
+            "connection refused",
+            "no route",
+            "resolve hostname",
+            "network is unreachable",
+            "connection closed",
+        )
+    ):
+        return (
+            "offline",
+            "Remote host unavailable; local notes are safe and synchronization will retry",
+        )
+    if "protocol" in text or code == 127:
+        return (
+            "protocol",
+            "Remote sync helper is missing or incompatible; both hosts need protocol version 2",
+        )
+    return "failed", "Remote exchange failed; check the remote sync journal"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--exchange", action="store_true")
+    parser.add_argument(
+        "--force", action="store_true", help="retry immediately despite offline backoff"
+    )
     parser.add_argument(
         "--config",
         type=Path,
@@ -188,6 +248,12 @@ def main():
     )
     args = parser.parse_args()
     if not args.exchange and not args.config.exists():
+        return
+    if (
+        not args.exchange
+        and not args.force
+        and read_status().get("nextRetry", 0) > time.time()
+    ):
         return
     root = brain.initialize()
     with locked(root):
@@ -216,6 +282,11 @@ def main():
             / (hashlib.sha256(host.encode()).hexdigest() + ".json")
         )
         base = json.loads(base_path.read_text()) if base_path.exists() else {}
+        if not read_status().get("lastSuccess") and base_path.exists():
+            atomic(
+                STATUS,
+                json.dumps(dict(read_status(), lastSuccess=base_path.stat().st_mtime)),
+            )
         before = snapshot(root)
         backup(root, before)
         result = subprocess.run(
@@ -234,9 +305,12 @@ def main():
             timeout=60,
         )
         if result.returncode:
-            raise RuntimeError(
-                "Remote exchange failed; inspect remote health and protocol version"
-            )
+            category, message = exchange_error(result.returncode, result.stderr)
+            report_status(category, message)
+            if category == "offline":
+                print(message, file=sys.stderr)
+                raise SystemExit(75)
+            raise RuntimeError(message)
         reply = json.loads(result.stdout)
         if reply.get("version") != 2:
             raise ValueError("Unexpected sync protocol")
@@ -249,6 +323,15 @@ def main():
         atomic(base_path, json.dumps(base) + "\n")
         print(
             f"Brain sync: {len(changed)} received, {len(reply['changed'])} sent, {len(conflicts)} conflicts"
+        )
+        report_status(
+            "conflicts" if conflicts else "success",
+            "Sync completed with conflicts to reconcile"
+            if conflicts
+            else "Knowledge synchronized",
+            received=len(changed),
+            sent=len(reply["changed"]),
+            conflicts=len(conflicts),
         )
         if conflicts:
             print(
@@ -268,5 +351,21 @@ if __name__ == "__main__":
         RuntimeError,
         subprocess.TimeoutExpired,
     ) as error:
+        if "--exchange" not in sys.argv:
+            if isinstance(error, subprocess.TimeoutExpired):
+                report_status(
+                    "offline", "Remote exchange timed out; synchronization will retry"
+                )
+                print(
+                    "Remote exchange timed out; synchronization will retry",
+                    file=sys.stderr,
+                )
+                raise SystemExit(75)
+            else:
+                current = read_status()
+                if current.get("state") not in ("authentication", "protocol", "failed"):
+                    report_status(
+                        "failed", "Local sync failed; inspect the sync journal"
+                    )
         print(f"siverteh-brain-sync: {error}", file=sys.stderr)
         raise SystemExit(1)
