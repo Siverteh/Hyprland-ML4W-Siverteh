@@ -29,6 +29,10 @@ def prepare(home=None):
             return "# Sleep hooks are managed by Siverteh OS.\n"
 
         clean = re.sub(r"\bgeneral\s*\{([^{}]*)\}", remove, text)
+        clean = clean.replace(
+            "# Manual locking only. No idle timeout and no automatic lock before sleep.",
+            "# No idle timeout. Sleep locking remains managed by Siverteh OS.",
+        )
         if clean == text:
             return
         backup = (

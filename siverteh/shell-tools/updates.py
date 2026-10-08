@@ -33,6 +33,11 @@ def qt_update_status(pending):
         ["quickshell", "--version", "-v"], capture_output=True, text=True, timeout=10
     )
     local = "Siverteh local Qt rebuild" in version.stdout
+    if not local:
+        package = subprocess.run(
+            ["pacman", "-Q", "quickshell"], capture_output=True, text=True, timeout=10
+        )
+        local = package.returncode == 0 and package.stdout.strip().endswith("-1.2")
     blocked = local and any(
         line.split()[0] == "qt6-base" for line in pending.splitlines() if line.strip()
     )
