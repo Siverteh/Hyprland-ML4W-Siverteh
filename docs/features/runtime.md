@@ -51,7 +51,9 @@ The launcher checks Quickshell's reported build/runtime Qt versions before
 starting; mismatches fail with a clear journal message. This can expose a lagging
 distribution package even after a full update. Prefer a matching distribution
 build. If unavailable, `tools/quickshell.PKGBUILD` builds the pinned upstream
-release as a local pacman package against the installed Qt, with exact Qt version
+release with the focused upstream Qt 6.12 compatibility backport
+(`5d5d49873fe8cf1f99ddfd5006ceb2057c5c9b13`) as a local pacman package
+against the installed Qt, with exact Qt version
 dependencies. Build in a disposable directory as your ordinary user, then install
 the artifact with `pacman -U`. Never run `cmake --install` directly as root.
 

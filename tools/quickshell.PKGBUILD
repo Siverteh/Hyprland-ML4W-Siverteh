@@ -11,8 +11,14 @@ _qt_version=$(pacman -Q qt6-base | awk '{print $2}' | sed 's/-[^-]*$//')
 depends=("qt6-base=$_qt_version" "qt6-declarative=$_qt_version" "qt6-wayland=$_qt_version"
          qt6-svg cpptrace jemalloc libdrm libglvnd libpipewire libxcb mesa pam polkit wayland)
 makedepends=(cmake ninja git cli11 qt6-shadertools spirv-tools vulkan-headers wayland-protocols)
-source=('git+https://github.com/quickshell-mirror/quickshell.git#commit=1a4716cde794a59928d9d9fc15f2afc7a95de360')
-sha256sums=('SKIP') # Git source is pinned to the exact upstream release commit.
+source=('git+https://github.com/quickshell-mirror/quickshell.git#commit=1a4716cde794a59928d9d9fc15f2afc7a95de360'
+        'quickshell-qt612.patch')
+sha256sums=('SKIP' 'c7a03da8b12255f9a2a00f8b96196ede0f60646df199750697efc346b669c0c5') # Git source is pinned to the exact upstream release commit.
+
+prepare() {
+  cd quickshell
+  patch -p1 < "$srcdir/quickshell-qt612.patch"
+}
 
 build() {
   cmake -S quickshell -B build -G Ninja \
