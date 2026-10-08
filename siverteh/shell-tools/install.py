@@ -195,7 +195,7 @@ def deploy(code_only=False):
         entry["after_link"] = os.readlink(path) if path.is_symlink() else None
         entry["after_hash"] = digest(path)
 
-    for name in ["shell.json", "cli.json"]:
+    for name in ["cli.json"]:
         write(HOME / ".config/siverteh_shell" / name, (ROOT / name).read_text())
     write(HOME / ".config/quickshell/siverteh_shell", link=DEST / "source")
     write(

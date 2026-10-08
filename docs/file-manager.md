@@ -30,15 +30,12 @@ mounting and thumbnails.
 
 ## Installation and validation
 
-Checksum-verified distribution packages provide the private `thunar-runtime`,
-including Thunar, Xfconf and missing supporting libraries. Package licenses and
-hashes remain with the runtime. Subsequent installs compare package metadata
-and refresh changed packages. The app-scoped module requires a C compiler,
-pkg-config and GTK3 headers. A standard transient user service starts Xfconf
-only when its D-Bus owner is absent. First setup is serialized and waits for
-service readiness; personal settings remain outside release snapshots.
+Pacman owns Thunar, Xfconf and their native libraries and verifies package
+signatures. `install-thunar.py` builds only the private app-scoped style module
+using a C compiler, pkg-config and GTK3 headers. Distribution D-Bus activation
+starts Xfconf on demand; personal preferences remain outside release snapshots.
 
-The owned runtime and desktop launcher are included in release snapshots.
+The compiled style module and desktop launcher are included in release snapshots.
 `./install.sh --component apps --component shell` updates Files routes and shell
 software without replacing unrelated compositor configuration. Run
 `python3 tools/check.py`, the Hyprland configuration check, plan/apply and live
