@@ -14,20 +14,23 @@
 The desktop shell owns the bar, frame, dashboard, notifications, launcher,
 wallpaper chooser and audio/brightness controls. Display settings are stored in
 private native state; the old display-rearrangement scripts and competing display
-daemon are removed. The enabled Hypridle user service locks after 15 idle minutes and before suspend. KWallet PAM unlocks
+daemon are removed. The enabled Hypridle service reads a private full-policy override. Fresh installs
+seed fifteen-minute locking and sleep hooks; existing host policies are preserved. KWallet PAM unlocks
 the encrypted wallet using password login, with its initialization hook in the
 Hyprland startup configuration.
 
 Compositor loading order is base Lua configuration, optional private monitor
-overrides, committed palette, saved desktop settings and native shortcuts. App
+overrides, committed palette, saved desktop settings, native shortcuts and private
+`host.lua`. Managed binds live in both `hypr/conf/keybinding.lua` and
+`siverteh/shell-tools/shortcuts.lua`; static app placement lives in `windowrule.lua`. App
 routing comes from Lua rules. Startup opens the six requested workspace apps
 idempotently; ordinary terminals are unrestricted. No background script rewrites
 the source routing rules or broadly moves browser windows.
 
 The native palette bridge publishes to `~/.config/siverteh-shell`, GTK and the
-installed Hyprlock configuration. The repository contains one current boot seed
-and generation code, rather than checked-in generated colors or a catalogue of
-old themes. Wallpapers live under the user's Pictures directory. App choices can
+installed Hyprlock configuration. The repository contains a boot seed, generation code and generated
+`palette-presets.json` fixed-color layouts. A pinned-engine regeneration test
+checks the presets. Wallpaper-derived host colors are never committed. Wallpapers live under the user's Pictures directory. App choices can
 be overridden with executable argument arrays in `~/.config/siverteh-shell/apps.json`.
 
 Runtime names containing `observatory` remain compatibility identifiers for the
@@ -40,3 +43,27 @@ Research basis: [Hyprland session management](https://wiki.hypr.land/Useful-Util
 and [KDE automatic wallet selection](https://docs.kde.org/trunk_kf6/en/kwalletmanager/kwalletmanager/kwallet-kcontrol-module.html).
 Live dependency tracing determined the retained components; documentation alone
 was not used to infer that a component was running.
+
+## Dependency and presentation boundaries
+
+Pacman owns Quickshell, Qt multimedia/image plugins, Thunar/Xfconf and Papirus.
+Shell launchers use the system binaries without private library or Qt import path
+injection. `shell-runtime/venv` contains only the isolated palette Python engine;
+`thunar-style/siverteh-thunar-theme.so` is the private GTK style module. The module
+applies generated CSS only inside Thunar and leaves applications it opens alone.
+System icon artwork supplies the small palette-colored folder overlay.
+
+Wallpaper rotation selects existing private library entries on a configurable
+interval; fixed palettes bypass wallpaper extraction. Thumbnail/poster caches and
+prepared palettes serve the picker and Appearance settings. The palette publisher
+pairs wallpaper and shell color state so transitions share a presentation step.
+Prepared lock text and artwork are updated outside authentication startup.
+
+`HoverIntent` guards accidental edge entry and immediate reopening. Precise hover
+is the default; click handles are an optional overlay, without reserving tiled
+window space. Shell layer namespaces start with `siverteh-`; blur targets visible
+UI surfaces, excluding wallpaper and invisible edge/input surfaces.
+
+Feature behavior belongs in linked [feature guides](overview.md#feature-guides).
+The [runtime guide](features/runtime.md) documents compatibility paths; state is
+not renamed simply to tidy identifiers.

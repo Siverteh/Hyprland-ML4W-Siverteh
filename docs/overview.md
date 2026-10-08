@@ -11,7 +11,7 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   wallpaper views and AI sidebar. Its renderer is separate from the AI worker.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,
   GTK/Qt settings, Kitty, lock screen and login appearance.
-- **Hypridle and Hyprlock** handle idle/sleep locking and password authentication.
+- **Hypridle and Hyprlock** handle the private host locking policy and password authentication.
   SDDM handles the initial login. Wallpaper code supplies appearance only.
 - **Siverteh AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
@@ -52,14 +52,30 @@ on lock and on sleep; the picker temporarily allows a live preview.
 | Workspaces and app placement | `hypr/conf/windowrule.lua`; Brain exceptions in `brain.lua` |
 | Keys and window appearance | `hypr/conf/keybinding.lua`, `siverteh/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
 | Environment and cursor defaults | `uwsm/env`, `uwsm/env-hyprland`, `hypr/conf/cursor.lua` |
-| Idle locking | `hypr/hypridle.conf` |
+| Idle locking | Private `~/.config/siverteh-shell/hypridle.local.conf`; factory seed in `tools/defaults/hypridle.conf` |
 | Bar, menus and picker layouts | `siverteh/shell/modules/` |
 | Shared UI state and background work | `siverteh/shell/services/` |
 | Wallpaper/palette publication | `siverteh/shell-tools/wallpaper-media.py`, `classic-state.py`; generator in `siverteh/shell-cli/` |
 | Startup selections and host preferences | Settings UI; private `~/.config/siverteh-shell/` files |
 | AI commands or Brain behavior | `ai/` or `brain/`; follow their project instructions |
 
-Source is deployed as copies. Generated colors, wallpaper libraries and personal
+Source is deployed as copies. Host-generated colors, wallpaper libraries and personal
 settings remain outside Git. Older commits retain previously published artwork;
 that is different from the current private wallpaper library. See the
 [repository boundary proposal](repository-boundaries.md) for optional future splits.
+
+## Feature guides
+
+- [Settings and prepared lock screen](features/settings-lock.md)
+- [Wallpaper previews and layouts](features/wallpapers.md)
+- [Rotation and fixed color palettes](features/appearance.md)
+- [Launcher](features/launcher.md), [edge menus and hover intent](features/edge-menus.md)
+- [Audio, Wi-Fi and Bluetooth](features/connections.md)
+- [Thunar appearance](file-manager.md), [terminal branding](features/terminal-branding.md)
+- [Session environment](features/session.md), [travel timezone](features/travel-timezone.md)
+- [Runtime dependencies and path compatibility](features/runtime.md)
+
+Quickshell, Thunar, Qt plugins and Papirus are system packages updated by pacman.
+Only the palette engine's Python environment and compiled Thunar style module
+remain private. Fixed palettes are reproducible, checked-in generated presets;
+wallpaper-derived host colors remain private.

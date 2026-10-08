@@ -26,3 +26,7 @@ Prefer readable multiline Python and QML over compressed statements. Use Ruff
 for Python and qmlformat for QML, keep formatting-only changes separate, and run
 the same checks before and after formatting. Generated host language-server
 configuration belongs outside Git.
+
+When adding or retiring a component, update `docs/overview.md` and
+`docs/architecture.md`. Put feature behavior in that feature's doc, not in
+`maintenance.md`. Git history is the changelog.
