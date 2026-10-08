@@ -124,7 +124,7 @@ Variants {
                         color: Colours.palette.m3primary
                     }
                     StyledText {
-                        text: Updates.count
+                        text: Updates.message || String(Updates.count)
                         color: Colours.palette.m3primary
                     }
                 }

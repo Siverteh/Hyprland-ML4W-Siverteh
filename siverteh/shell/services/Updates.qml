@@ -6,6 +6,7 @@ import QtQuick
 Singleton {
     id: root
     property int count: 0
+    property string message: ""
 
     function refresh() {
         if (!check.running)
@@ -30,6 +31,7 @@ Singleton {
         onLoaded: {
             try {
                 const data = JSON.parse(text());
+                root.message = data.message ?? "";
                 root.count = parseInt(String(data.text ?? 0).match(/\d+/)?.[0] ?? "0");
             } catch (error) {
                 root.count = 0;

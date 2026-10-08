@@ -28,6 +28,68 @@ def count_updates():
     return {"text": str(total), "count": total, "checked": time.time()}
 
 
+def qt_update_status(pending):
+    version = subprocess.run(
+        ["quickshell", "--version", "-v"], capture_output=True, text=True, timeout=10
+    )
+    local = "Siverteh local Qt rebuild" in version.stdout
+    blocked = local and any(
+        line.split()[0] == "qt6-base" for line in pending.splitlines() if line.strip()
+    )
+    message = "Quickshell rebuild needed before updating" if blocked else ""
+    # Installed/cached distribution archives provide build-time Qt metadata without
+    # executing downloaded binaries or guessing compatibility from package versions.
+    candidate = subprocess.run(
+        ["pacman", "-Sp", "--print-format", "%f", "quickshell"],
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+    installed = subprocess.run(
+        ["pacman", "-Q", "qt6-base"], capture_output=True, text=True, timeout=10
+    )
+    qt = (
+        installed.stdout.split()[-1].rsplit("-", 1)[0]
+        if installed.returncode == 0
+        else ""
+    )
+    archive = (
+        Path("/var/cache/pacman/pkg") / candidate.stdout.strip().splitlines()[-1]
+        if candidate.stdout.strip()
+        else None
+    )
+    distribution_ready = False
+    if local and archive and archive.is_file():
+        info = subprocess.run(
+            ["bsdtar", "-xOf", str(archive), ".BUILDINFO"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        ).stdout
+        distribution_ready = any(
+            line.startswith("installed = qt6-base-" + qt + "-")
+            for line in info.splitlines()
+        )
+        if distribution_ready:
+            message = (
+                (message + ". " if message else "")
+                + "A cached distribution Quickshell matches installed Qt; you can switch back"
+            )
+    return dict(
+        message=message, rebuildNeeded=blocked, distributionReady=distribution_ready
+    )
+
+
+def preflight():
+    command = ["checkupdates"] if shutil.which("checkupdates") else ["pacman", "-Qu"]
+    result = subprocess.run(command, capture_output=True, text=True, timeout=90)
+    if result.returncode not in (0, 2) and not (
+        command[0] == "pacman" and result.returncode == 1 and not result.stderr.strip()
+    ):
+        raise RuntimeError("Update preflight failed: " + result.stderr.strip())
+    return qt_update_status(result.stdout)
+
+
 def refresh():
     CACHE.parent.mkdir(parents=True, exist_ok=True)
     with CACHE.with_suffix(".lock").open("w") as guard:
@@ -36,6 +98,7 @@ def refresh():
         except BlockingIOError:
             return
         data = count_updates()
+        data.update(preflight())
         temp = CACHE.with_suffix(".next")
         temp.write_text(json.dumps(data))
         os.replace(temp, CACHE)
@@ -44,7 +107,19 @@ def refresh():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--refresh", action="store_true")
+    parser.add_argument("--preflight", action="store_true")
     args = parser.parse_args()
+    if args.preflight:
+        status = preflight()
+        if status["message"]:
+            print(status["message"], flush=True)
+        if status["rebuildNeeded"]:
+            print(
+                "Prepare a matching Quickshell package together with the pending Qt release; see docs/features/runtime.md",
+                flush=True,
+            )
+            raise SystemExit(3)
+        return
     if args.refresh:
         refresh()
         return
