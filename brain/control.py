@@ -871,10 +871,13 @@ def brain_window():
     windows = [
         c
         for c in clients
-        if c.get("class") in ("siverteh-brain", "chrome-127.0.0.1__-Default")
+        if c.get("class") == "siverteh-brain"
         or (
             c.get("pid") in profile_pids
-            and "siverteh-observatory_auth_open.html" in c.get("class", "")
+            and (
+                c.get("class") == "chrome-127.0.0.1__-Default"
+                or "siverteh-observatory_auth_open.html" in c.get("class", "")
+            )
         )
     ]
     # Chrome's initial title is its URL, not the final page title. Prefer the
