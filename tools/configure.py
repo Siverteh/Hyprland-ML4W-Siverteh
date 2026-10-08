@@ -125,6 +125,7 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
             path: source
             for path, source in desired.items()
             if path.parent == Path(".local/bin")
+            and path.name in ("siverteh-os-app", "xdg-open")
         }
     links = {}
     for name in (*ACTIVE_DIRS, *RETIRED_DIRS):
@@ -174,7 +175,9 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
             current is not None
             and not owned_link
             and current != known.get(str(relative))
-            and current != LEGACY_SYNC.get(str(relative))
+            and not (
+                str(relative) not in known and current == LEGACY_SYNC.get(str(relative))
+            )
             and not (
                 relative == Path(".config/hypr/hyprland.lua")
                 and power_policy(home, root, migrate_idle) is not None
@@ -223,6 +226,7 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
                             str(p): digest(home / p)
                             for p in files(root)
                             if p.parent == Path(".local/bin")
+                            and p.name in ("siverteh-os-app", "xdg-open")
                         },
                     }
                     if app_routes_only

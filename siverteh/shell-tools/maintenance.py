@@ -29,7 +29,7 @@ def run(args, default="", timeout=5):
 
 
 def service_health():
-    output = run(
+    result = subprocess.run(
         [
             "systemctl",
             "--user",
@@ -43,8 +43,14 @@ def service_health():
             "Result",
             "-p",
             "ExecMainStatus",
-        ]
+        ],
+        capture_output=True,
+        text=True,
+        timeout=5,
     )
+    # systemctl can return failure for a missing optional unit while still
+    # reporting every installed unit; keep those valid results.
+    output = result.stdout
     states, details = {}, {}
     for block in output.split("\n\n"):
         values = dict(line.split("=", 1) for line in block.splitlines() if "=" in line)

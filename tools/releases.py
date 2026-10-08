@@ -61,6 +61,7 @@ def paths(repo):
             "siverteh-os-app",
             "xdg-open",
             "siverteh-brain-ui",
+            "siverteh-brain-sync",
             "siverteh-observatory",
         )
     ]
@@ -71,6 +72,7 @@ def paths(repo):
             "siverteh-sidebar-ai.service",
             "siverteh-observatory-brain.service",
             "siverteh-session-watch.service",
+            "siverteh-brain-sync.service",
         )
     ]
     result += [

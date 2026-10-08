@@ -227,3 +227,26 @@ class PowerMigrationTests(unittest.TestCase):
             self.assertEqual(module.power_policy(home, root, True), b"host behavior")
             current.write_text(current.read_text() + "unrelated edit")
             self.assertIsNone(module.power_policy(home, root, True))
+
+
+class SharedHelperOwnershipTests(unittest.TestCase):
+    def test_app_routes_do_not_adopt_sync_and_known_local_edits_are_preserved(self):
+        from unittest.mock import patch
+
+        with tempfile.TemporaryDirectory() as folder:
+            root, home = Path(folder) / "repo", Path(folder) / "home"
+            (root / "bin").mkdir(parents=True)
+            for name in ("siverteh-os-app", "xdg-open", "siverteh-brain-sync"):
+                (root / "bin" / name).write_text("new helper")
+            target = home / ".local/bin/siverteh-brain-sync"
+            target.parent.mkdir(parents=True)
+            target.write_text("recognized old helper")
+            legacy = {".local/bin/siverteh-brain-sync": module.digest(target)}
+            with patch.object(module, "LEGACY_SYNC", legacy):
+                module.apply(home, root, app_routes_only=True)
+                self.assertEqual(target.read_text(), "recognized old helper")
+                module.apply(home, root)
+                self.assertEqual(target.read_text(), "new helper")
+                target.write_text("recognized old helper")
+                with self.assertRaisesRegex(RuntimeError, "Local edit preserved"):
+                    module.plan(home, root)
