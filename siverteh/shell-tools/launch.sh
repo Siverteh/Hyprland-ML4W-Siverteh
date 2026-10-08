@@ -9,7 +9,7 @@ if [[ ! -x /usr/bin/quickshell ]]; then
     echo 'Install quickshell with pacman before starting Siverteh OS.' >&2
     exit 1
 fi
-version_info=$(/usr/bin/quickshell --version -vv 2>&1)
+version_info=$(/usr/bin/quickshell --version -v 2>&1)
 if [[ "$version_info" =~ Qt:\ ([0-9.]+)\ \(built\ against\ ([0-9.]+)\) ]]; then
     if [[ "${BASH_REMATCH[1]}" != "${BASH_REMATCH[2]}" ]]; then
         echo "Quickshell Qt mismatch: system ${BASH_REMATCH[1]}, build ${BASH_REMATCH[2]}. Install a matching package or rebuild it; see docs/features/runtime.md." >&2

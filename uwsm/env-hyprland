@@ -1,2 +1,2 @@
 # Hyprland-specific variables. XDG session identity is supplied by UWSM.
-export HYPRCURSOR_SIZE=24
+export HYPRCURSOR_SIZE="$XCURSOR_SIZE"

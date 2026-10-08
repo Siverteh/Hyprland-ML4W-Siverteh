@@ -90,7 +90,7 @@ def main():
         print("Lua syntax passed.", flush=True)
     formatter = Path("/usr/lib/qt6/bin/qmlformat")
     if formatter.exists():
-        for path in (ROOT / "siverteh/shell").rglob("*.qml"):
+        for path in (ROOT / "siverteh").rglob("*.qml"):
             formatted = run([str(formatter), str(path)])
             if formatted != path.read_text():
                 raise RuntimeError(
