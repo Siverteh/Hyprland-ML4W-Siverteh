@@ -45,3 +45,45 @@ class UpdateTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class UpdateFailureTests(unittest.TestCase):
+    def test_recovery_build_blocks_pending_qt_but_not_other_packages(self):
+        for pending, blocked in (
+            ("qt6-base 6.12 -> 6.13\n", True),
+            ("fish 4 -> 5\n", False),
+        ):
+            results = [
+                subprocess.CompletedProcess(
+                    [], 0, "distributed by Siverteh local Qt rebuild", ""
+                ),
+                subprocess.CompletedProcess([], 0, "", ""),
+                subprocess.CompletedProcess([], 0, "qt6-base 6.12.0-2", ""),
+            ]
+            with patch.object(updates.subprocess, "run", side_effect=results):
+                status = updates.qt_update_status(pending)
+            self.assertEqual(status["rebuildNeeded"], blocked)
+
+    def test_failure_trap_reports_step_exit_and_keeps_skipreview(self):
+        import os
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name, body in {
+                "gum": "exit 0",
+                "python3": "exit 0",
+                "paru": 'printf "%s\\n" "$*"; exit 7',
+            }.items():
+                executable = root / name
+                executable.write_text("#!/usr/bin/env bash\n" + body + "\n")
+                executable.chmod(0o755)
+            result = subprocess.run(
+                ["bash", str(Path(__file__).parents[1] / "updates.sh")],
+                env=dict(os.environ, PATH=str(root) + ":/usr/bin:/bin"),
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 7)
+            self.assertIn("-Syu --skipreview", result.stdout)
+            self.assertIn("system package update (exit 7)", result.stderr)
