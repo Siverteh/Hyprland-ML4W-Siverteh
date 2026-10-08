@@ -454,3 +454,21 @@ brightness hotkeys still show temporary OSD feedback. Hover mode restores the
 previous automatic edge entry while retaining immediate input release on close.
 The saved clickEdgeMenus preference is a validated private boolean, included in
 normal desktop presets. Keyboard shortcuts are unchanged. The bar remains on top.
+
+
+## Precise immediate-hover activation
+
+Hover mode opens closed drawers only from a3-pixel outer-edge strip. The top
+strip uses the existing centre band; left/right use their panel-height bands.
+Opening has no additional delay, while the existing panel animations remain.
+Opened panels retain a larger padded interaction area. A120–140ms exit grace
+allows moving from the header into content without adding an opening delay.
+
+Explicit dismissal blocks only edges the pointer still touches. Leaving and
+re-entering re-arms them. Automatic entry ignores held mouse buttons and true
+fullscreen windows on the focused output; maximized windows still allow hover.
+Explicit clicks and keyboard launch routes remain available. A non-consuming
+Escape shortcut dismisses passive previews while allowing the application's
+Escape action to continue; pinned AI and explicit modal panels keep their own
+existing dismissal behavior. State follows pointer events and one-shot exit
+signals, with no global pointer polling or additional input process.

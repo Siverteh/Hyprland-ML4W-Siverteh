@@ -50,8 +50,10 @@ Variants {
             }
         }
         function hoverMenu(name, item) {
+            const cursor = item.mapToItem(win.contentItem, item.mouseX, item.mouseY);
+            HoverIntent.observe(win.screen, cursor.x, cursor.y);
             dismissPopout.stop();
-            if (win.clickMenus) return;
+            if (win.clickMenus || !HoverIntent.canOpen("popouts", win.screen, item.pressedButtons)) return;
             const panel = Visibilities.panels[screen.name];
             if (panel)
                 panel.popouts.headerHovered = true;
@@ -164,6 +166,9 @@ Variants {
                         return ["audio", "network", "bluetooth", "battery", "notifications"][index];
                     }
                     function showMenu(clicked = false) {
+                        const cursor = statusHover.mapToItem(win.contentItem, statusHover.mouseX, statusHover.mouseY);
+                        HoverIntent.observe(win.screen, cursor.x, cursor.y);
+                        if (!clicked && !HoverIntent.canOpen("popouts", win.screen, statusHover.pressedButtons)) return;
                         if (win.clickMenus && !clicked) {
                             win.hoverHint = ({audio:"Open Sound settings", network:"Open Network settings", bluetooth:"Open Bluetooth settings", battery:"Open Battery", notifications:"Open Notifications"})[menuName()];
                             return;
@@ -183,10 +188,15 @@ Variants {
                             Visibilities.popout(name, pt.x, win.screen.name);
                         }
                     }
-                    onEntered: showMenu()
+                    onEntered: {
+                        HoverIntent.popupHovered[win.screen.name] = true;
+                        showMenu();
+                    }
                     onPositionChanged: if (containsMouse)
                         showMenu()
                     onExited: {
+                        HoverIntent.popupHovered[win.screen.name] = false;
+                        HoverIntent.rearm("popouts", win.screen);
                         win.hoverHint = "";
                         const p = Visibilities.panels[win.screen.name];
                         if (p)
@@ -234,10 +244,13 @@ Variants {
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onEntered: {
+                        HoverIntent.popupHovered[win.screen.name] = true;
                         if (win.clickMenus) win.hoverHint = "Open Calendar";
                         else win.hoverMenu("calendar", this);
                     }
                     onExited: {
+                        HoverIntent.popupHovered[win.screen.name] = false;
+                        HoverIntent.rearm("popouts", win.screen);
                         win.hoverHint = "";
                         const p = Visibilities.panels[win.screen.name];
                         if (p)
@@ -263,14 +276,31 @@ Variants {
             height: win.height
             hoverEnabled: true
             acceptedButtons: Qt.NoButton
-            onEntered: if (!win.clickMenus && win.visibility && !win.visibility.session) {
-                const p = Visibilities.panels[win.screen.name];
-                if (p)
-                    p.popouts.hasCurrent = false;
-                win.visibility.dashboard = true;
+            function updateEdge(buttons) {
+                HoverIntent.observe(win.screen, mouseX + x, mouseY);
+                HoverIntent.headers[win.screen.name] = containsMouse;
+                if (!win.clickMenus && mouseY <= HoverIntent.edgeWidth && win.visibility && !win.visibility.session && !win.visibility.launcher && HoverIntent.canOpen("dashboard", win.screen, buttons)) {
+                    const p = Visibilities.panels[win.screen.name];
+                    if (p) p.popouts.hasCurrent = false;
+                    win.visibility.dashboard = true;
+                }
             }
-            onExited: if (!win.clickMenus && win.visibility && mouseY < height - 2)
-                win.visibility.dashboard = false
+            onEntered: updateEdge(pressedButtons)
+            onPositionChanged: event => updateEdge(event.buttons)
+            onExited: {
+                HoverIntent.headers[win.screen.name] = false;
+                HoverIntent.rearm("dashboard", win.screen);
+                dashboardExit.restart();
+            }
+            Timer {
+                id: dashboardExit
+                interval: 140
+                onTriggered: {
+                    const p = Visibilities.panels[win.screen.name];
+                    if (!win.clickMenus && !dashboardHover.containsMouse && !p?.parent.containsMouse && !win.visibility?.dashboardPinned)
+                        win.visibility.dashboard = false;
+                }
+            }
         }
         EdgeMenuHandle {
             anchors.centerIn: parent

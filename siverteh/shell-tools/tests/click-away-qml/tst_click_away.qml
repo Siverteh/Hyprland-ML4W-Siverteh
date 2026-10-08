@@ -1,8 +1,38 @@
 import QtQuick
 import QtTest
+import "fixtures"
 
 TestCase {
     id: test
+
+    function test_edge_guard_rearms_only_after_leaving_and_respects_drag_fullscreen() {
+        const screen = {
+            "name": "test",
+            "width": 500,
+            "height": 600
+        };
+        HoverIntent.observe(screen, 250, 1);
+        HoverIntent.dismiss(screen);
+        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        HoverIntent.observe(screen, 250, 2);
+        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        HoverIntent.observe(screen, 250, 20);
+        verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        verify(!HoverIntent.canOpen("dashboard", screen, Qt.LeftButton));
+        Hyprland.activeClient = {
+            "lastIpcObject": {
+                "fullscreen": 2
+            }
+        };
+        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        Hyprland.activeClient = {
+            "lastIpcObject": {
+                "fullscreen": 1
+            }
+        };
+        verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        Hyprland.activeClient = null;
+    }
 
     function test_clicks_inside_keep_open_and_outside_dismiss() {
         const view = createTemporaryObject(scene, test);
@@ -61,7 +91,12 @@ TestCase {
         Interactions {
             width: 500
             height: 600
-            screen: null
+
+            screen: QtObject {
+                property string name: "test"
+                property int width: 500
+                property int height: 600
+            }
 
             visibilities: QtObject {
                 property string edgeMenu: ""

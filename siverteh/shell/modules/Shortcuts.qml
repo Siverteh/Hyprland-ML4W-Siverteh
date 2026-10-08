@@ -9,6 +9,21 @@ Scope {
     property bool launcherInterrupted
 
     CustomShortcut {
+        name: "dismissHoverEdges"
+        description: "Dismiss passive hover menus without taking application focus"
+        onPressed: {
+            for (const screen of Quickshell.screens) {
+                const v = Visibilities.screens[screen.name], p = Visibilities.panels[screen.name];
+                if (!v || v.launcher || v.session || v.edgeMenu !== "") continue;
+                HoverIntent.dismiss(screen);
+                if (!v.dashboardPinned) v.dashboard = false;
+                if (!v.leftPinned) v.left = false;
+                v.osd = false;
+                if (p && !p.popouts.pinned) p.popouts.hasCurrent = false;
+            }
+        }
+    }
+    CustomShortcut {
         name: "session"
         description: "Toggle session menu"
         onPressed: {

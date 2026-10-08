@@ -31,6 +31,7 @@ Variants {
             contentItem.opacity: Visibilities.reveal
             contentItem.focus: true
             function dismissOverlays() {
+                HoverIntent.dismiss(win.screen);
                 visibilities.edgeMenu = "";
                 visibilities.dashboard = false;
                 visibilities.osd = false;

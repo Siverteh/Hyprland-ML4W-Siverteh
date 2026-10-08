@@ -11,3 +11,6 @@ hl.window_rule({
     center = true,
     size = "70% 75%",
 })
+
+-- Passive hover surfaces do not steal keyboard focus. Escape still reaches apps.
+hl.bind("Escape", hl.dsp.global("siverteh_shell:dismissHoverEdges"), { non_consuming = true })

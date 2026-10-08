@@ -33,6 +33,16 @@ class ClickAwayTests(unittest.TestCase):
                 )
             source = source[: source.index("    Osd.Interactions {")] + "}\n"
             (path / "Interactions.qml").write_text(source)
+            intent = (
+                (ROOT.parent / "shell/services/HoverIntent.qml")
+                .read_text()
+                .replace("import Quickshell", "")
+                .replace("Singleton {", "QtObject {")
+            )
+            (path / "fixtures/HoverIntent.qml").write_text(intent)
+            (path / "fixtures/Hyprland.qml").write_text(
+                'pragma Singleton\nimport QtQuick\nQtObject { property var focusedMonitor:({name:"test"}); property var activeClient:null }'
+            )
             (path / "fixtures/DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({leftDrawer:true})}"
             )
@@ -41,7 +51,7 @@ class ClickAwayTests(unittest.TestCase):
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton BorderConfig 1.0 BorderConfig.qml\n"
+                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton BorderConfig 1.0 BorderConfig.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton Hyprland 1.0 Hyprland.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/click-away-qml/tst_click_away.qml",

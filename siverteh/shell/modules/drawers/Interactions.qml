@@ -62,6 +62,8 @@ MouseArea {
         onTriggered: {
             if (!root.containsMouse && !root.popouts.headerHovered && !root.popouts.pinned)
                 root.popouts.hasCurrent = false;
+            if (!root.containsMouse && !HoverIntent.headers[root.screen.name] && !visibilities.dashboardPinned && visibilities.edgeMenu !== "dashboard")
+                visibilities.dashboard = false;
             if (!root.containsMouse && !visibilities.leftPinned && visibilities.edgeMenu !== "left")
                 visibilities.left = false;
         }
@@ -70,26 +72,28 @@ MouseArea {
         if (!containsMouse) {
             if (visibilities.edgeMenu !== "osd") visibilities.osd = false;
             osdHovered = false;
-            if (!visibilities.dashboardPinned && visibilities.edgeMenu !== "dashboard")
-                visibilities.dashboard = false;
+            exitDelay.restart();
             exitDelay.restart();
         }
     }
 
     onPositionChanged: ({
             x,
-            y
+            y, buttons
         }) => {
+        HoverIntent.observe(root.screen, x, y);
         if (visibilities.launcher)
             return;
         // The existing border responds immediately, matching the right-side drawer.
-        if (DesktopSettings.data.clickEdgeMenus === false && DesktopSettings.data.leftDrawer !== false && !visibilities.session && !visibilities.launcher && x < bar.implicitWidth && withinPanelHeight(panels.leftDrawer, x, y)) {
+        if (DesktopSettings.data.clickEdgeMenus === false && DesktopSettings.data.leftDrawer !== false && !visibilities.session && !visibilities.launcher && x < HoverIntent.edgeWidth && withinPanelHeight(panels.leftDrawer, x, y) && HoverIntent.canOpen("left", root.screen, buttons)) {
             visibilities.dashboard = false;
             visibilities.left = true;
         }
 
         // Show osd on hover
-        const showOsd = !visibilities.session && (DesktopSettings.data.clickEdgeMenus === false || visibilities.osd) && inRightPanel(panels.osd, x, y);
+        const inOsd = inRightPanel(panels.osd, x, y);
+        const openOsd = DesktopSettings.data.clickEdgeMenus === false && x >= width - HoverIntent.edgeWidth && inOsd && HoverIntent.canOpen("osd", root.screen, buttons);
+        const showOsd = !visibilities.session && (visibilities.osd ? inOsd : openOsd);
         if (visibilities.edgeMenu !== "osd") visibilities.osd = showOsd;
         osdHovered = showOsd;
 
@@ -106,7 +110,7 @@ MouseArea {
             visibilities.left = false;
 
         // Show dashboard on hover
-        if (DesktopSettings.data.clickEdgeMenus === false && !visibilities.dashboardPinned && visibilities.edgeMenu !== "dashboard")
+        if (visibilities.dashboard && !visibilities.dashboardPinned && visibilities.edgeMenu !== "dashboard")
             visibilities.dashboard = inTopPanel(panels.dashboard, x, y);
 
         // Header popouts extend down from the top edge and remain while entered.

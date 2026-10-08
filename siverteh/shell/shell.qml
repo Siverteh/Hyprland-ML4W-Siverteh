@@ -135,6 +135,8 @@ ShellRoot {
             Visibilities.popout(name, center, Hyprland.focusedMonitor?.name ?? Object.keys(Visibilities.screens)[0]);
         }
         function close(): void {
+            const screen = Quickshell.screens.find(s => s.name === Hyprland.focusedMonitor?.name) || Quickshell.screens[0];
+            if (screen) HoverIntent.dismiss(screen);
             const v = Visibilities.getForActive();
             if (v) {
                 v.dashboard = false;
