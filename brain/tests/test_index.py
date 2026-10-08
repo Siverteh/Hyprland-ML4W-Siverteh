@@ -224,7 +224,10 @@ class IndexTests(unittest.TestCase):
             action.assert_not_called()
 
     def test_background_brain_launch_restores_workspace_and_routes_to_six(self):
+        browser = self.root / "chromium"
+        browser.write_text("fixture; browser execution is mocked")
         with (
+            patch.object(module.shutil, "which", return_value=str(browser)),
             patch.object(module, "STATE", self.root / "state"),
             patch.object(module, "ensure_server"),
             patch.object(
