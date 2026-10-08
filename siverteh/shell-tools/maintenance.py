@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local maintenance facts and explicitly requested recovery actions."""
 
-import argparse, datetime as dt, hashlib, json, os, subprocess, sys, time
+import argparse, datetime as dt, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
 HOME = Path.home()

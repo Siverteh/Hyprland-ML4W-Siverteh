@@ -1,6 +1,6 @@
 """Revision cache and bounded local worker; no document upload or inference network calls."""
 
-import json, os, selectors, subprocess, threading, time
+import json, os, selectors, subprocess, threading
 from pathlib import Path
 
 

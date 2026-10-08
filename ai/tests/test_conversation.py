@@ -1,6 +1,5 @@
 import json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
-from types import SimpleNamespace
 from unittest.mock import patch
 from test_workflow import module, ROOT
 
@@ -134,7 +133,7 @@ class Conversation(unittest.TestCase):
                     }
                 )
             )
-            result = subprocess.run(
+            subprocess.run(
                 [
                     sys.executable,
                     str(ROOT / "bin/siverteh-ai-memory"),
@@ -165,7 +164,7 @@ class Conversation(unittest.TestCase):
             page = root / "wiki/existing.md"
             original = "# My subject\nEntity: world\nName: Climbing\nAliases: Bouldering\n\nCurated evidence\n"
             page.write_text(original)
-            result = subprocess.run(
+            subprocess.run(
                 [
                     sys.executable,
                     str(ROOT / "bin/siverteh-ai-memory"),

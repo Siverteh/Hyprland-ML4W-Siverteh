@@ -711,7 +711,7 @@ class ProjectBuildHostTests(unittest.TestCase):
                 ai,
                 "source_chats",
                 side_effect=lambda source, account: [{"project": source}],
-            ) as read,
+            ),
             patch.object(ai, "claude_chats", return_value=[]),
         ):
             rows = ai.project_chats(p, None)

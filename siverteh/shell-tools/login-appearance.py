@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish only wallpaper/color data for the root-owned Siverteh login theme."""
 
-import configparser, hashlib, io, json, os, shutil, sys, tempfile
+import configparser, hashlib, io, json, os, tempfile
 from pathlib import Path
 from PIL import Image, ImageFilter, ImageOps
 

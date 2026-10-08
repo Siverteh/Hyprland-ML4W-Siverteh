@@ -23,7 +23,8 @@ def atomic(path, text):
     os.replace(name, path)
 
 
-def prepare(data, home=Path.home()):
+def prepare(data, home=None):
+    home = Path.home() if home is None else Path(home)
     ready = home / ".cache/siverteh-os/lock-ready"
     settings = data.get("preferences", {})
     for kind in ("weather", "media", "play-icon", "status"):

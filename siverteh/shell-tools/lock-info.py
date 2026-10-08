@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read-only lock widgets and an allowlist of media actions. No authentication data."""
 
-import argparse, fcntl, html, json, os, subprocess, time, textwrap, urllib.request, urllib.parse, io
+import argparse, fcntl, html, json, os, subprocess, time, urllib.request, urllib.parse, io
 from PIL import Image, ImageFont
 from functools import lru_cache
 import math

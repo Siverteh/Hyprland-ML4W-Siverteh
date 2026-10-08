@@ -3,7 +3,6 @@
 import base64
 import fcntl
 import importlib.util
-import json
 import os
 from pathlib import Path
 import pty

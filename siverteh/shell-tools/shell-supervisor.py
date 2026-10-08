@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Launch with current display state and recover a validated desktop after bad updates."""
 
-import json, os, shutil, signal, stat, subprocess, sys, time
+import json, os, shutil, signal, stat, subprocess, time
 from pathlib import Path
 
 HOME = Path.home()

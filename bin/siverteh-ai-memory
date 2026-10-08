@@ -84,7 +84,6 @@ def remember(args, body):
         for world in worlds:
             ident = slug(world)
             wiki = root / "wiki" / ("entity-" + ident + ".md")
-            aliases = []
             existing = None
             for page in (root / "wiki").glob("*.md"):
                 text = page.read_text()

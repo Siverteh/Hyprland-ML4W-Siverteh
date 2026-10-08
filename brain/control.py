@@ -2,7 +2,6 @@
 """Local desktop actions and a private, read-only knowledge index."""
 
 import argparse
-import calendar
 import fcntl
 import datetime as dt
 import hashlib
@@ -251,7 +250,7 @@ def graph():
     evidence appears once and may relate to more than one hub.
     """
     today = dt.datetime.now(dt.timezone.utc).date()
-    nodes, links, notes, scores = [], [], [], {}
+    nodes, links, notes = [], [], []
     lookup = {}
     if VAULT.exists():
         for p in sorted(VAULT.rglob("*.md")):

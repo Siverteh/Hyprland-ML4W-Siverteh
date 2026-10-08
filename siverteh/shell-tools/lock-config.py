@@ -168,7 +168,8 @@ def render(
     return template
 
 
-def monitor_layout(home=Path.home()):
+def monitor_layout(home=None):
+    home = Path.home() if home is None else Path(home)
     cache = home / ".cache/siverteh-os/lock-outputs.json"
     try:
         monitors = json.loads(
@@ -189,7 +190,8 @@ def monitor_layout(home=Path.home()):
             return []
 
 
-def prepare_config(colors, wallpaper, preferences, helper, home=Path.home()):
+def prepare_config(colors, wallpaper, preferences, helper, home=None):
+    home = Path.home() if home is None else Path(home)
     ready = home / ".cache/siverteh-os/lock-ready"
     artwork = str(ready / "initial-art.png")
     if not Path(artwork).is_file():
@@ -199,7 +201,8 @@ def prepare_config(colors, wallpaper, preferences, helper, home=Path.home()):
     )
 
 
-def publish(home=Path.home()):
+def publish(home=None):
+    home = Path.home() if home is None else Path(home)
     state = home / ".local/state/siverteh_shell"
     scheme = json.loads((state / "scheme.json").read_text())
     colors = scheme["colours"]

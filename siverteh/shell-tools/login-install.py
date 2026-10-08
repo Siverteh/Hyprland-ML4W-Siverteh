@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Install a root-owned theme with user-writable appearance data, without restarting SDDM."""
 
-import argparse, datetime, json, os, pwd, shutil, sys
+import argparse, datetime, json, os, pwd, shutil
 from pathlib import Path
 
 FILES = ("Main.qml", "Logo.qml", "theme.conf", "metadata.desktop")

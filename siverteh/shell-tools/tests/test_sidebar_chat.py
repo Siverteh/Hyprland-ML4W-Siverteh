@@ -170,7 +170,6 @@ class SidebarTests(unittest.TestCase):
                 self.assertEqual(manager.pending_users, [])
 
     def test_busy_send_is_accepted_at_command_boundary(self):
-        from unittest.mock import Mock
 
         with tempfile.TemporaryDirectory() as directory:
             p, q = self.manager(Path(directory))

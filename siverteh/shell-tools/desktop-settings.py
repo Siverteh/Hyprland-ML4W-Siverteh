@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validated desktop preferences and reversible connected-display arrangement."""
 
-import argparse, fcntl, json, os, subprocess, sys, time, uuid
+import argparse, fcntl, json, subprocess, sys, time, uuid
 from pathlib import Path
 from importlib.util import spec_from_file_location, module_from_spec
 

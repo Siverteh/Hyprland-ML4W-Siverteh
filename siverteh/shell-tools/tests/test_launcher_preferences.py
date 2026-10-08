@@ -1,4 +1,4 @@
-import importlib.util, json, os, tempfile, unittest
+import importlib.util, os, tempfile, unittest
 from pathlib import Path
 from unittest.mock import patch
 

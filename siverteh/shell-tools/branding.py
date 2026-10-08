@@ -86,7 +86,8 @@ def refresh_terminal_menus(home, proc=Path("/proc")):
                 os.close(descriptor)
 
 
-def publish(colors, home=Path.home()):
+def publish(colors, home=None):
+    home = Path.home() if home is None else Path(home)
     g = json.loads(GEOMETRY.read_text())
     scale = 16
     image = Image.new(
