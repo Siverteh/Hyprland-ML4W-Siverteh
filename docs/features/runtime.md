@@ -44,3 +44,19 @@ Record a versioned migration manifest and rollback paths, then update readers
 before eventually retiring links. AI accounts, chats, the vault and credentials
 are outside this desktop naming migration. The unused `shell.json` is retired;
 `cli.json` remains the palette CLI's configuration.
+
+## Distribution Qt mismatch recovery
+
+The launcher checks Quickshell's reported build/runtime Qt versions before
+starting; mismatches fail with a clear journal message. This can expose a lagging
+distribution package even after a full update. Prefer a matching distribution
+build. If unavailable, `tools/quickshell.PKGBUILD` builds the pinned upstream
+release as a local pacman package against the installed Qt, with exact Qt version
+dependencies. Build in a disposable directory as your ordinary user, then install
+the artifact with `pacman -U`. Never run `cmake --install` directly as root.
+
+This recovery package intentionally prevents a later unmatched Qt upgrade;
+replace/rebuild it alongside Qt rather than bypassing dependency checks. Source
+is pinned to the upstream Git commit; package installation tracks its files in
+pacman, while a local build has no distribution package signature. Verify the
+isolated build probe and live desktop release gates before retiring rollback code.
