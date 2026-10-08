@@ -115,7 +115,11 @@ def publish(colors, home=Path.home()):
 
 
 def build():
-    formatter = shutil.which("qmlformat")
+    formatter = (
+        "/usr/lib/qt6/bin/qmlformat"
+        if Path("/usr/lib/qt6/bin/qmlformat").exists()
+        else shutil.which("qmlformat")
+    )
     if not formatter:
         raise RuntimeError("Regenerating QML branding requires qmlformat")
     root = HERE.parent
