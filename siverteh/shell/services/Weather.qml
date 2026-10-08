@@ -10,6 +10,16 @@ Singleton {
     property string icon: ""
     property string description: ""
     property real temperature: 0
+    property var feelsLike: null
+    property var high: null
+    property var low: null
+    function degrees(value) {
+        if (value === null || value === undefined)
+            return "";
+        return Math.round(DesktopSettings.data.weatherFahrenheit ? value * 9 / 5 + 32 : value) + "°" + (DesktopSettings.data.weatherFahrenheit ? "F" : "C");
+    }
+    readonly property string detail: (feelsLike !== null ? "Feels like " + degrees(feelsLike) : "")
+    readonly property string range: high !== null && low !== null ? "High " + degrees(high) + " · Low " + degrees(low) : ""
     property string location: ""
     property string error: ""
     property bool stale: false
@@ -53,6 +63,9 @@ Singleton {
                     root.icon = data.code ? Icons.getWeatherIcon(data.code) : "cloud_off";
                     root.description = data.description ?? "";
                     root.temperature = data.temperature ?? 0;
+                    root.feelsLike = data.feelsLike ?? null;
+                    root.high = data.high ?? null;
+                    root.low = data.low ?? null;
                     root.location = data.location ?? "";
                     root.stale = data.stale ?? false;
                     root.error = data.error ?? "";

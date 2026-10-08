@@ -51,6 +51,43 @@ before lock startup; live image reloads use identity-keyed paths. Album artwork
 preserves its alpha channel, downloads are bounded, and the private artwork cache
 retains at most12 prepared covers. No background polling worker is introduced.
 
+## Single-tile dashboard
+
+The lock screen follows the [Caelestia KDE reference](https://github.com/ladybug-me/caelestia-kde):
+one centered 1440×810 design canvas with 42px outer corners and 26px inner corners.
+Left cards show weather, system information and seven palette shades, then large
+album artwork. The center shows a split 12-hour clock, date, rounded pentagonal
+account picture, greeting and native password field. The right column shows CPU,
+RAM and root-disk gauges plus grouped notifications. Your own wallpaper, desktop
+palette and live metadata provide the content. `~/.face` or `~/.face.icon` supplies
+the avatar; otherwise a properly contained SH logo is used.
+
+Hyprlock owns the lock surfaces, password field, PAM authentication, failure
+feedback and Enter-to-submit behavior. Media buttons call the existing allowlist;
+the moon suspends while locked. The adjacent lock icon is a status indicator.
+Notification groups display local app artwork, counts and timestamps; they do not
+launch apps while locked. Detailed previews obey the existing privacy preference.
+The KDE reference's session-switch/logout controls and expandable notification
+interaction are not exposed by this Hyprlock implementation.
+
+`lock-dashboard.py` prepares a bounded high-resolution PNG containing the blurred
+wallpaper tile, cards, gauges and presentation text. It alpha-composites translucent
+cards over the blurred texture, leaving the wallpaper outside the tile sharp.
+Clock, password and playback controls remain native Hyprlock widgets. Both share
+one normalized coordinate system, scaled to native output pixels independently of
+compositor scale and rotation. The preview reads the same prepared PNG; it never
+accepts passwords or authenticates.
+
+The existing event-coalesced lock writer updates the panel on palette, media,
+weather, notification and resource changes. Resource sampling reuses the desktop's
+existing timer; no polling daemon or per-second image renderer is added. Routine
+palette config publication reads ready paths and does not rasterize the dashboard.
+Output changes and privacy changes prepare a safe panel before publication. Private
+identity-keyed image paths support native reloads and retain at most12 recent
+panels (or three per monitor when that is larger). Lock startup only reads already
+prepared files. Weather details include feels-like and daily high/low when provided.
+Missing metadata shows an unavailable/empty state, never demonstration values.
+
 ## Physical power button
 
 A desktop-session tap requests `loginctl lock-session` on the initial press,

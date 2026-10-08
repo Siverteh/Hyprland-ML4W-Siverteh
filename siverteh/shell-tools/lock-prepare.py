@@ -12,6 +12,11 @@ ROOT = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location("lockinfo", ROOT / "lock-info.py")
 info = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(info)
+spec = importlib.util.spec_from_file_location(
+    "lockdashboard", ROOT / "lock-dashboard.py"
+)
+dashboard = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(dashboard)
 
 
 def atomic(path, text):
@@ -27,6 +32,7 @@ def prepare(data, home=None):
     home = Path.home() if home is None else Path(home)
     ready = home / ".cache/siverteh-os/lock-ready"
     settings = data.get("preferences", {})
+    data = dict(data, batteryLabel=info.label("status", data, settings))
     for kind in ("weather", "media", "play-icon", "status"):
         atomic(ready / (kind + ".txt"), info.label(kind, data, settings))
     for private in (False, True):
@@ -45,6 +51,34 @@ def prepare(data, home=None):
         if art.is_file():
             atomic(ready / "initial-art.png", art.read_bytes())
         atomic(ready / "art-path.txt", str(art))
+        atomic(ready / "snapshot.json", json.dumps(data))
+        colors = data.get("colors")
+        if not colors:
+            try:
+                colors = json.loads(
+                    (home / ".local/state/siverteh_shell/scheme.json").read_text()
+                )["colours"]
+            except (OSError, ValueError, KeyError):
+                colors = json.loads((ROOT / "reference-style.json").read_text())[
+                    "colours"
+                ]
+        wallpaper = data.get("wallpaper", "")
+        if not wallpaper:
+            try:
+                wallpaper = (
+                    (home / ".local/state/siverteh_shell/wallpaper/last.txt")
+                    .read_text()
+                    .strip()
+                )
+            except OSError:
+                pass
+        try:
+            monitors = json.loads(
+                (home / ".cache/siverteh-os/lock-outputs.json").read_text()
+            )
+        except (OSError, ValueError):
+            monitors = []
+        dashboard.publish(data, colors, wallpaper, art, home, monitors)
         # Bounded private artwork cache; live images use new paths for reloads.
         cached = sorted(
             info.CACHE.parent.glob("lock-art-*.png"),

@@ -66,7 +66,7 @@ class PaletteCommitTest(unittest.TestCase):
                 (home / ".config/siverteh-shell/kitty-colors.conf").read_text(),
             )
             self.assertIn(
-                "outer_color = rgba(123456ff)",
+                "outer_color = rgba(12345650)",
                 (home / ".config/hypr/hyprlock.conf").read_text(),
             )
             self.assertIn("primary 123456", (state / "scheme/current.txt").read_text())

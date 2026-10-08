@@ -60,7 +60,10 @@ Wallpaper rotation selects existing private library entries on a configurable
 interval; fixed palettes bypass wallpaper extraction. Thumbnail/poster caches and
 prepared palettes serve the picker and Appearance settings. The palette publisher
 pairs wallpaper and shell color state so transitions share a presentation step.
-Prepared lock text and artwork are updated outside authentication startup.
+Prepared lock text, artwork and the single-tile dashboard texture are updated
+outside authentication startup. `lock-dashboard.py` owns bounded presentation
+rasterization; `lock-config.py` scales the same design coordinates for each output.
+Hyprlock alone owns password input, PAM and secure session locking.
 
 `HoverIntent` guards accidental edge entry and immediate reopening. Precise hover
 is the default; click handles are an optional overlay, without reserving tiled

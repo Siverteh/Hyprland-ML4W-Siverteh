@@ -14,7 +14,10 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   GTK/Qt settings, Kitty, lock screen and login appearance.
 - **Hypridle and Hyprlock** handle managed sleep locking and private idle timeouts and password authentication.
   The physical power-button tap locks through the same session path; its user
-  inhibitor prevents a competing short-press shutdown. SDDM handles the initial login. Wallpaper code supplies appearance only.
+  inhibitor prevents a competing short-press shutdown. A prepared single-tile
+  dashboard supplies weather, media, palette, resource gauges and notifications;
+  Hyprlock owns its password field. SDDM handles the initial login. Wallpaper code
+  supplies appearance only.
 - **Siverteh AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
   conversations and the Markdown vault are private data outside this repository.

@@ -36,14 +36,21 @@ def refresh():
             location = fetch_json("https://ipinfo.io/json").get("city", "")
         if not location:
             raise ValueError("Set a weather city in Settings")
-        weather = fetch_json(
+        forecast = fetch_json(
             "https://wttr.in/" + urllib.parse.quote(location, safe="") + "?format=j1"
-        )["current_condition"][0]
+        )
+        weather = forecast["current_condition"][0]
+        today = (forecast.get("weather") or [{}])[0]
         data = dict(
             location=location,
             code=weather["weatherCode"],
             description=weather["weatherDesc"][0]["value"],
             temperature=float(weather["temp_C"]),
+            feelsLike=float(weather["FeelsLikeC"])
+            if weather.get("FeelsLikeC")
+            else None,
+            high=float(today["maxtempC"]) if today.get("maxtempC") else None,
+            low=float(today["mintempC"]) if today.get("mintempC") else None,
             checked=time.time(),
             stale=False,
             error="",

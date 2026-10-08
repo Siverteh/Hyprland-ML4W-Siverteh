@@ -83,23 +83,23 @@ class LockAndDeviceTests(unittest.TestCase):
                 )
             )
 
-    def test_media_controls_have_fixed_card_relative_spacing_on_4k(self):
+    def test_media_controls_scale_with_the_shared_panel_on_4k(self):
         colors = json.loads((ROOT / "reference-style.json").read_text())["colours"]
-        import re
-
-        for width in (1920, 2880, 3840, 7680):
-            output = config.widgets("media", colors, Path("/tmp/helper"), "test", width)
-            positions = [
-                int(v) for v in re.findall(r"position = (-?\d+), -280", output)
-            ]
-            self.assertEqual(
-                sorted(positions),
-                [
-                    round(-0.32 * width) - 64,
-                    round(-0.32 * width),
-                    round(-0.32 * width) + 64,
-                ],
+        for width, height in ((1920, 1080), (2880, 1800), (3840, 2160), (7680, 4320)):
+            output = config.render(
+                colors,
+                "/tmp/wall.png",
+                {},
+                Path("/tmp/helper"),
+                [dict(name="test", width=width, height=height)],
             )
+            scale = min(width / 2048, height / 1152)
+            # Each control must be centered on its prepared rounded button.
+            for x, action in ((165, "previous"), (238, "toggle"), (311, "next")):
+                pattern = f"position = {round((x - 720) * scale)}, {round((405 - 687) * scale)}"
+                self.assertIn(pattern, output)
+            self.assertEqual(output.count("input-field {"), 1)
+            self.assertNotIn("unlock-session", output)
 
     def test_control_center_uses_native_pixel_coordinates_and_rotation(self):
         self.assertEqual(
@@ -122,6 +122,34 @@ class LockAndDeviceTests(unittest.TestCase):
             devices.command("bluetooth-connect", "AA:BB:CC;anything")
         with self.assertRaises(ValueError):
             devices.command("shell", "anything")
+
+    def test_weather_prepares_feels_like_and_daily_range(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            settings = home / ".config/siverteh-shell/desktop.json"
+            settings.parent.mkdir(parents=True)
+            settings.write_text(json.dumps(dict(weatherLocation="Test city")))
+            forecast = dict(
+                current_condition=[
+                    dict(
+                        weatherCode="113",
+                        weatherDesc=[dict(value="Sunny")],
+                        temp_C="28",
+                        FeelsLikeC="32",
+                    )
+                ],
+                weather=[dict(maxtempC="34", mintempC="27")],
+            )
+            with (
+                patch.object(weather, "HOME", home),
+                patch.object(weather, "CACHE", home / "weather.json"),
+                patch.object(weather, "fetch_json", return_value=forecast),
+            ):
+                data = weather.refresh()
+            self.assertEqual(data["feelsLike"], 32)
+            self.assertEqual((data["high"], data["low"]), (34, 27))
+            self.assertFalse(data["stale"])
+            self.assertEqual(data["description"], "Sunny")
 
     def test_weather_failure_preserves_cache_timestamp(self):
         with tempfile.TemporaryDirectory() as folder:

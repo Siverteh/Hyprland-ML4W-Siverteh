@@ -13,6 +13,15 @@ Singleton {
     function snapshot() {
         const p = Players.active;
         return {
+            "colors": ThemePresentation.active.colours,
+            "wallpaper": ThemePresentation.active.poster ?? Wallpapers.poster,
+            "system": {
+                "cpu": SystemUsage.cpuPerc,
+                "memory": SystemUsage.memPerc,
+                "storage": SystemUsage.storagePerc,
+                "temperature": Number.isFinite(SystemUsage.cpuTemp) ? SystemUsage.cpuTemp : null
+            },
+            "greetingHour": Time.hours,
             "preferences": {
                 "lockMedia": DesktopSettings.data.lockMedia,
                 "lockWeather": DesktopSettings.data.lockWeather,
@@ -21,6 +30,9 @@ Singleton {
             },
             "weather": {
                 "location": Weather.location,
+                "icon": Weather.icon,
+                "detail": Weather.detail,
+                "range": Weather.range,
                 "description": Weather.description,
                 "temperature": Weather.displayTemperature,
                 "stale": Weather.stale,
@@ -34,9 +46,11 @@ Singleton {
                 "playing": p.isPlaying,
                 "canToggle": p.canTogglePlaying
             } : null,
-            "notifications": Notifs.retained.slice(-8).reverse().map(n => {
+            "notifications": Notifs.retained.slice(-64).reverse().map(n => {
                 return ({
                         "app": n.appName,
+                        "time": n.time.toISOString(),
+                        "icon": n.appIcon,
                         "summary": DesktopSettings.data.lockNotificationContents ? n.summary : "",
                         "body": DesktopSettings.data.lockNotificationContents ? n.body : ""
                     });

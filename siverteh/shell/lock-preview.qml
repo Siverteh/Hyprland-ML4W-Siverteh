@@ -16,15 +16,13 @@ ShellRoot {
         property var widgetData: ({})
         Image {
             anchors.fill: parent
-            source: Wallpapers.poster ? "file://" + Wallpapers.poster : ""
+            source: window.widgetData.wallpaper ? "file://" + window.widgetData.wallpaper : (Wallpapers.poster ? "file://" + Wallpapers.poster : "")
             fillMode: Image.PreserveAspectCrop
-            sourceSize.width: 1280
-            sourceSize.height: 800
             asynchronous: true
         }
         Rectangle {
             anchors.fill: parent
-            color: "#99000000"
+            color: "#0d000000"
         }
         Item {
             objectName: "lockPreviewContent"
@@ -38,72 +36,137 @@ ShellRoot {
                 color: "white"
                 font.pointSize: 11
             }
-            Column {
+            Item {
+                id: panel
+                width: 1440
+                height: 810
                 anchors.centerIn: parent
-                spacing: 14
-                StyledText {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: Time.format("HH:mm")
-                    font.pointSize: 70
-                    color: "white"
+                scale: Math.min(window.width / 2048, window.height / 1152)
+                property color accent: window.widgetData.colors?.primary ? "#" + window.widgetData.colors.primary : Colours.palette.m3primary
+                property color foreground: window.widgetData.colors?.onSurface ? "#" + window.widgetData.colors.onSurface : Colours.palette.m3onSurface
+                Image {
+                    anchors.fill: parent
+                    source: window.widgetData.panel ? "file://" + window.widgetData.panel : ""
+                    cache: false
                 }
-                StyledText {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: Time.format("dddd, dd MMMM")
-                    font.pointSize: 15
-                    color: Colours.palette.m3primary
+                Text {
+                    x: 608
+                    y: 53
+                    width: 126
+                    height: 134
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: Time.format("hh")
+                    font.family: "IBM Plex Sans"
+                    font.pixelSize: 104
+                    color: panel.accent
                 }
-                StyledRect {
-                    width: 280
-                    height: 50
-                    radius: 25
+                Text {
+                    x: 721
+                    y: 68
+                    width: 90
+                    height: 72
+                    horizontalAlignment: Text.AlignHCenter
+                    text: Time.format("mm")
+                    font.family: "IBM Plex Sans"
+                    font.pixelSize: 54
+                    color: panel.accent
+                }
+                Text {
+                    x: 721
+                    y: 133
+                    width: 90
+                    horizontalAlignment: Text.AlignHCenter
+                    text: Time.format("AP")
+                    font.family: "IBM Plex Sans"
+                    font.pixelSize: 27
+                    color: panel.foreground
+                }
+                Text {
+                    x: 495
+                    y: 180
+                    width: 450
+                    horizontalAlignment: Text.AlignHCenter
+                    text: Time.format("dddd · dd MMM").toUpperCase()
+                    font.family: "IBM Plex Sans"
+                    font.pixelSize: 20
+                    color: panel.foreground
+                }
+                Rectangle {
+                    x: 590
+                    y: 602
+                    width: 260
+                    height: 46
+                    radius: 23
                     color: Colours.palette.m3surfaceContainer
-                    border.width: 2
-                    border.color: Colours.palette.m3primary
-                    StyledText {
+                    opacity: 0.8
+                    border.width: 1
+                    border.color: panel.accent
+                    Text {
                         anchors.centerIn: parent
-                        text: "Password"
-                        color: Colours.palette.m3onSurfaceVariant
+                        text: "Enter your password  →"
+                        font.family: "IBM Plex Sans"
+                        font.pixelSize: 14
+                        color: panel.foreground
                     }
                 }
-                StyledText {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Siverteh OS"
-                    font.pointSize: 20
-                    color: Colours.palette.m3primary
+                Row {
+                    x: 649
+                    y: 676
+                    spacing: 72
+                    MaterialIcon {
+                        text: "bedtime"
+                        font.pixelSize: 24
+                        color: panel.accent
+                    }
+                    MaterialIcon {
+                        text: "lock"
+                        font.pixelSize: 24
+                        color: panel.accent
+                    }
                 }
-            }
-            Column {
-                x: 30
-                width: Math.max(160, Math.min(300, (window.width - 360) / 2 - 30))
-                anchors.verticalCenter: parent.verticalCenter
-                spacing: 18
-                PreviewCard {
-                    visible: window.widgetData.preferences?.lockWeather !== false
-                    heading: "Weather"
-                    body: (window.widgetData.weather?.location ?? "") + "\n" + (window.widgetData.weather?.temperature ?? "") + "\n" + (window.widgetData.weather?.description ?? "Weather unavailable")
+                Repeater {
+                    model: window.widgetData.preferences?.lockMedia === false ? [] : [
+                        {
+                            x: 165,
+                            icon: "skip_previous",
+                            action: "previous"
+                        },
+                        {
+                            x: 238,
+                            icon: window.widgetData.media?.playing ? "pause" : "play_arrow",
+                            action: "toggle"
+                        },
+                        {
+                            x: 311,
+                            icon: "skip_next",
+                            action: "next"
+                        }
+                    ]
+                    Item {
+                        required property var modelData
+                        x: modelData.x - 20
+                        y: 667
+                        width: 40
+                        height: 40
+                        MaterialIcon {
+                            anchors.centerIn: parent
+                            text: parent.modelData.icon
+                            font.pixelSize: parent.modelData.action === "toggle" ? 28 : 22
+                            color: parent.modelData.action === "toggle" ? Colours.palette.m3onPrimary : panel.foreground
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: AppLaunch.run(["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/lock-info.py", parent.modelData.action])
+                        }
+                    }
                 }
-                PreviewCard {
-                    visible: window.widgetData.preferences?.lockMedia !== false
-                    heading: "Media"
-                    art: window.widgetData.media?.art ?? ""
-                    mediaControls: !!window.widgetData.media
-                    body: window.widgetData.media ? (window.widgetData.media.title ?? "") + "\n" + (window.widgetData.media.artist ?? "") + "\n" + (window.widgetData.media.playing ? "Playing" : "Paused") : "Nothing playing"
-                }
-            }
-            PreviewCard {
-                visible: window.widgetData.preferences?.lockNotifications !== false
-                x: parent.width - width - 30
-                width: Math.max(160, Math.min(300, (window.width - 360) / 2 - 30))
-                anchors.verticalCenter: parent.verticalCenter
-                heading: "Notifications · " + (window.widgetData.count ?? 0)
-                body: (window.widgetData.notifications ?? []).slice(0, 4).map(n => n.app + (n.summary ? "\n" + n.summary : "")).join("\n\n") || "You are all caught up"
             }
         }
         Process {
             id: reader
             running: true
-            command: [Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/bin/qs", "-c", "siverteh_shell", "ipc", "call", "lockWidgets", "state"]
+            command: ["/usr/bin/cat", Quickshell.env("HOME") + "/.cache/siverteh-os/lock-ready/dashboard.json"]
             stdout: SplitParser {
                 splitMarker: ""
                 onRead: line => {
@@ -119,70 +182,6 @@ ShellRoot {
             running: window.visible
             onTriggered: if (!reader.running)
                 reader.running = true
-        }
-    }
-    component PreviewCard: StyledRect {
-        property string heading
-        property string body
-        property string art: ""
-        property bool mediaControls: false
-        width: parent.width
-        implicitHeight: copy.implicitHeight + 40
-        radius: 22
-        color: Colours.palette.m3surfaceContainer
-        Column {
-            id: copy
-            x: 20
-            y: 20
-            width: parent.width - 40
-            spacing: 12
-            StyledText {
-                text: parent.parent.heading
-                color: Colours.palette.m3primary
-                font.pointSize: 14
-            }
-            Image {
-                visible: parent.parent.art.length > 0
-                width: 90
-                height: visible ? 90 : 0
-                source: parent.parent.art
-                fillMode: Image.PreserveAspectCrop
-                asynchronous: true
-                sourceSize.width: 180
-                sourceSize.height: 180
-            }
-            StyledText {
-                width: parent.width
-                text: parent.parent.body
-                wrapMode: Text.Wrap
-                font.pointSize: 12
-            }
-            Row {
-                visible: parent.parent.mediaControls
-                spacing: 8
-                Repeater {
-                    model: [
-                        {
-                            icon: "skip_previous",
-                            action: "previous"
-                        },
-                        {
-                            icon: "play_pause",
-                            action: "toggle"
-                        },
-                        {
-                            icon: "skip_next",
-                            action: "next"
-                        }
-                    ]
-                    ActionButton {
-                        required property var modelData
-                        text: ""
-                        icon: modelData.icon
-                        onClicked: AppLaunch.run(["python3", Quickshell.env("HOME") + "/.local/share/siverteh-ai/siverteh-shell/tools/lock-info.py", modelData.action])
-                    }
-                }
-            }
         }
     }
 }
