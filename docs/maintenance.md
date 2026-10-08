@@ -127,3 +127,8 @@ The palette Python environment and app-scoped Thunar style module remain local;
 rebuild the latter with `install-thunar.py` after relevant GTK ABI changes.
 Release rollback restores desktop code/configuration, not system package versions.
 See [runtime ownership](features/runtime.md) for installation and migration.
+
+Release gates require the desktop and any deployed Brain component, and preserve
+services that were active before deployment. A deliberately inactive sidebar
+worker remains inactive; a desktop-only update neither starts it nor fails because
+it was already stopped. Previously active workers must still pass the live gate.

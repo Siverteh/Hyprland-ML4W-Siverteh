@@ -109,3 +109,22 @@ class RetentionTests(unittest.TestCase):
             self.assertTrue((state / "release-00").exists())
             self.assertTrue((state / "release-01").exists())
             self.assertTrue((state / "release-02").exists())
+
+
+class OptionalServiceGateTests(unittest.TestCase):
+    def test_stopped_sidebar_is_not_required_or_started_by_desktop_deployment(self):
+        active = {"siverteh-os-shell.service", "siverteh-observatory-brain.service"}
+        self.assertNotIn(
+            "siverteh-sidebar-ai.service",
+            m.required_live_services(["configs", "shell", "brain"], active),
+        )
+        self.assertIn(
+            "siverteh-sidebar-ai.service",
+            m.required_live_services(
+                ["shell"], active | {"siverteh-sidebar-ai.service"}
+            ),
+        )
+        self.assertIn(
+            "siverteh-observatory-brain.service",
+            m.required_live_services(["brain"], set()),
+        )

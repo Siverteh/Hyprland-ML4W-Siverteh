@@ -297,6 +297,21 @@ def retire_native_runtimes(release):
     return retired
 
 
+DESKTOP_SERVICES = (
+    "siverteh-os-shell.service",
+    "siverteh-sidebar-ai.service",
+    "siverteh-observatory-brain.service",
+)
+
+
+def required_live_services(components, initially_active):
+    required = set(initially_active)
+    required.add("siverteh-os-shell.service")
+    if "brain" in components:
+        required.add("siverteh-observatory-brain.service")
+    return sorted(required)
+
+
 def deploy(repo, components, keyboard, migrate=False):
     repo = repo.resolve()
     revision = subprocess.check_output(
@@ -321,6 +336,15 @@ def deploy(repo, components, keyboard, migrate=False):
     keyboard = keyboard or shutil.which("wtype") or "/usr/bin/wtype"
     if not Path(keyboard).is_file():
         raise RuntimeError("Install wtype for the live release gate")
+    initially_active = {
+        service
+        for service in DESKTOP_SERVICES
+        if subprocess.run(
+            ["systemctl", "--user", "is-active", "--quiet", service],
+            capture_output=True,
+        ).returncode
+        == 0
+    }
     release, record = capture(repo, revision)
     environment = dict(os.environ, SIVERTEH_RELEASE_TRANSACTION="1")
     try:
@@ -362,11 +386,7 @@ def deploy(repo, components, keyboard, migrate=False):
             ],
             check=True,
         )
-        for service in (
-            "siverteh-os-shell.service",
-            "siverteh-sidebar-ai.service",
-            "siverteh-observatory-brain.service",
-        ):
+        for service in required_live_services(components, initially_active):
             subprocess.run(
                 ["systemctl", "--user", "is-active", "--quiet", service], check=True
             )
