@@ -1,0 +1,278 @@
+#!/usr/bin/env python3
+"""Desktop and AI launch commands, independent of the private knowledge browser."""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+HOME = Path.home()
+
+
+def run(command, default=None, timeout=10):
+    result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+    if result.returncode:
+        if default is not None:
+            return default
+        raise RuntimeError(result.stderr.strip() or "Desktop command failed")
+    return result.stdout.strip()
+
+
+def launch(command):
+    subprocess.Popen(
+        ["uwsm", "app", "--", *command],
+        start_new_session=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
+launch_app = launch
+
+
+def action(name, value=""):
+    actions = {
+        "network": ["nm-connection-editor"],
+        "bluetooth": ["blueman-manager"],
+        "updates": [
+            "kitty",
+            "--class",
+            "siverteh-os-control",
+            "--title",
+            "System updates",
+            "--",
+            "bash",
+            str(HOME / ".local/share/siverteh-ai/siverteh-shell/tools/updates.sh"),
+        ],
+        "audio": ["pavucontrol"],
+        "notifications": [
+            str(HOME / ".local/share/siverteh-ai/siverteh-shell/bin/qs"),
+            "-c",
+            "siverteh_shell",
+            "ipc",
+            "call",
+            "settingsView",
+            "open",
+            "notifications",
+        ],
+        "play": ["playerctl", "play-pause"],
+        "next": ["playerctl", "next"],
+        "previous": ["playerctl", "previous"],
+        "mute": ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"],
+        "lock": ["loginctl", "lock-session"],
+        "power": [str(HOME / ".local/bin/siverteh-os-shell"), "session"],
+        "files": [str(HOME / ".local/bin/siverteh-os-app"), "files"],
+        "terminal": ["kitty"],
+        "tasks": [
+            "kitty",
+            "--class",
+            "siverteh-ai-dashboard",
+            "--title",
+            "Siverteh AI",
+            "--",
+            "siverteh-ai",
+            "dashboard",
+        ],
+        "new": [
+            "kitty",
+            "--class",
+            "siverteh-ai-task",
+            "--title",
+            "New chat",
+            "--",
+            "siverteh-ai",
+            "window",
+            "--worker-command",
+            "new",
+        ],
+        "resume": [
+            "kitty",
+            "--class",
+            "siverteh-ai-task",
+            "--title",
+            "Resume task",
+            "--",
+            "siverteh-ai",
+            "window",
+            "--worker-command",
+            "latest",
+        ],
+    }
+    if name in actions:
+        if name == "tasks":
+            clients = json.loads(run(["hyprctl", "clients", "-j"], "[]"))
+            old = next(
+                (c for c in clients if c["class"] == "siverteh-ai-dashboard"), None
+            )
+            if old:
+                return action("focus", old["address"])
+        launch_app(actions[name])
+        if name in ("new", "resume", "tasks"):
+            action("workspace", "2")
+        return
+    if name == "volume":
+        run(
+            [
+                "wpctl",
+                "set-volume",
+                "@DEFAULT_AUDIO_SINK@",
+                str(max(0, min(100, int(value)))) + "%",
+            ]
+        )
+        return
+    if name == "brightness":
+        run(
+            [
+                str(HOME / ".local/share/siverteh-ai/siverteh-shell/bin/qs"),
+                "-c",
+                "siverteh_shell",
+                "ipc",
+                "call",
+                "brightness",
+                "set",
+                str(max(0.01, min(1, int(value) / 100))),
+            ]
+        )
+        return
+    if name == "workspace":
+        num = int(value)
+        if num not in range(1, 8):
+            raise ValueError("Invalid workspace")
+        run(
+            [
+                "hyprctl",
+                "eval",
+                f"hl.dispatch(hl.dsp.focus({{workspace={num},on_current_monitor=true}}))",
+            ]
+        )
+        return
+    if name == "focus":
+        if not re.fullmatch(r"0x[0-9a-fA-F]+", value):
+            raise ValueError("Invalid window")
+        run(
+            [
+                "hyprctl",
+                "eval",
+                'hl.dispatch(hl.dsp.focus({window="address:' + value + '"}))',
+            ]
+        )
+        return
+    if name == "app-windows":
+        ids = json.loads(value)
+        if not isinstance(ids, list) or not all(
+            isinstance(i, str) and re.fullmatch(r"0x[0-9a-fA-F]+", i) for i in ids
+        ):
+            raise ValueError("Invalid window group")
+        clients = json.loads(run(["hyprctl", "clients", "-j"], "[]"))
+        windows = sorted(
+            (c for c in clients if c["address"] in ids),
+            key=lambda c: (c["workspace"]["id"], c["title"]),
+        )
+        if len(windows) == 1:
+            return action("focus", windows[0]["address"])
+        if not windows:
+            return
+        labels = [
+            str(c["workspace"]["id"]) + "  " + c["title"].replace("\n", " ")[:120]
+            for c in windows
+        ]
+        try:
+            choice = subprocess.check_output(
+                ["rofi", "-dmenu", "-i", "-p", "Choose window", "-format", "i"],
+                input="\n".join(labels),
+                text=True,
+                timeout=300,
+            ).strip()
+        except subprocess.SubprocessError:
+            return
+        if choice.isdigit() and int(choice) < len(windows):
+            return action("focus", windows[int(choice)]["address"])
+        return
+    if name == "wifi":
+        rows = []
+        seen = set()
+        for line in run(
+            [
+                "nmcli",
+                "-t",
+                "-f",
+                "IN-USE,SSID,SIGNAL,SECURITY",
+                "device",
+                "wifi",
+                "list",
+                "--rescan",
+                "no",
+            ]
+        ).splitlines():
+            parts = re.split(r"(?<!\\):", line)
+            if len(parts) < 4:
+                continue
+            active, ssid, signal, security = parts[:4]
+            ssid = ssid.replace("\\:", ":").replace("\\\\", "\\")
+            if not ssid or ssid in seen:
+                continue
+            seen.add(ssid)
+            rows.append(
+                (
+                    ssid,
+                    ("● " if active == "*" else "  ")
+                    + ssid
+                    + "   "
+                    + signal
+                    + "%"
+                    + ("  " if security and security != "--" else ""),
+                )
+            )
+        if not rows:
+            launch(
+                [
+                    "kitty",
+                    "--class",
+                    "siverteh-os-control",
+                    "--title",
+                    "Wi-Fi connections",
+                    "--",
+                    "nmtui-connect",
+                ]
+            )
+            return
+        try:
+            choice = subprocess.check_output(
+                ["rofi", "-dmenu", "-i", "-p", "Wi-Fi", "-format", "i"],
+                input="\n".join(label for _, label in rows),
+                text=True,
+                timeout=300,
+            ).strip()
+        except subprocess.SubprocessError:
+            return
+        if choice.isdigit() and int(choice) < len(rows):
+            # Native NetworkManager prompt owns credentials; never capture passwords.
+            launch(
+                [
+                    "kitty",
+                    "--class",
+                    "siverteh-os-control",
+                    "--title",
+                    "Connect Wi-Fi",
+                    "--",
+                    "nmcli",
+                    "--ask",
+                    "device",
+                    "wifi",
+                    "connect",
+                    rows[int(choice)][0],
+                ]
+            )
+        return
+    raise ValueError("Unknown desktop action")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action")
+    parser.add_argument("value", nargs="?", default="")
+    args = parser.parse_args()
+    action(args.action, args.value)

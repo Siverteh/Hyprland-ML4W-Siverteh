@@ -22,7 +22,7 @@ Column {
             {
                 "label": "Lock",
                 "icon": "lock",
-                "command": ["hyprlock"]
+                "command": ["loginctl", "lock-session"]
             },
             {
                 "label": "Log out",

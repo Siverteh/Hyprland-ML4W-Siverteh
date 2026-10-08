@@ -19,7 +19,7 @@ SettingsPage {
             ActionButton {
                 text: "Lock now"
                 icon: "lock"
-                onClicked: AppLaunch.run(["hyprlock"])
+                onClicked: AppLaunch.run(["loginctl", "lock-session"])
             }
         }
 

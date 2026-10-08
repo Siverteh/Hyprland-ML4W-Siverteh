@@ -26,7 +26,8 @@ case "${1:-start}" in
  hide) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh hide ;;
  launcher) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call siverteh launcher "" ;;
  toggle) exec "$HOME/.local/share/siverteh-ai/siverteh-shell/bin/qs" -c siverteh_shell ipc call drawers toggle dashboard ;;
- apps) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action app-windows "${2:-}" ;;
- brain|capture|tasks|new|resume|updates|wifi|bluetooth) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action "$1" "${2:-}" ;;
+ apps) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/desktop-actions.py" app-windows "${2:-}" ;;
+ updates|wifi|bluetooth|tasks|new|resume|lock|files|terminal|network|audio|volume|focus|workspace|play|next|previous|mute) exec python3 "$HOME/.local/share/siverteh-ai/siverteh-shell/tools/desktop-actions.py" "$1" "${2:-}" ;;
+ brain|capture) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action "$1" "${2:-}" ;;
  *) exec "$shell_runtime/venv/bin/siverteh_shell" "$@" ;;
 esac

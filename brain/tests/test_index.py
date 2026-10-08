@@ -191,25 +191,9 @@ class IndexTests(unittest.TestCase):
         notes = [n for n in module.graph()["nodes"] if n["kind"] == "note"]
         self.assertNotEqual(notes[0]["color"], notes[1]["color"])
 
-    def test_update_click_launches_existing_updater_without_installing_in_test(self):
-        with patch.object(module, "launch_app") as launch:
+    def test_desktop_actions_do_not_belong_to_brain(self):
+        with self.assertRaisesRegex(ValueError, "Unknown Brain action"):
             module.action("updates")
-            self.assertEqual(
-                launch.call_args.args[0],
-                [
-                    "kitty",
-                    "--class",
-                    "siverteh-os-control",
-                    "--title",
-                    "System updates",
-                    "--",
-                    "bash",
-                    str(
-                        module.HOME
-                        / ".local/share/siverteh-ai/siverteh-shell/tools/updates.sh"
-                    ),
-                ],
-            )
 
     def test_persistent_brain_reuses_window_without_focus_or_duplicates(self):
         with (
