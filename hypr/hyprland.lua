@@ -44,27 +44,23 @@ require("conf.siverteh")
 -- Siverteh Observatory
 require("conf.brain")
 
--- Host-specific monitor overrides stay private; native display settings load last.
-local monitor_path = os.getenv("HOME") .. "/.config/siverteh-shell/monitor.lua"
-local monitor_file = io.open(monitor_path, "r")
-if monitor_file then monitor_file:close(); dofile(monitor_path) end
-
+-- Private overrides retain this order; one broken file must not stop later ones.
+local function load_private(name)
+    local path = os.getenv("HOME") .. "/.config/siverteh-shell/" .. name .. ".lua"
+    local file = io.open(path, "r")
+    if not file then return end
+    file:close()
+    local ok, err = pcall(dofile, path)
+    if not ok then
+        hl.notification.create({ text = "Siverteh: " .. name .. " failed: " .. tostring(err), timeout = 15000, icon = "error" })
+    end
+end
+load_private("monitor")
 -- Siverteh committed wallpaper palette
-local palette_path = os.getenv("HOME") .. "/.config/siverteh-shell/palette.lua"
-local palette_file = io.open(palette_path, "r")
-if palette_file then palette_file:close(); dofile(palette_path) end
-
+load_private("palette")
 -- Siverteh desktop settings
-local desktop_path = os.getenv("HOME") .. "/.config/siverteh-shell/desktop.lua"
-local desktop_file = io.open(desktop_path, "r")
-if desktop_file then desktop_file:close(); dofile(desktop_path) end
-
+load_private("desktop")
 -- Siverteh native desktop shortcuts
-local shortcuts_path = os.getenv("HOME") .. "/.config/siverteh-shell/shortcuts.lua"
-local shortcuts_file = io.open(shortcuts_path, "r")
-if shortcuts_file then shortcuts_file:close(); dofile(shortcuts_path) end
-
+load_private("shortcuts")
 -- Optional private host behavior.
-local host_path = os.getenv("HOME") .. "/.config/siverteh-shell/host.lua"
-local host_file = io.open(host_path, "r")
-if host_file then host_file:close(); dofile(host_path) end
+load_private("host")

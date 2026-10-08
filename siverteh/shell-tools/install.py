@@ -239,13 +239,12 @@ def deploy(code_only=False):
     # Apply the selected palette last, after any older profile overrides.
     path = HOME / ".config/hypr/hyprland.lua"
     marker = "-- Siverteh committed wallpaper palette"
-    if marker not in path.read_text():
-        write(
-            path,
-            path.read_text()
-            + "\n"
-            + marker
-            + '\nlocal palette_path = os.getenv("HOME") .. "/.config/siverteh-shell/palette.lua"\nlocal palette_file = io.open(palette_path, "r")\nif palette_file then palette_file:close(); dofile(palette_path) end\n',
+    if (
+        marker not in path.read_text()
+        or 'load_private("palette")' not in path.read_text()
+    ):
+        raise RuntimeError(
+            "Managed palette loader missing; run ./install.sh --apply from the repository"
         )
     # The reference style is code; wallpaper files remain private user assets.
     style = json.loads((ROOT / "reference-style.json").read_text())

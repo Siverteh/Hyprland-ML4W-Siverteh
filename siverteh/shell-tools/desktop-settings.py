@@ -205,20 +205,9 @@ def ensure_include():
     path = HOME / ".config/hypr/hyprland.lua"
     text = path.read_text()
     marker = "-- Siverteh desktop settings"
-    if marker not in text:
-        backup = (
-            HOME
-            / ".local/state/siverteh-native-shell/backups"
-            / ("desktop-settings-" + time.strftime("%Y%m%dT%H%M%S"))
-            / "hyprland.lua"
-        )
-        palette.atomic_write(backup, text)
-        palette.atomic_write(
-            path,
-            text
-            + "\n"
-            + marker
-            + '\nlocal desktop_path = os.getenv("HOME") .. "/.config/siverteh-shell/desktop.lua"\nlocal desktop_file = io.open(desktop_path, "r")\nif desktop_file then desktop_file:close(); dofile(desktop_path) end\n',
+    if marker not in text or 'load_private("desktop")' not in text:
+        raise RuntimeError(
+            "Managed desktop loader missing; run ./install.sh --apply from the repository"
         )
 
 

@@ -39,16 +39,10 @@ def install():
     main = HOME / ".config/hypr/hyprland.lua"
     text = main.read_text()
     marker = "-- Siverteh native desktop shortcuts"
-    if marker not in text:
-        put(
-            main,
-            text
-            + "\n"
-            + marker
-            + '\nlocal shortcuts_path = os.getenv("HOME") .. "/.config/siverteh-shell/shortcuts.lua"\nlocal shortcuts_file = io.open(shortcuts_path, "r")\nif shortcuts_file then shortcuts_file:close(); dofile(shortcuts_path) end\n',
+    if marker not in text or 'load_private("shortcuts")' not in text:
+        raise RuntimeError(
+            "Managed shortcuts loader missing; run ./install.sh --apply from the repository"
         )
-    # Register the three new bindings in the live compositor; base routes use reload.
-    subprocess.run(["hyprctl", "reload"], check=True, stdout=subprocess.DEVNULL)
 
 
 if __name__ == "__main__":
