@@ -292,13 +292,17 @@ class BrainStartupTests(unittest.TestCase):
                 "workspace": {"id": 6},
             },
         ]
-        with patch.object(module, "run", return_value=json.dumps(windows)):
+        with (
+            patch.object(module, "browser_profile_pids", return_value={123}),
+            patch.object(module, "run", return_value=json.dumps(windows)),
+        ):
             self.assertEqual(module.brain_window()["address"], "0x222")
         with (
             tempfile.TemporaryDirectory() as tmp,
             patch.object(module, "STATE", Path(tmp)),
             patch.object(module, "ensure_server"),
             patch.object(module, "bootstrap_existing_browser"),
+            patch.object(module, "browser_profile_pids", return_value={123}),
             patch.object(module, "run", return_value=json.dumps(windows)),
             patch.object(module, "launch") as launch,
         ):
@@ -313,6 +317,7 @@ class BrainStartupTests(unittest.TestCase):
                 patch.object(module, "STATE", Path(tmp)),
                 patch.object(module, "ensure_server"),
                 patch.object(module, "bootstrap_existing_browser"),
+                patch.object(module, "browser_profile_pids", return_value={123}),
                 patch.object(module, "run", return_value=response),
                 patch.object(module, "launch") as launch,
             ):
@@ -326,6 +331,7 @@ class BrainStartupTests(unittest.TestCase):
             patch.object(module, "STATE", Path(tmp)),
             patch.object(module, "ensure_server"),
             patch.object(module, "bootstrap_existing_browser"),
+            patch.object(module, "browser_profile_pids", return_value={123}),
             patch.object(module, "brain_window", return_value=None),
             patch.object(module, "brain_browser_running", return_value=True),
             patch.object(module, "launch") as launch,
