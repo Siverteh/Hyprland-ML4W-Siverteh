@@ -38,7 +38,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | verified | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | verified | [Launcher spec](../specs/launcher.md); independent assembly and all app/wallpaper views |
-| 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | implementing | [Notification spec](../specs/notifications.md); new presentation, service remains separate |
+| 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | verified | [Notification spec](../specs/notifications.md); presentation replaced, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | audit pending | Include current Settings and lock presentation dependencies; one page/group at a time |
@@ -301,3 +301,13 @@ separate pending areas. Notices remain until whole-tree audit.
   expansion, current default versus unrelated/frozen actions, keyboard and drag,
   burst cap/suppression/hover release. Native rendering of compact/expanded cards
   with synthetic messages reviewed. Full checks/live acceptance still pending.
+
+Notification presentation acceptance (2026-10-09): code `e869927`, good release
+`20261009T115152687966Z`. All 324 checks, QML formatting/parsing, Hyprland
+validation and compositor launcher/Escape gates pass. Real transient notification
+hover pauses expiry; dashboard suppression releases hover without deleting the
+popup, expiry resumes afterward, and exact-ID close removes the fixture. Private
+history count remained 44. Installed presentation matches source and configerrors
+are empty. Synthetic native visual review and one-output virtual pointer checks
+do not establish physical multi-output/cold-login behavior. Existing providers
+remain explicitly pending; no license/notice retired.
