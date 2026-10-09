@@ -1054,3 +1054,22 @@ cover malformed data/space/quote/substitution text without executing commands.
 Prior declaration/call-site exposure acknowledged, no upstream bodies consulted
 or legal clean-room claim. This does not audit the root/global seed, animation/
 keybinding/startup/routing/helper sources or establish a final license change.
+
+Session-default acceptance (2026-10-09): source `0ffb982`, good release
+`20261009T221018243410Z`. All376 checks (40 tools,96 AI,35 Brain,205 shell),
+QML/native Hyprland and six-file config-only plan/apply transaction passed.
+All21 captured native options exactly equal, connected display geometry/scale and
+keyboard layouts/cursor environment equal, all6 installed configs exact source.
+Eight private preference-file hashes, busy worker PID/start identity and233-file
+native shell source unchanged. Six native application click/key-return cycles
+and launcher/wallpaper outside dismissal/Escape gates passed; shell active and
+configerrors empty. No actual device/power/input preference or account action.
+
+Six exact-file independent origin reviews now tied to SHA/spec/replacement commit.
+Scalar preference preservation/API vocabulary are distinguished from inherited
+implementation; native behavior alone is not authorship proof. Root/global seed/
+private override/other config/helper/test provenance remains separate. Startup
+cursor callback argument handling covered with actual Lua callback tests and
+config parsing; cold-login execution, physical touchpad/gesture/Fn/cursor appearance
+over every toolkit and external-output behavior are not established by this gate.
+Retained notices, final source comparison and all remaining scope stay required.

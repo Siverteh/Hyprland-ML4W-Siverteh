@@ -1,6 +1,6 @@
 # Independent session input and placement defaults
 
-Implementation written, acceptance pending, 2026-10-09. Next originality area after the audio retirement and Orient
+Implemented and natively deployed, 2026-10-09. Whole-project provenance review remains open. Next originality area after the audio retirement and Orient
 source review. Target: `hypr/conf/{keyboard,cursor-behavior,cursor,layout,monitor,window}.lua`.
 The current Lua introduction (`f3290a5`) overlaps the old dotfile configuration;
 keyboard.conf history reaches the initial dotfiles import (`e0ef6d7`). A language

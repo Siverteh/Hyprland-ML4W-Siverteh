@@ -814,6 +814,20 @@
         "kitty/kitty.conf",
         "tools/tests/test_config_defaults.py"
       ]
+    },
+    {
+      "area": "session-defaults",
+      "commit": "0ffb982",
+      "spec": "docs/specs/session-defaults.md",
+      "paths": [
+        "hypr/conf/keyboard.lua",
+        "hypr/conf/cursor-behavior.lua",
+        "hypr/conf/cursor.lua",
+        "hypr/conf/layout.lua",
+        "hypr/conf/monitor.lua",
+        "hypr/conf/window.lua",
+        "tools/tests/test_session_cursor.py"
+      ]
     }
   ],
   "reviews": {
@@ -905,6 +919,60 @@
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
         "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "hypr/conf/keyboard.lua": {
+      "disposition": "independent",
+      "sha256": "c14fdba9080cfba2f9af6b8e3648ee27203c1acd1214ba1323557ff002229b12",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/cursor-behavior.lua": {
+      "disposition": "independent",
+      "sha256": "bf7d9ea644e368a885110e6855dc1683807c410ce5fe8ee859d6da146d3f2414",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/cursor.lua": {
+      "disposition": "independent",
+      "sha256": "787780aebf9ac2192314cf50f2c92ae8cb77cff8f78e5a178bc6b673eb242df7",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/layout.lua": {
+      "disposition": "independent",
+      "sha256": "1be00a4dc99cc361f5fe00cc8a50bd874475ca179f37a70c883a09d0daa0ce09",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/monitor.lua": {
+      "disposition": "independent",
+      "sha256": "4cc6f370e446be43b6551e3938f2f273bdd07595480597809c4d43211fbd454a",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/window.lua": {
+      "disposition": "independent",
+      "sha256": "ffe06e58a31864af0f8887d46e7deeee2207e77ac1c422cf20708bba2a1b366f",
+      "evidence": [
+        "docs/specs/session-defaults.md",
+        "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
+        "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
       ]
     }
   }
