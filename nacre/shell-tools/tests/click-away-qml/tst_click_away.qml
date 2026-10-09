@@ -34,6 +34,23 @@ TestCase {
         NacreHyprland.activeClient = null;
     }
 
+    function test_modal_header_hover_loss_keeps_geometric_dismiss_guard() {
+        const screen = {
+            name: "geometric",
+            width: 1920,
+            height: 1200
+        };
+        HoverIntent.recordPopupRegion(screen, 1550, 8, 210, 34);
+        HoverIntent.observe(screen, 1700, 25);
+        HoverIntent.popupHovered[screen.name] = false;
+        HoverIntent.dismiss(screen);
+        verify(!HoverIntent.canOpen("popouts", screen, Qt.NoButton));
+        HoverIntent.rearm("popouts", screen);
+        verify(HoverIntent.canOpen("popouts", screen, Qt.NoButton));
+        HoverIntent.observe(screen, 900, 1000);
+        HoverIntent.dismiss(screen);
+        verify(HoverIntent.canOpen("popouts", screen, Qt.NoButton));
+    }
     function test_clicks_inside_keep_open_and_outside_dismiss() {
         const view = createTemporaryObject(scene, test);
         verify(view);

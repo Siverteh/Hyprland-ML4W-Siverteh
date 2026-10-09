@@ -69,3 +69,11 @@ full dismissal/rearm policy. Native acceptance is mandatory: component-only
 closing cannot prove pointer rearm. The fixture tests actual key propagation to a
 parent frame contract, rather than injecting focus or independently duplicating
 the popup Escape implementation.
+
+Underlying guard correction: modal pinning can clear a header MouseArea hover
+flag while the physical pointer remains in its rectangle. TopBar records the
+current popup header bounds during entry; HoverIntent.dismiss also checks its
+last observed point against those bounds. Existing real-exit rearm remains.
+No delay or polling added. Whole HoverIntent/TopBar source originality remains a
+separate task; their bodies were inspected for this diagnosis and that exposure
+must be recorded when replacing them.

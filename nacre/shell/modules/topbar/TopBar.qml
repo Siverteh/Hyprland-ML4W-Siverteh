@@ -70,7 +70,12 @@ Variants {
                 }
             }
         }
+        function recordPopupRegion(item) {
+            const origin = item.mapToItem(win.contentItem, 0, 0);
+            HoverIntent.recordPopupRegion(win.screen, origin.x, origin.y, item.width, item.height);
+        }
         function hoverMenu(name, item) {
+            recordPopupRegion(item);
             const cursor = item.mapToItem(win.contentItem, item.mouseX, item.mouseY);
             HoverIntent.observe(win.screen, cursor.x, cursor.y);
             dismissPopout.stop();
@@ -189,6 +194,7 @@ Variants {
                         return ["audio", "network", "bluetooth", "battery", "notifications"][index];
                     }
                     function showMenu(clicked = false) {
+                        win.recordPopupRegion(statusHolder);
                         const cursor = statusHover.mapToItem(win.contentItem, statusHover.mouseX, statusHover.mouseY);
                         HoverIntent.observe(win.screen, cursor.x, cursor.y);
                         if (!clicked && !HoverIntent.canOpen("popouts", win.screen, statusHover.pressedButtons))
