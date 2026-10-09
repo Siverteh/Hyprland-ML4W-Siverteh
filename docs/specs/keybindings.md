@@ -1,6 +1,6 @@
 # Independent compositor shortcut composition
 
-Implementation written, acceptance pending, 2026-10-09. Target: `hypr/conf/keybinding.lua`; private/native
+Implemented and natively deployed, 2026-10-09. Physical key/Super/Fn probes remain separate. Target: `hypr/conf/keybinding.lua`; private/native
 `nacre/shell-tools/shortcuts.lua` and app/window helper bodies require separate
 provenance review. The Lua file was introduced during conversion `f3290a5`; old
 keybinding.conf history reaches the original dotfile tree. Language translation

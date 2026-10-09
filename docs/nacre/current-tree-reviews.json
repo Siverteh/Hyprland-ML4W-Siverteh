@@ -859,6 +859,23 @@
         "nacre/shell-tools/tests/test_battery_alerts.py",
         "nacre/shell-tools/tests/battery-qml/tst_battery.qml"
       ]
+    },
+    {
+      "area": "keybinding-composition",
+      "commit": "9a435c3",
+      "spec": "docs/specs/keybindings.md",
+      "paths": [
+        "hypr/conf/keybinding.lua",
+        "nacre/shell-tools/binding-contracts.lua",
+        "nacre/shell-tools/binding-contracts.py",
+        "tools/bindings.py",
+        "tools/window_rules.py",
+        "tools/check.py",
+        "nacre/shell-tools/desktop-extras.py",
+        "tools/tests/test_bindings.py",
+        "tools/tests/fixtures/keybindings-contract.json",
+        "nacre/shell-tools/tests/test_desktop_extras.py"
+      ]
     }
   ],
   "reviews": {
@@ -1041,6 +1058,42 @@
         "docs/specs/battery-alerts.md",
         "docs/nacre/PROVENANCE.md#native-battery-alert-replacement",
         "new source 36c35e0 + actual-owner late-cycle correction ba39132; deleted inherited helper first, native policy/owner written from captured behavior/native UPower/FileView/Process APIs; safe full and live source/owner/cutover checks; no upstream body copied"
+      ]
+    },
+    "hypr/conf/keybinding.lua": {
+      "disposition": "independent",
+      "sha256": "69f1f69b63d0704da1e04dedfa1ad61e37dbc01625195ca82e2c48204fcc5fe7",
+      "evidence": [
+        "docs/specs/keybindings.md",
+        "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+      ]
+    },
+    "nacre/shell-tools/binding-contracts.lua": {
+      "disposition": "independent",
+      "sha256": "10c598dbffbf2ab3c8ae2efaf7b7b97c119075de803b1fa7d5f5095d2aac0b80",
+      "evidence": [
+        "docs/specs/keybindings.md",
+        "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+      ]
+    },
+    "nacre/shell-tools/binding-contracts.py": {
+      "disposition": "independent",
+      "sha256": "a3a3818578cf6be0a4b658e266cbb3237c350ef7491c8700cafbca93682206cb",
+      "evidence": [
+        "docs/specs/keybindings.md",
+        "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+      ]
+    },
+    "tools/bindings.py": {
+      "disposition": "independent",
+      "sha256": "b6a114d3d14cdd64b014002e8d88742a4ba51e9138aa4dd59c025b1e9f19a61d",
+      "evidence": [
+        "docs/specs/keybindings.md",
+        "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
       ]
     }
   }

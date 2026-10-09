@@ -1190,3 +1190,23 @@ tools, tools checker imports the same implementation, guide labels use
 (submap,key) identity and native active-set data. Generated guide/resize exit and
 brightness label regression added. This edits a caller, not a whole desktop-extras
 provenance certificate; prior caller-body exposure acknowledged.
+
+Shortcut acceptance (2026-10-09): source `9a435c3`, good release
+`20261009T232643353196Z`. All384 checks (46 tools,96 AI,35 Brain,207 shell),
+QML/native Hyprland and reviewed config+shell strict transaction gates passed.
+All95 safe constructed action/argument/flag/submap contracts match baseline.
+All101 actual native binding records match after ignoring only opaque Lua callback
+IDs. Native guide has101 rows, generated brightness and scoped resize-exit labels
+verified; actual guide/Escape and six owned app input/dismissal cycles passed.
+Guide screenshot visually inspected, installed source/helpers exact, private
+preference/history hashes and worker identity unchanged. Shell active/configerrors
+empty/no new QML errors. No real bound power/app/AI/device action by capture/tests.
+
+Guide integration regression was initially placed below unittest's main guard and
+not discovered; count inspection caught it, moved into its test class, actual six
+extras cases verified and full suite rerun before deploy. Live probe initially
+queried nonexistent extras.state; corrected to the observed extras.counts API.
+These were test/probe errors, not hidden runtime failures. No physical Fn/Super
+proof or whole-helper/root/routing/source/asset/license conclusion. Four own source
+reviews (keybinding/capture Lua+Python/tool bridge) tied to SHA/spec/replacement;
+caller edits retained as separate helper audits. Notices and full goal remain.
