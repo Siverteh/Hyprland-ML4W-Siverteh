@@ -50,7 +50,7 @@ Column {
             implicitWidth: 120
             implicitHeight: 80
             radius: NacreAppearance.rounding.normal
-            color: activeFocus ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+            color: activeFocus ? NacreColours.palette.m3secondaryContainer : NacreColours.palette.m3surfaceContainer
             Keys.onReturnPressed: proc.startDetached()
             Keys.onEnterPressed: proc.startDetached()
             Keys.onEscapePressed: root.visibilities.session = false
@@ -88,7 +88,7 @@ Column {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: button.modelData.icon
                     font.pointSize: 24
-                    color: button.index === 3 ? Colours.palette.m3error : Colours.palette.m3onSurface
+                    color: button.index === 3 ? NacreColours.palette.m3error : NacreColours.palette.m3onSurface
                 }
 
                 NacreText {

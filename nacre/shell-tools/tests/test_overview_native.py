@@ -68,7 +68,7 @@ class OverviewNativeTests(unittest.TestCase):
                 "m3onPrimary": "#102025",
             }
             providers = {
-                "Colours": "property bool light:false;property var palette:"
+                "NacreColours": "property bool light:false;property var palette:"
                 + json.dumps(palette),
                 "DesktopSettings": "property var data:({animations:false})",
                 "NacreTime": "property date date:new Date(2026,9,9,12,34);function format(v){return Qt.formatDateTime(date,v)}",

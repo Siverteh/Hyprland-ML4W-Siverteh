@@ -215,7 +215,7 @@ Singleton {
             return;
         }
         if (action === "light" || action === "dark") {
-            Colours.setMode(action);
+            NacreColours.setMode(action);
             return;
         }
         if (action === "power") {

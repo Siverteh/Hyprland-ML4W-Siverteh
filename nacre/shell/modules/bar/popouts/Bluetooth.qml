@@ -24,7 +24,7 @@ Item {
         NacreText {
             text: "Bluetooth"
             font.pointSize: 14
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
 
         ActionButton {
@@ -49,7 +49,7 @@ Item {
                     width: parent.width
                     height: 48
                     radius: 10
-                    color: modelData.connected ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainerHigh
+                    color: modelData.connected ? NacreColours.palette.m3primaryContainer : NacreColours.palette.m3surfaceContainerHigh
 
                     Column {
                         anchors.left: parent.left
@@ -68,7 +68,7 @@ Item {
                         NacreText {
                             text: device.modelData.connected ? "Connected" : "Not connected"
                             font.pointSize: 9
-                            color: Colours.palette.m3onSurfaceVariant
+                            color: NacreColours.palette.m3onSurfaceVariant
                         }
                     }
 
@@ -91,7 +91,7 @@ Item {
             visible: !NacreBluetooth.powered || !root.known.length
             text: !NacreBluetooth.powered ? "Turn on Bluetooth to connect your devices." : "No known devices. Open Bluetooth settings to find and pair one."
             font.pointSize: 10
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
 
         NacreText {
@@ -102,7 +102,7 @@ Item {
             maximumLineCount: 3
             elide: Text.ElideRight
             font.pointSize: 9
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
     }
 }

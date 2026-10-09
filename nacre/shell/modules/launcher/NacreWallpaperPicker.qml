@@ -152,7 +152,7 @@ Item {
         anchors.centerIn: parent
         visible: !root.count
         text: Wallpapers.loading ? "Loading wallpapers…" : "No matching wallpapers"
-        color: root.fullScreen ? "white" : Colours.palette.m3onSurface
+        color: root.fullScreen ? "white" : NacreColours.palette.m3onSurface
     }
     Item {
         id: carousel
@@ -291,7 +291,7 @@ Item {
             elide: Text.ElideRight
             text: root.currentEntry?.name || ""
             font.pointSize: 11
-            color: root.fullScreen ? "white" : Colours.palette.m3onSurface
+            color: root.fullScreen ? "white" : NacreColours.palette.m3onSurface
         }
         ActionButton {
             text: ""
@@ -319,9 +319,9 @@ Item {
         property bool decode: true
         signal chosen
         radius: 15
-        color: Colours.palette.m3surfaceContainer
+        color: NacreColours.palette.m3surfaceContainer
         border.width: selected ? 2 : 0
-        border.color: Colours.palette.m3primary
+        border.color: NacreColours.palette.m3primary
         NacreClip {
             anchors.fill: parent
             anchors.margins: 3

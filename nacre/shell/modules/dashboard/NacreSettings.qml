@@ -44,7 +44,7 @@ Item {
         width: root.narrow ? root.width : 190
         height: root.narrow ? 160 : root.height
         radius: 18
-        color: Colours.palette.m3surfaceContainer
+        color: NacreColours.palette.m3surfaceContainer
         Row {
             x: 14
             y: 14
@@ -89,7 +89,7 @@ Item {
                 width: root.narrow ? 130 : categories.width
                 height: 38
                 radius: 19
-                color: root.page === modelData.id ? Colours.palette.m3secondaryContainer : "transparent"
+                color: root.page === modelData.id ? NacreColours.palette.m3secondaryContainer : "transparent"
                 Row {
                     x: 12
                     anchors.verticalCenter: parent.verticalCenter
@@ -160,7 +160,7 @@ Item {
                         width: parent.width
                         height: 78
                         radius: 16
-                        color: Colours.palette.m3surfaceContainer
+                        color: NacreColours.palette.m3surfaceContainer
                         Column {
                             x: 16
                             y: 14

@@ -21,7 +21,7 @@ Item {
                 height: root.active ? Math.max(3, Math.min(100, Cava.values[Math.floor(index * Cava.values.length / 24)] ?? 0) / 100 * root.height) : 3
                 anchors.verticalCenter: parent.verticalCenter
                 radius: width / 2
-                color: Colours.palette.m3primary
+                color: NacreColours.palette.m3primary
 
                 Behavior on height {
                     NumberAnimation {

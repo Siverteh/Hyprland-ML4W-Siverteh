@@ -47,12 +47,12 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: parent.parent.modelData.icon
                         font.pointSize: 19
-                        color: root.currentIndex === parent.parent.index ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
+                        color: root.currentIndex === parent.parent.index ? NacreColours.palette.m3primary : NacreColours.palette.m3onSurfaceVariant
                     }
                     NacreText {
                         text: parent.parent.modelData.label
                         font.pointSize: 11
-                        color: root.currentIndex === parent.parent.index ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
+                        color: root.currentIndex === parent.parent.index ? NacreColours.palette.m3primary : NacreColours.palette.m3onSurfaceVariant
                     }
                 }
                 NacreInteraction {
@@ -68,7 +68,7 @@ Item {
         anchors.bottom: parent.bottom
         width: parent.width
         height: 1
-        color: Colours.palette.m3outlineVariant
+        color: NacreColours.palette.m3outlineVariant
     }
     Rectangle {
         objectName: "dashboardSelection"
@@ -76,6 +76,6 @@ Item {
         x: root.currentIndex * root.width / root.pages.length + 16
         width: Math.max(0, root.width / root.pages.length - 32)
         height: 2
-        color: Colours.palette.m3primary
+        color: NacreColours.palette.m3primary
     }
 }

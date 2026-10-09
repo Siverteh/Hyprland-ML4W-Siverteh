@@ -20,7 +20,7 @@ Column {
             implicitWidth: 78
             implicitHeight: 30
             radius: 15
-            color: Colours.palette.m3surfaceContainer
+            color: NacreColours.palette.m3surfaceContainer
             NacreText {
                 anchors.centerIn: parent
                 text: "Clear all"
@@ -41,7 +41,7 @@ Column {
             anchors.centerIn: parent
             text: "No notifications"
             visible: NacreNotifs.retained.length === 0
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
         ListView {
             id: historyList

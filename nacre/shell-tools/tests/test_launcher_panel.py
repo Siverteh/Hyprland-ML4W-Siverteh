@@ -75,7 +75,7 @@ class LauncherPanelTests(unittest.TestCase):
                 (target / "fixtures" / (name + ".qml")).write_text(
                     "pragma Singleton\nimport QtQuick\nQtObject {" + body + "}"
                 )
-            colors = target / "fixtures/Colours.qml"
+            colors = target / "fixtures/NacreColours.qml"
             colors.write_text(
                 colors.read_text().replace(
                     '"m3onPrimary": "black",',

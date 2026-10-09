@@ -42,7 +42,7 @@ Item {
     Content {
         id: content
 
-        monitor: Brightness.getMonitorForScreen(root.screen)
+        monitor: NacreBrightness.getMonitorForScreen(root.screen)
     }
 
     states: State {

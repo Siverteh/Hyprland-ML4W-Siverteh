@@ -5,7 +5,7 @@ import Quickshell
 
 NacreIcon {
     text: "power_settings_new"
-    color: Colours.palette.m3error
+    color: NacreColours.palette.m3error
     font.bold: true
     font.pointSize: NacreAppearance.font.size.normal
 

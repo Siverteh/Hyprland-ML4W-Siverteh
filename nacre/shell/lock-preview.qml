@@ -12,7 +12,7 @@ ShellRoot {
         title: "Nacre lock screen preview"
         implicitWidth: 1280
         implicitHeight: 800
-        color: Colours.palette.m3surface
+        color: NacreColours.palette.m3surface
         property var widgetData: ({})
         Image {
             anchors.fill: parent
@@ -42,8 +42,8 @@ ShellRoot {
                 height: 810
                 anchors.centerIn: parent
                 scale: Math.min(window.width / 2048, window.height / 1152)
-                property color accent: window.widgetData.colors?.primary ? "#" + window.widgetData.colors.primary : Colours.palette.m3primary
-                property color foreground: window.widgetData.colors?.onSurface ? "#" + window.widgetData.colors.onSurface : Colours.palette.m3onSurface
+                property color accent: window.widgetData.colors?.primary ? "#" + window.widgetData.colors.primary : NacreColours.palette.m3primary
+                property color foreground: window.widgetData.colors?.onSurface ? "#" + window.widgetData.colors.onSurface : NacreColours.palette.m3onSurface
                 Image {
                     anchors.fill: parent
                     source: window.widgetData.panel ? "file://" + window.widgetData.panel : ""
@@ -99,7 +99,7 @@ ShellRoot {
                     width: 260
                     height: 46
                     radius: 23
-                    color: Colours.palette.m3surfaceContainer
+                    color: NacreColours.palette.m3surfaceContainer
                     opacity: 0.8
                     border.width: 1
                     border.color: panel.accent
@@ -154,7 +154,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             text: parent.modelData.icon
                             font.pointSize: parent.modelData.action === "toggle" ? 21 : 16.5
-                            color: parent.modelData.action === "toggle" ? Colours.palette.m3onPrimary : panel.foreground
+                            color: parent.modelData.action === "toggle" ? NacreColours.palette.m3onPrimary : panel.foreground
                         }
                         MouseArea {
                             anchors.fill: parent

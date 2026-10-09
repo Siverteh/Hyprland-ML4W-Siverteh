@@ -51,7 +51,7 @@ class WallpaperNativeTests(unittest.TestCase):
                 "m3primary": "#7696ff",
                 "m3outline": "#888888",
             }
-            (target / "services/Colours.qml").write_text(
+            (target / "services/NacreColours.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property bool light:false;property var palette:"
                 + json.dumps(palette)
                 + "}"

@@ -33,7 +33,7 @@ class WorkspaceUITests(unittest.TestCase):
             with (fixtures / "qmldir").open("a") as out:
                 for name in [*providers, "NacreBar"]:
                     out.write(f"\nsingleton {name} 1.0 {name}.qml\n")
-            colors = fixtures / "Colours.qml"
+            colors = fixtures / "NacreColours.qml"
             colors.write_text(
                 colors.read_text().replace(
                     '"m3onPrimary": "black",',

@@ -117,7 +117,7 @@ TestCase {
                 SHELL / "widgets/NacreTokens.qml", target / "widgets/NacreTokens.qml"
             )
             helpers = {
-                "services/Colours": "property bool light:false;property var palette:"
+                "services/NacreColours": "property bool light:false;property var palette:"
                 + json.dumps(
                     {
                         "m3surface": "#191a20",

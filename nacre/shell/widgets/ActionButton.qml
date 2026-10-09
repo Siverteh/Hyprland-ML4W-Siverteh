@@ -14,7 +14,7 @@ NacreSurface {
     implicitHeight: 34
     implicitWidth: label.implicitWidth + (compact ? 20 : 28) + (icon ? (compact ? 22 : 25) : 0)
     radius: 17
-    color: selected ? Colours.palette.m3primary : Colours.palette.m3surfaceContainerHigh
+    color: selected ? NacreColours.palette.m3primary : NacreColours.palette.m3surfaceContainerHigh
     opacity: enabled ? 1 : 0.4
 
     Row {
@@ -25,7 +25,7 @@ NacreSurface {
             text: root.icon
             visible: root.icon.length > 0
             font.pointSize: root.compact ? 12 : 14
-            color: root.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
+            color: root.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
         }
 
         NacreText {
@@ -33,7 +33,7 @@ NacreSurface {
 
             text: root.text
             font.pointSize: root.compact ? 10 : 12
-            color: root.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
+            color: root.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
         }
     }
 

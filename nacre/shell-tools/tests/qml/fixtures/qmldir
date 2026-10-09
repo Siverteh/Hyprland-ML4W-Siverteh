@@ -1,6 +1,6 @@
 module Fixtures
 singleton SidebarChat 1.0 SidebarChat.qml
-singleton Colours 1.0 Colours.qml
+singleton NacreColours 1.0 NacreColours.qml
 NacreSurface 1.0 NacreSurface.qml
 NacreText 1.0 NacreText.qml
 ActionButton 1.0 ActionButton.qml

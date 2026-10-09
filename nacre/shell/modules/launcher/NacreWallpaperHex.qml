@@ -65,7 +65,7 @@ Item {
         preferredRendererType: Shape.CurveRenderer
         ShapePath {
             fillColor: "transparent"
-            strokeColor: root.selected ? Colours.palette.m3primary : Qt.alpha(Colours.palette.m3outline, 0.35)
+            strokeColor: root.selected ? NacreColours.palette.m3primary : Qt.alpha(NacreColours.palette.m3outline, 0.35)
             strokeWidth: root.selected ? 2 : 1
             PathSvg {
                 path: root.outline

@@ -16,9 +16,9 @@ NacreSurface {
     implicitHeight: contents.implicitHeight + 28
     x: dragOffset
     radius: 18
-    color: Colours.palette.m3surfaceContainer
+    color: NacreColours.palette.m3surfaceContainer
     border.width: 1
-    border.color: modelData.urgency === 2 ? Colours.palette.m3error || Colours.palette.m3primary : Colours.palette.m3outlineVariant
+    border.color: modelData.urgency === 2 ? NacreColours.palette.m3error || NacreColours.palette.m3primary : NacreColours.palette.m3outlineVariant
     activeFocusOnTab: true
     clip: true
     Accessible.role: Accessible.AlertMessage
@@ -132,7 +132,7 @@ NacreSurface {
                 NacreText {
                     width: parent.width
                     text: root.modelData.timeStr || ""
-                    color: Colours.palette.m3onSurfaceVariant
+                    color: NacreColours.palette.m3onSurfaceVariant
                     font.pointSize: 8
                     elide: Text.ElideRight
                 }
@@ -173,7 +173,7 @@ NacreSurface {
             wrapMode: Text.Wrap
             maximumLineCount: root.expanded ? 12 : 2
             elide: Text.ElideRight
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
             font.pointSize: 10
         }
         Image {

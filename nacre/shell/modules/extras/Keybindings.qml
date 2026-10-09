@@ -43,7 +43,7 @@ SearchSurface {
             width: list.width
             height: 42
             radius: 10
-            color: Colours.palette.m3surfaceContainer
+            color: NacreColours.palette.m3surfaceContainer
 
             NacreText {
                 anchors.left: parent.left
@@ -53,7 +53,7 @@ SearchSurface {
                 text: modelData.key
                 font.family: "JetBrains Mono NF"
                 font.pointSize: 11
-                color: Colours.palette.m3primary
+                color: NacreColours.palette.m3primary
             }
 
             NacreText {

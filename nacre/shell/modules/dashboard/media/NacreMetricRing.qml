@@ -21,7 +21,7 @@ Item {
         preferredRendererType: Shape.CurveRenderer
         ShapePath {
             fillColor: "transparent"
-            strokeColor: Colours.palette.m3surfaceContainerHigh
+            strokeColor: NacreColours.palette.m3surfaceContainerHigh
             strokeWidth: 8
             capStyle: ShapePath.RoundCap
             PathAngleArc {
@@ -35,7 +35,7 @@ Item {
         }
         ShapePath {
             fillColor: "transparent"
-            strokeColor: Colours.palette.m3primary
+            strokeColor: NacreColours.palette.m3primary
             strokeWidth: 8
             capStyle: ShapePath.RoundCap
             PathAngleArc {
@@ -49,7 +49,7 @@ Item {
         }
         ShapePath {
             fillColor: "transparent"
-            strokeColor: Colours.palette.m3secondary
+            strokeColor: NacreColours.palette.m3secondary
             strokeWidth: 5
             capStyle: ShapePath.RoundCap
             PathAngleArc {

@@ -50,7 +50,7 @@ NacreOverviewCard {
                 font.pointSize: 10
                 horizontalAlignment: Text.AlignHCenter
                 elide: Text.ElideRight
-                color: Colours.palette.m3onSurfaceVariant
+                color: NacreColours.palette.m3onSurfaceVariant
             }
         }
         Repeater {
@@ -64,7 +64,7 @@ NacreOverviewCard {
                     width: Math.min(parent.width - 4, 30)
                     height: width
                     radius: width / 2
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                     visible: parent.modelData.key === root.todayKey
                 }
                 NacreText {
@@ -72,7 +72,7 @@ NacreOverviewCard {
                     text: parent.modelData.day
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: parent.modelData.key === root.todayKey ? Colours.palette.m3onPrimary : parent.modelData.inMonth ? Colours.palette.m3onSurface : Colours.palette.m3onSurfaceVariant
+                    color: parent.modelData.key === root.todayKey ? NacreColours.palette.m3onPrimary : parent.modelData.inMonth ? NacreColours.palette.m3onSurface : NacreColours.palette.m3onSurfaceVariant
                     opacity: 1
                     font.pointSize: 11
                 }

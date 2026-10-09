@@ -103,14 +103,14 @@ class QuickControlsTests(unittest.TestCase):
                 "import QtQuick\nQtObject {property var objects:[]}"
             )
             colors = (
-                (target / "fixtures/Colours.qml")
+                (target / "fixtures/NacreColours.qml")
                 .read_text()
                 .replace(
                     'm3primary: "cyan",',
                     'm3primary: "cyan", m3primaryContainer:"#303050",',
                 )
             )
-            (target / "fixtures/Colours.qml").write_text(colors)
+            (target / "fixtures/NacreColours.qml").write_text(colors)
             services = {
                 "NacreAudio": 'property var sink:({ready:true,description:"Speakers"});property real volume:.7;property real micVolume:.4;property bool muted:false;property bool micMuted:false;property bool micAvailable:true;function setVolume(v){volume=v} function setMicVolume(v){micVolume=v} function toggleMute(){muted=!muted} function toggleMic(){micMuted=!micMuted}',
                 "Pipewire": 'property var nodes:({values:[{isStream:false,isSink:true,description:"Speakers",name:"speaker"}]});property var defaultAudioSink:nodes.values[0];property var preferredDefaultAudioSink:null',

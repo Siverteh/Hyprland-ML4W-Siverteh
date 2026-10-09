@@ -48,7 +48,7 @@ Column {
             implicitWidth: child.implicitWidth + NacreAppearance.padding.normal * 2
             implicitHeight: child.implicitHeight + NacreAppearance.padding.smaller * 2
 
-            color: Colours.palette.m3error
+            color: NacreColours.palette.m3error
             radius: NacreAppearance.rounding.normal
 
             Column {
@@ -65,13 +65,13 @@ Column {
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
                         text: "warning"
-                        color: Colours.palette.m3onError
+                        color: NacreColours.palette.m3onError
                     }
 
                     NacreText {
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr("Performance Degraded")
-                        color: Colours.palette.m3onError
+                        color: NacreColours.palette.m3onError
                         font.family: NacreAppearance.font.family.mono
                         font.weight: 500
                     }
@@ -81,7 +81,7 @@ Column {
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
                         text: "warning"
-                        color: Colours.palette.m3onError
+                        color: NacreColours.palette.m3onError
                     }
                 }
 
@@ -89,7 +89,7 @@ Column {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))
-                    color: Colours.palette.m3onError
+                    color: NacreColours.palette.m3onError
                 }
             }
         }
@@ -112,13 +112,13 @@ Column {
         implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + NacreAppearance.padding.normal * 2 + NacreAppearance.spacing.large * 2
         implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + NacreAppearance.padding.small * 2
 
-        color: Colours.palette.m3surfaceContainer
+        color: NacreColours.palette.m3surfaceContainer
         radius: NacreAppearance.rounding.full
 
         NacreSurface {
             id: indicator
 
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
             radius: NacreAppearance.rounding.full
             state: profiles.current
 
@@ -206,7 +206,7 @@ Column {
 
         NacreInteraction {
             radius: NacreAppearance.rounding.full
-            color: profiles.current === parent.icon ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
+            color: profiles.current === parent.icon ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
 
             function onClicked(): void {
                 PowerProfiles.profile = parent.profile;
@@ -220,7 +220,7 @@ Column {
 
             text: parent.icon
             font.pointSize: NacreAppearance.font.size.large
-            color: profiles.current === text ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
+            color: profiles.current === text ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
             fill: profiles.current === text ? 1 : 0
 
             Behavior on fill {

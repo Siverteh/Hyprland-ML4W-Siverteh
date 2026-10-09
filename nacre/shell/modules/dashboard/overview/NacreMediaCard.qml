@@ -83,7 +83,7 @@ NacreOverviewCard {
             width: root.artSize
             height: width
             radius: width / 2
-            color: Colours.palette.m3surfaceContainerHigh
+            color: NacreColours.palette.m3surfaceContainerHigh
             Image {
                 id: cover
                 objectName: "mediaCover"
@@ -107,7 +107,7 @@ NacreOverviewCard {
                 anchors.centerIn: parent
                 visible: !cover.visible
                 text: "music_note"
-                color: Colours.palette.m3onSurfaceVariant
+                color: NacreColours.palette.m3onSurfaceVariant
                 font.pointSize: 36
             }
         }
@@ -115,7 +115,7 @@ NacreOverviewCard {
             anchors.fill: parent
             preferredRendererType: Shape.CurveRenderer
             ShapePath {
-                strokeColor: Colours.palette.m3primary
+                strokeColor: NacreColours.palette.m3primary
                 strokeWidth: 5
                 fillColor: "transparent"
                 capStyle: ShapePath.RoundCap
@@ -141,7 +141,7 @@ NacreOverviewCard {
             width: parent.width
             text: root.player ? root.player.trackTitle || "Unknown track" : "No media playing"
             font.pointSize: 12
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
         }
@@ -149,7 +149,7 @@ NacreOverviewCard {
             width: parent.width
             text: root.player?.trackAlbum || ""
             visible: text.length > 0
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
             font.pointSize: 10
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
@@ -157,7 +157,7 @@ NacreOverviewCard {
         NacreText {
             width: parent.width
             text: root.player ? root.player.trackArtist || root.player.identity : "Open a music or video app"
-            color: Colours.palette.m3secondary
+            color: NacreColours.palette.m3secondary
             font.pointSize: 10
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
@@ -196,12 +196,12 @@ NacreOverviewCard {
         width: Math.max(0, parent.width - 40)
         height: 2
         radius: 1
-        color: Colours.palette.m3outlineVariant
+        color: NacreColours.palette.m3outlineVariant
         Rectangle {
             width: root.progress * parent.width
             height: 2
             radius: 1
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
     }
     component Transport: NacreSurface {

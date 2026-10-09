@@ -11,8 +11,8 @@ Item {
     function adjust(value) {
         return compact ? value.replace(/L24 2 L24 12/g, "L24.6 2 L24.6 12").replace(/L24 14 L24 24/g, "L24.6 14 L24.6 24") : value;
     }
-    property color primary: Colours.palette.m3primary
-    property color secondary: Colours.palette.m3secondary
+    property color primary: NacreColours.palette.m3primary
+    property color secondary: NacreColours.palette.m3secondary
     Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit

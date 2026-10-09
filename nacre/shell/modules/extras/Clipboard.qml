@@ -69,7 +69,7 @@ SearchSurface {
             anchors.centerIn: parent
             visible: list.count === 0
             text: DesktopExtras.busy.clips ? "Reading clipboard…" : "Nothing here yet"
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
 
         ScrollBar.vertical: ScrollBar {}
@@ -83,7 +83,7 @@ SearchSurface {
             width: list.width
             height: modelData.image ? 112 : 72
             radius: 15
-            color: ListView.isCurrentItem ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+            color: ListView.isCurrentItem ? NacreColours.palette.m3secondaryContainer : NacreColours.palette.m3surfaceContainer
 
             Image {
                 id: thumbnail

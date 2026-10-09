@@ -10,7 +10,7 @@ import QtQuick.Layouts
 Item {
     id: root
 
-    required property Brightness.Monitor monitor
+    required property NacreBacklight monitor
     property bool horizontal: false
     readonly property string displayTitle: {
         const client = NacreHyprland.activeClient;
@@ -28,7 +28,7 @@ Item {
             return "Terminal · " + (client.title.replace(/^fish in /, "").replace(/^fish$/, "") || "Home");
         return client?.title ?? qsTr("Desktop");
     }
-    property color colour: Colours.palette.m3primary
+    property color colour: NacreColours.palette.m3primary
     readonly property Item child: child
 
     implicitWidth: horizontal ? horizontalRow.implicitWidth : child.implicitWidth

@@ -16,19 +16,19 @@ Row {
             implicitWidth: 46
             implicitHeight: 30
             radius: 15
-            color: selected ? Colours.palette.m3primary : "transparent"
+            color: selected ? NacreColours.palette.m3primary : "transparent"
             Row {
                 anchors.centerIn: parent
                 spacing: 4
                 NacreIcon {
                     text: NacreBar.workspaceIcons[button.index]
                     font.pointSize: 12
-                    color: button.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurfaceVariant
+                    color: button.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurfaceVariant
                 }
                 NacreText {
                     text: button.ws
                     font.pointSize: 10
-                    color: button.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurfaceVariant
+                    color: button.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurfaceVariant
                 }
             }
             Rectangle {
@@ -39,7 +39,7 @@ Row {
                 height: 3
                 radius: 2
                 visible: button.occupied
-                color: button.selected ? Colours.palette.m3onPrimary : Colours.palette.m3primary
+                color: button.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3primary
             }
             MouseArea {
                 anchors.fill: parent

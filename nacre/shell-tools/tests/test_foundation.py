@@ -58,7 +58,7 @@ class FoundationTests(unittest.TestCase):
                 "m3onPrimary": "#101014",
                 "m3outline": "#888888",
             }
-            (services / "Colours.qml").write_text(
+            (services / "NacreColours.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property bool light:false;property var palette:"
                 + json.dumps(palette)
                 + "}\n"
@@ -67,7 +67,7 @@ class FoundationTests(unittest.TestCase):
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({animations:true})}\n"
             )
             (services / "qmldir").write_text(
-                "module qs.services\nsingleton Colours 1.0 Colours.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
+                "module qs.services\nsingleton NacreColours 1.0 NacreColours.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
             )
             config = target / "qs/config"
             config.mkdir()
@@ -159,7 +159,7 @@ QtObject {
                 "m3primary": "#7696ff",
                 "m3outline": "#888888",
             }
-            (services / "Colours.qml").write_text(
+            (services / "NacreColours.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property bool light:false;property var palette:"
                 + json.dumps(palette)
                 + "}\n"

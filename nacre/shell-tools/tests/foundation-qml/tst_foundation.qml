@@ -196,12 +196,12 @@ TestCase {
         verify(view.lineCount > 1);
         view.font.pointSize = 18;
         compare(view.font.pointSize, 18);
-        const prior = Colours.palette;
-        Colours.palette = Object.assign({}, prior, {
+        const prior = NacreColours.palette;
+        NacreColours.palette = Object.assign({}, prior, {
             m3onSurface: "#d4eac7"
         });
         compare(String(view.color), "#d4eac7");
-        Colours.palette = prior;
+        NacreColours.palette = prior;
         view.wrapMode = Text.NoWrap;
         view.elide = Text.ElideRight;
         view.forceLayout();

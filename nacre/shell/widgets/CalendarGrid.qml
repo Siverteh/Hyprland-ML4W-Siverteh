@@ -33,7 +33,7 @@ Item {
             text: model.shortName
             font.weight: 500
             font.pointSize: 11
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
     }
 
@@ -61,13 +61,13 @@ Item {
                 height: width
                 radius: width / 2
                 anchors.centerIn: parent
-                color: day.model.today ? Colours.palette.m3primary : "transparent"
+                color: day.model.today ? NacreColours.palette.m3primary : "transparent"
 
                 NacreText {
                     anchors.centerIn: parent
                     text: day.model.day
                     font.pointSize: 12
-                    color: day.model.today ? Colours.palette.m3onPrimary : day.model.month === dates.month ? Colours.palette.m3onSurface : Colours.palette.m3outline
+                    color: day.model.today ? NacreColours.palette.m3onPrimary : day.model.month === dates.month ? NacreColours.palette.m3onSurface : NacreColours.palette.m3outline
                 }
             }
         }

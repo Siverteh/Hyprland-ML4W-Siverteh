@@ -9,7 +9,7 @@ Scope {
     required property ShellScreen screen
     required property PersistentProperties visibilities
     required property bool hovered
-    readonly property Brightness.Monitor monitor: Brightness.getMonitorForScreen(screen)
+    readonly property NacreBacklight monitor: NacreBrightness.getMonitorForScreen(screen)
 
     function show(): void {
         if (root.visibilities.session)
@@ -33,14 +33,14 @@ Scope {
     Connections {
         target: root.monitor
 
-        function onBrightnessChanged(): void {
+        function onAdjusted(): void {
             root.show();
         }
     }
 
     Connections {
-        target: KeyboardLight
-        function onBrightnessChanged(): void {
+        target: NacreKeyboardLight
+        function onAdjusted(): void {
             root.show();
         }
     }

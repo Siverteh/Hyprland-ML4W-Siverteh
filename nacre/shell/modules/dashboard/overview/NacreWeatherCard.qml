@@ -19,7 +19,7 @@ NacreOverviewCard {
             verticalAlignment: Text.AlignVCenter
             text: Weather.icon || "cloud_off"
             font.pointSize: root.width < 180 ? 28 : 44
-            color: Colours.palette.m3secondary
+            color: NacreColours.palette.m3secondary
         }
         NacreText {
             objectName: "weatherTemperature"
@@ -31,7 +31,7 @@ NacreOverviewCard {
             text: root.available ? Weather.displayTemperature : "—"
             font.pointSize: root.width < 180 ? 22 : 30
             font.weight: Font.DemiBold
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
     }
     NacreText {
@@ -50,7 +50,7 @@ NacreOverviewCard {
         width: parent.width - 24
         text: Weather.stale ? "Cached weather" : Weather.location || ""
         font.pointSize: 9
-        color: Colours.palette.m3onSurfaceVariant
+        color: NacreColours.palette.m3onSurfaceVariant
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
     }

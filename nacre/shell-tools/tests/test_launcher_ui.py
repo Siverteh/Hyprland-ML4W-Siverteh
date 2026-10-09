@@ -69,7 +69,7 @@ class LauncherUITests(unittest.TestCase):
                     "property bool compact:false;property bool selected:",
                 )
             )
-            colors = target / "fixtures/Colours.qml"
+            colors = target / "fixtures/NacreColours.qml"
             colors.write_text(
                 colors.read_text().replace(
                     '"m3onPrimary": "black",',

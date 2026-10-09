@@ -13,7 +13,7 @@ NacreOverviewCard {
             objectName: "clockHour"
             anchors.horizontalCenter: parent.horizontalCenter
             text: NacreTime.format("HH")
-            color: Colours.palette.m3secondary
+            color: NacreColours.palette.m3secondary
             font.pointSize: root.height < 200 ? 24 : 31
         }
         Row {
@@ -25,7 +25,7 @@ NacreOverviewCard {
                     width: 5
                     height: 5
                     radius: 2.5
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
             }
         }
@@ -33,13 +33,13 @@ NacreOverviewCard {
             objectName: "clockMinute"
             anchors.horizontalCenter: parent.horizontalCenter
             text: NacreTime.format("mm")
-            color: Colours.palette.m3secondary
+            color: NacreColours.palette.m3secondary
             font.pointSize: root.height < 200 ? 24 : 31
         }
         NacreText {
             anchors.horizontalCenter: parent.horizontalCenter
             text: NacreTime.format("ddd, d")
-            color: Colours.palette.m3tertiary
+            color: NacreColours.palette.m3tertiary
             font.pointSize: 10
         }
     }

@@ -13,7 +13,7 @@ NacreSurface {
     implicitWidth: 880
     width: parent?.width ?? implicitWidth
     radius: 18
-    color: Colours.palette.m3surfaceContainer
+    color: NacreColours.palette.m3surfaceContainer
     Column {
         id: header
         x: 16

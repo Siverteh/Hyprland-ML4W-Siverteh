@@ -56,7 +56,7 @@ SearchSurface {
                     width: 320
                     height: 215
                     radius: 18
-                    color: drop.containsDrag ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainer
+                    color: drop.containsDrag ? NacreColours.palette.m3primaryContainer : NacreColours.palette.m3surfaceContainer
                     readonly property var windows: root.windows.filter(c => c.workspace?.id === modelData)
                     Row {
                         x: 12
@@ -65,11 +65,11 @@ SearchSurface {
                         NacreIcon {
                             text: NacreBar.workspaceIcons[workspace.modelData - 1] ?? "workspaces"
                             font.pointSize: 14
-                            color: Colours.palette.m3primary
+                            color: NacreColours.palette.m3primary
                         }
                         NacreText {
                             text: workspace.modelData + " · " + (NacreBar.workspaceNames[workspace.modelData - 1] ?? "Workspace")
-                            color: Colours.palette.m3primary
+                            color: NacreColours.palette.m3primary
                         }
                     }
                     MouseArea {
@@ -104,7 +104,7 @@ SearchSurface {
                                 width: tile.width
                                 height: tile.height - 22
                                 radius: 8
-                                color: root.windows[root.selection]?.address === tile.modelData.address ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainerHigh
+                                color: root.windows[root.selection]?.address === tile.modelData.address ? NacreColours.palette.m3secondaryContainer : NacreColours.palette.m3surfaceContainerHigh
                                 ScreencopyView {
                                     id: copy
                                     anchors.centerIn: parent
@@ -126,7 +126,7 @@ SearchSurface {
                                     text: "window"
                                     visible: !copy.hasContent
                                     font.pointSize: 26
-                                    color: Colours.palette.m3onSurfaceVariant
+                                    color: NacreColours.palette.m3onSurfaceVariant
                                 }
                             }
                             NacreText {
@@ -177,7 +177,7 @@ SearchSurface {
                         anchors.centerIn: tiles
                         visible: workspace.windows.length === 0
                         text: "Empty"
-                        color: Colours.palette.m3onSurfaceVariant
+                        color: NacreColours.palette.m3onSurfaceVariant
                         font.pointSize: 11
                     }
                     DropArea {
@@ -201,7 +201,7 @@ SearchSurface {
         width: 140
         height: 60
         radius: 12
-        color: Colours.palette.m3primaryContainer
+        color: NacreColours.palette.m3primaryContainer
         opacity: .9
         property string address: root.draggedAddress
         Drag.active: root.dragging
@@ -212,7 +212,7 @@ SearchSurface {
         NacreText {
             anchors.centerIn: parent
             text: "Move window"
-            color: Colours.palette.m3onPrimaryContainer
+            color: NacreColours.palette.m3onPrimaryContainer
         }
     }
     IpcHandler {

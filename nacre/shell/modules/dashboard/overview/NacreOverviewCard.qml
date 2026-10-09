@@ -4,6 +4,6 @@ import qs.services
 
 NacreSurface {
     radius: 18
-    color: Colours.palette.m3surfaceContainer
+    color: NacreColours.palette.m3surfaceContainer
     clip: true
 }

@@ -12,7 +12,7 @@ NacreSurface {
     implicitWidth: 680
     implicitHeight: 84 + Math.max(1, entries.length) * 54
     radius: 20
-    color: Colours.palette.m3surface
+    color: NacreColours.palette.m3surface
 
     function activate(index) {
         const entry = entries[index];
@@ -86,12 +86,12 @@ NacreSurface {
             width: list.width
             height: 50
             radius: 12
-            color: list.currentIndex === index ? Colours.palette.m3primaryContainer : "transparent"
+            color: list.currentIndex === index ? NacreColours.palette.m3primaryContainer : "transparent"
             NacreIcon {
                 x: 12
                 anchors.verticalCenter: parent.verticalCenter
                 text: root.commands ? parent.modelData.icon : "apps"
-                color: list.currentIndex === parent.index ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                color: list.currentIndex === parent.index ? NacreColours.palette.m3onPrimaryContainer : NacreColours.palette.m3onSurface
             }
             Column {
                 x: 50
@@ -103,14 +103,14 @@ NacreSurface {
                     elide: Text.ElideRight
                     text: parent.parent.modelData.name
                     font.pointSize: 12
-                    color: list.currentIndex === parent.parent.index ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                    color: list.currentIndex === parent.parent.index ? NacreColours.palette.m3onPrimaryContainer : NacreColours.palette.m3onSurface
                 }
                 NacreText {
                     width: parent.width
                     elide: Text.ElideRight
                     text: parent.parent.modelData.description || parent.parent.modelData.comment || ""
                     font.pointSize: 9
-                    color: Colours.palette.m3onSurfaceVariant
+                    color: NacreColours.palette.m3onSurfaceVariant
                 }
             }
             NacreInteraction {
@@ -128,6 +128,6 @@ NacreSurface {
         y: 86
         visible: !root.entries.length
         text: "No matches"
-        color: Colours.palette.m3onSurfaceVariant
+        color: NacreColours.palette.m3onSurfaceVariant
     }
 }

@@ -196,3 +196,9 @@ minute clock with optional seconds. NacreHyprland exposes stable native client
 views, canonical addresses, event-driven metadata/focus and Lua-aware dispatch.
 See [platform services](features/platform-services.md); palette and brightness
 providers remain separate work.
+
+NacreColours validates complete Orient roles and publishes one QColor snapshot
+from the matched presentation owner. NacreBrightness/NacreKeyboardLight share
+read-only discovery and NacreLightChannel native file readers/user-only writes.
+Controls use NacreBacklight, with explicit adjusted signals for the indicator.
+See [colour and light services](features/colour-light.md).

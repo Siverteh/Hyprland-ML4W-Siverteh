@@ -49,16 +49,16 @@ Item {
     NacreSurface {
         anchors.fill: parent
         radius: 18
-        color: Colours.palette.m3surfaceContainerHigh
+        color: NacreColours.palette.m3surfaceContainerHigh
         border.width: 1
-        border.color: Qt.alpha(Colours.palette.m3primary, 0.45)
+        border.color: Qt.alpha(NacreColours.palette.m3primary, 0.45)
         opacity: root.shown ? 1 : 0
         scale: root.shown ? 1 : 0.9
 
         NacreIcon {
             anchors.centerIn: parent
             text: root.icon
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
             font.pointSize: 19
         }
 

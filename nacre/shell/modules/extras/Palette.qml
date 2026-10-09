@@ -77,7 +77,7 @@ SearchSurface {
             width: list.width
             height: 58
             radius: 14
-            color: ListView.isCurrentItem ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+            color: ListView.isCurrentItem ? NacreColours.palette.m3secondaryContainer : NacreColours.palette.m3surfaceContainer
             Row {
                 anchors.fill: parent
                 anchors.margins: 12
@@ -85,7 +85,7 @@ SearchSurface {
                 NacreIcon {
                     text: tile.modelData.icon
                     anchors.verticalCenter: parent.verticalCenter
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
                 Column {
                     spacing: 2
@@ -98,7 +98,7 @@ SearchSurface {
                     NacreText {
                         text: tile.modelData.description
                         font.pointSize: 10
-                        color: Colours.palette.m3onSurfaceVariant
+                        color: NacreColours.palette.m3onSurfaceVariant
                     }
                 }
             }

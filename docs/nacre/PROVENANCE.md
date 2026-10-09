@@ -646,3 +646,21 @@ unchanged. Shell active, configerrors empty, no QML error/binding-loop diagnosti
 No actual app launch/device/time writes or physical multi-output/cold-login/battery
 claims. Palette/brightness/thumbnail/other providers, UI bar/wrappers, configuration,
 helpers/assets and whole-tree provenance audit remain. Notices retained.
+
+## Colours and display/keyboard light providers (implemented; live checks pending)
+
+- Deleted Colours/Brightness/KeyboardLight bodies before own Nacre-prefixed
+  providers, colour-data.js, NacreLightChannel/Backlight and light-devices.py.
+  Fallback role data derives from own Orient Slate, not former seed literals.
+- Public declarations/schema/default exposure, producer/helper contracts, tests
+  and primary Qt/kernel/ddcutil/brightnessctl docs are acknowledged. No upstream
+  implementation used; no legal clean-room claim. Notices remain.
+- Complete typed colour snapshot/mode publication, matched-presentation authority
+  and invalid rejection; shared read-only discovery, native maximum/current and
+  visible-only reads, explicit adjusted indicators, coalesced guarded commands/
+  read-back/errors, connector/fingerprint DDC safety and no DDC polling.
+- Actual QML fixture tests and temporary sysfs/fake process tests cover role and
+  device semantics. Native read-only probe sees existing palette/panel/keyboard
+  state; brightnessctl pretend parses existing device commands without writes.
+- Other providers, thumbnails, publisher/helper provenance, UI bar/wrappers,
+  configuration/assets and final audit remain. Full/live acceptance pending.

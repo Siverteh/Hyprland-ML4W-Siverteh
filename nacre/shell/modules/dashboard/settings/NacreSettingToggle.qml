@@ -16,7 +16,7 @@ Item {
         width: 28
         height: 28
         radius: 8
-        color: root.checked ? NacreTokens.accent : Colours.palette.m3surfaceContainerHigh
+        color: root.checked ? NacreTokens.accent : NacreColours.palette.m3surfaceContainerHigh
         border.width: root.checked ? 0 : 1
         border.color: NacreTokens.outline
         NacreIcon {

@@ -160,7 +160,7 @@ Item {
             NacreText {
                 width: parent.width
                 text: root.player ? root.player.trackArtist || root.player.identity : "Open a music or video app"
-                color: Colours.palette.m3secondary
+                color: NacreColours.palette.m3secondary
                 font.pointSize: 12
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignHCenter

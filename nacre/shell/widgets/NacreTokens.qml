@@ -17,17 +17,17 @@ QtObject {
     property bool reduceMotion: DesktopSettings.data.reduceMotion === true
     readonly property bool motionEnabled: !reduceMotion && DesktopSettings.data.animations !== false
 
-    readonly property color body: Colours.palette.m3surface
-    readonly property color raised: Colours.palette.m3surfaceContainer
-    readonly property color frame: Colours.palette.m3frame
-    readonly property color ink: Colours.palette.m3onSurface
-    readonly property color mutedInk: Colours.palette.m3onSurfaceVariant
-    readonly property color accent: Colours.palette.m3primary
-    readonly property color outline: Colours.palette.m3outline
+    readonly property color body: NacreColours.palette.m3surface
+    readonly property color raised: NacreColours.palette.m3surfaceContainer
+    readonly property color frame: NacreColours.palette.m3frame
+    readonly property color ink: NacreColours.palette.m3onSurface
+    readonly property color mutedInk: NacreColours.palette.m3onSurfaceVariant
+    readonly property color accent: NacreColours.palette.m3primary
+    readonly property color outline: NacreColours.palette.m3outline
 
-    readonly property bool light: Colours.light
+    readonly property bool light: NacreColours.light
     property bool paletteSwitch: false
-    readonly property bool colorMotionAllowed: motionEnabled && !paletteSwitch
+    readonly property bool colorMotionAllowed: motionEnabled && !paletteSwitch && NacreColours.publishing !== true
     onLightChanged: {
         // Light/dark foreground and surface changes must remain readable together.
         paletteSwitch = true;

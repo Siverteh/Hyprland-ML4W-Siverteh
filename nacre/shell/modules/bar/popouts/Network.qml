@@ -21,7 +21,7 @@ Item {
         NacreText {
             text: "Wi-Fi"
             font.pointSize: 14
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
 
         NacreText {
@@ -65,7 +65,7 @@ Item {
                     width: parent.width
                     height: 48
                     radius: 10
-                    color: modelData.active ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainerHigh
+                    color: modelData.active ? NacreColours.palette.m3primaryContainer : NacreColours.palette.m3surfaceContainerHigh
 
                     Column {
                         anchors.left: parent.left
@@ -84,7 +84,7 @@ Item {
                         NacreText {
                             text: (network.modelData.active ? "Connected · " : "") + network.modelData.strength + "% signal"
                             font.pointSize: 9
-                            color: Colours.palette.m3onSurfaceVariant
+                            color: NacreColours.palette.m3onSurfaceVariant
                         }
                     }
 
@@ -111,7 +111,7 @@ Item {
         NacreText {
             visible: NacreNetwork.wifiEnabled && !root.nearby.length
             text: "No nearby networks found"
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
             font.pointSize: 10
         }
 
@@ -123,7 +123,7 @@ Item {
             maximumLineCount: 3
             elide: Text.ElideRight
             font.pointSize: 9
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
     }
 }

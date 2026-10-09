@@ -133,7 +133,7 @@ ShellRoot {
                             throw new Error("closing retained input region");
                         if (launch.width !== 300)
                             throw new Error("missing closing geometry");
-                        Colours.palette = Object.assign({}, Colours.palette, {
+                        NacreColours.palette = Object.assign({}, NacreColours.palette, {
                             m3surface: "#0c2e22"
                         });
                     } else if (window.phase === 2) {

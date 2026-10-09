@@ -10,7 +10,7 @@ Item {
     id: root
 
     property bool horizontal: false
-    property color colour: Colours.palette.m3secondary
+    property color colour: NacreColours.palette.m3secondary
     readonly property Item audioItem: speaker
     readonly property Item notificationsItem: bell
     readonly property Item network: network
@@ -83,7 +83,7 @@ Item {
 
             return charging ? `battery_charging_${(level + 3) * 10}` : `battery_${level}_bar`;
         }
-        color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
+        color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : NacreColours.palette.m3error
         fill: 1
     }
 

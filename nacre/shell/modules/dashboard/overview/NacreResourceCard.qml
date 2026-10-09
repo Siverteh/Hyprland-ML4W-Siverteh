@@ -10,19 +10,19 @@ NacreOverviewCard {
             label: "CPU",
             icon: "memory",
             value: NacreSystemUsage.cpuPerc,
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         },
         {
             label: "Memory",
             icon: "memory",
             value: NacreSystemUsage.memPerc,
-            color: Colours.palette.m3secondary
+            color: NacreColours.palette.m3secondary
         },
         {
             label: "Storage",
             icon: "hard_drive",
             value: NacreSystemUsage.storagePerc,
-            color: Colours.palette.m3tertiary
+            color: NacreColours.palette.m3tertiary
         }
     ]
     Row {
@@ -44,7 +44,7 @@ NacreOverviewCard {
                     width: Math.min(11, parent.width)
                     height: parent.height - 28
                     radius: width / 2
-                    color: Colours.palette.m3surfaceContainerHigh
+                    color: NacreColours.palette.m3surfaceContainerHigh
                     NacreSurface {
                         anchors.bottom: parent.bottom
                         width: parent.width

@@ -40,7 +40,7 @@ Item {
             width: parent.width - 110
             text: root.title
             font.pointSize: 17
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
             anchors.verticalCenter: parent.verticalCenter
         }
         ActionButton {
@@ -60,7 +60,7 @@ Item {
         rightPadding: 15
         placeholderText: root.placeholder
         background: NacreSurface {
-            color: Colours.palette.m3surfaceContainerHigh
+            color: NacreColours.palette.m3surfaceContainerHigh
             radius: 22
         }
         Keys.onDownPressed: root.moved(1)

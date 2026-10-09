@@ -28,7 +28,7 @@ NacreSurface {
     implicitWidth: Math.min(980, Quickshell.screens[0].width - 90)
     implicitHeight: Math.min(category === "favorites" && !query.trim() ? Math.min(450, Math.max(300, 156 + Math.ceil(entries.length / 5) * 119)) : category === "all" ? 6 * 119 + 106 : 570, Quickshell.screens[0].height - 170)
     radius: 22
-    color: Colours.palette.m3surface
+    color: NacreColours.palette.m3surface
     function select(name) {
         category = name;
         search.text = "";
@@ -94,7 +94,7 @@ NacreSurface {
             width: rail.width
             height: 42
             radius: 12
-            color: root.category === modelData.id ? Colours.palette.m3primaryContainer : "transparent"
+            color: root.category === modelData.id ? NacreColours.palette.m3primaryContainer : "transparent"
             Row {
                 anchors.verticalCenter: parent.verticalCenter
                 x: 10
@@ -102,12 +102,12 @@ NacreSurface {
                 NacreIcon {
                     text: parent.parent.modelData.icon
                     font.pointSize: 15
-                    color: root.category === parent.parent.modelData.id ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                    color: root.category === parent.parent.modelData.id ? NacreColours.palette.m3onPrimaryContainer : NacreColours.palette.m3onSurface
                 }
                 NacreText {
                     text: parent.parent.modelData.label
                     font.pointSize: 11
-                    color: root.category === parent.parent.modelData.id ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                    color: root.category === parent.parent.modelData.id ? NacreColours.palette.m3onPrimaryContainer : NacreColours.palette.m3onSurface
                 }
             }
             NacreInteraction {
@@ -165,7 +165,7 @@ NacreSurface {
             width: grid.cellWidth - 8
             height: 111
             radius: 15
-            color: grid.activeFocus && grid.currentIndex === index ? Colours.palette.m3primaryContainer : tileHover.hovered ? Colours.palette.m3surfaceContainerHigh : "transparent"
+            color: grid.activeFocus && grid.currentIndex === index ? NacreColours.palette.m3primaryContainer : tileHover.hovered ? NacreColours.palette.m3surfaceContainerHigh : "transparent"
             HoverHandler {
                 id: tileHover
             }
@@ -196,7 +196,7 @@ NacreSurface {
                 horizontalAlignment: Text.AlignHCenter
                 text: tile.modelData.name
                 font.pointSize: 10
-                color: grid.activeFocus && grid.currentIndex === tile.index ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                color: grid.activeFocus && grid.currentIndex === tile.index ? NacreColours.palette.m3onPrimaryContainer : NacreColours.palette.m3onSurface
             }
             MouseArea {
                 anchors.fill: parent
@@ -226,7 +226,7 @@ NacreSurface {
                     text: "favorite"
                     fill: LauncherPreferences.favorites.includes(tile.modelData.id) ? 1 : 0
                     font.pointSize: 13
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
                 NacreInteraction {
                     function onClicked() {
@@ -254,7 +254,7 @@ NacreSurface {
         y: 78
         visible: !root.entries.length
         text: root.category === "favorites" && !root.query ? "Add favorites with the heart on an app" : "No matches"
-        color: Colours.palette.m3onSurfaceVariant
+        color: NacreColours.palette.m3onSurfaceVariant
         font.pointSize: 11
     }
     NacreTextField {
@@ -277,10 +277,10 @@ NacreSurface {
         width: 190
         padding: 10
         background: NacreSurface {
-            color: Colours.palette.m3surfaceContainerHigh
+            color: NacreColours.palette.m3surfaceContainerHigh
             radius: 14
             border.width: 1
-            border.color: Colours.palette.m3outline
+            border.color: NacreColours.palette.m3outline
         }
         contentItem: Column {
             spacing: 6

@@ -59,7 +59,7 @@ Item {
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
             font.pointSize: 17
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
         ActionButton {
             anchors.right: parent.right
@@ -142,7 +142,7 @@ Item {
                 visible: root.section === "settings"
                 NacreText {
                     text: "Default assistant"
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
                 Row {
                     spacing: 8
@@ -162,7 +162,7 @@ Item {
                     wrapMode: Text.Wrap
                     text: "Used for new chats here and in the workspace. Existing chats keep their assistant."
                     font.pointSize: 11
-                    color: Colours.palette.m3onSurfaceVariant
+                    color: NacreColours.palette.m3onSurfaceVariant
                 }
                 ActionButton {
                     text: "New chat"
@@ -189,7 +189,7 @@ Item {
                 placeholderText: "Search your brain"
                 text: DesktopExtras.brainQuery
                 background: NacreSurface {
-                    color: Colours.palette.m3surfaceContainerHigh
+                    color: NacreColours.palette.m3surfaceContainerHigh
                     radius: 21
                 }
                 onTextChanged: {
@@ -241,12 +241,12 @@ Item {
                     height: 105
                     placeholderText: "A thought worth keeping"
                     wrapMode: TextEdit.Wrap
-                    color: Colours.palette.m3onSurface
-                    placeholderTextColor: Colours.palette.m3onSurfaceVariant
-                    selectionColor: Colours.palette.m3primary
-                    selectedTextColor: Colours.palette.m3onPrimary
+                    color: NacreColours.palette.m3onSurface
+                    placeholderTextColor: NacreColours.palette.m3onSurfaceVariant
+                    selectionColor: NacreColours.palette.m3primary
+                    selectedTextColor: NacreColours.palette.m3onPrimary
                     background: NacreSurface {
-                        color: Colours.palette.m3surfaceContainerHigh
+                        color: NacreColours.palette.m3surfaceContainerHigh
                         radius: 12
                     }
                 }
@@ -276,7 +276,7 @@ Item {
                 wrapMode: Text.WordWrap
                 visible: DesktopExtras.message.length > 0 || DesktopExtras.captured.length > 0
                 text: DesktopExtras.message || DesktopExtras.captured
-                color: Colours.palette.m3onSurfaceVariant
+                color: NacreColours.palette.m3onSurfaceVariant
                 font.pointSize: 11
             }
             Column {
@@ -285,7 +285,7 @@ Item {
                 visible: root.section === "brain" && search.text.trim().length > 0
                 NacreText {
                     text: DesktopExtras.busy.brain ? "Searching…" : "Knowledge"
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
                 Repeater {
                     model: DesktopExtras.notes
@@ -295,7 +295,7 @@ Item {
                         width: 438
                         height: 115
                         radius: 13
-                        color: Colours.palette.m3surfaceContainer
+                        color: NacreColours.palette.m3surfaceContainer
                         Column {
                             anchors.fill: parent
                             anchors.margins: 10
@@ -316,7 +316,7 @@ Item {
                                 text: note.modelData.preview
                                 textFormat: Text.PlainText
                                 font.pointSize: 9
-                                color: Colours.palette.m3onSurfaceVariant
+                                color: NacreColours.palette.m3onSurfaceVariant
                             }
                             Row {
                                 spacing: 8
@@ -343,7 +343,7 @@ Item {
                 NacreText {
                     text: "No matching notes"
                     visible: DesktopExtras.notes.length === 0 && !DesktopExtras.busy.brain
-                    color: Colours.palette.m3onSurfaceVariant
+                    color: NacreColours.palette.m3onSurfaceVariant
                 }
             }
             Column {
@@ -352,7 +352,7 @@ Item {
                 visible: root.section === "chats"
                 NacreText {
                     text: "Workspace chats"
-                    color: Colours.palette.m3primary
+                    color: NacreColours.palette.m3primary
                 }
                 Repeater {
                     model: NacreHyprland.clients.filter(c => c.wmClass === "siverteh-ai-task")
@@ -373,7 +373,7 @@ Item {
                         text: "Recent chats"
                         width: 195
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Colours.palette.m3primary
+                        color: NacreColours.palette.m3primary
                     }
                     ActionButton {
                         text: "Refresh"
@@ -386,7 +386,7 @@ Item {
                     visible: !!DesktopExtras.busy.chats
                     text: "Reading saved chats…"
                     font.pointSize: 10
-                    color: Colours.palette.m3onSurfaceVariant
+                    color: NacreColours.palette.m3onSurfaceVariant
                 }
                 Repeater {
                     model: DesktopExtras.chats.filter(c => !Object.values(ChatWindowTitle.threadIds).includes(c.id)).slice(0, 6)
@@ -431,7 +431,7 @@ Item {
         width: 438
         height: 55
         radius: 12
-        color: Colours.palette.m3surfaceContainer
+        color: NacreColours.palette.m3surfaceContainer
         Column {
             anchors.fill: parent
             anchors.margins: 9
@@ -446,7 +446,7 @@ Item {
             NacreText {
                 text: card.detail
                 font.pointSize: 9
-                color: Colours.palette.m3onSurfaceVariant
+                color: NacreColours.palette.m3onSurfaceVariant
             }
         }
         NacreInteraction {

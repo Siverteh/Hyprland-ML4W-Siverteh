@@ -76,7 +76,7 @@ Item {
             width: parent.width
             elide: Text.ElideRight
             text: (SidebarChat.provider ? SidebarChat.provider.charAt(0).toUpperCase() + SidebarChat.provider.slice(1) : "Assistant") + " · " + SidebarChat.title
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
             font.pointSize: 10
         }
     }
@@ -190,13 +190,13 @@ Item {
             width: transcript.width
             implicitHeight: message.implicitHeight + 45 + copyActions.implicitHeight
             radius: 13
-            color: role === "user" ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+            color: role === "user" ? NacreColours.palette.m3secondaryContainer : NacreColours.palette.m3surfaceContainer
             NacreText {
                 x: 12
                 y: 9
                 text: bubble.role === "user" ? "You" : "Nacre AI"
                 font.pointSize: 9
-                color: Colours.palette.m3primary
+                color: NacreColours.palette.m3primary
             }
             Flow {
                 id: copyActions
@@ -228,18 +228,18 @@ Item {
                 selectByMouse: true
                 wrapMode: TextEdit.Wrap
                 textFormat: bubble.role === "assistant" ? TextEdit.MarkdownText : TextEdit.PlainText
-                color: Colours.palette.m3onSurface
+                color: NacreColours.palette.m3onSurface
                 font.family: "IBM Plex Sans"
                 font.pointSize: 12
-                selectionColor: Colours.palette.m3primary
-                selectedTextColor: Colours.palette.m3onPrimary
+                selectionColor: NacreColours.palette.m3primary
+                selectedTextColor: NacreColours.palette.m3onPrimary
             }
         }
         NacreText {
             anchors.centerIn: parent
             visible: transcript.count === 0
             text: "Start a conversation"
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
     }
     Connections {
@@ -282,7 +282,7 @@ Item {
             wrapMode: Text.Wrap
             visible: SidebarChat.error.length > 0 || SidebarChat.status.length > 0
             text: SidebarChat.error || SidebarChat.status
-            color: SidebarChat.error ? Colours.palette.m3error : Colours.palette.m3onSurfaceVariant
+            color: SidebarChat.error ? NacreColours.palette.m3error : NacreColours.palette.m3onSurfaceVariant
             font.pointSize: 10
         }
         ScrollView {
@@ -335,7 +335,7 @@ Item {
                             leftPadding: 10
                             background: NacreSurface {
                                 radius: 10
-                                color: Colours.palette.m3surfaceContainerHigh
+                                color: NacreColours.palette.m3surfaceContainerHigh
                             }
                             onTextChanged: SidebarChat.setAnswer(q.modelData.id, text)
                         }
@@ -384,15 +384,15 @@ Item {
                 onTextChanged: if (SidebarChat.draft !== text)
                     SidebarChat.draft = text
                 placeholderText: SidebarChat.inWorkspace ? "Chat moved to the workspace" : SidebarChat.busy ? "Add a message while I work" : "Message Nacre AI"
-                color: Colours.palette.m3onSurface
-                placeholderTextColor: Colours.palette.m3onSurfaceVariant
-                selectionColor: Colours.palette.m3primary
-                selectedTextColor: Colours.palette.m3onPrimary
+                color: NacreColours.palette.m3onSurface
+                placeholderTextColor: NacreColours.palette.m3onSurfaceVariant
+                selectionColor: NacreColours.palette.m3primary
+                selectedTextColor: NacreColours.palette.m3onPrimary
                 font.family: "IBM Plex Sans"
                 font.pointSize: 12
                 background: NacreSurface {
                     radius: 14
-                    color: Colours.palette.m3surfaceContainerHigh
+                    color: NacreColours.palette.m3surfaceContainerHigh
                 }
                 Keys.onReturnPressed: event => {
                     if (event.modifiers & Qt.ShiftModifier) {

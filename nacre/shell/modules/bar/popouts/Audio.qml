@@ -20,7 +20,7 @@ Item {
         NacreText {
             text: "Sound"
             font.pointSize: 14
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
         Row {
             width: parent.width
@@ -65,7 +65,7 @@ Item {
         NacreText {
             text: "Microphone"
             font.pointSize: 10
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
         QuickSlider {
             objectName: "quickMicVolume"
@@ -79,7 +79,7 @@ Item {
         NacreText {
             text: "Output device"
             font.pointSize: 10
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
         QuickList {
             maximumHeight: 132
@@ -92,7 +92,7 @@ Item {
                     width: parent.width
                     height: 40
                     radius: 10
-                    color: chosen ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainerHigh
+                    color: chosen ? NacreColours.palette.m3primaryContainer : NacreColours.palette.m3surfaceContainerHigh
                     NacreText {
                         anchors.left: parent.left
                         anchors.leftMargin: 12

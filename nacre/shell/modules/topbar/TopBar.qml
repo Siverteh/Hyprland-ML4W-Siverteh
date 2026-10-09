@@ -103,7 +103,7 @@ Variants {
             }
             NacreSurface {
                 radius: NacreAppearance.rounding.full
-                color: Colours.palette.m3surfaceContainer
+                color: NacreColours.palette.m3surfaceContainer
                 implicitHeight: 34
                 implicitWidth: workspaces.implicitWidth + NacreAppearance.padding.small * 2
                 WorkspaceStrip {
@@ -116,7 +116,7 @@ Variants {
             anchors.centerIn: parent
             visible: win.hoverHint !== ""
             text: win.hoverHint
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
         Native.ActiveWindow {
             visible: win.hoverHint === ""
@@ -125,7 +125,7 @@ Variants {
             width: Math.max(100, Math.min(650, win.width - 2 * Math.max(leftGroup.width, rightGroup.width) - 50))
             height: 30
             horizontal: true
-            monitor: Brightness.getMonitorForScreen(win.screen)
+            monitor: NacreBrightness.getMonitorForScreen(win.screen)
         }
         RowLayout {
             id: rightGroup
@@ -142,11 +142,11 @@ Variants {
                     spacing: 4
                     NacreIcon {
                         text: "package_2"
-                        color: Colours.palette.m3primary
+                        color: NacreColours.palette.m3primary
                     }
                     NacreText {
                         text: Updates.message || String(Updates.count)
-                        color: Colours.palette.m3primary
+                        color: NacreColours.palette.m3primary
                     }
                 }
                 MouseArea {
@@ -161,7 +161,7 @@ Variants {
             NacreSurface {
                 id: statusHolder
                 radius: NacreAppearance.rounding.full
-                color: Colours.palette.m3surfaceContainer
+                color: NacreColours.palette.m3surfaceContainer
                 implicitWidth: status.implicitHeight + NacreAppearance.padding.normal * 2
                 implicitHeight: 34
                 Native.StatusIcons {
@@ -261,11 +261,11 @@ Variants {
                     spacing: NacreAppearance.spacing.small
                     NacreIcon {
                         text: "calendar_month"
-                        color: Colours.palette.m3tertiary
+                        color: NacreColours.palette.m3tertiary
                     }
                     NacreText {
                         text: NacreTime.format("HH:mm")
-                        color: Colours.palette.m3tertiary
+                        color: NacreColours.palette.m3tertiary
                     }
                 }
                 MouseArea {

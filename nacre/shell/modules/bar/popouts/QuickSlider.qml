@@ -15,13 +15,13 @@ Slider {
         width: root.availableWidth
         height: 8
         radius: 4
-        color: Colours.palette.m3surfaceContainerHighest
+        color: NacreColours.palette.m3surfaceContainerHighest
 
         Rectangle {
             width: root.visualPosition * parent.width
             height: parent.height
             radius: 4
-            color: Colours.palette.m3primary
+            color: NacreColours.palette.m3primary
         }
     }
 
@@ -31,9 +31,9 @@ Slider {
         width: 22
         height: 22
         radius: 11
-        color: Colours.palette.m3primary
+        color: NacreColours.palette.m3primary
         border.width: root.activeFocus ? 2 : 0
-        border.color: Colours.palette.m3onPrimary
+        border.color: NacreColours.palette.m3onPrimary
         opacity: root.enabled ? 1 : 0.4
     }
 }

@@ -5,7 +5,7 @@ import QtQuick
 
 Column {
     id: root
-    required property Brightness.Monitor monitor
+    required property NacreBacklight monitor
     padding: NacreAppearance.padding.large
     anchors.verticalCenter: parent.verticalCenter
     anchors.left: parent.left
@@ -28,12 +28,12 @@ Column {
         }
         Control {
             label: "Keys"
-            visible: KeyboardLight.available
+            visible: NacreKeyboardLight.available
             NacreSlider {
                 icon: "keyboard"
-                stepSize: KeyboardLight.maximum ? 1 / KeyboardLight.maximum : 1
-                value: KeyboardLight.brightness
-                onMoved: KeyboardLight.setBrightness(value)
+                stepSize: NacreKeyboardLight.maximum ? 1 / NacreKeyboardLight.maximum : 1
+                value: NacreKeyboardLight.brightness
+                onMoved: NacreKeyboardLight.setBrightness(value)
                 implicitWidth: NacreOsd.sizes.sliderWidth
                 implicitHeight: 120
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -81,6 +81,14 @@ Column {
             }
         }
     }
+    NacreText {
+        width: parent.width
+        text: root.monitor?.error || NacreKeyboardLight.error
+        visible: text.length > 0
+        color: NacreColours.palette.m3error
+        wrapMode: Text.Wrap
+        font.pointSize: 9
+    }
     component Control: Item {
         required property string label
         property bool hasMute: false
@@ -92,7 +100,7 @@ Column {
             anchors.horizontalCenter: parent.horizontalCenter
             text: parent.label
             font.pointSize: 9
-            color: Colours.palette.m3onSurfaceVariant
+            color: NacreColours.palette.m3onSurfaceVariant
         }
     }
 }
