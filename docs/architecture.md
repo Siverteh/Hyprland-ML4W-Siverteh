@@ -18,11 +18,11 @@ media uses the shared active-player service without another MPRIS owner. NacreMe
 NacreWorkspacePage owns the seven-card workspace overview; NacreSettings and its shared section/page/toggle controls own navigation and
 layout; NacreAppearancePage owns wallpaper/palette/frame preference controls through
 existing owners. Four own Desktop/Displays/Workflows/Maintenance pages delegate to the existing
-validated owners. Device/lock/time/AI/notification pages and service/helper audits
-remain separate originality work.
+validated owners. Device/lock/time/AI/notification pages also use independent Nacre views.
+Remaining helper audits are separate originality work.
 
 NacreNotice and NacreNotificationStack own notification card/stack presentation.
-Notifs owns native notification objects, popup expiry and private history; neither
+NacreNotifs owns native notification objects, popup expiry and private history; neither
 UI component becomes another server or stores native actions in history.
 
 The desktop shell and its desktop-actions helper own core control commands.

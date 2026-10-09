@@ -11,10 +11,10 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   wallpaper views and AI sidebar. Desktop/AI launch actions live in desktop helpers,
   separately from Brain knowledge actions. Its renderer is separate from the AI worker.
 - **Dashboard assembly** uses NacreDashboardPanel and immediate five-tab
-  navigation. The overview cards are fresh Nacre components; full Media and Performance pages also use new components. Workspaces now uses a fresh overview; Settings navigation and shared controls also use fresh components; Appearance now has fresh controls; Desktop/Displays/Workflows/Maintenance pages also use new views. Device, lock,
-  time, AI and notification pages remain for later batches.
+  navigation. The overview cards are fresh Nacre components; full Media and Performance pages also use new components. Workspaces now uses a fresh overview; Settings navigation and shared controls also use fresh components; Appearance now has fresh controls; Desktop/Displays/Workflows/Maintenance pages also use new views. All twelve Settings pages now use Nacre views; their underlying helper audit
+  remains separate.
 - **Notification presentation** uses NacreNotice and a bounded popup stack; the
-  existing service owns expiry, DND and private retained history.
+  NacreNotifs owns expiry, DND and private retained history.
 - **Wallpaper and weather providers** use NacreWallpapers and NacreWeather.
   Wallpaper commits share one queue and preserved rotation deadline; weather reads
   private cached forecasts and reports unavailable/stale data.

@@ -2,8 +2,7 @@
 
 Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
 views verified. All initially listed services addressed: eleven replaced, unused
-Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers now replaced
-(pending live verification). Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
+Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers verified. Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -723,7 +722,7 @@ No cold-login/physical multi-output/battery or whole-tree license completion cla
 Actual producer/cache helper, mixed providers, UI/config/assets/final audit remain;
 notices retained.
 
-## Wallpaper and weather providers (replaced; acceptance pending)
+## Wallpaper and weather providers (verified)
 
 Deleted mixed Wallpapers/Weather bodies before implementing NacreWallpapers and
 NacreWeather from callers, public declarations, producer schemas, existing tests
@@ -739,3 +738,18 @@ matched display versus preview, cached weather/units/unknown/stale state and
 coalesced refresh with old-city rejection. Existing rotation tests retain native
 production timer/deadline/shuffle assertions. Notices retained; whole goal remains
 unfinished.
+
+Provider acceptance (2026-10-09): software `28707f7`, good release `20261009T182743644453Z`.
+All362 tests (31 tools, 96 AI, 35 Brain, 200 shell), native QML format/parse,
+Hyprland and final installer rerun/strict startup/source/launcher/wallpaper/Escape
+gates passed. Live catalogue retains20 entries, actual picker/Appearance/lock
+settings work; valid matching poster/palette, native watcher running and weather
+fresh/available with no error. Appearance screenshot inspected. Twelve Settings
+routes/search and five dashboard tabs/offclick checked. Current selected/applied
+wallpaper and private desktop/wallpaper/launcher/AI/history byte hashes unchanged.
+Installed providers/forwarders exactly match; fuzzysort absent. Service active,
+configerrors empty and no QML runtime error/binding-loop diagnostics. User writes,
+publication failures and queues exercised through native fixtures, not applied to
+private state. No physical suspend/cold-login/multi-output/battery or whole-tree
+provenance completion claim. Remaining playback/helper/UI/config/assets and final
+audit still required; notices retained.
