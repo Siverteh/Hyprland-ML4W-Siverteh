@@ -2,8 +2,7 @@
 
 Status: Orient, foundation/frame/launcher/notices/dashboard/Settings, initial
 services and presentation/wallpaper/weather providers, all bar/popups, OSD/session/
-background and topbar/hover verified. Root/shortcuts/panel-state replaced (acceptance
-pending). Other state/helpers/extras/config/assets and whole-tree audit remain;
+background and topbar/hover verified. Root/shortcuts/panel-state also verified. Other state/helpers/extras/config/assets and whole-tree audit remain;
 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
@@ -914,7 +913,7 @@ polling, process/update instances or focus grabs. Physical multi-output/hotplug/
 cold-login/battery are not claimed. Root shell/Shortcuts/shared providers/helpers,
 ML4W configs/assets/generators/tests and final audit remain. Notices retained.
 
-## Root shell, shortcuts and visibility owner (replaced; acceptance pending)
+## Root shell, shortcuts and visibility owner (verified)
 
 Deleted mixed shell.qml/Shortcuts/Visibilities before independently composing root
 and NacreShellIpc/NacreShellShortcuts/NacrePanelState. Public contracts/IPC schema,
@@ -929,3 +928,19 @@ output/fallback, competing views, explicit pin/preview/query/reset, malformed/
 legacy/v2 restore, gallery/state/ranges, global press/release/interruption and
 passive dismissal. Registry maps and compatibility assignment share ownership;
 no settings/device/process action from display. Applicable notices retained.
+
+Root/state acceptance (2026-10-09): software `5da1132`, good release
+`20261009T203918928229Z`. All367 checks, QML format/parse, native Hyprland and final
+installer rerun/strict source/startup/launcher/wallpaper/Escape gates passed.
+Actual menus/Settings links/history pin/Escape/offclick/power-menu Escape, six
+application click/key-return cycles and unpinned sidebar/explicit close passed.
+Native v2 closed-view flag restoration passed without renderer/worker restart;
+empty UI patch does not modify drafts/scroll fields. Exact new source and private
+preference/history byte hashes unchanged; radio/volume/profile values unchanged.
+Service active/configerrors empty/no runtime QML error/binding-loop diagnostics.
+
+Shortcut press/release/interruption and multi-output router/map forwarding covered
+in Qt fixtures; physical Super/chord/hotplug/cold login and populated-draft recovery
+are not claimed. No real app/workspace/device/power/settings/AI action by route QA.
+Other state/playback/helpers/extras/widgets/ML4W configs/assets/generators/tests
+and final audit remain; notices retained and goal stays active.
