@@ -461,7 +461,7 @@ write during live verification. Page bodies/DesktopControls/services remain
 pending; notices kept. One output/synthetic inputs do not prove cold login or
 physical multi-output.
 
-## Appearance page replacement (candidate)
+## Appearance page replacement (verified; owners pending)
 
 - Deleted AppearancePage body without opening it; own NacreAppearancePage,
   palette tile and styled number control from spec/runtime/test/owner contracts.
@@ -474,3 +474,10 @@ physical multi-output.
   Palette width uses integer pixel sizes to avoid floating-point flow wrap.
   Providers/helpers and other settings pages still pending; notices retained.
   Full/native/live acceptance pending.
+
+Appearance acceptance: software `c230d36`, good release `20261009T135430795014Z`, all330
+tests, Qt/Hyprland/source/native release gates passed. Native page inspected;
+opening it preserved all wallpaper/palette/motion/rotation preference values.
+New files match installed source; retired page absent; configerrors empty.
+Fixture numeric/palette/interval/scroll tests verify writes without changing
+real preferences. Other Settings pages/providers/audit remain; notices retained.
