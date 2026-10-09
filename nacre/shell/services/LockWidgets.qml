@@ -11,15 +11,15 @@ Singleton {
     property bool dirty: true
 
     function snapshot() {
-        const p = Players.active;
+        const p = NacrePlayers.active;
         return {
             "colors": ThemePresentation.active.colours,
             "wallpaper": ThemePresentation.active.poster ?? Wallpapers.poster,
             "system": {
-                "cpu": SystemUsage.cpuPerc,
-                "memory": SystemUsage.memPerc,
-                "storage": SystemUsage.storagePerc,
-                "temperature": Number.isFinite(SystemUsage.cpuTemp) ? SystemUsage.cpuTemp : null
+                "cpu": NacreSystemUsage.cpuPerc,
+                "memory": NacreSystemUsage.memPerc,
+                "storage": NacreSystemUsage.storagePerc,
+                "temperature": Number.isFinite(NacreSystemUsage.cpuTemp) ? NacreSystemUsage.cpuTemp : null
             },
             "greetingHour": Time.hours,
             "preferences": {
@@ -46,7 +46,7 @@ Singleton {
                 "playing": p.isPlaying,
                 "canToggle": p.canTogglePlaying
             } : null,
-            "notifications": Notifs.retained.slice(-64).reverse().map(n => {
+            "notifications": NacreNotifs.retained.slice(-64).reverse().map(n => {
                 return ({
                         "app": n.appName,
                         "time": n.time.toISOString(),
@@ -55,7 +55,7 @@ Singleton {
                         "body": DesktopSettings.data.lockNotificationContents ? n.body : ""
                     });
             }),
-            "count": Notifs.retained.length,
+            "count": NacreNotifs.retained.length,
             "battery": Math.round(UPower.displayDevice.percentage)
         };
     }

@@ -26,7 +26,7 @@ NacreSurface {
     function dismiss() {
         if (modelData) {
             modelData.hovered = false;
-            Notifs.dismiss(modelData);
+            NacreNotifs.dismiss(modelData);
         }
     }
     function openDetails() {

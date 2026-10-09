@@ -106,14 +106,14 @@ Item {
             NacreIcon {
                 text: "notifications"
                 color: root.colour
-                fill: Notifs.retained.length ? 1 : 0
+                fill: NacreNotifs.retained.length ? 1 : 0
             }
 
             NacreText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 4
-                visible: Notifs.retained.length > 0
-                text: Notifs.retained.length
+                visible: NacreNotifs.retained.length > 0
+                text: NacreNotifs.retained.length
                 font.pointSize: 10
                 color: root.colour
             }

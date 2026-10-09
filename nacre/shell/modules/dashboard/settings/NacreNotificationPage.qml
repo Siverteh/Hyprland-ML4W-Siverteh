@@ -24,17 +24,17 @@ NacreSettingsPage {
     }
     NacreSettingsSection {
         title: "Notification history"
-        description: Notifs.retained.length + " saved notifications"
+        description: NacreNotifs.retained.length + " saved notifications"
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
                 objectName: "requestClearHistory"
                 text: root.confirmClear ? "Clear saved notifications" : "Clear history"
-                enabled: Notifs.retained.length > 0
+                enabled: NacreNotifs.retained.length > 0
                 onClicked: {
                     if (root.confirmClear) {
-                        Notifs.clearHistory();
+                        NacreNotifs.clearHistory();
                         root.confirmClear = false;
                     } else
                         root.confirmClear = true;
@@ -47,7 +47,7 @@ NacreSettingsPage {
             }
         }
         Repeater {
-            model: [...Notifs.retained].reverse()
+            model: [...NacreNotifs.retained].reverse()
             delegate: NacreNotice {
                 width: parent.width
                 history: true
@@ -55,7 +55,7 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            visible: Notifs.retained.length === 0
+            visible: NacreNotifs.retained.length === 0
             text: "New message notifications will appear here."
             wrapMode: Text.Wrap
             color: NacreTokens.mutedInk

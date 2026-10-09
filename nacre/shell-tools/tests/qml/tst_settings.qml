@@ -441,7 +441,7 @@ TestCase {
         compare(DeviceActions.requests.length, 2);
     }
     function test_history_requires_confirmation_and_preserves_long_card_bounds() {
-        Notifs.list = [
+        NacreNotifs.list = [
             {
                 key: "fixture",
                 appIcon: "",
@@ -454,26 +454,26 @@ TestCase {
                 hovered: false
             }
         ];
-        Notifs.clears = 0;
-        Notifs.dismissed = "";
+        NacreNotifs.clears = 0;
+        NacreNotifs.dismissed = "";
         const view = createTemporaryObject(settings, test);
         view.open("notifications");
         wait(20);
         const page = findChild(view, "settingsPage").item;
-        compare(Notifs.clears, 0);
+        compare(NacreNotifs.clears, 0);
         const clear = findChild(page, "requestClearHistory");
         clear.clicked();
-        compare(Notifs.clears, 0);
+        compare(NacreNotifs.clears, 0);
         verify(page.confirmClear);
         clear.clicked();
-        compare(Notifs.clears, 1);
+        compare(NacreNotifs.clears, 1);
         verify(!page.confirmClear);
         const summary = findChild(page, "noticeSummary");
         verify(summary.width <= page.width);
         const dismiss = findChild(page, "noticeDismiss");
         dismiss.activated();
-        compare(Notifs.dismissed, "fixture");
-        Notifs.list = [];
+        compare(NacreNotifs.dismissed, "fixture");
+        NacreNotifs.list = [];
     }
     function test_time_weather_and_assistant_writes_are_user_only() {
         TimezoneSettings.changes = [];

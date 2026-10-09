@@ -42,12 +42,12 @@ class NotificationUITests(unittest.TestCase):
             (fixtures / "NacreNotifications.qml").write_text(
                 (SHELL / "config/NacreNotifications.qml").read_text()
             )
-            (fixtures / "Notifs.qml").write_text(
+            (fixtures / "NacreNotifs.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject {property var popups:[];property string dismissed:"";function dismiss(entry){dismissed=entry.key}}'
             )
             with (fixtures / "qmldir").open("a") as output:
                 output.write(
-                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Notifs 1.0 Notifs.qml\n"
+                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton NacreNotifs 1.0 NacreNotifs.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/notification-qml/tst_notifications.qml",

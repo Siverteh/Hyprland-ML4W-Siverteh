@@ -37,8 +37,8 @@ TestCase {
         NacreNotificationStack {}
     }
     function init() {
-        Notifs.popups = [];
-        Notifs.dismissed = "";
+        NacreNotifs.popups = [];
+        NacreNotifs.dismissed = "";
         NacreNotifications.actionOnClick = false;
     }
     function makeCard() {
@@ -69,11 +69,11 @@ TestCase {
     function test_close_does_not_expand_and_right_click_dismisses() {
         const view = makeCard();
         mouseClick(findChild(view, "noticeDismiss"), 15, 15);
-        compare(Notifs.dismissed, "fixture");
+        compare(NacreNotifs.dismissed, "fixture");
         compare(view.expanded, false);
-        Notifs.dismissed = "";
+        NacreNotifs.dismissed = "";
         mouseClick(view, 100, 65, Qt.RightButton);
-        compare(Notifs.dismissed, "fixture");
+        compare(NacreNotifs.dismissed, "fixture");
     }
     function test_default_action_is_explicit_and_frozen_history_has_none() {
         const view = makeCard();
@@ -120,22 +120,22 @@ TestCase {
         keyClick(Qt.Key_Space);
         compare(view.expanded, true);
         keyClick(Qt.Key_Delete);
-        compare(Notifs.dismissed, "fixture");
-        Notifs.dismissed = "";
+        compare(NacreNotifs.dismissed, "fixture");
+        NacreNotifs.dismissed = "";
         mousePress(view, 70, 70);
         mouseMove(view, 105, 70);
         mouseRelease(view, 105, 70);
         wait(220);
         compare(view.dragOffset, 0);
-        compare(Notifs.dismissed, "");
+        compare(NacreNotifs.dismissed, "");
         mousePress(view, 70, 70);
         mouseMove(view, 270, 70);
         mouseRelease(view, 270, 70);
-        compare(Notifs.dismissed, "fixture");
+        compare(NacreNotifs.dismissed, "fixture");
     }
     function test_burst_cap_suppression_and_hover_release() {
         const data = createTemporaryObject(entry, test);
-        Notifs.popups = Array.from({
+        NacreNotifs.popups = Array.from({
             length: 12
         }, () => data);
         const view = createTemporaryObject(stack, test);
@@ -149,11 +149,11 @@ TestCase {
         compare(view.visible, false);
         compare(view.height, 0);
         compare(data.hovered, false);
-        compare(Notifs.popups.length, 12);
+        compare(NacreNotifs.popups.length, 12);
         view.suppressed = false;
         wait(30);
         verify(view.visible);
-        Notifs.popups = [];
+        NacreNotifs.popups = [];
         wait(30);
         compare(view.visible, false);
     }

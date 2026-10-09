@@ -116,7 +116,7 @@ class SettingsUITests(unittest.TestCase):
                 "NacreBluetooth": "property bool powered:false;property var devices:[]",
                 "DeviceActions": 'property bool busy:false;property string message:"";property var requests:[];property string connectedSSID:"";function request(args){requests=[...requests,args]} function connectWifi(ssid){connectedSSID=ssid}',
                 "Weather": 'property string description:"";property string location:"";property string error:"";property string displayTemperature:"";function reload(){}',
-                "Notifs": 'property var list:[]; readonly property var retained:list;property int clears:0;property string dismissed:"";function clearHistory(){clears++} function dismiss(entry){dismissed=entry.key}',
+                "NacreNotifs": 'property var list:[]; readonly property var retained:list;property int clears:0;property string dismissed:"";function clearHistory(){clears++} function dismiss(entry){dismissed=entry.key}',
                 "Pipewire": "property var nodes:({values:[]});property var defaultAudioSink:null;property var defaultAudioSource:null;property var preferredDefaultAudioSink:null;property var preferredDefaultAudioSource:null",
             }
             for name, body in services.items():

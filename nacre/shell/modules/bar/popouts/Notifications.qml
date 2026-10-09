@@ -13,7 +13,7 @@ Column {
         spacing: 12
         NacreText {
             width: 310
-            text: "Notifications · " + Notifs.retained.length
+            text: "Notifications · " + NacreNotifs.retained.length
             font.weight: 500
         }
         NacreSurface {
@@ -27,9 +27,9 @@ Column {
                 font.pointSize: 10
             }
             NacreInteraction {
-                disabled: Notifs.retained.length === 0
+                disabled: NacreNotifs.retained.length === 0
                 function onClicked() {
-                    Notifs.clearHistory();
+                    NacreNotifs.clearHistory();
                 }
             }
         }
@@ -40,7 +40,7 @@ Column {
         NacreText {
             anchors.centerIn: parent
             text: "No notifications"
-            visible: Notifs.retained.length === 0
+            visible: NacreNotifs.retained.length === 0
             color: Colours.palette.m3onSurfaceVariant
         }
         ListView {
@@ -52,7 +52,7 @@ Column {
                 view: historyList
             }
             model: ScriptModel {
-                values: [...Notifs.retained].reverse()
+                values: [...NacreNotifs.retained].reverse()
             }
             delegate: Cards.NacreNotice {
                 history: true
