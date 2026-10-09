@@ -16,7 +16,7 @@
     {
       "type": "custom",
       "format": "Nacre",
-      "key": ""
+      "key": "Desktop"
     },
     {
       "type": "title",
@@ -59,7 +59,7 @@
     {
       "type": "cpu",
       "key": "Processor",
-      "showPeCoreCount": true
+      "format": "{name}"
     },
     {
       "type": "memory",
@@ -68,7 +68,8 @@
     {
       "type": "disk",
       "key": "Storage",
-      "folders": "/"
+      "folders": "/",
+      "format": "{size-used} / {size-total} ({size-percentage}%)"
     },
     {
       "type": "colors",
