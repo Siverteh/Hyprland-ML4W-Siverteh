@@ -11,7 +11,11 @@ Follow renames and any copy/consolidation ancestry to initial authoring, includi
 7a05033 (shared update owner), 2fa3a95 (desktop maintenance commands), ac8be46
 (readable update failures and shared Qt guard), 0fb1f9f/6f88e53/0f3bd08 (recovery
 build detection and revision compatibility), and 548f0b4 (namespace migration).
-A new-path commit alone is insufficient proof; investigate predecessor inputs.
+The pre-consolidation tree also contained hypr/scripts/waybar/updates_status.sh
+and siverteh/{scripts,settings}/installupdates.sh plus scripts/updates.sh.
+Investigate whether current helpers replaced or copied those inherited scripts;
+a new-path commit alone is insufficient proof. Compare provenance mechanically
+without consulting predecessor implementation bodies while writing a replacement.
 Record exact current-file evidence and caller/producer dependencies. Keep an
 honest distinction between local history, inherited portions and unresolved origin.
 Do not consult upstream implementation bodies while writing replacements.
