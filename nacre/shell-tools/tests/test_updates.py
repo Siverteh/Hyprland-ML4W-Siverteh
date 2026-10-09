@@ -43,10 +43,6 @@ class UpdateTests(unittest.TestCase):
             )
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class UpdateFailureTests(unittest.TestCase):
     def test_recovery_build_blocks_pending_qt_but_not_other_packages(self):
         for pending, blocked in (
@@ -102,3 +98,7 @@ class QtReleaseTests(unittest.TestCase):
         self.assertTrue(
             updates.pending_qt_release_change("qt6-base 6.12.0-2 -> 1:6.12.0-1")
         )
+
+
+if __name__ == "__main__":
+    unittest.main()

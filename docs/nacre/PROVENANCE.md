@@ -1280,3 +1280,36 @@ Cold login, real hardware events and fresh-session dormant curve registry remain
 explicit follow-ups. Three SHA-bound source reviews added; whole-tree review and
 remaining helper/assets/test provenance still open. This is not a license-clearance
 claim. Notices retained and complete originality goal remains active.
+
+## Update provider and runtime guard review
+
+[Spec](../specs/update-runtime-audit.md): traced maintained Updates.qml, updates.py,
+updates.sh, qt-check.sh and test_updates.py through local authoring, consolidation
+and rename, rather than presuming either inheritance or independence by location.
+
+Update/cache functionality originates in local 2fa3a95; singleton owner added
+7a05033. The former per-monitor cache declaration is attributed to 2fa3a95, and
+the new singleton adds its own cache reader. Python query/error/compatibility
+changes trace through 21ef4e2, 0fb1f9f, 6f88e53 and 0f3bd08. Runner uses local
+2fa3a95 orchestration, eb4941d skipreview policy and ac8be46 failure/readability
+work. Shared guard traces to independently added inline launch check a1e6926,
+then extraction/recovery in ac8be46. Namespace-only migration is 548f0b4.
+Launcher outside this guard remains a separate audit area.
+
+Compared first-authored bodies mechanically against four retired pre-consolidation
+ML4W-era update/installupdate scripts, without displaying or using those bodies to
+write a replacement. Python has zero matching non-comment lines; other pairs only
+have isolated short/common syntax (no three-line contiguous blocks). This is
+supplementary evidence, not a similarity-based originality certificate. History,
+feature-specific producer/caller contracts and actual current implementations
+support retaining these locally authored files. No runtime rewrite was needed.
+Source exposure limited to these own files, own tests/callers, public history
+metadata and mechanical predecessor comparison; no legal clean-room claim.
+
+Tests originate in local 21ef4e2, with failure/preflight additions 2c4595a and
+release-policy tests 0f3bd08. Seven isolated cases pass under discovery. The
+unittest main guard was before the later classes, so direct execution ran only
+three cases; moved it to the end and verified all seven directly. No production
+behavior changes, package upgrade or private preference migration. SHA-bound
+reviews cover these five current files only. Full source/dependency comparison
+and remaining runtime/helper/asset/test audits remain required; notices retained.

@@ -1157,6 +1157,51 @@
         "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
         "Local native-tool extension introduced 007d020 under siverteh/shell-tools/shortcuts.lua; passive dismissal added 63162dc; Thunar rule removed to managed rule owner85f31ab; namespace changed548f0b4. Current four bindings are own feature declarations, not a rename-based certificate."
       ]
+    },
+    "nacre/shell/services/Updates.qml": {
+      "disposition": "independent",
+      "sha256": "d9fd5fe6db656198c81822cd2bc4a23775808be9ba7d03fa6b1a675a5318fa52",
+      "evidence": [
+        "docs/specs/update-runtime-audit.md",
+        "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
+        "Own service introduced 7a05033; pre-monitor update/cache feature declarations authored 2fa3a95, singleton consolidation uses new cache reader and provider. Own pending/recovery status added 0fb1f9f and namespace migrated 548f0b4. Dependencies limited to public Qt/Quickshell and own JSON helper."
+      ]
+    },
+    "nacre/shell-tools/updates.py": {
+      "disposition": "independent",
+      "sha256": "8f652606dac7a6fc333adf529b1ade24a9bd681a5061fbb0be2f5106a3655c51",
+      "evidence": [
+        "docs/specs/update-runtime-audit.md",
+        "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
+        "Own Python read-only maintenance helper introduced 2fa3a95; empty-query fix 21ef4e2; recovery status 0fb1f9f/6f88e53; Qt release versus pkgrel policy 0f3bd08; rename 548f0b4. No corresponding Python source in retired script paths; mechanical predecessor comparison supplements authoring history, not sole proof."
+      ]
+    },
+    "nacre/shell-tools/updates.sh": {
+      "disposition": "independent",
+      "sha256": "8f8704d7c7f1070357b7241c98fadc229a882ba4d2c4850c6051192a26a39b46",
+      "evidence": [
+        "docs/specs/update-runtime-audit.md",
+        "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
+        "Own user-confirmed package runner introduced 2fa3a95; skipreview policy eb4941d; error step trapping/shared runtime guard ac8be46; namespace 548f0b4. Retired ML4W script comparisons find no copied multiline body; own initial orchestration plus subsequent own changes traced."
+      ]
+    },
+    "nacre/shell-tools/qt-check.sh": {
+      "disposition": "independent",
+      "sha256": "86f2c2b17baa678680ab014df327f9276926f017f826ba444c7b6dc7ebb908b4",
+      "evidence": [
+        "docs/specs/update-runtime-audit.md",
+        "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
+        "Own guard first authored inline launch check a1e6926, shared guard/recovery helper introduced ac8be46 and namespace 548f0b4. Existing launcher overall origin remains separate; only independently added compatibility functions reviewed here."
+      ]
+    },
+    "nacre/shell-tools/tests/test_updates.py": {
+      "disposition": "independent",
+      "sha256": "ca787ab80e2b225ff8a438d49ce6a7ff72054e7354c3dc2f697146e35c57e598",
+      "evidence": [
+        "docs/specs/update-runtime-audit.md",
+        "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
+        "Local regression suite first introduced 21ef4e2, failure/preflight tests 2c4595a and release guard tests 0f3bd08; formatting 2c1d2ca and rename 548f0b4. Own mocks/fixtures cover maintenance contracts, no upstream implementation embedded. Direct unittest guard moved to end during current audit so all seven cases execute directly as well as in discovery."
+      ]
     }
   }
 }
