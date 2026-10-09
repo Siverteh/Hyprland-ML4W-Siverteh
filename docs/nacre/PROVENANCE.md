@@ -508,7 +508,7 @@ real monitors/devices/services. Other pages/providers/final audit remain pending
 notices retained. Single-output synthetic input is not cold-login/multi-output
 or measured battery acceptance.
 
-## Final seven Settings page bodies (implemented; live verification pending)
+## Final seven Settings page bodies (verified; providers pending)
 
 - Deleted Sound/Network/Bluetooth/Notification/Lock/Time/Ai page bodies before
   fresh implementation. Own Nacre-prefixed pages and NacreAudioNode implement the
@@ -524,3 +524,15 @@ or measured battery acceptance.
 - Settings assembly and all page bodies now have independent replacements.
   Backend services/shared helper provenance and final audit remain pending.
   Applicable notices retained.
+
+Device-page acceptance (2026-10-09): software `b770506`, good release
+`20261009T143249123504Z`. All330 tests, Qt parsing/formatting, Hyprland validation
+and strict source/native launcher/keyboard release gates passed. Seven actual
+page screenshots inspected; all12 routes, keyboard search, five tabs, Settings
+Escape and outside click passed. Default speaker/microphone volume and mute and
+saved desktop/wallpaper/assistant preference hashes remained unchanged. Installed
+Nacre sources match, seven retired files absent, service active and configerrors
+empty; no new QML error/binding-loop diagnostics. Notification history remained
+44 entries. Destructive/device/time/provider actions tested through fixtures; no
+physical reconnect, authentication, sleep/cold-login or multi-output claims.
+Backend services/bar/wrappers/config/helpers/assets/final audit remain; notices kept.
