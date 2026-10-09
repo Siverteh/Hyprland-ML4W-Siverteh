@@ -62,3 +62,10 @@ Live Escape follow-up: pinned history closed correctly but immediately reopened
 from the header still under the pointer. Escape also calls the existing
 HoverIntent.dismiss(screen) before logical close; the header must be left/rearmed
 before passive reopening. Keep the native regression and fixture dismiss count.
+
+Dismissal ownership correction: the popup forwards Escape to its enclosing frame
+instead of consuming it. The existing NacreScreen/NacrePanelInput path owns the
+full dismissal/rearm policy. Native acceptance is mandatory: component-only
+closing cannot prove pointer rearm. The fixture tests actual key propagation to a
+parent frame contract, rather than injecting focus or independently duplicating
+the popup Escape implementation.

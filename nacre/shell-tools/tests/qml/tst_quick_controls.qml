@@ -6,6 +6,15 @@ import "wifi-networks.js" as Wifi
 TestCase {
     id: test
 
+    property var activePopup: null
+    property int frameEscapes: 0
+    Keys.onEscapePressed: event => {
+        if (activePopup) {
+            activePopup.hasCurrent = false;
+            frameEscapes++;
+            event.accepted = true;
+        }
+    }
     property var groupedAPs: Wifi.group([firstAP, secondAP])
 
     function init() {
@@ -167,9 +176,10 @@ TestCase {
             }
         ];
         NacreNotifs.clears = 0;
-        HoverIntent.dismissed = 0;
+        frameEscapes = 0;
         DesktopSettings.writes = [];
         const popup = createTemporaryObject(assembly, test);
+        activePopup = popup;
         popup.currentName = "notifications";
         popup.hasCurrent = true;
         popup.pinned = true;
@@ -181,10 +191,11 @@ TestCase {
         findChild(popup.currentItem, "quickClearHistory").clicked();
         compare(NacreNotifs.clears, 1);
         keyClick(Qt.Key_Escape);
-        compare(HoverIntent.dismissed, 1);
+        compare(frameEscapes, 1);
         verify(!popup.hasCurrent);
         verify(!popup.pinned);
         NacreNotifs.retained = [];
+        activePopup = null;
     }
     function test_reduced_motion_unloads_without_lingering_view() {
         DesktopSettings.data = {

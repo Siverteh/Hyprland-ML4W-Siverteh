@@ -1,6 +1,5 @@
 import QtQuick
 import qs.widgets
-import qs.services
 
 Item {
     id: root
@@ -64,10 +63,5 @@ Item {
             duration: NacreTokens.motionEnabled ? 180 : 0
             easing.type: Easing.OutCubic
         }
-    }
-    Keys.onEscapePressed: event => {
-        HoverIntent.dismiss(screen);
-        hasCurrent = false;
-        event.accepted = true;
     }
 }
