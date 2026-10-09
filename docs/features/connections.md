@@ -43,3 +43,30 @@ IPC includes timer-running, due-time, remaining-seconds and pause-reason fields.
 There is still one one-shot timer, no recurring countdown polling and no new
 wallpaper owner. Deadline values are epoch milliseconds, independent of timezone.
 
+
+## Independent device-state owners
+
+NacreAudio tracks the default PipeWire output and microphone without process
+polling. Missing/unbound/removed nodes are unavailable. Volume writes are finite,
+bounded to0–100%, and preserve mute; optional original-node arguments prevent a
+stale request from affecting a newly selected default. Native changes still
+drive the existing on-screen indicator.
+
+NacreBluetooth reads native Quickshell/BlueZ adapters and device models. Aliases,
+pairing, trust and connection changes update views directly; opening it never
+powers/scans/pairs/connects a device. Known disconnected devices remain listed.
+
+NacreNetwork takes read-only snapshots through network-state.py. It never asks
+for secrets or forces a radio scan when opening controls. One NetworkManager
+monitor coalesces changes; explicit action completion and opening Wi-Fi refresh
+the snapshot. Duplicate SSIDs prefer the connected AP, then signal strength.
+Escaped names and hidden active networks are preserved. A failed snapshot keeps
+the last valid state; failed monitoring retries with bounded backoff, without
+periodic successful snapshots. networkStatus.state adds error/busy/monitor/read
+diagnostics to its existing connection fields; refresh requests a read-only
+snapshot. DeviceActions remains the sole write owner.
+
+Old Audio/Network/Bluetooth service names are small external compatibility
+forwarders. Their popup filenames are separate presentation components and
+remain unchanged. The [service spec](../specs/device-services.md) records source
+boundaries; other services/popouts and helper provenance remain pending.

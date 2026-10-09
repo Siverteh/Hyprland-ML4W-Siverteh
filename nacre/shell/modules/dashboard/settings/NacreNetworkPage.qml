@@ -82,7 +82,7 @@ NacreSettingsPage {
     }
     NacreText {
         width: parent.width
-        text: DeviceActions.message
+        text: NacreNetwork.error || DeviceActions.message || NacreNetwork.monitorError || (NacreNetwork.busy ? "Refreshing networks…" : "")
         wrapMode: Text.Wrap
         color: NacreTokens.mutedInk
     }

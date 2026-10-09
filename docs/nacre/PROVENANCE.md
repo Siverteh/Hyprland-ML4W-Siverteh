@@ -536,3 +536,22 @@ empty; no new QML error/binding-loop diagnostics. Notification history remained
 44 entries. Destructive/device/time/provider actions tested through fixtures; no
 physical reconnect, authentication, sleep/cold-login or multi-output claims.
 Backend services/bar/wrappers/config/helpers/assets/final audit remain; notices kept.
+
+## Default audio, Wi-Fi and Bluetooth services (implemented; live checks pending)
+
+- Deleted three inherited provider bodies before fresh NacreAudio/Network/Bluetooth
+  implementation. Old names are new minimal forwarders; maintained consumers use
+  Nacre names. Presentation bodies changed only at service-reference/refresh hooks.
+- Exposure: public declarations/consumer identifiers, existing tests, device
+  schema references inspected in earlier Settings work and official native
+  Quickshell/NetworkManager docs. No upstream source consulted, no legal clean-room
+  claim. Applicable notices retained.
+- Native tracked PipeWire defaults/readiness/safe explicit writes; native BlueZ
+  event-driven device views; own bounded read-only escaped NetworkManager snapshot
+  helper, active-first grouping, debounced monitor/busy coalescing/backoff/errors.
+  No successful-state polling or new device/configuration writer.
+- Real new QML service code tested with fake native models/processes; Python
+  snapshots test malformed/escaped/hidden data, deadlines and read-only commands.
+  Existing real Settings/quick-control UI regressions retained with new names.
+- Other services, UI popouts/wrappers, DeviceActions/shared helpers/config/assets
+  and whole-tree audit remain pending.

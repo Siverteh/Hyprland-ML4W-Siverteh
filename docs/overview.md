@@ -125,3 +125,9 @@ Sound binds native PipeWire nodes only while loaded; connection, time, lock and 
 pages request explicit actions through existing owners. Notification history
 reuses NacreNotice and asks for confirmation before clearing. Backend provenance
 remains a separate task; see [Settings behavior](features/settings-lock.md).
+
+Default audio and connection state now belong to NacreAudio, NacreNetwork and
+NacreBluetooth. Audio/Bluetooth use native event models; Wi-Fi uses a read-only
+NetworkManager snapshot helper and a long-lived monitor. Legacy service names
+only forward to these owners. Existing DeviceActions owns connection writes;
+see [connection services](features/connections.md).
