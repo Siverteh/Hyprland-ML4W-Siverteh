@@ -23,7 +23,13 @@ mapping. Very dark pigments retain relative color strength when lifted. Body
 surfaces have restrained tint, with a dedicated more visible wallpaper-colored
 frame role. Normal wallpaper button accents have a comfortable chroma ceiling;
 explicit Vivid presets retain their intensity. Subtle real image hues are gently
-strengthened so supporting accents stay distinct. ANSI/semantic colors keep their recognizable
+strengthened so supporting hues stay recognizable. The primary accent leads:
+secondary is limited to about 55% of its perceptual chroma, tertiary to 65%.
+Their distinct image hues remain, with less visual competition. These limits
+also cover dim, container and fixed supporting roles. Bright image highlights
+are restrained in supporting fills; readable text still meets
+its contrast target. Raw `orient1/2/3` colors remain available for colorful brand
+artwork and gradients. ANSI/semantic colors keep their recognizable
 meaning. Normal role pairs meet 4.5:1; essential outlines target 3:1. Actual
 translucent surfaces still need a contrasting backdrop in their UI implementation.
 

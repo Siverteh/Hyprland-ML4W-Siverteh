@@ -3,6 +3,7 @@
 from .colour import clean, color, contrast, foreground, lch, readable
 
 DEFAULT_SEED = "47a99a"
+SUPPORT_STRENGTH = {"secondary": 0.55, "tertiary": 0.65}
 VARIANTS = (
     "tonalspot",
     "vibrant",
@@ -68,9 +69,8 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     colors["inverseSurface"] = color(0.96 if dark else 0.15, tint, hue)
     colors["inverseOnSurface"] = readable(color(0.25 if dark else 0.92, tint, hue), [colors["inverseSurface"]])
 
-    def family(role, source, strength=1.0):
+    def family(role, source):
         light, c, h = lch(source)
-        c = c * strength
         if role == "primary":
             c = chroma
         # Lift dark pigments without turning the same saturation into a gray tint.
@@ -82,11 +82,24 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
             lifted_chroma = max(lifted_chroma, min(0.065, c * 3.0))
         if not soft and variant != "vibrant":
             lifted_chroma = min(lifted_chroma, 0.19 if role == "primary" else 0.16)
+        if role in SUPPORT_STRENGTH:
+            # Preserve the real companion hue, but make it support the main accent.
+            # Apply this after lifting subtle hues so their enhancement cannot
+            # accidentally erase the hierarchy again.
+            strength = SUPPORT_STRENGTH[role]
+            ceiling = lch(colors["primary"])[1] * strength
+            lifted_chroma = min(lifted_chroma * strength, ceiling)
+            primary_lightness = lch(colors["primary"])[0]
+            # Near-white image highlights must not become competing bright fills.
+            # The contrast fitter may move this further when readability needs it.
+            lifted = min(lifted, primary_lightness - 0.025) if dark else max(lifted, primary_lightness + 0.025)
+            c = min(c * strength, ceiling)
         accent = readable(color(lifted, lifted_chroma, h), backgrounds)
         container = color(0.35 if dark else 0.88, min(c * 0.42, 0.085), h)
         colors[role] = accent
         colors["on" + role.title()] = foreground(accent)
-        colors[role + "Dim"] = readable(color(lch(accent)[0] + (-0.025 if dark else 0.025), c, h), backgrounds)
+        dim_chroma = min(lch(accent)[1], c) if role in SUPPORT_STRENGTH else c
+        colors[role + "Dim"] = readable(color(lch(accent)[0] + (-0.025 if dark else 0.025), dim_chroma, h), backgrounds)
         colors[role + "Container"] = container
         colors["on" + role.title() + "Container"] = readable(
             color(0.93 if dark else 0.22, min(c * 0.3, 0.05), h), [container]
@@ -105,8 +118,8 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     secondary = sources[0] if sources else color(lch(seed)[0], chroma * 0.70, hue)
     tertiary = sources[1] if len(sources) > 1 else color(lch(seed)[0], chroma * 0.45, hue)
     family("primary", seed)
-    family("secondary", secondary, 0.85 if not soft else 0.5)
-    family("tertiary", tertiary, 0.85 if not soft else 0.5)
+    family("secondary", secondary)
+    family("tertiary", tertiary)
     family("error", "df303e")
     family("success", "289563")
     colors["surfaceTint"] = colors["primary"]
