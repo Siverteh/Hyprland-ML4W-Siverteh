@@ -91,6 +91,18 @@ TestCase {
         Visibilities.screens.test.session = false;
         Visibilities.panels = ({});
     }
+    function test_header_registration_follows_replaced_screen_and_safe_teardown() {
+        const view = createTemporaryObject(header, test);
+        compare(NacreHoverIntent.owners.test, view);
+        view.screen = {
+            name: "replacement",
+            width: 1920,
+            height: 1200
+        };
+        compare(view.registeredName, "replacement");
+        verify(!NacreHoverIntent.owners.test);
+        compare(NacreHoverIntent.owners.replacement, view);
+    }
     function test_hover_ownership_invalid_points_and_geometric_popup_block() {
         const screen = {
             name: "ownership",

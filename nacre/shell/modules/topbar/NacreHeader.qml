@@ -13,8 +13,20 @@ Item {
     readonly property var panel: Visibilities.panels[screen.name]
     readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus === true
     property string hoverHint: ""
-    Component.onCompleted: NacreHoverIntent.register(screen.name, root)
-    Component.onDestruction: NacreHoverIntent.release(screen.name, root)
+    property string registeredName: ""
+    function registerOutput() {
+        const name = screen?.name || "";
+        if (name === registeredName)
+            return;
+        if (registeredName)
+            NacreHoverIntent.release(registeredName, root);
+        registeredName = name;
+        if (name)
+            NacreHoverIntent.register(name, root);
+    }
+    onScreenChanged: registerOutput()
+    Component.onCompleted: registerOutput()
+    Component.onDestruction: NacreHoverIntent.release(registeredName, root)
     Rectangle {
         anchors.fill: parent
         color: NacreTokens.body
