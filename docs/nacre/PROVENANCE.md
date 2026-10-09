@@ -1313,3 +1313,17 @@ three cases; moved it to the end and verified all seven directly. No production
 behavior changes, package upgrade or private preference migration. SHA-bound
 reviews cover these five current files only. Full source/dependency comparison
 and remaining runtime/helper/asset/test audits remain required; notices retained.
+
+Update audit acceptance (2026-10-09): audit/test correction 0d31cbd. All 391
+tests, formatting/QML parsing, native Hyprland and source-registry checks pass.
+Install plan reports zero configuration changes and no source-link migrations.
+No production source changed, so no renderer/service cutover: active runtime
+retained and all 235 shell source files plus three deployed helpers verified byte
+for byte. Live shared Qt check passes: runtime/build Qt both 6.12.0. Private
+preference/history and worker identity remain unchanged against the prior live
+baseline; all 101 bindings and nine sampled native options still match.
+Bar screenshot shows the same 33 updates as the live cache, with no rebuild
+warning; cache reports rebuildNeeded=false, distributionReady=false. Read-only
+checks only, not a real update/recovery-build/physical multi-monitor test.
+Five current file reviews complete this bounded area, not the whole tree;
+launcher/provisioning/publisher/remaining helper/asset and dependency audits remain.

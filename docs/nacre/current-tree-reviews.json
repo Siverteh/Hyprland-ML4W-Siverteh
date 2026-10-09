@@ -900,6 +900,18 @@
         "nacre/shell-tools/shortcuts.lua",
         "tools/tests/test_compositor_entrypoint.py"
       ]
+    },
+    {
+      "area": "update-runtime-review",
+      "commit": "0d31cbd",
+      "spec": "docs/specs/update-runtime-audit.md",
+      "paths": [
+        "nacre/shell/services/Updates.qml",
+        "nacre/shell-tools/updates.py",
+        "nacre/shell-tools/updates.sh",
+        "nacre/shell-tools/qt-check.sh",
+        "nacre/shell-tools/tests/test_updates.py"
+      ]
     }
   ],
   "reviews": {
