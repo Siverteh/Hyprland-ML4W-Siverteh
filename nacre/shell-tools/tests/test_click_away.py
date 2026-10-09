@@ -13,7 +13,7 @@ class ClickAwayTests(unittest.TestCase):
             path = Path(folder)
             shutil.copytree(ROOT / "tests/qml/fixtures", path / "fixtures")
             source = (
-                (ROOT.parent / "shell/modules/drawers/Interactions.qml")
+                (ROOT.parent / "shell/modules/drawers/NacrePanelInput.qml")
                 .read_text()
                 .replace("import qs.services", 'import "fixtures"')
                 .replace("import qs.config", "")
@@ -31,8 +31,7 @@ class ClickAwayTests(unittest.TestCase):
                 source = source.replace(
                     "required property " + typename, "required property var"
                 )
-            source = source[: source.index("    Osd.Interactions {")] + "}\n"
-            (path / "Interactions.qml").write_text(source)
+            (path / "NacrePanelInput.qml").write_text(source)
             intent = (
                 (ROOT.parent / "shell/services/HoverIntent.qml")
                 .read_text()
@@ -46,12 +45,15 @@ class ClickAwayTests(unittest.TestCase):
             (path / "fixtures/DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({leftDrawer:true})}"
             )
+            (path / "fixtures/Visibilities.qml").write_text(
+                "pragma Singleton\nimport QtQuick\nQtObject {property bool hidden:false}"
+            )
             (path / "fixtures/NacreFrame.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property int rounding:20}"
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton Hyprland 1.0 Hyprland.qml\n"
+                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton Hyprland 1.0 Hyprland.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/click-away-qml/tst_click_away.qml",

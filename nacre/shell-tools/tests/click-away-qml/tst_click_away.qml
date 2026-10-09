@@ -79,6 +79,70 @@ TestCase {
         verify(!view.visibilities.launcher);
     }
 
+    function test_closing_releases_the_region_before_visual_geometry_finishes() {
+        const view = createTemporaryObject(scene, test);
+        verify(view.launcherRect.width > 0);
+        view.visibilities.launcher = false;
+        compare(view.panels.launcher.width, 200);
+        compare(view.launcherRect.width, 0);
+        verify(!view.modal);
+        verify(!view.regions.some(r => r.x === 100 && r.y === 350 && r.width === 200));
+        view.visibilities.left = true;
+        verify(view.leftRect.width > 0);
+        view.visibilities.left = false;
+        compare(view.leftRect.width, 0);
+    }
+    function test_pin_uses_nonmodal_input_and_hidden_clears_regions() {
+        const view = createTemporaryObject(scene, test);
+        view.visibilities.launcher = false;
+        view.visibilities.edgeMenu = "left";
+        view.visibilities.left = true;
+        verify(view.modal);
+        view.visibilities.leftPinned = true;
+        verify(!view.modal);
+        view.hidden = true;
+        compare(view.regions.length, 0);
+        compare(view.leftRect.width, 0);
+    }
+    function test_regions_follow_parent_offset_and_size_updates() {
+        const view = createTemporaryObject(scene, test);
+        view.panels.x = 12;
+        view.panels.y = 50;
+        compare(view.launcherRect.x, 112);
+        compare(view.launcherRect.y, 400);
+        view.panels.launcher.width = 220;
+        compare(view.launcherRect.width, 220);
+        view.panels.launcher.x = 60;
+        compare(view.launcherRect.x, 72);
+    }
+    function test_passive_hover_closes_but_pinned_and_explicit_panels_remain() {
+        const view = createTemporaryObject(scene, test);
+        view.visibilities.launcher = false;
+        view.visibilities.left = true;
+        mouseMove(view, 150, 200);
+        tryCompare(view, "leftHovered", true);
+        mouseMove(view, 450, 550);
+        wait(180);
+        verify(!view.visibilities.left);
+        view.visibilities.left = true;
+        view.visibilities.leftPinned = true;
+        mouseMove(view, 150, 200);
+        mouseMove(view, 450, 550);
+        wait(180);
+        verify(view.visibilities.left);
+    }
+    function test_pointer_handler_does_not_steal_child_clicks() {
+        const view = createTemporaryObject(scene, test);
+        const child = Qt.createQmlObject('import QtQuick; MouseArea {width:80;height:40;property int count:0;onClicked:count++}', view);
+        child.x = 100;
+        child.y = 360;
+        mouseMove(child, 20, 20);
+        mouseClick(child, 20, 20);
+        compare(child.count, 1);
+        verify(view.visibilities.launcher);
+        child.destroy();
+    }
+
     name: "ClickAway"
     width: 500
     height: 600
@@ -88,7 +152,7 @@ TestCase {
     Component {
         id: scene
 
-        Interactions {
+        NacrePanelInput {
             width: 500
             height: 600
 
@@ -107,16 +171,7 @@ TestCase {
                 property bool dashboard: false
                 property bool osd: false
                 property bool session: false
-            }
-
-            popouts: QtObject {
-                property bool hasCurrent: false
-                property bool headerHovered: false
-                property bool pinned: false
-            }
-
-            bar: Item {
-                implicitWidth: 10
+                property bool previewOnly: false
             }
 
             panels: Item {
@@ -125,6 +180,18 @@ TestCase {
                 property alias osd: rightPanel
                 property alias dashboard: dashboardPanel
                 property alias session: rightPanel
+                property alias popouts: popup
+                property alias notifications: notices
+                Item {
+                    id: popup
+                    property bool hasCurrent: false
+                    property bool headerHovered: false
+                    property bool pinned: false
+                }
+                Item {
+                    id: notices
+                    visible: false
+                }
 
                 Item {
                     id: leftPanel

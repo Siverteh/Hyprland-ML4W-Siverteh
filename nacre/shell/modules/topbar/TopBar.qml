@@ -44,7 +44,7 @@ Variants {
                 const p = Visibilities.panels[win.screen.name];
                 if (p) {
                     p.popouts.headerHovered = statusHover.containsMouse || calendarHover.containsMouse;
-                    if (!p.popouts.pinned && !p.popouts.headerHovered && !p.parent.containsMouse)
+                    if (!p.popouts.pinned && !p.popouts.headerHovered && !p.popoutHovered)
                         p.popouts.hasCurrent = false;
                 }
             }
@@ -310,7 +310,7 @@ Variants {
                 interval: 140
                 onTriggered: {
                     const p = Visibilities.panels[win.screen.name];
-                    if (!win.clickMenus && !dashboardHover.containsMouse && !p?.parent.containsMouse && !win.visibility?.dashboardPinned)
+                    if (!win.clickMenus && !dashboardHover.containsMouse && !p?.dashboardHovered && !win.visibility?.dashboardPinned)
                         win.visibility.dashboard = false;
                 }
             }

@@ -67,7 +67,7 @@ Hyprlock alone owns password input, PAM and secure session locking.
 
 `HoverIntent` guards accidental edge entry and immediate reopening. Precise hover
 is the default; click handles are an optional overlay, without reserving tiled
-window space. Shell layer namespaces start with `siverteh-`; blur targets visible
+window space. Shell layer namespaces start with `nacre-`; blur targets visible
 UI surfaces, excluding wallpaper and invisible edge/input surfaces.
 
 Feature behavior belongs in linked [feature guides](overview.md#feature-guides).
@@ -122,8 +122,8 @@ areas and their attribution remain until their own rewrites and final audit.
 Orient now includes a named set of natural image-derived palette alternatives in
 its cached output. The existing publisher carries those previews/selection with
 matched presentation state; Appearance calls the same locked CLI to set or clear
-private per-image accent overrides. A dedicated frame role supplies the shell's
-wallpaper tint without changing panel geometry.
+private per-image accent overrides. The decorative frame role supplies palette previews; exterior chrome uses the
+same body token as the top bar.
 
 ## Shared primitive ownership
 
@@ -143,3 +143,11 @@ Orient's optional Harmony preference is owned by wallpaper-picker.json. Engine
 and prepared-palette identities include it; the event-driven wallpaper watcher
 warms invalidated palettes. Natural remains the default. Fixed-palette generation
 uses the same independent contrast/tint policy and is checked reproducibly.
+
+
+NacreDesktop/NacreScreen own frame assembly through NacrePanelHost, NacrePanelInput,
+NacrePanelMask, NacreChrome and NacreReservedEdges. Logical input release is separate
+from visual closing geometry; a stable layer and explicit hover contracts replace
+parent-dependent input handling. Independent registry updates preserve newer and
+other-output owners. The [frame guide](features/frame-panels.md) documents contracts
+and target-host validation; composed panel/service bodies remain pending areas.

@@ -81,3 +81,38 @@ output/scale behavior where test hardware permits, and configerrors. Do not
 interrupt private AI workers or alter AI access/update policies. Label untested
 physical/multi-monitor/cold-login behavior. Publish only verified changes, record
 provenance and keep the goal active until every remaining area and audit is done.
+
+## Captured contracts and implementation references
+
+The existing desktop exposes per-output visibility/panel maps. Consumers require
+leftDrawer, launcher (gallery count/index/step), dashboard, session, OSD,
+notifications.suppressed and popouts (name/center/pinning/target width). Output
+recovery snapshots flags plus recursive view state; preserve those object contracts.
+The old separate left-edge surface exposes leftEdge.state with registered/visible/
+width/height; keep that read-only IPC contract while consolidating its input area.
+Native observation confirmed 3px side activation, 810px left band on this output,
+and a stable Top layer for both the ordinary OSD and modal launcher.
+
+New types: NacreDesktop, NacreScreen, NacrePanelHost, NacrePanelInput,
+NacrePanelMask, NacreReservedEdges and NacreChrome. Common hover handling is passive;
+explicit panel hover properties replace callers inspecting the host's parent.
+Root surfaces retain their layer/namespace across visibility changes. Ordinary
+hover panels have no keyboard interaction; the AI drawer uses on-demand keyboard
+input regardless of pinning. Explicit modal panels use exclusive keyboard input
+and a full click-away mask. Reserved edge windows stay transparent and never
+receive input. Gallery modes that supply their own backdrop do not get a solid
+launcher background behind their thumbnails.
+
+The frame uses newly authored rounded-hole and attachment geometry through Qt
+Shape/PathSvg. Generic quadratic curve construction and palette tokens are not
+inherited path data. Native pixel tests check actual rendered frame and attachments;
+closing masks are inspected as Quickshell Regions, not just controller booleans.
+The installed wrapper bodies and OSD signal/timer helper remain separate pending
+areas; this replacement composes their public APIs and does not certify them.
+
+References: [Quickshell click-through masks](https://quickshell.org/docs/v0.2.0/types/Quickshell/QsWindow/),
+[Region](https://quickshell.org/docs/v0.2.0/types/Quickshell/Region/),
+[Qt HoverHandler](https://doc.qt.io/qt-6/qml-qtquick-hoverhandler.html),
+[Qt Shape](https://doc.qt.io/qt-6/qml-qtquick-shapes-shape.html).
+A private live test tool uses the MIT-licensed wlr virtual-pointer protocol with
+its original generated notices; it is a test dependency, not shipped desktop code.

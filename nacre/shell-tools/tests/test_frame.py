@@ -1,0 +1,136 @@
+"""Render actual independent frame geometry and input masks with Quickshell."""
+
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+SHELL = ROOT.parent / "shell"
+
+
+class FrameTests(unittest.TestCase):
+    def test_registry_preserves_newer_and_other_output_owners(self):
+        runner = Path("/usr/lib/qt6/bin/qmltestrunner")
+        if not runner.exists():
+            self.skipTest("Qt Quick Test unavailable")
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)
+            shutil.copy2(SHELL / "modules/drawers/registry.js", target / "registry.js")
+            shutil.copy2(
+                ROOT / "tests/frame-qml/tst_registry.qml", target / "tst_registry.qml"
+            )
+            result = subprocess.run(
+                [str(runner), "-input", str(target), "-o", "-,txt"],
+                env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
+                capture_output=True,
+                text=True,
+                timeout=20,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertNotIn("QWARN", result.stdout + result.stderr)
+
+    def test_native_geometry_theme_and_immediate_mask_release(self):
+        binary = shutil.which("quickshell")
+        if not binary:
+            self.skipTest("Quickshell unavailable")
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow unavailable")
+        wrapper = []
+        if not os.environ.get("DISPLAY"):
+            if not shutil.which("xvfb-run"):
+                self.skipTest("Native frame renderer needs OpenGL display or Xvfb")
+            wrapper = ["xvfb-run", "-a"]
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)
+            for name in ("widgets", "config", "services", "modules/drawers"):
+                (target / name).mkdir(parents=True)
+            for name in ("NacreChrome", "NacrePanelInput", "NacrePanelMask"):
+                shutil.copy2(
+                    SHELL / "modules/drawers" / (name + ".qml"),
+                    target / "modules/drawers" / (name + ".qml"),
+                )
+            shutil.copy2(
+                SHELL / "widgets/NacreTokens.qml", target / "widgets/NacreTokens.qml"
+            )
+            helpers = {
+                "services/Colours": "property bool light:false;property var palette:"
+                + json.dumps(
+                    {
+                        "m3surface": "#191a20",
+                        "m3surfaceContainer": "#303640",
+                        "m3frame": "#353840",
+                        "m3onSurface": "#fafafa",
+                        "m3onSurfaceVariant": "#aabbcc",
+                        "m3primary": "#7696ff",
+                        "m3outline": "#888888",
+                    }
+                ),
+                "services/DesktopSettings": "property var data:({animations:false,leftDrawer:true,rightEdge:true})",
+                "services/Visibilities": "property bool hidden:false",
+                "services/Hyprland": "property var focusedMonitor:({name:'test'});property var activeClient:null",
+                "config/NacreFrame": "property int left:10;property int right:10;property int bottom:10;property int headerHeight:50;property int rounding:20",
+            }
+            for name, body in helpers.items():
+                (target / (name + ".qml")).write_text(
+                    "pragma Singleton\nimport QtQuick\nQtObject {" + body + "}\n"
+                )
+            intent = (
+                (SHELL / "services/HoverIntent.qml")
+                .read_text()
+                .replace("import Quickshell", "")
+                .replace("Singleton {", "QtObject {")
+            )
+            (target / "services/HoverIntent.qml").write_text(intent)
+            shutil.copy2(ROOT / "tests/frame-qml/render.qml", target / "shell.qml")
+            environment = {
+                **os.environ,
+                "QT_QPA_PLATFORM": "offscreen",
+                "QT_QUICK_BACKEND": "rhi",
+                "QSG_RHI_BACKEND": "opengl",
+                "QT_SCALE_FACTOR": "1",
+                "QT_FONT_DPI": "96",
+                "XDG_CACHE_HOME": str(target / "cache"),
+            }
+            environment.pop("WAYLAND_DISPLAY", None)
+            result = subprocess.run(
+                [*wrapper, binary, "-p", str(target / "shell.qml")],
+                cwd=target,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=20,
+            )
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn("FRAME_NATIVE_OK", output)
+            self.assertNotIn("ERROR", output)
+            for line in output.splitlines():
+                if "WARN" in line:
+                    self.assertIn("does not support setting window masks", line)
+
+            def pixels(name):
+                with Image.open(target / (name + ".png")) as image:
+                    return image.convert("RGB")
+
+            closed = pixels("closed")
+            self.assertEqual(closed.size, (600, 400))
+            self.assertEqual(closed.getpixel((5, 200)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((300, 20)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((300, 200)), (86, 125, 154))
+            self.assertEqual(closed.getpixel((10, 50)), (25, 26, 32))
+            joined = pixels("joined")
+            self.assertEqual(joined.getpixel((300, 100)), (25, 26, 32))
+            self.assertEqual(joined.getpixel((300, 320)), (25, 26, 32))
+            self.assertEqual(joined.getpixel((300, 200)), (86, 125, 154))
+            recoloured = pixels("recoloured")
+            self.assertEqual(recoloured.getpixel((300, 100)), (12, 46, 34))
+            self.assertEqual(recoloured.getpixel((5, 200)), (12, 46, 34))
+            removed = pixels("no-edges")
+            self.assertEqual(removed.getpixel((5, 200)), (86, 125, 154))
+            self.assertEqual(removed.getpixel((300, 20)), (86, 125, 154))

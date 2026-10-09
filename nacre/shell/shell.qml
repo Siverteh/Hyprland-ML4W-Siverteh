@@ -12,9 +12,8 @@ ShellRoot {
     property var lockWidgets: LockWidgets
     property var displayRecovery: DisplayRecovery
     Background {}
-    Drawers {}
+    NacreDesktop {}
     TopBar {}
-    LeftHotspot {}
     EdgeHandles {}
 
     Shortcuts {}

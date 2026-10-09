@@ -39,7 +39,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
-| 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | spec ready | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
+| 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | implementing | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | audit pending | Include current Settings and lock presentation dependencies; one page/group at a time |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness}.qml` | audit pending | One service per task; advance a service if a preceding UI area needs it |
@@ -184,3 +184,28 @@ including native Settings selection and cache/preference/contrast regressions.
   was restored afterwards. configerrors empty; no failed user units. Native dark
   and light comparison sheets inspected for four licensed illustrations. Cold
   login and full external-toolkit visual checks remain outside this evidence.
+
+
+## Frame/panel implementation record (candidate)
+
+- Spec b0dd275 preceded replacement. Five old drawers files removed, including
+  the uncertain newer FrameSurface rather than certifying its origin from Git
+  creation alone. Fresh NacreDesktop/Screen/PanelHost/Input/Mask/ReservedEdges/Chrome
+  and registry.js implement the contracts using public Qt/QS APIs. The separate
+  LeftHotspot surface is removed; its read-only leftEdge IPC remains compatible.
+- Prior source exposure to Drawers/Panels/FrameSurface portions is acknowledged.
+  No upstream sources or target bodies opened during this replacement. Consumer
+  contracts, observed namespace/layer/IPC behavior and geometry tests establish
+  behavior. OSD helper and composed wrapper/service bodies remain inherited or
+  mixed pending their own rewrites; their APIs were consulted as consumers.
+- Actual Qt input tests cover click-away, closed-geometry release, pinning, hidden
+  masks, coordinate updates, passive child input and hover dismissal. Native RHI
+  capture checks actual frame/joins, palette updates, disabled edges and Regions;
+  ownership tests prove older teardown cannot remove newer/other output objects.
+  A hidden native Wayland window probe verifies None/Exclusive/None policy values;
+  that property test does not establish actual compositor focus or application input.
+- Candidate/live deployment gates remain required. Repository notices retained.
+
+- Candidate checks: 320 repository tests passed (31 tools, 96 AI, 35 Brain,
+  158 shell); all QML parsed/formatted and native geometry/input/registry tests
+  passed. Hyprland verification and the shell-only install plan passed.
