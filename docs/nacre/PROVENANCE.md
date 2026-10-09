@@ -435,7 +435,7 @@ retry. Initial command chaining published before live acceptance, corrected by
 this completed verified deployment. Configerrors empty; private labels unchanged.
 Single-output synthetic input does not prove physical multi-output/cold login.
 
-## Settings navigation and shared controls (candidate)
+## Settings navigation and shared controls (verified; page bodies pending)
 
 - Deleted Settings.qml and settings/{SettingsPage,SettingsSection,SettingToggle}
   bodies without opening them. Fresh NacreSettings/catalog and NacreSettingsPage/
@@ -450,3 +450,13 @@ Single-output synthetic input does not prove physical multi-output/cold login.
 - Existing palette/device/lock/maintenance tests retained; extra tests cover invalid
   routes, external page signals, labels/search/narrow bounds and section/click writes.
   Full/live/source acceptance pending. No private settings or AI policy changes.
+
+Settings foundation acceptance (2026-10-09): implementation `19083bd`, good
+release `20261009T133432459671Z`, all330 checks/Qt formatting/parsing/Hyprland validation and
+actual source/Escape release gates pass. Native twelve-page IPC routing, real
+keyboard search microphone→Enter→Sound, Appearance routing, Settings Escape and
+outside click, five tabs and native layout inspection pass. Installed new files
+match; retired bodies absent; configerrors empty. No preference/hardware/account
+write during live verification. Page bodies/DesktopControls/services remain
+pending; notices kept. One output/synthetic inputs do not prove cold login or
+physical multi-output.
