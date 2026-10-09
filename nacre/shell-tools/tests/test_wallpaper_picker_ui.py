@@ -1,4 +1,4 @@
-from qml_source import remove_objects
+from qml_source import remove_objects, install_foundation_interaction
 import os, shutil, subprocess, tempfile, unittest
 from pathlib import Path
 
@@ -21,9 +21,10 @@ class WallpaperPickerUITests(unittest.TestCase):
             shutil.copytree(ROOT / "tests/qml/fixtures", target / "fixtures")
             Image.new("RGB", (32, 24), "blue").save(target / "poster.png")
             Image.new("RGB", (32, 24), "green").save(target / "second.png")
-            shutil.copy2(
-                ROOT.parent / "shell/modules/launcher/WallpaperBackdrop.qml",
-                target / "WallpaperBackdrop.qml",
+            (target / "NacreWallpaperBackdrop.qml").write_text(
+                (ROOT.parent / "shell/modules/launcher/NacreWallpaperBackdrop.qml")
+                .read_text()
+                .replace("import qs.widgets", 'import "fixtures"')
             )
             presentation = (
                 (ROOT.parent / "shell/services/ThemePresentation.qml")
@@ -37,7 +38,11 @@ class WallpaperPickerUITests(unittest.TestCase):
             (target / "ThemePresentation.qml").write_text(
                 remove_objects(presentation, r"\bFileView\s*\{")
             )
-            for name in ("WallpaperGallery", "WallpaperHex", "WallpaperMotionPreview"):
+            for name in (
+                "NacreWallpaperPicker",
+                "NacreWallpaperHex",
+                "NacreWallpaperMotion",
+            ):
                 source = (
                     (ROOT.parent / "shell/modules/launcher" / (name + ".qml"))
                     .read_text()
@@ -80,6 +85,16 @@ class WallpaperPickerUITests(unittest.TestCase):
                 manifest.write(
                     "\nNacreIcon 1.0 NacreIcon.qml\nsingleton Wallpapers 1.0 Wallpapers.qml\n"
                 )
+            install_foundation_interaction(
+                target / "fixtures", ROOT.parent / "shell/widgets"
+            )
+            # Ordinary Qt checks geometry/interaction only. Native rounded pixels
+            # are checked with the separate Quickshell RHI renderer.
+            (target / "fixtures/NacreClip.qml").write_text(
+                "import QtQuick\nRectangle {clip:true;color:'transparent'}"
+            )
+            with (target / "fixtures/qmldir").open("a") as manifest:
+                manifest.write("\nNacreClip 1.0 NacreClip.qml\n")
             shutil.copy2(
                 ROOT / "tests/wallpaper-qml/tst_wallpapers.qml",
                 target / "tst_wallpapers.qml",

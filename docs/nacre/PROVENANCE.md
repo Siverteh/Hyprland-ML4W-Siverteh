@@ -244,3 +244,33 @@ including native Settings selection and cache/preference/contrast regressions.
   AppGrid/WallpaperGallery implementation origin or every native focus behavior.
 - Newer local view bodies and launcher.js remain audit/replacement pending. Frame
   host now composes NacreLauncherPanel. Repository notices stay until final audit.
+
+
+## Launcher and wallpaper view replacement record (candidate)
+
+- In addition to the removed reference-era stack, all six maintained local view/
+  helper bodies (AppGrid, launcher.js, WallpaperGallery/Hex/Backdrop/MotionPreview)
+  were deleted and independently recreated as NacreAppBrowser, app-browser.js,
+  NacreWallpaperPicker/Hex/Backdrop/Motion. Creation metadata was insufficient to
+  certify independence, so no uncertain body was retained for expediency.
+- Contract basis: established behavior docs, source consumers, public declarations
+  and actual UI tests. Existing app/wallpaper tests retain semantics and now load
+  actual replacements. Source bodies were not opened during replacement; public
+  declarations of the local app/gallery were searched for assembly sizing/contracts.
+  No upstream implementation consulted; notices retained until whole-tree audit.
+- Preserved favorites/categories/search/context/prefs/keyboard/6rows, all wallpaper
+  filters/layouts/navigation/import/dynamic preview and per-output frame APIs.
+  Owned code centralizes category metadata, finite geometry/wraparound, cache decode
+  bounds, polygon containment, native clipping and buffer-ready presentation.
+- Native rendering sheets inspected using generated art and fake service data;
+  missing headless icon-theme assets are distinguishable from normal app metadata.
+  Real native pixel regression checks hex corners and actual NacreClip pixels.
+  Existing catalogue/services/extra modes and their underlying bodies remain pending
+  independent areas. Full candidate checks/live deployment still required.
+
+Candidate acceptance additions (2026-10-09): native generated GIF and MP4
+previews produced distinct decoded frames and fully stopped on disable. Icon
+lookup uses the documented checked-icon API with a palette-aware fallback.
+Preview-only navigation cannot apply/commit a wallpaper. Native test processes
+explicitly enable their completion-marker logging instead of inheriting the
+host's `*.debug=false`; pixel and interaction assertions remain unchanged.

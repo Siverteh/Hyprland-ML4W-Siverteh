@@ -44,13 +44,13 @@ Item {
     }
     Component {
         id: applications
-        AppGrid {
+        NacreAppBrowser {
             visibilities: root.visibilities
         }
     }
     Component {
         id: wallpapers
-        WallpaperGallery {
+        NacreWallpaperPicker {
             visibilities: root.visibilities
         }
     }

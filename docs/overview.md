@@ -112,4 +112,5 @@ readability and cache behavior. Both use the same publisher and no idle extracti
 
 Launcher mode assembly is now owned by NacreLauncherPanel and the fresh legacy
 search/action view NacreSearchPanel. The inherited list/item stack is retired;
-local app/wallpaper view body provenance remains a separate pending review.
+app/wallpaper presentation now uses fresh NacreAppBrowser/WallpaperPicker types;
+backend service/extra-mode provenance remains pending its own areas.

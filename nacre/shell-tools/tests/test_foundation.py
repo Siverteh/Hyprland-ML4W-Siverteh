@@ -170,6 +170,7 @@ QtObject {
             shutil.copy2(ROOT / "tests/foundation-qml/render.qml", target / "shell.qml")
             environment = {
                 **os.environ,
+                "QT_LOGGING_RULES": "qml.debug=true;scene.debug=true",
                 "QT_QPA_PLATFORM": "offscreen",
                 "QT_QUICK_BACKEND": "rhi",
                 "QSG_RHI_BACKEND": "opengl",

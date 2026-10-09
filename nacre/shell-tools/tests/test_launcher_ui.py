@@ -16,7 +16,7 @@ class LauncherUITests(unittest.TestCase):
             target = Path(directory)
             shutil.copytree(ROOT / "tests/qml/fixtures", target / "fixtures")
             source = (
-                (ROOT.parent / "shell/modules/launcher/AppGrid.qml")
+                (ROOT.parent / "shell/modules/launcher/NacreAppBrowser.qml")
                 .read_text()
                 .replace("import qs.widgets", 'import "fixtures"')
                 .replace("import qs.services", "")
@@ -29,13 +29,13 @@ class LauncherUITests(unittest.TestCase):
                 )
                 .replace("Quickshell.screens[0].width", "1920")
                 .replace("Quickshell.screens[0].height", "1200")
-                .replace("Quickshell.iconPath(tile.modelData.icon)", '""')
+                .replace("Quickshell.iconPath(tile.modelData.icon, true)", '""')
             )
             source = remove_objects(source, r"\bIpcHandler\s*\{")
-            (target / "AppGrid.qml").write_text(source)
+            (target / "NacreAppBrowser.qml").write_text(source)
             shutil.copy2(
-                ROOT.parent / "shell/modules/launcher/launcher.js",
-                target / "launcher.js",
+                ROOT.parent / "shell/modules/launcher/app-browser.js",
+                target / "app-browser.js",
             )
             shutil.copy2(
                 ROOT.parent / "shell/widgets/FastScroll.qml",
@@ -62,6 +62,23 @@ class LauncherUITests(unittest.TestCase):
                 manifest.write(
                     "\nScriptModel 1.0 ScriptModel.qml\nNacreIcon 1.0 NacreIcon.qml\n"
                 )
+            button = target / "fixtures/ActionButton.qml"
+            button.write_text(
+                button.read_text().replace(
+                    "property bool selected:",
+                    "property bool compact:false;property bool selected:",
+                )
+            )
+            colors = target / "fixtures/Colours.qml"
+            colors.write_text(
+                colors.read_text().replace(
+                    '"m3onPrimary": "black",',
+                    '"m3onPrimary": "black", "m3primaryContainer":"#334455", "m3onPrimaryContainer":"white",',
+                )
+            )
+            (target / "fixtures/NacreInteraction.qml").write_text(
+                "import QtQuick\nMouseArea {anchors.fill:parent;function onClicked(){}}"
+            )
             shutil.copy2(
                 ROOT / "tests/launcher-qml/tst_launcher.qml",
                 target / "tst_launcher.qml",

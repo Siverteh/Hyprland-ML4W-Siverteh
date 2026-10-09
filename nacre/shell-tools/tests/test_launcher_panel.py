@@ -37,7 +37,10 @@ class LauncherPanelTests(unittest.TestCase):
                 (target / (name + ".qml")).write_text(source)
             (target / "extras").mkdir()
             stub = "import QtQuick\nItem {required property var visibilities;property string kind:KIND;implicitWidth:800;implicitHeight:300}"
-            for mode, name in [("apps", "AppGrid"), ("legacy", "NacreSearchPanel")]:
+            for mode, name in [
+                ("apps", "NacreAppBrowser"),
+                ("legacy", "NacreSearchPanel"),
+            ]:
                 if mode == "apps":
                     (target / (name + ".qml")).write_text(
                         stub.replace("KIND", '"' + mode + '"')
@@ -59,7 +62,7 @@ class LauncherPanelTests(unittest.TestCase):
                     "id: root", "id: root\n property string kind: 'legacy'"
                 )
             )
-            (target / "WallpaperGallery.qml").write_text(
+            (target / "NacreWallpaperPicker.qml").write_text(
                 "import QtQuick\nItem {required property var visibilities;property int count:3;property int currentIndex:0;implicitWidth:800;implicitHeight:360;function move(delta){currentIndex=Math.max(0,Math.min(2,currentIndex+delta))}}"
             )
             helpers = {

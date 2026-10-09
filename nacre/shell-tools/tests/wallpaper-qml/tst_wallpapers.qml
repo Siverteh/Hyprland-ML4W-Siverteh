@@ -11,11 +11,12 @@ TestCase {
     when: windowShown
     Component {
         id: picker
-        WallpaperGallery {
+        NacreWallpaperPicker {
             width: 1160
             height: implicitHeight
             visibilities: QtObject {
                 property bool launcher: true
+                property bool previewOnly: false
             }
         }
     }
@@ -25,14 +26,14 @@ TestCase {
     }
     Component {
         id: backdrop
-        WallpaperBackdrop {
+        NacreWallpaperBackdrop {
             width: 500
             height: 300
         }
     }
     Component {
         id: hex
-        WallpaperHex {
+        NacreWallpaperHex {
             entry: Wallpapers.list[0]
         }
     }
@@ -46,10 +47,19 @@ TestCase {
     }
     Component {
         id: motionPreview
-        WallpaperMotionPreview {
+        NacreWallpaperMotion {
             width: 300
             height: 180
         }
+    }
+    function test_preview_navigation_does_not_apply_wallpaper() {
+        const view = createTemporaryObject(picker, test);
+        view.visibilities.previewOnly = true;
+        view.move(1);
+        compare(view.currentIndex, 1);
+        compare(Wallpapers.browsed, "");
+        view.choose();
+        compare(Wallpapers.current, "one");
     }
     function test_preview_cancels_decode_when_selection_moves_before_settling() {
         const view = createTemporaryObject(motionPreview, test, {

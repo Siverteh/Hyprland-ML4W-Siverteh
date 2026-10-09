@@ -37,5 +37,6 @@ The inherited reference-era content/list/action/item stack is removed. Its
 compatibility `legacy` mode now uses the independently authored NacreSearchPanel:
 app search or `>` known desktop actions, keyboard selection/Enter/Escape and
 readable palette-aware rows. It does not execute arbitrary command text or add
-power controls. The newer category and wallpaper view bodies have their own origin
-review/replacement record; composing them does not certify those bodies here.
+power controls. The category browser now uses NacreAppBrowser and app-browser.js; these are fresh
+implementations from the behavior spec and actual consumer/tests, not renamed
+view bodies. Wallpaper presentation is independently replaced as well.

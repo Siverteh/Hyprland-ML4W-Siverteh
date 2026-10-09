@@ -108,7 +108,7 @@ TestCase {
     Component {
         id: launcher
 
-        AppGrid {
+        NacreAppBrowser {
             width: 980
             height: implicitHeight
 

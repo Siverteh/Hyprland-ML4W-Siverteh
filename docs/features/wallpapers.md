@@ -50,8 +50,8 @@ priority startup worker prepares palette results and per-wallpaper login blurs
 without changing the active wallpaper/theme. Completed palette warm markers avoid
 repeating the work on renderer recovery. Publication remains owned by the existing
 palette bridge, with shell colors published before compatibility/login assets.
-The normal carousel uses a bounded PathView with animated movement, complete odd
-card count and two nearby cached delegates rather than swapping a row's images.
+The normal carousel uses bounded circular offsets with animated movement and a
+complete odd card count. Only visible cards and nearby cached delegates decode.
 
 Prepared palette commits use the same publisher and palette lock as the CLI,
 validate roles/mode/flavour, preserve CLI wallpaper identity and fall back to the
@@ -79,3 +79,23 @@ Appearance offers Full motion (default), Still on battery and Always still.
 The latter two reuse the scene's cached poster and retain its colors, unloading
 the desktop video/GIF decoder when motion is disabled. Picker previews remain
 available. Covered, locked and sleeping playback guards remain active.
+
+
+## Independent presentation
+
+NacreWallpaperPicker, NacreWallpaperBackdrop, NacreWallpaperHex and
+NacreWallpaperMotion replace the former local view bodies, including mixed/uncertain
+implementation rather than certifying it from first creation. The shared backend,
+private catalogue, poster/cache/palette publisher and motion preferences keep
+ownership. Tests cover smooth intermediate carousel/spotlight positions, layout
+switches, filtering/selection, decode cancellation, image-ready retention and
+polygon hit areas. Native Quickshell RHI captures assert actual hexagon/rounded
+image corner pixels; ordinary Qt geometry fixtures alone do not prove clipping.
+
+A circular travel target keeps carousel wraparound short. Decode sources are
+bounded to nearby cards and visible buffered hexagons; ordinary carousel avoids
+large backdrop decoding. Silent preview starts only after180ms settled selection
+and unloads on close/selection changes. Palette-matched motion preferences remain
+separate from preview presentation. Backdrop swaps defer to the next event step
+and retain old pixels until replacement readiness, including previously cached
+buffers whose source URL does not change. Reduced motion skips geometry/crossfade.
