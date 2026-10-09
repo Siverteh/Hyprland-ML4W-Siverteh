@@ -43,9 +43,9 @@ retention beyond callback. Preserve toplevel refresh and workspace/window comman
 
 Current session uses Lua. Convert numeric legacy workspace requests into native
 Lua dispatcher expressions, accept existing trusted internal hl.dsp expressions,
-and use explicit hl.dispatch for the Lua transport. Do not silently send legacy
+and use native dispatch expression transport (Quickshell wraps hl.dispatch). Do not silently send legacy
 strings to Lua. Non-Lua native sessions preserve native dispatch. No commands on
-startup/model reads beyond read-only refresh/cursor query. Explicit reload means
+startup/model reads beyond read-only refresh/cursor and bootstrap focus queries. Explicit reload means
 refreshing state, not rewriting or reloading managed compositor configuration.
 Keep monitor focus and cursor snapshot contracts. Bounded read-only diagnostics
 must omit window titles/classes/process IDs. Every UI caller uses NacreHyprland;
@@ -67,3 +67,10 @@ are not completion claims.
 
 Primary references: Quickshell0.3.1 DesktopEntries/DesktopEntry/SystemClock,
 Hyprland/HyprlandToplevel/HyprlandEvent; target Hyprland0.56 Lua dispatcher API.
+
+Native acceptance refinement: this runtime supplies unprefixed native addresses
+and no activated Wayland handle in a windowless probe. Canonicalize addresses to
+0x-prefixed keys, seed focus once with a generation-guarded read-only activewindow
+query, then consume activewindowv2 events. Do not issue native metadata requests
+before Lua-mode initialization; refresh after usingLua changes. This preserves
+focus/fullscreen guards without polling clients or focus.

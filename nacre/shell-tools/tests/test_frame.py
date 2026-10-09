@@ -131,7 +131,7 @@ TestCase {
                 ),
                 "services/DesktopSettings": "property var data:({animations:false,leftDrawer:true,rightEdge:true})",
                 "services/Visibilities": "property bool hidden:false",
-                "services/Hyprland": "property var focusedMonitor:({name:'test'});property var activeClient:null",
+                "services/NacreHyprland": "property var focusedMonitor:({name:'test'});property var activeClient:null",
                 "config/NacreFrame": "property int left:10;property int right:10;property int bottom:10;property int headerHeight:50;property int rounding:20",
             }
             for name, body in helpers.items():

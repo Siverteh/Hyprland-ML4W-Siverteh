@@ -65,6 +65,11 @@ TestCase {
         });
         verify(row.fullscreen);
         compare(row.lastIpcObject.fullscreen, 2);
+        state.observeFocus("10");
+        compare(state.activeClient, row);
+        state.observeFocus("");
+        compare(state.activeClient, null);
+        state.focusKnown = false;
         const second = createTemporaryObject(window, test, {
             address: "0x20",
             activated: false
