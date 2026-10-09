@@ -336,3 +336,35 @@ outside click passed. Dashboard native capture visually reviewed, page geometry
 within output bounds, installed source matched and configerrors empty. Retained
 page/card/settings/service bodies are still pending; this verifies assembly only.
 No license/notice removed and physical multi-monitor/cold login remain untested.
+
+## Dashboard overview cards (candidate)
+
+- Deleted dashboard/Dash.qml and dash/{Weather,User,DateTime,Calendar,Resources,
+  Media}.qml without opening their bodies. New NacreOverview and overview/
+  Nacre{Weather,Host,Clock,Calendar,Resource,Media}Card plus NacreOverviewCard and
+  overview.js implement the behavior spec from scratch. No inherited CalendarGrid
+  dependency remains in the overview; the existing bar still uses that helper.
+- Source exposure: public target/service property declarations and caller-reference
+  searches, plus existing independently maintained LockWidgets/lock-dashboard
+  consumer contracts for data fields/units. Existing own BrandLogo body was read
+  and retained. No upstream implementation consulted; no legal certainty claimed.
+- References/dependencies: Qt Quick/Shapes/date/locale and documented Quickshell
+  FileView and MPRIS interfaces. Existing foundation controls, logo and services
+  retained. No new artwork, package or notification/media/data owner.
+- Behavior: preferred overview composition preserved with responsive scrolling;
+  independent civil-date calendar/month navigation, asynchronous host reads,
+  bounded gauges, missing/cached weather, metadata/action capability guards,
+  circular album clipping and visible-only one-second media progress samples.
+- Production Qt fixtures cover leap years, week starts/year/date rollover, geometry
+  and overlap at 300/508/699/700/874/1200px, clock/weather/host fallbacks, fraction
+  bounds, actual pointer transport, capabilities/removal/track changes and hidden
+  sampling. Native Quickshell pixel checks verify the actual album circle and
+  rounded-card corners; generated-art overview render inspected.
+- Full checks/live acceptance pending. Larger dashboard pages/settings, shared
+  CalendarGrid, bongo asset, data services and whole-tree audit remain pending.
+  Notices retained and private preferences/credentials unchanged.
+
+Candidate refinement: explicit viewport intersection stops host/media sampling
+when narrow-layout cards scroll offscreen. Artwork follows the current player
+only while visible, keeps loaded pixels during asynchronous replacement and
+falls back after failure/removal. Actual scroll tests cover these transitions.

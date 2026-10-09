@@ -114,3 +114,14 @@ label/underline immediately. Settings keeps pinned keyboard focus; choosing
 another tab releases that pin. Hidden pages stop their declared update/active
 contract and unload after closing. Page bodies remain separate rewrite batches;
 existing personal settings and lock authentication ownership are preserved.
+
+## Independent overview cards
+
+The overview uses NacreOverview and its own weather, host, clock, calendar,
+resource and media cards. Wide screens keep the established overview composition;
+narrow screens arrange cards into readable rows and scroll instead of clipping.
+The calendar follows the locale's week start and supports month navigation.
+Host description/uptime use native asynchronous file reads; only an open card
+refreshes uptime once per minute. Media progress samples once per second only
+while visible and playing, with capability-aware controls and a circular cached
+album preview. Existing service owners, user preferences and playback remain.

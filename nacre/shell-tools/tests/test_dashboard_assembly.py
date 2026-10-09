@@ -40,9 +40,15 @@ class DashboardAssemblyTests(unittest.TestCase):
                     "required property var visibilities",
                 )
                 (target / (name + ".qml")).write_text(source)
-            for name in ("Dash", "Media", "Performance", "WorkspacePage", "Settings"):
+            for name in (
+                "NacreOverview",
+                "Media",
+                "Performance",
+                "WorkspacePage",
+                "Settings",
+            ):
                 fields = {
-                    "Dash": "required property bool shouldUpdate",
+                    "NacreOverview": "required property bool shouldUpdate",
                     "Media": "required property bool shouldUpdate;required property var visibilities",
                     "Performance": "",
                     "WorkspacePage": "required property var visibilities",

@@ -30,9 +30,9 @@ TestCase {
         const loader = findChild(view, "dashboardPage");
         const navigation = findChild(view, "dashboardNavigation");
         const marker = findChild(view, "dashboardSelection");
-        compare(loader.item.pageName, "Dash");
+        compare(loader.item.pageName, "NacreOverview");
         compare(loader.item.shouldUpdate, true);
-        for (const [index, name] of ["Dash", "Media", "Performance", "WorkspacePage", "Settings"].entries()) {
+        for (const [index, name] of ["NacreOverview", "Media", "Performance", "WorkspacePage", "Settings"].entries()) {
             mouseClick(findChild(view, "dashboardTab" + index), 35, 35);
             compare(view.visibilities.dashboardTab, index);
             compare(navigation.currentIndex, index);

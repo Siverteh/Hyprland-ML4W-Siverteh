@@ -45,7 +45,7 @@ NacreSurface {
     }
     Component {
         id: overview
-        Dash {
+        NacreOverview {
             shouldUpdate: root.updating
         }
     }

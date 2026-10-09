@@ -58,3 +58,9 @@ plan/apply, native source/IPC and live opening/tab/close gates before publicatio
 Preserve private history/preferences/AI workers and existing playback; use a fake
 player to verify transport rather than skipping the user's real track. Record
 remaining inherited services/assets/helpers explicitly.
+
+Implementation references: [Quickshell FileView](https://quickshell.org/docs/v0.3.1/types/Quickshell.Io/FileView/)
+for asynchronous native reads and
+[MprisPlayer](https://quickshell.org/docs/v0.3.1/types/Quickshell.Services.Mpris/MprisPlayer/)
+for supported transport/position capabilities and seconds-based position. Calendar
+uses standard JavaScript civil-date constructors and Qt locale/date formatting.
