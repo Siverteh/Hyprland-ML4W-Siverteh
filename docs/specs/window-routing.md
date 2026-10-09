@@ -1,6 +1,6 @@
 # Independent application window routing
 
-Implementation written, acceptance pending, 2026-10-09. Target `hypr/conf/windowrule.lua`; existing own appearance/
+Implemented and natively deployed, 2026-10-09. Real application/cold-login coverage remains separate. Target `hypr/conf/windowrule.lua`; existing own appearance/
 popup rules in nacre.lua and Brain/editor routing in brain.lua are separate
 owners/reviews. Lua introduction `f3290a5` overlaps old dotfile conversion; per-rule
 local changes must be distinguished from inherited data/structure, not presumed
@@ -69,3 +69,12 @@ finite PCRE witness limitations remain explicit. This is not full regular-expres
 intersection proof or helper/private-source provenance certification.
 
 Reference: [Hyprland window rules](https://wiki.hypr.land/Configuring/Basics/Window-Rules/).
+
+Native baseline/after probe uses owned Kitty processes with browser/Discord/Spotify/
+Evolution/editor classes and a Thunar class, not the actual user applications.
+AI/Brain classes deliberately avoided because session managers may enforce
+singleton windows; their declarations are exact-contract tested. Initial popup
+size expectation failed before deployment: Kitty retained its950x500 preference
+despite the70%/75% static rule. The probe compares that observed baseline geometry,
+float/pin/route afterward; it does not falsely claim actual GTK Thunar sizing was
+physically verified. Old/new11-rule data and native parser cover configured geometry.

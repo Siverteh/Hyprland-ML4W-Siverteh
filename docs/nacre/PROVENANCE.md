@@ -1221,3 +1221,22 @@ route/float checker covers generated tables as well as literal declarations.
 Existing binding reader source reviews reassessed and semantic tests retained.
 Public declarations and prior exposure acknowledged; no upstream/old body reused
 or legal clean-room/whole-license claim. Helper/private/root audits remain.
+
+Routing acceptance (2026-10-09): source `e944518`, good release
+`20261009T233814657408Z`. All387 checks (49 tools,96 AI,35 Brain,207 shell),
+QML/native Hyprland and reviewed config+shell strict transaction gates passed.
+All11 captured named match/actions exactly equal; generated routing/float conflict
+regressions and prior95-binding contracts pass. Ten actual owned temporary class
+windows match before/after workspace/float/pin/observed geometry and silent routing;
+real user sessions untouched. AI/Brain class fixtures avoided to protect singleton
+workers, behavior covered by declarations. Initial fake Thunar size assertion
+failed on unchanged baseline because Kitty requested950x500; corrected to actual
+before/after comparison, no claim real GTK application size verified.
+
+Installed routing/helpers and235-file shell exact source; private preference/
+history hashes and worker identity unchanged, six app click/key-return/dismissal
+cycles pass, shell active/configerrors empty. No new actor/app/AI/hardware/power
+action; fake classes do not prove real app cold login. One own route-source review
+added, shared capture reviews reassessed; root/Brain/private-shortcut/helper/UI/
+assets/tests/packaging and final comparison/fresh-session checks remain. Notices
+retained, whole originality goal active.

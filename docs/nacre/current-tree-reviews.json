@@ -876,6 +876,19 @@
         "tools/tests/fixtures/keybindings-contract.json",
         "nacre/shell-tools/tests/test_desktop_extras.py"
       ]
+    },
+    {
+      "area": "application-window-routing",
+      "commit": "e944518",
+      "spec": "docs/specs/window-routing.md",
+      "paths": [
+        "hypr/conf/windowrule.lua",
+        "tools/window_rules.py",
+        "nacre/shell-tools/binding-contracts.lua",
+        "nacre/shell-tools/binding-contracts.py",
+        "tools/tests/test_window_routing.py",
+        "tools/tests/fixtures/window-routing-contract.json"
+      ]
     }
   ],
   "reviews": {
@@ -1096,6 +1109,15 @@
         "docs/specs/keybindings.md",
         "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
         "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+      ]
+    },
+    "hypr/conf/windowrule.lua": {
+      "disposition": "independent",
+      "sha256": "61fa11ab8d75e9c311a7acf105011fd334a10972e1753fcdab3fc61cc5c474b8",
+      "evidence": [
+        "docs/specs/window-routing.md",
+        "docs/nacre/PROVENANCE.md#application-route-composition-replacement",
+        "replacement e944518: target deleted then own ordered route composition from11 captured public native rule contracts/APIs; generated conflicts/full checks/owned-window comparison and exact installed source verified; prior exposure acknowledged; no upstream body copied; companion/real-app audits separate"
       ]
     }
   }
