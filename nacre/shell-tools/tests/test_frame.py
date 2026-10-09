@@ -34,6 +34,61 @@ class FrameTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertNotIn("QWARN", result.stdout + result.stderr)
 
+    def test_topbar_forwarder_is_passive_and_only_dismisses_modal_views(self):
+        runner = Path("/usr/lib/qt6/bin/qmltestrunner")
+        if not runner.exists():
+            self.skipTest("Qt Quick Test unavailable")
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)
+            source = (SHELL / "modules/topbar/TopBar.qml").read_text()
+            start = source.index("        Item {\n            id: modalForwarderPane")
+            end = source.index(
+                "        MouseArea {\n            id: dashboardHover", start
+            )
+            trigger = source[start:end]
+            (target / "Forwarder.qml").write_text(
+                "import QtQuick\nimport \".\"\nItem {id:win;width:200;height:50;readonly property Item contentItem:win;property var screen:({name:'test'});property alias handler:modalForwarder;property int clicks:0;MouseArea{anchors.fill:parent;onClicked:win.clicks++}\n"
+                + trigger
+                + "\n}"
+            )
+            (target / "Visibilities.qml").write_text(
+                "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}\n"
+            )
+            (target / "qmldir").write_text(
+                "singleton Visibilities 1.0 Visibilities.qml\n"
+            )
+            (target / "tst_forward.qml").write_text("""import QtQuick
+import QtTest
+import "."
+TestCase {
+ name:"TopbarModalForwarder";width:300;height:100;visible:true;when:windowShown
+ Component{id:scene;Forwarder{}}
+ QtObject{id:controller;property bool modal:true;property int calls:0;function outsideClick(point){calls++}}
+ function test_forwarding_preserves_child_clicks(){
+  const view=createTemporaryObject(scene,this);
+  Visibilities.panels={test:{input:controller}};
+  controller.modal=true;controller.calls=0;
+  wait(30);mouseMove(view,80,20);wait(10);
+  mouseClick(view,80,20);
+  compare(controller.calls,1);
+  compare(view.clicks,1);
+  controller.modal=false;
+  mouseClick(view,80,20);
+  compare(controller.calls,1);
+  compare(view.clicks,2);
+ }
+}
+""")
+            result = subprocess.run(
+                [str(runner), "-input", str(target), "-o", "-,txt"],
+                env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
+                capture_output=True,
+                text=True,
+                timeout=20,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertNotIn("QWARN", result.stdout + result.stderr)
+
     def test_native_geometry_theme_and_immediate_mask_release(self):
         binary = shutil.which("quickshell")
         if not binary:

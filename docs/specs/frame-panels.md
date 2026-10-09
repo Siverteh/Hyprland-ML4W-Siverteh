@@ -121,6 +121,8 @@ its original generated notices; it is a test dependency, not shipped desktop cod
 Panel positioning is centralized in independently authored layout.js, with bounded
 edge attachment and popup-centering/docking calculations. Unit tests cover parent
 resizes, oversized content and stable right docking during opening. Modal click-away
-also covers separate surfaces (e.g. top bar) using the public HyprlandFocusGrab API;
-activation requires backingWindowVisible and modal state, and passive hover never
-uses it. No inherited focus-grab source is reused.
+also covers the separate top-bar surface through a passive PointHandler that forwards
+presses to the same controller. The native activation gate rejected an extra
+HyprlandFocusGrab because it closed the launcher during focus acquisition; that
+candidate was rolled back and the unnecessary grab removed. No inherited
+focus-grab implementation is retained.

@@ -281,6 +281,22 @@ Variants {
             }
             Native.Power {}
         }
+        Item {
+            id: modalForwarderPane
+            anchors.fill: parent
+            z: 100
+            PointHandler {
+                id: modalForwarder
+                acceptedButtons: Qt.AllButtons
+                onActiveChanged: {
+                    if (active) {
+                        const controller = Visibilities.panels[win.screen.name]?.input;
+                        if (controller?.modal)
+                            controller.outsideClick(point.position);
+                    }
+                }
+            }
+        }
         MouseArea {
             id: dashboardHover
             anchors.horizontalCenter: parent.horizontalCenter

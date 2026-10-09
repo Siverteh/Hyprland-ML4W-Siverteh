@@ -18,10 +18,10 @@ catching clicks while its visual dimensions animate to zero. A passive HoverHand
 observes movement without taking child clicks. The host exposes dashboardHovered
 and popoutHovered explicitly, so callers no longer inspect a particular parent.
 
-Explicit modal panels capture outside clicks and exclusive keyboard input. A
-modal-only Hyprland focus grab starts only on a mapped window and also handles
-clicks on other shell surfaces, such as the separate top bar; it releases on close.
-Ordinary hover menus never take this grab. AI uses on-demand keyboard interaction whether or
+Explicit modal panels capture outside clicks and exclusive keyboard input. The separate
+top bar forwards presses to the same outside-click controller through a passive
+PointHandler. No Hyprland focus grab is taken.
+Ordinary hover menus remain nonmodal. AI uses on-demand keyboard interaction whether or
 not pinned; pinning releases the explicit click-away mode. Root layer/namespace
 stay stable as panels open and close. Side hover activation shares the host's
 click-through mask instead of creating a separately toggled left-edge window.
