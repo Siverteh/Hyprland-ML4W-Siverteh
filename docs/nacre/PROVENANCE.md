@@ -1210,3 +1210,14 @@ These were test/probe errors, not hidden runtime failures. No physical Fn/Super
 proof or whole-helper/root/routing/source/asset/license conclusion. Four own source
 reviews (keybinding/capture Lua+Python/tool bridge) tied to SHA/spec/replacement;
 caller edits retained as separate helper audits. Notices and full goal remain.
+
+## Application route composition replacement
+
+[Spec](../specs/window-routing.md): deleted windowrule.lua before own ordered
+named route map/emitter and explicit Thunar popup. All11 public named match/action
+contracts captured with safe declaration owner and preserved. Scoped mail/Brain/
+other appearance owners unchanged. Shared restricted capture gains rule mode;
+route/float checker covers generated tables as well as literal declarations.
+Existing binding reader source reviews reassessed and semantic tests retained.
+Public declarations and prior exposure acknowledged; no upstream/old body reused
+or legal clean-room/whole-license claim. Helper/private/root audits remain.

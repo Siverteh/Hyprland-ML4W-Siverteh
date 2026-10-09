@@ -1071,20 +1071,22 @@
     },
     "nacre/shell-tools/binding-contracts.lua": {
       "disposition": "independent",
-      "sha256": "10c598dbffbf2ab3c8ae2efaf7b7b97c119075de803b1fa7d5f5095d2aac0b80",
+      "sha256": "b4338b15d9e0211a165b1da6dcc96222a380843b915a5e280b127787b5d5a46b",
       "evidence": [
         "docs/specs/keybindings.md",
         "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
-        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain",
+        "docs/specs/window-routing.md: reassessed restricted reader adds rule metadata capture, retains sandbox and95-binding contract checks"
       ]
     },
     "nacre/shell-tools/binding-contracts.py": {
       "disposition": "independent",
-      "sha256": "a3a3818578cf6be0a4b658e266cbb3237c350ef7491c8700cafbca93682206cb",
+      "sha256": "2aedb81a54b5b9ed8808152b3f1967b8440c2eef85155d1585a87d57cdc18da6",
       "evidence": [
         "docs/specs/keybindings.md",
         "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
-        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain",
+        "docs/specs/window-routing.md: reassessed restricted reader adds rule metadata capture, retains sandbox and95-binding contract checks"
       ]
     },
     "tools/bindings.py": {

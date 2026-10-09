@@ -6,12 +6,14 @@ import shutil
 import subprocess
 
 
-def capture(path):
+def capture(path, kind="bindings"):
+    if kind not in ("bindings", "rules"):
+        raise ValueError("Unsupported declaration kind")
     lua = shutil.which("lua")
     if not lua:
         raise RuntimeError("Lua required for declarative binding checks")
     result = subprocess.run(
-        [lua, str(Path(__file__).with_suffix(".lua")), str(path)],
+        [lua, str(Path(__file__).with_suffix(".lua")), str(path), kind],
         capture_output=True,
         text=True,
         timeout=10,

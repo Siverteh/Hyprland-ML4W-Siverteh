@@ -1,4 +1,5 @@
 local records = {}
+local captured_rules = {}
 local submap = ""
 local function json(value)
     local kind = type(value)
@@ -38,7 +39,8 @@ local stub = {
         local previous = submap; submap=name; callback(); submap=previous
     end,
 }
-stub.window_rule = function() end
+stub.window_rule = function(rule) captured_rules[#captured_rules+1] = rule end
+stub.layer_rule = function() end
 stub.config = function() end
 stub.on = function() end
 local environment = {
@@ -49,4 +51,4 @@ local environment = {
 local source, failure = loadfile(arg[1], "t", environment)
 assert(source, failure)
 source()
-io.write(json(records))
+io.write(json(arg[2] == "rules" and captured_rules or records))

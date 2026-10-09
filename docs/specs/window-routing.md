@@ -1,6 +1,6 @@
 # Independent application window routing
 
-Spec ready, 2026-10-09. Target `hypr/conf/windowrule.lua`; existing own appearance/
+Implementation written, acceptance pending, 2026-10-09. Target `hypr/conf/windowrule.lua`; existing own appearance/
 popup rules in nacre.lua and Brain/editor routing in brain.lua are separate
 owners/reviews. Lua introduction `f3290a5` overlaps old dotfile conversion; per-rule
 local changes must be distinguished from inherited data/structure, not presumed
@@ -43,3 +43,29 @@ configerrors empty, and report scope. SHA-bound source/dependency evidence and
 exact-main CI; root/global seed/other configs/helper/assets/tests/full-runtime
 provenance comparison and fresh compositor old-curve check remain required before
 completing the entire goal. Applicable notices stay; public app choices later.
+
+## Captured contracts and fresh source
+
+Safe declaration capture found10 workspace class rules and one centered unpinned
+Thunar popup,70% width/75% height. No title-scoped mail rule exists in this file;
+Evolution classes route5, browser app mail/startup and Brain routes remain with
+their current separate owners. Public names/match/action declarations exposed as
+behavior contracts, no old/upstream implementation body consulted; prior exposure
+acknowledged/no clean-room claim. Current source already incorporates local app
+map changes; do not presume every rule is inherited solely from its initial file.
+
+Deleted target before own ordered named route table/emission and explicit popup
+rule. All11 captured rule names/matches/actions equal, including case patterns,
+compatibility AI class IDs and silent workspace behavior. No stale Mission Center
+or ML4W app rules restored. Existing appearance and editor/Brain rules unchanged.
+
+Restricted shared capture now accepts rule mode as well as binding mode. It records
+window_rule metadata, ignores layer/config declarations, and still exposes no
+process, I/O, environment or package access. Existing binding contract/source hash
+reviews reassessed;95-binding tests remain. Conflict checker uses actual emitted
+rule data instead of assuming literal tables, preserving match qualifiers and
+detecting generated class routes/float contradictions. Named/title exceptions and
+finite PCRE witness limitations remain explicit. This is not full regular-expression
+intersection proof or helper/private-source provenance certification.
+
+Reference: [Hyprland window rules](https://wiki.hypr.land/Configuring/Basics/Window-Rules/).

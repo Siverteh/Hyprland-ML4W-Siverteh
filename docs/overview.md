@@ -201,3 +201,7 @@ see [battery alert ownership](specs/battery-alerts.md).
 Managed shortcuts use own declarative groups and generated workspace/direction
 families. Restricted Lua contract capture keeps conflict checks effective for
 generated keys; see [shortcut specification](specs/keybindings.md).
+
+Own ordered named application routes preserve the current workspace map and
+Thunar popup. Restricted rule capture checks generated route/float conflicts;
+see [routing specification](specs/window-routing.md).

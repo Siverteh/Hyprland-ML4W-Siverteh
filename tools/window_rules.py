@@ -1,7 +1,7 @@
 """Detect conflicting class-wide Lua window routes and floating rules.
 
-Window routes are read as literal rule tables. Binding declarations use a restricted
-Lua environment without native actions, processes or file/environment access.
+Window rules and binding declarations use a restricted Lua environment without
+native actions, processes or file/environment access.
 It compares equal selectors and witnesses overlaps using finite class names,
 including case pairs and alternations. Arbitrary PCRE intersection is not assumed.
 """
@@ -61,24 +61,21 @@ def without_comments(source):
 
 
 def rules(folder, extra=()):
+    from bindings import capture
+
     result = []
     for path in lua_sources(folder, extra):
         source = without_comments(path.read_text())
-        for call in re.finditer(r"hl\.window_rule\s*\(\s*\{", source):
-            start = source.index("{", call.start())
-            block = source[start : balanced(source, start)]
-            match = re.search(r"\bmatch\s*=\s*\{", block)
-            if not match:
-                continue
-            begin = block.index("{", match.start())
-            end = balanced(block, begin)
-            selectors = fields(block[begin:end])
+        if not re.search(r"\bhl\.window_rule\s*\(", source):
+            continue
+        for rule in capture(path, "rules"):
+            selectors = dict(rule.get("match", {}))
             pattern = selectors.pop("class", None)
             if not pattern:
                 continue
-            values = fields(block[:begin] + block[end:])
+            values = {key: value for key, value in rule.items() if key != "match"}
             if "workspace" in values:
-                values["workspace"] = values["workspace"].split()[0]
+                values["workspace"] = str(values["workspace"]).split()[0]
             result.append((path.name, pattern, selectors, values))
     return result
 
