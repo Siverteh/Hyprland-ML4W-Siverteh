@@ -23,6 +23,8 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
     cache = roots()[2] / "orient" / (identity + ".json")
     try:
         cached = read(cache, {})
+        if not isinstance(cached, dict):
+            raise ValueError("Invalid palette cache record")
         if (
             cached.get("engine") == ENGINE_ID
             and cached.get("input") == settings
@@ -34,6 +36,8 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
         ):
             validate(cached["colours"])
             source = cached.get("source", {})
+            if not isinstance(source, dict):
+                raise ValueError("Invalid palette cache source")
             digest = source.get("digest", "")
             clean(source.get("selected", ""))
             if len(digest) == 64 and all(c in "0123456789abcdef" for c in digest):

@@ -181,7 +181,11 @@ class OrientTests(unittest.TestCase):
         path = self.image("d01818")
         expected = from_image(path)
         cache = next((self.home / ".cache/nacre/orient").glob("*.json"))
-        cache.write_text('{"engine":"orient-2.0.0","colours":null}')
+        for broken in ([], None, {"engine": "orient-2.0.0", "colours": None}):
+            cache.write_text(json.dumps(broken))
+            self.assertEqual(from_image(path), expected)
+        broken = dict(expected, source=[])
+        cache.write_text(json.dumps(broken))
         self.assertEqual(from_image(path), expected)
 
     def test_all_required_roles_and_contrast_across_hues(self):
