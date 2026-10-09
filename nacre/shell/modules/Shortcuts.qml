@@ -16,7 +16,7 @@ Scope {
                 const v = Visibilities.screens[screen.name], p = Visibilities.panels[screen.name];
                 if (!v || v.launcher || v.session || v.edgeMenu !== "")
                     continue;
-                HoverIntent.dismiss(screen);
+                NacreHoverIntent.dismiss(screen);
                 if (!v.dashboardPinned)
                     v.dashboard = false;
                 if (!v.leftPinned)

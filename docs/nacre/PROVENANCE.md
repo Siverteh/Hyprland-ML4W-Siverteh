@@ -882,3 +882,16 @@ already-ready poster is acknowledged when matching metadata arrives later. Opaqu
 old poster stays under new fade; literal percent/space path tested. Native data /
 playback policy, root shell, shortcuts/topbar/helpers/config/assets/final audit
 remain separate work. Notices retained and the full goal stays active.
+
+## Top bar/workspaces/hover policy (replaced; acceptance pending)
+
+Deleted mixed TopBar/WorkspaceStrip/HoverIntent bodies before own NacreTopBar/
+Header/WorkspaceRow/HeaderTrigger/HeaderForwarder and NacreHoverIntent. Public
+layout/declarations/caller contracts, existing tests and own bar controls/native
+APIs informed the code. Prior complete/partial exposure from live fixes recorded;
+no upstream implementation consulted/no legal clean-room claim. Root and maintained
+consumers use Nacre names; old names minimal own adapters. Actual new helper and
+component tests replace old substring-extraction fixtures, preserve native frame
+and hover scenarios, and add invalid input/map ownership/read-only/routing cases.
+Root/Shortcuts/helper bodies only receive caller renames, not provenance certification.
+Notices retained; whole-tree audit still required.

@@ -16,11 +16,11 @@ Item {
     property bool hidden: Visibilities.hidden
     readonly property real padding: Math.max(12, NacreFrame.rounding / 2)
     readonly property bool modal: !hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.dashboard && visibilities.dashboardPinned || panels.popouts.pinned && panels.popouts.hasCurrent || visibilities.edgeMenu === "dashboard" && visibilities.dashboard || visibilities.edgeMenu === "left" && visibilities.left && !visibilities.leftPinned || visibilities.edgeMenu === "osd" && visibilities.osd)
-    readonly property bool autoEdges: !hidden && !modal && DesktopSettings.data.clickEdgeMenus !== true && !visibilities.launcher && !visibilities.session && !HoverIntent.fullscreenFor(screen.name)
+    readonly property bool autoEdges: !hidden && !modal && DesktopSettings.data.clickEdgeMenus !== true && !visibilities.launcher && !visibilities.session && !NacreHoverIntent.fullscreenFor(screen.name)
     readonly property bool leftEdgeAvailable: autoEdges && DesktopSettings.data.leftDrawer !== false && !visibilities.left
     readonly property bool rightEdgeAvailable: autoEdges && DesktopSettings.data.rightEdge !== false && !visibilities.osd
-    readonly property rect leftEdgeRect: DesktopSettings.data.leftDrawer !== false ? Qt.rect(0, panels.y + panels.leftDrawer.y, HoverIntent.edgeWidth, panels.leftDrawer.height) : Qt.rect(0, 0, 0, 0)
-    readonly property rect rightEdgeRect: DesktopSettings.data.rightEdge !== false ? Qt.rect(width - HoverIntent.edgeWidth, panels.y + panels.osd.y, HoverIntent.edgeWidth, panels.osd.height) : Qt.rect(0, 0, 0, 0)
+    readonly property rect leftEdgeRect: DesktopSettings.data.leftDrawer !== false ? Qt.rect(0, panels.y + panels.leftDrawer.y, NacreHoverIntent.edgeWidth, panels.leftDrawer.height) : Qt.rect(0, 0, 0, 0)
+    readonly property rect rightEdgeRect: DesktopSettings.data.rightEdge !== false ? Qt.rect(width - NacreHoverIntent.edgeWidth, panels.y + panels.osd.y, NacreHoverIntent.edgeWidth, panels.osd.height) : Qt.rect(0, 0, 0, 0)
     readonly property rect launcherRect: box(panels.launcher, visibilities.launcher)
     readonly property rect dashboardRect: box(panels.dashboard, visibilities.dashboard)
     readonly property rect leftRect: box(panels.leftDrawer, visibilities.left)
@@ -50,7 +50,7 @@ Item {
         return [launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect].some(rect => inside(rect, point));
     }
     function dismiss() {
-        HoverIntent.dismiss(screen);
+        NacreHoverIntent.dismiss(screen);
         visibilities.launcher = false;
         visibilities.session = false;
         visibilities.dashboard = false;
@@ -81,7 +81,7 @@ Item {
                 leftExit.start();
         } else
             leftExit.stop();
-        if (visibilities.dashboard && !visibilities.dashboardPinned && !dashboardHovered && !HoverIntent.headers[screen.name]) {
+        if (visibilities.dashboard && !visibilities.dashboardPinned && !dashboardHovered && !NacreHoverIntent.headers[screen.name]) {
             if (!dashboardExit.running)
                 dashboardExit.start();
         } else
@@ -95,7 +95,7 @@ Item {
     onHoveredChanged: settleHover()
     onPointerChanged: {
         if (ready) {
-            HoverIntent.observe(screen, pointer.x, pointer.y);
+            NacreHoverIntent.observe(screen, pointer.x, pointer.y);
             settleHover();
         }
     }
@@ -143,8 +143,8 @@ Item {
         hoverEnabled: true
         acceptedButtons: Qt.NoButton
         function enter(buttons) {
-            HoverIntent.observe(root.screen, mouseX + x, mouseY + y);
-            if (!root.visibilities.left && HoverIntent.canOpen("left", root.screen, buttons)) {
+            NacreHoverIntent.observe(root.screen, mouseX + x, mouseY + y);
+            if (!root.visibilities.left && NacreHoverIntent.canOpen("left", root.screen, buttons)) {
                 root.visibilities.dashboard = false;
                 root.visibilities.left = true;
             }
@@ -152,7 +152,7 @@ Item {
         onEntered: enter(pressedButtons)
         onPositionChanged: event => enter(event.buttons)
         onExited: if (!root.visibilities.left)
-            HoverIntent.rearm("left", root.screen)
+            NacreHoverIntent.rearm("left", root.screen)
     }
     MouseArea {
         x: root.rightEdgeRect.x
@@ -163,8 +163,8 @@ Item {
         hoverEnabled: true
         acceptedButtons: Qt.NoButton
         function enter(buttons) {
-            HoverIntent.observe(root.screen, mouseX + x, mouseY + y);
-            if (!root.visibilities.osd && HoverIntent.canOpen("osd", root.screen, buttons)) {
+            NacreHoverIntent.observe(root.screen, mouseX + x, mouseY + y);
+            if (!root.visibilities.osd && NacreHoverIntent.canOpen("osd", root.screen, buttons)) {
                 root.visibilities.dashboard = false;
                 root.visibilities.osd = true;
             }
@@ -172,7 +172,7 @@ Item {
         onEntered: enter(pressedButtons)
         onPositionChanged: event => enter(event.buttons)
         onExited: if (!root.visibilities.osd)
-            HoverIntent.rearm("osd", root.screen)
+            NacreHoverIntent.rearm("osd", root.screen)
     }
     Timer {
         id: leftExit
@@ -183,7 +183,7 @@ Item {
     Timer {
         id: dashboardExit
         interval: 140
-        onTriggered: if (!root.dashboardHovered && !root.visibilities.dashboardPinned && !HoverIntent.headers[root.screen.name] && root.visibilities.edgeMenu !== "dashboard")
+        onTriggered: if (!root.dashboardHovered && !root.visibilities.dashboardPinned && !NacreHoverIntent.headers[root.screen.name] && root.visibilities.edgeMenu !== "dashboard")
             root.visibilities.dashboard = false
     }
     Timer {

@@ -234,3 +234,10 @@ activity deadline; NacreSessionPanel/Controls launch four allowlisted user actio
 NacreBackground/WallpaperScene/DesktopVideo own noninteractive per-output native
 poster/media rendering and matched readiness. Authentication, frame dismissal,
 palette publication and shared playback policy stay with their existing owners.
+
+NacreTopBar owns per-output header surfaces; NacreHeader composes existing bar
+controls and shared update state. NacreWorkspaceRow dispatches selection through
+the native compositor owner. NacreHeaderTrigger/Forwarder split passive hover from
+modal click observation. NacreHoverIntent owns per-output rearm/geometry state;
+old names are forwarding interfaces, not second owners. Surface recovery and frame
+input remain separate existing owners.

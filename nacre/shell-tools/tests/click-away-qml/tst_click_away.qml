@@ -11,26 +11,26 @@ TestCase {
             "width": 500,
             "height": 600
         };
-        HoverIntent.observe(screen, 250, 1);
-        HoverIntent.dismiss(screen);
-        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        HoverIntent.observe(screen, 250, 2);
-        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        HoverIntent.observe(screen, 250, 40);
-        verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        verify(!HoverIntent.canOpen("dashboard", screen, Qt.LeftButton));
+        NacreHoverIntent.observe(screen, 250, 1);
+        NacreHoverIntent.dismiss(screen);
+        verify(!NacreHoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        NacreHoverIntent.observe(screen, 250, 2);
+        verify(!NacreHoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        NacreHoverIntent.observe(screen, 250, 40);
+        verify(NacreHoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        verify(!NacreHoverIntent.canOpen("dashboard", screen, Qt.LeftButton));
         NacreHyprland.activeClient = {
             "lastIpcObject": {
                 "fullscreen": 2
             }
         };
-        verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        verify(!NacreHoverIntent.canOpen("dashboard", screen, Qt.NoButton));
         NacreHyprland.activeClient = {
             "lastIpcObject": {
                 "fullscreen": 1
             }
         };
-        verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
+        verify(NacreHoverIntent.canOpen("dashboard", screen, Qt.NoButton));
         NacreHyprland.activeClient = null;
     }
 
@@ -40,16 +40,16 @@ TestCase {
             width: 1920,
             height: 1200
         };
-        HoverIntent.recordPopupRegion(screen, 1550, 8, 210, 34);
-        HoverIntent.observe(screen, 1700, 25);
-        HoverIntent.popupHovered[screen.name] = false;
-        HoverIntent.dismiss(screen);
-        verify(!HoverIntent.canOpen("popouts", screen, Qt.NoButton));
-        HoverIntent.rearm("popouts", screen);
-        verify(HoverIntent.canOpen("popouts", screen, Qt.NoButton));
-        HoverIntent.observe(screen, 900, 1000);
-        HoverIntent.dismiss(screen);
-        verify(HoverIntent.canOpen("popouts", screen, Qt.NoButton));
+        NacreHoverIntent.recordPopupRegion(screen, 1550, 8, 210, 34);
+        NacreHoverIntent.observe(screen, 1700, 25);
+        NacreHoverIntent.popupHovered[screen.name] = false;
+        NacreHoverIntent.dismiss(screen);
+        verify(!NacreHoverIntent.canOpen("popouts", screen, Qt.NoButton));
+        NacreHoverIntent.rearm("popouts", screen);
+        verify(NacreHoverIntent.canOpen("popouts", screen, Qt.NoButton));
+        NacreHoverIntent.observe(screen, 900, 1000);
+        NacreHoverIntent.dismiss(screen);
+        verify(NacreHoverIntent.canOpen("popouts", screen, Qt.NoButton));
     }
     function test_clicks_inside_keep_open_and_outside_dismiss() {
         const view = createTemporaryObject(scene, test);

@@ -33,12 +33,12 @@ class ClickAwayTests(unittest.TestCase):
                 )
             (path / "NacrePanelInput.qml").write_text(source)
             intent = (
-                (ROOT.parent / "shell/services/HoverIntent.qml")
+                (ROOT.parent / "shell/services/NacreHoverIntent.qml")
                 .read_text()
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "QtObject {")
             )
-            (path / "fixtures/HoverIntent.qml").write_text(intent)
+            (path / "fixtures/NacreHoverIntent.qml").write_text(intent)
             (path / "fixtures/NacreHyprland.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject { property var focusedMonitor:({name:"test"}); property var activeClient:null }'
             )
@@ -53,7 +53,7 @@ class ClickAwayTests(unittest.TestCase):
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\n"
+                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/click-away-qml/tst_click_away.qml",

@@ -78,3 +78,18 @@ actions. The popup stack is capped to the output height and uses fast scrolling
 for bursts. Suppression removes the input region immediately and releases hover
 state without deleting messages or history. Existing DND, retention, expiry and
 history storage remain owned by Notifs and its private helpers.
+
+## Independent header and hover owner
+
+NacreTopBar/Header now assemble the existing bar controls. NacreWorkspaceRow
+preserves the seven current workspace pills and dispatches only explicit user
+selection. NacreHeaderTrigger implements immediate title-band hover with exit
+grace; NacreHeaderForwarder observes modal outside presses passively, preserving
+application click delivery. Native status and calendar targets use their measured
+geometry; clicked device icons retain detailed Settings routes.
+
+NacreHoverIntent replaces the shared policy body. It keeps per-output geometry /
+blocked state, fullscreen/drag suppression, real-exit rearming and the modal-header
+geometric guard. An obsolete header teardown cannot delete a newer registration.
+No polling, update checker, process or user preference writer is added. Old names
+remain small compatibility adapters. See the [header spec](../specs/topbar-hover.md).

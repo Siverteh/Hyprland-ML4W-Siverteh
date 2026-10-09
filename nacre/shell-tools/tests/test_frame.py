@@ -40,17 +40,22 @@ class FrameTests(unittest.TestCase):
             self.skipTest("Qt Quick Test unavailable")
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder)
-            source = (SHELL / "modules/topbar/TopBar.qml").read_text()
-            start = source.index("        Item {\n            id: modalForwarderPane")
-            end = source.index(
-                "        MouseArea {\n            id: dashboardHover", start
+            source = (
+                (SHELL / "modules/topbar/NacreHeaderForwarder.qml")
+                .read_text()
+                .replace("import qs.services", 'import "."')
             )
-            trigger = source[start:end]
-            (target / "Forwarder.qml").write_text(
-                "import QtQuick\nimport \".\"\nItem {id:win;width:200;height:50;readonly property Item contentItem:win;property var screen:({name:'test'});property alias handler:modalForwarder;property int clicks:0;property alias childHovered:child.containsMouse;MouseArea{id:child;anchors.fill:parent;hoverEnabled:true;onClicked:win.clicks++}\n"
-                + trigger
-                + "\n}"
-            )
+            (target / "NacreHeaderForwarder.qml").write_text(source)
+            (target / "Forwarder.qml").write_text("""import QtQuick
+import "."
+Item {
+ id:root;width:200;height:50
+ property alias handler:forwarder.handler
+ property int clicks:0
+ property alias childHovered:child.containsMouse
+ MouseArea {id:child;anchors.fill:parent;hoverEnabled:true;onClicked:root.clicks++}
+ NacreHeaderForwarder {id:forwarder;screen:({name:"test"})}
+}""")
             (target / "Visibilities.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}\n"
             )
@@ -139,12 +144,12 @@ TestCase {
                     "pragma Singleton\nimport QtQuick\nQtObject {" + body + "}\n"
                 )
             intent = (
-                (SHELL / "services/HoverIntent.qml")
+                (SHELL / "services/NacreHoverIntent.qml")
                 .read_text()
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "QtObject {")
             )
-            (target / "services/HoverIntent.qml").write_text(intent)
+            (target / "services/NacreHoverIntent.qml").write_text(intent)
             shutil.copy2(ROOT / "tests/frame-qml/render.qml", target / "shell.qml")
             environment = {
                 **os.environ,

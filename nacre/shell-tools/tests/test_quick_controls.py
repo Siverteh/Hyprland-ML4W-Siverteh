@@ -160,7 +160,7 @@ class QuickControlsTests(unittest.TestCase):
                 "DeviceActions": 'property bool busy:false;property string message:"";property string lastAction:"";property var lastRequest:[];function request(a){lastRequest=a;lastAction=a[0]} function connectWifi(ssid){lastRequest=["wifi-connect",ssid]}',
                 "NacreHyprland": 'property var focusedMonitor:({name:"test"})',
                 "DesktopSettings": "property var data:({});property var writes:[];function change(key,value){writes=[...writes,[key,value]]}",
-                "HoverIntent": "property int dismissed:0;function dismiss(screen){dismissed++}",
+                "NacreHoverIntent": "property int dismissed:0;function dismiss(screen){dismissed++}",
                 "NacreNotifs": "property var retained:[];property bool dnd:false;property bool historyReady:true;property int clears:0;function clearHistory(){clears++;retained=[]}",
                 "NacreTime": "property date date:new Date(2026,9,9,12,34)",
                 "NacreBar": "property var sizes:({batteryWidth:200})",

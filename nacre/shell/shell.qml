@@ -13,7 +13,7 @@ ShellRoot {
     property var displayRecovery: DisplayRecovery
     NacreBackground {}
     NacreDesktop {}
-    TopBar {}
+    NacreTopBar {}
     EdgeHandles {}
 
     Shortcuts {}
@@ -157,7 +157,7 @@ ShellRoot {
         function close(): void {
             const screen = Quickshell.screens.find(s => s.name === NacreHyprland.focusedMonitor?.name) || Quickshell.screens[0];
             if (screen)
-                HoverIntent.dismiss(screen);
+                NacreHoverIntent.dismiss(screen);
             const v = Visibilities.getForActive();
             if (v) {
                 v.dashboard = false;

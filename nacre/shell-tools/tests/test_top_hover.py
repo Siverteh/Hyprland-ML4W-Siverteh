@@ -16,30 +16,28 @@ class TopHoverTests(unittest.TestCase):
             self.skipTest("Qt Quick Test unavailable")
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
-            source = (ROOT.parent / "shell/modules/topbar/TopBar.qml").read_text()
-            start = source.index("        MouseArea {\n            id: dashboardHover")
-            end = source.index("        EdgeMenuHandle {", start)
-            trigger = source[start:end]
-            (folder / "Trigger.qml").write_text(
-                """import QtQuick
+            source = (
+                (ROOT.parent / "shell/modules/topbar/NacreHeaderTrigger.qml")
+                .read_text()
+                .replace("import qs.services", 'import "."')
+            )
+            (folder / "NacreHeaderTrigger.qml").write_text(source)
+            (folder / "Trigger.qml").write_text("""import QtQuick
 import "."
 Item {
-    id: win
-    width:1920; height:100
-    property bool clickMenus:false
-    property var screen:({name:"test",width:1920,height:1200})
-    property QtObject visibility: QtObject { property bool dashboard:false; property bool session:false; property bool launcher:false; property bool dashboardPinned:false }
-"""
-                + trigger
-                + "\n}"
-            )
+ width:1920; height:100
+ property bool clickMenus:false
+ property var screen:({name:"test",width:1920,height:1200})
+ property QtObject visibility:QtObject {property bool dashboard:false;property bool session:false;property bool launcher:false;property bool dashboardPinned:false;property string edgeMenu:""}
+ NacreHeaderTrigger {anchors.horizontalCenter:parent.horizontalCenter;screen:parent.screen;visibility:parent.visibility;clickMenus:parent.clickMenus}
+}""")
             helper = (
-                (ROOT.parent / "shell/services/HoverIntent.qml")
+                (ROOT.parent / "shell/services/NacreHoverIntent.qml")
                 .read_text()
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "QtObject {")
             )
-            (folder / "HoverIntent.qml").write_text(helper)
+            (folder / "NacreHoverIntent.qml").write_text(helper)
             (folder / "NacreHyprland.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject {property var focusedMonitor:({name:"test"}); property var activeClient:null}'
             )
@@ -50,7 +48,7 @@ Item {
                 "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}"
             )
             (folder / "qmldir").write_text(
-                "singleton HoverIntent 1.0 HoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton Visibilities 1.0 Visibilities.qml\n"
+                "singleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton Visibilities 1.0 Visibilities.qml\n"
             )
             (folder / "tst_trigger.qml").write_text("""import QtQuick
 import QtTest
@@ -63,7 +61,7 @@ TestCase {
         mouseMove(view,960,80); mouseMove(view,960,40); wait(30);
         verify(!view.visibility.dashboard);
         mouseMove(view,960,24); verify(view.visibility.dashboard);
-        HoverIntent.dismiss(view.screen); view.visibility.dashboard=false;
+        NacreHoverIntent.dismiss(view.screen); view.visibility.dashboard=false;
         mouseMove(view,961,23); verify(!view.visibility.dashboard);
         mouseMove(view,960,40); mouseMove(view,960,24); verify(view.visibility.dashboard);
     }
