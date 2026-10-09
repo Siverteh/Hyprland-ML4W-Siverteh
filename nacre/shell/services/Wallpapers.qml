@@ -285,7 +285,7 @@ Singleton {
         id: prefWorker
         property var value
         stdinEnabled: true
-        command: ["python3", root.tool, value?.palettePreset !== undefined || value?.paletteMode !== undefined || value?.paletteAccent !== undefined ? "theme" : "preferences"]
+        command: ["python3", root.tool, value?.palettePreset !== undefined || value?.paletteMode !== undefined || value?.paletteAccent !== undefined || value?.paletteHarmony !== undefined ? "theme" : "preferences"]
         onStarted: write(JSON.stringify(value) + "\n")
         stdout: SplitParser {
             splitMarker: ""

@@ -10,11 +10,11 @@ from .palette import DEFAULT_SEED, generate, validate
 from .storage import cache_key, read, roots, write_json
 
 
-def palette_options(analysis, mode, variant, flavour):
+def palette_options(analysis, mode, variant, flavour, harmony=False):
     candidates = [c["hex"] for c in analysis["candidates"]]
     result = []
     for index, seed in enumerate(candidates):
-        colors = generate(seed, mode, variant, flavour, candidates)
+        colors = generate(seed, mode, variant, flavour, analysis["candidates"], harmony=harmony)
         _, chroma, hue = lch(seed)
         if chroma < 0.012:
             name = "Neutral"
@@ -46,7 +46,7 @@ def palette_options(analysis, mode, variant, flavour):
     return result
 
 
-def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent=None, smart=False):
+def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent=None, smart=False, harmony=False):
     path = Path(path).expanduser().resolve(strict=True)
     settings = {
         "mode": mode,
@@ -54,6 +54,7 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
         "flavour": flavour,
         "accent": clean(accent) if accent else None,
         "smart": smart,
+        "harmony": bool(harmony),
     }
     identity = cache_key(path, settings)
     cache = roots()[2] / "orient" / (identity + ".json")
@@ -86,7 +87,7 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
     seed = settings["accent"] or analysis["seed"]
     neutral = analysis["neutral"] and not accent
     effective_variant = "neutral" if neutral and variant not in ("monochrome", "neutral") else variant
-    colors = generate(seed, mode, effective_variant, flavour, [c["hex"] for c in analysis["candidates"]])
+    colors = generate(seed, mode, effective_variant, flavour, analysis["candidates"], harmony=harmony)
     hasher = hashlib.sha256()
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
@@ -106,7 +107,7 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
             **analysis,
             "selected": seed,
             "digest": digest,
-            "options": palette_options(analysis, mode, effective_variant, flavour),
+            "options": palette_options(analysis, mode, effective_variant, flavour, harmony),
         },
     }
     # An unwritable cache must not prevent a valid read-only palette result.

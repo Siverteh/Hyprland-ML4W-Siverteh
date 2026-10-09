@@ -100,7 +100,7 @@ def watch(root, scheme, engine=None):
                                 dirty |= current != previous
                                 previous = current
                         elif path == Path.home() / ".config/nacre":
-                            dirty |= name == "cli.json"
+                            dirty |= name in ("cli.json", "wallpaper-picker.json")
                         elif path == root.parent:
                             if name == root.name:
                                 dirty = True

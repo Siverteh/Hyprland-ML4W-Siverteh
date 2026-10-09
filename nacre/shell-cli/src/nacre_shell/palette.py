@@ -1,6 +1,6 @@
 """Nacre's role policy, independent from Material dynamic scheme generation."""
 
-from .colour import clean, color, contrast, foreground, lch, readable
+from .colour import clean, color, contrast, foreground, hue_distance, lch, readable
 
 DEFAULT_SEED = "47a99a"
 VARIANTS = (
@@ -16,7 +16,42 @@ VARIANTS = (
 )
 
 
-def generate(seed, mode="dark", variant="tonalspot", flavour="default", companions=()):
+def supporting_sources(seed, candidates, harmony=False):
+    """Select real pigment families; Harmony favors coverage and related hues."""
+    records = [dict(c) if isinstance(c, dict) else {"hex": clean(c)} for c in candidates]
+    records = [c for c in records if clean(c["hex"]) != clean(seed)]
+    if not harmony:
+        return [clean(c["hex"]) for c in records[:2]]
+    main = lch(seed)
+    dominant = max((c.get("coverage", 0) for c in candidates if isinstance(c, dict)), default=0)
+    ranked = []
+    for candidate in records:
+        coverage = candidate.get("coverage")
+        if coverage is not None and coverage < max(0.04, dominant * 0.05):
+            continue
+        value = clean(candidate["hex"])
+        light, chroma, hue = lch(value)
+        distance = hue_distance(main[2], hue)
+        if coverage is not None and distance > 100 and coverage < 0.12:
+            continue
+        # Strong contrasts belong when they occupy a substantial part of the image.
+        related = 1.0 if distance <= 80 else 0.55
+        if coverage is not None and coverage >= 0.15:
+            related = max(related, 0.90)
+        olive = 85 <= hue <= 145 and light < 0.62 and 0.012 <= chroma < 0.12
+        weight = candidate.get("score", coverage or 1) * related * (0.28 if olive else 1)
+        ranked.append((weight, value))
+    ranked.sort(key=lambda item: (-item[0], item[1]))
+    chosen = []
+    for _, value in ranked:
+        if all(hue_distance(lch(value)[2], lch(other)[2]) >= 24 for other in chosen):
+            chosen.append(value)
+        if len(chosen) == 2:
+            break
+    return chosen
+
+
+def generate(seed, mode="dark", variant="tonalspot", flavour="default", companions=(), harmony=False):
     seed = clean(seed)
     if mode not in ("light", "dark") or variant not in VARIANTS or flavour not in ("default", "hard"):
         raise ValueError("Unsupported palette mode, variant or flavour")
@@ -71,6 +106,16 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     def family(role, source, strength=1.0):
         light, c, h = lch(source)
         c = c * strength
+        if variant == "monochrome" and role in ("primary", "secondary", "tertiary"):
+            c = 0
+        if (
+            harmony
+            and role in ("primary", "secondary", "tertiary")
+            and 85 <= h <= 145
+            and light < 0.62
+            and 0.012 <= c < 0.12
+        ):
+            light = 0.70
         if role == "primary":
             c = chroma
         # Lift dark pigments without turning the same saturation into a gray tint.
@@ -83,7 +128,8 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
         if not soft and variant != "vibrant":
             lifted_chroma = min(lifted_chroma, 0.19 if role == "primary" else 0.16)
         accent = readable(color(lifted, lifted_chroma, h), backgrounds)
-        container = color(0.35 if dark else 0.88, min(c * 0.42, 0.085), h)
+        container_chroma = min(max(c * 0.65, min(0.045, c * 1.7)), 0.095) if dark and not soft else min(c * 0.42, 0.085)
+        container = color(0.35 if dark else 0.88, container_chroma, h)
         colors[role] = accent
         colors["on" + role.title()] = foreground(accent)
         colors[role + "Dim"] = readable(color(lch(accent)[0] + (-0.025 if dark else 0.025), c, h), backgrounds)
@@ -101,7 +147,7 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
             colors[role + "PaletteKeyColor"] = color(light, c, h)
             colors[role + "_paletteKeyColor"] = colors[role + "PaletteKeyColor"]
 
-    sources = [clean(c) for c in companions if clean(c) != seed]
+    sources = supporting_sources(seed, companions, harmony)
     secondary = sources[0] if sources else color(lch(seed)[0], chroma * 0.70, hue)
     tertiary = sources[1] if len(sources) > 1 else color(lch(seed)[0], chroma * 0.45, hue)
     family("primary", seed)
@@ -113,8 +159,8 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     # Rich accents for decoration can retain the source even when text must brighten.
     colors["overtone"] = seed if variant != "monochrome" else color(lch(seed)[0], 0, hue)
     colors["orient1"] = colors["overtone"]
-    colors["orient2"] = clean(secondary)
-    colors["orient3"] = clean(tertiary)
+    colors["orient2"] = color(lch(secondary)[0], 0, hue) if variant == "monochrome" else clean(secondary)
+    colors["orient3"] = color(lch(tertiary)[0], 0, hue) if variant == "monochrome" else clean(tertiary)
     colors["inversePrimary"] = readable(colors["overtone"], [colors["inverseSurface"]])
     colors["neutralPaletteKeyColor"] = color(0.55, tint, hue)
     colors["neutralVariantPaletteKeyColor"] = color(0.55, min(tint * 2, 0.03), hue)

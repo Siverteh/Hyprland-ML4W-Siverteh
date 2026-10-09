@@ -138,3 +138,8 @@ Shared shell controls and layout defaults are owned by the independent
 [Nacre foundation](features/foundation.md). Maintained consumers use Nacre type
 names; compatibility adapters preserve older external configuration. Exterior
 chrome uses one body token, while inner cards use raised surfaces.
+
+Orient's optional Harmony preference is owned by wallpaper-picker.json. Engine
+and prepared-palette identities include it; the event-driven wallpaper watcher
+warms invalidated palettes. Natural remains the default. Fixed-palette generation
+uses the same independent contrast/tint policy and is checked reproducibly.

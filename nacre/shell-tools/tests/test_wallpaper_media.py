@@ -167,6 +167,9 @@ class WallpaperMediaTests(unittest.TestCase):
                 patch.object(media, "HOME", home),
                 patch.object(media, "STATE", home / "state"),
                 patch.object(media, "CACHE", home / "cache"),
+                patch.object(
+                    media, "PREFS", home / ".config/nacre/wallpaper-picker.json"
+                ),
             ):
                 source = home / "image.png"
                 Image.new("RGB", (30, 30), "red").save(source)
@@ -221,6 +224,9 @@ class OrientPreparedCacheTests(unittest.TestCase):
             with (
                 patch.object(media, "HOME", home),
                 patch.object(media, "CACHE", home / "cache"),
+                patch.object(
+                    media, "PREFS", home / ".config/nacre/wallpaper-picker.json"
+                ),
             ):
                 (state / "scheme.json").write_text(
                     '{"mode":"dark","variant":"tonalspot"}'
@@ -244,6 +250,9 @@ class OrientPreparedCacheTests(unittest.TestCase):
                 self.assertNotEqual(third, fourth)
                 marker.write_text('{"source":"two"}')
                 self.assertNotEqual(fourth, media.palette_marker(poster, "default"))
+                fifth = media.palette_marker(poster, "default")
+                media.preference({"paletteHarmony": True})
+                self.assertNotEqual(fifth, media.palette_marker(poster, "default"))
 
 
 class WallpaperAccentTests(unittest.TestCase):
@@ -273,6 +282,34 @@ class WallpaperAccentTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     media.theme({"paletteAccent": "bad argument"})
                 self.assertEqual(media.settings(), previous)
+
+    def test_harmony_persists_uses_publication_and_rolls_back_on_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (20, 20), "red").save(poster)
+            state = home / "state"
+            state.mkdir()
+            (state / "media.json").write_text(json.dumps({"poster": str(poster)}))
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "STATE", state),
+                patch.object(media, "PREFS", home / "picker.json"),
+                patch.object(media.subprocess, "run") as run,
+            ):
+                self.assertFalse(media.settings()["paletteHarmony"])
+                result = media.theme({"paletteHarmony": True})
+                self.assertTrue(result["paletteHarmony"])
+                self.assertEqual(
+                    run.call_args.args[0][1:],
+                    ["wallpaper", "-f", str(poster), "--no-smart"],
+                )
+                run.side_effect = RuntimeError("fixture")
+                with self.assertRaises(RuntimeError):
+                    media.theme({"paletteHarmony": False})
+                self.assertTrue(media.settings()["paletteHarmony"])
+                with self.assertRaises(ValueError):
+                    media.theme({"paletteHarmony": "yes"})
 
     def test_failed_accent_change_preserves_fixed_choice(self):
         with tempfile.TemporaryDirectory() as folder:

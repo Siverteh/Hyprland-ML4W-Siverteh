@@ -164,3 +164,14 @@ runtime path consolidation is part of these documentation changes.
   open until actual Escape and configerrors are empty. The old hover-visibility
   binding-loop warnings predate this replacement; full panel redesign remains
   separate. Physical cold login/secure lock and every external app are not verified.
+
+## Orient harmony refinement
+
+The independent engine now offers optional supporting-color Harmony (Natural is
+still the richer default), fuller dark container tint, monochrome role correction
+and persistent accent handling through smart-mode generation. No Material You
+algorithm/dependency was added. Ranking/coverage and OKLCH role policies are
+specified in [Orient harmony](../specs/orient-harmony.md). Licensed sampled fixture
+records retain their attribution; source artwork and native comparison renders
+remain private QA artifacts. All 318 repository checks passed before deployment,
+including native Settings selection and cache/preference/contrast regressions.

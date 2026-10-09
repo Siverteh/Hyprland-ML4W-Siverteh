@@ -92,3 +92,26 @@ with Intel Core Ultra 7 255H; these figures are not
 end-to-end desktop publication latency or a guarantee for larger inputs. Synthetic
 fixtures check hue distinction, transparency/profile handling, safety limits,
 cache invalidation, all required roles, contrast and read-only behavior.
+
+## Natural and Harmony
+
+Appearance → Desktop colors offers **Natural** (default) and **Harmony** for
+wallpaper-derived palettes. Natural retains the richer multi-hue accents. Harmony
+prefers related, well-represented supporting colors; tiny unrelated patches can
+still be chosen as a main palette in the picker without coloring all controls.
+A dark weak olive supporting color loses priority to a better candidate. An
+explicit olive choice stays available; brightness/readability adjustments retain
+its hue. Strong, sufficiently large contrasting regions can remain accents.
+
+Both modes keep more tint in dark button containers, preserve readable foregrounds
+and remember explicit per-wallpaper accents. Monochrome accent roles remain neutral.
+Fixed palettes ignore Harmony. Changing this setting uses the existing matched
+publisher; previews and prepared caches include it. There is no idle analysis or
+new polling. The private preference is `wallpaper-picker.json: paletteHarmony`.
+Read-only comparisons can use `nacre-shell wallpaper --print IMAGE --harmony` or
+`--no-harmony`; these flags do not change the saved setting or desktop.
+
+The [Harmony spec](../specs/orient-harmony.md) records the policy and tests. Four
+licensed illustration samples exercise supporting-color selection and contrast;
+[fixture attribution](../../nacre/shell-tools/tests/fixtures/README.md) gives the
+source revision. Images and rendered comparison sheets remain private QA artifacts.

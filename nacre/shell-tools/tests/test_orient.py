@@ -21,7 +21,7 @@ if Image:
     from nacre_shell.colour import color, contrast, hue_distance, lch
     from nacre_shell.engine import from_image
     from nacre_shell.extract import analyze
-    from nacre_shell.palette import generate
+    from nacre_shell.palette import generate, supporting_sources
 
 
 @unittest.skipUnless(Image, "Pillow unavailable")
@@ -308,6 +308,148 @@ class OrientTests(unittest.TestCase):
             ],
             "d01818",
         )
+
+    def test_harmony_skips_tiny_distant_patch_but_keeps_the_picker_choice(self):
+        path = self.image("bb2020")
+        image = Image.open(path)
+        image.paste("#fa8020", (0, 0, 24, 80))
+        image.paste("#2255dd", (50, 20, 58, 28))
+        image.save(path)
+        natural = from_image(path)
+        harmonic = from_image(path, harmony=True)
+        self.assertFalse(natural["input"]["harmony"])
+        self.assertTrue(harmonic["input"]["harmony"])
+        self.assertEqual(
+            natural["source"]["options"][0]["accent"],
+            harmonic["source"]["options"][0]["accent"],
+        )
+        for role in ("secondary", "tertiary"):
+            self.assertLess(
+                hue_distance(lch(harmonic["colours"][role])[2], lch("bb2020")[2]), 80
+            )
+        self.assertTrue(
+            any(
+                hue_distance(lch(c["accent"])[2], lch("2255dd")[2]) < 5
+                for c in harmonic["source"]["options"]
+            )
+        )
+        with patch("nacre_shell.engine.analyze", side_effect=AssertionError("cached")):
+            self.assertEqual(from_image(path, harmony=True), harmonic)
+            self.assertEqual(from_image(path), natural)
+
+    def test_harmony_prefers_warm_companion_over_weak_olive_and_keeps_big_contrast(
+        self,
+    ):
+        olive, warm, blue = color(0.40, 0.07, 120), color(0.6, 0.13, 65), "2255dd"
+        candidates = [
+            {"hex": olive, "coverage": 0.25, "score": 0.6},
+            {"hex": warm, "coverage": 0.20, "score": 0.45},
+            {"hex": blue, "coverage": 0.18, "score": 0.40},
+        ]
+        self.assertEqual(supporting_sources("bb2020", candidates, True), [warm, blue])
+        for mode in ("dark", "light"):
+            explicit = generate(olive, mode, companions=candidates, harmony=True)
+            self.assertEqual(explicit["overtone"], olive)
+            if mode == "dark":
+                self.assertGreaterEqual(lch(explicit["primary"])[0], 0.65)
+            self.assertGreaterEqual(
+                contrast(explicit["primary"], explicit["surfaceContainerHighest"]), 4.5
+            )
+            self.assertLess(hue_distance(lch(explicit["primary"])[2], 120), 2)
+
+    def test_containers_keep_tint_and_harmony_respects_monochrome_and_contrast(self):
+        for seed in ("b62626", "2266bb", color(0.4, 0.025, 65)):
+            colors = generate(seed)
+            self.assertGreater(lch(colors["primaryContainer"])[1], 0.025)
+            for mode in ("dark", "light"):
+                c = generate(seed, mode, companions=["2255dd", "777b32"], harmony=True)
+                for role in ("Primary", "Secondary", "Tertiary"):
+                    self.assertGreaterEqual(
+                        contrast(
+                            c["on" + role + "Container"], c[role.lower() + "Container"]
+                        ),
+                        4.5,
+                    )
+        mono = generate(
+            "bb2020",
+            companions=["2255dd", "228844"],
+            variant="monochrome",
+            harmony=True,
+        )
+        for role in (
+            "primary",
+            "secondary",
+            "tertiary",
+            "orient1",
+            "orient2",
+            "orient3",
+        ):
+            self.assertLess(lch(mono[role])[1], 0.001)
+
+    def test_harmony_cli_query_override_is_read_only_and_saved_setting_survives(self):
+        path = self.image("bb2020")
+        config = self.home / ".config/nacre"
+        config.mkdir(parents=True)
+        prefs = config / "wallpaper-picker.json"
+        prefs.write_text('{"paletteHarmony":true,"paletteMode":"dark"}')
+        for flag, expected in (("--no-harmony", False), ("--harmony", True)):
+            query = self.cli("wallpaper", "-p", str(path), flag)
+            self.assertEqual(query.returncode, 0, query.stderr)
+            self.assertIs(json.loads(query.stdout)["input"]["harmony"], expected)
+            self.assertTrue(json.loads(prefs.read_text())["paletteHarmony"])
+            self.assertFalse((self.home / ".local/state/nacre").exists())
+        self.assertEqual(self.cli("wallpaper", "-f", str(path)).returncode, 0)
+        self.assertTrue(
+            json.loads(self.cli("scheme", "get", "--json").stdout)["input"]["harmony"]
+        )
+        self.assertEqual(self.cli("scheme", "set", "--accent", "2255dd").returncode, 0)
+        data = json.loads(self.cli("wallpaper", "-p", str(path)).stdout)
+        self.assertTrue(data["input"]["harmony"])
+        self.assertEqual(data["source"]["selected"], "2255dd")
+
+    def test_licensed_scene_samples_keep_roles_readable_and_sources_real(self):
+        scenes = json.loads(
+            Path(__file__)
+            .with_name("fixtures")
+            .joinpath("orient-scenes.json")
+            .read_text()
+        )
+        for scene in scenes:
+            a = scene["analysis"]
+            candidates = a["candidates"]
+            source_colors = {c["hex"] for c in candidates}
+            chosen = supporting_sources(a["seed"], candidates, True)
+            self.assertTrue(set(chosen) <= source_colors)
+            for mode in ("dark", "light"):
+                colors = generate(a["seed"], mode, companions=candidates, harmony=True)
+                for role in ("Primary", "Secondary", "Tertiary"):
+                    self.assertGreaterEqual(
+                        contrast(
+                            colors[role.lower()], colors["surfaceContainerHighest"]
+                        ),
+                        4.5,
+                        scene["name"],
+                    )
+                    self.assertGreaterEqual(
+                        contrast(
+                            colors["on" + role + "Container"],
+                            colors[role.lower() + "Container"],
+                        ),
+                        4.5,
+                        scene["name"],
+                    )
+
+    def test_smart_mode_keeps_the_saved_per_image_accent(self):
+        path = self.image("bb2020")
+        config = self.home / ".config/nacre"
+        config.mkdir(parents=True)
+        (config / "cli.json").write_text(
+            json.dumps({"orient": {"accents": {str(path.resolve()): "2255dd"}}})
+        )
+        result = self.cli("wallpaper", "-f", str(path))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        data = json.loads(self.cli("scheme", "get", "--json").stdout)
+        self.assertEqual(data["source"]["selected"], "2255dd")
 
     def test_named_default_and_legacy_variants(self):
         for variant in (

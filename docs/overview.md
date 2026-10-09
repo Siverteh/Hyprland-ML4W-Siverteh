@@ -105,3 +105,7 @@ Shared shell controls and layout defaults are owned by the independent
 [Nacre foundation](features/foundation.md). Maintained consumers use Nacre type
 names; compatibility adapters preserve older external configuration. Exterior
 chrome uses one body token, while inner cards use raised surfaces.
+
+Appearance offers Natural wallpaper colors or optional Harmony, which favors related
+supporting accents. The [Orient guide](features/orient.md) explains the setting,
+readability and cache behavior. Both use the same publisher and no idle extraction.

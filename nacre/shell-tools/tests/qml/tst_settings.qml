@@ -84,6 +84,32 @@ TestCase {
         Wallpapers.preferences = preferences;
     }
 
+    function test_palette_harmony_is_optional_and_keeps_accent_preference() {
+        const prior = Wallpapers.preferences;
+        Wallpapers.preferences = {
+            palettePreset: "wallpaper",
+            paletteAccent: "aabbcc"
+        };
+        const view = createTemporaryObject(settings, test);
+        view.open("appearance");
+        wait(30);
+        const page = findChild(view, "settingsPage").item;
+        const natural = findChild(page, "naturalPaletteButton");
+        const harmony = findChild(page, "harmonyPaletteButton");
+        verify(natural.selected);
+        verify(!harmony.selected);
+        harmony.clicked();
+        verify(harmony.selected);
+        compare(Wallpapers.preferences.paletteAccent, "aabbcc");
+        natural.clicked();
+        verify(natural.selected);
+        Wallpapers.preferences = Object.assign({}, Wallpapers.preferences, {
+            palettePreset: "ocean"
+        });
+        verify(!harmony.enabled);
+        Wallpapers.preferences = prior;
+    }
+
     function test_shared_wheel_glides_and_page_switch_resets_position() {
         const view = createTemporaryObject(settings, test);
         wait(30);

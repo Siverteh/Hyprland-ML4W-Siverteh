@@ -51,6 +51,12 @@ def parser():
     wallpaper.add_argument("-N", "--no-smart", action="store_true")
     wallpaper.add_argument("--accent", type=clean)
     wallpaper.add_argument("--mode", choices=("dark", "light"))
+    wallpaper.add_argument(
+        "--harmony",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="prefer related, substantial supporting colors",
+    )
     return cli
 
 
@@ -68,6 +74,13 @@ def current_image():
     return None
 
 
+def harmony_setting(args):
+    explicit = getattr(args, "harmony", None)
+    if explicit is not None:
+        return explicit
+    return read(roots()[0] / "wallpaper-picker.json", {}).get("paletteHarmony") is True
+
+
 def options(path, args, data):
     config = read(roots()[0] / "cli.json", {})
     overrides = config.get("orient", {}).get("accents", {})
@@ -79,6 +92,7 @@ def options(path, args, data):
         flavour=data["flavour"],
         accent=accent,
         smart=False,
+        harmony=harmony_setting(args),
     )
 
 
@@ -137,7 +151,9 @@ def scheme(args):
                 accents[str(Path(path).resolve())] = args.accent
             # Generate before committing either preference or palette.
             accent = accents.get(str(Path(path).resolve()))
-            generated = from_image(path, data["mode"], data["variant"], data["flavour"], accent)
+            generated = from_image(
+                path, data["mode"], data["variant"], data["flavour"], accent, harmony=harmony_setting(args)
+            )
             if args.accent or args.auto_accent:
                 config["orient"] = {**config.get("orient", {}), "accents": accents}
                 write_json(config_path, config)
@@ -199,7 +215,15 @@ def wallpaper(args):
         # Explicit mode and the desktop's saved paletteMode always win over inference.
         fixed_mode = read(roots()[0] / "wallpaper-picker.json", {}).get("paletteMode")
         if not args.no_smart and not args.mode and fixed_mode not in ("light", "dark"):
-            generated = from_image(path, data["mode"], data["variant"], data["flavour"], args.accent, smart=True)
+            generated = from_image(
+                path,
+                data["mode"],
+                data["variant"],
+                data["flavour"],
+                generated.get("input", {}).get("accent"),
+                smart=True,
+                harmony=harmony_setting(args),
+            )
         if data["name"] == "default":
             generated = default_palette(generated["mode"], data["variant"], data["flavour"])
         digest = generated.get("source", {}).get("digest")

@@ -36,3 +36,22 @@ for deterministic tests. Review licensed real illustrations privately and docume
 source/license; do not add personal artwork or comparison mocks to product assets.
 Inspect Natural/Harmony component sheets and the actual deployed shell. Full checks,
 Hyprland verification, install plan/apply and live IPC precede publication.
+
+## Visual and performance review
+
+Native Quickshell RHI sheets compare the pre-tuning engine, Natural and Harmony
+with body backgrounds, three actual Nacre button surfaces and role foregrounds.
+Reviewed dark and light sheets for four Nick Nazzaro CC BY-SA 4.0 illustrations
+from System76, source revision documented with the sampled fixtures. On jungle-red,
+Harmony selects warm brown and berry instead of yellow-green. Underwater keeps pink
+and lilac; space-blue stays blue/lilac; desert keeps warm red/gold. Natural retains
+its broader families, with clearer dark container tint. Every tested role pair
+retains >=4.5:1 text contrast; aesthetic preference is still subjective.
+
+Sixteen cold runs (four full-size originals, two modes, two policies) measured
+median 270.00ms / maximum 362.85ms on the laptop; matched warm reads median 0.48ms /
+maximum 0.65ms. These are local sample measurements, not worst-case guarantees or
+a comparison against previous benchmarks using different images. Preparation
+caches pay extraction cost once; the setting adds no idle processing. Private QA
+images and native capture logs are outside the source tree. Real extraction tests
+use generated images; fixture records also exercise licensed sampled pigments.

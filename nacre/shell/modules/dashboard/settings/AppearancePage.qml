@@ -288,6 +288,35 @@ SettingsPage {
                 onClicked: Colours.setMode("light")
             }
         }
+        Flow {
+            width: parent.width
+            spacing: 8
+            ActionButton {
+                objectName: "naturalPaletteButton"
+                text: "Natural"
+                selected: Wallpapers.preferences.paletteHarmony !== true
+                enabled: !Wallpapers.themeBusy && (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper"
+                onClicked: Wallpapers.preference({
+                    paletteHarmony: false
+                })
+            }
+            ActionButton {
+                objectName: "harmonyPaletteButton"
+                text: "Harmony"
+                selected: Wallpapers.preferences.paletteHarmony === true
+                enabled: !Wallpapers.themeBusy && (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper"
+                onClicked: Wallpapers.preference({
+                    paletteHarmony: true
+                })
+            }
+        }
+        NacreText {
+            width: parent.width
+            wrapMode: Text.Wrap
+            text: Wallpapers.preferences.paletteHarmony === true ? "Related colors with fewer competing accents. Strong colors still come from the scene." : "The scene's full color variety. Harmony favors related accents and skips small distant patches."
+            color: Colours.palette.m3onSurfaceVariant
+            font.pointSize: 10
+        }
         Column {
             width: parent.width
             spacing: 10

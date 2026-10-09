@@ -48,6 +48,7 @@ def settings():
             "rotationShuffle": True,
             "palettePreset": "wallpaper",
             "paletteMode": "dark",
+            "paletteHarmony": False,
         },
         **read(PREFS, {}),
     )
@@ -75,7 +76,8 @@ def theme(value):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - {"palettePreset", "paletteMode", "paletteAccent"}
+        or set(value)
+        - {"palettePreset", "paletteMode", "paletteAccent", "paletteHarmony"}
     ):
         raise ValueError("Unknown appearance preference")
     accent = value.get("paletteAccent")
@@ -131,7 +133,13 @@ def preference(value):
         "paletteMode": ("dark", "light"),
         "palettePreset": ("wallpaper", *[item["id"] for item in palette_presets()]),
     }
-    boolean_keys = ("paused", "pauseCovered", "rotationEnabled", "rotationShuffle")
+    boolean_keys = (
+        "paused",
+        "pauseCovered",
+        "rotationEnabled",
+        "rotationShuffle",
+        "paletteHarmony",
+    )
     if not isinstance(value, dict) or any(
         k not in (*allowed, *boolean_keys, "rotationMinutes") for k in value
     ):
@@ -304,6 +312,7 @@ def palette_marker(poster, flavour):
             "mode": scheme.get("mode", "dark"),
             "variant": scheme.get("variant", "tonalspot"),
             "orient": config.get("orient", {}),
+            "harmony": settings().get("paletteHarmony", False),
         },
         sort_keys=True,
     )
