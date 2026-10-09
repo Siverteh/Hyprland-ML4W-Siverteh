@@ -76,8 +76,13 @@ Singleton {
         const request = current;
         current = null;
         watchdog.stop();
-        if (success) {
+        if (success)
             sent++;
+        if (request.epoch !== policy.epoch) {
+            settle.restart();
+            return;
+        }
+        if (success) {
             policy.delivered(request);
             failures = 0;
             deliveryError = "";
@@ -96,6 +101,7 @@ Singleton {
         onSeverityChanged: root.save()
         onRearmed: {
             root.failures = 0;
+            root.deliveryError = "";
             retry.stop();
         }
     }

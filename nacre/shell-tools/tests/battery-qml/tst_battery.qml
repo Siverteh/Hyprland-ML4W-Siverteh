@@ -189,5 +189,12 @@ TestCase {
         compare(part(view, "Policy").severity, 0);
         wait(200);
         compare(part(view, "Sender").running, false);
+        UPower.onBattery = true;
+        tryCompare(part(view, "Sender"), "running", true, 500);
+        UPower.onBattery = false;
+        view.evaluate();
+        finish(view, 1);
+        compare(view.deliveryError, "");
+        compare(part(view, "Retry").running, false);
     }
 }
