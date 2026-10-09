@@ -889,6 +889,17 @@
         "tools/tests/test_window_routing.py",
         "tools/tests/fixtures/window-routing-contract.json"
       ]
+    },
+    {
+      "area": "compositor-entrypoint",
+      "commit": "d3b5f5f",
+      "spec": "docs/specs/compositor-entrypoint.md",
+      "paths": [
+        "hypr/hyprland.lua",
+        "hypr/conf/brain.lua",
+        "nacre/shell-tools/shortcuts.lua",
+        "tools/tests/test_compositor_entrypoint.py"
+      ]
     }
   ],
   "reviews": {

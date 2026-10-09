@@ -1266,3 +1266,17 @@ audit items. Applicable notices remain pending the whole-tree conclusion.
 Existing helper loader markers are preserved as public validation contracts;
 removing them would falsely reject working Settings/palette/shortcut installation.
 A regression checks all three markers in the independently composed root.
+
+Entry-point acceptance (2026-10-09): source d3b5f5f, good configuration release
+20261009T234951485679Z. All 391 tests (53 tools, 96 AI, 35 Brain, 207 shell),
+formatting, Qt parsing and native Hyprland validation passed. Reviewed plan
+changed one managed file; configuration transaction and live IPC gates passed.
+All 101 native bindings and nine sampled appearance/input options match baseline.
+Nine private preference/history files and AI worker PID/start identity unchanged.
+Managed root/local extensions match installed bytes; all 235 shell files match.
+Six owned temporary-app hover/dismiss/click/key-return cycles plus launcher and
+wallpaper outside dismissal passed. No configuration errors or forced logout.
+Cold login, real hardware events and fresh-session dormant curve registry remain
+explicit follow-ups. Three SHA-bound source reviews added; whole-tree review and
+remaining helper/assets/test provenance still open. This is not a license-clearance
+claim. Notices retained and complete originality goal remains active.
