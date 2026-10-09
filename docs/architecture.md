@@ -287,3 +287,9 @@ generated keys; see [shortcut specification](specs/keybindings.md).
 Own ordered named application routes preserve the current workspace map and
 Thunar popup. Restricted rule capture checks generated route/float conflicts;
 see [routing specification](specs/window-routing.md).
+
+The compositor entry point now uses an independently composed ordered module list.
+Private overrides keep their monitor → palette → desktop → shortcuts → host order
+and contained errors. Brain and extra shortcut declarations retain their verified
+local authoring history; their command implementations remain separate audit areas.
+See [the entry-point spec](specs/compositor-entrypoint.md).

@@ -1,60 +1,47 @@
--- Nacre compositor configuration. Host overrides load after defaults.
--- -----------------------------------------------------
--- Monitor
--- -----------------------------------------------------
-require("conf.monitor")
--- -----------------------------------------------------
--- Cursor
--- -----------------------------------------------------
-require("conf.cursor")
-require("conf.cursor-behavior")
--- -----------------------------------------------------
--- Keyboard
--- -----------------------------------------------------
-require("conf.keyboard")
--- -----------------------------------------------------
--- Load color file
--- -----------------------------------------------------
--- Neutral boot defaults; the committed palette is loaded after base rules.
-var_primary="rgba(808080ff)"
-var_on_primary="rgba(f0f0f0ff)"
+-- Nacre owns the managed composition. Per-host/generated files load afterward.
+-- These neutral fallbacks keep border consumers valid without a saved palette.
+var_primary = "rgba(808080ff)"
+var_on_primary = "rgba(f0f0f0ff)"
 
--- -----------------------------------------------------
--- Autostart
--- -----------------------------------------------------
-require("conf.autostart")
--- -----------------------------------------------------
--- Load configuration files
--- -----------------------------------------------------
-require("conf.window")
-require("conf.decoration")
-require("conf.layout")
-require("conf.misc")
-require("conf.keybinding")
-require("conf.windowrule")
--- -----------------------------------------------------
--- Animation
--- -----------------------------------------------------
-require("conf.animation")
--- -----------------------------------------------------
--- Shared Desktop Rules
--- -----------------------------------------------------
-require("conf.nacre")
+local modules = {
+    "monitor",
+    "cursor",
+    "cursor-behavior",
+    "keyboard",
+    "autostart",
+    "window",
+    "decoration",
+    "layout",
+    "misc",
+    "keybinding",
+    "windowrule",
+    "animation",
+    "nacre",
+    "brain",
+}
+for _, name in ipairs(modules) do
+    require("conf." .. name)
+end
 
--- Siverteh Observatory
-require("conf.brain")
-
--- Private overrides retain this order; one broken file must not stop later ones.
 local function load_private(name)
     local path = os.getenv("HOME") .. "/.config/nacre/" .. name .. ".lua"
-    local file = io.open(path, "r")
-    if not file then return end
-    file:close()
-    local ok, err = pcall(dofile, path)
-    if not ok then
-        hl.notification.create({ text = "Nacre: " .. name .. " failed: " .. tostring(err), timeout = 15000, icon = "error" })
+    local handle = io.open(path, "r")
+    if not handle then
+        return
+    end
+    handle:close()
+
+    local succeeded, reason = pcall(dofile, path)
+    if not succeeded then
+        hl.notification.create({
+            text = "Nacre: " .. name .. " failed: " .. tostring(reason),
+            timeout = 15000,
+            icon = "error",
+        })
     end
 end
+
+-- Precedence is deliberate: the user's host override is the final owner.
 load_private("monitor")
 -- Nacre committed wallpaper palette
 load_private("palette")
@@ -62,5 +49,4 @@ load_private("palette")
 load_private("desktop")
 -- Nacre native desktop shortcuts
 load_private("shortcuts")
--- Optional private host behavior.
 load_private("host")

@@ -1119,6 +1119,33 @@
         "docs/nacre/PROVENANCE.md#application-route-composition-replacement",
         "replacement e944518: target deleted then own ordered route composition from11 captured public native rule contracts/APIs; generated conflicts/full checks/owned-window comparison and exact installed source verified; prior exposure acknowledged; no upstream body copied; companion/real-app audits separate"
       ]
+    },
+    "hypr/hyprland.lua": {
+      "disposition": "independent",
+      "sha256": "c9b1bcd87d3f34df37f1d92fd52a9c60d64a75239198d28ca1bdcb9767d947f5",
+      "evidence": [
+        "docs/specs/compositor-entrypoint.md",
+        "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
+        "Root inherited composition deleted before fresh ordered module entry point. Neutral fallback scalars retained as public border interface data; independent private error containment originated bcdbd69. Tests exercise actual Lua with isolated owners, not user overrides."
+      ]
+    },
+    "hypr/conf/brain.lua": {
+      "disposition": "independent",
+      "sha256": "ff2b8c45b1ed57ec8e25c2360e8f6d7051959aa93fd00122c48131011a9b95c5",
+      "evidence": [
+        "docs/specs/compositor-entrypoint.md",
+        "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
+        "Local Brain extension authored in e42b701 (rice/observatory/observatory.lua), incorporated f3290a5 and narrowed 2fa3a95/9a9cebe. Remaining routing/action bodies trace to own Brain work, including cookie handoff 3f4132d/de8222b/69aad30; prior appearance block removed. No upstream dependency introduced by current extension."
+      ]
+    },
+    "nacre/shell-tools/shortcuts.lua": {
+      "disposition": "independent",
+      "sha256": "97f23bd22316bce5104771c55722b2862f1b6acfecb933146a9b4c519b14bf3b",
+      "evidence": [
+        "docs/specs/compositor-entrypoint.md",
+        "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
+        "Local native-tool extension introduced 007d020 under siverteh/shell-tools/shortcuts.lua; passive dismissal added 63162dc; Thunar rule removed to managed rule owner85f31ab; namespace changed548f0b4. Current four bindings are own feature declarations, not a rename-based certificate."
+      ]
     }
   }
 }

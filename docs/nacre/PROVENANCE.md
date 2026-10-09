@@ -1240,3 +1240,29 @@ action; fake classes do not prove real app cold login. One own route-source revi
 added, shared capture reviews reassessed; root/Brain/private-shortcut/helper/UI/
 assets/tests/packaging and final comparison/fresh-session checks remain. Notices
 retained, whole originality goal active.
+
+## Compositor entry point and local extension review
+
+[Spec](../specs/compositor-entrypoint.md): inherited root composition deleted
+before writing a fresh ordered module entry point from its public contracts.
+Preserves fourteen module loads and neutral border fallback scalars, which are
+interface/default data rather than an inherited palette algorithm. Five private
+overrides retain their order, missing-file tolerance and independently authored
+contained-error behavior (bcdbd69). Actual isolated Lua tests cover complete module
+order, all missing files, precedence and failure in every override. Prior exposure
+to public declarations and the local error helper is acknowledged; no upstream
+implementation consulted and no legal clean-room or final-license claim.
+
+Brain extension is locally authored: e42b701 introduced the Observatory routing
+and Brain/capture actions; 2fa3a95/9a9cebe removed old appearance and conflicting
+routes. Current authenticated-window/handoff rules trace to local Brain changes
+3f4132d/de8222b/69aad30. Extra shortcuts originate in local native desktop tools
+007d020, with passive Escape added 63162dc, managed Thunar-rule move 85f31ab and
+namespace rename 548f0b4. These two verified local files are retained, not rewritten
+solely because they travelled through a rename/conversion. Current SHA-bound
+reviews cover those declarations; called helpers/Brain server remain separate
+audit items. Applicable notices remain pending the whole-tree conclusion.
+
+Existing helper loader markers are preserved as public validation contracts;
+removing them would falsely reject working Settings/palette/shortcut installation.
+A regression checks all three markers in the independently composed root.
