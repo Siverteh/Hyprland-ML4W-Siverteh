@@ -1,8 +1,8 @@
 # Nacre independent implementation tracker
 
 Status: Orient, shared foundation, frame, launcher, notification presentation,
-all dashboard/Settings views and Audio/Wi-Fi/Bluetooth services verified. Media,
-notification ownership and resource services implemented; live acceptance pending.
+all dashboard/Settings views and Audio/Wi-Fi/Bluetooth, media,
+notification ownership and resource services verified.
 Whole rewrite unfinished, 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
@@ -45,7 +45,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
-| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth verified; Players/SystemUsage/Notifs implemented; remaining providers and helpers pending |
+| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth verified; Players/SystemUsage/Notifs verified; remaining providers and helpers pending |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
@@ -573,7 +573,7 @@ without header hover; real hover verification passed unchanged software. Physica
 roaming/reconnect/hotplug/cold login and battery drain are not measured. Other
 services/UI/config/helpers/assets/final audit remain, notices kept.
 
-## Media, notification and resource services (implemented; live checks pending)
+## Media, notification and resource services (verified; other providers pending)
 
 - Deleted Players/SystemUsage/Notifs bodies before fresh Nacre-prefixed providers
   and NacreNotificationEntry/resource-data.js/resource-state.py. Old names are own
@@ -593,3 +593,21 @@ services/UI/config/helpers/assets/final audit remain, notices kept.
   real UI tests. A formatter issue in the fake notification ID property was
   corrected; no production behavior changed by that fixture adjustment.
 - Notices kept. Other services, bar/wrappers/config/helpers/assets/final audit remain.
+
+State-service acceptance (2026-10-09): software `f7cc3b1`, good release
+`20261009T161543593745Z`. All346 tests, QML format/parse and target Hyprland
+validation passed, including the final installer rerun. Strict source/startup/
+launcher/wallpaper/Escape gates passed. Native FileView counter probe returned
+valid CPU/memory/kernel data. Actual media/performance screenshots inspected;
+valid resource values and unsupported GPU state truthful. Twelve Settings routes,
+real search, five tabs and Escape/offclick passed. Real transient notice received,
+hover paused expiry, dashboard suppression released hover/paused expiry through
+geometry, close resumed timing and native close removed it.44 retained messages
+and byte hashes of history/desktop/wallpaper/assistant preferences unchanged.
+Fast/slow resource counters stopped during the measured2.2-second closed interval;
+installed providers/entry/forwarders/helpers match source. Read-only MPRIS IPC and
+all five Nacre shortcut registrations verified; real transport/seek/volume writes
+were not exercised. Shell active, configerrors empty and no QML runtime error/
+binding-loop diagnostics. No physical/cold-login/battery measurement or whole-tree
+license conclusion. Remaining providers/bar/wrappers/config/helpers/assets/audit
+still pending; notices retained.
