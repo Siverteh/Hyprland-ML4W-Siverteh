@@ -57,3 +57,14 @@ References: https://quickshell.org/docs/v0.2.1/types/Quickshell.Services.UPower/
 https://quickshell.org/docs/v0.2.1/types/Quickshell.Services.UPower/UPowerDevice/
 https://quickshell.org/docs/v0.2.1/types/Quickshell.Services.UPower/PowerProfiles/
 https://quickshell.org/docs/v0.2.1/types/Quickshell.Services.UPower/PowerProfile/
+
+## Dismissal regression found during live acceptance
+
+Header-click Settings had no explicit initial keyboard focus; the prior fixture
+forced it manually and therefore missed that path. NacreDashboardPanel now requests
+Qt focus only for visible pinned Settings, including reopening, and the fixture
+uses the real activation path. Passive dashboard hover does not request focus.
+Explicit nacre close also releases dashboard/popout pins and edge-menu state;
+otherwise a later hover could reopen a stale pinned Settings page. Retain selected
+page/tab preferences. Focus diagnostics in barStatus are booleans only. Native
+header Escape and subsequent passive closure must pass before promotion.

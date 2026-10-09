@@ -73,7 +73,7 @@ TestCase {
         view.visibilities.dashboard = false;
         compare(loader.item.active, false);
         view.visibilities.dashboard = true;
-        view.forceActiveFocus();
+        tryCompare(view, "focus", true, 300);
         keyClick(Qt.Key_Escape);
         compare(view.visibilities.dashboard, false);
         compare(view.visibilities.dashboardPinned, false);

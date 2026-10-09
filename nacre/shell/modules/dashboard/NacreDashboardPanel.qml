@@ -23,6 +23,19 @@ NacreSurface {
         visibilities.dashboardTab = index;
         visibilities.dashboardPinned = index === 4;
     }
+    function focusSettings() {
+        if (visibilities.dashboard && visibilities.dashboardPinned && visible)
+            forceActiveFocus(Qt.OtherFocusReason);
+    }
+    onUpdatingChanged: if (updating)
+        Qt.callLater(focusSettings)
+    Connections {
+        target: root.visibilities
+        function onDashboardPinnedChanged() {
+            if (root.visibilities.dashboardPinned)
+                Qt.callLater(root.focusSettings);
+        }
+    }
     NacreDashboardNavigation {
         id: navigation
         objectName: "dashboardNavigation"

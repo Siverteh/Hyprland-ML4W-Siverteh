@@ -161,6 +161,8 @@ ShellRoot {
             const v = Visibilities.getForActive();
             if (v) {
                 v.dashboard = false;
+                v.dashboardPinned = false;
+                v.edgeMenu = "";
                 v.osd = false;
                 v.launcher = false;
                 v.session = false;
@@ -168,8 +170,10 @@ ShellRoot {
                 v.leftPinned = false;
                 v.previewOnly = false;
             }
-            for (const p of Object.values(Visibilities.panels))
+            for (const p of Object.values(Visibilities.panels)) {
                 p.popouts.hasCurrent = false;
+                p.popouts.pinned = false;
+            }
         }
         function popupState(): string {
             return JSON.stringify(Object.values(Visibilities.panels).map(p => ({

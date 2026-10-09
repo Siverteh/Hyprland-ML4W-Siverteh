@@ -71,6 +71,8 @@ Item {
                 batteryAvailable: root.batteryAvailable,
                 batteryPercent: root.batteryPercent,
                 noticeCount: NacreNotifs.retained.length,
+                frameSceneFocus: Visibilities.panels[root.screenName]?.input?.parent?.focus ?? false,
+                frameSceneActiveFocus: Visibilities.panels[root.screenName]?.input?.parent?.activeFocus ?? false,
                 targets: items.map((item, index) => {
                     const point = item.mapToItem(null, item.width / 2, item.height / 2);
                     return {
