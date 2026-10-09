@@ -33,7 +33,7 @@ Item {
                 width: parent.width - 104
                 anchors.verticalCenter: parent.verticalCenter
                 text: NacreAudio.sink?.description || "Output unavailable"
-                elide: Text.ElideRight
+                elide: Text.ElideMiddle
             }
             ActionButton {
                 text: NacreAudio.muted ? "Unmute" : "Mute"
@@ -86,14 +86,30 @@ Item {
                 spacing: 6
                 Repeater {
                     model: root.outputs
-                    delegate: ActionButton {
+                    delegate: NacreSurface {
                         required property var modelData
+                        readonly property bool selected: Pipewire.defaultAudioSink === modelData
                         width: parent.width - 10
-                        text: modelData.description || modelData.name || "Audio output"
-                        selected: Pipewire.defaultAudioSink === modelData
+                        height: 34
+                        radius: 17
                         enabled: modelData.ready
-                        compact: true
-                        onClicked: root.chooseOutput(modelData)
+                        opacity: enabled ? 1 : 0.45
+                        color: selected ? NacreColours.palette.m3primary : NacreColours.palette.m3surfaceContainerHigh
+                        NacreText {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            text: parent.modelData.description || parent.modelData.name || "Audio output"
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideMiddle
+                            font.pointSize: 11
+                            color: parent.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
+                        }
+                        NacreInteraction {
+                            accessibleName: "Use output " + (parent.modelData.description || parent.modelData.name || "Audio output")
+                            function onClicked() {
+                                root.chooseOutput(parent.modelData);
+                            }
+                        }
                     }
                 }
             }
