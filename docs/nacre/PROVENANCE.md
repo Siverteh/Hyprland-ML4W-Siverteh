@@ -48,7 +48,8 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 5c | `modules/topbar/` | audit pending | Caller renames and small fixes do not certify full bodies |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | verified | Eleven listed providers replaced; unused Thumbnailer retired. Other mixed providers/helpers and whole-tree audit remain |
-| 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
+| 7a | `modules/osd/`, `modules/session/`, `modules/background/` wrapper/control/renderer bodies | verified | [Desktop wrapper spec](../specs/desktop-wrappers.md); native controls/media/lifecycle verified |
+| 7b | `modules/Shortcuts.qml`; root shell, shared playback/state helpers | audit pending | Keep data/input ownership and private behavior; full-body audit/replacement required |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | partly verified | Bongocat/fuzzysort retired; independent seed in Orient. Stock font/icon license audit remains |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
 | Final | Remaining QML/JS/Python/Lua, assets, tests, generated files and packaging | audit pending | Review beyond the supplied list; document dependencies and perform provenance comparison |
@@ -844,7 +845,7 @@ Shortcuts bodies inspected for diagnosis; whole-file originality remains pending
 and small fixes do not certify them. Notices retained; physical multi-output/
 cold-login/battery and whole-tree provenance completion not claimed.
 
-## OSD/session/background wrappers (replaced; acceptance pending)
+## OSD/session/background wrappers (verified)
 
 Deleted eight mixed/inherited wrapper/control/media bodies before new NacreOsd
 Panel/Controls/Events, NacreSessionPanel/Controls, NacreBackground/WallpaperScene/
@@ -861,3 +862,23 @@ motion, latest-ready poster/palette activation, opaque underlayer, rapid request
 and percent-containing filenames, motion policy. Native Quickshell video test
 uses generated footage with an audio track to prove first-frame playback, pause
 and disabled audio route/track. No private wallpaper or device mutation by tests.
+
+Desktop wrapper acceptance (2026-10-09): software `d1d9a1e`, good release
+`20261009T200834703779Z`. All365 checks (31 tools,96 AI,35 Brain,203 shell), QML format/
+parse, native Hyprland, plan/apply and final installer rerun/strict source/startup/
+launcher/wallpaper/Escape gates passed. Actual matched poster/palette with no error,
+no unsolicited startup OSD, indicator preview/capture and session Escape passed.
+Five hover/popout/history pin/offclick, six native application click/key-return
+cycles passed. Exact source, private preference/history byte hashes, radio/volume
+and requested hardware light values unchanged. Shell active, configerrors empty,
+no runtime QML errors/binding loops. Session actions tested in fixtures only; native
+video generated with an audio track proves first-frame/pause/disabled-audio state.
+No real lock/power/brightness/audio/wallpaper writes by QA. No physical cold-login/
+hotplug/multi-output/battery measurement or whole-tree provenance completion claim.
+
+Live session checks required explicit post-visibility Qt focus; Escape still uses
+frame ownership. Added a late-palette regression and revision-driven retry so an
+already-ready poster is acknowledged when matching metadata arrives later. Opaque
+old poster stays under new fade; literal percent/space path tested. Native data /
+playback policy, root shell, shortcuts/topbar/helpers/config/assets/final audit
+remain separate work. Notices retained and the full goal stays active.
