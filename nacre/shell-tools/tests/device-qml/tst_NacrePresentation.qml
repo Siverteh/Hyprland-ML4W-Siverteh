@@ -18,7 +18,7 @@ TestCase {
                 primary: primary || "aabbcc"
             }),
             paletteOptions: [],
-            selectedAccent: "",
+            selectedAccent: null,
             changedAtMs: 1000
         };
     }

@@ -40,7 +40,7 @@ Singleton {
             return false;
         if (data.paletteOptions !== undefined && !Array.isArray(data.paletteOptions))
             return false;
-        if (data.selectedAccent !== undefined && typeof data.selectedAccent !== "string")
+        if (data.selectedAccent !== undefined && data.selectedAccent !== null && typeof data.selectedAccent !== "string")
             return false;
         if (data.changedAtMs !== undefined && (!Number.isFinite(data.changedAtMs) || data.changedAtMs < 0))
             return false;
