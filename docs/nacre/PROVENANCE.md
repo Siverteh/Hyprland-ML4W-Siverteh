@@ -1015,3 +1015,30 @@ or registration remains and no native Cava process was running. Current Nacre
 media/provider tests and Brain JavaScript check stay; only the obsolete beat test
 is retired. System packages, playback and private state are unchanged. Notices
 remain until the full-source/dependency audit, not just dead-code cleanup, passes.
+
+Audio retirement acceptance (2026-10-09): source `76101df`, good release
+`20261009T215717801922Z`. All374 checks/QML/native Hyprland and reviewed shell-only
+plan/apply passed. Exact233-file active source contains no Cava/Spectrum/beat or
+retired thumbnail helper. Actual Overview/Media previews/Escape and current player
+controls, wallpaper/Appearance previews and six application input/dismissal cycles
+passed; Media screenshot visually inspected. Sidebar PID/start identity and eight
+private preference-file hashes unchanged, no native Cava process or runtime QML
+errors, shell active/configerrors empty. No playback/hardware/account action.
+
+The first wallpaper check crossed the existing automatic rotation deadline and
+correctly rejected its old selected/applied snapshot. Diagnosis: unchanged30-minute
+rotation preferences, original deadline16:58:22.680, new presentation published
+518ms later and new deadline advanced30minutes+701ms. Only generated palette.lua
+changed; preference bytes remained equal. Short-window checks against the new
+scheduled wallpaper then passed. The test baseline distinguishes generated theme
+state from preferences rather than disabling rotation or hiding a failure.
+
+[Orient exact-file review](ORIENT-SOURCE-AUDIT.md) read all eight current modules
+and package metadata, followed replacement/local correction history and reviewed
+imports/math/dependency boundaries. Nine SHA-bound independent implementation
+reviews now recorded; native eight installed modules match and runtime contains
+Orient/Pillow/pip only. All374 checks and native Hyprland passed for this metadata
+batch; config plan0 changes, no redundant runtime cutover. Compatible output names
+are distinguished from inherited algorithms. No upstream bodies consulted, no
+final similarity/legal clean-room/license conclusion; retained notices and remaining
+publisher/helper/config/test/asset/full-runtime audit stay required.
