@@ -116,3 +116,11 @@ References: [Quickshell click-through masks](https://quickshell.org/docs/v0.2.0/
 [Qt Shape](https://doc.qt.io/qt-6/qml-qtquick-shapes-shape.html).
 A private live test tool uses the MIT-licensed wlr virtual-pointer protocol with
 its original generated notices; it is a test dependency, not shipped desktop code.
+
+
+Panel positioning is centralized in independently authored layout.js, with bounded
+edge attachment and popup-centering/docking calculations. Unit tests cover parent
+resizes, oversized content and stable right docking during opening. Modal click-away
+also covers separate surfaces (e.g. top bar) using the public HyprlandFocusGrab API;
+activation requires backingWindowVisible and modal state, and passive hover never
+uses it. No inherited focus-grab source is reused.

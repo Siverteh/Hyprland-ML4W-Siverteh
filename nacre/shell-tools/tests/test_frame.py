@@ -20,6 +20,7 @@ class FrameTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder)
             shutil.copy2(SHELL / "modules/drawers/registry.js", target / "registry.js")
+            shutil.copy2(SHELL / "modules/drawers/layout.js", target / "layout.js")
             shutil.copy2(
                 ROOT / "tests/frame-qml/tst_registry.qml", target / "tst_registry.qml"
             )

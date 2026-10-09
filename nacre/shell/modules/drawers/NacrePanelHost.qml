@@ -1,4 +1,5 @@
 import QtQuick
+import "layout.js" as Layout
 import Quickshell
 import qs.config
 import qs.modules.bar.popouts as Popouts
@@ -28,43 +29,51 @@ Item {
     anchors.rightMargin: NacreFrame.right
     anchors.topMargin: NacreFrame.headerHeight
     anchors.bottomMargin: NacreFrame.bottom
+    function position(edge, item, offset) {
+        return Layout.attached(edge, width, height, item.width, item.height, offset);
+    }
+    readonly property var leftPosition: position("left", left)
+    readonly property var osdPosition: position("right", osd, session.width)
+    readonly property var sessionPosition: position("right", session)
+    readonly property var dashboardPosition: position("top", dashboard)
+    readonly property var launcherPosition: position("bottom", launcher)
+    readonly property var popupPosition: Layout.popout(x, width, popouts.currentCenter, popouts.width, popouts.targetWidth, NacreFrame.rounding)
     Extras.LeftDrawer {
         id: left
         screen: root.screen
         visibilities: root.visibilities
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
+        x: root.leftPosition.x
+        y: root.leftPosition.y
         clip: true
     }
     Osd.Wrapper {
         id: osd
         screen: root.screen
         visibility: root.visibilities.osd && !root.visibilities.session
-        anchors.right: parent.right
-        anchors.rightMargin: session.width
-        anchors.verticalCenter: parent.verticalCenter
+        x: root.osdPosition.x
+        y: root.osdPosition.y
         clip: true
     }
     Session.Wrapper {
         id: session
         visibilities: root.visibilities
-        anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
+        x: root.sessionPosition.x
+        y: root.sessionPosition.y
         clip: true
     }
     Dashboard.Wrapper {
         id: dashboard
         visibilities: root.visibilities
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
+        x: root.dashboardPosition.x
+        y: root.dashboardPosition.y
         clip: true
     }
     Popouts.Wrapper {
         id: popouts
         screen: root.screen
-        readonly property bool joinsRight: currentCenter - root.x + targetWidth / 2 > root.width - NacreFrame.rounding * 2
-        anchors.top: parent.top
-        x: joinsRight ? parent.width - width : Math.max(NacreFrame.rounding * 2, currentCenter - root.x - width / 2)
+        readonly property bool joinsRight: root.popupPosition.joinsRight
+        x: root.popupPosition.x
+        y: root.popupPosition.y
         clip: true
     }
     Notifications.Wrapper {
@@ -76,8 +85,8 @@ Item {
     Launcher.Wrapper {
         id: launcher
         visibilities: root.visibilities
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
+        x: root.launcherPosition.x
+        y: root.launcherPosition.y
         clip: true
         z: 10
     }

@@ -1,6 +1,7 @@
 import QtQuick
 import "registry.js" as Registry
 import Quickshell
+import Quickshell.Hyprland as NativeHyprland
 import Quickshell.Wayland
 import qs.widgets
 import qs.services
@@ -41,6 +42,14 @@ NacreWindow {
     Component.onDestruction: Registry.release(Visibilities, registeredName, flags, panelHost)
     mask: NacrePanelMask {
         controller: inputController
+    }
+    NativeHyprland.HyprlandFocusGrab {
+        windows: [root]
+        active: root.backingWindowVisible && inputController.modal
+        onCleared: {
+            if (inputController.modal)
+                inputController.dismiss();
+        }
     }
     NacreReservedEdges {
         screen: root.screen
