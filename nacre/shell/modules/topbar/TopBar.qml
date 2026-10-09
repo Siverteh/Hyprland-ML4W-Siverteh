@@ -37,6 +37,27 @@ Variants {
             color: NacreTokens.body
         }
         readonly property var visibility: Visibilities.screens[screen.name]
+        IpcHandler {
+            target: "header-" + win.screen.name
+            function state(): string {
+                return JSON.stringify({
+                    screen: win.screen.name,
+                    width: win.width,
+                    height: win.height,
+                    hovered: dashboardHover.containsMouse,
+                    pointerX: dashboardHover.mouseX + dashboardHover.x,
+                    pointerY: dashboardHover.mouseY,
+                    buttons: dashboardHover.pressedButtons,
+                    visibilityRegistered: !!win.visibility,
+                    dashboard: win.visibility?.dashboard ?? false,
+                    fullscreen: HoverIntent.fullscreenFor(win.screen.name),
+                    blocked: HoverIntent.blocked[win.screen.name] ?? {},
+                    headerFlag: HoverIntent.headers[win.screen.name] ?? false,
+                    modalObserver: modalForwarderPane.visible,
+                    dashboardDepth: HoverIntent.dashboardDepth
+                });
+            }
+        }
         Timer {
             id: dismissPopout
             interval: 120
