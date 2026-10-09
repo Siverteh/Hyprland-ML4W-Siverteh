@@ -177,7 +177,7 @@ remain private QA artifacts. All 318 repository checks passed before deployment,
 including native Settings selection and cache/preference/contrast regressions.
 
 - Harmony implementation `9c9089f` deployed as good release
-  `20261009T035722984256Z` (Orient `orient-2.0.0-69aec8b65d70`). Full 318 checks,
+  `20261009T035722984127Z` (Orient `orient-2.0.0-69aec8b65d70`). Full 318 checks,
   Hyprland verification, native source/IPC and actual launcher/wallpaper Escape
   gates passed. Live IPC toggled Harmony on/off, preserving the active wallpaper
   and selected accent and matching published primary/secondary/body colors. Natural
