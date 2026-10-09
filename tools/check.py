@@ -93,7 +93,12 @@ def main():
     print("Window class routing and floating rules are consistent.", flush=True)
     lua = shutil.which("luac")
     if lua:
-        for path in [*(ROOT / "hypr").rglob("*.lua"), *extra_lua]:
+        for path in [
+            *(ROOT / "hypr").rglob("*.lua"),
+            *extra_lua,
+            *(ROOT / "tools").glob("*.lua"),
+            ROOT / "nacre/shell-tools/binding-contracts.lua",
+        ]:
             run([lua, "-p", str(path)])
         print("Lua syntax passed.", flush=True)
     formatter = Path("/usr/lib/qt6/bin/qmlformat")

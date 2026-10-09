@@ -1172,3 +1172,21 @@ epoch replies/clears rearmed delivery error, then full/live checks repeated.
 Native policy/owner/source hashes recorded as own implementation from contracts/
 public APIs; remaining whole-tree/helper/assets/tests/final comparison and fresh
 compositor-session old-curve-registry follow-up stay open. Notices retained.
+
+## Compositor shortcut composition replacement
+
+[Spec](../specs/keybindings.md): target deleted before own grouped map/constructor/
+workspace+direction families.95 public declarative key/action/argument/flag/submap
+contracts recorded with fake native constructors and no action invocation; matched
+new restricted capture. Native101 effective bindings separately captured. Public
+declarations/earlier exposure acknowledged, no upstream/inherited implementation
+body used/no clean-room or final license claim. External helpers/private shortcuts/
+root/host source provenance separate. Static duplicate checker strengthened to
+restricted Lua construction capture so generated key families remain covered.
+
+Shortcut-guide caller integration: current source-reading parser would lose
+generated binding descriptions. Shared restricted helper deployed with shell
+tools, tools checker imports the same implementation, guide labels use
+(submap,key) identity and native active-set data. Generated guide/resize exit and
+brightness label regression added. This edits a caller, not a whole desktop-extras
+provenance certificate; prior caller-body exposure acknowledged.

@@ -197,3 +197,7 @@ systemd services keep separate ownership; see [startup spec](specs/session-start
 NacreBatteryAlerts shares cached native UPower data with the bar and owns20%/15%
 warning policy once per discharge episode. No shell battery polling loop remains;
 see [battery alert ownership](specs/battery-alerts.md).
+
+Managed shortcuts use own declarative groups and generated workspace/direction
+families. Restricted Lua contract capture keeps conflict checks effective for
+generated keys; see [shortcut specification](specs/keybindings.md).

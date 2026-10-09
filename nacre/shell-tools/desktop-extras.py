@@ -375,50 +375,51 @@ DESCRIPTIONS = {
 
 def bindings():
     source = {}
+    capture = runpy.run_path(str(Path(__file__).with_name("binding-contracts.py")))[
+        "capture"
+    ]
     for file in [
         *sorted((HOME / ".config/hypr/conf").glob("*.lua")),
         HOME / ".config/nacre/shortcuts.lua",
     ]:
-        if not file.exists():
+        if not file.exists() or not re.search(r"\bhl\.bind\s*\(", file.read_text()):
             continue
-        for line in file.read_text().splitlines():
-            if line.lstrip().startswith("--"):
-                continue
-            match = re.search(r'hl\.bind\("([^"]+)".*', line)
-            if not match:
-                continue
-            key = (
-                match[1]
-                .replace(" ", "")
-                .replace("SUPER", "SUPER")
-                .replace("space", "SPACE")
+        try:
+            records = capture(file)
+        except (RuntimeError, OSError, subprocess.TimeoutExpired):
+            continue  # Native descriptions remain available for unsupported local code.
+        for record in records:
+            key = record["keys"].replace(" ", "").replace("space", "SPACE")
+            action = record["action"]
+            arguments = action.get("args", [])
+            command = (
+                arguments[0] if action["method"] == "exec_cmd" and arguments else ""
             )
-            desc = DESCRIPTIONS.get(key)
-            if not desc:
-                command = re.search(r'exec_cmd\("([^"]+)"', line)
-                desc = (
-                    Path(command[1].split()[0]).stem.replace("-", " ").replace("_", " ")
-                    if command
-                    else line.split("hl.dsp.")[-1]
-                    .split("(")[0]
-                    .replace(".", " ")
-                    .replace("_", " ")
-                )
-            if "brightnessctl" in line:
-                desc = (
-                    ("Keyboard" if "kbd_backlight" in line else "Screen")
-                    + " brightness "
-                    + ("down" if "5%-" in line else "up")
-                )
-            if "wpctl" in line:
+            desc = DESCRIPTIONS.get(key) or action["method"].replace(".", " ").replace(
+                "_", " "
+            )
+            if command and key not in DESCRIPTIONS:
+                desc = Path(command.split()[0]).stem.replace("-", " ").replace("_", " ")
+            if action["method"] == "submap" and arguments == ["reset"]:
+                desc = "Exit resize mode"
+            if "wpctl" in command:
                 desc = (
                     "Toggle microphone mute"
-                    if "@DEFAULT_AUDIO_SOURCE@" in line
+                    if "@DEFAULT_AUDIO_SOURCE@" in command
                     else "Toggle speaker mute"
-                    if "set-mute" in line
-                    else "Volume " + ("down" if "5%-" in line else "up")
+                    if "set-mute" in command
+                    else "Volume " + ("down" if "5%-" in command else "up")
                 )
-            source[key] = desc
+            if (
+                "nacre-shell brightness " in command
+                or "nacre-shell keyboard-light " in command
+            ):
+                desc = (
+                    ("Keyboard" if "keyboard-light" in command else "Screen")
+                    + " brightness "
+                    + command.split()[-1]
+                )
+            source[(record["submap"], key)] = desc
     result = []
     for b in json.loads(run(["hyprctl", "binds", "-j"], text=True).stdout):
         parts = [
@@ -430,8 +431,8 @@ def bindings():
         key = "SPACE" if key.lower() == "space" else key
         combo = "+".join([*parts, key])
         desc = (
-            DESCRIPTIONS.get(combo)
-            or source.get(combo)
+            source.get((b.get("submap", ""), combo))
+            or DESCRIPTIONS.get(combo)
             or b.get("description")
             or b.get("dispatcher", "")
         )

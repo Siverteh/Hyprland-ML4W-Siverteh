@@ -94,6 +94,48 @@ class DesktopExtrasTests(unittest.TestCase):
             extras.clip_action("pin", "7")
             self.assertEqual(json.loads((Path(folder) / "pins.json").read_text()), [])
 
+    def test_generated_shortcut_guide_keeps_actions_and_submap_labels(self):
+        import shutil
+
+        if not shutil.which("lua"):
+            self.skipTest("Lua unavailable")
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            folder = home / ".config/hypr/conf"
+            folder.mkdir(parents=True)
+            (folder / "map.lua").write_text("""
+for n=1,2 do hl.bind("SUPER + "..n,hl.dsp.focus({workspace=n})) end
+hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("~/.local/bin/nacre-shell brightness down"))
+hl.define_submap("resize",function() hl.bind("SUPER + R",hl.dsp.submap("reset")) end)
+""")
+            native = [
+                dict(key="1", modmask=64, submap="", dispatcher="__lua"),
+                dict(
+                    key="XF86MonBrightnessDown",
+                    modmask=0,
+                    submap="",
+                    dispatcher="__lua",
+                ),
+                dict(key="R", modmask=64, submap="resize", dispatcher="__lua"),
+            ]
+            with (
+                patch.object(extras, "HOME", home),
+                patch.object(
+                    extras,
+                    "run",
+                    return_value=SimpleNamespace(stdout=json.dumps(native)),
+                ),
+            ):
+                result = extras.bindings()
+            descriptions = {(r["submap"], r["key"]): r["description"] for r in result}
+            self.assertEqual(descriptions[("", "SUPER+1")], "Go to workspace 1")
+            self.assertEqual(
+                descriptions[("", "XF86MonBrightnessDown")], "Screen brightness down"
+            )
+            self.assertEqual(
+                descriptions[("resize", "SUPER+R")], "resize · Exit resize mode"
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

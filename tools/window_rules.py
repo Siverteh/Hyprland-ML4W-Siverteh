@@ -1,6 +1,7 @@
 """Detect conflicting class-wide Lua window routes and floating rules.
 
-This statically reads literal rule tables; it never executes desktop config.
+Window routes are read as literal rule tables. Binding declarations use a restricted
+Lua environment without native actions, processes or file/environment access.
 It compares equal selectors and witnesses overlaps using finite class names,
 including case pairs and alternations. Arbitrary PCRE intersection is not assumed.
 """
@@ -134,25 +135,21 @@ def conflicts(folder, extra=()):
 
 
 def bind_conflicts(folder, extra=()):
+    from bindings import capture
+
     found, seen = [], {}
     for path in lua_sources(folder, extra):
         source = without_comments(path.read_text())
-        submaps = []
-        for definition in re.finditer(r"hl\.define_submap\s*\(", source):
-            begin = source.index("(", definition.start())
-            submaps.append((begin, balanced(source, begin)))
-        for call in re.finditer(r"hl\.bind\s*\(\s*(" + STRING + r")", source):
-            if any(begin <= call.start() < end for begin, end in submaps):
+        if not re.search(r"\bhl\.bind\s*\(", source):
+            continue
+        for record in capture(path):
+            if record["submap"]:
                 continue
-            begin = source.index("(", call.start())
-            options = source[call.end() : balanced(source, begin)]
-            if re.search(r"\bsubmap\s*=\s*[\"'](?:[^\"']+)[\"']", options):
-                continue
-            key = ast.literal_eval(call[1])
-            parts = [p.strip().upper() for p in key.split("+")]
+            key = record["keys"]
+            parts = [part.strip().upper() for part in key.split("+")]
             modifiers = {"CONTROL": "CTRL", "META": "SUPER", "MOD4": "SUPER"}
             canonical = (
-                "+".join(sorted(modifiers.get(p, p) for p in parts[:-1]))
+                "+".join(sorted(modifiers.get(part, part) for part in parts[:-1]))
                 + "+"
                 + parts[-1]
             )

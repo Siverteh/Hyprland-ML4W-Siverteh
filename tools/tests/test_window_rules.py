@@ -1,7 +1,10 @@
 import importlib.util
 from pathlib import Path
 import tempfile
+import sys
 import unittest
+
+sys.path.insert(0, str(Path(__file__).parents[1]))
 
 spec = importlib.util.spec_from_file_location(
     "window_rules", Path(__file__).parents[1] / "window_rules.py"

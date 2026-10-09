@@ -1,6 +1,6 @@
 # Independent compositor shortcut composition
 
-Spec ready, 2026-10-09. Target: `hypr/conf/keybinding.lua`; private/native
+Implementation written, acceptance pending, 2026-10-09. Target: `hypr/conf/keybinding.lua`; private/native
 `nacre/shell-tools/shortcuts.lua` and app/window helper bodies require separate
 provenance review. The Lua file was introduced during conversion `f3290a5`; old
 keybinding.conf history reaches the original dotfile tree. Language translation
@@ -48,3 +48,44 @@ A virtual key cannot establish physical Fn/Super switch behavior; retain that
 limitation. SHA-bound origin/source/dependency review and exact-main CI before
 finishing. No final license/notices removal until full current-tree/runtime review
 and source comparison; public general keyboard/app choices follow originality.
+
+## Captured contracts and authored composition
+
+Native effective snapshot has101 bindings; managed target's safe declaration
+capture has95 records, including7 resize-submap records. Public key/action/flag
+declarations and constructor outputs exposed, no old/upstream implementation body
+consulted. No target callback performs arbitrary logic: all95 actions are native
+dispatcher constructors. Snapshot fixture is behavioral data, not reused source.
+
+Deleted target before fresh declarative device/lifetime/workspace/directional/
+resize/desktop/application groups and common constructor/registration helpers.
+Seven focus+move workspace pairs and directional families generated from data;
+95 key/action/argument/repeating/locked/mouse/submap contracts compare exactly,
+ordering normalized. Existing private override load order unchanged.
+
+Static literal-only conflict regex would miss generated bindings. Independent
+Lua capture tool loads definitions in a restricted environment: no os/io/package/
+require/dofile/process/native dispatch access. It records constructed metadata,
+executes only define_submap declaration callbacks, never bound actions. Callable
+binds are identified without invoking their bodies. Ten-second subprocess timeout
+bounds malformed/infinite source. Lua required for this check; CI already installs
+it. Current binding-defining sources captured across managed and shortcut files.
+Checker normalizes modifier order and ignores separate submap scopes as before.
+Generated-key/private-literal conflict and sandbox rejection cases tested.
+
+Fixture preserves the observed contract, not authorship proof by itself. Actual
+native parser/bind comparison/input checks and source/dependency review required.
+Referenced app/window/AI helper bodies and private host override source remain
+separate; no real action invoked to infer its behavior.
+
+Reference: [Hyprland0.56 binding APIs](https://wiki.hypr.land/0.56.0/Configuring/Basics/Binds/).
+
+The on-demand shortcut guide also depended on literal-call parsing. It now uses
+the same deployed `binding-contracts.py/.lua` reader, with native bindings still
+defining the active set. Captured metadata supplies descriptions and preserves
+submap identity; scoped exit descriptions no longer collide with global resize
+entry. Hardware brightness descriptions reflect current shell IPC commands.
+The helper is shared with CI through a thin tools import bridge, not duplicated
+or generated into a stale source manifest. Helper caller body was inspected for
+integration and is not certified entirely original by this adjustment.
+Config+shell deployment required so runtime guide/helper changes arrive together.
