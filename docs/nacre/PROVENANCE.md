@@ -612,7 +612,7 @@ binding-loop diagnostics. No physical/cold-login/battery measurement or whole-tr
 license conclusion. Remaining providers/bar/wrappers/config/helpers/assets/audit
 still pending; notices retained.
 
-## App discovery, clock and compositor providers (implemented; live checks pending)
+## App discovery, clock and compositor providers (verified; other providers pending)
 
 - Deleted Apps/Time/Hyprland bodies before fresh NacreApps/Time/Hyprland, NacreClient
   and app-search.js. Minimal old-name forwarders preserve current API callers;
@@ -630,3 +630,19 @@ still pending; notices retained.
   fixture missed a service path migration; corrected without runtime suppression.
 - Other providers, palette/brightness, bar/wrappers/config/helpers/assets and final
   audit remain pending. Full/live acceptance follows.
+
+Platform acceptance (2026-10-09): software `0e1d0fc`, good release
+`20261009T170213071183Z`. All349 tests, native QML format/parse, Hyprland and
+final installer rerun/strict source/startup/launcher/wallpaper/Escape gates pass.
+Read-only native probe matched68 desktop entries,6 clients, focused window and
+workspace2 after canonical-address/Lua-bootstrap fixes. Actual launcher keyboard
+search, favorites reset, six-row All apps, Escape/offclick and shared local clock
+agreement passed. Real workspace card switched to1/dismissed and original
+workspace/application focus restored. Twelve Settings routes/search/five tabs
+passed; six real hover-close/synthetic application click/key cycles and modal
+outside dismissal returned input correctly. Installed providers/client/helper/
+adapters match; private desktop/wallpaper/launcher/assistant/history hashes
+unchanged. Shell active, configerrors empty, no QML error/binding-loop diagnostics.
+No actual app launch/device/time writes or physical multi-output/cold-login/battery
+claims. Palette/brightness/thumbnail/other providers, UI bar/wrappers, configuration,
+helpers/assets and whole-tree provenance audit remain. Notices retained.
