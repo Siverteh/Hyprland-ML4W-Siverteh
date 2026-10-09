@@ -35,8 +35,8 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 |---|---|---|---|
 | 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | verified | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
 | 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | verified | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
-| 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | replaced | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
-| 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | replaced | Independent Nacre config/utility providers; final fonts/icons remain undecided |
+| 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | verified | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
+| 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | audit pending | Frame, layer surfaces, focus and edge intent; inspect newer `FrameSurface` integration too |
@@ -152,8 +152,15 @@ runtime path consolidation is part of these documentation changes.
 - New native tests exercise editing, validation, selection, Escape, slider writes,
   attached scrollbar geometry, config/motion/chrome binding and image handle cleanup.
   The window contract was also probed through a hidden native Wayland window;
-  passive focus and `nacre-` namespace are retained. Live deployment pending.
+  passive focus and `nacre-` namespace are retained. Live deployment verified below.
 - Candidate validation: 311 repository tests passed, including sixteen native
   foundation test functions and actual RHI clipping capture. Hyprland config
   verification passed; install plan selects only the shell component. Runtime
   deployment evidence will be recorded after promotion.
+
+- Implementation `9a3b9a7` deployed as good release `20261009T034459081314Z`.
+  Native IPC reports frame/body agreement, window layers retain `nacre-` namespaces,
+  installed Nacre providers/primitives match source bytes, launcher/wallpaper stay
+  open until actual Escape and configerrors are empty. The old hover-visibility
+  binding-loop warnings predate this replacement; full panel redesign remains
+  separate. Physical cold login/secure lock and every external app are not verified.
