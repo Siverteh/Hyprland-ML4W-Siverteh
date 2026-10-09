@@ -381,7 +381,7 @@ never skip the user's real track. One-output synthetic checks do not establish
 physical multi-output/cold-login or measured battery consumption. Services, other
 pages/shared helpers/assets and final provenance audit remain pending; notices kept.
 
-## Full Media and Performance replacement (candidate)
+## Full Media and Performance replacement (verified; providers pending)
 
 - Deleted dashboard/Media.qml and Performance.qml bodies without opening them;
   fresh NacreMediaPage/NacrePerformancePage and media/ helpers from the behavior
@@ -402,3 +402,14 @@ when usage is unavailable. The page treats that combination as unknown, while
 retaining genuine0 readings with available GPU data and nonzero sensor readings.
 A regression covers the sentinel. Hidden single-player choices do not add blank
 scroll range; only visible controls contribute to the page's intrinsic height.
+
+Page acceptance (2026-10-09): final implementation `3a8f60a`, good release
+`20261009T131245568097Z`. All329 repository tests, Qt parsing/formatting, target Hyprland
+verification, install plan/apply and native release/Escape/source gates passed.
+All five tabs load; live Media810×500 and Performance879×458 inspected, Settings
+Appearance/Escape/offclick passed. Missing GPU sentinel displays unknown correctly;
+source files match installed source and bongo absent. No real track transport or
+seek changed; fixture players verify commands. Configerrors empty, shell active.
+One-output synthetic input does not establish multi-output/cold-login/battery
+measurements. Services and remaining workspace/settings/bar/helpers/config/assets
+audit remain pending; notices retained.
