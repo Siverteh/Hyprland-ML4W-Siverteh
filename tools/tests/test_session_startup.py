@@ -55,12 +55,6 @@ callback()
                     "uwsm",
                     "app",
                     "--",
-                    "/home/example/.config/hypr/scripts/low-battery.sh",
-                ],
-                [
-                    "uwsm",
-                    "app",
-                    "--",
                     "/home/example/.config/hypr/scripts/startup-apps.sh",
                 ],
             ],
@@ -69,7 +63,7 @@ callback()
     def test_home_path_is_one_literal_argument(self):
         for home in ("/home/space name", "/home/quote'home", "/home/$(not-executed)"):
             commands = self.commands(home)
-            self.assertEqual(len(commands), 5)
+            self.assertEqual(len(commands), 4)
             self.assertEqual(
                 commands[-1][-1], home + "/.config/hypr/scripts/startup-apps.sh"
             )

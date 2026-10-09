@@ -1004,11 +1004,12 @@
     },
     "hypr/conf/autostart.lua": {
       "disposition": "independent",
-      "sha256": "297a153b188ec2c02d9d8e9e71f1ce956647c19bddb8f95b1c52f10fa7e5a90f",
+      "sha256": "dae996a0364b966055565846207e15d522e75377be6e6dbbbd31073f35e1802e",
       "evidence": [
         "docs/specs/session-startup.md",
         "docs/nacre/PROVENANCE.md#graphical-session-startup-composition-replacement",
-        "replacement e90cf66: deleted then own task-argument composition from public startup/service contracts; old current file already locally narrowed, no blanket inheritance claim; exact installed bytes and no-reload-launch verified; helper provenance/cold-login remain separate"
+        "replacement e90cf66: deleted then own task-argument composition from public startup/service contracts; old current file already locally narrowed, no blanket inheritance claim; exact installed bytes and no-reload-launch verified; helper provenance/cold-login remain separate",
+        "docs/specs/battery-alerts.md: reassessed own startup composition, removed inherited watcher task in favor of root native alert owner; four-task actual Lua contract tests"
       ]
     }
   }

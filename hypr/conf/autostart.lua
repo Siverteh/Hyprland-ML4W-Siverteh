@@ -9,7 +9,6 @@ hl.on("hyprland.start", function()
         { scope = true, args = { "/usr/lib/pam_kwallet_init" } },
         { args = { "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" } },
         { args = { "wl-paste", "--watch", "cliphist", "store" } },
-        { args = { scripts .. "low-battery.sh" } },
         { args = { scripts .. "startup-apps.sh" } },
     }
     for _, task in ipairs(tasks) do

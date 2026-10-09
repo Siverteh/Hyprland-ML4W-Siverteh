@@ -275,3 +275,7 @@ legacy curves are retired; see [motion defaults](specs/motion-defaults.md).
 The own startup composition submits wallet/polkit/clipboard/battery/app helpers
 only on the actual startup event, with literal argument boundaries. Enabled
 systemd services keep separate ownership; see [startup spec](specs/session-startup.md).
+
+NacreBatteryAlerts shares cached native UPower data with the bar and owns20%/15%
+warning policy once per discharge episode. No shell battery polling loop remains;
+see [battery alert ownership](specs/battery-alerts.md).

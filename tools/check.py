@@ -22,6 +22,7 @@ RETIRED = (
     "rice",
     "nacre/wallpapers",
     "nacre/welcome",
+    "hypr/scripts/low-battery.sh",
     "nacre/shell/utils/thumbnail.py",
     "nacre/shell/services/Cava.qml",
     "nacre/shell/widgets/Spectrum.qml",

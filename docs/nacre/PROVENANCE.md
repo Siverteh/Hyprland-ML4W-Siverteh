@@ -1133,3 +1133,15 @@ not merely a dead name; capture its public notification policy and replace next.
 Startup-apps Python origin `b0632b9` is a local Brain/startup feature; do not presume
 it inherited from its filename. Existing notices/permissions/palette/update policy
 stay; full current-tree/source/runtime comparison and cold-session follow-ups open.
+
+## Native battery alert replacement
+
+[Spec](../specs/battery-alerts.md): inherited low-battery.sh deleted before own
+Qt policy/native UPower observer. Captured20%/15% thresholds/messages/urgency/rearm
+contract preserved; highest successful severity suppresses downgraded repeats.
+Root singleton/file-backed restart state, actual ready/state validation, no
+periodic processes, bounded delivery/watchdog failure retries. Actual Qt owner/
+policy tests isolate native dependencies and private storage/notification delivery.
+Startup task retired/review reassessed; existing notification server retained.
+No private/upstream implementation reused, declarations/predicates and prior
+exposure acknowledged; no legal clean-room/whole-license/source comparison claim.

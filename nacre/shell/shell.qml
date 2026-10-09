@@ -8,6 +8,7 @@ import qs.modules.topbar
 import qs.modules.extras
 
 ShellRoot {
+    property var batteryAlerts: NacreBatteryAlerts
     property var lockWidgets: LockWidgets
     property var displayRecovery: DisplayRecovery
     NacreBackground {}
