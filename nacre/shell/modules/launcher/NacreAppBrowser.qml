@@ -13,17 +13,17 @@ NacreSurface {
     property var contextEntry: null
     readonly property string query: search.text
     readonly property bool commands: query.trim().startsWith(">")
-    readonly property var categories: Catalog.available(Apps.list)
+    readonly property var categories: Catalog.available(NacreApps.list)
     readonly property var entries: {
         if (commands)
             return DesktopActions.list.filter(a => a.action !== "power" && Catalog.matches(a, query.trim().slice(1)));
         if (query.trim())
-            return Apps.fuzzyQuery(query.trim());
+            return NacreApps.fuzzyQuery(query.trim());
         if (category === "hidden")
-            return Apps.all.filter(a => LauncherPreferences.hidden.includes(a.id));
+            return NacreApps.all.filter(a => LauncherPreferences.hidden.includes(a.id));
         if (category === "favorites")
-            return LauncherPreferences.favorites.map(id => Apps.list.find(a => a.id === id)).filter(Boolean);
-        return category === "all" ? Apps.list : Apps.list.filter(a => Catalog.belongs(a, category));
+            return LauncherPreferences.favorites.map(id => NacreApps.list.find(a => a.id === id)).filter(Boolean);
+        return category === "all" ? NacreApps.list : NacreApps.list.filter(a => Catalog.belongs(a, category));
     }
     implicitWidth: Math.min(980, Quickshell.screens[0].width - 90)
     implicitHeight: Math.min(category === "favorites" && !query.trim() ? Math.min(450, Math.max(300, 156 + Math.ceil(entries.length / 5) * 119)) : category === "all" ? 6 * 119 + 106 : 570, Quickshell.screens[0].height - 170)
@@ -52,7 +52,7 @@ NacreSurface {
         if (commands)
             DesktopActions.execute(entry.action, entry.value);
         else
-            Apps.launch(entry);
+            NacreApps.launch(entry);
     }
     function favorite(entry) {
         if (entry?.id)

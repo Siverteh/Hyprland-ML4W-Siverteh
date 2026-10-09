@@ -1,28 +1,14 @@
 pragma Singleton
-
-import "../utils/scripts/fuzzysort.js" as Fuzzy
 import Quickshell
 
 Singleton {
-    id: root
-
-    readonly property list<DesktopEntry> all: DesktopEntries.applications.values.filter(a => !a.noDisplay).sort((a, b) => a.name.localeCompare(b.name))
-    readonly property list<DesktopEntry> list: all.filter(a => !LauncherPreferences.hidden.includes(a.id))
-    readonly property list<var> preppedApps: list.map(a => ({
-                name: Fuzzy.prepare(a.name),
-                comment: Fuzzy.prepare(a.comment),
-                entry: a
-            }))
-
-    function fuzzyQuery(search: string): var { // Idk why list<DesktopEntry> doesn't work
-        return Fuzzy.go(search, preppedApps, {
-            all: true,
-            keys: ["name", "comment"],
-            scoreFn: r => r[0].score > 0 ? r[0].score * 0.9 + r[1].score * 0.1 : 0
-        }).map(r => r.obj.entry);
+    readonly property var all: NacreApps.all
+    readonly property var list: NacreApps.list
+    readonly property var preppedApps: NacreApps.preppedApps
+    function fuzzyQuery(search) {
+        return NacreApps.fuzzyQuery(search);
     }
-
-    function launch(entry: DesktopEntry): void {
-        AppLaunch.run(entry.runInTerminal ? ["kitty", "--", ...entry.command] : entry.command, entry.workingDirectory);
+    function launch(entry) {
+        return NacreApps.launch(entry);
     }
 }

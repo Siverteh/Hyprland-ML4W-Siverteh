@@ -29,7 +29,7 @@ SearchSurface {
                     icon: "window",
                     window: c
                 })).filter(matches);
-        const apps = Apps.fuzzyQuery(query).slice(0, 8).map(a => ({
+        const apps = NacreApps.fuzzyQuery(query).slice(0, 8).map(a => ({
                     name: a.name,
                     description: "Application",
                     icon: "apps",
@@ -42,7 +42,7 @@ SearchSurface {
         if (!e)
             return;
         if (e.app) {
-            Apps.launch(e.app);
+            NacreApps.launch(e.app);
             visibilities.launcher = false;
         } else if (e.window) {
             visibilities.launcher = false;

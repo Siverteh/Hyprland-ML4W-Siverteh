@@ -23,6 +23,9 @@ class DeviceServiceTests(unittest.TestCase):
             fixtures.mkdir()
             definitions = {
                 "Visibilities": 'property var screens:({});property var panels:({});property string settingsPage:"notifications"',
+                "DesktopEntries": "property var applications:({values:[]})",
+                "LauncherPreferences": "property var hidden:[]",
+                "AppLaunch": "property var calls:[];function run(command,cwd){calls=[...calls,{command:command,cwd:cwd}]}",
                 "DesktopSettings": "property var data:({dnd:false})",
                 "NacreNotifications": "property bool expire:true;property int defaultExpireTimeout:5000",
                 "Mpris": "property var players:({values:[]})",
@@ -46,13 +49,24 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {signal read(string data)}"
             )
             (fixtures / "qmldir").write_text(
-                "singleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
+                "singleton DesktopEntries 1.0 DesktopEntries.qml\nsingleton LauncherPreferences 1.0 LauncherPreferences.qml\nsingleton AppLaunch 1.0 AppLaunch.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
             )
             (fixtures / "FileView.qml").write_text(
                 'import QtQuick\nQtObject {property string path:"";property bool printErrors:false;signal loaded();function text(){return ""}function reload(){}}'
             )
             with (fixtures / "qmldir").open("a") as manifest:
                 manifest.write("\nFileView 1.0 FileView.qml\n")
+            if name == "NacreApps":
+                shutil.copy2(
+                    ROOT.parent / "shell/services/app-search.js",
+                    target / "app-search.js",
+                )
+            if name == "NacreTime":
+                (fixtures / "SystemClock.qml").write_text(
+                    "import QtQuick\nQtObject {enum Precision {Seconds, Minutes} property int precision:SystemClock.Minutes;property bool enabled:true;property date date:new Date(2026,9,9,12,34,56);readonly property int hours:date.getHours();readonly property int minutes:date.getMinutes();readonly property int seconds:precision===SystemClock.Seconds?date.getSeconds():0}"
+                )
+                with (fixtures / "qmldir").open("a") as manifest:
+                    manifest.write("\nSystemClock 1.0 SystemClock.qml\n")
             if name == "NacreNotifs":
                 entry = (
                     ROOT.parent / "shell/services/NacreNotificationEntry.qml"
@@ -84,7 +98,7 @@ class DeviceServiceTests(unittest.TestCase):
                 .replace("import Quickshell.Services.Mpris", 'import "fixtures"')
                 .replace("import Quickshell.Hyprland", "")
                 .replace("import Quickshell.Io", 'import "fixtures"')
-                .replace("import Quickshell", "import QtQuick")
+                .replace("import Quickshell", 'import QtQuick\nimport "fixtures"')
                 .replace("Singleton {", "Item {")
                 .replace('Quickshell.env("HOME")', '"/fixture"')
             )
@@ -124,3 +138,7 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_notifications_history_races_expiry_and_durable_actions(self):
         self.run_service("NacreNotifs")
+
+    def test_application_rank_hidden_membership_and_safe_native_commands(self):
+        self.run_service("NacreApps")
+

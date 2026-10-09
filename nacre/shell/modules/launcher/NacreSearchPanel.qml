@@ -8,7 +8,7 @@ NacreSurface {
     required property PersistentProperties visibilities
     property alias query: search.text
     readonly property bool commands: query.trim().startsWith(">")
-    readonly property var entries: commands ? DesktopActions.list.filter(item => item.action !== "power" && (item.name + " " + (item.description || "")).toLowerCase().includes(query.trim().slice(1).toLowerCase())).slice(0, 8) : Apps.fuzzyQuery(query.trim()).slice(0, 8)
+    readonly property var entries: commands ? DesktopActions.list.filter(item => item.action !== "power" && (item.name + " " + (item.description || "")).toLowerCase().includes(query.trim().slice(1).toLowerCase())).slice(0, 8) : NacreApps.fuzzyQuery(query.trim()).slice(0, 8)
     implicitWidth: 680
     implicitHeight: 84 + Math.max(1, entries.length) * 54
     radius: 20
@@ -22,7 +22,7 @@ NacreSurface {
         if (commands)
             DesktopActions.execute(entry.action, entry.value);
         else
-            Apps.launch(entry);
+            NacreApps.launch(entry);
     }
     function focusSearch() {
         search.forceActiveFocus();

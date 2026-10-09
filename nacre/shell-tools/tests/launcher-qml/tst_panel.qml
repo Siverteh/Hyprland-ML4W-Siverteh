@@ -97,7 +97,7 @@ TestCase {
         compare(view.entries.length, 1);
         compare(view.entries[0].id, "editor");
         view.activate(0);
-        compare(Apps.last, "editor");
+        compare(NacreApps.last, "editor");
         view.visibilities.launcher = true;
         field.text = ">";
         compare(view.entries.length, 1);
