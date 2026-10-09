@@ -1,8 +1,9 @@
 # Nacre independent implementation tracker
 
-Status: Orient/foundation/frame/launcher and notification presentation verified;
-dashboard assembly and overview cards verified; larger page bodies pending. Whole rewrite unfinished,
-2026-10-09.
+Status: Orient, shared foundation, frame, launcher, notification presentation,
+all dashboard/Settings views and Audio/Wi-Fi/Bluetooth services verified. Media,
+notification ownership and resource services implemented; live acceptance pending.
+Whole rewrite unfinished, 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -43,8 +44,8 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | verified | [Notification spec](../specs/notifications.md); presentation replaced, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
-| 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | implementing | [Dashboard spec](../specs/dashboard.md); assembly verified, pages/cards/Settings remain |
-| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | audit pending | One service per task; advance a service if a preceding UI area needs it |
+| 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
+| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth verified; Players/SystemUsage/Notifs implemented; remaining providers and helpers pending |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
@@ -571,3 +572,24 @@ QML error/binding-loop diagnostics. Initial IPC-only popup probe auto-dismissed
 without header hover; real hover verification passed unchanged software. Physical
 roaming/reconnect/hotplug/cold login and battery drain are not measured. Other
 services/UI/config/helpers/assets/final audit remain, notices kept.
+
+## Media, notification and resource services (implemented; live checks pending)
+
+- Deleted Players/SystemUsage/Notifs bodies before fresh Nacre-prefixed providers
+  and NacreNotificationEntry/resource-data.js/resource-state.py. Old names are own
+  forwarding adapters, maintained callers migrated mechanically. Existing private
+  history helper/policy remain contracts, with separate helper provenance pending.
+- Source exposure: public declarations/schema/IPC signatures, consumer APIs,
+  existing behavior tests/runtime, helper/policy sources and primary Quickshell/
+  kernel docs. No upstream implementation consulted; no legal clean-room claim.
+- Native capability-guarded MPRIS selection; async native proc sampling only on
+  visible overview/performance, slow read-only sysfs/disk helper, unknown sensors/
+  large real-valued KiB; single native notification server/entry lifecycle, safe
+  history merge/load failure/save coalescing, feedback/transient filtering and
+  native close/action/expiry/hover/geometry-suppression handling. Clean history
+  loading and transient feedback do not rewrite the file. Reload restores display
+  snapshots; closed native action handles are never persisted or revived.
+- Actual new services tested with fake native models/processes/files plus retained
+  real UI tests. A formatter issue in the fake notification ID property was
+  corrected; no production behavior changed by that fixture adjustment.
+- Notices kept. Other services, bar/wrappers/config/helpers/assets/final audit remain.

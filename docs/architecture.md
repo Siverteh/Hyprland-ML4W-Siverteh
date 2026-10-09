@@ -182,3 +182,10 @@ NacreBluetooth. Audio/Bluetooth use native event models; Wi-Fi uses a read-only
 NetworkManager snapshot helper and a long-lived monitor. Legacy service names
 only forward to these owners. Existing DeviceActions owns connection writes;
 see [connection services](features/connections.md).
+
+NacrePlayers owns media selection/IPC using native MPRIS capabilities.
+NacreSystemUsage reads fast proc counters natively only for visible resource
+views and uses occasional read-only disk/sysfs snapshots. NacreNotifs owns the
+single notification server, live entries and guarded private-history merging/
+saving; old service names forward to these owners. See
+[the service guide](features/state-services.md) for limits and lifecycle behavior.
