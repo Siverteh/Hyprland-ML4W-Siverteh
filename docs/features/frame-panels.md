@@ -36,3 +36,13 @@ state` and the existing `leftEdge state`. Tests exercise actual pointer/click-aw
 behavior, closing masks with nonzero visual geometry, pin/hidden modes, parent
 coordinates, ownership replacement, and native rendered holes/joins/palette changes.
 Live focus/application clicks require the target compositor, beyond headless tests.
+
+
+The header diagnostic `header-OUTPUT state` reports pointer/guard state. After
+explicit dismissal, the title band remains blocked until the pointer leaves or
+passes through the lower header; entering at the title from a synthetic teleport
+is not the same as a physical path through that boundary. Extended live tests
+follow the lower-header/title path and use an ordinary temporary application to
+verify click and keyboard delivery after closure. Immediate scripted back-to-back
+clicks require a compositor commit; the test allows200ms and a1px movement before
+checking returned input, so it does not claim zero-latency pointer retargeting.

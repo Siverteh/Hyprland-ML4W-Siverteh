@@ -39,7 +39,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
-| 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | implementing | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
+| 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | audit pending | Include current Settings and lock presentation dependencies; one page/group at a time |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness}.qml` | audit pending | One service per task; advance a service if a preceding UI area needs it |
@@ -209,3 +209,21 @@ including native Settings selection and cache/preference/contrast regressions.
 - Candidate checks: 320 repository tests passed (31 tools, 96 AI, 35 Brain,
   158 shell); all QML parsed/formatted and native geometry/input/registry tests
   passed. Hyprland verification and the shell-only install plan passed.
+
+- Frame live acceptance completed at `7f71503`: all321 checks and Hyprland verification
+  passed; installed frame/header bytes match, configerrors empty. Real Wayland
+  launcher/wallpaper open/remain/Escape gates passed. A private persistent-pointer
+  test app on an unused workspace passed six lower-header→title open/close cycles,
+  post-hover application clicks/keyboard, launcher off-click then application input,
+  and wallpaper off-click on the separate top bar. Workspace/focus/cursor restored.
+- Directly teleporting from a previous Escape-blocked title point into that same
+  guarded band did not open it; diagnostics proved pointer delivery, no fullscreen
+  or held button and a blocked dismissal flag. Entering the lower bar re-arms it.
+  The acceptance route now follows this physical path; no assertion that all
+  synthetic teleports or physical multi-monitor/cold-login cases are validated.
+- Unnecessary modal HyprlandFocusGrab candidate239af3a failed activation and rolled
+  back automatically. Final implementation uses no such grab. High-z top-bar
+  PointHandler is visible only during explicit modal interaction; regular hover
+  and existing child clicks remain available. The direct press observer must be
+  in front to observe child MouseArea presses. Read-only header-OUTPUT diagnostics
+  provide current coordinates/guard/modal state, without polling or mutation.
