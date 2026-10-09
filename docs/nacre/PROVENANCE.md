@@ -647,7 +647,7 @@ No actual app launch/device/time writes or physical multi-output/cold-login/batt
 claims. Palette/brightness/thumbnail/other providers, UI bar/wrappers, configuration,
 helpers/assets and whole-tree provenance audit remain. Notices retained.
 
-## Colours and display/keyboard light providers (implemented; live checks pending)
+## Colours and display/keyboard light providers (verified; other providers pending)
 
 - Deleted Colours/Brightness/KeyboardLight bodies before own Nacre-prefixed
   providers, colour-data.js, NacreLightChannel/Backlight and light-devices.py.
@@ -664,3 +664,20 @@ helpers/assets and whole-tree provenance audit remain. Notices retained.
   state; brightnessctl pretend parses existing device commands without writes.
 - Other providers, thumbnails, publisher/helper provenance, UI bar/wrappers,
   configuration/assets and final audit remain. Full/live acceptance pending.
+
+Colour/light acceptance (2026-10-09): software `9331f6a`, good release
+`20261009T175336163608Z` (following validated `02b2bda`; follow-up bounds error text).
+All359 tests, QML parsing/formatting, Hyprland and final installer rerun passed.
+Strict source/startup/launcher/wallpaper/Escape gates passed. Read-only native
+probe and actual paletteState roles match current presentation, including mode
+and foreground. Panel/keyboard availability/native values correct; brightnessctl
+pretend mode accepted both device commands without writes. Actual indicator
+screenshot inspected, twelve Settings/search/five tabs/Escape/offclick checks
+passed. Native controls closed/visible state correct; private preference/history
+hashes and physical requested/max brightness unchanged before/after QA. New
+providers/channel/own fallback/helper/forwarders match source; service active,
+configerrors empty, no QML error/binding-loop diagnostics. User writes and DDC
+identity/range/failure semantics verified through fixture/temp sysfs tests; no
+real brightness keys/writes/external DDC/hotplug/cold-login/battery measurement
+claims. Matched presentation/publisher and other providers/helpers/UI/config/
+assets/final provenance audit remain; notices retained.
