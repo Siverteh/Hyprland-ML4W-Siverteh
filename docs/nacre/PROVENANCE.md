@@ -413,3 +413,15 @@ seek changed; fixture players verify commands. Configerrors empty, shell active.
 One-output synthetic input does not establish multi-output/cold-login/battery
 measurements. Services and remaining workspace/settings/bar/helpers/config/assets
 audit remain pending; notices retained.
+
+## Workspace overview replacement (candidate)
+
+- Deleted WorkspacePage.qml without opening its body. Fresh NacreWorkspacePage
+  from live seven-card layout, configured labels/icons, public service declarations
+  and dispatch contract. No new move/rename/app-route action or data owner.
+- Exposure: public declarations/API identifiers and dispatch literal prefix were
+  searched; no upstream body consulted. Hyprland/NacreIcons providers retained.
+- Actual Qt tests cover numeric/object workspace IDs, distinct app summaries,
+  counts/empty/title fallbacks, real pointer dispatch/dismiss, hidden/preview/invalid
+  guards and settled grid geometry at300/508/796px. Names/private config preserved.
+  Source/legal notices remain; full/live acceptance pending.

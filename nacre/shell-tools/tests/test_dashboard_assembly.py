@@ -44,14 +44,14 @@ class DashboardAssemblyTests(unittest.TestCase):
                 "NacreOverview",
                 "NacreMediaPage",
                 "NacrePerformancePage",
-                "WorkspacePage",
+                "NacreWorkspacePage",
                 "Settings",
             ):
                 fields = {
                     "NacreOverview": "required property bool shouldUpdate",
                     "NacreMediaPage": "required property bool shouldUpdate;required property var visibilities",
                     "NacrePerformancePage": "required property bool shouldUpdate",
-                    "WorkspacePage": "required property var visibilities",
+                    "NacreWorkspacePage": "required property var visibilities",
                     "Settings": "property bool active: true",
                 }[name]
                 (target / (name + ".qml")).write_text(

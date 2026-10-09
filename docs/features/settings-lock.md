@@ -136,3 +136,11 @@ player-choice row appears only when multiple players are available. The old bong
 asset is removed. NacrePerformancePage consumes the shared system collector, with
 paired own arc gauges, explicit unavailable GPU data, resource sizes and load/
 kernel details. Neither page creates a new service or resource poller.
+
+## Independent workspace overview
+
+NacreWorkspacePage uses the configured seven labels/icons and live client metadata,
+with bounded summaries, window counts and a current-workspace accent. Clicking
+changes workspace through the existing compositor service and closes the menu.
+Narrow layouts scroll. Verification preview mode cannot switch workspaces. There
+are no automatic moves, app launches or changes to private workspace preferences.

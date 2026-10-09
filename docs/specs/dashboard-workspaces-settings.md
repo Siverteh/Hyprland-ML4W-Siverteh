@@ -16,8 +16,7 @@ exposure honestly. DesktopControls and individual pages/providers remain pending
 Keep seven numbered workspace cards, configured names/icons and current accent,
 application summaries/window counts and Empty state. Use service client/workspace
 IDs, not guessed title matches or broad app rerouting. Left click switches to
-that workspace and dismisses; secondary action preserves existing focused-window
-move behavior. Scope commands to validated numeric workspace1–7 and the existing
+that workspace and dismisses. The observed page has no move-window command, so do not add one. Scope commands to validated numeric workspace1–7 and the existing
 Hyprland dispatch owner. Current workspace is highlighted. Bound long labels and
 responsive layouts/scrolling without reordering user workspaces. No config writes,
 app launching, polling, renaming or implicit window movement. Tests with a fixture

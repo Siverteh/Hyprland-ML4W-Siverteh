@@ -64,7 +64,7 @@ NacreSurface {
     }
     Component {
         id: workspaces
-        WorkspacePage {
+        NacreWorkspacePage {
             visibilities: root.visibilities
         }
     }
