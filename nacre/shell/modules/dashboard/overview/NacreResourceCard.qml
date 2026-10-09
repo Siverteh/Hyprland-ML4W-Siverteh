@@ -9,19 +9,19 @@ NacreOverviewCard {
         {
             label: "CPU",
             icon: "memory",
-            value: SystemUsage.cpuPerc,
+            value: NacreSystemUsage.cpuPerc,
             color: Colours.palette.m3primary
         },
         {
             label: "Memory",
             icon: "memory",
-            value: SystemUsage.memPerc,
+            value: NacreSystemUsage.memPerc,
             color: Colours.palette.m3secondary
         },
         {
             label: "Storage",
             icon: "hard_drive",
-            value: SystemUsage.storagePerc,
+            value: NacreSystemUsage.storagePerc,
             color: Colours.palette.m3tertiary
         }
     ]

@@ -9,30 +9,30 @@ Item {
     required property bool shouldUpdate
     readonly property bool compact: width < 700
     // The current collector uses zero when no GPU sensor/usage data exists.
-    readonly property real gpuTemperature: !SystemUsage.gpuUsageAvailable && SystemUsage.gpuTemp === 0 ? NaN : SystemUsage.gpuTemp
+    readonly property real gpuTemperature: !NacreSystemUsage.gpuUsageAvailable && NacreSystemUsage.gpuTemp === 0 ? NaN : NacreSystemUsage.gpuTemp
     readonly property var metrics: [
         {
             value: Model.temperature(root.gpuTemperature),
             label: "GPU temperature",
-            first: SystemUsage.gpuUsageAvailable ? SystemUsage.gpuPerc : NaN,
+            first: NacreSystemUsage.gpuUsageAvailable ? NacreSystemUsage.gpuPerc : NaN,
             second: Number.isFinite(root.gpuTemperature) ? root.gpuTemperature / 100 : NaN,
-            detail: SystemUsage.gpuUsageAvailable ? Model.percent(SystemUsage.gpuPerc) : "Unavailable",
+            detail: NacreSystemUsage.gpuUsageAvailable ? Model.percent(NacreSystemUsage.gpuPerc) : "Unavailable",
             detailLabel: "GPU usage"
         },
         {
-            value: Model.temperature(SystemUsage.cpuTemp),
+            value: Model.temperature(NacreSystemUsage.cpuTemp),
             label: "CPU temperature",
-            first: SystemUsage.cpuPerc,
-            second: Number.isFinite(SystemUsage.cpuTemp) ? SystemUsage.cpuTemp / 100 : NaN,
-            detail: Model.percent(SystemUsage.cpuPerc),
+            first: NacreSystemUsage.cpuPerc,
+            second: Number.isFinite(NacreSystemUsage.cpuTemp) ? NacreSystemUsage.cpuTemp / 100 : NaN,
+            detail: Model.percent(NacreSystemUsage.cpuPerc),
             detailLabel: "CPU usage"
         },
         {
-            value: Model.size(SystemUsage.memUsed),
+            value: Model.size(NacreSystemUsage.memUsed),
             label: "Memory used",
-            first: SystemUsage.memPerc,
-            second: SystemUsage.storagePerc,
-            detail: Model.size(SystemUsage.storageUsed),
+            first: NacreSystemUsage.memPerc,
+            second: NacreSystemUsage.storagePerc,
+            detail: Model.size(NacreSystemUsage.storageUsed),
             detailLabel: "Root storage used"
         }
     ]
@@ -74,7 +74,7 @@ Item {
             NacreText {
                 objectName: "performanceSummary"
                 width: parent.width
-                text: "Load (1/5/15m) " + (SystemUsage.loadAverage || "—") + " · RAM " + Model.size(SystemUsage.memTotal) + " · root free " + Model.size(Math.max(0, SystemUsage.storageTotal - SystemUsage.storageUsed))
+                text: "Load (1/5/15m) " + (NacreSystemUsage.loadAverage || "—") + " · RAM " + Model.size(NacreSystemUsage.memTotal) + " · root free " + Model.size(Math.max(0, NacreSystemUsage.storageTotal - NacreSystemUsage.storageUsed))
                 font.pointSize: 10
                 color: NacreTokens.mutedInk
                 wrapMode: Text.Wrap
@@ -82,7 +82,7 @@ Item {
             }
             NacreText {
                 width: parent.width
-                text: "Kernel " + (SystemUsage.kernel || "—")
+                text: "Kernel " + (NacreSystemUsage.kernel || "—")
                 font.pointSize: 10
                 color: NacreTokens.mutedInk
                 elide: Text.ElideRight

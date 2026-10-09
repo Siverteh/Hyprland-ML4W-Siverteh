@@ -51,7 +51,7 @@ TestCase {
         }
     }
     function init() {
-        Players.active = null;
+        NacrePlayers.active = null;
         Weather.temperature = 22;
         Weather.displayTemperature = "22°C";
         Weather.description = "Clear";
@@ -135,7 +135,7 @@ TestCase {
     }
     function test_offscreen_cards_stop_sampling_until_scrolled_into_view() {
         const current = createTemporaryObject(player, test);
-        Players.active = current;
+        NacrePlayers.active = current;
         const view = createTemporaryObject(overview, test, {
             width: 508,
             height: 400
@@ -170,7 +170,7 @@ TestCase {
     }
     function test_transport_capabilities_pointer_and_player_removal() {
         const current = createTemporaryObject(player, test);
-        Players.active = current;
+        NacrePlayers.active = current;
         const view = createTemporaryObject(overview, test);
         wait(30);
         const media = findChild(view, "overviewMedia");
@@ -209,7 +209,7 @@ TestCase {
         compare(media.sampling, false);
         media.perform("toggle");
         compare(current.toggleCalls, 1);
-        Players.active = null;
+        NacrePlayers.active = null;
         compare(media.positionSeconds, 0);
         compare(media.progress, 0);
         compare(findChild(media, "mediaTitle").text, "No media playing");

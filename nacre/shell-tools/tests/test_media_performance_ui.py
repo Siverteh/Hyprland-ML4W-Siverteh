@@ -16,10 +16,10 @@ SHELL = ROOT.parent / "shell"
 def prepare_pages(target):
     prepare_overview(target)
     fixtures = target / "fixtures"
-    (fixtures / "Players.qml").write_text(
+    (fixtures / "NacrePlayers.qml").write_text(
         "pragma Singleton\nimport QtQuick\nQtObject {property var list:[];property var active:null;property var manualActive:null;onManualActiveChanged:if(manualActive)active=manualActive}"
     )
-    (fixtures / "SystemUsage.qml").write_text(
+    (fixtures / "NacreSystemUsage.qml").write_text(
         'pragma Singleton\nimport QtQuick\nQtObject {property real cpuPerc:.15;property real cpuTemp:23;property real gpuTemp:NaN;property real gpuPerc:0;property bool gpuUsageAvailable:false;property real memPerc:.48;property int memUsed:15309210;property int memTotal:32191283;property real storagePerc:.52;property int storageUsed:190840832;property int storageTotal:367001600;property string loadAverage:".10 .20 .30";property string kernel:"Fixture kernel"}'
     )
     (fixtures / "ActionButton.qml").write_text(

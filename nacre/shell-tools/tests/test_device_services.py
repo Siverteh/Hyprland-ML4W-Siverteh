@@ -22,6 +22,7 @@ class DeviceServiceTests(unittest.TestCase):
             fixtures = target / "fixtures"
             fixtures.mkdir()
             definitions = {
+                "Visibilities": "property var screens:({})",
                 "Mpris": "property var players:({values:[]})",
                 "Pipewire": "property var nodes:({values:[]});property var defaultAudioSink:null;property var defaultAudioSource:null",
                 "Bluetooth": "property var devices:({values:[]});property var defaultAdapter:null",
@@ -43,8 +44,18 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {signal read(string data)}"
             )
             (fixtures / "qmldir").write_text(
-                "singleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
+                "singleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
             )
+            (fixtures / "FileView.qml").write_text(
+                'import QtQuick\nQtObject {property string path:"";property bool printErrors:false;signal loaded();function text(){return ""}function reload(){}}'
+            )
+            with (fixtures / "qmldir").open("a") as manifest:
+                manifest.write("\nFileView 1.0 FileView.qml\n")
+            if name == "NacreSystemUsage":
+                shutil.copy2(
+                    ROOT.parent / "shell/services/resource-data.js",
+                    target / "resource-data.js",
+                )
             source = (ROOT.parent / "shell/services" / (name + ".qml")).read_text()
             source = (
                 source.replace("pragma Singleton", "")
@@ -87,3 +98,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_media_selection_capabilities_and_removed_manual_player(self):
         self.run_service("NacrePlayers")
+
+    def test_resources_counter_math_missing_data_and_visible_sampling(self):
+        self.run_service("NacreSystemUsage")
