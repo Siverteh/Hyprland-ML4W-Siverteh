@@ -9,7 +9,7 @@ Item {
     id: root
     required property PersistentProperties visibilities
     readonly property string mode: visibilities.launcherMode || "apps"
-    readonly property bool fullScreenGallery: mode === "wallpaper" && (Wallpapers.preferences.layout || "carousel") !== "carousel"
+    readonly property bool fullScreenGallery: mode === "wallpaper" && (NacreWallpapers.preferences.layout || "carousel") !== "carousel"
     readonly property real viewportWidth: Math.max(0, parent?.width ?? 0)
     readonly property real viewportHeight: Math.max(0, parent?.height ?? 0)
     readonly property real contentHeight: fullScreenGallery ? Math.max(0, viewportHeight - 24) : page.item?.implicitHeight ?? 300

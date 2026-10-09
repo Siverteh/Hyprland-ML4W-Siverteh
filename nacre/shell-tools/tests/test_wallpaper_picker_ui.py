@@ -70,7 +70,7 @@ class WallpaperPickerUITests(unittest.TestCase):
                 target / "fixtures/FastScroll.qml",
             )
             (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
-            (target / "fixtures/Wallpapers.qml").write_text(
+            (target / "fixtures/NacreWallpapers.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject {property bool loading:false;property string current:"one";property string error:"";property var preferences:({kind:"static",layout:"carousel"});property string browsed:"";property var list:[{path:"one",name:"Expedition33 Monolith",poster:"'
                 + str(target / "poster.png")
                 + '",dynamic:false},{path:"two",name:"Hollow Knight",poster:"'
@@ -89,7 +89,7 @@ class WallpaperPickerUITests(unittest.TestCase):
             )
             with (target / "fixtures/qmldir").open("a") as manifest:
                 manifest.write(
-                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton Wallpapers 1.0 Wallpapers.qml\n"
+                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton NacreWallpapers 1.0 NacreWallpapers.qml\n"
                 )
             install_foundation_interaction(
                 target / "fixtures", ROOT.parent / "shell/widgets"

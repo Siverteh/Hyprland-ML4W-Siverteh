@@ -66,13 +66,13 @@ TestCase {
         compare(panel.galleryIndex, 0);
         panel.galleryStep(1);
         compare(panel.galleryIndex, 1);
-        Wallpapers.preferences = {
+        NacreWallpapers.preferences = {
             layout: "spotlight"
         };
         compare(panel.fullScreenGallery, true);
         compare(panel.contentHeight, 976);
         compare(panel.implicitWidth, 1052);
-        Wallpapers.preferences = {
+        NacreWallpapers.preferences = {
             layout: "carousel"
         };
         compare(panel.fullScreenGallery, false);

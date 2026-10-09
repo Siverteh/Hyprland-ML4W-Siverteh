@@ -10,9 +10,9 @@ Singleton {
     property bool sleeping: false
     property bool locked: false
     property string awaiting: ""
-    readonly property bool batteryPaused: Wallpapers.preferences.motionMode === "still" || (Wallpapers.preferences.motionMode === "battery" && UPower.onBattery)
-    property bool paused: Wallpapers.preferences.paused ?? false
-    readonly property bool pauseCovered: Wallpapers.preferences.pauseCovered ?? true
+    readonly property bool batteryPaused: NacreWallpapers.preferences.motionMode === "still" || (NacreWallpapers.preferences.motionMode === "battery" && UPower.onBattery)
+    property bool paused: NacreWallpapers.preferences.paused ?? false
+    readonly property bool pauseCovered: NacreWallpapers.preferences.pauseCovered ?? true
     property string sessionPath: ""
     property bool sessionSignal: false
 
@@ -20,7 +20,7 @@ Singleton {
         target: "wallpaperPlayback"
         function state(): string {
             return JSON.stringify({
-                motionMode: Wallpapers.preferences.motionMode,
+                motionMode: NacreWallpapers.preferences.motionMode,
                 onBattery: UPower.onBattery,
                 batteryPaused: root.batteryPaused,
                 locked: root.locked,

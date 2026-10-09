@@ -52,10 +52,10 @@ TestCase {
     }
     function init() {
         NacrePlayers.active = null;
-        Weather.temperature = 22;
-        Weather.displayTemperature = "22°C";
-        Weather.description = "Clear";
-        Weather.stale = false;
+        NacreWeather.temperature = 22;
+        NacreWeather.displayTemperature = "22°C";
+        NacreWeather.description = "Clear";
+        NacreWeather.stale = false;
         NacreTime.date = new Date(2026, 9, 9, 12, 34);
         DesktopSettings.data = {
             animations: false
@@ -112,13 +112,13 @@ TestCase {
         NacreTime.date = new Date(2026, 9, 10, 0, 1);
         compare(findChild(view, "clockHour").text, "00");
         compare(findChild(view, "clockMinute").text, "01");
-        Weather.temperature = NaN;
-        Weather.description = "";
+        NacreWeather.temperature = NaN;
+        NacreWeather.description = "";
         compare(findChild(view, "weatherTemperature").text, "—");
         compare(findChild(view, "weatherDescription").text, "Weather unavailable");
-        Weather.temperature = -5;
-        Weather.displayTemperature = "-5°C";
-        Weather.stale = true;
+        NacreWeather.temperature = -5;
+        NacreWeather.displayTemperature = "-5°C";
+        NacreWeather.stale = true;
         compare(findChild(view, "weatherTemperature").text, "-5°C");
         const host = findChild(view, "overviewHost");
         compare(host.operatingSystem, "Fixture Linux");

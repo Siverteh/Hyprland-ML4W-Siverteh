@@ -11,7 +11,7 @@ Item {
     id: root
 
     property string screenName: ""
-    property url source: Wallpapers.pendingPoster ? `file://${Wallpapers.pendingPoster}` : ""
+    property url source: NacreWallpapers.pendingPoster ? `file://${NacreWallpapers.pendingPoster}` : ""
     readonly property var monitor: NacreHyprland.monitors.values.find(m => m.name === screenName)
     readonly property int workspaceId: monitor?.activeWorkspace?.id ?? NacreHyprland.activeWsId
     readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
@@ -38,7 +38,7 @@ Item {
 
     AnimatedImage {
         anchors.fill: parent
-        source: !WallpaperPlayback.batteryPaused && Wallpapers.displayDynamic && Wallpapers.displayAnimated ? "file://" + Wallpapers.displayPath : ""
+        source: !WallpaperPlayback.batteryPaused && NacreWallpapers.displayDynamic && NacreWallpapers.displayAnimated ? "file://" + NacreWallpapers.displayPath : ""
         fillMode: Image.PreserveAspectCrop
         playing: root.motionAllowed
         visible: source.toString().length > 0 && status === Image.Ready
@@ -48,11 +48,11 @@ Item {
     Loader {
         id: video
         anchors.fill: parent
-        active: !WallpaperPlayback.batteryPaused && Wallpapers.displayDynamic && !Wallpapers.displayAnimated
+        active: !WallpaperPlayback.batteryPaused && NacreWallpapers.displayDynamic && !NacreWallpapers.displayAnimated
         source: "DynamicWallpaper.qml"
         onLoaded: {
             item.screenName = root.screenName;
-            item.path = Qt.binding(() => Wallpapers.displayPath);
+            item.path = Qt.binding(() => NacreWallpapers.displayPath);
             item.running = Qt.binding(() => root.motionAllowed);
         }
     }

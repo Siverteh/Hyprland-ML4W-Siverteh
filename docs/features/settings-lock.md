@@ -196,3 +196,14 @@ permissions are untouched. None of these pages writes preferences on opening.
 The source boundary and acceptance contract are in
 [the device-page spec](../specs/settings-devices-lock-ai.md). Providers and remaining
 helpers still need their own originality work; applicable notices remain.
+
+## Weather reading owner
+
+NacreWeather first loads the private cached forecast, then requests the existing
+bounded HTTPS helper. It publishes validated readings as a single snapshot,
+retains last-good conditions on failure, and labels stale data. Missing temperature
+is unknown rather than zero. Thirty-minute refreshes, explicit Refresh and city
+changes share a coalesced request; results from a prior requested city are ignored.
+Celsius/Fahrenheit changes only affect formatting. This provider neither writes
+preferences nor changes the system timezone. The weather helper's provenance is
+a separate remaining audit item.

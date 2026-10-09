@@ -24,8 +24,8 @@ class DeviceServiceTests(unittest.TestCase):
             definitions = {
                 "Visibilities": 'property var screens:({});property var panels:({});property string settingsPage:"notifications"',
                 "Hyprland": "property var toplevels: QtObject {property var values:[]};property var workspaces:({values:[]});property var monitors:({values:[]});property var focusedMonitor:null;property var focusedWorkspace:null;property var activeToplevel:null;property bool usingLua:true;property var requests:[];property int refreshes:0;signal rawEvent(var event);function dispatch(value){requests=[...requests,value]}function refreshToplevels(){refreshes++}function refreshMonitors(){}function refreshWorkspaces(){}",
-                "NacrePresentation": "property var active:({});property bool available:false",
-                "NacrePaths": 'property string state:"/fixture"',
+                "NacrePresentation": "property var pending:({});property var active:({});property bool available:false",
+                "NacrePaths": 'property string state:"file:///fixture";property string pictures:"file:///fixture"',
                 "Environment": 'property var screens:[{name:"eDP-1"}]',
                 "NacreBrightness": "property bool controlsVisible:false;property var hardware:({keyboard:null})",
                 "NacreHyprland": 'property var focusedMonitor:({name:"eDP-1"})',
@@ -33,6 +33,8 @@ class DeviceServiceTests(unittest.TestCase):
                 "LauncherPreferences": "property var hidden:[]",
                 "AppLaunch": "property var calls:[];function run(command,cwd){calls=[...calls,{command:command,cwd:cwd}]}",
                 "DesktopSettings": "property var data:({dnd:false})",
+                "WallpaperPlayback": "property bool sleeping:false;property bool locked:false",
+                "NacreIcons": 'function getWeatherIcon(code){return Number(code)===113?"clear_day":"cloud"}',
                 "NacreNotifications": "property bool expire:true;property int defaultExpireTimeout:5000",
                 "Mpris": "property var players:({values:[]})",
                 "Pipewire": "property var nodes:({values:[]});property var defaultAudioSink:null;property var defaultAudioSource:null",
@@ -61,7 +63,9 @@ class DeviceServiceTests(unittest.TestCase):
                 'import QtQuick\nQtObject {property string path:"";property bool printErrors:false;property bool watchChanges:false;signal loadFailed(int error);signal fileChanged();signal loaded();function text(){return ""}function reload(){}}'
             )
             with (fixtures / "qmldir").open("a") as manifest:
-                manifest.write("\nFileView 1.0 FileView.qml\n")
+                manifest.write(
+                    "\nFileView 1.0 FileView.qml\nsingleton NacreIcons 1.0 NacreIcons.qml\nsingleton WallpaperPlayback 1.0 WallpaperPlayback.qml\n"
+                )
             if name in ("NacreColours", "NacrePresentation"):
                 shutil.copy2(
                     ROOT.parent / "shell/services/colour-data.js",
@@ -98,7 +102,7 @@ class DeviceServiceTests(unittest.TestCase):
                     ROOT.parent / "shell/services/NacreClient.qml",
                     target / "NacreClient.qml",
                 )
-            if name == "NacreApps":
+            if name in ("NacreApps", "NacreWallpapers"):
                 shutil.copy2(
                     ROOT.parent / "shell/services/app-search.js",
                     target / "app-search.js",
@@ -126,6 +130,13 @@ class DeviceServiceTests(unittest.TestCase):
                     ROOT.parent / "shell/services/resource-data.js",
                     target / "resource-data.js",
                 )
+            if name == "NacreWallpapers":
+                # Keep this dependency inside the same temporary directory.
+                (target / "wallpaper-rotation.js").write_text(
+                    (
+                        ROOT.parent / "shell/utils/scripts/wallpaper-rotation.js"
+                    ).read_text()
+                )
             source = (ROOT.parent / "shell/services" / (name + ".qml")).read_text()
             source = (
                 source.replace("pragma Singleton", "")
@@ -150,6 +161,9 @@ class DeviceServiceTests(unittest.TestCase):
                 .replace("import Quickshell", 'import QtQuick\nimport "fixtures"')
                 .replace("Singleton {", "Item {")
                 .replace('Quickshell.env("HOME")', '"/fixture"')
+            )
+            source = source.replace(
+                "../utils/scripts/wallpaper-rotation.js", "wallpaper-rotation.js"
             )
             if name == "NacreNotifs":
                 source = source.replace("notification.id", "notification.noticeId")
@@ -211,3 +225,9 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_matched_presentation_validation_clone_and_stale_readiness(self):
         self.run_service("NacrePresentation")
+
+    def test_wallpaper_provider_catalogue_queue_and_matched_display(self):
+        self.run_service("NacreWallpapers")
+
+    def test_weather_cache_validation_units_and_coalesced_refresh(self):
+        self.run_service("NacreWeather")

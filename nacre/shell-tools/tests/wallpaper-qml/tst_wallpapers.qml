@@ -35,16 +35,16 @@ TestCase {
     Component {
         id: hex
         NacreWallpaperHex {
-            entry: Wallpapers.list[0]
+            entry: NacreWallpapers.list[0]
         }
     }
     function init() {
-        Wallpapers.preferences = {
+        NacreWallpapers.preferences = {
             kind: "static",
             layout: "carousel"
         };
-        Wallpapers.current = "one";
-        Wallpapers.browsed = "";
+        NacreWallpapers.current = "one";
+        NacreWallpapers.browsed = "";
     }
     Component {
         id: motionPreview
@@ -58,9 +58,9 @@ TestCase {
         view.visibilities.previewOnly = true;
         view.move(1);
         compare(view.currentIndex, 1);
-        compare(Wallpapers.browsed, "");
+        compare(NacreWallpapers.browsed, "");
         view.choose();
-        compare(Wallpapers.current, "one");
+        compare(NacreWallpapers.current, "one");
     }
     function test_preview_cancels_decode_when_selection_moves_before_settling() {
         const view = createTemporaryObject(motionPreview, test, {
@@ -78,12 +78,12 @@ TestCase {
     }
     function test_gallery_motion_respects_pause_and_close() {
         const view = createTemporaryObject(picker, test);
-        Wallpapers.preference({
+        NacreWallpapers.preference({
             kind: "dynamic",
             paused: true
         });
         verify(!view.motionEnabled);
-        Wallpapers.preference({
+        NacreWallpapers.preference({
             paused: false
         });
         verify(view.motionEnabled);
@@ -98,11 +98,11 @@ TestCase {
         input.text = "hollow";
         compare(view.count, 1);
         compare(view.currentEntry.path, "two");
-        compare(Wallpapers.browsed, "");
+        compare(NacreWallpapers.browsed, "");
         view.choose();
-        compare(Wallpapers.browsed, "two");
+        compare(NacreWallpapers.browsed, "two");
         input.text = "";
-        Wallpapers.preference({
+        NacreWallpapers.preference({
             kind: "dynamic"
         });
         compare(view.count, 1);
@@ -114,7 +114,7 @@ TestCase {
         view.select(1);
         compare(view.currentEntry.path, "two");
         for (const layout of ["spotlight", "hexagons", "carousel"]) {
-            Wallpapers.preference({
+            NacreWallpapers.preference({
                 layout: layout
             });
             wait(40);
@@ -128,12 +128,12 @@ TestCase {
         const view = createTemporaryObject(picker, test);
         wait(40);
         for (let i = 0; i < 12; i++) {
-            Wallpapers.preference({
+            NacreWallpapers.preference({
                 layout: "carousel"
             });
             view.select(i % 2);
             wait(10);
-            Wallpapers.preference({
+            NacreWallpapers.preference({
                 layout: "spotlight"
             });
             wait(10);
@@ -141,9 +141,9 @@ TestCase {
         }
     }
     function test_full_screen_modes_and_complete_carousel_cards() {
-        const original = Wallpapers.list;
+        const original = NacreWallpapers.list;
         try {
-            Wallpapers.list = Array.from({
+            NacreWallpapers.list = Array.from({
                 length: 12
             }, (_, i) => ({
                         path: "wall" + i,
@@ -168,7 +168,7 @@ TestCase {
                 verify(end.y <= strip.height + 1, "bottom " + end.y + " / " + strip.height);
             }
             for (const layout of ["spotlight", "hexagons"]) {
-                Wallpapers.preference({
+                NacreWallpapers.preference({
                     layout: layout
                 });
                 wait(40);
@@ -176,13 +176,13 @@ TestCase {
                 compare(view.implicitHeight, 1100);
             }
         } finally {
-            Wallpapers.list = original;
+            NacreWallpapers.list = original;
         }
     }
     function test_carousel_slides_through_intermediate_position() {
-        const original = Wallpapers.list;
+        const original = NacreWallpapers.list;
         try {
-            Wallpapers.list = Array.from({
+            NacreWallpapers.list = Array.from({
                 length: 9
             }, (_, i) => ({
                         path: "wall" + i,
@@ -200,13 +200,13 @@ TestCase {
             wait(300);
             fuzzyCompare(next.x, end, 1);
         } finally {
-            Wallpapers.list = original;
+            NacreWallpapers.list = original;
         }
     }
     function test_spotlight_motion_has_intermediate_position_and_width() {
-        const original = Wallpapers.list;
+        const original = NacreWallpapers.list;
         try {
-            Wallpapers.list = Array.from({
+            NacreWallpapers.list = Array.from({
                 length: 9
             }, (_, i) => ({
                         path: "wall" + i,
@@ -214,7 +214,7 @@ TestCase {
                         poster: original[0].poster,
                         dynamic: false
                     }));
-            Wallpapers.preference({
+            NacreWallpapers.preference({
                 layout: "spotlight"
             });
             const view = createTemporaryObject(picker, test);
@@ -229,7 +229,7 @@ TestCase {
             compare(next.x, endX);
             compare(next.width, strip.heroWidth);
         } finally {
-            Wallpapers.list = original;
+            NacreWallpapers.list = original;
         }
     }
     function test_theme_waits_for_matching_image_ready_and_rejects_stale_ack() {
@@ -266,7 +266,7 @@ TestCase {
         compare(view.active.mode, "dark");
     }
     function test_backdrop_holds_loaded_image_until_replacement_ready() {
-        const path = Wallpapers.list[0].poster;
+        const path = NacreWallpapers.list[0].poster;
         const view = createTemporaryObject(backdrop, test, {
             path: path
         });

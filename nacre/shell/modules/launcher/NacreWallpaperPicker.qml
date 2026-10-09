@@ -7,11 +7,11 @@ import qs.services
 Item {
     id: root
     required property PersistentProperties visibilities
-    readonly property string kind: Wallpapers.preferences.kind || "static"
-    readonly property string layout: Wallpapers.preferences.layout || "carousel"
+    readonly property string kind: NacreWallpapers.preferences.kind || "static"
+    readonly property string layout: NacreWallpapers.preferences.layout || "carousel"
     readonly property bool fullScreen: layout !== "carousel"
-    readonly property bool motionEnabled: visibilities.launcher && kind === "dynamic" && !Wallpapers.preferences.paused
-    readonly property var entries: Wallpapers.list.filter(entry => entry.dynamic === (kind === "dynamic") && query.text.trim().toLowerCase().split(/\s+/).every(word => (entry.name + " " + entry.path).toLowerCase().includes(word)))
+    readonly property bool motionEnabled: visibilities.launcher && kind === "dynamic" && !NacreWallpapers.preferences.paused
+    readonly property var entries: NacreWallpapers.list.filter(entry => entry.dynamic === (kind === "dynamic") && query.text.trim().toLowerCase().split(/\s+/).every(word => (entry.name + " " + entry.path).toLowerCase().includes(word)))
     readonly property int count: entries.length
     property int currentIndex: 0
     readonly property var currentEntry: entries[currentIndex] || null
@@ -35,7 +35,7 @@ Item {
         currentIndex = next;
         selectionPath = currentEntry.path;
         if (!visibilities.previewOnly)
-            Wallpapers.browse(selectionPath);
+            NacreWallpapers.browse(selectionPath);
     }
     function move(delta) {
         select(currentIndex + delta);
@@ -43,12 +43,12 @@ Item {
     function choose() {
         if (currentEntry && !visibilities.previewOnly) {
             selectionPath = currentEntry.path;
-            Wallpapers.setWallpaper(selectionPath);
+            NacreWallpapers.setWallpaper(selectionPath);
         }
     }
     onEntriesChanged: reconcile()
     Component.onCompleted: {
-        selectionPath = Wallpapers.current;
+        selectionPath = NacreWallpapers.current;
         reconcile();
         query.forceActiveFocus();
     }
@@ -56,7 +56,7 @@ Item {
         target: root.visibilities
         function onLauncherChanged() {
             if (!root.visibilities.launcher && !root.visibilities.previewOnly)
-                Wallpapers.commitSelection();
+                NacreWallpapers.commitSelection();
         }
     }
     Behavior on travel {
@@ -91,7 +91,7 @@ Item {
                 text: "Static"
                 compact: true
                 selected: root.kind === "static"
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     kind: "static"
                 })
             }
@@ -99,7 +99,7 @@ Item {
                 text: "Dynamic"
                 compact: true
                 selected: root.kind === "dynamic"
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     kind: "dynamic"
                 })
             }
@@ -107,7 +107,7 @@ Item {
                 text: "Carousel"
                 compact: true
                 selected: root.layout === "carousel"
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     layout: "carousel"
                 })
             }
@@ -115,7 +115,7 @@ Item {
                 text: "Spotlight"
                 compact: true
                 selected: root.layout === "spotlight"
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     layout: "spotlight"
                 })
             }
@@ -123,7 +123,7 @@ Item {
                 text: "Hexagons"
                 compact: true
                 selected: root.layout === "hexagons"
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     layout: "hexagons"
                 })
             }
@@ -131,7 +131,7 @@ Item {
                 text: "Add"
                 icon: "add"
                 compact: true
-                onClicked: Wallpapers.pickFiles()
+                onClicked: NacreWallpapers.pickFiles()
             }
         }
         NacreTextField {
@@ -151,7 +151,7 @@ Item {
     NacreText {
         anchors.centerIn: parent
         visible: !root.count
-        text: Wallpapers.loading ? "Loading wallpapers…" : "No matching wallpapers"
+        text: NacreWallpapers.loading ? "Loading wallpapers…" : "No matching wallpapers"
         color: root.fullScreen ? "white" : NacreColours.palette.m3onSurface
     }
     Item {
@@ -309,7 +309,7 @@ Item {
         anchors.fill: parent
         onDropped: drop => {
             if (drop.urls.length)
-                Wallpapers.addFiles(drop.urls.map(String));
+                NacreWallpapers.addFiles(drop.urls.map(String));
         }
     }
     component Card: NacreSurface {

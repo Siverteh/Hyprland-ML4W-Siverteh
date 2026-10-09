@@ -99,3 +99,20 @@ and unloads on close/selection changes. Palette-matched motion preferences remai
 separate from preview presentation. Backdrop swaps defer to the next event step
 and retain old pixels until replacement readiness, including previously cached
 buffers whose source URL does not change. Reduced motion skips geometry/crossfade.
+
+## Independent catalogue and selection owner
+
+NacreWallpapers owns the catalogue, browse/commit queues and rotation schedule.
+The old Wallpapers name is a compatibility forwarder. Opening the picker or
+Appearance reads prepared assets; it does not apply a selection or save a setting.
+The catalogue and last poster/media files use native event reads. Invalid refreshes
+keep the last usable list. Selection requests coalesce for 150ms; an already
+running publication finishes before the latest queued selection is applied.
+Preferences run serially through the existing helper and only confirmed results
+update the controls. Errors remain available for retry. Rotation uses the same
+queue and preserves its saved deadline across temporary pauses.
+
+Search reuses Nacre's own ranking helper; the unused fuzzysort dependency has been
+removed. Wallpaper/cache/palette producer helpers and playback are separate
+owners and still require the remaining provenance audit. See the
+[provider specification](../specs/wallpaper-weather-services.md).

@@ -2,8 +2,8 @@
 
 Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
 views verified. All initially listed services addressed: eleven replaced, unused
-Thumbnailer retired. Matched presentation provider replaced. Remaining mixed
-providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
+Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers now replaced
+(pending live verification). Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -45,7 +45,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
-| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth/Players/SystemUsage/Notifs/Apps/Time/Hyprland/Colours/Brightness verified; Thumbnailer and other mixed providers/helpers pending |
+| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | verified | Eleven listed providers replaced; unused Thumbnailer retired. Other mixed providers/helpers and whole-tree audit remain |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
@@ -722,3 +722,20 @@ other warnings remain failures. No new thumbnail cache/conversion jobs introduce
 No cold-login/physical multi-output/battery or whole-tree license completion claim.
 Actual producer/cache helper, mixed providers, UI/config/assets/final audit remain;
 notices retained.
+
+## Wallpaper and weather providers (replaced; acceptance pending)
+
+Deleted mixed Wallpapers/Weather bodies before implementing NacreWallpapers and
+NacreWeather from callers, public declarations, producer schemas, existing tests
+and primary Quickshell Process/FileView APIs. Earlier provider/helper exposure is
+acknowledged; no upstream body consulted and no legal clean-room claim. Existing
+producer/cache/playback helpers remain separate audit tasks. Current callers use
+new names; old names are small independently written forwarders. Removed unused
+fuzzy-prepared model and third-party fuzzysort after reference inventory.
+
+Native tests exercise catalogue validation/retention/search, latest-selection
+queue, failed commit/retry, serial confirmed preference writes, import cancellation,
+matched display versus preview, cached weather/units/unknown/stale state and
+coalesced refresh with old-city rejection. Existing rotation tests retain native
+production timer/deadline/shuffle assertions. Notices retained; whole goal remains
+unfinished.

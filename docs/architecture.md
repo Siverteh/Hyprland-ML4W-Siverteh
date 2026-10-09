@@ -209,3 +209,9 @@ stay with their prepared-cache owner. NacrePresentation validates and stages one
 watched wallpaper/palette record; only matching readiness activates a new poster.
 The ThemePresentation name forwards to it. See
 [image and presentation behavior](features/image-presentation.md).
+
+NacreWallpapers owns catalogue, user-selection/preference queues and rotation;
+wallpaper-media.py remains the sole publication/cache helper. Matched active
+NacrePresentation state controls displayed assets. NacreWeather owns validated
+cached/live readings and coalesced refresh; weather.py owns bounded retrieval.
+Legacy provider names are minimal forwarders, not duplicate workers.

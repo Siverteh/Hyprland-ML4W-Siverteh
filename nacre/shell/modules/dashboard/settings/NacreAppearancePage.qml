@@ -25,7 +25,7 @@ NacreSettingsPage {
             } catch (error) {}
         }
     }
-    readonly property var prefs: Wallpapers.preferences
+    readonly property var prefs: NacreWallpapers.preferences
     NacreSettingsSection {
         title: "Wallpaper"
         description: "Choose a scene from your personal collection."
@@ -35,7 +35,7 @@ NacreSettingsPage {
             Image {
                 width: Math.min(300, parent.width * .36)
                 height: width * .5
-                source: Wallpapers.preview ? "file://" + Wallpapers.preview : ""
+                source: NacreWallpapers.preview ? "file://" + NacreWallpapers.preview : ""
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 cache: true
@@ -48,7 +48,7 @@ NacreSettingsPage {
                 spacing: 14
                 NacreText {
                     width: parent.width
-                    text: Wallpapers.list.find(w => w.path === Wallpapers.current)?.name || Wallpapers.current.split("/").pop() || "Choose a wallpaper"
+                    text: NacreWallpapers.list.find(w => w.path === NacreWallpapers.current)?.name || NacreWallpapers.current.split("/").pop() || "Choose a wallpaper"
                     font.pointSize: 12
                     elide: Text.ElideRight
                 }
@@ -85,7 +85,7 @@ NacreSettingsPage {
                     required property var modelData
                     text: modelData.name
                     selected: (root.prefs.motionMode || "full") === modelData.id
-                    onClicked: Wallpapers.preference({
+                    onClicked: NacreWallpapers.preference({
                         motionMode: modelData.id
                     })
                 }
@@ -101,22 +101,22 @@ NacreSettingsPage {
             ActionButton {
                 text: "Manual"
                 selected: !root.prefs.rotationEnabled
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     rotationEnabled: false
                 })
             }
             ActionButton {
                 text: "Rotate automatically"
                 selected: root.prefs.rotationEnabled === true
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     rotationEnabled: true
                 })
             }
             ActionButton {
                 text: "Next now"
                 icon: "skip_next"
-                enabled: Wallpapers.rotationReady
-                onClicked: Wallpapers.advanceRotation(true)
+                enabled: NacreWallpapers.rotationReady
+                onClicked: NacreWallpapers.advanceRotation(true)
             }
         }
         Flow {
@@ -128,7 +128,7 @@ NacreSettingsPage {
                     required property int modelData
                     text: modelData + " min" + (modelData === 30 ? " · recommended" : "")
                     selected: (root.prefs.rotationMinutes || 30) === modelData
-                    onClicked: Wallpapers.preference({
+                    onClicked: NacreWallpapers.preference({
                         rotationMinutes: modelData
                     })
                 }
@@ -148,7 +148,7 @@ NacreSettingsPage {
                 from: 5
                 to: 1440
                 value: root.prefs.rotationMinutes || 30
-                onAdjusted: number => Wallpapers.preference({
+                onAdjusted: number => NacreWallpapers.preference({
                         rotationMinutes: number
                     })
             }
@@ -182,7 +182,7 @@ NacreSettingsPage {
                     required property var modelData
                     text: modelData.name
                     selected: (root.prefs.rotationKind || "all") === modelData.id
-                    onClicked: Wallpapers.preference({
+                    onClicked: NacreWallpapers.preference({
                         rotationKind: modelData.id
                     })
                 }
@@ -190,21 +190,21 @@ NacreSettingsPage {
             ActionButton {
                 text: "Shuffle"
                 selected: root.prefs.rotationShuffle !== false
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     rotationShuffle: true
                 })
             }
             ActionButton {
                 text: "In order"
                 selected: root.prefs.rotationShuffle === false
-                onClicked: Wallpapers.preference({
+                onClicked: NacreWallpapers.preference({
                     rotationShuffle: false
                 })
             }
         }
         NacreText {
             width: parent.width
-            text: Wallpapers.rotationStatus || ""
+            text: NacreWallpapers.rotationStatus || ""
             font.pointSize: 10
             color: NacreTokens.mutedInk
             wrapMode: Text.Wrap
@@ -219,24 +219,24 @@ NacreSettingsPage {
             ActionButton {
                 text: "Match wallpaper"
                 selected: (root.prefs.palettePreset || "wallpaper") === "wallpaper"
-                enabled: !Wallpapers.themeBusy
-                onClicked: Wallpapers.preference({
+                enabled: !NacreWallpapers.themeBusy
+                onClicked: NacreWallpapers.preference({
                     paletteAccent: "auto"
                 })
             }
             ActionButton {
                 text: "Dark"
                 selected: (root.prefs.paletteMode || "dark") === "dark"
-                enabled: !Wallpapers.themeBusy
-                onClicked: Wallpapers.preference({
+                enabled: !NacreWallpapers.themeBusy
+                onClicked: NacreWallpapers.preference({
                     paletteMode: "dark"
                 })
             }
             ActionButton {
                 text: "Light"
                 selected: root.prefs.paletteMode === "light"
-                enabled: !Wallpapers.themeBusy
-                onClicked: Wallpapers.preference({
+                enabled: !NacreWallpapers.themeBusy
+                onClicked: NacreWallpapers.preference({
                     paletteMode: "light"
                 })
             }
@@ -248,15 +248,15 @@ NacreSettingsPage {
             spacing: 10
             readonly property int columns: width >= 840 ? 6 : width >= 480 ? 3 : 2
             Repeater {
-                model: Wallpapers.paletteOptions
+                model: NacreWallpapers.paletteOptions
                 NacrePaletteTile {
                     required property var modelData
                     objectName: "wallpaperPaletteTile"
                     entry: modelData
                     width: Math.floor((wallColors.width - (wallColors.columns - 1) * 10) / wallColors.columns)
-                    selected: Wallpapers.selectedAccent === modelData.accent
-                    enabled: !Wallpapers.themeBusy
-                    onChosen: Wallpapers.preference({
+                    selected: NacreWallpapers.selectedAccent === modelData.accent
+                    enabled: !NacreWallpapers.themeBusy
+                    onChosen: NacreWallpapers.preference({
                         paletteAccent: modelData.accent
                     })
                 }
@@ -269,8 +269,8 @@ NacreSettingsPage {
                 objectName: "naturalPaletteButton"
                 text: "Natural"
                 selected: root.prefs.paletteHarmony !== true
-                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !Wallpapers.themeBusy
-                onClicked: Wallpapers.preference({
+                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
+                onClicked: NacreWallpapers.preference({
                     paletteHarmony: false
                 })
             }
@@ -278,8 +278,8 @@ NacreSettingsPage {
                 objectName: "harmonyPaletteButton"
                 text: "Harmony"
                 selected: root.prefs.paletteHarmony === true
-                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !Wallpapers.themeBusy
-                onClicked: Wallpapers.preference({
+                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
+                onClicked: NacreWallpapers.preference({
                     paletteHarmony: true
                 })
             }
@@ -312,15 +312,15 @@ NacreSettingsPage {
             spacing: 10
             readonly property int columns: width >= 840 ? 6 : width >= 480 ? 3 : 2
             Repeater {
-                model: Wallpapers.palettePresets.filter(p => p.group === root.paletteGroup)
+                model: NacreWallpapers.palettePresets.filter(p => p.group === root.paletteGroup)
                 NacrePaletteTile {
                     required property var modelData
                     objectName: "paletteColorTile"
                     entry: modelData
                     width: Math.floor((presets.width - (presets.columns - 1) * 10) / presets.columns)
                     selected: root.prefs.palettePreset === modelData.id
-                    enabled: !Wallpapers.themeBusy
-                    onChosen: Wallpapers.preference({
+                    enabled: !NacreWallpapers.themeBusy
+                    onChosen: NacreWallpapers.preference({
                         palettePreset: modelData.id
                     })
                 }
@@ -328,7 +328,7 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            text: Wallpapers.error || ""
+            text: NacreWallpapers.error || ""
             visible: text.length > 0
             color: NacreTokens.accent
             wrapMode: Text.Wrap
@@ -384,7 +384,7 @@ NacreSettingsPage {
                     required property var modelData
                     text: modelData.name
                     selected: root.scheme.variant === modelData.id
-                    enabled: !Wallpapers.themeBusy
+                    enabled: !NacreWallpapers.themeBusy
                     onClicked: root.changeScheme("-v", modelData.id)
                 }
             }

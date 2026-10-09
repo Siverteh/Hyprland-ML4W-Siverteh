@@ -67,7 +67,7 @@ class LauncherPanelTests(unittest.TestCase):
             )
             helpers = {
                 "NacreTokens": "property bool motionEnabled:true",
-                "Wallpapers": "property var preferences:({layout:'carousel'})",
+                "NacreWallpapers": "property var preferences:({layout:'carousel'})",
                 "NacreApps": "property string last:'';function fuzzyQuery(q){return [{id:'editor',name:'Editor',comment:'Code'}].filter(a=>a.name.toLowerCase().includes(q.toLowerCase()))}function launch(a){last=a.id}",
                 "DesktopActions": "property string last:'';property var list:[{name:'Settings',description:'Desktop settings',action:'settings',icon:'settings'},{name:'Power menu',description:'Power',action:'power',icon:'power'}];function execute(a,v){last=a}",
             }

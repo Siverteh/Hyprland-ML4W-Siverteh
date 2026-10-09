@@ -96,8 +96,8 @@ TestCase {
     }
 
     function test_appearance_interval_writes_only_on_user_input() {
-        const prior = Wallpapers.preferences;
-        Wallpapers.preferences = Object.assign({}, prior, {
+        const prior = NacreWallpapers.preferences;
+        NacreWallpapers.preferences = Object.assign({}, prior, {
             rotationMinutes: 30,
             paletteAccent: "aabbcc"
         });
@@ -107,16 +107,16 @@ TestCase {
         const field = findChild(findChild(view, "settingsPage").item, "wallpaperInterval");
         compare(field.value, 30);
         field.value = 45;
-        compare(Wallpapers.preferences.rotationMinutes, 30);
+        compare(NacreWallpapers.preferences.rotationMinutes, 30);
         const scroll = findChild(view, "settingsScroll");
         scroll.contentY = Math.max(0, field.mapToItem(scroll.contentItem, 0, 0).y - 80);
         wait(30);
         mouseClick(field, field.width - 17, field.height / 2);
-        compare(Wallpapers.preferences.rotationMinutes, 46);
-        compare(Wallpapers.preferences.paletteAccent, "aabbcc");
+        compare(NacreWallpapers.preferences.rotationMinutes, 46);
+        compare(NacreWallpapers.preferences.paletteAccent, "aabbcc");
         compare(field.from, 5);
         compare(field.to, 1440);
-        Wallpapers.preferences = prior;
+        NacreWallpapers.preferences = prior;
     }
 
     function test_desktop_display_workflow_and_maintenance_commands_are_explicit() {
@@ -187,8 +187,8 @@ TestCase {
     }
 
     function test_palette_rows_fit_the_available_width() {
-        const prior = Wallpapers.palettePresets;
-        Wallpapers.palettePresets = Array.from({
+        const prior = NacreWallpapers.palettePresets;
+        NacreWallpapers.palettePresets = Array.from({
             "length": 12
         }, (_, i) => {
             return ({
@@ -215,13 +215,13 @@ TestCase {
         compare(tiles.filter(tile => {
             return tile.y === tiles[0].y;
         }).length, columns);
-        Wallpapers.palettePresets = prior;
+        NacreWallpapers.palettePresets = prior;
     }
 
     function test_wallpaper_palette_options_fit_and_select_an_accent() {
-        const prior = Wallpapers.paletteOptions;
-        const preferences = Wallpapers.preferences;
-        Wallpapers.paletteOptions = ["aabbcc", "ccbbaa", "bbccdd", "ccbbdd", "ddbbcc"].map((accent, i) => ({
+        const prior = NacreWallpapers.paletteOptions;
+        const preferences = NacreWallpapers.preferences;
+        NacreWallpapers.paletteOptions = ["aabbcc", "ccbbaa", "bbccdd", "ccbbdd", "ddbbcc"].map((accent, i) => ({
                     accent: accent,
                     name: "Image color " + i,
                     surface: "102030",
@@ -237,14 +237,14 @@ TestCase {
         for (const tile of tiles)
             verify(tile.x + tile.width <= flow.width + 0.01);
         tiles[2].choose();
-        compare(Wallpapers.preferences.paletteAccent, "bbccdd");
-        Wallpapers.paletteOptions = prior;
-        Wallpapers.preferences = preferences;
+        compare(NacreWallpapers.preferences.paletteAccent, "bbccdd");
+        NacreWallpapers.paletteOptions = prior;
+        NacreWallpapers.preferences = preferences;
     }
 
     function test_palette_harmony_is_optional_and_keeps_accent_preference() {
-        const prior = Wallpapers.preferences;
-        Wallpapers.preferences = {
+        const prior = NacreWallpapers.preferences;
+        NacreWallpapers.preferences = {
             palettePreset: "wallpaper",
             paletteAccent: "aabbcc"
         };
@@ -258,14 +258,14 @@ TestCase {
         verify(!harmony.selected);
         harmony.clicked();
         verify(harmony.selected);
-        compare(Wallpapers.preferences.paletteAccent, "aabbcc");
+        compare(NacreWallpapers.preferences.paletteAccent, "aabbcc");
         natural.clicked();
         verify(natural.selected);
-        Wallpapers.preferences = Object.assign({}, Wallpapers.preferences, {
+        NacreWallpapers.preferences = Object.assign({}, NacreWallpapers.preferences, {
             palettePreset: "ocean"
         });
         verify(!harmony.enabled);
-        Wallpapers.preferences = prior;
+        NacreWallpapers.preferences = prior;
     }
 
     function test_shared_wheel_glides_and_page_switch_resets_position() {

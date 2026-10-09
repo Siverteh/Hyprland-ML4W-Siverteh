@@ -62,7 +62,7 @@ NacreSettingsPage {
             }
             ActionButton {
                 text: "Refresh weather"
-                onClicked: Weather.reload()
+                onClicked: NacreWeather.reload()
             }
         }
         NacreSettingToggle {
@@ -71,12 +71,12 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            text: [Weather.location, Weather.displayTemperature, Weather.description].filter(value => !!value).join(" · ")
+            text: [NacreWeather.location, NacreWeather.displayTemperature, NacreWeather.description].filter(value => !!value).join(" · ")
             wrapMode: Text.Wrap
         }
         NacreText {
             width: parent.width
-            text: Weather.error || DesktopSettings.message
+            text: NacreWeather.error || DesktopSettings.message
             wrapMode: Text.Wrap
             color: NacreTokens.mutedInk
         }

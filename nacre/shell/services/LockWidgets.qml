@@ -14,7 +14,7 @@ Singleton {
         const p = NacrePlayers.active;
         return {
             "colors": NacrePresentation.active.colours,
-            "wallpaper": NacrePresentation.active.poster ?? Wallpapers.poster,
+            "wallpaper": NacrePresentation.active.poster ?? NacreWallpapers.poster,
             "system": {
                 "cpu": NacreSystemUsage.cpuPerc,
                 "memory": NacreSystemUsage.memPerc,
@@ -29,14 +29,14 @@ Singleton {
                 "lockNotificationContents": DesktopSettings.data.lockNotificationContents
             },
             "weather": {
-                "location": Weather.location,
-                "icon": Weather.icon,
-                "detail": Weather.detail,
-                "range": Weather.range,
-                "description": Weather.description,
-                "temperature": Weather.displayTemperature,
-                "stale": Weather.stale,
-                "error": Weather.error
+                "location": NacreWeather.location,
+                "icon": NacreWeather.icon,
+                "detail": NacreWeather.detail,
+                "range": NacreWeather.range,
+                "description": NacreWeather.description,
+                "temperature": NacreWeather.displayTemperature,
+                "stale": NacreWeather.stale,
+                "error": NacreWeather.error
             },
             "media": p ? {
                 "title": p.trackTitle,

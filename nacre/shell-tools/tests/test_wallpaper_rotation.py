@@ -20,7 +20,7 @@ class RotationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder)
             shutil.copytree(ROOT / "tests/qml/fixtures", target / "fixtures")
-            source = (ROOT.parent / "shell/services/Wallpapers.qml").read_text()
+            source = (ROOT.parent / "shell/services/NacreWallpapers.qml").read_text()
             source = (
                 source.replace("pragma Singleton", "")
                 .replace("import qs.utils", 'import "fixtures"')
@@ -28,13 +28,18 @@ class RotationTests(unittest.TestCase):
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "Item {")
             )
-            source = source.replace("../utils/scripts/", "")
+            source = source.replace("../utils/scripts/", "").replace(
+                "Component.onCompleted: refresh()", ""
+            )
+            shutil.copy2(
+                ROOT.parent / "shell/services/app-search.js", target / "app-search.js"
+            )
             source = remove_objects(
                 source, r"\b(Process|FileView|IpcHandler|Variants)\s*\{"
             )
             source = remove_objects(source, r"\bTimer\s*\{\s*interval:\s*2500\b")
             source = re.sub(
-                r"readonly property list<Wallpaper> list: wallpapers.instances",
+                r"property var list: \[\]",
                 'property var list: [{path:"a",dynamic:false},{path:"b",dynamic:true},{path:"c",dynamic:false},{path:"d",dynamic:true}]',
                 source,
             )
@@ -47,7 +52,7 @@ class RotationTests(unittest.TestCase):
             """
             source = source.replace("id: root", "id: root\n" + stubs, 1)
             (target / "RotatingWalls.qml").write_text(source)
-            for name in ["wallpaper-rotation.js", "fuzzysort.js"]:
+            for name in ["wallpaper-rotation.js"]:
                 shutil.copy2(ROOT.parent / "shell/utils/scripts" / name, target / name)
             services = {
                 "NacrePaths": 'property string state:"/tmp";property string pictures:"/tmp"',

@@ -16,7 +16,7 @@ ShellRoot {
         property var widgetData: ({})
         Image {
             anchors.fill: parent
-            source: window.widgetData.wallpaper ? "file://" + window.widgetData.wallpaper : (Wallpapers.poster ? "file://" + Wallpapers.poster : "")
+            source: window.widgetData.wallpaper ? "file://" + window.widgetData.wallpaper : (NacreWallpapers.poster ? "file://" + NacreWallpapers.poster : "")
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
         }
