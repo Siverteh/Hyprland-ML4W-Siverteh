@@ -35,6 +35,12 @@ TestCase {
         };
         verify(findChild(state, "screenLightTimer").running);
         Visibilities.screens = {};
+        const external = {
+            name: "DP-1"
+        };
+        Environment.screens = [external];
+        state.reconcile();
+        verify(!state.monitors[0].available);
         Environment.screens = [];
         state.reconcile();
         compare(state.monitors.length, 0);

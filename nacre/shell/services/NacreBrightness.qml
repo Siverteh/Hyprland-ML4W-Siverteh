@@ -25,7 +25,11 @@ Singleton {
         const ddc = hardware.ddc.find(device => device.screen === screen.name);
         if (ddc)
             return ddc;
-        return /^(eDP|LVDS)/i.test(screen.name) || Quickshell.screens.length === 1 ? hardware.backlight : null;
+        const internal = Quickshell.screens.filter(candidate => /^(eDP|LVDS|DSI)/i.test(candidate.name));
+        const backlight = hardware.backlight;
+        if (backlight?.screen)
+            return backlight.screen === screen.name ? backlight : null;
+        return internal.length === 1 && internal[0].name === screen.name ? backlight : null;
     }
     function reconcile() {
         const current = [];
