@@ -109,3 +109,7 @@ chrome uses one body token, while inner cards use raised surfaces.
 Appearance offers Natural wallpaper colors or optional Harmony, which favors related
 supporting accents. The [Orient guide](features/orient.md) explains the setting,
 readability and cache behavior. Both use the same publisher and no idle extraction.
+
+Launcher mode assembly is now owned by NacreLauncherPanel and the fresh legacy
+search/action view NacreSearchPanel. The inherited list/item stack is retired;
+local app/wallpaper view body provenance remains a separate pending review.

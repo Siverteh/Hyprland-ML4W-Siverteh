@@ -24,3 +24,18 @@ with mode0600 and locked read/modify/write operations. They are outside source
 and desktop rollback, and malformed data is preserved rather than overwritten.
 The browser loads only while open/closing and uses the shared fast scrolling.
 
+
+## Independent mode assembly
+
+NacreLauncherPanel owns mode selection and lazy loading. It keeps loaded content
+at a fixed internal height while the visible panel closes, clips that content,
+and unloads it once the close transition settles. Reopening during a close targets
+the latest state. Full-screen wallpaper modes use the existing viewport/backdrop
+contract; gallery index/count/step and output recovery remain compatible.
+
+The inherited reference-era content/list/action/item stack is removed. Its
+compatibility `legacy` mode now uses the independently authored NacreSearchPanel:
+app search or `>` known desktop actions, keyboard selection/Enter/Escape and
+readable palette-aware rows. It does not execute arbitrary command text or add
+power controls. The newer category and wallpaper view bodies have their own origin
+review/replacement record; composing them does not certify those bodies here.

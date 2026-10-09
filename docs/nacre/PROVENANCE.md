@@ -37,7 +37,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | verified | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
 | 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | verified | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
-| 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | spec ready | [Launcher spec](../specs/launcher.md); inherited stack and newer local view origin audit next |
+| 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | implementing | [Launcher spec](../specs/launcher.md); inherited stack and newer local view origin audit next |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
@@ -227,3 +227,20 @@ including native Settings selection and cache/preference/contrast regressions.
   and existing child clicks remain available. The direct press observer must be
   in front to observe child MouseArea presses. Read-only header-OUTPUT diagnostics
   provide current coordinates/guard/modal state, without polling or mutation.
+
+
+## Launcher assembly replacement record (candidate)
+
+- Spec47ce572 preceded deletion of the inherited Wrapper, Content, ContentList,
+  AppList, AppItem, Actions, ActionItem, WallpaperList and WallpaperItem bodies.
+  NacreLauncherPanel is a fresh mode loader/finite clipping wrapper;
+  NacreSearchPanel replaces the legacy query/action path using current backend APIs.
+- Prior wrapper public contracts were read during frame work. Target bodies were
+  not opened/copied during replacement, and no upstream sources consulted. Qt
+  Loader/NumberAnimation and current service consumers/tests define contracts.
+- Actual replacement tests cover lazy open/close/reversal/unload, all mode routing,
+  gallery metrics/navigation and legacy search/known actions/Enter/Escape/empty
+  results. Data/page providers are isolated; these tests do not certify existing
+  AppGrid/WallpaperGallery implementation origin or every native focus behavior.
+- Newer local view bodies and launcher.js remain audit/replacement pending. Frame
+  host now composes NacreLauncherPanel. Repository notices stay until final audit.

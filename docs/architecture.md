@@ -151,3 +151,7 @@ from visual closing geometry; a stable layer and explicit hover contracts replac
 parent-dependent input handling. Independent registry updates preserve newer and
 other-output owners. The [frame guide](features/frame-panels.md) documents contracts
 and target-host validation; composed panel/service bodies remain pending areas.
+
+Launcher mode assembly is now owned by NacreLauncherPanel and the fresh legacy
+search/action view NacreSearchPanel. The inherited list/item stack is retired;
+local app/wallpaper view body provenance remains a separate pending review.

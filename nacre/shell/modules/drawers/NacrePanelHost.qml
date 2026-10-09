@@ -82,7 +82,7 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
     }
-    Launcher.Wrapper {
+    Launcher.NacreLauncherPanel {
         id: launcher
         visibilities: root.visibilities
         x: root.launcherPosition.x
