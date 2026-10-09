@@ -15,9 +15,15 @@ DISPOSITIONS = {"independent", "third-party", "inherited", "non-implementation"}
 
 
 def tracked_paths(root):
-    result = subprocess.run(
-        ["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True
-    )
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True
+        )
+    except subprocess.CalledProcessError as error:
+        detail = error.stderr.decode(errors="replace").strip()
+        raise RuntimeError(
+            f"Cannot inventory Git index (exit {error.returncode}): {detail}"
+        ) from error
     return sorted(set(result.stdout.decode().rstrip("\0").split("\0")) - {""})
 
 

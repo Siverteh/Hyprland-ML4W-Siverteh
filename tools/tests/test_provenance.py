@@ -12,6 +12,13 @@ SPEC.loader.exec_module(provenance)
 
 
 class ProvenanceTests(unittest.TestCase):
+    def test_git_failure_keeps_the_actual_diagnostic(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(
+                RuntimeError, "Cannot inventory Git index.*not a git repository"
+            ):
+                provenance.tracked_paths(Path(directory))
+
     def test_names_and_change_records_do_not_certify_origin(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

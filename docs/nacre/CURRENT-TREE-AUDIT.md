@@ -47,3 +47,13 @@ review evidence for audit metadata can use a separately identified Git revision.
 
 The earlier verified replacement records remain in `PROVENANCE.md`. Pending
 final audit status here does not reverse those functional/live acceptance results.
+
+## CI checkout ownership
+
+GitHub's root-running Arch container reads the runner-owned checkout. CI records
+only `$GITHUB_WORKSPACE` as a trusted Git directory in its effective global config
+before the index scan; checkout's temporary-home setting did not survive into this
+step. No wildcard trust, local-machine trust change, fallback scan or skipped audit.
+Git failures include their actual stderr so ownership errors remain actionable.
+See [Git safe.directory](https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory)
+and [checkout's setting](https://github.com/actions/checkout#usage).
