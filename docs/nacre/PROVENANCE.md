@@ -1103,3 +1103,15 @@ references; no internal-memory manipulation or disruptive restart. Nine unused
 registrations retired in source, not falsely claimed removed from live memory.
 Fresh compositor-session registry check remains a final runtime-audit follow-up.
 Notices retained; larger source/helper/config/tests/assets and comparison remain.
+
+## Graphical-session startup composition replacement
+
+[Spec](../specs/session-startup.md): deleted current autostart.lua before own
+argument-list/ordered submission composition and literal POSIX argument quoting.
+Public startup commands/service ownership/native state are behavior contracts;
+current file was already narrowed by local maintenance, not all commands presumed
+inherited. Actual Lua fixture proves no load/reload launch, then verifies five
+startup tasks/wallet scope/argument boundaries without real execution. Private
+helper/credential/app idempotence behavior stays with existing owners and is not
+certified original here. Prior declaration/exposure acknowledged; no upstream
+implementation/no legal clean-room/final license claim.

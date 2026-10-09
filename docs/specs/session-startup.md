@@ -1,6 +1,6 @@
 # Independent graphical-session startup composition
 
-Spec ready, 2026-10-09. Target: `hypr/conf/autostart.lua`; app keybindings and
+Implementation written, acceptance pending, 2026-10-09. Target: `hypr/conf/autostart.lua`; app keybindings and
 window routing follow in separate branches. The Lua introduction in `f3290a5`
 coincides with old dotfile edits; translating old startup config is not originality.
 Identify locally added services and keep the original exposure record honest.
@@ -43,3 +43,30 @@ logging out the user or terminating active assistants. Keep rollback/notices, tr
 helper provenance separately, record SHA-bound source review after implementation
 and require exact-main CI. Whole-tree/runtime/source comparison remains part of the
 full originality goal.
+
+## Recorded startup contract and source origin
+
+Current public declaration inventory is one startup event and five command
+submissions: PAM wallet initialization explicitly in a UWSM scope; polkit agent;
+wl-paste watching cliphist store; battery watcher; existing startup-apps helper.
+Current shell/hypridle/Brain services are enabled and active; sidebar service is
+static and active. No redundant service launch is added to this config.
+
+Deleted target body before fresh task-argument list/ordered submission loop and
+POSIX single-argument quoting were written. Wallet task remains first with its
+explicit scope; default scope/service selection for other tasks stays UWSM-owned.
+HOME expansion now produces literal absolute helper arguments rather than relying
+on shell tilde interpretation. Submission order does not establish asynchronous
+completion/readiness order; existing helpers retain their own idempotence contract.
+
+Public command/event declarations and historical exposure were acknowledged; no
+upstream/old implementation body consulted for replacement/no legal clean-room
+claim. The old current file was already narrowed by earlier local work; do not
+label every retained command as inherited or claim this audits the helper bodies.
+Safe fixture loads the actual file with a failing launch owner, proving no launch
+on load, then invokes the captured startup callback against a fake command owner.
+Checks cover wallet scope, five tasks/order/argv and literal space/quote/substitution
+text in HOME. No services/apps/credentials are touched by fixtures.
+
+References: [Hyprland startup event](https://wiki.hypr.land/0.55.0/Configuring/Basics/Autostart/)
+and [UWSM application scopes](https://github.com/Vladimir-csp/uwsm).

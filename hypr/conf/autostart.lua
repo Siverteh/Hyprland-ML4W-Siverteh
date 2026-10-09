@@ -1,8 +1,22 @@
--- One owner per desktop function. UWSM handles the graphical session and XDG autostart.
+-- Systemd owns the enabled desktop/idle/Brain services; this owns session helpers.
+local function shell_argument(value)
+    return "'" .. value:gsub("'", "'\\''") .. "'"
+end
+
 hl.on("hyprland.start", function()
-    hl.exec_cmd("uwsm app -t scope -- /usr/lib/pam_kwallet_init")
-    hl.exec_cmd("uwsm app -- /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-    hl.exec_cmd("uwsm app -- wl-paste --watch cliphist store")
-    hl.exec_cmd("uwsm app -- ~/.config/hypr/scripts/low-battery.sh")
-    hl.exec_cmd("uwsm app -- ~/.config/hypr/scripts/startup-apps.sh")
+    local scripts = os.getenv("HOME") .. "/.config/hypr/scripts/"
+    local tasks = {
+        { scope = true, args = { "/usr/lib/pam_kwallet_init" } },
+        { args = { "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" } },
+        { args = { "wl-paste", "--watch", "cliphist", "store" } },
+        { args = { scripts .. "low-battery.sh" } },
+        { args = { scripts .. "startup-apps.sh" } },
+    }
+    for _, task in ipairs(tasks) do
+        local command = task.scope and "uwsm app -t scope --" or "uwsm app --"
+        for _, argument in ipairs(task.args) do
+            command = command .. " " .. shell_argument(argument)
+        end
+        hl.exec_cmd(command)
+    end
 end)

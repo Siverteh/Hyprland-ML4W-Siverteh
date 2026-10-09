@@ -189,3 +189,7 @@ retain final precedence. See [the session-default spec](specs/session-defaults.m
 Compositor motion defaults use four owned Nacre curves and transition families,
 leaving child inheritance and private accessibility overrides intact. Unused
 legacy curves are retired; see [motion defaults](specs/motion-defaults.md).
+
+The own startup composition submits wallet/polkit/clipboard/battery/app helpers
+only on the actual startup event, with literal argument boundaries. Enabled
+systemd services keep separate ownership; see [startup spec](specs/session-startup.md).
