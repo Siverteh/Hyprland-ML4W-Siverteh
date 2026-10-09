@@ -2,8 +2,7 @@
 
 Status: Orient, foundation/frame/launcher/notifications and dashboard/Settings
 views verified. Initial services, matched presentation, wallpaper/weather providers
-and bar controls/battery/calendar verified. Remaining quick popups/assembly now
-replaced (verification pending); supporting UI/config/helpers and whole-tree audit
+and bar controls/battery/calendar verified. Quick popups/assembly also verified; supporting UI/config/helpers and whole-tree audit
 remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
@@ -45,7 +44,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | verified | [Notification spec](../specs/notifications.md); presentation replaced, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5a | `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; `bar/popouts/{Battery,Calendar}.qml` | verified | [Bar spec](../specs/bar-controls.md); CalendarGrid retired |
-| 5b | `bar/popouts/{Audio,Network,Bluetooth,Notifications,QuickList,QuickSlider,Content,Wrapper}.qml` | replaced | [Quick popup spec](../specs/quick-popups.md); acceptance pending |
+| 5b | `bar/popouts/{Audio,Network,Bluetooth,Notifications,QuickList,QuickSlider,Content,Wrapper}.qml` | verified | [Quick popup spec](../specs/quick-popups.md); native routes/lifecycle accepted |
 | 5c | `modules/topbar/` | audit pending | Caller renames and small fixes do not certify full bodies |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | verified | Eleven listed providers replaced; unused Thumbnailer retired. Other mixed providers/helpers and whole-tree audit remain |
@@ -808,7 +807,7 @@ click/keyboard checks reran successfully; live capture inspected without clipped
 normal glyphs. Profiles/volume/private hashes unchanged; no runtime diagnostics.
 Final CI is required for the follow-up before reporting verified publishing.
 
-## Remaining quick popups and shared assembly (replaced; acceptance pending)
+## Remaining quick popups and shared assembly (verified)
 
 Deleted eight mixed/inherited bodies before NacreSoundPopup/NetworkPopup/
 BluetoothPopup/HistoryPopup/QuickList/QuickSlider/PopupContent/PopupPanel. Public
@@ -825,3 +824,22 @@ Synchronous Loader sizing is outside presentation bindings to prevent binding
 loops; pin focus waits for actual visibility. Existing Nacre notice rendering,
 services, native dependency licenses and notices retained. TopBar/root/other
 wrappers/helpers and final provenance audit remain independent tasks.
+
+Quick popup acceptance (2026-10-09): software `ada8f42`, good release
+`20261009T194324519952Z`. All363 checks, QML format/parse, target Hyprland and final
+installer rerun/strict source/startup/launcher/wallpaper/Escape gates passed.
+Actual five hover targets and six-route assembly, header device Settings links,
+notification pin/Escape/offclick and full application-click/key return passed.
+Device/history captures inspected; long output names middle-elided to retain port
+identifiers. Native source matches; profile/volume/radios/count and exact private
+preference/history hashes unchanged. No runtime QML errors/binding loops; shell
+active and configerrors empty. No writes to real devices/history during QA.
+
+Live pinned notification checks required the enclosing frame's Escape policy;
+removed duplicated popup key handling. A header MouseArea can lose hover while
+modal surfaces occlude it. Existing HoverIntent now also checks recorded header
+geometry before rearming on actual exit, without timers/polling. Added native Qt
+regression and tested real pointer held over the same icon. TopBar/HoverIntent/
+Shortcuts bodies inspected for diagnosis; whole-file originality remains pending,
+and small fixes do not certify them. Notices retained; physical multi-output/
+cold-login/battery and whole-tree provenance completion not claimed.
