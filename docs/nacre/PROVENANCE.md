@@ -507,3 +507,20 @@ workflow/recovery commands verified against fixture owners, not by disrupting
 real monitors/devices/services. Other pages/providers/final audit remain pending;
 notices retained. Single-output synthetic input is not cold-login/multi-output
 or measured battery acceptance.
+
+## Final seven Settings page bodies (implemented; live verification pending)
+
+- Deleted Sound/Network/Bluetooth/Notification/Lock/Time/Ai page bodies before
+  fresh implementation. Own Nacre-prefixed pages and NacreAudioNode implement the
+  committed specification; existing backend owners remain.
+- Exposure: public identifiers/declarations, quoted contract keys, provider API
+  schemas, existing tests/runtime screenshots and official Quickshell PipeWire
+  documentation. No upstream source used; no legal clean-room claim.
+- User-only audio/default/mute, readiness/membership/stale-drag guards; native
+  credential/device actions; explicit history clear confirmation; preserved lock
+  privacy/timezone fallback/assistant accounts and full-access policy.
+- Actual page tests add fake native audio and connection guards, history/card
+  bounds and explicit time/weather/assistant writes. No new polling or state owner.
+- Settings assembly and all page bodies now have independent replacements.
+  Backend services/shared helper provenance and final audit remain pending.
+  Applicable notices retained.

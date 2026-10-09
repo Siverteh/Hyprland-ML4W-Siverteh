@@ -172,3 +172,27 @@ preference/display/workflow/recovery owners. Displays offers only connected mode
 and supported scales, preserves Keep/Revert and timed recovery, and blocks another
 change while confirmation is pending. Workflow startup remains opt-in. Maintenance
 actions are explicit and disabled while busy; opening a page only refreshes facts.
+
+## Independent device, lock, time and AI pages
+
+NacreSoundPage groups outputs, microphones and application streams. Its own
+NacreAudioNode uses native tracking and the shared Nacre slider. Selecting a
+default preserves mute and volume; removed/unready devices reject writes, and
+a drag never transfers to a different device. There is no added polling.
+
+NacreNetworkPage and NacreBluetoothPage keep radio, scan, connection and trust
+actions behind explicit controls and busy/stale-device guards. Wi-Fi passwords
+and Bluetooth discovery/pairing remain in native managers. NacreNotificationPage
+shows the existing retained history with independent NacreNotice cards; clearing
+requires a second click, and lock-message privacy preferences stay unchanged.
+
+NacreLockPage retains preview, lock-now, widgets and weather controls without
+changing authentication or idle timeouts. NacreTimePage retains automatic
+device-location timezone and confirmed/manual fallback controls; administrator
+authentication stays native. NacreAiPage changes the default only for new chats
+and opens existing account/project/Brain tools. Running conversations and their
+permissions are untouched. None of these pages writes preferences on opening.
+
+The source boundary and acceptance contract are in
+[the device-page spec](../specs/settings-devices-lock-ai.md). Providers and remaining
+helpers still need their own originality work; applicable notices remain.

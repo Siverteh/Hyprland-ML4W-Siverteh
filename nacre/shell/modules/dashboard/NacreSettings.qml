@@ -225,19 +225,19 @@ Item {
     }
     Component {
         id: sound
-        SoundPage {}
+        NacreSoundPage {}
     }
     Component {
         id: network
-        NetworkPage {}
+        NacreNetworkPage {}
     }
     Component {
         id: bluetooth
-        BluetoothPage {}
+        NacreBluetoothPage {}
     }
     Component {
         id: notifications
-        NotificationPage {}
+        NacreNotificationPage {}
     }
     Component {
         id: workflows
@@ -245,15 +245,15 @@ Item {
     }
     Component {
         id: lock
-        LockPage {}
+        NacreLockPage {}
     }
     Component {
         id: time
-        TimePage {}
+        NacreTimePage {}
     }
     Component {
         id: ai
-        AiPage {}
+        NacreAiPage {}
     }
     Component {
         id: maintenance

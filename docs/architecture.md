@@ -170,3 +170,9 @@ Launcher mode assembly is now owned by NacreLauncherPanel and the fresh legacy
 search/action view NacreSearchPanel. The inherited list/item stack is retired;
 app/wallpaper presentation now uses fresh NacreAppBrowser/WallpaperPicker types;
 backend service/extra-mode provenance remains pending its own areas.
+
+The twelve Settings pages now use independently implemented Nacre components.
+Sound binds native PipeWire nodes only while loaded; connection, time, lock and AI
+pages request explicit actions through existing owners. Notification history
+reuses NacreNotice and asks for confirmation before clearing. Backend provenance
+remains a separate task; see [Settings behavior](features/settings-lock.md).

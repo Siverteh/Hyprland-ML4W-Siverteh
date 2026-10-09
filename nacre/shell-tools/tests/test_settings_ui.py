@@ -44,10 +44,49 @@ class SettingsUITests(unittest.TestCase):
             for path in (ROOT.parent / "shell/modules/dashboard/settings").glob(
                 "*.qml"
             ):
-                source = adapted(path, "../fixtures")
+                source = adapted(path, "../fixtures").replace(
+                    'import "../../notifications"', 'import "../notifications"'
+                )
                 if path.name == "NacreAppearancePage.qml":
                     source = remove_objects(source, r"\bFileView\s*\{")
                 (pages / path.name).write_text(source)
+            for folder, names in {
+                "media": ["NacreMediaSlider", "NacreMediaButton"],
+                "notifications": ["NacreNotice"],
+            }.items():
+                destination = target / folder
+                destination.mkdir()
+                for name in names:
+                    source = adapted(
+                        ROOT.parent
+                        / "shell/modules"
+                        / ("dashboard/media" if folder == "media" else folder)
+                        / (name + ".qml"),
+                        "../fixtures",
+                    )
+                    source = source.replace(
+                        "Quickshell.iconPath(root.modelData.appIcon, true)", '""'
+                    )
+                    (destination / (name + ".qml")).write_text(source)
+            (target / "fixtures/NacreNotifications.qml").write_text(
+                (ROOT.parent / "shell/config/NacreNotifications.qml").read_text()
+            )
+            with (target / "fixtures/qmldir").open("a") as manifest:
+                manifest.write(
+                    "\nsingleton NacreNotifications 1.0 NacreNotifications.qml\n"
+                )
+            sidebar = target / "fixtures/SidebarChat.qml"
+            sidebar.write_text(
+                sidebar.read_text()
+                .replace(
+                    "property string defaultProvider:",
+                    "property var choices:[]\n    property string defaultProvider:",
+                )
+                .replace(
+                    "function setProvider(name) {",
+                    "function setProvider(name) { choices=[...choices,name];defaultProvider=name;",
+                )
+            )
             preview = (
                 adapted(ROOT.parent / "shell/lock-preview.qml")
                 .replace('import "widgets"', 'import "fixtures"')
@@ -63,18 +102,21 @@ class SettingsUITests(unittest.TestCase):
             preview = remove_objects(preview, r"\bProcess\s*\{\s*id\s*:\s*reader\b")
             preview = remove_objects(preview, r"\bTimer\s*\{\s*interval\s*:\s*3000\b")
             (target / "LockPreview.qml").write_text(preview)
+            (target / "fixtures/ActionButton.qml").write_text(
+                adapted(ROOT.parent / "shell/widgets/ActionButton.qml", ".")
+            )
             services = {
                 "Visibilities": 'property string settingsPage:"appearance";function openSettings(page){settingsPage=page}',
-                "TimezoneSettings": 'property var status:({timezone:"UTC",localTime:"12:34",automatic:false,installed:false});property string message:"";property bool busy:false;function refresh(){} function change(kind,value){}',
+                "TimezoneSettings": 'property var status:({timezone:"UTC",localTime:"12:34",automatic:false,installed:false});property string message:"";property bool busy:false;property var changes:[];function refresh(){} function change(kind,value){changes=[...changes,[kind,value]]}',
                 "Time": "function format(pattern){return Qt.formatDateTime(new Date(2026,9,8,14,54),pattern)}",
                 "Wallpapers": 'property string poster:"";property string preview:"";property string current:"";property var list:[]; readonly property var retained:list;property var preferences:({rotationEnabled:true,rotationMinutes:30,rotationKind:"all",rotationShuffle:true,palettePreset:"wallpaper"});property string selectedAccent:"";property var paletteOptions:[{accent:"aabbcc",name:"Blue",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property var palettePresets:[{id:"ocean",name:"Ocean",group:"vivid",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property bool themeBusy:false;property bool rotationReady:true;property string rotationStatus:"Next wallpaper at 12:30";property string error:"";function preference(value){preferences=Object.assign({},preferences,value)} function advanceRotation(manual){} function setWallpaper(path){}',
-                "AppLaunch": "function run(command){}",
-                "DesktopActions": "function execute(action){}",
-                "Network": 'property var active:null;property var networks:[];property var visibleNetworks:[];property string wifiInterface:""',
+                "AppLaunch": "property var commands:[];function run(command){commands=[...commands,command]}",
+                "DesktopActions": "property var actions:[];function execute(action){actions=[...actions,action]}",
+                "Network": 'property bool wifiEnabled:true;property var active:null;property var networks:[];property var visibleNetworks:[];property string wifiInterface:""',
                 "Bluetooth": "property bool powered:false;property var devices:[]",
-                "DeviceActions": 'property bool busy:false;property string message:"";function request(args){} function connectWifi(ssid){}',
+                "DeviceActions": 'property bool busy:false;property string message:"";property var requests:[];property string connectedSSID:"";function request(args){requests=[...requests,args]} function connectWifi(ssid){connectedSSID=ssid}',
                 "Weather": 'property string description:"";property string location:"";property string error:"";property string displayTemperature:"";function reload(){}',
-                "Notifs": "property var list:[]; readonly property var retained:list;function clearHistory(){} function dismiss(entry){}",
+                "Notifs": 'property var list:[]; readonly property var retained:list;property int clears:0;property string dismissed:"";function clearHistory(){clears++} function dismiss(entry){dismissed=entry.key}',
                 "Pipewire": "property var nodes:({values:[]});property var defaultAudioSink:null;property var defaultAudioSource:null;property var preferredDefaultAudioSink:null;property var preferredDefaultAudioSource:null",
             }
             for name, body in services.items():

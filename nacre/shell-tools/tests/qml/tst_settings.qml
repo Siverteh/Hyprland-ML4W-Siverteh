@@ -287,7 +287,7 @@ TestCase {
     function test_all_device_and_lock_pages_load_without_warnings() {
         const view = createTemporaryObject(settings, test);
         wait(20);
-        for (const page of ["appearance", "displays", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"]) {
+        for (const page of ["appearance", "displays", "sound", "network", "bluetooth", "notifications", "workflows", "lock", "time", "ai", "maintenance"]) {
             view.open(page);
             wait(20);
             verify(findChild(view, "settingsPage").item, page);
@@ -322,6 +322,198 @@ TestCase {
         };
         wait(20);
         verify(content.visible);
+    }
+
+    Component {
+        id: audioDevice
+        QtObject {
+            property bool ready: true
+            property bool isSink: false
+            property bool isStream: false
+            property string description: "A long audio device name ".repeat(10)
+            property string nickname: ""
+            property string name: "fixture"
+            property QtObject audio: QtObject {
+                property real volume: .6
+                property bool muted: true
+            }
+        }
+    }
+    Component {
+        id: audioRow
+        NacreAudioNode {
+            width: 600
+        }
+    }
+    function test_audio_preserves_mute_and_ignores_removed_or_unready_targets() {
+        const node = createTemporaryObject(audioDevice, test);
+        Pipewire.nodes = {
+            values: [node]
+        };
+        Pipewire.preferredDefaultAudioSource = null;
+        const row = createTemporaryObject(audioRow, test, {
+            node: node
+        });
+        wait(20);
+        compare(node.audio.volume, .6);
+        verify(node.audio.muted);
+        compare(Pipewire.preferredDefaultAudioSource, null);
+        row.chooseDefault();
+        compare(Pipewire.preferredDefaultAudioSource, node);
+        verify(node.audio.muted);
+        const slider = findChild(row, "audioVolume");
+        slider.progress = .9;
+        compare(node.audio.volume, .6);
+        slider.keyboardRequested(.4);
+        compare(node.audio.volume, .4);
+        slider.dragBegan();
+        Pipewire.nodes = {
+            values: []
+        };
+        slider.dragEnded(.8);
+        row.toggleMute();
+        compare(node.audio.volume, .4);
+        verify(node.audio.muted);
+        Pipewire.nodes = {
+            values: [node]
+        };
+        node.ready = false;
+        row.setVolume(node, .9);
+        compare(node.audio.volume, .4);
+        node.ready = true;
+        row.toggleMute();
+        verify(!node.audio.muted);
+        Pipewire.nodes = {
+            values: []
+        };
+        Pipewire.preferredDefaultAudioSource = null;
+    }
+    function test_connections_are_explicit_busy_and_stale_safe() {
+        DeviceActions.requests = [];
+        DeviceActions.connectedSSID = "";
+        const view = createTemporaryObject(settings, test);
+        const network = {
+            ssid: "Fixture network",
+            strength: 80,
+            active: false
+        };
+        Network.visibleNetworks = [network];
+        view.open("network");
+        wait(20);
+        const wifi = findChild(view, "settingsPage").item;
+        compare(DeviceActions.requests.length, 0);
+        compare(DeviceActions.connectedSSID, "");
+        DeviceActions.busy = true;
+        wifi.connect(network);
+        wifi.request("wifi-radio", "off");
+        compare(DeviceActions.requests.length, 0);
+        compare(DeviceActions.connectedSSID, "");
+        DeviceActions.busy = false;
+        wifi.connect(network);
+        compare(DeviceActions.connectedSSID, "Fixture network");
+        Network.visibleNetworks = [];
+        DeviceActions.connectedSSID = "";
+        wifi.connect(network);
+        compare(DeviceActions.connectedSSID, "");
+        const device = {
+            name: "Headphones",
+            alias: "",
+            address: "00:11:22:33:44:55",
+            connected: false,
+            paired: true,
+            trusted: false
+        };
+        Bluetooth.devices = [device];
+        view.open("bluetooth");
+        wait(20);
+        const bt = findChild(view, "settingsPage").item;
+        compare(DeviceActions.requests.length, 0);
+        bt.power();
+        compare(DeviceActions.requests[0].join("|"), "bluetooth-power|on");
+        bt.deviceAction(device, "connect");
+        compare(DeviceActions.requests[1].join("|"), "bluetooth-connect|00:11:22:33:44:55");
+        bt.deviceAction(device, "remove");
+        DeviceActions.busy = true;
+        bt.deviceAction(device, "trust");
+        DeviceActions.busy = false;
+        Bluetooth.devices = [];
+        bt.deviceAction(device, "trust");
+        compare(DeviceActions.requests.length, 2);
+    }
+    function test_history_requires_confirmation_and_preserves_long_card_bounds() {
+        Notifs.list = [
+            {
+                key: "fixture",
+                appIcon: "",
+                appName: "Mail",
+                summary: "A long message ".repeat(30),
+                body: "Details ".repeat(40),
+                image: "",
+                timeStr: "Now",
+                urgency: 1,
+                hovered: false
+            }
+        ];
+        Notifs.clears = 0;
+        Notifs.dismissed = "";
+        const view = createTemporaryObject(settings, test);
+        view.open("notifications");
+        wait(20);
+        const page = findChild(view, "settingsPage").item;
+        compare(Notifs.clears, 0);
+        const clear = findChild(page, "requestClearHistory");
+        clear.clicked();
+        compare(Notifs.clears, 0);
+        verify(page.confirmClear);
+        clear.clicked();
+        compare(Notifs.clears, 1);
+        verify(!page.confirmClear);
+        const summary = findChild(page, "noticeSummary");
+        verify(summary.width <= page.width);
+        const dismiss = findChild(page, "noticeDismiss");
+        dismiss.activated();
+        compare(Notifs.dismissed, "fixture");
+        Notifs.list = [];
+    }
+    function test_time_weather_and_assistant_writes_are_user_only() {
+        TimezoneSettings.changes = [];
+        SidebarChat.choices = [];
+        DesktopSettings.writes = [];
+        AppLaunch.commands = [];
+        DesktopActions.actions = [];
+        const view = createTemporaryObject(settings, test);
+        view.open("time");
+        wait(20);
+        const time = findChild(view, "settingsPage").item;
+        compare(TimezoneSettings.changes.length, 0);
+        TimezoneSettings.busy = true;
+        time.change("manual", "Europe/Oslo");
+        compare(TimezoneSettings.changes.length, 0);
+        TimezoneSettings.busy = false;
+        time.change("confirm", "Europe/Oslo");
+        compare(TimezoneSettings.changes[0].join("|"), "confirm|Europe/Oslo");
+        time.change("invalid", "Europe/Oslo");
+        compare(TimezoneSettings.changes.length, 1);
+        view.open("lock");
+        wait(20);
+        const lock = findChild(view, "settingsPage").item;
+        compare(DesktopSettings.writes.length, 0);
+        compare(AppLaunch.commands.length, 0);
+        compare(DesktopActions.actions.length, 0);
+        lock.saveWeather(" Oslo ");
+        compare(DesktopSettings.writes[0].key, "weatherLocation");
+        compare(DesktopSettings.writes[0].value, "Oslo");
+        view.open("ai");
+        wait(20);
+        const ai = findChild(view, "settingsPage").item;
+        compare(SidebarChat.choices.length, 0);
+        ai.chooseProvider("invalid");
+        compare(SidebarChat.choices.length, 0);
+        ai.chooseProvider("claude");
+        compare(SidebarChat.choices[0], "claude");
+        compare(SidebarChat.provider, "codex");
+        compare(AppLaunch.commands.length, 0);
+        SidebarChat.defaultProvider = "codex";
     }
 
     name: "SettingsControlCenter"
