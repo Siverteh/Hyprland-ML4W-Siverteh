@@ -1,99 +1,38 @@
--- -----------------------------------------------------
+-- Nacre motion defaults. Private accessibility/desktop overrides load later.
+hl.config({ ["animations.enabled"] = true })
 
--- Animations
+-- Observed timing curves preserve the current desktop's motion.
+local curves = {
+    nacre_window_enter = { { 0.05, 0.7 }, { 0.1, 1 } },
+    nacre_window_leave = { { 0.3, 0 }, { 0.8, 0.15 } },
+    nacre_panel_enter = { { 0.1, 1 }, { 0, 1 } },
+    nacre_panel_leave = { { 0.38, 0.04 }, { 1, 0.07 } },
+}
+for name, points in pairs(curves) do
+    hl.curve(name, { type = "bezier", points = points })
+end
 
--- preset: balanced
-
--- -----------------------------------------------------
-hl.config({
-    animations = {
-        enabled = true,
-    },
-})
-
-hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
-hl.curve("md3_standard", { type = "bezier", points = { {0.2, 0}, {0, 1} } })
-hl.curve("md3_decel", { type = "bezier", points = { {0.05, 0.7}, {0.1, 1} } })
-hl.curve("md3_accel", { type = "bezier", points = { {0.3, 0}, {0.8, 0.15} } })
-hl.curve("overshot", { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.1} } })
-hl.curve("crazyshot", { type = "bezier", points = { {0.1, 1.5}, {0.76, 0.92} } })
-hl.curve("hyprnostretch", { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.0} } })
-hl.curve("menu_decel", { type = "bezier", points = { {0.1, 1}, {0, 1} } })
-hl.curve("menu_accel", { type = "bezier", points = { {0.38, 0.04}, {1, 0.07} } })
-hl.curve("easeInOutCirc", { type = "bezier", points = { {0.85, 0}, {0.15, 1} } })
-hl.curve("easeOutCirc", { type = "bezier", points = { {0, 0.55}, {0.45, 1} } })
-hl.curve("easeOutExpo", { type = "bezier", points = { {0.16, 1}, {0.3, 1} } })
-hl.curve("softAcDecel", { type = "bezier", points = { {0.26, 0.26}, {0.15, 1} } })
-hl.curve("md2", { type = "bezier", points = { {0.4, 0}, {0.2, 1} } })
-hl.animation({
-    leaf = "windows",
-    enabled = true,
-    speed = 3,
-    bezier = "md3_decel",
-    style = "popin 60%",
-})
-hl.animation({
-    leaf = "windowsIn",
-    enabled = true,
-    speed = 3,
-    bezier = "md3_decel",
-    style = "popin 60%",
-})
-hl.animation({
-    leaf = "windowsOut",
-    enabled = true,
-    speed = 3,
-    bezier = "md3_accel",
-    style = "popin 60%",
-})
-hl.animation({
-    leaf = "border",
-    enabled = true,
-    speed = 10,
-    bezier = "default",
-})
-hl.animation({
-    leaf = "fade",
-    enabled = true,
-    speed = 3,
-    bezier = "md3_decel",
-})
-hl.animation({
-    leaf = "layersIn",
-    enabled = true,
-    speed = 3,
-    bezier = "menu_decel",
-    style = "slide",
-})
-hl.animation({
-    leaf = "layersOut",
-    enabled = true,
-    speed = 1.6,
-    bezier = "menu_accel",
-})
-hl.animation({
-    leaf = "fadeLayersIn",
-    enabled = true,
-    speed = 2,
-    bezier = "menu_decel",
-})
-hl.animation({
-    leaf = "fadeLayersOut",
-    enabled = true,
-    speed = 4.5,
-    bezier = "menu_accel",
-})
-hl.animation({
-    leaf = "workspaces",
-    enabled = true,
-    speed = 7,
-    bezier = "menu_decel",
-    style = "slide",
-})
-hl.animation({
-    leaf = "specialWorkspace",
-    enabled = true,
-    speed = 3,
-    bezier = "md3_decel",
-    style = "slidevert",
-})
+-- A family shares one transition; omitted child branches keep native inheritance.
+local transitions = {
+    { scopes = { "windows", "windowsIn" }, duration = 3, curve = "nacre_window_enter", style = "popin 60%" },
+    { scopes = { "windowsOut" }, duration = 3, curve = "nacre_window_leave", style = "popin 60%" },
+    { scopes = { "fade", "specialWorkspace" }, duration = 3, curve = "nacre_window_enter" },
+    { scopes = { "border" }, duration = 10, curve = "default" },
+    { scopes = { "layersIn" }, duration = 3, curve = "nacre_panel_enter", style = "slide" },
+    { scopes = { "layersOut" }, duration = 1.6, curve = "nacre_panel_leave" },
+    { scopes = { "fadeLayersIn" }, duration = 2, curve = "nacre_panel_enter" },
+    { scopes = { "fadeLayersOut" }, duration = 4.5, curve = "nacre_panel_leave" },
+    { scopes = { "workspaces" }, duration = 7, curve = "nacre_panel_enter", style = "slide" },
+}
+for _, transition in ipairs(transitions) do
+    for _, scope in ipairs(transition.scopes) do
+        local style = scope == "specialWorkspace" and "slidevert" or transition.style
+        hl.animation({
+            leaf = scope,
+            enabled = true,
+            speed = transition.duration,
+            bezier = transition.curve,
+            style = style,
+        })
+    end
+end

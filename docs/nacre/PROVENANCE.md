@@ -1073,3 +1073,15 @@ cursor callback argument handling covered with actual Lua callback tests and
 config parsing; cold-login execution, physical touchpad/gesture/Fn/cursor appearance
 over every toolkit and external-output behavior are not established by this gate.
 Retained notices, final source comparison and all remaining scope stay required.
+
+## Compositor motion default replacement
+
+[Spec](../specs/motion-defaults.md): deleted inherited animation.lua before fresh
+curve registry/transition-family loops. Native35-node/15-curve observation and
+public declarations preserve current shape/duration/style data under4 Nacre IDs;
+9 unreferenced custom curves retired. Eleven leaves explicit, child/global/internal
+inheritance and platform default/linear curves retained; no angle loop added.
+Private override identifier checks found no old-curve consumer and use no private
+implementation body. Prior declaration/source exposure recorded; no upstream
+consultation/legal clean-room/final-license claim. Underlying private profile
+helper/root/startup/binding/routing/test/assets remain separate audits.
