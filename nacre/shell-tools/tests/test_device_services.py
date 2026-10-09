@@ -142,3 +142,5 @@ class DeviceServiceTests(unittest.TestCase):
     def test_application_rank_hidden_membership_and_safe_native_commands(self):
         self.run_service("NacreApps")
 
+    def test_clock_civil_format_precision_and_enable(self):
+        self.run_service("NacreTime")

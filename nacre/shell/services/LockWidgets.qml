@@ -21,7 +21,7 @@ Singleton {
                 "storage": NacreSystemUsage.storagePerc,
                 "temperature": Number.isFinite(NacreSystemUsage.cpuTemp) ? NacreSystemUsage.cpuTemp : null
             },
-            "greetingHour": Time.hours,
+            "greetingHour": NacreTime.hours,
             "preferences": {
                 "lockMedia": DesktopSettings.data.lockMedia,
                 "lockWeather": DesktopSettings.data.lockWeather,

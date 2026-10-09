@@ -264,7 +264,7 @@ Variants {
                         color: Colours.palette.m3tertiary
                     }
                     NacreText {
-                        text: Time.format("HH:mm")
+                        text: NacreTime.format("HH:mm")
                         color: Colours.palette.m3tertiary
                     }
                 }

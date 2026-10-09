@@ -71,7 +71,7 @@ class OverviewNativeTests(unittest.TestCase):
                 "Colours": "property bool light:false;property var palette:"
                 + json.dumps(palette),
                 "DesktopSettings": "property var data:({animations:false})",
-                "Time": "property date date:new Date(2026,9,9,12,34);function format(v){return Qt.formatDateTime(date,v)}",
+                "NacreTime": "property date date:new Date(2026,9,9,12,34);function format(v){return Qt.formatDateTime(date,v)}",
                 "Weather": 'property real temperature:22;property string displayTemperature:"22°C";property string description:"Clear";property string icon:"sunny";property string location:"Fixture city";property bool stale:false',
                 "NacreSystemUsage": "property real cpuPerc:.15;property real memPerc:.63;property real storagePerc:.37",
                 "NacrePlayers": 'property QtObject active: QtObject {property string trackTitle:"Fixture track";property string trackArtist:"Artist";property string trackAlbum:"Album";property string identity:"Fixture";property string trackArtUrl:'

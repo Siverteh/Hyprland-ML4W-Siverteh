@@ -6,8 +6,8 @@ import qs.services
 Item {
     id: root
 
-    property int month: Time.date.getMonth()
-    property int year: Time.date.getFullYear()
+    property int month: NacreTime.date.getMonth()
+    property int year: NacreTime.date.getFullYear()
     readonly property int cellHeight: 38
     readonly property int cellGap: 4
 

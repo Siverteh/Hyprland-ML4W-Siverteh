@@ -56,7 +56,7 @@ TestCase {
         Weather.displayTemperature = "22°C";
         Weather.description = "Clear";
         Weather.stale = false;
-        Time.date = new Date(2026, 9, 9, 12, 34);
+        NacreTime.date = new Date(2026, 9, 9, 12, 34);
         DesktopSettings.data = {
             animations: false
         };
@@ -77,7 +77,7 @@ TestCase {
         compare(calendar.displayed.getFullYear(), 2027);
         compare(calendar.displayed.getMonth(), 0);
         compare(calendar.todayKey, "2026-10-9");
-        Time.date = new Date(2026, 9, 10, 0, 1);
+        NacreTime.date = new Date(2026, 9, 10, 0, 1);
         compare(calendar.todayKey, "2026-10-10");
     }
     function test_layout_bounds_and_nonoverlap_at_multiple_widths() {
@@ -109,7 +109,7 @@ TestCase {
         wait(30);
         compare(findChild(view, "clockHour").text, "12");
         compare(findChild(view, "clockMinute").text, "34");
-        Time.date = new Date(2026, 9, 10, 0, 1);
+        NacreTime.date = new Date(2026, 9, 10, 0, 1);
         compare(findChild(view, "clockHour").text, "00");
         compare(findChild(view, "clockMinute").text, "01");
         Weather.temperature = NaN;

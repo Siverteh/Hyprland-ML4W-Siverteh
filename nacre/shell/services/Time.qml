@@ -1,20 +1,23 @@
 pragma Singleton
+import QtQuick
 import Quickshell
 
 Singleton {
-    property alias enabled: clock.enabled
-    readonly property date date: clock.date
-    readonly property int hours: clock.hours
-    readonly property int minutes: clock.minutes
-    readonly property int seconds: clock.seconds
-
-    function format(fmt: string): string {
-        return Qt.formatDateTime(clock.date, fmt);
+    id: root
+    property bool enabled: NacreTime.enabled
+    readonly property date date: NacreTime.date
+    readonly property int hours: NacreTime.hours
+    readonly property int minutes: NacreTime.minutes
+    readonly property int seconds: NacreTime.seconds
+    function format(pattern) {
+        return NacreTime.format(pattern);
     }
-
-    SystemClock {
-        id: clock
-
-        precision: SystemClock.Seconds
+    onEnabledChanged: if (enabled !== NacreTime.enabled)
+        NacreTime.enabled = enabled
+    Connections {
+        target: NacreTime
+        function onEnabledChanged() {
+            root.enabled = NacreTime.enabled;
+        }
     }
 }

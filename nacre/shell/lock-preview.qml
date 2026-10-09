@@ -57,7 +57,7 @@ ShellRoot {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     objectName: "lockPreviewHour"
-                    text: Time.format("hh AP").split(" ")[0]
+                    text: NacreTime.format("hh AP").split(" ")[0]
                     font.family: "IBM Plex Sans"
                     font.pixelSize: 104
                     color: panel.accent
@@ -68,7 +68,7 @@ ShellRoot {
                     width: 90
                     height: 72
                     horizontalAlignment: Text.AlignHCenter
-                    text: Time.format("mm")
+                    text: NacreTime.format("mm")
                     font.family: "IBM Plex Sans"
                     font.pixelSize: 54
                     color: panel.accent
@@ -78,7 +78,7 @@ ShellRoot {
                     y: 133
                     width: 90
                     horizontalAlignment: Text.AlignHCenter
-                    text: Time.format("AP")
+                    text: NacreTime.format("AP")
                     font.family: "IBM Plex Sans"
                     font.pixelSize: 27
                     color: panel.foreground
@@ -88,7 +88,7 @@ ShellRoot {
                     y: 180
                     width: 450
                     horizontalAlignment: Text.AlignHCenter
-                    text: Time.format("dddd · dd MMM").toUpperCase()
+                    text: NacreTime.format("dddd · dd MMM").toUpperCase()
                     font.family: "IBM Plex Sans"
                     font.pixelSize: 20
                     color: panel.foreground

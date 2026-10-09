@@ -7,9 +7,9 @@ NacreOverviewCard {
     id: root
     property int monthOffset: 0
     property int firstWeekday: Qt.locale().firstDayOfWeek % 7
-    readonly property int todayYear: Time.date.getFullYear()
-    readonly property int todayMonth: Time.date.getMonth()
-    readonly property string todayKey: Overview.dayKey(Time.date)
+    readonly property int todayYear: NacreTime.date.getFullYear()
+    readonly property int todayMonth: NacreTime.date.getMonth()
+    readonly property string todayKey: Overview.dayKey(NacreTime.date)
     readonly property date displayed: new Date(todayYear, todayMonth + monthOffset, 1, 12)
     readonly property var days: Overview.calendar(displayed.getFullYear(), displayed.getMonth(), firstWeekday)
     NacreText {

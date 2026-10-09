@@ -7,8 +7,8 @@ import qs.widgets
 Column {
     id: root
 
-    property int month: Time.date.getMonth()
-    property int year: Time.date.getFullYear()
+    property int month: NacreTime.date.getMonth()
+    property int year: NacreTime.date.getFullYear()
 
     function changeMonth(delta) {
         const date = new Date(year, month + delta, 1);
