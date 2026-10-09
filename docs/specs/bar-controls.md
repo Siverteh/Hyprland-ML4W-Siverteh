@@ -68,3 +68,9 @@ Explicit nacre close also releases dashboard/popout pins and edge-menu state;
 otherwise a later hover could reopen a stale pinned Settings page. Retain selected
 page/tab preferences. Focus diagnostics in barStatus are booleans only. Native
 header Escape and subsequent passive closure must pass before promotion.
+
+CI font fallback: status glyphs have fixed24×28 logical-pixel boxes with clipping /
+elision, so absent Material Symbols cannot expand the rotated bar with long icon
+names. Test deliberately substitutes an absent font while retaining native text
+and strict geometry assertions. The font remains a documented runtime dependency;
+this bound is layout protection, not a claim that a missing font renders icons.

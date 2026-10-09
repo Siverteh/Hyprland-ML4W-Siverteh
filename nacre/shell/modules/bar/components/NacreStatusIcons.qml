@@ -101,6 +101,13 @@ Item {
             rotation: root.horizontal ? 90 : 0
             spacing: 2
             NacreIcon {
+                objectName: "nacreStatusGlyph"
+                width: 24
+                height: 28
+                clip: true
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 anchors.verticalCenter: parent.verticalCenter
                 text: parent.parent.icon
                 color: parent.parent.ink

@@ -129,6 +129,11 @@ TestCase {
         compare(NacreAudio.writes.length, 0);
         compare(PowerProfiles.writes, 0);
         verify(view.implicitWidth > 0 && view.implicitHeight > 100 && view.implicitHeight < 350);
+        for (const item of handles)
+            findChild(item, "nacreStatusGlyph").font.family = "Nacre deliberately absent icon font";
+        wait(0);
+        verify(view.implicitHeight > 100 && view.implicitHeight < 350);
+        compare(findChild(view.audioItem, "nacreStatusGlyph").width, 24);
     }
     function test_battery_validity_estimates_and_explicit_profile_guards() {
         const view = createTemporaryObject(battery, test);
