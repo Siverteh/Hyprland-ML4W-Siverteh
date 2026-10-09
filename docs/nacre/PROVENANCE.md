@@ -1,9 +1,9 @@
 # Nacre independent implementation tracker
 
-Status: Orient, shared foundation, frame, launcher, notification presentation,
-all dashboard/Settings views and Audio/Wi-Fi/Bluetooth, media,
-notification ownership and resource services verified.
-Whole rewrite unfinished, 2026-10-09.
+Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
+views verified. Eleven initially listed service owners plus keyboard lighting are
+replaced; thumbnails, remaining mixed providers, supporting UI/config/helpers and
+whole-tree audit remain. Whole rewrite unfinished, 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -45,7 +45,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
-| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth verified; Players/SystemUsage/Notifs verified; remaining providers and helpers pending |
+| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | implementing | Audio/Network/Bluetooth/Players/SystemUsage/Notifs/Apps/Time/Hyprland/Colours/Brightness verified; Thumbnailer and other mixed providers/helpers pending |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
@@ -681,3 +681,12 @@ identity/range/failure semantics verified through fixture/temp sysfs tests; no
 real brightness keys/writes/external DDC/hotplug/cold-login/battery measurement
 claims. Matched presentation/publisher and other providers/helpers/UI/config/
 assets/final provenance audit remain; notices retained.
+
+Light mapping follow-up acceptance (2026-10-09): software `4f8e178`, good release
+`20261009T175754261291Z`. A lone external screen with unavailable DDC now stays
+unavailable instead of controlling an internal laptop backlight. Regression case,
+all359 checks and strict source/native release gates passed. Actual internal panel/
+keyboard/colour comparison and indicator inspection reran successfully; private
+preferences/history/hardware values remain unchanged. Installed source matches,
+configerrors empty and no runtime QML diagnostics. Earlier accepted colour/light
+results remain valid; final publishing uses this guarded source.
