@@ -275,3 +275,24 @@ as planning history. No separate comparison UI or approval pause is required.
 
 Complete production acceptance requires the deployment evidence recorded in the
 provenance tracker; these decisions alone do not mark a live release verified.
+
+## Palette variety refinement (2026-10-08)
+
+User review found that the Ekko/Powder scene collapsed into a neutral palette and
+Neon Jinx produced overly bright button fills. The refined extractor considers
+all bins in the bounded thumbnail, separates chromatic families from truly neutral
+colors at chroma 0.012, admits meaningful candidates at 0.4% coverage, and reserves
+48° separated directions before filling remaining slots at 24°. These settings
+supersede the earlier192-bin/0.8%/chroma0.025 assumptions.
+
+Normal wallpaper accents cap chroma at 0.19, supporting accents at 0.16. Subtle
+actual hues can be strengthened up to 0.065 (bounded by 3× their source chroma),
+while the decorative overtone retains its source. Vivid fixed presets bypass this
+ceiling. Dark body surface lightness is 0.18; frame lightness 0.245 with bounded
+chroma 0.055, and foreground contrast is checked against the frame too.
+
+The user requested more wallpaper variations, authorizing the previously deferred
+Appearance controls. Up to five named directions preview their three accents and
+frame color; selection uses the existing publisher and private per-image override.
+Automatic/Match wallpaper clears that override. No extra daemon or polling is
+introduced; choice metadata is generated/cached once with the image palette.

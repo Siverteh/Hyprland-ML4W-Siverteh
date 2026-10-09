@@ -205,6 +205,7 @@ class OrientTests(unittest.TestCase):
                     for bg in (
                         "surface",
                         "surfaceContainerHighest",
+                        "frame",
                         "surfaceBright" if mode == "dark" else "surfaceDim",
                     ):
                         self.assertGreaterEqual(contrast(c[fg], c[bg]), 4.5)
@@ -221,6 +222,54 @@ class OrientTests(unittest.TestCase):
                 self.assertGreaterEqual(
                     contrast(c["outline"], c["surfaceContainerHighest"]), 3
                 )
+
+    def test_muted_scene_keeps_warm_blue_and_lilac_families(self):
+        path = self.home / "muted-scene.png"
+        image = Image.new("RGB", (128, 80), "#242625")
+        seeds = [color(0.40, 0.025, h) for h in (65, 130, 270, 320)]
+        for index, seed in enumerate(seeds):
+            image.paste("#" + seed, (index * 32, 0, (index + 1) * 32, 80))
+        image.save(path)
+        data = from_image(path)
+        self.assertFalse(data["source"]["neutral"])
+        options = data["source"]["options"]
+        self.assertGreaterEqual(len(options), 4)
+        self.assertEqual(len({o["accent"] for o in options}), len(options))
+        accents = [
+            lch(data["colours"][role])[2]
+            for role in ("primary", "secondary", "tertiary")
+        ]
+        self.assertGreater(
+            min(
+                hue_distance(accents[a], accents[b])
+                for a, b in ((0, 1), (0, 2), (1, 2))
+            ),
+            35,
+        )
+        for option in options:
+            self.assertEqual(len(option["swatches"]), 3)
+            self.assertGreaterEqual(
+                contrast(data["colours"]["onSurface"], option["surface"]), 4.5
+            )
+
+    def test_balanced_neon_is_softer_while_vivid_and_source_remain_vivid(self):
+        seed = "d82dd1"
+        balanced = generate(seed)
+        vivid = generate(seed, variant="vibrant")
+        self.assertEqual(balanced["overtone"], seed)
+        self.assertLess(lch(balanced["primary"])[1], lch(vivid["primary"])[1] - 0.025)
+        self.assertLessEqual(lch(balanced["primary"])[1], 0.195)
+        self.assertGreaterEqual(
+            contrast(balanced["onPrimary"], balanced["primary"]), 4.5
+        )
+
+    def test_frame_tint_varies_with_image_and_stays_readable(self):
+        warm, cool = generate("c04020"), generate("3568aa")
+        self.assertNotEqual(warm["frame"], cool["frame"])
+        for data in (warm, cool):
+            self.assertGreater(lch(data["frame"])[0], lch(data["surface"])[0])
+            self.assertGreater(lch(data["frame"])[1], lch(data["surface"])[1])
+            self.assertGreaterEqual(contrast(data["onSurface"], data["frame"]), 4.5)
 
     def test_print_and_query_never_publish(self):
         path = self.image("d01818")

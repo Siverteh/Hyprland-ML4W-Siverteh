@@ -60,6 +60,30 @@ TestCase {
         Wallpapers.palettePresets = prior;
     }
 
+    function test_wallpaper_palette_options_fit_and_select_an_accent() {
+        const prior = Wallpapers.paletteOptions;
+        const preferences = Wallpapers.preferences;
+        Wallpapers.paletteOptions = ["aabbcc", "ccbbaa", "bbccdd", "ccbbdd", "ddbbcc"].map((accent, i) => ({
+                    accent: accent,
+                    name: "Image color " + i,
+                    surface: "102030",
+                    swatches: [accent, "ccbbaa", "abcabc"]
+                }));
+        const view = createTemporaryObject(settings, test);
+        view.open("appearance");
+        wait(30);
+        const flow = findChild(findChild(view, "settingsPage").item, "wallpaperPaletteOptions");
+        verify(flow);
+        const tiles = flow.children.filter(child => child.objectName === "wallpaperPaletteTile");
+        compare(tiles.length, 5);
+        for (const tile of tiles)
+            verify(tile.x + tile.width <= flow.width + 0.01);
+        tiles[2].choose();
+        compare(Wallpapers.preferences.paletteAccent, "bbccdd");
+        Wallpapers.paletteOptions = prior;
+        Wallpapers.preferences = preferences;
+    }
+
     function test_shared_wheel_glides_and_page_switch_resets_position() {
         const view = createTemporaryObject(settings, test);
         wait(30);

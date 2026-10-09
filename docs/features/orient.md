@@ -9,22 +9,34 @@ refers to the iridescent play of colors in nacreous pearls:
 ## How colors are chosen
 
 Images are orientation/profile normalized to sRGB and sampled at a maximum 128px
-edge. Related lit/shadow shades form color families. Coverage, chroma, lightness
+edge. All color bins within that bounded sample are considered, so minority hues
+are not discarded by a popularity cutoff. Related lit/shadow shades form color families. Coverage, chroma, lightness
 and spatial spread rank those families; tiny saturated pixels cannot win purely
 by being bright. Up to five distinct source candidates are recorded in the palette
-JSON. Transparent pixels are coverage-weighted; fully transparent input is rejected.
+JSON. Broad hue families get priority before close variations; subtle colors are
+kept separate rather than merged into one gray family. Transparent pixels are coverage-weighted; fully transparent input is rejected.
 Neutral photographs retain a restrained warm/cool tint rather than inventing color.
 
 The main decorative `overtone` retains the selected source color. Text/UI accents
 change lightness only as needed for readability, preserving hue with OKLCH gamut
 mapping. Very dark pigments retain relative color strength when lifted. Body
-surfaces have restrained tint and ANSI/semantic colors keep their recognizable
+surfaces have restrained tint, with a dedicated more visible wallpaper-colored
+frame role. Normal wallpaper button accents have a comfortable chroma ceiling;
+explicit Vivid presets retain their intensity. Subtle real image hues are gently
+strengthened so supporting accents stay distinct. ANSI/semantic colors keep their recognizable
 meaning. Normal role pairs meet 4.5:1; essential outlines target 3:1. Actual
 translucent surfaces still need a contrasting backdrop in their UI implementation.
 
 ## Existing controls and optional overrides
 
-Appearance's wallpaper/fixed palette choice and light/dark control remain the UI.
+Appearance has a **From this wallpaper** row with up to five named color directions.
+Each tile previews its main/supporting accents and frame tint. Selection switches
+to wallpaper colors and remembers that accent for this image; Match wallpaper
+restores automatic selection. Moving to another image uses that image's saved
+choice or automatic selection. The fixed-palette section stays separate and its
+status explicitly says that colors remain fixed across scene changes.
+
+Appearance's wallpaper/fixed palette choice and light/dark control remain available.
 The thirty Soft/Vivid presets are generated through Orient; IDs/preferences remain
 stable. Legacy variant names are accepted: neutral/content use a softer policy,
 monochrome desaturates the accent, and the other historical names share Orient's
@@ -41,7 +53,7 @@ nacre-shell scheme set --auto-accent
 
 The print command reports colors and candidates without applying them. An explicit
 accent is saved per resolved poster/image path in private `cli.json` and survives
-mode changes; auto-accent removes that override. No new Settings control is added.
+mode changes; auto-accent removes that override. The same per-image choices are available in Appearance.
 Saved explicit light/dark mode wins over automatic image mode. Without a saved
 mode, automatic mode uses weighted sampled lightness (light at 0.68 or above).
 GIF/video colors come from the prepared poster and remain stable during playback.

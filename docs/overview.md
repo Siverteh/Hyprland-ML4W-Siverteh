@@ -98,4 +98,4 @@ The [rewrite tracker](nacre/PROVENANCE.md) records the planned replacement of
 inherited implementation. [Orient](specs/orient.md) describes the independent palette engine. The separate
 [comparison proposal](specs/orient-comparison.md) was superseded by the user
 request for direct production implementation. See [Orient behavior](features/orient.md)
-for extraction, readability, caching and compatibility.
+for extraction, readability, cached per-wallpaper palette choices, frame tint and compatibility.

@@ -262,17 +262,17 @@ SettingsPage {
     }
     SettingsSection {
         title: "Desktop colors"
-        description: "Follow the wallpaper, or keep one palette across every scene."
+        description: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" ? "Colors follow your wallpaper. Choose a natural variation below." : "A fixed palette is active. Choose Match wallpaper to follow the scene."
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
                 text: "Match wallpaper"
                 icon: "palette"
-                selected: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper"
+                selected: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" && !Wallpapers.selectedAccent
                 enabled: !Wallpapers.themeBusy
                 onClicked: Wallpapers.preference({
-                    palettePreset: "wallpaper"
+                    paletteAccent: "auto"
                 })
             }
             ActionButton {
@@ -287,6 +287,81 @@ SettingsPage {
                 enabled: !Wallpapers.themeBusy
                 onClicked: Colours.setMode("light")
             }
+        }
+        Column {
+            width: parent.width
+            spacing: 10
+            visible: Wallpapers.paletteOptions.length > 0
+            StyledText {
+                text: "From this wallpaper"
+                font.pointSize: 11
+            }
+            Flow {
+                width: parent.width
+                spacing: 10
+                objectName: "wallpaperPaletteOptions"
+                Repeater {
+                    model: Wallpapers.paletteOptions
+                    StyledRect {
+                        id: sourceTile
+                        objectName: "wallpaperPaletteTile"
+                        required property var modelData
+                        property bool chosen: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" && Wallpapers.selectedAccent === modelData.accent
+                        width: Math.floor(parent.width >= 750 ? (parent.width - 40) / 5 : (parent.width - 20) / 3)
+                        height: 82
+                        radius: 12
+                        color: "#" + modelData.surface
+                        border.width: chosen || activeFocus ? 2 : 1
+                        border.color: chosen || activeFocus ? Colours.palette.m3primary : Qt.alpha(Colours.palette.m3outline, 0.5)
+                        opacity: Wallpapers.themeBusy ? 0.5 : 1
+                        activeFocusOnTab: true
+                        Accessible.role: Accessible.Button
+                        Accessible.name: modelData.name + " wallpaper palette"
+                        Accessible.onPressAction: choose()
+                        function choose() {
+                            if (!Wallpapers.themeBusy)
+                                Wallpapers.preference({
+                                    paletteAccent: modelData.accent
+                                });
+                        }
+                        Keys.onReturnPressed: choose()
+                        Keys.onSpacePressed: choose()
+                        Column {
+                            anchors.centerIn: parent
+                            spacing: 10
+                            Row {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                spacing: 7
+                                Repeater {
+                                    model: sourceTile.modelData.swatches
+                                    Rectangle {
+                                        required property string modelData
+                                        width: 20
+                                        height: 20
+                                        radius: 10
+                                        color: "#" + modelData
+                                    }
+                                }
+                            }
+                            StyledText {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: sourceTile.modelData.name
+                                font.pointSize: 10
+                            }
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            enabled: !Wallpapers.themeBusy
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: sourceTile.choose()
+                        }
+                    }
+                }
+            }
+        }
+        StyledText {
+            text: "Fixed palettes"
+            font.pointSize: 11
         }
         Flow {
             width: parent.width

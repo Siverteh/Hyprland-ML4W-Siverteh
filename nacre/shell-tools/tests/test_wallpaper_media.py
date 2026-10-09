@@ -244,3 +244,53 @@ class OrientPreparedCacheTests(unittest.TestCase):
                 self.assertNotEqual(third, fourth)
                 marker.write_text('{"source":"two"}')
                 self.assertNotEqual(fourth, media.palette_marker(poster, "default"))
+
+
+class WallpaperAccentTests(unittest.TestCase):
+    def test_accent_selection_routes_through_publisher_and_keeps_preferences(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (20, 20), "red").save(poster)
+            state = home / "state"
+            state.mkdir()
+            (state / "media.json").write_text(json.dumps({"poster": str(poster)}))
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "STATE", state),
+                patch.object(media, "PREFS", home / "picker.json"),
+                patch.object(media.subprocess, "run") as run,
+            ):
+                media.preference({"palettePreset": "ocean", "layout": "hexagons"})
+                result = media.theme({"paletteAccent": "aabbcc"})
+                self.assertEqual(result["palettePreset"], "wallpaper")
+                self.assertEqual(result["layout"], "hexagons")
+                self.assertNotIn("paletteAccent", result)
+                self.assertEqual(run.call_args.args[0][-2:], ["--accent", "aabbcc"])
+                media.theme({"paletteAccent": "auto"})
+                self.assertEqual(run.call_args.args[0][-1], "--auto-accent")
+                previous = media.settings()
+                with self.assertRaises(ValueError):
+                    media.theme({"paletteAccent": "bad argument"})
+                self.assertEqual(media.settings(), previous)
+
+    def test_failed_accent_change_preserves_fixed_choice(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (20, 20), "red").save(poster)
+            state = home / "state"
+            state.mkdir()
+            (state / "media.json").write_text(json.dumps({"poster": str(poster)}))
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "STATE", state),
+                patch.object(media, "PREFS", home / "picker.json"),
+                patch.object(
+                    media.subprocess, "run", side_effect=RuntimeError("fixture")
+                ),
+            ):
+                media.preference({"palettePreset": "ocean"})
+                with self.assertRaises(RuntimeError):
+                    media.theme({"paletteAccent": "aabbcc"})
+                self.assertEqual(media.settings()["palettePreset"], "ocean")

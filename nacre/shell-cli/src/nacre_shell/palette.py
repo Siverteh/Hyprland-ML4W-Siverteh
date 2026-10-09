@@ -27,22 +27,29 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
         chroma = 0.0
     elif soft:
         chroma = min(chroma * 0.55, 0.10)
+    elif variant != "vibrant":
+        # Wallpaper accents have a comfortable color-strength ceiling. Explicit
+        # Vivid presets remain vivid; the decorative source color is kept below.
+        chroma = min(chroma, 0.19)
     # Body tint stays modest: color belongs in accents, not a global cast.
-    tint = min(chroma * 0.10, 0.016)
+    tint = min(chroma * 0.18, 0.028)
     if flavour == "hard":
         tint *= 0.5
     levels = {
-        "surface": 0.15 if dark else 0.975,
-        "surfaceDim": 0.15 if dark else 0.87,
+        "surface": 0.18 if dark else 0.975,
+        "surfaceDim": 0.18 if dark else 0.87,
         "surfaceBright": 0.27 if dark else 0.985,
-        "surfaceContainerLowest": 0.115 if dark else 0.995,
+        "surfaceContainerLowest": 0.15 if dark else 0.995,
         "surfaceContainerLow": 0.19 if dark else 0.955,
         "surfaceContainer": 0.215 if dark else 0.935,
         "surfaceContainerHigh": 0.24 if dark else 0.91,
         "surfaceContainerHighest": 0.255 if dark else 0.885,
     }
     colors = {role: color(light, tint, hue) for role, light in levels.items()}
+    frame_chroma = min(0.055, max(chroma * 0.5, min(0.028, chroma * 1.4)))
+    colors["frame"] = color(0.245 if dark else 0.96, frame_chroma, hue)
     backgrounds = [
+        colors["frame"],
         colors["surface"],
         colors["surfaceContainerHighest"],
         colors["surfaceBright" if dark else "surfaceDim"],
@@ -68,8 +75,13 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
             c = chroma
         # Lift dark pigments without turning the same saturation into a gray tint.
         # Relative OKLCH strength grows with lightness, bounded by sRGB gamut.
-        lifted = max(light, 0.60) if dark and not soft and c >= 0.035 else light
+        lifted = max(light, 0.60) if dark and not soft and c >= 0.012 else light
         lifted_chroma = c * min(1.8, lifted / max(light, 0.12))
+        if dark and not soft and variant != "monochrome" and c >= 0.012:
+            # Subtle real hues need enough strength to remain distinct when lifted.
+            lifted_chroma = max(lifted_chroma, min(0.065, c * 3.0))
+        if not soft and variant != "vibrant":
+            lifted_chroma = min(lifted_chroma, 0.19 if role == "primary" else 0.16)
         accent = readable(color(lifted, lifted_chroma, h), backgrounds)
         container = color(0.35 if dark else 0.88, min(c * 0.42, 0.085), h)
         colors[role] = accent
@@ -99,7 +111,7 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     family("success", "289563")
     colors["surfaceTint"] = colors["primary"]
     # Rich accents for decoration can retain the source even when text must brighten.
-    colors["overtone"] = color(lch(seed)[0], chroma, hue)
+    colors["overtone"] = seed if variant != "monochrome" else color(lch(seed)[0], 0, hue)
     colors["orient1"] = colors["overtone"]
     colors["orient2"] = clean(secondary)
     colors["orient3"] = clean(tertiary)

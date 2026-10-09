@@ -118,3 +118,9 @@ Runtime environments are built separately under private `palette-engines/` and
 selected through `palette-runtime`; successful tests precede activation and
 release snapshots retain the old engine bytes for recovery. Other inherited UI
 areas and their attribution remain until their own rewrites and final audit.
+
+Orient now includes a named set of natural image-derived palette alternatives in
+its cached output. The existing publisher carries those previews/selection with
+matched presentation state; Appearance calls the same locked CLI to set or clear
+private per-image accent overrides. A dedicated frame role supplies the shell's
+wallpaper tint without changing panel geometry.

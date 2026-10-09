@@ -66,8 +66,9 @@ def analyze(path):
     if total == 0:
         raise ValueError("Wallpaper has no visible pixels")
 
-    # Only the largest 192 bins are converted; spatial evidence survives merging.
-    ordered = sorted(bins.values(), key=lambda e: (-e[0], e[1:4]))[:192]
+    # A bounded thumbnail limits all bins. Keep minority hues rather than
+    # dropping blue hair / lantern colors below a global popularity cutoff.
+    ordered = sorted(bins.values(), key=lambda e: (-e[0], e[1:4]))
     groups = []
     mean_light = 0.0
     observed = 0.0
@@ -85,8 +86,8 @@ def analyze(path):
         match = None
         for group in groups:
             gl, gc, gh = group["lch"]
-            neutral = chroma < 0.035 and gc < 0.035
-            related = chroma >= 0.035 and gc >= 0.035 and hue_distance(hue, gh) < 16 and abs(chroma - gc) < 0.12
+            neutral = chroma < 0.012 and gc < 0.012
+            related = chroma >= 0.012 and gc >= 0.012 and hue_distance(hue, gh) < 16 and abs(chroma - gc) < 0.12
             if (neutral or related) and abs(light - gl) < 0.36:
                 match = group
                 break
@@ -108,10 +109,10 @@ def analyze(path):
     for group in groups:
         light, chroma, hue = group["lch"]
         coverage = group["weight"] / total
-        if coverage < 0.008 or chroma < 0.025 or light < 0.12 or light > 0.96:
+        if coverage < 0.004 or chroma < 0.012 or light < 0.12 or light > 0.96:
             continue
         spread = sum(w >= total * 0.001 for w in group["tiles"].values()) / 16
-        score = coverage**0.65 * (0.15 + min(chroma / 0.20, 1.5))
+        score = coverage**0.60 * (min(chroma / 0.12, 1.5) ** 0.8)
         score *= (0.50 + 0.50 * min(light / 0.55, 1)) * (0.80 + 0.20 * spread)
         candidates.append(
             {
@@ -124,10 +125,14 @@ def analyze(path):
         )
     candidates.sort(key=lambda c: (-c["score"], c["hex"]))
     distinct = []
-    for candidate in candidates:
-        hue = lch(candidate["hex"])[2]
-        if all(hue_distance(hue, lch(c["hex"])[2]) >= 24 for c in distinct):
-            distinct.append(candidate)
+    # Reserve room for genuinely different hue families before adding close tones.
+    for separation in (48, 24):
+        for candidate in candidates:
+            hue = lch(candidate["hex"])[2]
+            if all(hue_distance(hue, lch(c["hex"])[2]) >= separation for c in distinct):
+                distinct.append(candidate)
+            if len(distinct) == 5:
+                break
         if len(distinct) == 5:
             break
     if not distinct:

@@ -18,6 +18,8 @@ Singleton {
             pauseCovered: true
         })
     property var palettePresets: []
+    readonly property var paletteOptions: ThemePresentation.active.paletteOptions ?? []
+    readonly property string selectedAccent: ThemePresentation.active.selectedAccent ?? ""
     property var rotationRemaining: []
     readonly property var rotationPool: Rotation.pool(list, preferences.rotationKind ?? "all")
     readonly property string rotationKey: (preferences.rotationKind ?? "all") + ":" + (preferences.rotationShuffle ?? true) + ":" + rotationPool.join("|")
@@ -283,7 +285,7 @@ Singleton {
         id: prefWorker
         property var value
         stdinEnabled: true
-        command: ["python3", root.tool, value?.palettePreset !== undefined || value?.paletteMode !== undefined ? "theme" : "preferences"]
+        command: ["python3", root.tool, value?.palettePreset !== undefined || value?.paletteMode !== undefined || value?.paletteAccent !== undefined ? "theme" : "preferences"]
         onStarted: write(JSON.stringify(value) + "\n")
         stdout: SplitParser {
             splitMarker: ""

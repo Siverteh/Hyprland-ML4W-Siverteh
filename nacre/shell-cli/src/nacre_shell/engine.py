@@ -4,10 +4,46 @@ import hashlib
 from pathlib import Path
 
 from . import ENGINE_ID
-from .colour import clean
+from .colour import clean, lch
 from .extract import analyze
 from .palette import DEFAULT_SEED, generate, validate
 from .storage import cache_key, read, roots, write_json
+
+
+def palette_options(analysis, mode, variant, flavour):
+    candidates = [c["hex"] for c in analysis["candidates"]]
+    result = []
+    for index, seed in enumerate(candidates):
+        colors = generate(seed, mode, variant, flavour, candidates)
+        _, chroma, hue = lch(seed)
+        if chroma < 0.012:
+            name = "Neutral"
+        else:
+            names = (
+                (25, "Rose"),
+                (55, "Copper"),
+                (95, "Gold"),
+                (130, "Olive"),
+                (170, "Green"),
+                (205, "Teal"),
+                (245, "Blue"),
+                (285, "Indigo"),
+                (325, "Lilac"),
+                (360, "Rose"),
+            )
+            name = next(label for end, label in names if hue < end)
+        if any(item["name"] == name for item in result):
+            name += " tone"
+        result.append(
+            {
+                "accent": seed,
+                "name": name,
+                "swatches": [colors[k] for k in ("primary", "secondary", "tertiary")],
+                "surface": colors["frame"],
+                "recommended": index == 0,
+            }
+        )
+    return result
 
 
 def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent=None, smart=False):
@@ -66,7 +102,12 @@ def from_image(path, mode="dark", variant="tonalspot", flavour="default", accent
         "colours": colors,
         "engine": ENGINE_ID,
         "input": settings,
-        "source": {**analysis, "selected": seed, "digest": digest},
+        "source": {
+            **analysis,
+            "selected": seed,
+            "digest": digest,
+            "options": palette_options(analysis, mode, effective_variant, flavour),
+        },
     }
     # An unwritable cache must not prevent a valid read-only palette result.
     try:

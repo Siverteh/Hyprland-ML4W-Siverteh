@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local wallpaper catalog, video posters, private picker preferences and selection."""
 
-import argparse, fcntl, hashlib, json, os, shutil, subprocess, sys, tempfile, urllib.parse, time
+import argparse, fcntl, hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.parse, time
 from pathlib import Path
 from PIL import Image, ImageOps
 
@@ -75,36 +75,49 @@ def theme(value):
     if (
         not isinstance(value, dict)
         or not value
-        or set(value) - {"palettePreset", "paletteMode"}
+        or set(value) - {"palettePreset", "paletteMode", "paletteAccent"}
     ):
         raise ValueError("Unknown appearance preference")
+    accent = value.get("paletteAccent")
+    if accent is not None and (
+        not isinstance(accent, str) or not re.fullmatch(r"auto|[0-9a-fA-F]{6}", accent)
+    ):
+        raise ValueError("Choose a valid wallpaper accent")
     previous = settings()
-    result = preference(value)
+    changes = {key: item for key, item in value.items() if key != "paletteAccent"}
+    if accent is not None:
+        changes["palettePreset"] = "wallpaper"
     poster = read(STATE / "media.json", {}).get("poster")
     if not poster:
         path = STATE / "last.txt"
         poster = path.read_text().strip() if path.exists() else ""
     if not poster or not Path(poster).is_file():
-        preference({key: previous[key] for key in value})
         raise ValueError("Choose a wallpaper before changing its palette")
+    result = preference(changes)
     try:
         cli = HOME / ".local/share/nacre/shell/bin/nacre_shell"
-        # Preserve the chosen light/dark mode while rebuilding from cached colors.
-        if "paletteMode" in value:
+        if accent is not None:
+            args = [str(cli), "scheme", "set", "-n", "dynamic"]
+            if "paletteMode" in value:
+                args += ["-m", value["paletteMode"]]
+            args += ["--auto-accent"] if accent == "auto" else ["--accent", accent]
+            subprocess.run(args, check=True, capture_output=True, timeout=60)
+        else:
+            if "paletteMode" in value:
+                subprocess.run(
+                    [str(cli), "scheme", "set", "-m", value["paletteMode"]],
+                    check=True,
+                    capture_output=True,
+                    timeout=60,
+                )
             subprocess.run(
-                [str(cli), "scheme", "set", "-m", value["paletteMode"]],
+                [str(cli), "wallpaper", "-f", poster, "--no-smart"],
                 check=True,
                 capture_output=True,
                 timeout=60,
             )
-        subprocess.run(
-            [str(cli), "wallpaper", "-f", poster, "--no-smart"],
-            check=True,
-            capture_output=True,
-            timeout=60,
-        )
     except Exception:
-        preference({key: previous[key] for key in value})
+        preference({key: previous[key] for key in changes})
         raise
     return result
 

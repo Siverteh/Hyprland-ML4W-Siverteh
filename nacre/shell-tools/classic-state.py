@@ -169,6 +169,8 @@ def apply_palette(home, wallpaper=None, live=True):
                     "mode": data["mode"],
                     "colours": colors,
                     "poster": selected,
+                    "paletteOptions": data.get("source", {}).get("options", []),
+                    "selectedAccent": data.get("input", {}).get("accent"),
                 }
             ),
         )
