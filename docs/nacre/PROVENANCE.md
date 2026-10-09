@@ -1,6 +1,8 @@
 # Nacre independent implementation tracker
 
-Status: Orient and shared foundation verified; whole-desktop originality goal active, 2026-10-08.
+Status: Orient/foundation/frame/launcher and notification presentation verified;
+dashboard assembly verified with page bodies pending. Whole rewrite unfinished,
+2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -41,8 +43,8 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | verified | [Notification spec](../specs/notifications.md); presentation replaced, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
-| 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | audit pending | Include current Settings and lock presentation dependencies; one page/group at a time |
-| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness}.qml` | audit pending | One service per task; advance a service if a preceding UI area needs it |
+| 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | implementing | [Dashboard spec](../specs/dashboard.md); assembly verified, pages/cards/Settings remain |
+| 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | audit pending | One service per task; advance a service if a preceding UI area needs it |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
