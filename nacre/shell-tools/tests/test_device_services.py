@@ -89,7 +89,7 @@ class DeviceServiceTests(unittest.TestCase):
                 .replace('Quickshell.env("HOME")', '"/fixture"')
             )
             if name == "NacreNotifs":
-                source = source.replace(".transient", ".temporary")
+                source = source.replace("notification.id", "notification.noticeId")
             source = remove_objects(source, r"\bIpcHandler\s*\{")
             source = remove_objects(source, r"\bGlobalShortcut\s*\{")
             (target / (name + ".qml")).write_text(source)
