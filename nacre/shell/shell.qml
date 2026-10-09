@@ -11,7 +11,7 @@ import QtQuick
 ShellRoot {
     property var lockWidgets: LockWidgets
     property var displayRecovery: DisplayRecovery
-    Background {}
+    NacreBackground {}
     NacreDesktop {}
     TopBar {}
     EdgeHandles {}

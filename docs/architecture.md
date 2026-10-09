@@ -228,3 +228,9 @@ NacreSoundPopup/NetworkPopup/BluetoothPopup/HistoryPopup delegate data and actio
 to existing services. NacreQuickList/Slider own bounded native input presentation.
 The frame input controller still owns hover dismissal and hit-region release.
 Shared popup assembly never creates a notification/network/audio server.
+
+NacreOsdPanel/Controls/Events present existing level owners with a visible-only
+activity deadline; NacreSessionPanel/Controls launch four allowlisted user actions.
+NacreBackground/WallpaperScene/DesktopVideo own noninteractive per-output native
+poster/media rendering and matched readiness. Authentication, frame dismissal,
+palette publication and shared playback policy stay with their existing owners.

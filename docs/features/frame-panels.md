@@ -46,3 +46,14 @@ follow the lower-header/title path and use an ordinary temporary application to
 verify click and keyboard delivery after closure. Immediate scripted back-to-back
 clicks require a compositor commit; the test allows200ms and a1px movement before
 checking returned input, so it does not claim zero-latency pointer retargeting.
+
+## Independent OSD and session wrappers
+
+NacreOsdPanel/Controls/Events own right-edge control presentation and activity
+lifetime. Existing audio/backlight/keyboard owners handle writes; loading/readiness
+changes do not write hardware or reveal OSD. Actual adjustments reveal the focused
+output only, with hover-paused two-second expiry. NacreSessionPanel/Controls expose
+the four existing allowlisted actions through AppLaunch, with no action on display.
+The enclosing frame retains Escape/outside-click/input ownership. Closing releases
+logical regions immediately and clips a short transition before unloading content.
+Reduced motion settles immediately. See the [wrapper spec](../specs/desktop-wrappers.md).

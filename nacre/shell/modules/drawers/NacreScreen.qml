@@ -85,7 +85,7 @@ NacreWindow {
             z: 1
         }
     }
-    Osd.Interactions {
+    Osd.NacreOsdEvents {
         screen: root.screen
         visibilities: flags
         hovered: inputController.osdHovered

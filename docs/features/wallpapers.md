@@ -116,3 +116,14 @@ Search reuses Nacre's own ranking helper; the unused fuzzysort dependency has be
 removed. Wallpaper/cache/palette producer helpers and playback are separate
 owners and still require the remaining provenance audit. See the
 [provider specification](../specs/wallpaper-weather-services.md).
+
+## Independent desktop background presentation
+
+NacreBackground/WallpaperScene/DesktopVideo replace the remaining background
+wrappers and media renderer. Two native poster buffers keep the old image opaque
+under the new fade, and only the latest ready image acknowledges the matched
+palette record. Native file URLs preserve percent/space names; output size/DPR
+sets decode size. Video stays silent and retains its poster until a real frame
+arrives; GIF/video follow the existing sleep/lock/battery/coverage/picker policy.
+No new palette publisher or polling is added. The shared WallpaperPlayback policy
+and helper provenance remain separate audit areas. Old names are small forwarders.

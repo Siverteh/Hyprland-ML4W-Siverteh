@@ -23,6 +23,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   private cached forecasts and reports unavailable/stale data.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,
   GTK/Qt settings, Kitty, lock screen and login appearance.
+- **OSD/session/background presentation** uses independent Nacre wrappers and
+  native buffers/media. Existing providers and frame input remain the owners.
 - **Hypridle and Hyprlock** handle managed sleep locking and private idle timeouts and password authentication.
   The physical power-button tap locks through the same session path; its user
   inhibitor prevents a competing short-press shutdown. A prepared single-tile

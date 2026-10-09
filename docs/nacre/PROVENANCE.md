@@ -843,3 +843,21 @@ regression and tested real pointer held over the same icon. TopBar/HoverIntent/
 Shortcuts bodies inspected for diagnosis; whole-file originality remains pending,
 and small fixes do not certify them. Notices retained; physical multi-output/
 cold-login/battery and whole-tree provenance completion not claimed.
+
+## OSD/session/background wrappers (replaced; acceptance pending)
+
+Deleted eight mixed/inherited wrapper/control/media bodies before new NacreOsd
+Panel/Controls/Events, NacreSessionPanel/Controls, NacreBackground/WallpaperScene/
+DesktopVideo implementations. Public signatures/IPC schema/model data, current
+caller contracts, own services/primitives, existing tests and primary Qt native
+media/window APIs used. Earlier provider/renderer exposure acknowledged; no
+upstream source/no legal clean-room claim. Maintained root/host call new names;
+old names minimal own adapters. Small root caller renames do not certify root
+shell or shared playback policy; those remain separate tasks. Notices retained.
+
+Actual Qt tests cover no display writes/startup OSD, explicit fixture actions,
+availability/focus/hover/expiry, session allowlist and closing geometry/reduced
+motion, latest-ready poster/palette activation, opaque underlayer, rapid requests
+and percent-containing filenames, motion policy. Native Quickshell video test
+uses generated footage with an audio track to prove first-frame playback, pause
+and disabled audio route/track. No private wallpaper or device mutation by tests.

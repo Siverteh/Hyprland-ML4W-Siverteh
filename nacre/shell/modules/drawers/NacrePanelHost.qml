@@ -46,7 +46,7 @@ Item {
         y: root.leftPosition.y
         clip: true
     }
-    Osd.Wrapper {
+    Osd.NacreOsdPanel {
         id: osd
         screen: root.screen
         visibility: root.visibilities.osd && !root.visibilities.session
@@ -54,7 +54,7 @@ Item {
         y: root.osdPosition.y
         clip: true
     }
-    Session.Wrapper {
+    Session.NacreSessionPanel {
         id: session
         visibilities: root.visibilities
         x: root.sessionPosition.x
