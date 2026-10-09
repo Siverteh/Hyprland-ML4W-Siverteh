@@ -50,6 +50,7 @@ def paths(repo):
             ".local/share/nacre/shell",
             ".local/share/nacre/palette-runtime",
             ".local/share/nacre/thunar-style",
+            ".local/share/nacre/control",
             ".local/share/siverteh-ai/observatory",
             ".local/share/siverteh-ai/thunar-runtime",
         )
@@ -57,6 +58,7 @@ def paths(repo):
     result += [
         HOME / ".local/bin" / p
         for p in (
+            "nacre",
             "nacre-shell",
             "siverteh-os-shell",
             "siverteh-os",
@@ -428,6 +430,7 @@ def deploy(repo, components, keyboard, migrate=False):
             shutil.rmtree(good)
         pending.rename(good)
         retire_native_runtimes(release)
+        install_controller(repo)
         for entry in record["entries"]:
             entry["after"] = fingerprint(Path(entry["path"]))
         record["status"] = "good"
@@ -441,7 +444,6 @@ def deploy(repo, components, keyboard, migrate=False):
                 checked=record["created"],
             ),
         )
-        install_controller(repo)
         prune_releases()
         return record
     except BaseException as error:

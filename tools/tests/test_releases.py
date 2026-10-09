@@ -35,6 +35,17 @@ class ReleaseTests(unittest.TestCase):
                 self.assertEqual((source / "shell.qml").read_text(), "before")
                 self.assertEqual(account.read_text(), "fixture never snapshot")
 
+    def test_controller_and_both_command_names_are_part_of_the_snapshot(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            repo = home / "repo"
+            repo.mkdir()
+            with patch.object(m, "HOME", home):
+                owned = m.paths(repo)
+            self.assertIn(home / ".local/bin/nacre", owned)
+            self.assertIn(home / ".local/bin/siverteh-os", owned)
+            self.assertIn(home / ".local/share/nacre/control", owned)
+
     def test_rollback_refuses_later_edits(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
