@@ -816,5 +816,96 @@
       ]
     }
   ],
-  "reviews": {}
+  "reviews": {
+    "nacre/shell-cli/src/nacre_shell/__init__.py": {
+      "disposition": "independent",
+      "sha256": "5b5fdd5edbeaa189aa8b8edac66ae5476bbf39a9adbfde69b35ee06a5cd81907",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/__main__.py": {
+      "disposition": "independent",
+      "sha256": "0472e2ffee01c7582c667fb3eb1ef01023e7d584f175cef8cb475e45e6bd1736",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/cli.py": {
+      "disposition": "independent",
+      "sha256": "b0dde582f1c5e27d40efc3a1e4375ce4342fb438bf6a9e81029afb5c5561a7ca",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/colour.py": {
+      "disposition": "independent",
+      "sha256": "b8f058f5bf8e97bc1b237c4d79fc0e3c5c49155c2861abb2c6197fd1139bbc80",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/engine.py": {
+      "disposition": "independent",
+      "sha256": "b60543a4d27b807217bf48141e480d9cb9d9908ee50f1e0e400a344de43172df",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/extract.py": {
+      "disposition": "independent",
+      "sha256": "4c310b39b7e51098a08be64e902e3c511d683cfab5f2b98e515dee4a7d707903",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/palette.py": {
+      "disposition": "independent",
+      "sha256": "a20be3e0778a9196892513af11380123a89d8d9209b2b30d27a1dcf50bae13d4",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/src/nacre_shell/storage.py": {
+      "disposition": "independent",
+      "sha256": "a2902c20f2a4a6b79fab4961cc85c65b4e260f29f939848fc1977567051d8808",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    },
+    "nacre/shell-cli/pyproject.toml": {
+      "disposition": "independent",
+      "sha256": "9710c1abefba37a3107b20df44fe74d0504772f24f597c748ae5aca09556b4f9",
+      "evidence": [
+        "docs/nacre/ORIENT-SOURCE-AUDIT.md",
+        "docs/specs/orient.md",
+        "docs/nacre/PROVENANCE.md#orient-replacement-record",
+        "replacement 5ecf556; local corrections/tuning traced through current source history"
+      ]
+    }
+  }
 }

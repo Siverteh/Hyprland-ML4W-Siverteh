@@ -57,3 +57,6 @@ step. No wildcard trust, local-machine trust change, fallback scan or skipped au
 Git failures include their actual stderr so ownership errors remain actionable.
 See [Git safe.directory](https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory)
 and [checkout's setting](https://github.com/actions/checkout#usage).
+
+[Orient source review](ORIENT-SOURCE-AUDIT.md) records the first nine exact-file
+implementation reviews; other areas and the final upstream comparison remain open.
