@@ -37,7 +37,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | verified | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
 | 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | verified | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
-| 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | implementing | [Launcher spec](../specs/launcher.md); inherited stack and newer local view origin audit next |
+| 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | verified | [Launcher spec](../specs/launcher.md); independent assembly and all app/wallpaper views |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
@@ -274,3 +274,14 @@ lookup uses the documented checked-icon API with a palette-aware fallback.
 Preview-only navigation cannot apply/commit a wallpaper. Native test processes
 explicitly enable their completion-marker logging instead of inheriting the
 host's `*.debug=false`; pixel and interaction assertions remain unchanged.
+
+Launcher verification milestone (2026-10-09): `bc7c7e2` deployed as good
+release `20261009T114301541106Z`; all 323 repository tests, native Qt parsing/
+formatting, Hyprland verification and real compositor startup/Escape gates pass.
+Additional live checks cover compact Favorites/reset, All apps six-row height,
+modal outside click, and static/dynamic navigation plus normal-mode Escape for
+Carousel, Spotlight and Hexagons. Preview-only navigation preserves the selected
+wallpaper; original picker kind/layout restored. Installed QML matches source;
+configerrors empty. Testing used one physical output and synthetic input, not a
+cold-login or multi-monitor claim. Services/extra modes/history providers remain
+separate pending areas. Notices remain until whole-tree audit.
