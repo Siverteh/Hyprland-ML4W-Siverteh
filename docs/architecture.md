@@ -11,6 +11,10 @@
 | Login appearance | `nacre/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
 | Terminal presentation | `kitty/`, `fastfetch/` | Installed static config plus private generated SH logo and terminal palette |
 
+NacreNotice and NacreNotificationStack own notification card/stack presentation.
+Notifs owns native notification objects, popup expiry and private history; neither
+UI component becomes another server or stores native actions in history.
+
 The desktop shell and its desktop-actions helper own core control commands.
 Brain owns knowledge navigation/capture and its authenticated browser API.
 The desktop shell owns the bar, frame, dashboard, notifications, launcher,

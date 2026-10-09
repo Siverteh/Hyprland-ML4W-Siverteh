@@ -54,8 +54,9 @@ Column {
             model: ScriptModel {
                 values: [...Notifs.retained].reverse()
             }
-            delegate: Cards.Notification {
+            delegate: Cards.NacreNotice {
                 history: true
+                width: historyList.width
             }
         }
     }

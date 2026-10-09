@@ -10,6 +10,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
 - **Quickshell** draws the bar, frame, top settings menu, launchers, notifications,
   wallpaper views and AI sidebar. Desktop/AI launch actions live in desktop helpers,
   separately from Brain knowledge actions. Its renderer is separate from the AI worker.
+- **Notification presentation** uses NacreNotice and a bounded popup stack; the
+  existing service owns expiry, DND and private retained history.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,
   GTK/Qt settings, Kitty, lock screen and login appearance.
 - **Hypridle and Hyprlock** handle managed sleep locking and private idle timeouts and password authentication.

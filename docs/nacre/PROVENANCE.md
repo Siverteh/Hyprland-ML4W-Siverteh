@@ -38,7 +38,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | verified | [Controls and helpers spec](../specs/foundation-controls.md); native contracts and compatibility adapters |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | verified | Independent Nacre config/utility providers; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | verified | [Launcher spec](../specs/launcher.md); independent assembly and all app/wallpaper views |
-| 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
+| 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | implementing | [Notification spec](../specs/notifications.md); new presentation, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | audit pending | Include current Settings and lock presentation dependencies; one page/group at a time |
@@ -285,3 +285,19 @@ wallpaper; original picker kind/layout restored. Installed QML matches source;
 configerrors empty. Testing used one physical output and synthetic input, not a
 cold-login or multi-monitor claim. Services/extra modes/history providers remain
 separate pending areas. Notices remain until whole-tree audit.
+
+## Notification presentation replacement record (candidate)
+
+- Deleted inherited modules/notifications/{Notification,Content,Wrapper}.qml
+  bodies without opening them. Fresh NacreNotice and NacreNotificationStack
+  implement the documented data/consumer contracts and own measured layouts,
+  drag/dismiss/expand/action/keyboard behavior and bounded popup scrolling.
+- Source exposure: public property declarations and caller references searched;
+  no upstream body consulted. Existing Notifs, policy/history helpers, bar history
+  container and settings remain separate pending areas. No licensing removal.
+- References: Qt Quick layout/input/text APIs and Quickshell NotificationAction
+  invoke plus checked iconPath APIs. No new dependencies/assets.
+- Actual production UI tests cover long-text bounds/plain text, close/right-click,
+  expansion, current default versus unrelated/frozen actions, keyboard and drag,
+  burst cap/suppression/hover release. Native rendering of compact/expanded cards
+  with synthetic messages reviewed. Full checks/live acceptance still pending.

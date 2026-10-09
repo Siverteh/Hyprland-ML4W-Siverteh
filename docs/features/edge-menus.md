@@ -67,3 +67,14 @@ Escape action to continue; pinned AI and explicit modal panels keep their own
 existing dismissal behavior. State follows pointer events and one-shot exit
 signals, with no global pointer polling or additional input process.
 
+
+## Independent notification presentation
+
+NacreNotice renders both popups and retained-history entries. It wraps plain-text
+messages inside measured card bounds and offers explicit expand/dismiss controls.
+Short horizontal drags return; longer drags dismiss. Current default actions are
+used only when action-on-click is enabled; frozen history never recreates native
+actions. The popup stack is capped to the output height and uses fast scrolling
+for bursts. Suppression removes the input region immediately and releases hover
+state without deleting messages or history. Existing DND, retention, expiry and
+history storage remain owned by Notifs and its private helpers.

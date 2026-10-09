@@ -76,7 +76,7 @@ Item {
         y: root.popupPosition.y
         clip: true
     }
-    Notifications.Wrapper {
+    Notifications.NacreNotificationStack {
         id: notifications
         suppressed: popouts.height > 0.1 || session.width > 0.1 || dashboard.height > 0.1
         anchors.right: parent.right
