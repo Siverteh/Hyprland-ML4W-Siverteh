@@ -846,6 +846,19 @@
         "hypr/conf/autostart.lua",
         "tools/tests/test_session_startup.py"
       ]
+    },
+    {
+      "area": "battery-alerts",
+      "commit": "36c35e0",
+      "spec": "docs/specs/battery-alerts.md",
+      "paths": [
+        "nacre/shell/services/NacreBatteryAlertPolicy.qml",
+        "nacre/shell/services/NacreBatteryAlerts.qml",
+        "nacre/shell/shell.qml",
+        "hypr/conf/autostart.lua",
+        "nacre/shell-tools/tests/test_battery_alerts.py",
+        "nacre/shell-tools/tests/battery-qml/tst_battery.qml"
+      ]
     }
   ],
   "reviews": {
@@ -1010,6 +1023,24 @@
         "docs/nacre/PROVENANCE.md#graphical-session-startup-composition-replacement",
         "replacement e90cf66: deleted then own task-argument composition from public startup/service contracts; old current file already locally narrowed, no blanket inheritance claim; exact installed bytes and no-reload-launch verified; helper provenance/cold-login remain separate",
         "docs/specs/battery-alerts.md: reassessed own startup composition, removed inherited watcher task in favor of root native alert owner; four-task actual Lua contract tests"
+      ]
+    },
+    "nacre/shell/services/NacreBatteryAlertPolicy.qml": {
+      "disposition": "independent",
+      "sha256": "b4c769e77cdb193b4cc0da162277755285613bb2c3b485ff07f56b58a9cdb37d",
+      "evidence": [
+        "docs/specs/battery-alerts.md",
+        "docs/nacre/PROVENANCE.md#native-battery-alert-replacement",
+        "new source 36c35e0 + actual-owner late-cycle correction ba39132; deleted inherited helper first, native policy/owner written from captured behavior/native UPower/FileView/Process APIs; safe full and live source/owner/cutover checks; no upstream body copied"
+      ]
+    },
+    "nacre/shell/services/NacreBatteryAlerts.qml": {
+      "disposition": "independent",
+      "sha256": "175d7be4452e6bc827eca61fec736f238b501d27bb3aacb88c369c61ed2aba2e",
+      "evidence": [
+        "docs/specs/battery-alerts.md",
+        "docs/nacre/PROVENANCE.md#native-battery-alert-replacement",
+        "new source 36c35e0 + actual-owner late-cycle correction ba39132; deleted inherited helper first, native policy/owner written from captured behavior/native UPower/FileView/Process APIs; safe full and live source/owner/cutover checks; no upstream body copied"
       ]
     }
   }

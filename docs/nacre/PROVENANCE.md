@@ -1145,3 +1145,30 @@ policy tests isolate native dependencies and private storage/notification delive
 Startup task retired/review reassessed; existing notification server retained.
 No private/upstream implementation reused, declarations/predicates and prior
 exposure acknowledged; no legal clean-room/whole-license/source comparison claim.
+
+Battery acceptance (2026-10-09): initial software `36c35e0`, good release
+`20261009T225551979064Z`; late-cycle fix `ba39132`, good release
+`20261009T230054327373Z`. All380 checks (43 tools,96 AI,35 Brain,206 shell),
+QML/native Hyprland and reviewed config+shell and follow-up shell-only strict
+transaction/source/service/launcher/wallpaper/Escape gates passed. Installed
+235-file shell matches source; startup exact source and old managed script absent.
+Native owner ready/present100%/not discharging, no process/warning/error at idle.
+Private preference/history hashes and busy worker PID/start unchanged before/after
+six native app input/dismissal cycles. No real notifications or hardware/power
+changes by QA, configerrors empty/shell active. Existing notification server used.
+
+Positively identified old UWSM scope was checked against captured control-group/
+active identity and stopped only after native owner readiness; no old active scope
+remains. Source/active inherited dependency is removed, inactive release backup
+retained. Two cat commands+sleep per60s formerly imply4320 external launches per
+24h uptime; estimate from declared loop, not a measured battery/CPU benchmark.
+New policy uses shared cached UPower and no periodic timer/process. Real warning
+delivery and physical threshold/AC cycles aren't claimed by safe fixtures.
+
+Initial existing startup contract test expected the retired fifth task; corrected
+to intentional4-task ownership. Additional actual-owner regression reproduced a
+late failed reply after charging leaving stale diagnostics; `ba39132` rejects old
+epoch replies/clears rearmed delivery error, then full/live checks repeated.
+Native policy/owner/source hashes recorded as own implementation from contracts/
+public APIs; remaining whole-tree/helper/assets/tests/final comparison and fresh
+compositor-session old-curve-registry follow-up stay open. Notices retained.

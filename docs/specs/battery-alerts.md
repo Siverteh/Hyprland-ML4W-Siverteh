@@ -1,6 +1,6 @@
 # Independent low-battery alerts
 
-Implementation written, acceptance pending, 2026-10-09. Target inherited `hypr/scripts/low-battery.sh` and its
+Implemented and natively deployed, 2026-10-09. Physical discharge/AC-cycle acceptance remains unclaimed. Target inherited `hypr/scripts/low-battery.sh` and its
 startup ownership. History follows the explicit ML4W import `989022d`; an active
 UWSM low-battery scope confirms this is still running. Larger keybindings/routing
 and other helpers remain separate. Do not replace this only by renaming it.
@@ -95,3 +95,10 @@ until the installed native owner is confirmed ready.
 References: [UPower device readiness/data](https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.UPower/UPowerDevice/),
 [device states](https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.UPower/UPowerDeviceState/),
 [FileView atomic writes](https://quickshell.org/docs/v0.2.0/types/Quickshell.Io/FileView/).
+
+A regression added after initial cutover showed a failed reply from an older
+discharge cycle left stale error/retry state after charging. The owner now ignores
+old-cycle replies and clears delivery errors when rearmed; the actual-owner
+fixture fails before the fix and passes after it. Both native deployments keep
+private history/preference hashes and worker identity; the old scope was stopped
+only after the first replacement was ready.
