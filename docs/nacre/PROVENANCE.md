@@ -45,7 +45,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
 | 5a | `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; `bar/popouts/{Battery,Calendar}.qml` | verified | [Bar spec](../specs/bar-controls.md); CalendarGrid retired |
 | 5b | `bar/popouts/{Audio,Network,Bluetooth,Notifications,QuickList,QuickSlider,Content,Wrapper}.qml` | verified | [Quick popup spec](../specs/quick-popups.md); native routes/lifecycle accepted |
-| 5c | `modules/topbar/` | audit pending | Caller renames and small fixes do not certify full bodies |
+| 5c | `modules/topbar/`; `services/HoverIntent.qml` | verified | [Top bar/hover spec](../specs/topbar-hover.md); independent assembly/policy and old-name adapters |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | verified | Eleven listed providers replaced; unused Thumbnailer retired. Other mixed providers/helpers and whole-tree audit remain |
 | 7a | `modules/osd/`, `modules/session/`, `modules/background/` wrapper/control/renderer bodies | verified | [Desktop wrapper spec](../specs/desktop-wrappers.md); native controls/media/lifecycle verified |
@@ -883,7 +883,7 @@ old poster stays under new fade; literal percent/space path tested. Native data 
 playback policy, root shell, shortcuts/topbar/helpers/config/assets/final audit
 remain separate work. Notices retained and the full goal stays active.
 
-## Top bar/workspaces/hover policy (replaced; acceptance pending)
+## Top bar/workspaces/hover policy (verified)
 
 Deleted mixed TopBar/WorkspaceStrip/HoverIntent bodies before own NacreTopBar/
 Header/WorkspaceRow/HeaderTrigger/HeaderForwarder and NacreHoverIntent. Public
@@ -895,3 +895,20 @@ component tests replace old substring-extraction fixtures, preserve native frame
 and hover scenarios, and add invalid input/map ownership/read-only/routing cases.
 Root/Shortcuts/helper bodies only receive caller renames, not provenance certification.
 Notices retained; whole-tree audit still required.
+
+Top bar acceptance (2026-10-09): software `7c8f3a6`, good release
+`20261009T202533391123Z`. All366 checks, QML format/parse, native Hyprland and final
+installer rerun/strict source/startup/launcher/wallpaper/Escape gates passed.
+Actual title lower-header approach/open/exit, five hover targets, header Settings
+links, pinned history/Escape/offclick and power-menu Escape passed. Real workspace1
+click selected correct workspace and restored original workspace/window. Six native
+application click/key-return cycles passed. Full bar capture inspected; private
+preference/history hashes and volume/radio/profile values unchanged. Source matches,
+shell active, configerrors empty, no runtime QML error/binding-loop diagnostics.
+
+Header teardown now releases its captured registered output name, checking owner
+identity so old output destruction cannot erase new state; screen-change/map cases
+verified in Qt fixtures. New helper policy validates finite inputs and does not add
+polling, process/update instances or focus grabs. Physical multi-output/hotplug/
+cold-login/battery are not claimed. Root shell/Shortcuts/shared providers/helpers,
+ML4W configs/assets/generators/tests and final audit remain. Notices retained.
