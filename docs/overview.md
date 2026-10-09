@@ -11,8 +11,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   wallpaper views and AI sidebar. Desktop/AI launch actions live in desktop helpers,
   separately from Brain knowledge actions. Its renderer is separate from the AI worker.
 - **Dashboard assembly** uses NacreDashboardPanel and immediate five-tab
-  navigation. The overview cards are fresh Nacre components; full Media and Performance pages also use new components. Workspaces now uses a fresh overview; Settings
-  navigation and pages are being replaced in later batches.
+  navigation. The overview cards are fresh Nacre components; full Media and Performance pages also use new components. Workspaces now uses a fresh overview; Settings navigation and shared controls also use fresh components; individual
+  Settings pages are being replaced in later batches.
 - **Notification presentation** uses NacreNotice and a bounded popup stack; the
   existing service owns expiry, DND and private retained history.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,

@@ -144,3 +144,13 @@ with bounded summaries, window counts and a current-workspace accent. Clicking
 changes workspace through the existing compositor service and closes the menu.
 Narrow layouts scroll. Verification preview mode cannot switch workspaces. There
 are no automatic moves, app launches or changes to private workspace preferences.
+
+## Independent Settings navigation and controls
+
+NacreSettings keeps the existing twelve routes and settingsView IPC. Search uses
+section labels, descriptions and keywords; results navigate explicitly. Inactive
+menus and search results unload page bodies, while selections reset scroll. Plain
+Appearance replaces an internal type-name label. NacreSettingsPage/Section/Toggle
+measure content and wrapped labels, expose the existing content aliases and call
+the preference owner only after user activation. Individual page bodies remain
+separate rewrite work; existing device, palette, lock and account behavior stays.

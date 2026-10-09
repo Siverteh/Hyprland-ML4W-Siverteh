@@ -2,10 +2,10 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-SettingsPage {
+NacreSettingsPage {
     Component.onCompleted: TimezoneSettings.refresh()
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Local time"
         description: "The system clock stays synchronized in UTC. Your timezone sets the local time shown by apps."
 
@@ -71,7 +71,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Confirm your local timezone"
         description: "Confirm where you are if device location is unavailable. America/Chicago covers Houston and Dallas; Europe/Oslo covers Norway. Automatic mode remains available."
 

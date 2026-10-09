@@ -2,8 +2,8 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-SettingsPage {
-    SettingsSection {
+NacreSettingsPage {
+    NacreSettingsSection {
         title: "Connection"
         description: "Wi-Fi networks reported by NetworkManager."
 
@@ -44,7 +44,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Available Wi-Fi"
         description: "Connecting opens NetworkManager's password prompt when credentials are needed."
 
@@ -98,7 +98,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Connection profiles"
         description: "Manage Ethernet, VPN, saved Wi-Fi and advanced connection options."
 

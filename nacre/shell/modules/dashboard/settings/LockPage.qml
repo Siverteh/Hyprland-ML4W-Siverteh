@@ -2,8 +2,8 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-SettingsPage {
-    SettingsSection {
+NacreSettingsPage {
+    NacreSettingsSection {
         title: "Your lock screen"
         description: "Wallpaper colors, a large clock and live information around the password field."
 
@@ -23,22 +23,22 @@ SettingsPage {
             }
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Media information and playback controls"
             setting: "lockMedia"
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Weather conditions"
             setting: "lockWeather"
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Notification summaries"
             setting: "lockNotifications"
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Show notification titles and message previews"
             setting: "lockNotificationContents"
         }
@@ -52,7 +52,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Weather"
         description: "Leave the location empty for an approximate city based on your public IP. Cached conditions remain available offline."
 
@@ -85,7 +85,7 @@ SettingsPage {
             }
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Use Fahrenheit"
             setting: "weatherFahrenheit"
         }

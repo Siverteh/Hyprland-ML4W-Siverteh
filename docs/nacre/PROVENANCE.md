@@ -434,3 +434,19 @@ preview closed the wallpaper gate; unchanged candidate passed an interference-fr
 retry. Initial command chaining published before live acceptance, corrected by
 this completed verified deployment. Configerrors empty; private labels unchanged.
 Single-output synthetic input does not prove physical multi-output/cold login.
+
+## Settings navigation and shared controls (candidate)
+
+- Deleted Settings.qml and settings/{SettingsPage,SettingsSection,SettingToggle}
+  bodies without opening them. Fresh NacreSettings/catalog and NacreSettingsPage/
+  Section/Toggle from route/consumer declarations, runtime UI and existing tests.
+- Exposure: public declarations/aliases/API identifiers and existing integration
+  tests; no upstream source consulted. Caller type names migrated mechanically,
+  but page bodies/DesktopControls/providers remain pending, not certified.
+- Twelve independently described routes, plain Appearance label, all-word search,
+  result navigation, external settingsView open/state, lazy loading/unload/scroll
+  reset; measured wrapped sections, default content aliases, collapse and user-only
+  preference toggles. Own foundation interaction used in production UI fixtures.
+- Existing palette/device/lock/maintenance tests retained; extra tests cover invalid
+  routes, external page signals, labels/search/narrow bounds and section/click writes.
+  Full/live/source acceptance pending. No private settings or AI policy changes.

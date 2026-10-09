@@ -2,8 +2,8 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-SettingsPage {
-    SettingsSection {
+NacreSettingsPage {
+    NacreSettingsSection {
         title: "Bluetooth adapter"
 
         Row {
@@ -32,7 +32,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Your devices"
         description: "Connection and trust controls for known devices. Pairing confirmations use the Bluetooth manager."
 

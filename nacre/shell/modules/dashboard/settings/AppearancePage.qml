@@ -5,10 +5,10 @@ import QtQuick
 import QtQuick.Controls
 import ".."
 
-SettingsPage {
+NacreSettingsPage {
     id: root
     property string paletteGroup: "vivid"
-    SettingsSection {
+    NacreSettingsSection {
         title: "Wallpaper"
         description: "Choose a scene from your personal collection."
         Row {
@@ -40,7 +40,7 @@ SettingsPage {
             }
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Wallpaper motion"
         description: "Choose desktop animation while keeping the same scene and colors. Picker previews remain available."
         Flow {
@@ -72,7 +72,7 @@ SettingsPage {
             }
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Wallpaper rotation"
         description: "Automatically change scenes while you use the desktop."
         Flow {
@@ -260,7 +260,7 @@ SettingsPage {
             }
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Desktop colors"
         description: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" ? "Colors follow your wallpaper. Choose a natural variation below." : "A fixed palette is active. Choose Match wallpaper to follow the scene."
         Flow {
@@ -490,7 +490,7 @@ SettingsPage {
             font.pointSize: 10
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Your wallpapers"
         description: Wallpapers.list.length + " scenes in your collection"
         collapsible: true
@@ -554,7 +554,7 @@ SettingsPage {
             }
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Panels and frame"
         description: "Desktop edges, previews and panel behavior"
         collapsible: true

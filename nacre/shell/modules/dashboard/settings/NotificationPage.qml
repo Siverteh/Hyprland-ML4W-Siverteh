@@ -2,18 +2,18 @@ import qs.widgets
 import qs.services
 import QtQuick
 
-SettingsPage {
-    SettingsSection {
+NacreSettingsPage {
+    NacreSettingsSection {
         title: "Notification behavior"
-        SettingToggle {
+        NacreSettingToggle {
             label: "Do not disturb"
             setting: "dnd"
         }
-        SettingToggle {
+        NacreSettingToggle {
             label: "Show notification summaries on the lock screen"
             setting: "lockNotifications"
         }
-        SettingToggle {
+        NacreSettingToggle {
             label: "Show message previews while locked"
             setting: "lockNotificationContents"
         }
@@ -25,7 +25,7 @@ SettingsPage {
             color: Colours.palette.m3onSurfaceVariant
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Notification history"
         description: Notifs.retained.length + " retained notifications"
         ActionButton {

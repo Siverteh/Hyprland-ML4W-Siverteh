@@ -45,14 +45,14 @@ class DashboardAssemblyTests(unittest.TestCase):
                 "NacreMediaPage",
                 "NacrePerformancePage",
                 "NacreWorkspacePage",
-                "Settings",
+                "NacreSettings",
             ):
                 fields = {
                     "NacreOverview": "required property bool shouldUpdate",
                     "NacreMediaPage": "required property bool shouldUpdate;required property var visibilities",
                     "NacrePerformancePage": "required property bool shouldUpdate",
                     "NacreWorkspacePage": "required property var visibilities",
-                    "Settings": "property bool active: true",
+                    "NacreSettings": "property bool active: true",
                 }[name]
                 (target / (name + ".qml")).write_text(
                     f'import QtQuick\nItem {{implicitWidth:820;implicitHeight:420;property string pageName:"{name}";{fields}}}'

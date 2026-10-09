@@ -70,7 +70,7 @@ NacreSurface {
     }
     Component {
         id: settings
-        Settings {
+        NacreSettings {
             active: root.updating
         }
     }

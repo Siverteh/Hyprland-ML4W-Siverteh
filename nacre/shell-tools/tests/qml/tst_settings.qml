@@ -1,9 +1,76 @@
 import QtQuick
 import QtTest
 import "fixtures"
+import "settings"
 
 TestCase {
     id: test
+
+    Component {
+        id: sharedSection
+        NacreSettingsSection {
+            width: 320
+            title: "Wrapped settings heading ".repeat(5)
+            description: "Detailed description ".repeat(12)
+            collapsible: true
+            Rectangle {
+                objectName: "testSectionContent"
+                width: parent.width
+                height: 120
+            }
+        }
+    }
+    Component {
+        id: sharedToggle
+        NacreSettingToggle {
+            width: 320
+            label: "A longer checkbox label that wraps into multiple lines"
+            setting: "dnd"
+        }
+    }
+    function test_shared_section_bounds_collapse_and_user_only_toggle() {
+        const section = createTemporaryObject(sharedSection, test);
+        wait(30);
+        const content = findChild(section, "testSectionContent");
+        verify(content.mapToItem(section, 0, 0).y + content.height <= section.height - 16 + .01);
+        const height = section.height;
+        mouseClick(findChild(section, "settingsSectionToggle"), 15, 15);
+        verify(!section.expanded);
+        verify(section.height < height);
+        DesktopSettings.data = {
+            dnd: false
+        };
+        DesktopSettings.writes = [];
+        const toggle = createTemporaryObject(sharedToggle, test);
+        wait(20);
+        compare(DesktopSettings.writes.length, 0);
+        verify(!toggle.checked);
+        mouseClick(toggle, 14, toggle.height / 2);
+        compare(DesktopSettings.writes.length, 1);
+        verify(toggle.checked);
+        compare(DesktopSettings.writes[0].key, "dnd");
+    }
+    function test_catalog_plain_labels_external_routes_and_unknown_fallback() {
+        const view = createTemporaryObject(settings, test);
+        wait(20);
+        compare(view.pages.length, 12);
+        compare(view.pages[0].label, "Appearance");
+        Visibilities.settingsPage = "bluetooth";
+        wait(20);
+        compare(view.page, "bluetooth");
+        view.open("unknown");
+        compare(view.page, "appearance");
+        view.query = "microphone volume";
+        compare(view.matches.length, 1);
+        compare(view.matches[0].id, "sound");
+        view.width = 600;
+        wait(30);
+        verify(view.narrow);
+        const scroll = findChild(view, "settingsScroll");
+        verify(scroll.x + scroll.width <= view.width);
+        view.query = "no matching setting xyz";
+        compare(view.matches.length, 0);
+    }
 
     function test_pages_search_and_visible_only_loading() {
         const view = createTemporaryObject(settings, test);
@@ -175,7 +242,7 @@ TestCase {
     Component {
         id: settings
 
-        Settings {
+        NacreSettings {
             width: 1120
             height: 300
             page: "desktop"

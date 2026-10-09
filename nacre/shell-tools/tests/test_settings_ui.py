@@ -1,4 +1,4 @@
-from qml_source import remove_objects
+from qml_source import remove_objects, install_foundation_interaction
 
 """Exercise settings navigation and the shared wheel handler in native Qt."""
 import re
@@ -30,9 +30,13 @@ class SettingsUITests(unittest.TestCase):
                     .replace("Quickshell.screens[0].width", "1920")
                 )
 
-            source = adapted(ROOT.parent / "shell/modules/dashboard/Settings.qml")
+            source = adapted(ROOT.parent / "shell/modules/dashboard/NacreSettings.qml")
             source = remove_objects(source, r"\bIpcHandler\s*\{")
-            (target / "Settings.qml").write_text(source)
+            (target / "NacreSettings.qml").write_text(source)
+            shutil.copy2(
+                ROOT.parent / "shell/modules/dashboard/settings-catalog.js",
+                target / "settings-catalog.js",
+            )
             (target / "DesktopControls.qml").write_text(
                 adapted(ROOT.parent / "shell/modules/dashboard/DesktopControls.qml")
             )
@@ -96,7 +100,7 @@ class SettingsUITests(unittest.TestCase):
                 "import QtQuick\nMouseArea {anchors.fill:parent}"
             )
             (target / "fixtures/DesktopSettings.qml").write_text(
-                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property var monitors:[{name:"eDP-1",width:1920,height:1080}];property bool pending:false;function set(key,value){} function request(args){}}'
+                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property var monitors:[{name:"eDP-1",width:1920,height:1080}];property bool pending:false;property var writes:[];function set(key,value){writes=[...writes,{key:key,value:value}];data=Object.assign({},data,{[key]:value})} function request(args){}}'
             )
             (target / "fixtures/Maintenance.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property bool busy:false;function refresh(){} function request(action){} function recover(action){}}'
@@ -105,6 +109,9 @@ class SettingsUITests(unittest.TestCase):
                 manifest.write(
                     "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton Maintenance 1.0 Maintenance.qml\n"
                 )
+            install_foundation_interaction(
+                target / "fixtures", ROOT.parent / "shell/widgets"
+            )
             shutil.copy2(
                 ROOT / "tests/qml/tst_settings.qml", target / "tst_settings.qml"
             )

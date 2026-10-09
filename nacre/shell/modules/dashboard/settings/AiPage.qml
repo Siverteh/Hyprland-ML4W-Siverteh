@@ -2,10 +2,10 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-SettingsPage {
+NacreSettingsPage {
     Component.onCompleted: SidebarChat.start()
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Default assistant"
         description: "Used for new chats. Existing conversations keep their assistant and account."
 
@@ -25,7 +25,7 @@ SettingsPage {
             }
         }
 
-        SettingToggle {
+        NacreSettingToggle {
             label: "Show the left-edge AI drawer"
             setting: "leftDrawer"
         }
@@ -37,7 +37,7 @@ SettingsPage {
         }
     }
 
-    SettingsSection {
+    NacreSettingsSection {
         title: "Brain and conversations"
         description: "Your private notes, accounts and chat history stay outside the OS repository."
 

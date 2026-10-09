@@ -4,7 +4,7 @@ import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Controls
 
-SettingsPage {
+NacreSettingsPage {
     id: root
     readonly property var nodes: Pipewire.nodes.values.filter(n => n.audio !== null)
     readonly property var outputs: nodes.filter(n => !n.isStream && n.isSink)
@@ -13,7 +13,7 @@ SettingsPage {
     PwObjectTracker {
         objects: root.nodes
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Speakers and headphones"
         description: "Choose the default output for new playback."
         Repeater {
@@ -32,7 +32,7 @@ SettingsPage {
             color: Colours.palette.m3onSurfaceVariant
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Microphones"
         description: "Choose the default input. Selecting a device keeps its mute state."
         Repeater {
@@ -51,7 +51,7 @@ SettingsPage {
             color: Colours.palette.m3onSurfaceVariant
         }
     }
-    SettingsSection {
+    NacreSettingsSection {
         title: "Application volumes"
         description: "Apps appear here while they have an audio stream."
         Repeater {
