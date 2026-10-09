@@ -18,17 +18,17 @@ SearchSurface {
     property int previews: 0
     property bool dragging: false
     property string draggedAddress: ""
-    readonly property var windows: Hyprland.clients.filter(c => !c.lastIpcObject.hidden && (c.title + " " + c.wmClass).toLowerCase().includes(query.toLowerCase()))
+    readonly property var windows: NacreHyprland.clients.filter(c => !c.lastIpcObject.hidden && (c.title + " " + c.wmClass).toLowerCase().includes(query.toLowerCase()))
     readonly property var workspaces: [...new Set([1, 2, 3, 4, 5, 6, 7, ...windows.map(c => c.workspace?.id).filter(id => id > 0)])].sort((a, b) => a - b)
     function focusWindow(client) {
         if (client) {
             visibilities.launcher = false;
-            Hyprland.dispatch('hl.dsp.focus({window=' + JSON.stringify('address:' + client.address) + '})');
+            NacreHyprland.dispatch('hl.dsp.focus({window=' + JSON.stringify('address:' + client.address) + '})');
         }
     }
     function moveWindow(address, workspace) {
         if (/^0x[0-9a-f]+$/i.test(address))
-            Hyprland.dispatch('hl.dsp.window.move({window=' + JSON.stringify('address:' + address) + ',workspace=' + workspace + ',follow=false})');
+            NacreHyprland.dispatch('hl.dsp.window.move({window=' + JSON.stringify('address:' + address) + ',workspace=' + workspace + ',follow=false})');
     }
     onChosen: focusWindow(windows[selection])
     onMoved: delta => selection = Math.max(0, Math.min(windows.length - 1, selection + delta))
@@ -80,7 +80,7 @@ SearchSurface {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             root.visibilities.launcher = false;
-                            Hyprland.dispatch("workspace " + workspace.modelData);
+                            NacreHyprland.dispatch("workspace " + workspace.modelData);
                         }
                     }
                     GridView {

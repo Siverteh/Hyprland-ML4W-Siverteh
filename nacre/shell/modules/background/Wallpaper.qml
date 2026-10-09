@@ -12,10 +12,10 @@ Item {
 
     property string screenName: ""
     property url source: Wallpapers.pendingPoster ? `file://${Wallpapers.pendingPoster}` : ""
-    readonly property var monitor: Hyprland.monitors.values.find(m => m.name === screenName)
-    readonly property int workspaceId: monitor?.activeWorkspace?.id ?? Hyprland.activeWsId
+    readonly property var monitor: NacreHyprland.monitors.values.find(m => m.name === screenName)
+    readonly property int workspaceId: monitor?.activeWorkspace?.id ?? NacreHyprland.activeWsId
     readonly property bool pickerOpen: Object.values(Visibilities.screens).some(v => v.launcher && v.launcherMode === "wallpaper")
-    readonly property bool covered: Hyprland.clients.some(c => c.workspace?.id === workspaceId && (c.fullscreen || (WallpaperPlayback.pauseCovered && !c.floating)))
+    readonly property bool covered: NacreHyprland.clients.some(c => c.workspace?.id === workspaceId && (c.fullscreen || (WallpaperPlayback.pauseCovered && !c.floating)))
     readonly property bool motionAllowed: !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !WallpaperPlayback.paused && !WallpaperPlayback.batteryPaused && !pickerOpen && !covered
     property Image current: one
 

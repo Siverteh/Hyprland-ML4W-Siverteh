@@ -117,7 +117,7 @@ class QuickControlsTests(unittest.TestCase):
                 "NacreNetwork": 'property string error:"";property string monitorError:"";property bool busy:false;function refresh(){} property bool wifiEnabled:true;property string wifiInterface:"wlan0";property var active:({ssid:"ab"});property var networks:[{ssid:"ab",active:false,strength:90},{ssid:"Guest",active:false,strength:65},{ssid:"ab",active:true,strength:30}];readonly property var visibleNetworks:Wifi.group(networks)',
                 "NacreBluetooth": 'property bool powered:true;property var devices:[{name:"Headphones",alias:"Headphones",address:"AA:BB:CC:DD:EE:FF",connected:true,paired:true,trusted:true},{name:"Unpaired",alias:"Unpaired",address:"00:11:22:33:44:55",connected:false,paired:false,trusted:false}]',
                 "DeviceActions": 'property bool busy:false;property string message:"";property string lastAction:"";property var lastRequest:[];function request(a){lastRequest=a;lastAction=a[0]} function connectWifi(ssid){lastRequest=["wifi-connect",ssid]}',
-                "Hyprland": 'property var focusedMonitor:({name:"test"})',
+                "NacreHyprland": 'property var focusedMonitor:({name:"test"})',
                 "DesktopSettings": "property var data:({})",
             }
             for name, body in services.items():

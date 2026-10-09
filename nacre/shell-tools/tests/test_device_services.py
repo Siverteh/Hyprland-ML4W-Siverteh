@@ -23,6 +23,7 @@ class DeviceServiceTests(unittest.TestCase):
             fixtures.mkdir()
             definitions = {
                 "Visibilities": 'property var screens:({});property var panels:({});property string settingsPage:"notifications"',
+                "Hyprland": "property var toplevels: QtObject {property var values:[]};property var workspaces:({values:[]});property var monitors:({values:[]});property var focusedMonitor:null;property var focusedWorkspace:null;property var activeToplevel:null;property bool usingLua:true;property var requests:[];property int refreshes:0;signal rawEvent(var event);function dispatch(value){requests=[...requests,value]}function refreshToplevels(){refreshes++}function refreshMonitors(){}function refreshWorkspaces(){}",
                 "DesktopEntries": "property var applications:({values:[]})",
                 "LauncherPreferences": "property var hidden:[]",
                 "AppLaunch": "property var calls:[];function run(command,cwd){calls=[...calls,{command:command,cwd:cwd}]}",
@@ -49,13 +50,18 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {signal read(string data)}"
             )
             (fixtures / "qmldir").write_text(
-                "singleton DesktopEntries 1.0 DesktopEntries.qml\nsingleton LauncherPreferences 1.0 LauncherPreferences.qml\nsingleton AppLaunch 1.0 AppLaunch.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
+                "singleton Hyprland 1.0 Hyprland.qml\nsingleton DesktopEntries 1.0 DesktopEntries.qml\nsingleton LauncherPreferences 1.0 LauncherPreferences.qml\nsingleton AppLaunch 1.0 AppLaunch.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
             )
             (fixtures / "FileView.qml").write_text(
                 'import QtQuick\nQtObject {property string path:"";property bool printErrors:false;signal loaded();function text(){return ""}function reload(){}}'
             )
             with (fixtures / "qmldir").open("a") as manifest:
                 manifest.write("\nFileView 1.0 FileView.qml\n")
+            if name == "NacreHyprland":
+                shutil.copy2(
+                    ROOT.parent / "shell/services/NacreClient.qml",
+                    target / "NacreClient.qml",
+                )
             if name == "NacreApps":
                 shutil.copy2(
                     ROOT.parent / "shell/services/app-search.js",
@@ -96,6 +102,10 @@ class DeviceServiceTests(unittest.TestCase):
                     "import Quickshell.Services.Notifications", 'import "fixtures"'
                 )
                 .replace("import Quickshell.Services.Mpris", 'import "fixtures"')
+                .replace(
+                    "import Quickshell.Hyprland as Native",
+                    'import "fixtures" as Native',
+                )
                 .replace("import Quickshell.Hyprland", "")
                 .replace("import Quickshell.Io", 'import "fixtures"')
                 .replace("import Quickshell", 'import QtQuick\nimport "fixtures"')
@@ -144,3 +154,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_clock_civil_format_precision_and_enable(self):
         self.run_service("NacreTime")
+
+    def test_compositor_identity_metadata_focus_removal_and_lua_dispatch(self):
+        self.run_service("NacreHyprland")

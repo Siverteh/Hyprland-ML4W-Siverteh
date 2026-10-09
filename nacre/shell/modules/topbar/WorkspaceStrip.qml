@@ -11,8 +11,8 @@ Row {
             id: button
             required property int index
             readonly property int ws: index + 1
-            readonly property bool selected: Hyprland.activeWsId === ws
-            readonly property bool occupied: Hyprland.clients.some(c => c.workspace?.id === ws)
+            readonly property bool selected: NacreHyprland.activeWsId === ws
+            readonly property bool occupied: NacreHyprland.clients.some(c => c.workspace?.id === ws)
             implicitWidth: 46
             implicitHeight: 30
             radius: 15
@@ -44,7 +44,7 @@ Row {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: Hyprland.dispatch("workspace " + button.ws)
+                onClicked: NacreHyprland.dispatch("workspace " + button.ws)
             }
         }
     }

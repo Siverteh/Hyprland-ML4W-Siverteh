@@ -22,7 +22,7 @@ class WorkspaceUITests(unittest.TestCase):
             prepare_overview(target)
             fixtures = target / "fixtures"
             providers = {
-                "Hyprland": 'property var clients:[];property int activeWsId:2;property string request:"";function dispatch(value){request=value}',
+                "NacreHyprland": 'property var clients:[];property int activeWsId:2;property string request:"";function dispatch(value){request=value}',
                 "NacreIcons": 'function getDesktopEntry(name){return name==="chrome"?{name:"Browser"}:null}',
             }
             for name, source in providers.items():

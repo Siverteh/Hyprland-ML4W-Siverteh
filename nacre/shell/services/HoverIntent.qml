@@ -12,7 +12,7 @@ Singleton {
     property var popupHovered: ({})
 
     function fullscreenFor(name) {
-        return Hyprland.focusedMonitor?.name === name && Hyprland.activeClient?.lastIpcObject?.fullscreen === 2;
+        return NacreHyprland.focusedMonitor?.name === name && NacreHyprland.activeClient?.lastIpcObject?.fullscreen === 2;
     }
     function canAuto(screen, buttons) {
         return buttons === Qt.NoButton && !fullscreenFor(screen.name);

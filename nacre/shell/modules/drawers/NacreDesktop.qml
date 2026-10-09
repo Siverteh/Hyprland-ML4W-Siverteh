@@ -14,7 +14,7 @@ Scope {
     IpcHandler {
         target: "leftEdge"
         function state(): string {
-            const name = Hyprland.focusedMonitor?.name ?? Object.keys(Visibilities.panels)[0];
+            const name = NacreHyprland.focusedMonitor?.name ?? Object.keys(Visibilities.panels)[0];
             const input = Visibilities.panels[name]?.input;
             return JSON.stringify({
                 registered: !!input,

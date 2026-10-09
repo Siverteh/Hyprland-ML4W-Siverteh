@@ -21,12 +21,12 @@ ShellRoot {
     IpcHandler {
         target: "leftDrawer"
         function section(name: string): void {
-            const panel = Visibilities.panels[Hyprland.focusedMonitor?.name];
+            const panel = Visibilities.panels[NacreHyprland.focusedMonitor?.name];
             if (panel && ["chat", "chats", "brain", "settings"].includes(name))
                 panel.leftDrawer.section = name;
         }
         function state(): string {
-            const drawer = Visibilities.panels[Hyprland.focusedMonitor?.name]?.leftDrawer;
+            const drawer = Visibilities.panels[NacreHyprland.focusedMonitor?.name]?.leftDrawer;
             return JSON.stringify({
                 section: drawer?.section,
                 width: drawer?.width,
@@ -39,8 +39,8 @@ ShellRoot {
         function state(): string {
             const v = Visibilities.getForActive();
             return JSON.stringify({
-                active: Hyprland.activeWsId,
-                workspaces: Hyprland.workspaces.values.length,
+                active: NacreHyprland.activeWsId,
+                workspaces: NacreHyprland.workspaces.values.length,
                 dashboard: v?.dashboard,
                 edgeMenu: v?.edgeMenu,
                 clickEdgeMenus: DesktopSettings.data.clickEdgeMenus === true,
@@ -75,7 +75,7 @@ ShellRoot {
             if (saved.left === true) {
                 v.left = true;
                 v.leftPinned = saved.leftPinned === true;
-                const p = Visibilities.panels[Hyprland.focusedMonitor?.name];
+                const p = Visibilities.panels[NacreHyprland.focusedMonitor?.name];
                 if (p && ["chat", "chats", "brain", "settings"].includes(saved.leftSection))
                     p.leftDrawer.section = saved.leftSection;
             }
@@ -146,16 +146,16 @@ ShellRoot {
                 v.dashboard = false;
                 v.launcher = false;
                 v.session = !v.session;
-                const p = Visibilities.panels[Hyprland.focusedMonitor?.name];
+                const p = Visibilities.panels[NacreHyprland.focusedMonitor?.name];
                 if (p)
                     p.popouts.hasCurrent = false;
             }
         }
         function popout(name: string, center: real): void {
-            Visibilities.popout(name, center, Hyprland.focusedMonitor?.name ?? Object.keys(Visibilities.screens)[0]);
+            Visibilities.popout(name, center, NacreHyprland.focusedMonitor?.name ?? Object.keys(Visibilities.screens)[0]);
         }
         function close(): void {
-            const screen = Quickshell.screens.find(s => s.name === Hyprland.focusedMonitor?.name) || Quickshell.screens[0];
+            const screen = Quickshell.screens.find(s => s.name === NacreHyprland.focusedMonitor?.name) || Quickshell.screens[0];
             if (screen)
                 HoverIntent.dismiss(screen);
             const v = Visibilities.getForActive();
@@ -192,7 +192,7 @@ ShellRoot {
                     })));
         }
         function workspace(id: int): void {
-            Hyprland.dispatch("workspace " + id);
+            NacreHyprland.dispatch("workspace " + id);
         }
         function tab(index: int): void {
             const v = Visibilities.getForActive();

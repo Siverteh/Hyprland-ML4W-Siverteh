@@ -355,7 +355,7 @@ Item {
                     color: Colours.palette.m3primary
                 }
                 Repeater {
-                    model: Hyprland.clients.filter(c => c.wmClass === "siverteh-ai-task")
+                    model: NacreHyprland.clients.filter(c => c.wmClass === "siverteh-ai-task")
                     ChatCard {
                         required property var modelData
                         label: ChatWindowTitle.titles[modelData.pid] || modelData.title
@@ -363,7 +363,7 @@ Item {
                         onClicked: {
                             root.visibilities.left = false;
                             root.visibilities.leftPinned = false;
-                            Hyprland.dispatch('hl.dsp.focus({window=' + JSON.stringify('address:' + modelData.address) + '})');
+                            NacreHyprland.dispatch('hl.dsp.focus({window=' + JSON.stringify('address:' + modelData.address) + '})');
                         }
                     }
                 }

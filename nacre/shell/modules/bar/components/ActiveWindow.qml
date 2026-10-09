@@ -13,7 +13,7 @@ Item {
     required property Brightness.Monitor monitor
     property bool horizontal: false
     readonly property string displayTitle: {
-        const client = Hyprland.activeClient;
+        const client = NacreHyprland.activeClient;
         if (client?.wmClass === "siverteh-ai-dashboard")
             return "Nacre AI";
         if (client?.wmClass === "siverteh-ai-task") {
@@ -80,7 +80,7 @@ Item {
             rotation: -90
 
             animate: true
-            text: NacreIcons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
+            text: NacreIcons.getAppCategoryIcon(NacreHyprland.activeClient?.wmClass, "desktop_windows")
             color: root.colour
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -135,7 +135,7 @@ Item {
         width: Math.min(implicitWidth, root.width)
         spacing: NacreAppearance.spacing.small
         NacreIcon {
-            text: NacreIcons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
+            text: NacreIcons.getAppCategoryIcon(NacreHyprland.activeClient?.wmClass, "desktop_windows")
             color: root.colour
             Layout.alignment: Qt.AlignVCenter
         }

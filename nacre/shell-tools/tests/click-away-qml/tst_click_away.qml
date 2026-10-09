@@ -19,19 +19,19 @@ TestCase {
         HoverIntent.observe(screen, 250, 40);
         verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
         verify(!HoverIntent.canOpen("dashboard", screen, Qt.LeftButton));
-        Hyprland.activeClient = {
+        NacreHyprland.activeClient = {
             "lastIpcObject": {
                 "fullscreen": 2
             }
         };
         verify(!HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        Hyprland.activeClient = {
+        NacreHyprland.activeClient = {
             "lastIpcObject": {
                 "fullscreen": 1
             }
         };
         verify(HoverIntent.canOpen("dashboard", screen, Qt.NoButton));
-        Hyprland.activeClient = null;
+        NacreHyprland.activeClient = null;
     }
 
     function test_clicks_inside_keep_open_and_outside_dismiss() {

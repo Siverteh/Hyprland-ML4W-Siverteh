@@ -13,7 +13,7 @@ Item {
     implicitWidth: 796
     implicitHeight: 50 + rows * 134 + (rows - 1) * 12
     function clientsFor(id) {
-        return Hyprland.clients.filter(c => (typeof c.workspace === "number" ? c.workspace : c.workspace?.id) === id);
+        return NacreHyprland.clients.filter(c => (typeof c.workspace === "number" ? c.workspace : c.workspace?.id) === id);
     }
     function summary(id) {
         const names = clientsFor(id).map(c => NacreIcons.getDesktopEntry(c.wmClass)?.name || c.title || c.wmClass || "Window");
@@ -22,7 +22,7 @@ Item {
     function activate(id) {
         if (!Number.isInteger(id) || id < 1 || id > 7 || !visibilities.dashboard || visibilities.previewOnly)
             return;
-        Hyprland.dispatch("workspace " + id);
+        NacreHyprland.dispatch("workspace " + id);
         visibilities.dashboard = false;
     }
     Flickable {
@@ -50,12 +50,12 @@ Item {
                     id: card
                     required property int index
                     readonly property int workspaceId: index + 1
-                    readonly property color ink: Hyprland.activeWsId === workspaceId ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
+                    readonly property color ink: NacreHyprland.activeWsId === workspaceId ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3onSurface
                     objectName: "workspaceCard" + workspaceId
                     width: (parent.width - (root.columns - 1) * 12) / root.columns
                     height: 134
                     radius: 18
-                    color: Hyprland.activeWsId === workspaceId ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainer
+                    color: NacreHyprland.activeWsId === workspaceId ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainer
                     Column {
                         x: 16
                         y: 16
@@ -83,14 +83,14 @@ Item {
                             width: parent.width
                             text: root.summary(card.workspaceId)
                             font.pointSize: 11
-                            color: Hyprland.activeWsId === card.workspaceId ? card.ink : NacreTokens.mutedInk
+                            color: NacreHyprland.activeWsId === card.workspaceId ? card.ink : NacreTokens.mutedInk
                             elide: Text.ElideRight
                         }
                         NacreText {
                             width: parent.width
                             text: root.clientsFor(card.workspaceId).length + " " + (root.clientsFor(card.workspaceId).length === 1 ? "window" : "windows")
                             font.pointSize: 9
-                            color: Hyprland.activeWsId === card.workspaceId ? card.ink : NacreTokens.mutedInk
+                            color: NacreHyprland.activeWsId === card.workspaceId ? card.ink : NacreTokens.mutedInk
                         }
                     }
                     NacreInteraction {

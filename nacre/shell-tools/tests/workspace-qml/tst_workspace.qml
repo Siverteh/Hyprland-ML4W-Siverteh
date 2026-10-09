@@ -19,8 +19,8 @@ TestCase {
         }
     }
     function init() {
-        Hyprland.request = "";
-        Hyprland.clients = [
+        NacreHyprland.request = "";
+        NacreHyprland.clients = [
             {
                 workspace: 1,
                 wmClass: "chrome",
@@ -48,7 +48,7 @@ TestCase {
         compare(view.summary(2), "My editor");
         compare(view.summary(7), "Empty");
         mouseClick(findChild(view, "workspaceCard3"), 40, 40);
-        compare(Hyprland.request, "workspace 3");
+        compare(NacreHyprland.request, "workspace 3");
         compare(view.visibilities.dashboard, false);
     }
     function test_invalid_hidden_preview_and_narrow_geometry() {
@@ -56,14 +56,14 @@ TestCase {
         wait(10);
         for (const invalid of [0, 8, -1, NaN, 2.5])
             view.activate(invalid);
-        compare(Hyprland.request, "");
+        compare(NacreHyprland.request, "");
         view.visibilities.previewOnly = true;
         view.activate(2);
-        compare(Hyprland.request, "");
+        compare(NacreHyprland.request, "");
         view.visibilities.previewOnly = false;
         view.visibilities.dashboard = false;
         view.activate(2);
-        compare(Hyprland.request, "");
+        compare(NacreHyprland.request, "");
         for (const width of [300, 508, 796]) {
             view.width = width;
             wait(40);

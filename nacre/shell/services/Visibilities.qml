@@ -123,6 +123,6 @@ Singleton {
             v.leftPinned = false;
     }
     function getForActive(): PersistentProperties {
-        return screens[Hyprland.focusedMonitor?.name] || Object.values(screens)[0] || null;
+        return screens[NacreHyprland.focusedMonitor?.name] || Object.values(screens)[0] || null;
     }
 }
