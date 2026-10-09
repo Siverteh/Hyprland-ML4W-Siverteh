@@ -5,6 +5,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
 
 ## The main pieces
 
+- **Base configuration** uses independent Nacre compositor/terminal defaults;
+  private overrides and generated palette stay separate.
 - **UWSM** starts the graphical session and gives user services their environment.
 - **Hyprland** places windows, handles workspaces and runs keyboard shortcuts.
 - **Quickshell** draws the bar, frame, top settings menu, launchers, notifications,

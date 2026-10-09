@@ -18,3 +18,15 @@ pseudo-terminal tests verify a new graphics packet without sending a key.
 The Qt sidebar uses live SVG palette bindings and is a separate rendering path.
 
 
+
+## Independent terminal defaults
+
+Kitty's static configuration is now a small Nacre-owned baseline. It retains the
+current font, geometry, scrollback and cursor settings, then loads the private
+palette and optional custom.conf. The optional file uses globinclude, so absence
+is quiet; private colour publication still owns opacity/selection colours.
+
+Fastfetch uses an independent plain Nacre information layout and the existing
+private palette-coloured logo. Filesystem age validates root birth time and shows
+Unknown for unsupported/future dates; it is not labelled OS installation age.
+The logo generator/helpers have their own remaining provenance audit.

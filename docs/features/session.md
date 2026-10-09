@@ -59,3 +59,13 @@ selection and stores the result privately. Sending is explicit. Message/code cop
 buttons use the clipboard only when clicked. Attachment controls become available
 when the updated assistant backend advertises support.
 
+
+## Independent base appearance and tool rules
+
+Nacre's base misc/decoration/tool Lua files are independently authored from the
+current live options and maintained app contracts. Private host/desktop/palette
+settings still load afterward. Shell glass excludes wallpaper/input-only surfaces.
+Current mixer, Bluetooth/network editor, share picker, controls, preview and PiP
+rules stay; unreferenced old ML4W app/hub/dotfiles rules are retired. Installed nwg
+tools remain available but no longer receive inherited special window placement.
+The lock preview rule now matches its actual Nacre title.

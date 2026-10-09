@@ -248,3 +248,9 @@ control/recovery queries, and NacreShellShortcuts owns native shortcut callbacks
 The writable Visibilities compatibility adapter forwards to this single owner;
 registry/recovery still update owner-checked maps. App launch, palette/device and
 private assistant services are separate and unchanged by visibility commands.
+
+Independent misc/decoration/nacre Lua defaults own current base appearance and
+maintained utility window rules; private loaders retain final precedence. Kitty
+loads private generated palette and optional overrides. Fastfetch's plain layout
+and validated filesystem-age helper are independent; logo helpers/generator remain
+separate audit. Retiring an unused app rule does not uninstall that application.

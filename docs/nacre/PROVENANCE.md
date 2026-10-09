@@ -944,3 +944,22 @@ in Qt fixtures; physical Super/chord/hotplug/cold login and populated-draft reco
 are not claimed. No real app/workspace/device/power/settings/AI action by route QA.
 Other state/playback/helpers/extras/widgets/ML4W configs/assets/generators/tests
 and final audit remain; notices retained and goal stays active.
+
+## ML4W-era compositor/terminal defaults (replaced; acceptance pending)
+
+Deleted misc/decoration/nacre Lua, Kitty and Fastfetch config bodies before fresh
+Nacre defaults from public declarations/native values/maintained helper calls and
+platform APIs. Prior exposure acknowledged; no upstream ML4W source/no legal
+clean-room claim. Native snapshot includes20 compositor options and parsed Kitty
+values. Shadow base matches current black-alpha40, private overrides retain final
+load order. Generated palette controls current0.98 opacity/selection colours.
+
+Current fallback tools/share picker/PiP/native controls retained with own named
+rules; actual Nacre preview title fixes stale matching. Newelle/old hub/nwg/old
+floating/sidepad/calculator inherited rules retired. nwg tools are installed but
+unreferenced by current source/startup, not claimed uninstalled. Fastfetch layout
+fresh without inherited box/glyph macros/arithmetic; own filesystem-age helper
+validates birth time/future/unknown rather than claiming OS installation date.
+Native Kitty effective options identical and parser passes; Fastfetch native data
+mode parsed (render-only Colors module has no JSON representation). Whole related
+logo/generator/helper/config audit remains, notices retained.
