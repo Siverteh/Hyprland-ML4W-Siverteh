@@ -11,6 +11,10 @@
 | Login appearance | `nacre/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
 | Terminal presentation | `kitty/`, `fastfetch/` | Installed static config plus private generated SH logo and terminal palette |
 
+NacreDashboardPanel and NacreDashboardNavigation own page selection and lazy
+loading; the retained dashboard/media/performance/workspace/settings page bodies
+remain separate originality work.
+
 NacreNotice and NacreNotificationStack own notification card/stack presentation.
 Notifs owns native notification objects, popup expiry and private history; neither
 UI component becomes another server or stores native actions in history.

@@ -61,7 +61,7 @@ Item {
         y: root.sessionPosition.y
         clip: true
     }
-    Dashboard.Wrapper {
+    Dashboard.NacreDashboardPanel {
         id: dashboard
         visibilities: root.visibilities
         x: root.dashboardPosition.x

@@ -311,3 +311,17 @@ history count remained 44. Installed presentation matches source and configerror
 are empty. Synthetic native visual review and one-output virtual pointer checks
 do not establish physical multi-output/cold-login behavior. Existing providers
 remain explicitly pending; no license/notice retired.
+
+## Dashboard assembly batch (candidate)
+
+- Deleted inherited Tabs/Content/Wrapper bodies without opening them; fresh
+  NacreDashboardPanel and NacreDashboardNavigation implement page loading,
+  measured viewport/clipping, immediate selection, Settings pin and closing
+  teardown. Page bodies and settings/helpers remain pending, not certified.
+- Contract basis: public required property/import declarations, frame/service
+  callers, live five-tab observation and dimension measurements. No upstream
+  implementation consulted. Body color comes from NacreTokens, not a copied
+  reference theme. Native Qt/Quickshell dependencies and notices retained.
+- Actual replacement tests cover all pages/required bindings, clicked immediate
+  underline/pinning, lazy lifecycle, fixed closing geometry, reopen, hidden
+  updates, Escape, viewport bounds and reduced motion. Full/live checks pending.

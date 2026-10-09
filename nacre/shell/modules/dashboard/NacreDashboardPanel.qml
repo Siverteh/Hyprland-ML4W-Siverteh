@@ -1,0 +1,85 @@
+pragma ComponentBehavior: Bound
+import QtQuick
+import Quickshell
+import qs.widgets
+
+NacreSurface {
+    id: root
+    required property PersistentProperties visibilities
+    readonly property real viewportWidth: parent?.width ?? 1200
+    readonly property real viewportHeight: parent?.height ?? 1000
+    readonly property int currentIndex: Math.max(0, Math.min(4, visibilities.dashboardTab || 0))
+    readonly property bool updating: visibilities.dashboard && visible
+    readonly property real contentWidth: Math.min(viewportWidth - 48, Math.max(320, (page.item?.implicitWidth || 820) + 44))
+    readonly property real contentHeight: Math.min(viewportHeight - 64, navigation.height + (page.item?.implicitHeight || 420) + 44)
+    property real presentedHeight: visibilities.dashboard ? contentHeight : 0
+    implicitWidth: Math.max(0, contentWidth)
+    implicitHeight: Math.max(0, presentedHeight)
+    visible: height > 0
+    color: NacreTokens.body
+    clip: true
+    radius: 18
+    function select(index) {
+        visibilities.dashboardTab = index;
+        visibilities.dashboardPinned = index === 4;
+    }
+    NacreDashboardNavigation {
+        id: navigation
+        objectName: "dashboardNavigation"
+        x: 22
+        y: 12
+        width: Math.max(0, root.width - 44)
+        currentIndex: root.currentIndex
+        onSelected: index => root.select(index)
+    }
+    Loader {
+        id: page
+        objectName: "dashboardPage"
+        active: root.visibilities.dashboard || root.presentedHeight > 0
+        x: 22
+        y: navigation.y + navigation.height + 14
+        width: Math.max(0, root.width - 44)
+        height: Math.max(0, root.contentHeight - y - 18)
+        focus: true
+        sourceComponent: [overview, media, performance, workspaces, settings][root.currentIndex]
+    }
+    Component {
+        id: overview
+        Dash {
+            shouldUpdate: root.updating
+        }
+    }
+    Component {
+        id: media
+        Media {
+            shouldUpdate: root.updating
+            visibilities: root.visibilities
+        }
+    }
+    Component {
+        id: performance
+        Performance {}
+    }
+    Component {
+        id: workspaces
+        WorkspacePage {
+            visibilities: root.visibilities
+        }
+    }
+    Component {
+        id: settings
+        Settings {
+            active: root.updating
+        }
+    }
+    Behavior on presentedHeight {
+        NumberAnimation {
+            duration: NacreTokens.motionEnabled ? 250 : 0
+            easing.type: Easing.OutCubic
+        }
+    }
+    Keys.onEscapePressed: {
+        visibilities.dashboard = false;
+        visibilities.dashboardPinned = false;
+    }
+}

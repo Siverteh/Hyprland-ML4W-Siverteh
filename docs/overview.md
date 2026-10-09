@@ -10,6 +10,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
 - **Quickshell** draws the bar, frame, top settings menu, launchers, notifications,
   wallpaper views and AI sidebar. Desktop/AI launch actions live in desktop helpers,
   separately from Brain knowledge actions. Its renderer is separate from the AI worker.
+- **Dashboard assembly** uses NacreDashboardPanel and immediate five-tab
+  navigation; page bodies are being replaced in separate verified batches.
 - **Notification presentation** uses NacreNotice and a bounded popup stack; the
   existing service owns expiry, DND and private retained history.
 - **The palette publisher** applies wallpaper colors to the shell, window borders,

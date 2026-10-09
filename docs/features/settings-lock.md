@@ -105,3 +105,12 @@ Holding the physical button retains the machine's firmware emergency power-off;
 this is not a new timed software shutdown command. Its timing is hardware-specific.
 The OS does not prevent that hardware override. Actual shutdown is not performed
 as a deployment check. See [systemd's inhibitor ownership documentation](https://systemd.io/INHIBITOR_LOCKS/).
+
+## Independent dashboard assembly
+
+NacreDashboardPanel lazily loads the selected top-menu page and clips fixed
+internal geometry during dismissal. NacreDashboardNavigation changes the selected
+label/underline immediately. Settings keeps pinned keyboard focus; choosing
+another tab releases that pin. Hidden pages stop their declared update/active
+contract and unload after closing. Page bodies remain separate rewrite batches;
+existing personal settings and lock authentication ownership are preserved.
