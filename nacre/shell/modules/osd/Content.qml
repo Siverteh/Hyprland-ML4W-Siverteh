@@ -11,6 +11,7 @@ Column {
     anchors.left: parent.left
     spacing: 12
     Grid {
+        id: lightControls
         columns: 2
         columnSpacing: 14
         rowSpacing: 12
@@ -82,7 +83,7 @@ Column {
         }
     }
     NacreText {
-        width: parent.width
+        width: lightControls.implicitWidth
         text: root.monitor?.error || NacreKeyboardLight.error
         visible: text.length > 0
         color: NacreColours.palette.m3error
