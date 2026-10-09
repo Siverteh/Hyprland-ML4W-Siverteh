@@ -175,3 +175,6 @@ The ThemePresentation name forwards to it. See
 
 The [whole-tree provenance audit](nacre/CURRENT-TREE-AUDIT.md) inventories source,
 helpers, tests, configuration and assets separately from functional acceptance.
+
+The unused legacy file-thumbnail Python helper is retired; native Qt images and
+prepared wallpaper posters supply previews without a second thumbnail worker.

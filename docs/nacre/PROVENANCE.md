@@ -982,3 +982,13 @@ Six application click/key-return cycles passed, shell active/configerrors empty.
 No private host overrides/generator/logo assets or accounts changed. Empty custom
 Kitty override stays quiet. Related helpers/other configs/whole provenance and
 physical cold-login/hardware behavior remain; notices retained, goal active.
+
+## Unused thumbnail helper retirement
+
+The full tracked-tree reference check found no maintained caller of
+`nacre/shell/utils/thumbnail.py` after Thumbnailer retirement. Deleted without
+reading/reusing its body; Qt native images and prepared wallpaper posters remain
+the only maintained preview paths. The installer copies the whole shell tree,
+so the dead file was still deployed. [Retirement spec](../specs/retired-thumbnail-helper.md)
+and the retired-path integrity guard cover the source boundary. Applicable
+notices remain; this does not certify unrelated thumbnail/publisher helpers.

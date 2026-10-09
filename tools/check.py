@@ -22,6 +22,7 @@ RETIRED = (
     "rice",
     "nacre/wallpapers",
     "nacre/welcome",
+    "nacre/shell/utils/thumbnail.py",
 )
 
 
