@@ -120,6 +120,12 @@ Item {
         onTriggered: root.finish()
     }
     Connections {
+        target: NacrePresentation
+        function onRevisionChanged() {
+            root.request();
+        }
+    }
+    Connections {
         target: NacreTokens
         function onMotionEnabledChanged() {
             if (!NacreTokens.motionEnabled)

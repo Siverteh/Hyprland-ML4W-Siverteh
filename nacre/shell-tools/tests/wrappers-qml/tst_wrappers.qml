@@ -73,6 +73,36 @@ TestCase {
             source: ""
         }
     }
+    property var sessionTarget: null
+    Keys.onEscapePressed: event => {
+        if (sessionTarget) {
+            sessionTarget.visibilities.session = false;
+            event.accepted = true;
+        }
+    }
+    function test_session_focus_and_escape_reach_parent_controller() {
+        const panel = createTemporaryObject(session, test);
+        sessionTarget = panel;
+        panel.visibilities.session = true;
+        tryCompare(panel, "focus", true, 400);
+        keyClick(Qt.Key_Escape);
+        verify(!panel.visibilities.session);
+        compare(AppLaunch.calls.length, 0);
+        sessionTarget = null;
+    }
+    function test_ready_image_waits_for_late_matching_presentation() {
+        const view = createTemporaryObject(scene, test);
+        const path = decodeURIComponent(Qt.resolvedUrl("first.png").toString().slice(7));
+        view.source = view.fileUrl(path);
+        tryCompare(view.current, "status", Image.Ready, 1000);
+        compare(view.displayedPath, "");
+        NacrePresentation.pending = {
+            poster: path
+        };
+        NacrePresentation.revision++;
+        tryCompare(view, "displayedPath", path, 1000);
+        compare(NacrePresentation.active.poster, path);
+    }
     function test_osd_startup_readonly_user_actions_and_close_retention() {
         const panel = createTemporaryObject(osd, test);
         panel.visibility = true;

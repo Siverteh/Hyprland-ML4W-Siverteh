@@ -42,7 +42,7 @@ class DesktopWrappersTests(unittest.TestCase):
                 "AppLaunch": "property var calls:[];function run(command){calls=[...calls,command]}",
                 "NacreWallpapers": 'property string pendingPoster:"";property bool displayDynamic:false;property bool displayAnimated:false;property string displayPath:""',
                 "NacreFrame": 'property color colour:"#101014"',
-                "NacrePresentation": 'property var pending:({});property var active:({});property var activations:[];function canonicalPoster(value){return value.startsWith("file://")?decodeURIComponent(value.slice(7)):value}function activate(path){if(path!==pending.poster)return false;active=pending;activations=[...activations,path];return true}',
+                "NacrePresentation": 'property int revision:0;property var pending:({});property var active:({});property var activations:[];function canonicalPoster(value){return value.startsWith("file://")?decodeURIComponent(value.slice(7)):value}function activate(path){if(path!==pending.poster)return false;active=pending;activations=[...activations,path];return true}',
             }
             with (fixtures / "qmldir").open("a") as manifest:
                 for name in ("NacreIcon", "NacreSlider"):

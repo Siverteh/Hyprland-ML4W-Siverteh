@@ -60,3 +60,9 @@ OSD/session/Escape/application return, private hash/device values, compositor an
 full tests/plan/apply/main CI precede acceptance. No real lock/power/brightness/
 volume/wallpaper selection writes during QA. Single-output acceptance does not
 prove physical hotplug/cold login/battery behavior.
+
+Live/ordering follow-up: session opening requests Qt focus after positive visible
+geometry, with Escape still propagated to the existing frame owner. The poster
+also listens to presentation revision, so an already-ready image retries matched
+activation when palette data arrives later without changing the poster URL. No
+polling/delay or image apply is introduced; both have actual Qt regressions.

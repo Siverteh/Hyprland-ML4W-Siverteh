@@ -10,6 +10,12 @@ Item {
     visible: width > 0
     enabled: visibilities.session
     clip: true
+    function focusOpened() {
+        if (visibilities.session && visible)
+            forceActiveFocus(Qt.OtherFocusReason);
+    }
+    onVisibleChanged: if (visible)
+        Qt.callLater(focusOpened)
     function syncSize() {
         presentedWidth = visibilities.session ? 150 : 0;
     }
@@ -17,6 +23,8 @@ Item {
         target: root.visibilities
         function onSessionChanged() {
             root.syncSize();
+            if (root.visibilities.session)
+                Qt.callLater(root.focusOpened);
         }
     }
     Component.onCompleted: syncSize()
