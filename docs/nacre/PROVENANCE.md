@@ -1,8 +1,10 @@
 # Nacre independent implementation tracker
 
-Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
-views verified. All initially listed services addressed: eleven replaced, unused
-Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers verified. Bar controls and battery/calendar verified. Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
+Status: Orient, foundation/frame/launcher/notifications and dashboard/Settings
+views verified. Initial services, matched presentation, wallpaper/weather providers
+and bar controls/battery/calendar verified. Remaining quick popups/assembly now
+replaced (verification pending); supporting UI/config/helpers and whole-tree audit
+remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -42,11 +44,13 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | verified | [Launcher spec](../specs/launcher.md); independent assembly and all app/wallpaper views |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | verified | [Notification spec](../specs/notifications.md); presentation replaced, service remains separate |
 | 5 | `shell/modules/drawers/{Drawers,Interactions,Panels,Exclusions}.qml` | verified | [Frame/panel spec](../specs/frame-panels.md); ownership and live contracts next |
-| 5 | `shell/modules/bar/popouts/{Battery,Content,Wrapper}.qml`; `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; current `modules/topbar/` | audit pending | Verify maintained versus unused code before rewriting |
+| 5a | `bar/components/{ActiveWindow,Power,StatusIcons}.qml`; `bar/popouts/{Battery,Calendar}.qml` | verified | [Bar spec](../specs/bar-controls.md); CalendarGrid retired |
+| 5b | `bar/popouts/{Audio,Network,Bluetooth,Notifications,QuickList,QuickSlider,Content,Wrapper}.qml` | replaced | [Quick popup spec](../specs/quick-popups.md); acceptance pending |
+| 5c | `modules/topbar/` | audit pending | Caller renames and small fixes do not certify full bodies |
 | 6 | `shell/modules/dashboard/{Tabs,Content,Dash,Wrapper,Media,Performance}.qml`; `dashboard/dash/{DateTime,Media,Resources,User,Weather}.qml` | verified | [Dashboard spec](../specs/dashboard.md); assembly, cards, pages and Settings replaced |
 | 7 | `shell/services/{Colours,Hyprland,Players,SystemUsage,Bluetooth,Apps,Thumbnailer,Time,Network,Audio,Brightness,Notifs}.qml` | verified | Eleven listed providers replaced; unused Thumbnailer retired. Other mixed providers/helpers and whole-tree audit remain |
 | 7 | `shell/modules/osd/{Wrapper,Interactions}.qml`; `session/Wrapper.qml`; `background/Background.qml`; `modules/Shortcuts.qml` | audit pending | Small wrappers plus runtime import/dependency audit |
-| 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | audit pending | Remove unused/unclear artwork; replace search or retain correct MIT attribution; independent seed in Orient task |
+| 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | partly verified | Bongocat/fuzzysort retired; independent seed in Orient. Stock font/icon license audit remains |
 | 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
 | Final | Remaining QML/JS/Python/Lua, assets, tests, generated files and packaging | audit pending | Review beyond the supplied list; document dependencies and perform provenance comparison |
 
@@ -803,3 +807,21 @@ hover popouts/three header Settings routes/Escape/power-menu Escape and full fra
 click/keyboard checks reran successfully; live capture inspected without clipped
 normal glyphs. Profiles/volume/private hashes unchanged; no runtime diagnostics.
 Final CI is required for the follow-up before reporting verified publishing.
+
+## Remaining quick popups and shared assembly (replaced; acceptance pending)
+
+Deleted eight mixed/inherited bodies before NacreSoundPopup/NetworkPopup/
+BluetoothPopup/HistoryPopup/QuickList/QuickSlider/PopupContent/PopupPanel. Public
+contracts, current caller routing/input, producer/service schemas, own primitives,
+existing tests and Qt/Quickshell dependency APIs informed implementations. Earlier
+view/assembly exposure recorded; no upstream source/no legal clean-room claim.
+Maintained frame host uses NacrePopupPanel; old names minimal own forwarders.
+
+Preserved tests now instantiate actual new views/assembly, covering six routes,
+close retention/unload/reversal, reduced motion, pin/Escape, stale row guards,
+backend-vs-user slider changes and no display writes. Native tests found JS row
+identity copies; resolve Wi-Fi/Bluetooth identifiers to current rows before action.
+Synchronous Loader sizing is outside presentation bindings to prevent binding
+loops; pin focus waits for actual visibility. Existing Nacre notice rendering,
+services, native dependency licenses and notices retained. TopBar/root/other
+wrappers/helpers and final provenance audit remain independent tasks.

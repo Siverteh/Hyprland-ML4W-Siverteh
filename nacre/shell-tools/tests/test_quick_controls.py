@@ -67,25 +67,66 @@ class QuickControlsTests(unittest.TestCase):
                     .replace("import Quickshell.Services.Pipewire", "")
                 )
 
-            for name in ["Audio", "Network", "Bluetooth"]:
+            for name, component in [
+                ("Audio", "NacreSoundPopup"),
+                ("Network", "NacreNetworkPopup"),
+                ("Bluetooth", "NacreBluetoothPopup"),
+            ]:
                 (target / (name + "Popup.qml")).write_text(
                     adapt(
                         (
-                            ROOT.parent / "shell/modules/bar/popouts" / (name + ".qml")
+                            ROOT.parent
+                            / "shell/modules/bar/popouts"
+                            / (component + ".qml")
                         ).read_text()
                     )
                 )
-            (target / "QuickList.qml").write_text(
+            for component in (
+                "NacreSoundPopup",
+                "NacreNetworkPopup",
+                "NacreBluetoothPopup",
+            ):
+                name = {
+                    "NacreSoundPopup": "Audio",
+                    "NacreNetworkPopup": "Network",
+                    "NacreBluetoothPopup": "Bluetooth",
+                }[component]
+                shutil.copy2(
+                    target / (name + "Popup.qml"), target / (component + ".qml")
+                )
+            for component in (
+                "NacrePopupContent",
+                "NacrePopupPanel",
+                "NacreHistoryPopup",
+                "NacreBatteryPopup",
+                "NacreCalendarPopup",
+            ):
+                source = adapt(
+                    (
+                        ROOT.parent / "shell/modules/bar/popouts" / (component + ".qml")
+                    ).read_text()
+                )
+                source = (
+                    source.replace("import qs.modules.notifications", "")
+                    .replace("import Quickshell.Services.UPower", "")
+                    .replace("../../dashboard/overview/overview.js", "overview.js")
+                )
+                (target / (component + ".qml")).write_text(source)
+            shutil.copy2(
+                ROOT.parent / "shell/modules/dashboard/overview/overview.js",
+                target / "overview.js",
+            )
+            (target / "NacreQuickList.qml").write_text(
                 adapt(
                     (
-                        ROOT.parent / "shell/modules/bar/popouts/QuickList.qml"
+                        ROOT.parent / "shell/modules/bar/popouts/NacreQuickList.qml"
                     ).read_text()
                 )
             )
-            (target / "QuickSlider.qml").write_text(
+            (target / "NacreQuickSlider.qml").write_text(
                 adapt(
                     (
-                        ROOT.parent / "shell/modules/bar/popouts/QuickSlider.qml"
+                        ROOT.parent / "shell/modules/bar/popouts/NacreQuickSlider.qml"
                     ).read_text()
                 )
             )
@@ -112,13 +153,18 @@ class QuickControlsTests(unittest.TestCase):
             )
             (target / "fixtures/NacreColours.qml").write_text(colors)
             services = {
-                "NacreAudio": 'property var sink:({ready:true,description:"Speakers"});property real volume:.7;property real micVolume:.4;property bool muted:false;property bool micMuted:false;property bool micAvailable:true;function setVolume(v){volume=v} function setMicVolume(v){micVolume=v} function toggleMute(){muted=!muted} function toggleMic(){micMuted=!micMuted}',
-                "Pipewire": 'property var nodes:({values:[{isStream:false,isSink:true,description:"Speakers",name:"speaker"}]});property var defaultAudioSink:nodes.values[0];property var preferredDefaultAudioSink:null',
-                "NacreNetwork": 'property string error:"";property string monitorError:"";property bool busy:false;function refresh(){} property bool wifiEnabled:true;property string wifiInterface:"wlan0";property var active:({ssid:"ab"});property var networks:[{ssid:"ab",active:false,strength:90},{ssid:"Guest",active:false,strength:65},{ssid:"ab",active:true,strength:30}];readonly property var visibleNetworks:Wifi.group(networks)',
+                "NacreAudio": 'property var sink:({ready:true,description:"Speakers"});property real volume:.7;property real micVolume:.4;property bool muted:false;property bool micMuted:false;property bool available:true;property bool micAvailable:true;property int writes:0;function setVolume(v){writes++;volume=v} function setMicVolume(v){writes++;micVolume=v} function toggleMute(){muted=!muted} function toggleMic(){micMuted=!micMuted}',
+                "Pipewire": 'property var nodes:({values:[{ready:true,audio:({}),isStream:false,isSink:true,description:"Speakers",name:"speaker"}]});property var defaultAudioSink:nodes.values[0];property var preferredDefaultAudioSink:null',
+                "NacreNetwork": 'property string error:"";property string monitorError:"";property bool busy:false;function refresh(){} property bool wifiEnabled:true;property string wifiInterface:"wlan0";property var active:({ssid:"ab"});property var networks:[{bssid:"AA:BB:CC:DD:EE:01",ssid:"ab",active:false,strength:90},{bssid:"AA:BB:CC:DD:EE:02",ssid:"Guest",active:false,strength:65},{bssid:"AA:BB:CC:DD:EE:03",ssid:"ab",active:true,strength:30}];readonly property var visibleNetworks:Wifi.group(networks)',
                 "NacreBluetooth": 'property bool powered:true;property var devices:[{name:"Headphones",alias:"Headphones",address:"AA:BB:CC:DD:EE:FF",connected:true,paired:true,trusted:true},{name:"Unpaired",alias:"Unpaired",address:"00:11:22:33:44:55",connected:false,paired:false,trusted:false}]',
                 "DeviceActions": 'property bool busy:false;property string message:"";property string lastAction:"";property var lastRequest:[];function request(a){lastRequest=a;lastAction=a[0]} function connectWifi(ssid){lastRequest=["wifi-connect",ssid]}',
                 "NacreHyprland": 'property var focusedMonitor:({name:"test"})',
-                "DesktopSettings": "property var data:({})",
+                "DesktopSettings": "property var data:({});property var writes:[];function change(key,value){writes=[...writes,[key,value]]}",
+                "NacreNotifs": "property var retained:[];property bool dnd:false;property bool historyReady:true;property int clears:0;function clearHistory(){clears++;retained=[]}",
+                "NacreTime": "property date date:new Date(2026,9,9,12,34)",
+                "NacreBar": "property var sizes:({batteryWidth:200})",
+                "UPower": "property bool onBattery:true;property var displayDevice:({ready:true,isLaptopBattery:true,percentage:.5,timeToEmpty:3600,timeToFull:0})",
+                "PowerProfiles": 'property int profile:1;property bool hasPerformanceProfile:true;property string degradationReason:""',
             }
             for name, body in services.items():
                 (target / "fixtures" / (name + ".qml")).write_text(
@@ -135,6 +181,17 @@ class QuickControlsTests(unittest.TestCase):
                     'import QtQuick\nimport "../wifi-networks.js" as Wifi',
                 )
             )
+            (target / "fixtures/NacreNotice.qml").write_text(
+                "import QtQuick\nItem {required property var modelData;property bool history:false;implicitWidth:360;implicitHeight:modelData.expanded?200:60}"
+            )
+            (target / "fixtures/PowerProfile.qml").write_text(
+                "import QtQuick\nQtObject {enum Kind {PowerSaver, Balanced, Performance}}"
+            )
+            (target / "fixtures/NacreAppearance.qml").write_text(
+                (ROOT.parent / "shell/config/NacreAppearance.qml")
+                .read_text()
+                .replace("import qs.widgets", 'import "."')
+            )
             visibility = (
                 (ROOT.parent / "shell/services/Visibilities.qml")
                 .read_text()
@@ -147,7 +204,7 @@ class QuickControlsTests(unittest.TestCase):
                 for name in [*services, "Visibilities"]:
                     f.write(f"\nsingleton {name} 1.0 {name}.qml")
                 f.write(
-                    "\nNacreIcon 1.0 NacreIcon.qml\nNacreInteraction 1.0 NacreInteraction.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\n"
+                    "\nNacreNotice 1.0 NacreNotice.qml\nPowerProfile 1.0 PowerProfile.qml\nNacreIcon 1.0 NacreIcon.qml\nNacreInteraction 1.0 NacreInteraction.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/qml/tst_quick_controls.qml",
@@ -156,6 +213,11 @@ class QuickControlsTests(unittest.TestCase):
             install_foundation_interaction(
                 target / "fixtures", ROOT.parent / "shell/widgets"
             )
+            (target / "fixtures/NacreScrollBar.qml").write_text(
+                (ROOT.parent / "shell/widgets/NacreScrollBar.qml").read_text()
+            )
+            with (target / "fixtures/qmldir").open("a") as manifest:
+                manifest.write("\nNacreScrollBar 1.0 NacreScrollBar.qml\n")
             result = subprocess.run(
                 [str(runner), "-input", str(target), "-o", "-,txt"],
                 env=dict(os.environ, QT_QPA_PLATFORM="offscreen"),

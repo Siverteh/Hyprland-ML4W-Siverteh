@@ -68,7 +68,7 @@ Item {
         y: root.dashboardPosition.y
         clip: true
     }
-    Popouts.Wrapper {
+    Popouts.NacrePopupPanel {
         id: popouts
         screen: root.screen
         readonly property bool joinsRight: root.popupPosition.joinsRight

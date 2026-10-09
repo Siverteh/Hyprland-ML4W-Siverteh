@@ -222,3 +222,9 @@ UPower/PowerProfiles; user activation alone changes a profile. NacreCalendarPopu
 reuses the independent overview calendar helper; CalendarGrid is retired. TopBar
 and dynamic popup assembly retain ownership of hover/focus and need their own
 remaining originality audits. Compatibility names do not add data owners.
+
+NacrePopupPanel/Content now own quick-view loading and finite clipped presentation;
+NacreSoundPopup/NetworkPopup/BluetoothPopup/HistoryPopup delegate data and actions
+to existing services. NacreQuickList/Slider own bounded native input presentation.
+The frame input controller still owns hover dismissal and hit-region release.
+Shared popup assembly never creates a notification/network/audio server.

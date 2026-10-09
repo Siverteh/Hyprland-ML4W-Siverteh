@@ -86,3 +86,20 @@ and locale week order. The inherited CalendarGrid is retired after its last call
 was replaced. Old component names are small forwarders. Popup assembly and the
 other quick controls remain separate audit areas. See the
 [bar behavior spec](../specs/bar-controls.md).
+
+## Independent quick popup assembly
+
+NacreSoundPopup, NacreNetworkPopup, NacreBluetoothPopup and NacreHistoryPopup use
+existing native owners. Display reads never issue an action; sound tracks current
+output nodes, and Wi-Fi/Bluetooth resolve row identifiers against current state
+before acting. Full device Settings remains on header click, while hovering keeps
+compact controls. Notification history reuses the Nacre notice presentation and
+writes only for explicit clear/remove/DND actions.
+
+NacrePopupPanel/NacrePopupContent load six supported views on demand. Closing
+releases pin/interaction immediately, retains clipped rendering for180ms, then
+unloads it. Reduced motion closes immediately. NacreQuickList gives bounded fast
+wheel scrolling with finite easing/native drag; NacreQuickSlider uses native Qt
+user-moved semantics and palette-colored rounded controls. No polling or extra
+data owner is introduced. Old names are compatibility forwarders. See the
+[popup spec](../specs/quick-popups.md).
