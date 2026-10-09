@@ -329,3 +329,29 @@ class OrientBridgeTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((home / "published").exists())
             self.assertEqual((home / "locked").read_text(), "1")
+
+
+class OrientPublicCommandTests(unittest.TestCase):
+    def test_palette_commands_use_bridge_while_plain_wallpaper_opens_picker(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            binary = home / ".local/share/nacre/shell/bin"
+            binary.mkdir(parents=True)
+            for name, label in (("nacre_shell", "bridge"), ("qs", "picker")):
+                path = binary / name
+                path.write_text('#!/bin/sh\nprintf "%s\\n" "' + label + '" "$@"\n')
+                path.chmod(0o755)
+            control = Path(__file__).parents[1] / "control.sh"
+            for args, label in (
+                (("scheme", "set", "-m", "dark"), "bridge"),
+                (("wallpaper", "-p", "image"), "bridge"),
+                (("wallpaper",), "picker"),
+            ):
+                result = subprocess.run(
+                    ["bash", str(control), *args],
+                    env={**os.environ, "HOME": str(home)},
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout.splitlines()[0], label)

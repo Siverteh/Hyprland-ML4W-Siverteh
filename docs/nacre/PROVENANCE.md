@@ -1,6 +1,6 @@
 # Nacre independent implementation tracker
 
-Status: Orient replacement implemented; live verification pending, 2026-10-08.
+Status: Orient replacement deployed and core live checks verified, 2026-10-08.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -33,7 +33,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 
 | Order | Area / current paths | Status | Spec and remaining work |
 |---|---|---|---|
-| 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | replaced | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
+| 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | verified | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
 | 2 | `shell/widgets/{StyledRect,StyledText,StyledTextField,StyledClippingRect,StyledWindow,StateLayer,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | audit pending | Separate surfaces/text, interaction/input, and media/window batches |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | audit pending | Design tokens and compatibility boundaries; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
@@ -86,4 +86,23 @@ runtime path consolidation is part of these documentation changes.
 - The separate prototype/user-review gate was explicitly superseded by the user's
   request for direct production implementation. Synthetic fixtures, private visual
   inspection, full checks and live release gates remain acceptance requirements.
-- Replacement commit, final measurements and live deployment: record after gates.
+- Replacement commit: `5ecf556`; public command bridge correction follows in the
+  same area branch. Source checks passed 303 tests before initial deployment;
+  an additional regression covers the corrected public entry points.
+- Private audit: all twenty library wallpapers/posters visually inspected; 240
+  uncached extraction+generation operations p95 92.98ms; 240 warm reads p95 0.34ms;
+  audit-process peak 122.4MiB on ASUS UX3405CA, Intel Core Ultra 7 255H.
+- Initial shell-only deployment promoted release `20261009T011237458253Z`; native
+  source/IPC and real launcher/wallpaper Escape gates passed. Active runtime
+  contains only Orient, Pillow and pip, with no Material You. Current scheme is
+  dynamic/dark, with source diagnostics and identical matched presentation colors.
+  Hyprland configerrors empty; shell/power/session services active; no failed units.
+- The old black-box compatibility test inherited real XDG roots despite a temporary
+  HOME. It changed scheme state to default/light; live validation caught this and
+  restored the previously recorded dynamic/dark choice through the locked publisher.
+  Production tests explicitly isolate HOME and all three XDG roots. Public routing
+  is now regression-tested so queries do not open panels or republish palettes.
+- Scope of verification: engine/contracts/cache/contrast and live shell operation,
+  generated theme files and publication pairing. Physical next-login, full visual
+  inspection of every external toolkit app and a secure lock/unlock cycle are not
+  established by these checks. Other inherited areas remain audit pending.

@@ -3,6 +3,7 @@ set -euo pipefail
 cli="$HOME/.local/share/nacre/palette-runtime/venv/bin/nacre_shell"
 bridge="$HOME/.local/share/nacre/shell/tools/classic-state.py"
 if [[ "${1:-}" == update ]]; then exec "$HOME/.local/bin/nacre-shell" updates; fi
+case "${1:-}" in -h|--help|-v|--version) exec "$cli" "$@" ;; esac
 # Queries prepare/read caches without locking or publishing the active desktop.
 if [[ "${1:-}" == scheme && "${2:-}" != set ]]; then exec "$cli" "$@"; fi
 if [[ "${1:-}" == wallpaper ]]; then

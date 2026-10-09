@@ -150,7 +150,7 @@ def generate(seed, mode="dark", variant="tonalspot", flavour="default", companio
     }.items():
         colors[role] = colors[value]
     for role in ("klink", "kvisited", "knegative", "kneutral", "kpositive"):
-        colors[role + "Selection"] = readable(colors[role], [colors["primary"]], 3.0)
+        colors[role + "Selection"] = readable(colors[role], [colors["primary"]], 4.5)
     ansi = ("surface", "red", "green", "yellow", "blue", "mauve", "teal", "onSurface")
     for i, role in enumerate(ansi):
         colors[f"term{i}"] = colors[role]

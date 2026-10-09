@@ -12,7 +12,9 @@ case "${1:-start}" in
  close) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre close ;;
  scheme-mode) exec "$HOME/.local/share/nacre/shell/bin/nacre_shell" scheme set -m "${2:-light}" ;;
  wallpaper-image) exec "$HOME/.local/share/nacre/shell/bin/nacre_shell" wallpaper -f "$2" ;;
- wallpaper) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre launcher ">wallpaper " ;;
+ wallpaper)
+  if [[ $# -gt 1 ]]; then exec "$HOME/.local/share/nacre/shell/bin/nacre_shell" "$@"; fi
+  exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre launcher ">wallpaper " ;;
  doctor|profile|check|rollback) exec python3 "$HOME/.local/share/nacre/shell/tools/maintenance.py" "${1/doctor/state}" ;;
  lock-preview) exec "$HOME/.local/share/nacre/shell/bin/qs" -p "$HOME/.local/share/nacre/shell/source/lock-preview.qml" ;;
  settings) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre settings ;;
@@ -29,5 +31,5 @@ case "${1:-start}" in
  apps) exec python3 "$HOME/.local/share/nacre/shell/tools/desktop-actions.py" app-windows "${2:-}" ;;
  updates|wifi|bluetooth|tasks|new|resume|lock|files|terminal|network|audio|volume|focus|workspace|play|next|previous|mute) exec python3 "$HOME/.local/share/nacre/shell/tools/desktop-actions.py" "$1" "${2:-}" ;;
  brain|capture) exec python3 "$HOME/.local/share/siverteh-ai/observatory/control.py" action "$1" "${2:-}" ;;
- *) exec "$shell_runtime/venv/bin/nacre_shell" "$@" ;;
+ *) exec "$HOME/.local/share/nacre/shell/bin/nacre_shell" "$@" ;;
 esac

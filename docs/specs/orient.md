@@ -1,6 +1,6 @@
 # Orient: independent wallpaper palette engine
 
-Status: production implementation in progress. Date: 2026-10-08. Owner: Nacre.
+Status: production engine implemented and deployed; see provenance for acceptance evidence. Date: 2026-10-08. Owner: Nacre.
 The user explicitly requested direct production implementation on 2026-10-08,
 superseding the separate prototype and pre-integration user-review milestones.
 Synthetic tests, private wallpaper inspection, measurements and deployment gates

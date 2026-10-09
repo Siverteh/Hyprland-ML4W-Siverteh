@@ -75,7 +75,8 @@ On the current laptop, the 2026-10-08 private audit covered all twenty library
 wallpapers/posters. Across 240 repeated uncached extraction/generation operations
 (including decoding, warm OS file cache), median was 74.84ms and nearest-rank p95
 92.98ms. Across 240 cached reads, median was 0.30ms and p95 0.34ms. The audit
-process peaked at 122.4MiB including its inspection sheet; these figures are not
+process peaked at 122.4MiB including its inspection sheet on an ASUS UX3405CA
+with Intel Core Ultra 7 255H; these figures are not
 end-to-end desktop publication latency or a guarantee for larger inputs. Synthetic
 fixtures check hue distinction, transparency/profile handling, safety limits,
 cache invalidation, all required roles, contrast and read-only behavior.
