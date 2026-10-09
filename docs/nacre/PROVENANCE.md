@@ -1,9 +1,9 @@
 # Nacre independent implementation tracker
 
 Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
-views verified. Eleven initially listed service owners plus keyboard lighting are
-replaced; thumbnails, remaining mixed providers, supporting UI/config/helpers and
-whole-tree audit remain. Whole rewrite unfinished, 2026-10-09.
+views verified. All initially listed services addressed: eleven replaced, unused
+Thumbnailer retired. Matched presentation provider replaced. Remaining mixed
+providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -691,7 +691,7 @@ preferences/history/hardware values remain unchanged. Installed source matches,
 configerrors empty and no runtime QML diagnostics. Earlier accepted colour/light
 results remain valid; final publishing uses this guarded source.
 
-## Thumbnail retirement and matched presentation (implemented; live pending)
+## Thumbnail retirement and matched presentation (verified; other providers pending)
 
 - Runtime inventory: Thumbnailer.go only in NacreImage; NacreImage only in its
   CachingImage alias/tests. Maintained views use native images/prepared caches.
@@ -707,3 +707,18 @@ results remain valid; final publishing uses this guarded source.
   claim. Retain notices.
 - Twelve initially listed services addressed: eleven replaced, one retired.
   Remaining mixed providers/UI/config/helpers/assets/final audit unfinished.
+
+Image/presentation acceptance (2026-10-09): software `08641a8`, good release
+`20261009T181234632592Z`. All360 tests, Qt format/parse, Hyprland and final installer
+rerun/strict source/startup/launcher/wallpaper/Escape gates passed. Native read-only
+probe and installed state report matching valid wallpaper/palette with no errors.
+Producer's null accent contract retained. Real picker/Appearance preview/Escape,
+twelve Settings/search/five tabs/offclick passed; screenshot inspected. Current
+wallpaper selection and exact private desktop/wallpaper/launcher/assistant/history
+hashes unchanged. Installed owner/forwarder/native image helper match; Thumbnailer
+absent and no runtime references. Service active, configerrors empty, no QML error/
+binding-loop diagnostics. Native Qt image-error warning handled narrowly in test;
+other warnings remain failures. No new thumbnail cache/conversion jobs introduced.
+No cold-login/physical multi-output/battery or whole-tree license completion claim.
+Actual producer/cache helper, mixed providers, UI/config/assets/final audit remain;
+notices retained.
