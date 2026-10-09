@@ -217,15 +217,11 @@ Item {
     }
     Component {
         id: desktop
-        DesktopControls {
-            page: "desktop"
-        }
+        NacreDesktopPage {}
     }
     Component {
         id: displays
-        DesktopControls {
-            page: "displays"
-        }
+        NacreDisplaysPage {}
     }
     Component {
         id: sound
@@ -245,9 +241,7 @@ Item {
     }
     Component {
         id: workflows
-        DesktopControls {
-            page: "workflows"
-        }
+        NacreWorkflowsPage {}
     }
     Component {
         id: lock
@@ -263,9 +257,7 @@ Item {
     }
     Component {
         id: maintenance
-        DesktopControls {
-            page: "maintenance"
-        }
+        NacreMaintenancePage {}
     }
     IpcHandler {
         target: "settingsView"

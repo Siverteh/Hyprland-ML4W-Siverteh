@@ -119,6 +119,73 @@ TestCase {
         Wallpapers.preferences = prior;
     }
 
+    function test_desktop_display_workflow_and_maintenance_commands_are_explicit() {
+        const view = createTemporaryObject(settings, test);
+        view.open("desktop");
+        wait(30);
+        DesktopSettings.writes = [];
+        const number = findChild(findChild(view, "settingsPage").item, "desktopNumbergapsIn");
+        verify(number);
+        number.value = 7;
+        compare(DesktopSettings.writes.length, 0);
+        number.adjusted(8);
+        compare(DesktopSettings.writes[0].key, "gapsIn");
+        const monitors = DesktopSettings.monitors;
+        DesktopSettings.monitors = [
+            {
+                name: "eDP-1",
+                width: 1920,
+                height: 1080,
+                scale: 1.5,
+                refreshRate: 120,
+                availableModes: ["1920x1080@120.00Hz"]
+            },
+            {
+                name: "DP-1",
+                width: 2560,
+                height: 1440,
+                scale: 1,
+                refreshRate: 60,
+                availableModes: []
+            }
+        ];
+        DesktopSettings.lastRequest = [];
+        view.open("displays");
+        wait(30);
+        const displays = findChild(view, "settingsPage").item;
+        displays.edit("eDP-1", 1.25, "");
+        compare(DesktopSettings.lastRequest.join("|"), "display-edit|eDP-1|1.25|");
+        DesktopSettings.pending = true;
+        DesktopSettings.lastRequest = [];
+        displays.edit("eDP-1", 1, "");
+        compare(DesktopSettings.lastRequest.length, 0);
+        DesktopSettings.pending = false;
+        displays.edit("disconnected", 1, "");
+        compare(DesktopSettings.lastRequest.length, 0);
+        displays.layout("extend-left");
+        compare(DesktopSettings.lastRequest[0], "display");
+        compare(DesktopSettings.lastRequest[1], "extend-left");
+        view.open("workflows");
+        wait(20);
+        const workflow = findChild(view, "settingsPage").item;
+        workflow.toggleRole("Browser");
+        workflow.save();
+        compare(DesktopSettings.lastRequest[0], "save-workflow");
+        compare(JSON.parse(DesktopSettings.lastRequest[2])[0], "Browser");
+        view.open("maintenance");
+        wait(20);
+        const maintenance = findChild(view, "settingsPage").item;
+        Maintenance.lastAction = "";
+        Maintenance.busy = true;
+        maintenance.recovery("restart");
+        compare(Maintenance.lastAction, "");
+        Maintenance.busy = false;
+        maintenance.recovery("restart");
+        compare(Maintenance.lastAction, "restart");
+        DesktopSettings.monitors = monitors;
+        DesktopSettings.pending = false;
+    }
+
     function test_palette_rows_fit_the_available_width() {
         const prior = Wallpapers.palettePresets;
         Wallpapers.palettePresets = Array.from({

@@ -17,8 +17,9 @@ of the retained CalendarGrid helper. Host cards use asynchronous FileView reads;
 media uses the shared active-player service without another MPRIS owner. NacreMediaPage and NacrePerformancePage own media controls and metric rendering;
 NacreWorkspacePage owns the seven-card workspace overview; NacreSettings and its shared section/page/toggle controls own navigation and
 layout; NacreAppearancePage owns wallpaper/palette/frame preference controls through
-existing owners. Other individual settings pages/DesktopControls remain separate
-originality work.
+existing owners. Four own Desktop/Displays/Workflows/Maintenance pages delegate to the existing
+validated owners. Device/lock/time/AI/notification pages and service/helper audits
+remain separate originality work.
 
 NacreNotice and NacreNotificationStack own notification card/stack presentation.
 Notifs owns native notification objects, popup expiry and private history; neither

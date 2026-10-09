@@ -163,3 +163,12 @@ swatches; NacreNumberField uses the shell colors and emits only user modificatio
 Natural/Harmony, remembered accents, fixed palette groups and mode remain. Scheme
 style/contrast commands use Orient's existing CLI; a native file watcher shows
 current state. Loading the page never changes colors, rotation or frame settings.
+
+## Independent desktop control pages
+
+NacreDesktopPage, NacreDisplaysPage, NacreWorkflowsPage and NacreMaintenancePage
+replace the previous shared DesktopControls view. They retain the existing
+preference/display/workflow/recovery owners. Displays offers only connected modes
+and supported scales, preserves Keep/Revert and timed recovery, and blocks another
+change while confirmation is pending. Workflow startup remains opt-in. Maintenance
+actions are explicit and disabled while busy; opening a page only refreshes facts.

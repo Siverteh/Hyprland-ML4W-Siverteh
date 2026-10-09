@@ -481,3 +481,19 @@ opening it preserved all wallpaper/palette/motion/rotation preference values.
 New files match installed source; retired page absent; configerrors empty.
 Fixture numeric/palette/interval/scroll tests verify writes without changing
 real preferences. Other Settings pages/providers/audit remain; notices retained.
+
+## Desktop/display/workflow/maintenance pages (candidate)
+
+- Deleted DesktopControls body without opening it. Four fresh own pages replace
+  its overloaded page branches through the existing Settings routes. Public
+  declarations/API references, live screenshots and existing backend validation/
+  command schemas are contract exposure; no upstream body consulted.
+- Retained only existing backend owners; numeric/boolean preferences user-only,
+  connected-monitor/pending display guards and20-second Keep/Revert backend,
+  explicit opt-in workflow save/startup and maintenance recovery requests. No
+  new preference writer, collector, timer or automatic system action.
+- Actual page tests cover user-only numeric callbacks, display argument tuples,
+  disconnected/pending guards, workflow role serialization and maintenance busy
+  blocking, alongside existing all-route/palette/device/lock tests.
+- Helper/service provenance and other settings bodies still pending; applicable
+  notices kept. Full/live/source validation pending.

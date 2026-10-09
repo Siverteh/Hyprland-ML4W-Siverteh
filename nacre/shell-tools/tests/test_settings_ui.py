@@ -39,9 +39,6 @@ class SettingsUITests(unittest.TestCase):
                 ROOT.parent / "shell/modules/dashboard/settings-catalog.js",
                 target / "settings-catalog.js",
             )
-            (target / "DesktopControls.qml").write_text(
-                adapted(ROOT.parent / "shell/modules/dashboard/DesktopControls.qml")
-            )
             pages = target / "settings"
             pages.mkdir()
             for path in (ROOT.parent / "shell/modules/dashboard/settings").glob(
@@ -105,10 +102,10 @@ class SettingsUITests(unittest.TestCase):
                 "import QtQuick\nMouseArea {anchors.fill:parent}"
             )
             (target / "fixtures/DesktopSettings.qml").write_text(
-                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property var monitors:[{name:"eDP-1",width:1920,height:1080}];property bool pending:false;property var writes:[];function set(key,value){writes=[...writes,{key:key,value:value}];data=Object.assign({},data,{[key]:value})} function request(args){}}'
+                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property var monitors:[{name:"eDP-1",width:1920,height:1080}];property bool pending:false;property bool busy:false;property var lastRequest:[];property var writes:[];function set(key,value){writes=[...writes,{key:key,value:value}];data=Object.assign({},data,{[key]:value})} function request(args){lastRequest=args}}'
             )
             (target / "fixtures/Maintenance.qml").write_text(
-                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property bool busy:false;function refresh(){} function request(action){} function recover(action){}}'
+                'pragma Singleton\nimport QtQuick\nQtObject {property var data:({});property string message:"";property bool busy:false;property string lastAction:"";function refresh(){} function request(action){lastAction=action} function recover(action){lastAction=action}}'
             )
             with (target / "fixtures/qmldir").open("a") as manifest:
                 manifest.write(
