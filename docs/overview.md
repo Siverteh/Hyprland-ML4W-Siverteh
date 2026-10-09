@@ -178,3 +178,6 @@ helpers, tests, configuration and assets separately from functional acceptance.
 
 The unused legacy file-thumbnail Python helper is retired; native Qt images and
 prepared wallpaper posters supply previews without a second thumbnail worker.
+
+The unused Cava/Spectrum visualizer and its beat utility are retired. Maintained
+media views read the native player provider; no audio visualizer process is needed.

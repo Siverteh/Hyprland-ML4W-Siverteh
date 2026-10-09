@@ -1005,3 +1005,13 @@ Whole-tree registry covers614 current artifacts and records rewrite-change point
 for327; final review remains explicit pending, not a license/originality conclusion.
 Current reference inventory also finds Cava/Spectrum/beat utility isolated from
 maintained views; validate that dead group next, then mixed providers/helpers.
+
+## Unreachable audio visualizer retirement
+
+[Retirement spec](../specs/retired-audio-visualizer.md): inherited Cava service and
+adjacent unused local Spectrum/beat/test paths removed without reading/reusing
+their bodies. Full tracked references isolate the group, no maintained consumer
+or registration remains and no native Cava process was running. Current Nacre
+media/provider tests and Brain JavaScript check stay; only the obsolete beat test
+is retired. System packages, playback and private state are unchanged. Notices
+remain until the full-source/dependency audit, not just dead-code cleanup, passes.

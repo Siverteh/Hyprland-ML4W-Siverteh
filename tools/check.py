@@ -23,6 +23,10 @@ RETIRED = (
     "nacre/wallpapers",
     "nacre/welcome",
     "nacre/shell/utils/thumbnail.py",
+    "nacre/shell/services/Cava.qml",
+    "nacre/shell/widgets/Spectrum.qml",
+    "nacre/shell/utils/scripts/beat.js",
+    "nacre/shell-tools/tests/test_beats.mjs",
 )
 
 
@@ -157,8 +161,7 @@ def main():
     )
     if node_cmd:
         run([*node_cmd, "--check", str(ROOT / "brain/web/app.js")])
-        run([*node_cmd, str(ROOT / "nacre/shell-tools/tests/test_beats.mjs")])
-        print("Brain JavaScript syntax and audio beat tests passed.", flush=True)
+        print("Brain JavaScript syntax passed.", flush=True)
     else:
         print("Node.js checks skipped: Node.js unavailable.", flush=True)
 
