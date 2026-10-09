@@ -24,7 +24,7 @@ Singleton {
             if (root.lastAction.startsWith("bluetooth"))
                 NacreBluetooth.refresh();
             else if (root.lastAction.startsWith("wifi"))
-                Network.refresh();
+                NacreNetwork.refresh();
         }
         stdout: SplitParser {
             splitMarker: ""

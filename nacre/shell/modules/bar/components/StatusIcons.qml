@@ -35,7 +35,7 @@ Item {
 
         rotation: root.horizontal ? 90 : 0
         animate: true
-        text: Network.active ? NacreIcons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
+        text: NacreNetwork.active ? NacreIcons.getNetworkIcon(NacreNetwork.active.strength ?? 0) : "wifi_off"
         color: root.colour
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: speaker.bottom

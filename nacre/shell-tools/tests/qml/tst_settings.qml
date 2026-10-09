@@ -397,7 +397,7 @@ TestCase {
             strength: 80,
             active: false
         };
-        Network.visibleNetworks = [network];
+        NacreNetwork.visibleNetworks = [network];
         view.open("network");
         wait(20);
         const wifi = findChild(view, "settingsPage").item;
@@ -411,7 +411,7 @@ TestCase {
         DeviceActions.busy = false;
         wifi.connect(network);
         compare(DeviceActions.connectedSSID, "Fixture network");
-        Network.visibleNetworks = [];
+        NacreNetwork.visibleNetworks = [];
         DeviceActions.connectedSSID = "";
         wifi.connect(network);
         compare(DeviceActions.connectedSSID, "");

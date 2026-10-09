@@ -4,36 +4,37 @@ import qs.services
 
 NacreSettingsPage {
     id: root
+    Component.onCompleted: NacreNetwork.refresh()
     property string page: "network"
     function request(action, value) {
         if (!DeviceActions.busy)
             DeviceActions.request(value === undefined ? [action] : [action, value]);
     }
     function connect(network) {
-        if (!DeviceActions.busy && Network.visibleNetworks.includes(network) && !network.active && network.ssid)
+        if (!DeviceActions.busy && NacreNetwork.visibleNetworks.includes(network) && !network.active && network.ssid)
             DeviceActions.connectWifi(network.ssid);
     }
     NacreSettingsSection {
         title: "Wi-Fi"
-        description: Network.active ? "Connected to " + Network.active.ssid : Network.wifiEnabled ? "Not connected" : "Wi-Fi is off"
+        description: NacreNetwork.active ? "Connected to " + NacreNetwork.active.ssid : NacreNetwork.wifiEnabled ? "Not connected" : "Wi-Fi is off"
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
-                text: Network.wifiEnabled ? "Turn Wi-Fi off" : "Turn Wi-Fi on"
+                text: NacreNetwork.wifiEnabled ? "Turn Wi-Fi off" : "Turn Wi-Fi on"
                 enabled: !DeviceActions.busy
-                onClicked: root.request("wifi-radio", Network.wifiEnabled ? "off" : "on")
+                onClicked: root.request("wifi-radio", NacreNetwork.wifiEnabled ? "off" : "on")
             }
             ActionButton {
                 text: "Scan networks"
-                enabled: !DeviceActions.busy && Network.wifiEnabled
+                enabled: !DeviceActions.busy && NacreNetwork.wifiEnabled
                 onClicked: root.request("wifi-scan")
             }
             ActionButton {
                 text: "Disconnect"
-                visible: !!Network.active
-                enabled: !DeviceActions.busy && !!Network.wifiInterface
-                onClicked: root.request("wifi-disconnect", Network.wifiInterface)
+                visible: !!NacreNetwork.active
+                enabled: !DeviceActions.busy && !!NacreNetwork.wifiInterface
+                onClicked: root.request("wifi-disconnect", NacreNetwork.wifiInterface)
             }
             ActionButton {
                 text: "Connection editor"
@@ -45,7 +46,7 @@ NacreSettingsPage {
         title: "Available networks"
         description: "Passwords are entered in the connection window when needed."
         Repeater {
-            model: Network.visibleNetworks
+            model: NacreNetwork.visibleNetworks
             delegate: Row {
                 required property var modelData
                 width: parent.width
@@ -73,8 +74,8 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            visible: Network.visibleNetworks.length === 0
-            text: Network.wifiEnabled ? "No networks found. Scan to try again." : "Turn Wi-Fi on to see nearby networks."
+            visible: NacreNetwork.visibleNetworks.length === 0
+            text: NacreNetwork.wifiEnabled ? "No networks found. Scan to try again." : "Turn Wi-Fi on to see nearby networks."
             wrapMode: Text.Wrap
             color: NacreTokens.mutedInk
         }

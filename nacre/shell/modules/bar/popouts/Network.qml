@@ -4,8 +4,9 @@ import qs.widgets
 
 Item {
     id: root
+    Component.onCompleted: NacreNetwork.refresh()
 
-    readonly property var nearby: Network.visibleNetworks
+    readonly property var nearby: NacreNetwork.visibleNetworks
 
     implicitWidth: 340
     width: implicitWidth
@@ -25,7 +26,7 @@ Item {
 
         NacreText {
             width: parent.width
-            text: !Network.wifiEnabled ? "Wi-Fi is off" : Network.active ? "Connected to " + Network.active.ssid : "Not connected"
+            text: !NacreNetwork.wifiEnabled ? "Wi-Fi is off" : NacreNetwork.active ? "Connected to " + NacreNetwork.active.ssid : "Not connected"
             wrapMode: Text.Wrap
             font.pointSize: 11
         }
@@ -36,22 +37,22 @@ Item {
 
             ActionButton {
                 objectName: "quickWifiPower"
-                text: Network.wifiEnabled ? "Wi-Fi on" : "Wi-Fi off"
-                selected: Network.wifiEnabled
+                text: NacreNetwork.wifiEnabled ? "Wi-Fi on" : "Wi-Fi off"
+                selected: NacreNetwork.wifiEnabled
                 enabled: !DeviceActions.busy
-                onClicked: DeviceActions.request(["wifi-radio", Network.wifiEnabled ? "off" : "on"])
+                onClicked: DeviceActions.request(["wifi-radio", NacreNetwork.wifiEnabled ? "off" : "on"])
             }
 
             ActionButton {
                 text: "Refresh"
                 icon: "refresh"
-                enabled: Network.wifiEnabled && !DeviceActions.busy
+                enabled: NacreNetwork.wifiEnabled && !DeviceActions.busy
                 onClicked: DeviceActions.request(["wifi-scan"])
             }
         }
 
         QuickList {
-            visible: Network.wifiEnabled
+            visible: NacreNetwork.wifiEnabled
 
             Repeater {
                 model: root.nearby
@@ -95,10 +96,10 @@ Item {
                         text: network.modelData.active ? "Disconnect" : "Connect"
                         compact: true
                         selected: network.modelData.active
-                        enabled: !DeviceActions.busy && (!network.modelData.active || !!Network.wifiInterface)
+                        enabled: !DeviceActions.busy && (!network.modelData.active || !!NacreNetwork.wifiInterface)
                         onClicked: {
                             if (network.modelData.active)
-                                DeviceActions.request(["wifi-disconnect", Network.wifiInterface]);
+                                DeviceActions.request(["wifi-disconnect", NacreNetwork.wifiInterface]);
                             else
                                 DeviceActions.connectWifi(network.modelData.ssid);
                         }
@@ -108,7 +109,7 @@ Item {
         }
 
         NacreText {
-            visible: Network.wifiEnabled && !root.nearby.length
+            visible: NacreNetwork.wifiEnabled && !root.nearby.length
             text: "No nearby networks found"
             color: Colours.palette.m3onSurfaceVariant
             font.pointSize: 10

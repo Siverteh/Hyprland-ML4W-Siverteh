@@ -33,7 +33,7 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {property var objects:[]}"
             )
             (fixtures / "Process.qml").write_text(
-                "import QtQuick\nQtObject {property var command:[];property var environment:({});property bool running:false;property QtObject stdout;property QtObject stderr;signal exited(int exitCode,int exitStatus);property int starts:0;onRunningChanged:if(running) starts++}"
+                "import QtQuick\nQtObject {property var command:[];property var environment:({});property bool running:false;property QtObject stdout;property QtObject stderr;signal exited(int exitCode,int exitStatus);signal started();property int starts:0;onRunningChanged:if(running) starts++}"
             )
             (fixtures / "StdioCollector.qml").write_text(
                 'import QtQuick\nQtObject {property string text:"";signal streamFinished()}'
@@ -77,3 +77,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_bluetooth_native_models_are_readonly_and_reactive(self):
         self.run_service("NacreBluetooth")
+
+    def test_network_snapshot_publication_and_coalescing(self):
+        self.run_service("NacreNetwork")
