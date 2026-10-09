@@ -537,7 +537,7 @@ empty; no new QML error/binding-loop diagnostics. Notification history remained
 physical reconnect, authentication, sleep/cold-login or multi-output claims.
 Backend services/bar/wrappers/config/helpers/assets/final audit remain; notices kept.
 
-## Default audio, Wi-Fi and Bluetooth services (implemented; live checks pending)
+## Default audio, Wi-Fi and Bluetooth services (verified; other services pending)
 
 - Deleted three inherited provider bodies before fresh NacreAudio/Network/Bluetooth
   implementation. Old names are new minimal forwarders; maintained consumers use
@@ -555,3 +555,19 @@ Backend services/bar/wrappers/config/helpers/assets/final audit remain; notices 
   Existing real Settings/quick-control UI regressions retained with new names.
 - Other services, UI popouts/wrappers, DeviceActions/shared helpers/config/assets
   and whole-tree audit remain pending.
+
+Device-service acceptance (2026-10-09): software `f1ef99a`, good release
+`20261009T145142156616Z`. All340 tests, Qt parsing/formatting, target Hyprland and
+strict source/startup/native launcher/Escape gates passed. Isolated actual
+Quickshell models bound the output/microphone and Bluetooth adapter/three known
+devices. Actual twelve Settings routes, keyboard search, five tabs, Settings
+Escape/offclick and real header hover on all three quick popups passed.
+NetworkManager monitor stayed healthy with no extra snapshots during a measured
+five-second quiet interval; explicit read-only refresh settled with the connected
+row intact. Saved desktop/wallpaper/assistant preference hashes, output/input
+volume/mute and native connection/adapter status unchanged. New installed owners,
+forwarders and helper match source; shell active, configerrors empty, no new
+QML error/binding-loop diagnostics. Initial IPC-only popup probe auto-dismissed
+without header hover; real hover verification passed unchanged software. Physical
+roaming/reconnect/hotplug/cold login and battery drain are not measured. Other
+services/UI/config/helpers/assets/final audit remain, notices kept.
