@@ -58,7 +58,7 @@ class WallpaperPickerUITests(unittest.TestCase):
                 ROOT.parent / "shell/widgets/FastScroll.qml",
                 target / "fixtures/FastScroll.qml",
             )
-            (target / "fixtures/MaterialIcon.qml").write_text("import QtQuick\nText {}")
+            (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
             (target / "fixtures/Wallpapers.qml").write_text(
                 'pragma Singleton\nimport QtQuick\nQtObject {property bool loading:false;property string current:"one";property string error:"";property var preferences:({kind:"static",layout:"carousel"});property string browsed:"";property var list:[{path:"one",name:"Expedition33 Monolith",poster:"'
                 + str(target / "poster.png")
@@ -78,7 +78,7 @@ class WallpaperPickerUITests(unittest.TestCase):
             )
             with (target / "fixtures/qmldir").open("a") as manifest:
                 manifest.write(
-                    "\nMaterialIcon 1.0 MaterialIcon.qml\nsingleton Wallpapers 1.0 Wallpapers.qml\n"
+                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton Wallpapers 1.0 Wallpapers.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/wallpaper-qml/tst_wallpapers.qml",

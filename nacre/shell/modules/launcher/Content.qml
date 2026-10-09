@@ -10,8 +10,8 @@ Item {
     id: root
 
     required property PersistentProperties visibilities
-    readonly property int padding: Appearance.padding.large
-    readonly property int rounding: Appearance.rounding.large
+    readonly property int padding: NacreAppearance.padding.large
+    readonly property int rounding: NacreAppearance.rounding.large
 
     implicitWidth: listWrapper.width + padding * 2
     implicitHeight: searchWrapper.height + listWrapper.height + padding * 2
@@ -39,11 +39,11 @@ Item {
         }
     }
 
-    StyledRect {
+    NacreSurface {
         id: searchWrapper
 
         color: Colours.alpha(Colours.palette.m3surfaceContainer, true)
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -52,7 +52,7 @@ Item {
 
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
 
-        MaterialIcon {
+        NacreIcon {
             id: searchIcon
 
             anchors.verticalCenter: parent.verticalCenter
@@ -63,7 +63,7 @@ Item {
             color: Colours.palette.m3onSurfaceVariant
         }
 
-        StyledTextField {
+        NacreTextField {
             id: search
             Component.onCompleted: text = root.visibilities.launcherQuery
             Connections {
@@ -76,13 +76,13 @@ Item {
 
             anchors.left: searchIcon.right
             anchors.right: clearIcon.left
-            anchors.leftMargin: Appearance.spacing.small
-            anchors.rightMargin: Appearance.spacing.small
+            anchors.leftMargin: NacreAppearance.spacing.small
+            anchors.rightMargin: NacreAppearance.spacing.small
 
-            topPadding: Appearance.padding.larger
-            bottomPadding: Appearance.padding.larger
+            topPadding: NacreAppearance.padding.larger
+            bottomPadding: NacreAppearance.padding.larger
 
-            placeholderText: qsTr("Type \"%1\" for commands").arg(LauncherConfig.actionPrefix)
+            placeholderText: qsTr("Type \"%1\" for commands").arg(NacreLauncher.actionPrefix)
             background: null
 
             onAccepted: {
@@ -91,7 +91,7 @@ Item {
                     if (list.showWallpapers) {
                         Wallpapers.setWallpaper(currentItem.modelData.path);
                         root.visibilities.launcher = false;
-                    } else if (text.startsWith(LauncherConfig.actionPrefix)) {
+                    } else if (text.startsWith(NacreLauncher.actionPrefix)) {
                         currentItem.modelData.onClicked(list.currentList);
                     } else {
                         Apps.launch(currentItem.modelData);
@@ -121,7 +121,7 @@ Item {
             }
         }
 
-        MaterialIcon {
+        NacreIcon {
             id: clearIcon
 
             anchors.verticalCenter: parent.verticalCenter
@@ -158,17 +158,17 @@ Item {
 
             Behavior on width {
                 NumberAnimation {
-                    duration: Appearance.anim.durations.small
+                    duration: NacreAppearance.anim.durations.small
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
 
             Behavior on opacity {
                 NumberAnimation {
-                    duration: Appearance.anim.durations.small
+                    duration: NacreAppearance.anim.durations.small
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }

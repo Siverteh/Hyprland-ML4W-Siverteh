@@ -110,7 +110,7 @@ Item {
                 root.start();
         }
     }
-    StyledRect {
+    NacreSurface {
         id: rail
         x: 16
         y: 16
@@ -131,7 +131,7 @@ Item {
                 view: nav
             }
             ScrollBar.vertical: ScrollBar {}
-            delegate: StyledRect {
+            delegate: NacreSurface {
                 required property var modelData
                 required property int index
                 width: nav.width
@@ -144,12 +144,12 @@ Item {
                     x: 11
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 10
-                    MaterialIcon {
+                    NacreIcon {
                         text: modelData.icon
                         font.pointSize: 16
                         color: Colours.palette.m3primary
                     }
-                    StyledText {
+                    NacreText {
                         text: modelData.label
                         font.pointSize: 11
                     }
@@ -185,12 +185,12 @@ Item {
         Column {
             width: parent.width - 96
             spacing: 4
-            StyledText {
+            NacreText {
                 text: root.commands ? "Commands" : search.text.trim() ? "Search results" : root.category === "hidden" ? "Hidden apps" : root.categories.find(c => c.id === root.category)?.label ?? "All apps"
                 font.pointSize: 18
                 color: Colours.palette.m3primary
             }
-            StyledText {
+            NacreText {
                 text: root.entries.length + (root.commands ? " actions" : " apps") + (search.text && !root.commands ? " · All categories" : "")
                 font.pointSize: 10
                 color: Colours.palette.m3onSurfaceVariant
@@ -265,7 +265,7 @@ Item {
             } else
                 event.accepted = false;
         }
-        delegate: StyledRect {
+        delegate: NacreSurface {
             id: tile
             required property var modelData
             required property int index
@@ -290,14 +290,14 @@ Item {
                 fillMode: Image.PreserveAspectFit
                 source: root.commands ? "" : Quickshell.iconPath(tile.modelData.icon)
             }
-            MaterialIcon {
+            NacreIcon {
                 anchors.centerIn: appIcon
                 text: root.commands ? tile.modelData.icon : "apps"
                 font.pointSize: root.commands ? 22 : 30
                 visible: root.commands || appIcon.status !== Image.Ready
                 color: Colours.palette.m3primary
             }
-            StyledText {
+            NacreText {
                 x: root.commands ? 60 : 6
                 y: root.commands ? 11 : 71
                 width: parent.width - x - 6
@@ -306,7 +306,7 @@ Item {
                 horizontalAlignment: root.commands ? Text.AlignLeft : Text.AlignHCenter
                 elide: Text.ElideRight
             }
-            StyledText {
+            NacreText {
                 x: 60
                 y: 32
                 width: parent.width - 72
@@ -337,7 +337,7 @@ Item {
                 height: 28
                 visible: !root.commands
                 z: 2
-                MaterialIcon {
+                NacreIcon {
                     anchors.centerIn: parent
                     text: "favorite"
                     fill: LauncherPreferences.favorites.includes(tile.modelData.id) ? 1 : 0
@@ -355,7 +355,7 @@ Item {
             anchors.centerIn: parent
             visible: grid.count === 0
             spacing: 10
-            StyledText {
+            NacreText {
                 text: root.category === "favorites" && !search.text ? "Add favorites with the heart on an app" : "No matches"
                 color: Colours.palette.m3onSurfaceVariant
             }
@@ -367,7 +367,7 @@ Item {
             }
         }
     }
-    StyledText {
+    NacreText {
         x: rail.x + rail.width + 22
         y: search.y - 24
         text: LauncherPreferences.error
@@ -375,7 +375,7 @@ Item {
         font.pointSize: 10
         color: Colours.palette.m3error
     }
-    StyledTextField {
+    NacreTextField {
         id: search
         objectName: "launcherSearch"
         x: 16
@@ -385,7 +385,7 @@ Item {
         leftPadding: 18
         rightPadding: 54
         placeholderText: "Search all apps or type > for commands"
-        background: StyledRect {
+        background: NacreSurface {
             radius: 23
             color: Colours.palette.m3surfaceContainer
         }

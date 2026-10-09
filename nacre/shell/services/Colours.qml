@@ -64,7 +64,7 @@ Singleton {
     }
 
     FileView {
-        path: `${Paths.state}/scheme/current-mode.txt`
+        path: `${NacrePaths.state}/scheme/current-mode.txt`
         watchChanges: true
         onFileChanged: reload()
         onLoaded: if (!ThemePresentation.available)
@@ -72,7 +72,7 @@ Singleton {
     }
 
     FileView {
-        path: `${Paths.state}/scheme/current.txt`
+        path: `${NacrePaths.state}/scheme/current.txt`
         watchChanges: true
         onFileChanged: reload()
         onLoaded: if (!ThemePresentation.available)

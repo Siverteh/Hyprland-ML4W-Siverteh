@@ -9,13 +9,13 @@ import qs.widgets
 Row {
     id: root
 
-    padding: Appearance.padding.large
-    spacing: Appearance.spacing.large
+    padding: NacreAppearance.padding.large
+    spacing: NacreAppearance.spacing.large
 
-    StyledClippingRect {
+    NacreClip {
         implicitWidth: info.implicitHeight
         implicitHeight: info.implicitHeight
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
         color: Colours.palette.m3surfaceContainerHigh
 
         BrandLogo {
@@ -27,7 +27,7 @@ Row {
     Column {
         id: info
 
-        spacing: Appearance.spacing.normal
+        spacing: NacreAppearance.spacing.normal
 
         InfoLine {
             icon: "badge"
@@ -37,7 +37,7 @@ Row {
 
         InfoLine {
             icon: "computer"
-            text: Icons.osName
+            text: NacreIcons.osName
             colour: Colours.palette.m3primary
         }
 
@@ -86,28 +86,28 @@ Row {
         implicitWidth: icon.implicitWidth + text.width + text.anchors.leftMargin
         implicitHeight: Math.max(icon.implicitHeight, text.implicitHeight)
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             anchors.left: parent.left
-            anchors.leftMargin: (DashboardConfig.sizes.infoIconSize - implicitWidth) / 2
+            anchors.leftMargin: (NacreDashboard.sizes.infoIconSize - implicitWidth) / 2
             text: line.icon
             color: line.colour
-            font.pointSize: Appearance.font.size.normal
+            font.pointSize: NacreAppearance.font.size.normal
             font.variableAxes: ({
                     "FILL": 1
                 })
         }
 
-        StyledText {
+        NacreText {
             id: text
 
             anchors.verticalCenter: icon.verticalCenter
             anchors.left: icon.right
             anchors.leftMargin: icon.anchors.leftMargin
             text: `:  ${line.text}`
-            font.pointSize: Appearance.font.size.normal
-            width: DashboardConfig.sizes.infoWidth
+            font.pointSize: NacreAppearance.font.size.normal
+            width: NacreDashboard.sizes.infoWidth
             elide: Text.ElideRight
         }
     }

@@ -48,7 +48,7 @@ Scope {
     Timer {
         id: timer
 
-        interval: OsdConfig.hideDelay
+        interval: NacreOsd.hideDelay
         onTriggered: {
             if (!root.hovered && root.visibilities.edgeMenu !== "osd")
                 root.visibilities.osd = false;

@@ -5,7 +5,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Effects
 
-StyledRect {
+NacreSurface {
     id: root
 
     required property Wallpapers.Wallpaper modelData
@@ -20,11 +20,11 @@ StyledRect {
         opacity = Qt.binding(() => PathView.onPath ? 1 : 0);
     }
 
-    implicitWidth: image.width + Appearance.padding.larger * 2
-    implicitHeight: image.height + label.height + Appearance.spacing.small / 2 + Appearance.padding.large + Appearance.padding.normal
+    implicitWidth: image.width + NacreAppearance.padding.larger * 2
+    implicitHeight: image.height + label.height + NacreAppearance.spacing.small / 2 + NacreAppearance.padding.large + NacreAppearance.padding.normal
 
-    StateLayer {
-        radius: Appearance.rounding.normal
+    NacreInteraction {
+        radius: NacreAppearance.rounding.normal
 
         function onClicked(): void {
             Wallpapers.setWallpaper(root.modelData.path);
@@ -32,17 +32,17 @@ StyledRect {
         }
     }
 
-    CachingImage {
+    NacreImage {
         id: image
 
         anchors.horizontalCenter: parent.horizontalCenter
-        y: Appearance.padding.large
+        y: NacreAppearance.padding.large
 
         visible: false
         path: root.modelData.path
         smooth: !root.PathView.view.moving
 
-        width: LauncherConfig.sizes.wallpaperWidth
+        width: NacreLauncher.sizes.wallpaperWidth
         height: width / 16 * 9
     }
 
@@ -53,7 +53,7 @@ StyledRect {
         layer.smooth: true
         visible: false
         anchors.fill: image
-        radius: Appearance.rounding.normal
+        radius: NacreAppearance.rounding.normal
     }
 
     RectangularShadow {
@@ -78,19 +78,19 @@ StyledRect {
         maskThresholdMin: 0.5
     }
 
-    StyledText {
+    NacreText {
         id: label
 
         anchors.top: image.bottom
-        anchors.topMargin: Appearance.spacing.small / 2
+        anchors.topMargin: NacreAppearance.spacing.small / 2
         anchors.horizontalCenter: parent.horizontalCenter
 
-        width: image.width - Appearance.padding.normal * 2
+        width: image.width - NacreAppearance.padding.normal * 2
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
         renderType: Text.QtRendering
         text: root.modelData.name
-        font.pointSize: Appearance.font.size.normal
+        font.pointSize: NacreAppearance.font.size.normal
     }
 
     Behavior on scale {
@@ -102,8 +102,8 @@ StyledRect {
     }
 
     component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.normal
+        duration: NacreAppearance.anim.durations.normal
         easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.anim.curves.standard
+        easing.bezierCurve: NacreAppearance.anim.curves.standard
     }
 }

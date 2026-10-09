@@ -11,13 +11,13 @@ Item {
     required property DesktopEntry modelData
     required property PersistentProperties visibilities
 
-    implicitHeight: LauncherConfig.sizes.itemHeight
+    implicitHeight: NacreLauncher.sizes.itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right
 
-    StateLayer {
-        radius: Appearance.rounding.full
+    NacreInteraction {
+        radius: NacreAppearance.rounding.full
 
         function onClicked(): void {
             Apps.launch(root.modelData);
@@ -27,9 +27,9 @@ Item {
 
     Item {
         anchors.fill: parent
-        anchors.leftMargin: Appearance.padding.larger
-        anchors.rightMargin: Appearance.padding.larger
-        anchors.margins: Appearance.padding.smaller
+        anchors.leftMargin: NacreAppearance.padding.larger
+        anchors.rightMargin: NacreAppearance.padding.larger
+        anchors.margins: NacreAppearance.padding.smaller
 
         IconImage {
             id: icon
@@ -42,28 +42,28 @@ Item {
 
         Item {
             anchors.left: icon.right
-            anchors.leftMargin: Appearance.spacing.normal
+            anchors.leftMargin: NacreAppearance.spacing.normal
             anchors.verticalCenter: icon.verticalCenter
 
             implicitWidth: parent.width - icon.width
             implicitHeight: name.implicitHeight + comment.implicitHeight
 
-            StyledText {
+            NacreText {
                 id: name
 
                 text: root.modelData?.name ?? ""
-                font.pointSize: Appearance.font.size.normal
+                font.pointSize: NacreAppearance.font.size.normal
             }
 
-            StyledText {
+            NacreText {
                 id: comment
 
                 text: (root.modelData?.comment || root.modelData?.genericName || root.modelData?.name) ?? ""
-                font.pointSize: Appearance.font.size.small
+                font.pointSize: NacreAppearance.font.size.small
                 color: Colours.alpha(Colours.palette.m3outline, true)
 
                 elide: Text.ElideRight
-                width: root.width - icon.width - Appearance.rounding.normal * 2
+                width: root.width - icon.width - NacreAppearance.rounding.normal * 2
 
                 anchors.top: name.bottom
             }

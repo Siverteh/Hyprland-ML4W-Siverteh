@@ -22,7 +22,7 @@ SettingsPage {
             }
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: DeviceActions.message
@@ -45,12 +45,12 @@ SettingsPage {
                 width: parent.width
                 spacing: 7
 
-                StyledText {
+                NacreText {
                     text: parent.modelData.alias || parent.modelData.name
                     font.pointSize: 12
                 }
 
-                StyledText {
+                NacreText {
                     text: [parent.modelData.connected ? "Connected" : "Disconnected", parent.modelData.paired ? "Paired" : "Not paired", parent.modelData.trusted ? "Trusted" : "Not trusted"].join(" · ")
                     font.pointSize: 10
                     color: Colours.palette.m3onSurfaceVariant
@@ -74,7 +74,7 @@ SettingsPage {
             }
         }
 
-        StyledText {
+        NacreText {
             visible: Bluetooth.devices.length === 0
             text: "No known Bluetooth devices"
             color: Colours.palette.m3onSurfaceVariant

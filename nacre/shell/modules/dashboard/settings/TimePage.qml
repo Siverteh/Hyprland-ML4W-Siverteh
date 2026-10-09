@@ -9,13 +9,13 @@ SettingsPage {
         title: "Local time"
         description: "The system clock stays synchronized in UTC. Your timezone sets the local time shown by apps."
 
-        StyledText {
+        NacreText {
             text: TimezoneSettings.status.localTime ?? "Checking local time…"
             font.pointSize: 19
             color: Colours.palette.m3primary
         }
 
-        StyledText {
+        NacreText {
             text: TimezoneSettings.status.timezone ?? ""
             font.pointSize: 12
         }
@@ -45,7 +45,7 @@ SettingsPage {
             }
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: "Automatic mode checks device location through GeoClue on connection changes and every 15 minutes. GPS or nearby Wi-Fi can locate you even on mobile data or a VPN. Imprecise or unavailable fixes keep the last confirmed timezone; public IP location never changes the clock."
@@ -53,7 +53,7 @@ SettingsPage {
             color: Colours.palette.m3onSurfaceVariant
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: "Source: " + (TimezoneSettings.status.source ?? "Not checked") + (TimezoneSettings.status.city ? " · " + TimezoneSettings.status.city : "") + (TimezoneSettings.status.accuracyMeters !== undefined ? " · accuracy " + TimezoneSettings.status.accuracyMeters + " m" : "")
@@ -61,7 +61,7 @@ SettingsPage {
             color: Colours.palette.m3onSurfaceVariant
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: TimezoneSettings.status.error || TimezoneSettings.message
@@ -75,7 +75,7 @@ SettingsPage {
         title: "Confirm your local timezone"
         description: "Confirm where you are if device location is unavailable. America/Chicago covers Houston and Dallas; Europe/Oslo covers Norway. Automatic mode remains available."
 
-        StyledTextField {
+        NacreTextField {
             id: zone
 
             width: parent.width
@@ -84,7 +84,7 @@ SettingsPage {
             placeholderText: "Area/City"
             leftPadding: 12
 
-            background: StyledRect {
+            background: NacreSurface {
                 radius: 12
                 color: Colours.palette.m3surfaceContainerHigh
             }

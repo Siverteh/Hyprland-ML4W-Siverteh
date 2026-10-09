@@ -17,13 +17,13 @@ Column {
     }
 
     width: 340
-    spacing: Appearance.spacing.normal
+    spacing: NacreAppearance.spacing.normal
 
     RowLayout {
         width: 340
         height: 34
 
-        MaterialIcon {
+        NacreIcon {
             text: "chevron_left"
 
             MouseArea {
@@ -33,14 +33,14 @@ Column {
             }
         }
 
-        StyledText {
+        NacreText {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
             text: Qt.formatDate(new Date(root.year, root.month, 1), "MMMM yyyy")
             font.weight: 500
         }
 
-        MaterialIcon {
+        NacreIcon {
             text: "chevron_right"
 
             MouseArea {

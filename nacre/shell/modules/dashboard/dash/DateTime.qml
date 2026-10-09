@@ -8,9 +8,9 @@ Item {
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    implicitWidth: DashboardConfig.sizes.dateTimeWidth
+    implicitWidth: NacreDashboard.sizes.dateTimeWidth
 
-    StyledText {
+    NacreText {
         id: hours
 
         anchors.left: parent.left
@@ -20,11 +20,11 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         text: Time.format("HH")
         color: Colours.palette.m3secondary
-        font.pointSize: Appearance.font.size.extraLarge
+        font.pointSize: NacreAppearance.font.size.extraLarge
         font.weight: 500
     }
 
-    StyledText {
+    NacreText {
         id: sep
 
         anchors.left: parent.left
@@ -34,10 +34,10 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         text: "•••"
         color: Colours.palette.m3primary
-        font.pointSize: Appearance.font.size.extraLarge * 0.9
+        font.pointSize: NacreAppearance.font.size.extraLarge * 0.9
     }
 
-    StyledText {
+    NacreText {
         id: mins
 
         anchors.left: parent.left
@@ -47,21 +47,21 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         text: Time.format("mm")
         color: Colours.palette.m3secondary
-        font.pointSize: Appearance.font.size.extraLarge
+        font.pointSize: NacreAppearance.font.size.extraLarge
         font.weight: 500
     }
 
-    StyledText {
+    NacreText {
         id: date
 
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: mins.bottom
-        anchors.topMargin: Appearance.spacing.normal
+        anchors.topMargin: NacreAppearance.spacing.normal
         horizontalAlignment: Text.AlignHCenter
         text: Time.format("ddd, d")
         color: Colours.palette.m3tertiary
-        font.pointSize: Appearance.font.size.normal
+        font.pointSize: NacreAppearance.font.size.normal
         font.weight: 500
     }
 }

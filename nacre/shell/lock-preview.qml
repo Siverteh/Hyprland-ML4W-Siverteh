@@ -29,7 +29,7 @@ ShellRoot {
             anchors.fill: parent
             focus: true
             Keys.onEscapePressed: Qt.quit()
-            StyledText {
+            NacreText {
                 x: 24
                 y: 20
                 text: "Lock screen preview · Esc to close"
@@ -115,12 +115,12 @@ ShellRoot {
                     x: 649
                     y: 676
                     spacing: 72
-                    MaterialIcon {
+                    NacreIcon {
                         text: "bedtime"
                         font.pointSize: 18
                         color: panel.accent
                     }
-                    MaterialIcon {
+                    NacreIcon {
                         text: "lock"
                         font.pointSize: 18
                         color: panel.accent
@@ -150,7 +150,7 @@ ShellRoot {
                         y: 667
                         width: 40
                         height: 40
-                        MaterialIcon {
+                        NacreIcon {
                             anchors.centerIn: parent
                             text: parent.modelData.icon
                             font.pointSize: parent.modelData.action === "toggle" ? 21 : 16.5

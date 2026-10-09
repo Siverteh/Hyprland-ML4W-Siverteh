@@ -53,7 +53,7 @@ class FileManagerTests(unittest.TestCase):
             )
             presets = json.loads((ROOT / "palette-presets.json").read_text())
             colors = next(p for p in presets if p["id"] == "ocean")["modes"]["dark"]
-            kde.publish(home, colors, "ExampleIcons")
+            kde.publish(home, colors, "ExampleNacreIcons")
             parsed = configparser.ConfigParser(interpolation=None)
             parsed.read(config)
             self.assertEqual(parsed["General"]["TerminalApplication"], "kitty")

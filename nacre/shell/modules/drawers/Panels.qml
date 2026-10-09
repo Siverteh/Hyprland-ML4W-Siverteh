@@ -25,10 +25,10 @@ Item {
     readonly property BarPopouts.Wrapper popouts: popouts
 
     anchors.fill: parent
-    anchors.rightMargin: BorderConfig.right
-    anchors.bottomMargin: BorderConfig.bottom
+    anchors.rightMargin: NacreFrame.right
+    anchors.bottomMargin: NacreFrame.bottom
     anchors.leftMargin: bar.implicitWidth
-    anchors.topMargin: BorderConfig.headerHeight
+    anchors.topMargin: NacreFrame.headerHeight
     property string stableName: ""
     Component.onDestruction: {
         if (Visibilities.panels[stableName] === this) {
@@ -100,10 +100,10 @@ Item {
     BarPopouts.Wrapper {
         id: popouts
 
-        readonly property bool joinsRight: currentCenter - root.bar.implicitWidth + targetWidth / 2 > parent.width - BorderConfig.rounding * 2
+        readonly property bool joinsRight: currentCenter - root.bar.implicitWidth + targetWidth / 2 > parent.width - NacreFrame.rounding * 2
 
         screen: root.screen
         anchors.top: parent.top
-        x: joinsRight ? parent.width - width : Math.max(BorderConfig.rounding * 2, currentCenter - root.bar.implicitWidth - width / 2)
+        x: joinsRight ? parent.width - width : Math.max(NacreFrame.rounding * 2, currentCenter - root.bar.implicitWidth - width / 2)
     }
 }

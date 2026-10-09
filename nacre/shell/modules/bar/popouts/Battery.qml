@@ -9,14 +9,14 @@ import QtQuick
 Column {
     id: root
 
-    spacing: Appearance.spacing.normal
-    width: BarConfig.sizes.batteryWidth
+    spacing: NacreAppearance.spacing.normal
+    width: NacreBar.sizes.batteryWidth
 
-    StyledText {
+    NacreText {
         text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected")
     }
 
-    StyledText {
+    NacreText {
         function formatSeconds(s: int, fallback: string): string {
             const day = Math.floor(s / 86400);
             const hr = Math.floor(s / 3600) % 60;
@@ -44,12 +44,12 @@ Column {
 
         height: active ? (item?.implicitHeight ?? 0) : 0
 
-        sourceComponent: StyledRect {
-            implicitWidth: child.implicitWidth + Appearance.padding.normal * 2
-            implicitHeight: child.implicitHeight + Appearance.padding.smaller * 2
+        sourceComponent: NacreSurface {
+            implicitWidth: child.implicitWidth + NacreAppearance.padding.normal * 2
+            implicitHeight: child.implicitHeight + NacreAppearance.padding.smaller * 2
 
             color: Colours.palette.m3error
-            radius: Appearance.rounding.normal
+            radius: NacreAppearance.rounding.normal
 
             Column {
                 id: child
@@ -58,9 +58,9 @@ Column {
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: Appearance.spacing.small
+                    spacing: NacreAppearance.spacing.small
 
-                    MaterialIcon {
+                    NacreIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
@@ -68,15 +68,15 @@ Column {
                         color: Colours.palette.m3onError
                     }
 
-                    StyledText {
+                    NacreText {
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr("Performance Degraded")
                         color: Colours.palette.m3onError
-                        font.family: Appearance.font.family.mono
+                        font.family: NacreAppearance.font.family.mono
                         font.weight: 500
                     }
 
-                    MaterialIcon {
+                    NacreIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
@@ -85,7 +85,7 @@ Column {
                     }
                 }
 
-                StyledText {
+                NacreText {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))
@@ -95,7 +95,7 @@ Column {
         }
     }
 
-    StyledRect {
+    NacreSurface {
         id: profiles
 
         property string current: {
@@ -109,17 +109,17 @@ Column {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Appearance.padding.normal * 2 + Appearance.spacing.large * 2
-        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Appearance.padding.small * 2
+        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + NacreAppearance.padding.normal * 2 + NacreAppearance.spacing.large * 2
+        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + NacreAppearance.padding.small * 2
 
         color: Colours.palette.m3surfaceContainer
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
 
-        StyledRect {
+        NacreSurface {
             id: indicator
 
             color: Colours.palette.m3primary
-            radius: Appearance.rounding.full
+            radius: NacreAppearance.rounding.full
             state: profiles.current
 
             states: [
@@ -148,9 +148,9 @@ Column {
 
             transitions: Transition {
                 AnchorAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.emphasized
+                    easing.bezierCurve: NacreAppearance.anim.curves.emphasized
                 }
             }
         }
@@ -160,7 +160,7 @@ Column {
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: Appearance.padding.small
+            anchors.leftMargin: NacreAppearance.padding.small
 
             profile: PowerProfile.PowerSaver
             icon: "energy_savings_leaf"
@@ -180,7 +180,7 @@ Column {
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: Appearance.padding.small
+            anchors.rightMargin: NacreAppearance.padding.small
 
             profile: PowerProfile.Performance
             icon: "rocket_launch"
@@ -201,11 +201,11 @@ Column {
         required property string icon
         required property int profile
 
-        implicitWidth: icon.implicitHeight + Appearance.padding.small * 2
-        implicitHeight: icon.implicitHeight + Appearance.padding.small * 2
+        implicitWidth: icon.implicitHeight + NacreAppearance.padding.small * 2
+        implicitHeight: icon.implicitHeight + NacreAppearance.padding.small * 2
 
-        StateLayer {
-            radius: Appearance.rounding.full
+        NacreInteraction {
+            radius: NacreAppearance.rounding.full
             color: profiles.current === parent.icon ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
 
             function onClicked(): void {
@@ -213,21 +213,21 @@ Column {
             }
         }
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             anchors.centerIn: parent
 
             text: parent.icon
-            font.pointSize: Appearance.font.size.large
+            font.pointSize: NacreAppearance.font.size.large
             color: profiles.current === text ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
             fill: profiles.current === text ? 1 : 0
 
             Behavior on fill {
                 NumberAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }

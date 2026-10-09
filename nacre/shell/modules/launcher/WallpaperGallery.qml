@@ -181,7 +181,7 @@ Item {
             })
         }
     }
-    StyledTextField {
+    NacreTextField {
         id: search
         objectName: "wallpaperSearch"
         anchors.horizontalCenter: parent.horizontalCenter
@@ -191,7 +191,7 @@ Item {
         height: 42
         leftPadding: 14
         placeholderText: "Search wallpapers"
-        background: StyledRect {
+        background: NacreSurface {
             radius: 19
             color: Colours.palette.m3surfaceContainer
         }
@@ -202,7 +202,7 @@ Item {
         }
         onAccepted: root.choose()
     }
-    StyledText {
+    NacreText {
         anchors.top: search.bottom
         anchors.topMargin: 8
         x: 24
@@ -233,7 +233,7 @@ Item {
             anchors.centerIn: parent
             spacing: 14
             visible: root.count === 0
-            StyledText {
+            NacreText {
                 text: Wallpapers.loading ? "Loading wallpapers…" : search.text.trim() ? "No matching wallpapers" : root.kind === "dynamic" ? "Add a local video or animated GIF" : "No static wallpapers yet"
                 color: Colours.palette.m3onSurfaceVariant
                 font.pointSize: 15
@@ -263,7 +263,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 4
             width: Math.min(420, root.width - 180)
-            StyledText {
+            NacreText {
                 width: parent.width
                 text: root.currentEntry?.name ?? ""
                 horizontalAlignment: Text.AlignHCenter
@@ -271,7 +271,7 @@ Item {
                 font.pointSize: 12
                 color: Colours.palette.m3primary
             }
-            StyledText {
+            NacreText {
                 width: parent.width
                 text: root.count ? (root.currentIndex + 1) + " / " + root.count : ""
                 horizontalAlignment: Text.AlignHCenter
@@ -456,7 +456,7 @@ Item {
             }
         }
     }
-    component WallpaperCard: StyledRect {
+    component WallpaperCard: NacreSurface {
         id: card
         property var entry
         property bool selected: false
@@ -503,7 +503,7 @@ Item {
             onStateChanged: data => card.motionChanged(data)
         }
 
-        StyledText {
+        NacreText {
             visible: !card.imageOnly
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 12

@@ -123,12 +123,12 @@ Singleton {
         onExited: root.ddcMonitorsChanged()
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "brightnessUp"
         onPressed: root.increaseBrightness()
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "brightnessDown"
         onPressed: root.decreaseBrightness()
     }

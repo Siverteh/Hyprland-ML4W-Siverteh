@@ -9,7 +9,7 @@ import qs.widgets
 Variants {
     model: DisplayRecovery.surfaceScreens
 
-    StyledWindow {
+    NacreWindow {
         id: win
 
         required property ShellScreen modelData
@@ -23,8 +23,8 @@ Variants {
         anchors.left: true
         implicitWidth: HoverIntent.edgeWidth
         implicitHeight: Math.min(810, screen.height - 150)
-        margins.top: BorderConfig.headerHeight
-        margins.bottom: BorderConfig.bottom
+        margins.top: NacreFrame.headerHeight
+        margins.bottom: NacreFrame.bottom
 
         IpcHandler {
             function state(): string {

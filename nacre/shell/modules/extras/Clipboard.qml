@@ -65,7 +65,7 @@ SearchSurface {
             view: list
         }
 
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             visible: list.count === 0
             text: DesktopExtras.busy.clips ? "Reading clipboard…" : "Nothing here yet"
@@ -74,7 +74,7 @@ SearchSurface {
 
         ScrollBar.vertical: ScrollBar {}
 
-        delegate: StyledRect {
+        delegate: NacreSurface {
             id: tile
 
             required property var modelData
@@ -100,7 +100,7 @@ SearchSurface {
                 asynchronous: true
             }
 
-            StyledText {
+            NacreText {
                 x: tile.modelData.image ? 154 : 14
                 y: 14
                 width: list.width - x - 178

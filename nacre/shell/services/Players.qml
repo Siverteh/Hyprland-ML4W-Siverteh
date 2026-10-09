@@ -12,7 +12,7 @@ Singleton {
     readonly property MprisPlayer active: manualActive ?? list.find(p => p.identity === "Spotify" && p.isPlaying) ?? list.find(p => p.isPlaying) ?? list.find(p => p.identity === "Spotify") ?? list[0] ?? null
     property MprisPlayer manualActive
 
-    CustomShortcut {
+    NacreShortcut {
         name: "mediaToggle"
         description: "Toggle media playback"
         onPressed: {
@@ -22,7 +22,7 @@ Singleton {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "mediaPrev"
         description: "Previous track"
         onPressed: {
@@ -32,7 +32,7 @@ Singleton {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "mediaNext"
         description: "Next track"
         onPressed: {
@@ -42,7 +42,7 @@ Singleton {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "mediaStop"
         description: "Stop media playback"
         onPressed: root.active?.stop()

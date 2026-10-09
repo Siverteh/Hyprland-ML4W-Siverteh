@@ -20,9 +20,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitWidth"
-                duration: Appearance.anim.durations.expressiveFastSpatial
+                duration: NacreAppearance.anim.durations.expressiveFastSpatial
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.expressiveFastSpatial
+                easing.bezierCurve: NacreAppearance.anim.curves.expressiveFastSpatial
             }
         },
         Transition {
@@ -32,9 +32,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitWidth"
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.emphasized
+                easing.bezierCurve: NacreAppearance.anim.curves.emphasized
             }
         }
     ]

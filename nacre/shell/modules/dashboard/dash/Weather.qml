@@ -14,7 +14,7 @@ Item {
             Weather.reload();
     }
 
-    MaterialIcon {
+    NacreIcon {
         id: icon
 
         anchors.verticalCenter: parent.verticalCenter
@@ -22,9 +22,9 @@ Item {
         animate: true
         text: Weather.icon || "cloud_alert"
         color: Colours.palette.m3secondary
-        font.pointSize: Appearance.font.size.extraLarge * 2
+        font.pointSize: NacreAppearance.font.size.extraLarge * 2
         font.variableAxes: ({
-                "opsz": Appearance.font.size.extraLarge * 1.2
+                "opsz": NacreAppearance.font.size.extraLarge * 1.2
             })
     }
 
@@ -33,24 +33,24 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: icon.right
-        anchors.leftMargin: Appearance.spacing.large
-        spacing: Appearance.spacing.small
+        anchors.leftMargin: NacreAppearance.spacing.large
+        spacing: NacreAppearance.spacing.small
 
-        StyledText {
+        NacreText {
             anchors.horizontalCenter: parent.horizontalCenter
             animate: true
             text: Weather.displayTemperature
             color: Colours.palette.m3primary
-            font.pointSize: Appearance.font.size.extraLarge
+            font.pointSize: NacreAppearance.font.size.extraLarge
             font.weight: 500
         }
 
-        StyledText {
+        NacreText {
             anchors.horizontalCenter: parent.horizontalCenter
             animate: true
             text: Weather.description || qsTr("No weather")
             elide: Text.ElideRight
-            width: Math.min(implicitWidth, root.parent.width - icon.implicitWidth - info.anchors.leftMargin - Appearance.padding.large * 2)
+            width: Math.min(implicitWidth, root.parent.width - icon.implicitWidth - info.anchors.leftMargin - NacreAppearance.padding.large * 2)
         }
     }
 }

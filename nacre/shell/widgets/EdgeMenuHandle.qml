@@ -46,7 +46,7 @@ Item {
         onTriggered: root.shown = false
     }
 
-    StyledRect {
+    NacreSurface {
         anchors.fill: parent
         radius: 18
         color: Colours.palette.m3surfaceContainerHigh
@@ -55,7 +55,7 @@ Item {
         opacity: root.shown ? 1 : 0
         scale: root.shown ? 1 : 0.9
 
-        MaterialIcon {
+        NacreIcon {
             anchors.centerIn: parent
             text: root.icon
             color: Colours.palette.m3primary

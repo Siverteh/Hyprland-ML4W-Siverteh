@@ -28,20 +28,20 @@ Item {
         return `${Math.floor(length / 60)}:${Math.floor(length % 60).toString().padStart(2, "0")}`;
     }
 
-    implicitWidth: cover.implicitWidth + DashboardConfig.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + cat.implicitWidth + Appearance.spacing.large + Appearance.padding.large * 2
-    implicitHeight: Math.max(cover.implicitHeight + DashboardConfig.sizes.mediaVisualiserSize * 2, details.implicitHeight) + Appearance.padding.large * 2
+    implicitWidth: cover.implicitWidth + NacreDashboard.sizes.mediaVisualiserSize * 2 + details.implicitWidth + details.anchors.leftMargin + cat.implicitWidth + NacreAppearance.spacing.large + NacreAppearance.padding.large * 2
+    implicitHeight: Math.max(cover.implicitHeight + NacreDashboard.sizes.mediaVisualiserSize * 2, details.implicitHeight) + NacreAppearance.padding.large * 2
 
     Behavior on playerProgress {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.standard
+            easing.bezierCurve: NacreAppearance.anim.curves.standard
         }
     }
 
     Timer {
         running: root.shouldUpdate && (Players.active?.isPlaying ?? false)
-        interval: DashboardConfig.mediaUpdateInterval
+        interval: NacreDashboard.mediaUpdateInterval
         triggeredOnStart: true
         repeat: true
         onTriggered: Players.active?.positionChanged()
@@ -61,12 +61,12 @@ Item {
 
         readonly property real centerX: width / 2
         readonly property real centerY: height / 2
-        readonly property real innerX: cover.implicitWidth / 2 + Appearance.spacing.small
-        readonly property real innerY: cover.implicitHeight / 2 + Appearance.spacing.small
+        readonly property real innerX: cover.implicitWidth / 2 + NacreAppearance.spacing.small
+        readonly property real innerY: cover.implicitHeight / 2 + NacreAppearance.spacing.small
         property color colour: Colours.palette.m3primary
 
         anchors.fill: cover
-        anchors.margins: -DashboardConfig.sizes.mediaVisualiserSize
+        anchors.margins: -NacreDashboard.sizes.mediaVisualiserSize
 
         onColourChanged: requestPaint()
 
@@ -78,10 +78,10 @@ Item {
             const len = values.length;
 
             ctx.strokeStyle = colour;
-            ctx.lineWidth = 360 / len - Appearance.spacing.small / 4;
+            ctx.lineWidth = 360 / len - NacreAppearance.spacing.small / 4;
             ctx.lineCap = "round";
 
-            const size = DashboardConfig.sizes.mediaVisualiserSize;
+            const size = NacreDashboard.sizes.mediaVisualiserSize;
             const cx = centerX;
             const cy = centerY;
             const rx = innerX + ctx.lineWidth / 2;
@@ -104,27 +104,27 @@ Item {
 
         Behavior on colour {
             ColorAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }
 
-    StyledClippingRect {
+    NacreClip {
         id: cover
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: Appearance.padding.large + DashboardConfig.sizes.mediaVisualiserSize
+        anchors.leftMargin: NacreAppearance.padding.large + NacreDashboard.sizes.mediaVisualiserSize
 
-        implicitWidth: DashboardConfig.sizes.mediaCoverArtSize
-        implicitHeight: DashboardConfig.sizes.mediaCoverArtSize
+        implicitWidth: NacreDashboard.sizes.mediaCoverArtSize
+        implicitHeight: NacreDashboard.sizes.mediaCoverArtSize
 
         color: Colours.palette.m3surfaceContainerHigh
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
 
-        MaterialIcon {
+        NacreIcon {
             anchors.centerIn: parent
 
             text: "art_track"
@@ -150,11 +150,11 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: visualiser.right
-        anchors.leftMargin: Appearance.spacing.normal
+        anchors.leftMargin: NacreAppearance.spacing.normal
 
-        spacing: Appearance.spacing.small
+        spacing: NacreAppearance.spacing.small
 
-        StyledText {
+        NacreText {
             id: title
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -163,13 +163,13 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             text: (Players.active?.trackTitle ?? qsTr("No media")) || qsTr("Unknown title")
             color: Colours.palette.m3primary
-            font.pointSize: Appearance.font.size.normal
+            font.pointSize: NacreAppearance.font.size.normal
 
             width: parent.implicitWidth
             elide: Text.ElideRight
         }
 
-        StyledText {
+        NacreText {
             id: album
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -178,13 +178,13 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             text: (Players.active?.trackAlbum ?? qsTr("No media")) || qsTr("Unknown album")
             color: Colours.palette.m3outline
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
 
             width: parent.implicitWidth
             elide: Text.ElideRight
         }
 
-        StyledText {
+        NacreText {
             id: artist
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -203,7 +203,7 @@ Item {
 
             anchors.horizontalCenter: parent.horizontalCenter
 
-            spacing: Appearance.spacing.small
+            spacing: NacreAppearance.spacing.small
 
             Control {
                 icon: "skip_previous"
@@ -238,7 +238,7 @@ Item {
             id: slider
 
             implicitWidth: controls.implicitWidth * 1.5
-            implicitHeight: Appearance.padding.normal * 3
+            implicitHeight: NacreAppearance.padding.normal * 3
 
             value: root.playerProgress
             onMoved: {
@@ -248,7 +248,7 @@ Item {
             }
 
             background: Item {
-                StyledRect {
+                NacreSurface {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
@@ -258,12 +258,12 @@ Item {
                     implicitWidth: slider.handle.x - slider.implicitHeight / 6
 
                     color: Colours.palette.m3primary
-                    radius: Appearance.rounding.full
+                    radius: NacreAppearance.rounding.full
                     topRightRadius: slider.implicitHeight / 15
                     bottomRightRadius: slider.implicitHeight / 15
                 }
 
-                StyledRect {
+                NacreSurface {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
@@ -273,13 +273,13 @@ Item {
                     implicitWidth: parent.width - slider.handle.x - slider.handle.implicitWidth - slider.implicitHeight / 6
 
                     color: Colours.palette.m3surfaceContainer
-                    radius: Appearance.rounding.full
+                    radius: NacreAppearance.rounding.full
                     topLeftRadius: slider.implicitHeight / 15
                     bottomLeftRadius: slider.implicitHeight / 15
                 }
             }
 
-            handle: StyledRect {
+            handle: NacreSurface {
                 id: rect
 
                 x: slider.visualPosition * slider.availableWidth
@@ -288,7 +288,7 @@ Item {
                 implicitHeight: slider.implicitHeight
 
                 color: Colours.palette.m3primary
-                radius: Appearance.rounding.full
+                radius: NacreAppearance.rounding.full
 
                 MouseArea {
                     anchors.fill: parent
@@ -304,31 +304,31 @@ Item {
 
             implicitHeight: Math.max(position.implicitHeight, length.implicitHeight)
 
-            StyledText {
+            NacreText {
                 id: position
 
                 anchors.left: parent.left
 
                 text: root.lengthStr(Players.active?.position ?? -1)
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
+                font.pointSize: NacreAppearance.font.size.small
             }
 
-            StyledText {
+            NacreText {
                 id: length
 
                 anchors.right: parent.right
 
                 text: root.lengthStr(Players.active?.length ?? -1)
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
+                font.pointSize: NacreAppearance.font.size.small
             }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
 
-            spacing: Appearance.spacing.small
+            spacing: NacreAppearance.spacing.small
 
             MouseArea {
                 id: playerSelector
@@ -338,7 +338,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
 
                 implicitWidth: slider.implicitWidth / 2
-                implicitHeight: currentPlayer.implicitHeight + Appearance.padding.small * 2
+                implicitHeight: currentPlayer.implicitHeight + NacreAppearance.padding.small * 2
 
                 cursorShape: Qt.PointingHandCursor
                 onClicked: expanded = !expanded
@@ -354,24 +354,24 @@ Item {
 
                     Behavior on opacity {
                         NumberAnimation {
-                            duration: Appearance.anim.durations.normal
+                            duration: NacreAppearance.anim.durations.normal
                             easing.type: Easing.BezierSpline
-                            easing.bezierCurve: Appearance.anim.curves.standard
+                            easing.bezierCurve: NacreAppearance.anim.curves.standard
                         }
                     }
                 }
 
-                StyledRect {
+                NacreSurface {
                     id: playerSelectorBg
 
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
 
-                    implicitHeight: playersWrapper.implicitHeight + Appearance.padding.small * 2
+                    implicitHeight: playersWrapper.implicitHeight + NacreAppearance.padding.small * 2
 
                     color: Colours.palette.m3secondaryContainer
-                    radius: Appearance.rounding.normal
+                    radius: NacreAppearance.rounding.normal
 
                     Item {
                         id: playersWrapper
@@ -379,7 +379,7 @@ Item {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
-                        anchors.margins: Appearance.padding.small
+                        anchors.margins: NacreAppearance.padding.small
 
                         clip: true
                         implicitHeight: playerSelector.expanded && Players.list.length > 1 ? players.implicitHeight : currentPlayer.implicitHeight
@@ -390,7 +390,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
 
-                            spacing: Appearance.spacing.small
+                            spacing: NacreAppearance.spacing.small
 
                             Repeater {
                                 model: Players.list.filter(p => p !== Players.active)
@@ -401,16 +401,16 @@ Item {
                                     required property MprisPlayer modelData
 
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    spacing: Appearance.spacing.small
+                                    spacing: NacreAppearance.spacing.small
 
                                     IconImage {
                                         id: playerIcon
 
-                                        source: Icons.getAppIcon(player.modelData.identity, "image-missing")
+                                        source: NacreIcons.getAppIcon(player.modelData.identity, "image-missing")
                                         implicitSize: Math.round(identity.implicitHeight * 0.9)
                                     }
 
-                                    StyledText {
+                                    NacreText {
                                         id: identity
 
                                         text: identityMetrics.elidedText
@@ -423,7 +423,7 @@ Item {
                                             font.family: identity.font.family
                                             font.pointSize: identity.font.pointSize
                                             elide: Text.ElideRight
-                                            elideWidth: playerSelector.implicitWidth - playerIcon.implicitWidth - player.spacing - Appearance.padding.smaller * 2
+                                            elideWidth: playerSelector.implicitWidth - playerIcon.implicitWidth - player.spacing - NacreAppearance.padding.smaller * 2
                                         }
 
                                         MouseArea {
@@ -445,10 +445,10 @@ Item {
                                 anchors.right: parent.right
                                 implicitHeight: 1
 
-                                StyledRect {
+                                NacreSurface {
                                     anchors.left: parent.left
                                     anchors.right: parent.right
-                                    anchors.margins: -Appearance.padding.normal
+                                    anchors.margins: -NacreAppearance.padding.normal
                                     color: Colours.palette.m3secondary
                                     implicitHeight: 1
                                 }
@@ -458,16 +458,16 @@ Item {
                                 id: currentPlayer
 
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                spacing: Appearance.spacing.small
+                                spacing: NacreAppearance.spacing.small
 
                                 IconImage {
                                     id: currentIcon
 
-                                    source: Icons.getAppIcon(Players.active?.identity ?? "", "multimedia-player")
+                                    source: NacreIcons.getAppIcon(Players.active?.identity ?? "", "multimedia-player")
                                     implicitSize: Math.round(currentIdentity.implicitHeight * 0.9)
                                 }
 
-                                StyledText {
+                                NacreText {
                                     id: currentIdentity
 
                                     animate: true
@@ -481,7 +481,7 @@ Item {
                                         font.family: currentIdentity.font.family
                                         font.pointSize: currentIdentity.font.pointSize
                                         elide: Text.ElideRight
-                                        elideWidth: playerSelector.implicitWidth - currentIcon.implicitWidth - currentPlayer.spacing - Appearance.padding.smaller * 2
+                                        elideWidth: playerSelector.implicitWidth - currentIcon.implicitWidth - currentPlayer.spacing - NacreAppearance.padding.smaller * 2
                                     }
                                 }
                             }
@@ -489,9 +489,9 @@ Item {
 
                         Behavior on implicitHeight {
                             NumberAnimation {
-                                duration: Appearance.anim.durations.normal
+                                duration: NacreAppearance.anim.durations.normal
                                 easing.type: Easing.BezierSpline
-                                easing.bezierCurve: Appearance.anim.curves.emphasized
+                                easing.bezierCurve: NacreAppearance.anim.curves.emphasized
                             }
                         }
                     }
@@ -504,7 +504,7 @@ Item {
         id: cat
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: details.right
-        anchors.leftMargin: Appearance.spacing.large
+        anchors.leftMargin: NacreAppearance.spacing.large
         implicitWidth: 170
         implicitHeight: 170
         readonly property bool enabledForBeat: root.shouldUpdate && (Players.active?.isPlaying ?? false)
@@ -529,12 +529,12 @@ Item {
         }
     }
 
-    component Control: StyledRect {
+    component Control: NacreSurface {
         id: control
 
         required property string icon
         required property bool canUse
-        property int fontSize: Appearance.font.size.extraLarge
+        property int fontSize: NacreAppearance.font.size.extraLarge
         property int padding
         property bool fill: true
         property bool primary
@@ -544,10 +544,10 @@ Item {
         implicitWidth: Math.max(icon.implicitWidth, icon.implicitHeight) + padding * 2
         implicitHeight: implicitWidth
 
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
         color: primary && canUse ? Colours.palette.m3primary : "transparent"
 
-        StateLayer {
+        NacreInteraction {
             disabled: !control.canUse
             radius: parent.radius
             color: control.primary ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
@@ -557,7 +557,7 @@ Item {
             }
         }
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             anchors.centerIn: parent

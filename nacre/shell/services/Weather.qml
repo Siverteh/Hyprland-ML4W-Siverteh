@@ -60,7 +60,7 @@ Singleton {
             onRead: line => {
                 try {
                     const data = JSON.parse(line);
-                    root.icon = data.code ? Icons.getWeatherIcon(data.code) : "cloud_off";
+                    root.icon = data.code ? NacreIcons.getWeatherIcon(data.code) : "cloud_off";
                     root.description = data.description ?? "";
                     root.temperature = data.temperature ?? 0;
                     root.feelsLike = data.feelsLike ?? null;

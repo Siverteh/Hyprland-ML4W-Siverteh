@@ -19,19 +19,19 @@ Item {
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    implicitWidth: DashboardConfig.sizes.mediaWidth
+    implicitWidth: NacreDashboard.sizes.mediaWidth
 
     Behavior on playerProgress {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.standard
+            easing.bezierCurve: NacreAppearance.anim.curves.standard
         }
     }
 
     Timer {
         running: root.shouldUpdate && (Players.active?.isPlaying ?? false)
-        interval: DashboardConfig.mediaUpdateInterval
+        interval: NacreDashboard.mediaUpdateInterval
         triggeredOnStart: true
         repeat: true
         onTriggered: Players.active?.positionChanged()
@@ -43,23 +43,23 @@ Item {
         ShapePath {
             fillColor: "transparent"
             strokeColor: Colours.palette.m3surfaceContainerHigh
-            strokeWidth: DashboardConfig.sizes.mediaProgressThickness
+            strokeWidth: NacreDashboard.sizes.mediaProgressThickness
             capStyle: ShapePath.RoundCap
 
             PathAngleArc {
                 centerX: cover.x + cover.width / 2
                 centerY: cover.y + cover.height / 2
-                radiusX: (cover.width + DashboardConfig.sizes.mediaProgressThickness) / 2 + Appearance.spacing.small
-                radiusY: (cover.height + DashboardConfig.sizes.mediaProgressThickness) / 2 + Appearance.spacing.small
-                startAngle: -90 - DashboardConfig.sizes.mediaProgressSweep / 2
-                sweepAngle: DashboardConfig.sizes.mediaProgressSweep
+                radiusX: (cover.width + NacreDashboard.sizes.mediaProgressThickness) / 2 + NacreAppearance.spacing.small
+                radiusY: (cover.height + NacreDashboard.sizes.mediaProgressThickness) / 2 + NacreAppearance.spacing.small
+                startAngle: -90 - NacreDashboard.sizes.mediaProgressSweep / 2
+                sweepAngle: NacreDashboard.sizes.mediaProgressSweep
             }
 
             Behavior on strokeColor {
                 ColorAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }
@@ -67,41 +67,41 @@ Item {
         ShapePath {
             fillColor: "transparent"
             strokeColor: Colours.palette.m3primary
-            strokeWidth: DashboardConfig.sizes.mediaProgressThickness
+            strokeWidth: NacreDashboard.sizes.mediaProgressThickness
             capStyle: ShapePath.RoundCap
 
             PathAngleArc {
                 centerX: cover.x + cover.width / 2
                 centerY: cover.y + cover.height / 2
-                radiusX: (cover.width + DashboardConfig.sizes.mediaProgressThickness) / 2 + Appearance.spacing.small
-                radiusY: (cover.height + DashboardConfig.sizes.mediaProgressThickness) / 2 + Appearance.spacing.small
-                startAngle: -90 - DashboardConfig.sizes.mediaProgressSweep / 2
-                sweepAngle: DashboardConfig.sizes.mediaProgressSweep * root.playerProgress
+                radiusX: (cover.width + NacreDashboard.sizes.mediaProgressThickness) / 2 + NacreAppearance.spacing.small
+                radiusY: (cover.height + NacreDashboard.sizes.mediaProgressThickness) / 2 + NacreAppearance.spacing.small
+                startAngle: -90 - NacreDashboard.sizes.mediaProgressSweep / 2
+                sweepAngle: NacreDashboard.sizes.mediaProgressSweep * root.playerProgress
             }
 
             Behavior on strokeColor {
                 ColorAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }
     }
 
-    StyledClippingRect {
+    NacreClip {
         id: cover
 
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Appearance.padding.large + DashboardConfig.sizes.mediaProgressThickness + Appearance.spacing.small
+        anchors.margins: NacreAppearance.padding.large + NacreDashboard.sizes.mediaProgressThickness + NacreAppearance.spacing.small
 
         implicitHeight: width
         color: Colours.palette.m3surfaceContainerHigh
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
 
-        MaterialIcon {
+        NacreIcon {
             anchors.centerIn: parent
 
             text: "art_track"
@@ -122,53 +122,53 @@ Item {
         }
     }
 
-    StyledText {
+    NacreText {
         id: title
 
         anchors.top: cover.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: Appearance.spacing.normal
+        anchors.topMargin: NacreAppearance.spacing.normal
 
         animate: true
         horizontalAlignment: Text.AlignHCenter
         text: (Players.active?.trackTitle ?? qsTr("No media")) || qsTr("Unknown title")
         color: Colours.palette.m3primary
-        font.pointSize: Appearance.font.size.normal
+        font.pointSize: NacreAppearance.font.size.normal
 
-        width: parent.implicitWidth - Appearance.padding.large * 2
+        width: parent.implicitWidth - NacreAppearance.padding.large * 2
         elide: Text.ElideRight
     }
 
-    StyledText {
+    NacreText {
         id: album
 
         anchors.top: title.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
 
         animate: true
         horizontalAlignment: Text.AlignHCenter
         text: (Players.active?.trackAlbum ?? qsTr("No media")) || qsTr("Unknown album")
         color: Colours.palette.m3outline
-        font.pointSize: Appearance.font.size.small
+        font.pointSize: NacreAppearance.font.size.small
 
-        width: parent.implicitWidth - Appearance.padding.large * 2
+        width: parent.implicitWidth - NacreAppearance.padding.large * 2
         elide: Text.ElideRight
     }
 
-    StyledText {
+    NacreText {
         id: artist
 
         anchors.top: album.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
 
         animate: true
         horizontalAlignment: Text.AlignHCenter
         text: (Players.active?.trackArtist ?? qsTr("No media")) || qsTr("Unknown artist")
         color: Colours.palette.m3secondary
 
-        width: parent.implicitWidth - Appearance.padding.large * 2
+        width: parent.implicitWidth - NacreAppearance.padding.large * 2
         elide: Text.ElideRight
     }
 
@@ -177,9 +177,9 @@ Item {
 
         anchors.top: artist.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: Appearance.spacing.smaller
+        anchors.topMargin: NacreAppearance.spacing.smaller
 
-        spacing: Appearance.spacing.small
+        spacing: NacreAppearance.spacing.small
 
         Control {
             icon: "skip_previous"
@@ -214,11 +214,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Appearance.padding.large
+        anchors.margins: NacreAppearance.padding.large
         active: root.shouldUpdate && (Players.active?.isPlaying ?? false)
     }
 
-    component Control: StyledRect {
+    component Control: NacreSurface {
         id: control
 
         required property string icon
@@ -226,19 +226,19 @@ Item {
         function onClicked(): void {
         }
 
-        implicitWidth: Math.max(icon.implicitHeight, icon.implicitHeight) + Appearance.padding.small
+        implicitWidth: Math.max(icon.implicitHeight, icon.implicitHeight) + NacreAppearance.padding.small
         implicitHeight: implicitWidth
 
-        StateLayer {
+        NacreInteraction {
             disabled: !control.canUse
-            radius: Appearance.rounding.full
+            radius: NacreAppearance.rounding.full
 
             function onClicked(): void {
                 control.onClicked();
             }
         }
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             anchors.centerIn: parent
@@ -247,7 +247,7 @@ Item {
             animate: true
             text: control.icon
             color: control.canUse ? Colours.palette.m3onSurface : Colours.palette.m3outline
-            font.pointSize: Appearance.font.size.large
+            font.pointSize: NacreAppearance.font.size.large
         }
     }
 }

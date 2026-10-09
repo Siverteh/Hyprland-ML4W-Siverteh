@@ -26,7 +26,7 @@ SettingsPage {
                 onSelect: Pipewire.preferredDefaultAudioSink = node
             }
         }
-        StyledText {
+        NacreText {
             visible: root.outputs.length === 0
             text: "No output devices available"
             color: Colours.palette.m3onSurfaceVariant
@@ -45,7 +45,7 @@ SettingsPage {
                 onSelect: Pipewire.preferredDefaultAudioSource = node
             }
         }
-        StyledText {
+        NacreText {
             visible: root.inputs.length === 0
             text: "No microphone devices available"
             color: Colours.palette.m3onSurfaceVariant
@@ -61,7 +61,7 @@ SettingsPage {
                 node: modelData
             }
         }
-        StyledText {
+        NacreText {
             visible: root.streams.length === 0
             text: "No active application audio"
             color: Colours.palette.m3onSurfaceVariant
@@ -80,7 +80,7 @@ SettingsPage {
         signal select
         width: parent.width
         spacing: 4
-        StyledText {
+        NacreText {
             width: parent.width
             text: row.node?.description || row.node?.name || "Audio device"
             elide: Text.ElideRight
@@ -103,7 +103,7 @@ SettingsPage {
                 enabled: row.node?.ready ?? false
                 onClicked: row.node.audio.muted = !row.node.audio.muted
             }
-            StyledText {
+            NacreText {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Math.round((row.node?.audio?.volume ?? 0) * 100) + "%"
                 font.pointSize: 10

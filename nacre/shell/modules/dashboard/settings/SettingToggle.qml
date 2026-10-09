@@ -12,7 +12,7 @@ Item {
     width: parent.width
     height: 36
 
-    StyledText {
+    NacreText {
         width: parent.width - 62
         anchors.verticalCenter: parent.verticalCenter
         text: root.label
@@ -20,7 +20,7 @@ Item {
         font.pointSize: 11
     }
 
-    StyledRect {
+    NacreSurface {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         width: 46

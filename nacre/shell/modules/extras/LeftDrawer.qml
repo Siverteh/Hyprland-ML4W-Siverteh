@@ -19,7 +19,7 @@ Item {
     implicitHeight: Math.min(810, screen.height - 150)
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Appearance.anim.durations.normal
+            duration: NacreAppearance.anim.durations.normal
             easing.type: Easing.InOutCubic
         }
     }
@@ -53,7 +53,7 @@ Item {
             implicitHeight: 30
             anchors.verticalCenter: parent.verticalCenter
         }
-        StyledText {
+        NacreText {
             text: "Nacre AI"
             anchors.left: logo.right
             anchors.leftMargin: 10
@@ -140,7 +140,7 @@ Item {
                 width: 438
                 spacing: 12
                 visible: root.section === "settings"
-                StyledText {
+                NacreText {
                     text: "Default assistant"
                     color: Colours.palette.m3primary
                 }
@@ -157,7 +157,7 @@ Item {
                         onClicked: SidebarChat.setProvider("claude")
                     }
                 }
-                StyledText {
+                NacreText {
                     width: 438
                     wrapMode: Text.Wrap
                     text: "Used for new chats here and in the workspace. Existing chats keep their assistant."
@@ -179,7 +179,7 @@ Item {
                     onClicked: DesktopActions.execute("tasks")
                 }
             }
-            StyledTextField {
+            NacreTextField {
                 id: search
                 visible: root.section === "brain"
                 width: 438
@@ -188,7 +188,7 @@ Item {
                 rightPadding: 13
                 placeholderText: "Search your brain"
                 text: DesktopExtras.brainQuery
-                background: StyledRect {
+                background: NacreSurface {
                     color: Colours.palette.m3surfaceContainerHigh
                     radius: 21
                 }
@@ -245,7 +245,7 @@ Item {
                     placeholderTextColor: Colours.palette.m3onSurfaceVariant
                     selectionColor: Colours.palette.m3primary
                     selectedTextColor: Colours.palette.m3onPrimary
-                    background: StyledRect {
+                    background: NacreSurface {
                         color: Colours.palette.m3surfaceContainerHigh
                         radius: 12
                     }
@@ -271,7 +271,7 @@ Item {
                     }
                 }
             }
-            StyledText {
+            NacreText {
                 width: 438
                 wrapMode: Text.WordWrap
                 visible: DesktopExtras.message.length > 0 || DesktopExtras.captured.length > 0
@@ -283,13 +283,13 @@ Item {
                 width: 438
                 spacing: 8
                 visible: root.section === "brain" && search.text.trim().length > 0
-                StyledText {
+                NacreText {
                     text: DesktopExtras.busy.brain ? "Searching…" : "Knowledge"
                     color: Colours.palette.m3primary
                 }
                 Repeater {
                     model: DesktopExtras.notes
-                    StyledRect {
+                    NacreSurface {
                         id: note
                         required property var modelData
                         width: 438
@@ -300,14 +300,14 @@ Item {
                             anchors.fill: parent
                             anchors.margins: 10
                             spacing: 5
-                            StyledText {
+                            NacreText {
                                 width: 418
                                 elide: Text.ElideRight
                                 text: note.modelData.title
                                 textFormat: Text.PlainText
                                 font.pointSize: 11
                             }
-                            StyledText {
+                            NacreText {
                                 width: 418
                                 height: 32
                                 wrapMode: Text.Wrap
@@ -340,7 +340,7 @@ Item {
                         }
                     }
                 }
-                StyledText {
+                NacreText {
                     text: "No matching notes"
                     visible: DesktopExtras.notes.length === 0 && !DesktopExtras.busy.brain
                     color: Colours.palette.m3onSurfaceVariant
@@ -350,7 +350,7 @@ Item {
                 width: 438
                 spacing: 8
                 visible: root.section === "chats"
-                StyledText {
+                NacreText {
                     text: "Workspace chats"
                     color: Colours.palette.m3primary
                 }
@@ -369,7 +369,7 @@ Item {
                 }
                 Row {
                     spacing: 8
-                    StyledText {
+                    NacreText {
                         text: "Recent chats"
                         width: 195
                         anchors.verticalCenter: parent.verticalCenter
@@ -382,7 +382,7 @@ Item {
                         onClicked: DesktopExtras.request("chats", {})
                     }
                 }
-                StyledText {
+                NacreText {
                     visible: !!DesktopExtras.busy.chats
                     text: "Reading saved chats…"
                     font.pointSize: 10
@@ -423,7 +423,7 @@ Item {
             });
         }
     }
-    component ChatCard: StyledRect {
+    component ChatCard: NacreSurface {
         id: card
         property string label
         property string detail
@@ -436,20 +436,20 @@ Item {
             anchors.fill: parent
             anchors.margins: 9
             spacing: 2
-            StyledText {
+            NacreText {
                 width: 418
                 elide: Text.ElideRight
                 text: card.label
                 textFormat: Text.PlainText
                 font.pointSize: 11
             }
-            StyledText {
+            NacreText {
                 text: card.detail
                 font.pointSize: 9
                 color: Colours.palette.m3onSurfaceVariant
             }
         }
-        StateLayer {
+        NacreInteraction {
             function onClicked() {
                 card.clicked();
             }

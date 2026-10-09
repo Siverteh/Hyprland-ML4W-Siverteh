@@ -9,13 +9,13 @@ Item {
     required property Actions.Action modelData
     required property var list
 
-    implicitHeight: LauncherConfig.sizes.itemHeight
+    implicitHeight: NacreLauncher.sizes.itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right
 
-    StateLayer {
-        radius: Appearance.rounding.full
+    NacreInteraction {
+        radius: NacreAppearance.rounding.full
 
         function onClicked(): void {
             root.modelData?.onClicked(root.list);
@@ -24,43 +24,43 @@ Item {
 
     Item {
         anchors.fill: parent
-        anchors.leftMargin: Appearance.padding.larger
-        anchors.rightMargin: Appearance.padding.larger
-        anchors.margins: Appearance.padding.smaller
+        anchors.leftMargin: NacreAppearance.padding.larger
+        anchors.rightMargin: NacreAppearance.padding.larger
+        anchors.margins: NacreAppearance.padding.smaller
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             text: root.modelData?.icon ?? ""
-            font.pointSize: Appearance.font.size.extraLarge
+            font.pointSize: NacreAppearance.font.size.extraLarge
 
             anchors.verticalCenter: parent.verticalCenter
         }
 
         Item {
             anchors.left: icon.right
-            anchors.leftMargin: Appearance.spacing.larger
+            anchors.leftMargin: NacreAppearance.spacing.larger
             anchors.verticalCenter: icon.verticalCenter
 
             implicitWidth: parent.width - icon.width
             implicitHeight: name.implicitHeight + desc.implicitHeight
 
-            StyledText {
+            NacreText {
                 id: name
 
                 text: root.modelData?.name ?? ""
-                font.pointSize: Appearance.font.size.normal
+                font.pointSize: NacreAppearance.font.size.normal
             }
 
-            StyledText {
+            NacreText {
                 id: desc
 
                 text: root.modelData?.desc ?? ""
-                font.pointSize: Appearance.font.size.small
+                font.pointSize: NacreAppearance.font.size.small
                 color: Colours.alpha(Colours.palette.m3outline, true)
 
                 elide: Text.ElideRight
-                width: root.width - icon.width - Appearance.rounding.normal * 2
+                width: root.width - icon.width - NacreAppearance.rounding.normal * 2
 
                 anchors.top: name.bottom
             }

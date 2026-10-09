@@ -17,14 +17,14 @@ ListView {
     required property TextField search
     required property PersistentProperties visibilities
 
-    property bool isAction: search.text.startsWith(LauncherConfig.actionPrefix)
+    property bool isAction: search.text.startsWith(NacreLauncher.actionPrefix)
 
     function getModelValues() {
         let text = search.text;
         if (isAction)
             return Actions.fuzzyQuery(text);
-        if (text.startsWith(LauncherConfig.actionPrefix))
-            text = search.text.slice(LauncherConfig.actionPrefix.length);
+        if (text.startsWith(NacreLauncher.actionPrefix))
+            text = search.text.slice(NacreLauncher.actionPrefix.length);
         return Apps.fuzzyQuery(text);
     }
 
@@ -33,22 +33,22 @@ ListView {
         onValuesChanged: root.currentIndex = 0
     }
 
-    spacing: Appearance.spacing.small
+    spacing: NacreAppearance.spacing.small
     orientation: Qt.Vertical
-    implicitHeight: (LauncherConfig.sizes.itemHeight + spacing) * Math.min(LauncherConfig.maxShown, count) - spacing
+    implicitHeight: (NacreLauncher.sizes.itemHeight + spacing) * Math.min(NacreLauncher.maxShown, count) - spacing
 
-    highlightMoveDuration: Appearance.anim.durations.normal
+    highlightMoveDuration: NacreAppearance.anim.durations.normal
     highlightResizeDuration: 0
 
-    highlight: StyledRect {
-        radius: Appearance.rounding.full
+    highlight: NacreSurface {
+        radius: NacreAppearance.rounding.full
         color: Colours.palette.m3onSurface
         opacity: 0.08
     }
 
     delegate: isAction ? actionItem : appItem
 
-    ScrollBar.vertical: StyledScrollBar {}
+    ScrollBar.vertical: NacreScrollBar {}
 
     add: Transition {
         Anim {
@@ -79,7 +79,7 @@ ListView {
     addDisplaced: Transition {
         Anim {
             property: "y"
-            duration: Appearance.anim.durations.small
+            duration: NacreAppearance.anim.durations.small
         }
         Anim {
             properties: "opacity,scale"
@@ -121,16 +121,16 @@ ListView {
                     property: "opacity"
                     from: 1
                     to: 0
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    duration: NacreAppearance.anim.durations.small
+                    easing.bezierCurve: NacreAppearance.anim.curves.standardAccel
                 }
                 Anim {
                     target: root
                     property: "scale"
                     from: 1
                     to: 0.9
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    duration: NacreAppearance.anim.durations.small
+                    easing.bezierCurve: NacreAppearance.anim.curves.standardAccel
                 }
             }
             PropertyAction {}
@@ -140,24 +140,24 @@ ListView {
                     property: "opacity"
                     from: 0
                     to: 1
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    duration: NacreAppearance.anim.durations.small
+                    easing.bezierCurve: NacreAppearance.anim.curves.standardDecel
                 }
                 Anim {
                     target: root
                     property: "scale"
                     from: 0.9
                     to: 1
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    duration: NacreAppearance.anim.durations.small
+                    easing.bezierCurve: NacreAppearance.anim.curves.standardDecel
                 }
             }
         }
     }
 
     component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.normal
+        duration: NacreAppearance.anim.durations.normal
         easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.anim.curves.standard
+        easing.bezierCurve: NacreAppearance.anim.curves.standard
     }
 }

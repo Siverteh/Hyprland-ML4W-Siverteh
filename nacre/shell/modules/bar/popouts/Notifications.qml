@@ -11,22 +11,22 @@ Column {
     Row {
         width: 400
         spacing: 12
-        StyledText {
+        NacreText {
             width: 310
             text: "Notifications · " + Notifs.retained.length
             font.weight: 500
         }
-        StyledRect {
+        NacreSurface {
             implicitWidth: 78
             implicitHeight: 30
             radius: 15
             color: Colours.palette.m3surfaceContainer
-            StyledText {
+            NacreText {
                 anchors.centerIn: parent
                 text: "Clear all"
                 font.pointSize: 10
             }
-            StateLayer {
+            NacreInteraction {
                 disabled: Notifs.retained.length === 0
                 function onClicked() {
                     Notifs.clearHistory();
@@ -37,7 +37,7 @@ Column {
     Item {
         width: 400
         height: 320
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             text: "No notifications"
             visible: Notifs.retained.length === 0

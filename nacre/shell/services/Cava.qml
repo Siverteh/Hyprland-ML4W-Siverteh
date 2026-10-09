@@ -63,7 +63,7 @@ Singleton {
             }
         }
         running: root.wanted
-        command: ["sh", "-c", `printf '[general]\nframerate=60\nbars=${DashboardConfig.visualiserBars}\n[input]\nmethod=pulse\nsource=%s.monitor\n[output]\nchannels=mono\nmethod=raw\nraw_target=/dev/stdout\ndata_format=ascii\nascii_max_range=100' "$(pactl get-default-sink)" | cava -p /dev/stdin`]
+        command: ["sh", "-c", `printf '[general]\nframerate=60\nbars=${NacreDashboard.visualiserBars}\n[input]\nmethod=pulse\nsource=%s.monitor\n[output]\nchannels=mono\nmethod=raw\nraw_target=/dev/stdout\ndata_format=ascii\nascii_max_range=100' "$(pactl get-default-sink)" | cava -p /dev/stdin`]
 
         stdout: SplitParser {
             onRead: data => {

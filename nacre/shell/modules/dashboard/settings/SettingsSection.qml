@@ -2,7 +2,7 @@ import QtQuick
 import qs.services
 import qs.widgets
 
-StyledRect {
+NacreSurface {
     id: root
 
     property string title: ""
@@ -24,14 +24,14 @@ StyledRect {
         width: parent.width - 32
         spacing: 5
 
-        StyledText {
+        NacreText {
             width: parent.width
             text: root.title + (root.collapsible ? (root.expanded ? "  −" : "  +") : "")
             font.pointSize: 13
             color: Colours.palette.m3primary
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             visible: root.description.length > 0
             text: root.description

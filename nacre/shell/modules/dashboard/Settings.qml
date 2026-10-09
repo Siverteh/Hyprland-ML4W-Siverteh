@@ -16,7 +16,7 @@ Item {
     readonly property var pages: [
         {
             id: "appearance",
-            label: "Appearance",
+            label: "NacreAppearance",
             icon: "palette",
             detail: "Wallpaper, colors and desktop frame",
             terms: "wallpaper colors theme dark light frame top bar edge corners radius"
@@ -115,7 +115,7 @@ Item {
             root.open(Visibilities.settingsPage);
         }
     }
-    StyledRect {
+    NacreSurface {
         id: rail
         width: 190
         height: parent.height
@@ -133,13 +133,13 @@ Item {
                     implicitWidth: 26
                     implicitHeight: 26
                 }
-                StyledText {
+                NacreText {
                     text: "Settings"
                     font.pointSize: 16
                     color: Colours.palette.m3primary
                 }
             }
-            StyledTextField {
+            NacreTextField {
                 id: search
                 objectName: "settingsSearch"
                 width: parent.width
@@ -148,7 +148,7 @@ Item {
                 leftPadding: 10
                 text: root.query
                 onTextChanged: root.query = text
-                background: StyledRect {
+                background: NacreSurface {
                     radius: 12
                     color: Colours.palette.m3surfaceContainerHigh
                 }
@@ -170,7 +170,7 @@ Item {
                 view: nav
             }
             ScrollBar.vertical: ScrollBar {}
-            delegate: StyledRect {
+            delegate: NacreSurface {
                 required property var modelData
                 width: nav.width
                 height: 40
@@ -180,17 +180,17 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     x: 12
                     spacing: 10
-                    MaterialIcon {
+                    NacreIcon {
                         text: modelData.icon
                         font.pointSize: 15
                         color: root.page === modelData.id ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
                     }
-                    StyledText {
+                    NacreText {
                         text: modelData.label
                         font.pointSize: 11
                     }
                 }
-                StateLayer {
+                NacreInteraction {
                     function onClicked() {
                         root.open(modelData.id);
                     }
@@ -204,13 +204,13 @@ Item {
         anchors.leftMargin: 24
         anchors.right: parent.right
         spacing: 4
-        StyledText {
+        NacreText {
             text: root.query.trim() ? "Search settings" : root.current.label
             font.pointSize: 20
             font.weight: 500
             color: Colours.palette.m3primary
         }
-        StyledText {
+        NacreText {
             text: root.query.trim() ? root.matches.length + " matching pages" : root.current.detail
             font.pointSize: 11
             color: Colours.palette.m3onSurfaceVariant
@@ -242,7 +242,7 @@ Item {
         FastScroll {
             view: results
         }
-        delegate: StyledRect {
+        delegate: NacreSurface {
             required property var modelData
             width: results.width
             height: 76
@@ -252,24 +252,24 @@ Item {
                 x: 16
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 5
-                StyledText {
+                NacreText {
                     text: modelData.label
                     color: Colours.palette.m3primary
                     font.pointSize: 13
                 }
-                StyledText {
+                NacreText {
                     text: modelData.detail
                     color: Colours.palette.m3onSurfaceVariant
                     font.pointSize: 11
                 }
             }
-            StateLayer {
+            NacreInteraction {
                 function onClicked() {
                     root.open(modelData.id);
                 }
             }
         }
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             visible: results.count === 0
             text: "No matching settings"

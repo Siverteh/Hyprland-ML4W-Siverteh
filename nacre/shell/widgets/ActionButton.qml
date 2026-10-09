@@ -1,7 +1,7 @@
 import QtQuick
 import qs.services
 
-StyledRect {
+NacreSurface {
     id: root
 
     property string text
@@ -21,14 +21,14 @@ StyledRect {
         anchors.centerIn: parent
         spacing: root.compact ? 5 : 7
 
-        MaterialIcon {
+        NacreIcon {
             text: root.icon
             visible: root.icon.length > 0
             font.pointSize: root.compact ? 12 : 14
             color: root.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
         }
 
-        StyledText {
+        NacreText {
             id: label
 
             text: root.text
@@ -37,7 +37,7 @@ StyledRect {
         }
     }
 
-    StateLayer {
+    NacreInteraction {
         function onClicked() {
             root.clicked();
         }

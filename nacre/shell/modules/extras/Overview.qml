@@ -50,7 +50,7 @@ SearchSurface {
             spacing: 12
             Repeater {
                 model: root.workspaces
-                StyledRect {
+                NacreSurface {
                     id: workspace
                     required property int modelData
                     width: 320
@@ -62,13 +62,13 @@ SearchSurface {
                         x: 12
                         y: 12
                         spacing: 8
-                        MaterialIcon {
-                            text: BarConfig.workspaceIcons[workspace.modelData - 1] ?? "workspaces"
+                        NacreIcon {
+                            text: NacreBar.workspaceIcons[workspace.modelData - 1] ?? "workspaces"
                             font.pointSize: 14
                             color: Colours.palette.m3primary
                         }
-                        StyledText {
-                            text: workspace.modelData + " · " + (BarConfig.workspaceNames[workspace.modelData - 1] ?? "Workspace")
+                        NacreText {
+                            text: workspace.modelData + " · " + (NacreBar.workspaceNames[workspace.modelData - 1] ?? "Workspace")
                             color: Colours.palette.m3primary
                         }
                     }
@@ -99,7 +99,7 @@ SearchSurface {
                             width: tiles.cellWidth - 5
                             height: tiles.cellHeight - 4
                             readonly property var nativeWindow: Native.Hyprland.toplevels.values.find(t => t.address.replace(/^0x/, "") === modelData.address.replace(/^0x/, ""))
-                            StyledRect {
+                            NacreSurface {
                                 id: preview
                                 width: tile.width
                                 height: tile.height - 22
@@ -121,7 +121,7 @@ SearchSurface {
                                         onTriggered: copy.captureFrame()
                                     }
                                 }
-                                MaterialIcon {
+                                NacreIcon {
                                     anchors.centerIn: parent
                                     text: "window"
                                     visible: !copy.hasContent
@@ -129,7 +129,7 @@ SearchSurface {
                                     color: Colours.palette.m3onSurfaceVariant
                                 }
                             }
-                            StyledText {
+                            NacreText {
                                 anchors.bottom: parent.bottom
                                 width: tile.width
                                 font.pointSize: 9
@@ -173,7 +173,7 @@ SearchSurface {
                             }
                         }
                     }
-                    StyledText {
+                    NacreText {
                         anchors.centerIn: tiles
                         visible: workspace.windows.length === 0
                         text: "Empty"
@@ -193,7 +193,7 @@ SearchSurface {
             }
         }
     }
-    StyledRect {
+    NacreSurface {
         id: ghost
         parent: root
         visible: root.dragging
@@ -209,7 +209,7 @@ SearchSurface {
         Drag.source: ghost
         Drag.hotSpot.x: 70
         Drag.hotSpot.y: 30
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             text: "Move window"
             color: Colours.palette.m3onPrimaryContainer

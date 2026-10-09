@@ -21,7 +21,7 @@ Singleton {
             active = pending;
     }
     FileView {
-        path: `${Paths.state}/presentation.json`
+        path: `${NacrePaths.state}/presentation.json`
         watchChanges: true
         onFileChanged: reload()
         onLoaded: {

@@ -15,7 +15,7 @@ Item {
     required property int padding
     required property int rounding
 
-    property bool showWallpapers: search.text.startsWith(`${LauncherConfig.actionPrefix}wallpaper `)
+    property bool showWallpapers: search.text.startsWith(`${NacreLauncher.actionPrefix}wallpaper `)
     property var currentList: (showWallpapers ? wallpaperList : appList).item
 
     anchors.horizontalCenter: parent.horizontalCenter
@@ -29,7 +29,7 @@ Item {
             name: "apps"
 
             PropertyChanges {
-                root.implicitWidth: LauncherConfig.sizes.itemWidth
+                root.implicitWidth: NacreLauncher.sizes.itemWidth
                 root.implicitHeight: Math.max(empty.height, appList.height)
                 appList.active: true
             }
@@ -43,8 +43,8 @@ Item {
             name: "wallpapers"
 
             PropertyChanges {
-                root.implicitWidth: Math.max(LauncherConfig.sizes.itemWidth, wallpaperList.width)
-                root.implicitHeight: LauncherConfig.sizes.wallpaperHeight
+                root.implicitWidth: Math.max(NacreLauncher.sizes.itemWidth, wallpaperList.width)
+                root.implicitHeight: NacreLauncher.sizes.wallpaperHeight
                 wallpaperList.active: true
             }
         }
@@ -57,9 +57,9 @@ Item {
                 property: "opacity"
                 from: 1
                 to: 0
-                duration: Appearance.anim.durations.small
+                duration: NacreAppearance.anim.durations.small
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
             PropertyAction {
                 targets: [appList, wallpaperList]
@@ -69,18 +69,18 @@ Item {
                 NumberAnimation {
                     target: root
                     properties: "implicitWidth,implicitHeight"
-                    duration: Appearance.anim.durations.large
+                    duration: NacreAppearance.anim.durations.large
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.emphasized
+                    easing.bezierCurve: NacreAppearance.anim.curves.emphasized
                 }
                 NumberAnimation {
                     target: root
                     property: "opacity"
                     from: 0
                     to: 1
-                    duration: Appearance.anim.durations.large
+                    duration: NacreAppearance.anim.durations.large
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }
@@ -124,65 +124,65 @@ Item {
         opacity: root.currentList?.count === 0 ? 1 : 0
         scale: root.currentList?.count === 0 ? 1 : 0.5
 
-        implicitWidth: icon.width + text.width + Appearance.spacing.small
+        implicitWidth: icon.width + text.width + NacreAppearance.spacing.small
         implicitHeight: icon.height
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             text: "manage_search"
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.extraLarge
+            font.pointSize: NacreAppearance.font.size.extraLarge
 
             anchors.verticalCenter: parent.verticalCenter
         }
 
-        StyledText {
+        NacreText {
             id: text
 
             anchors.left: icon.right
-            anchors.leftMargin: Appearance.spacing.small
+            anchors.leftMargin: NacreAppearance.spacing.small
             anchors.verticalCenter: parent.verticalCenter
 
             text: qsTr("No results")
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.larger
+            font.pointSize: NacreAppearance.font.size.larger
             font.weight: 500
         }
 
         Behavior on opacity {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on scale {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasizedDecel
         }
     }
 
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasizedDecel
         }
     }
 }

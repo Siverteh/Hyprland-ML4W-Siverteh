@@ -1,12 +1,7 @@
 pragma Singleton
 import QtQuick
-import Quickshell
 
-Singleton {
-    readonly property int dragThreshold: 30
-    readonly property Sizes sizes: Sizes {}
-
-    component Sizes: QtObject {
-        readonly property int button: 80
-    }
+QtObject {
+    readonly property var dragThreshold: NacreSession.dragThreshold
+    readonly property var sizes: NacreSession.sizes
 }

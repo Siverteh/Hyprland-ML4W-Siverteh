@@ -8,7 +8,7 @@ Scope {
 
     property bool launcherInterrupted
 
-    CustomShortcut {
+    NacreShortcut {
         name: "dismissHoverEdges"
         description: "Dismiss passive hover menus without taking application focus"
         onPressed: {
@@ -27,7 +27,7 @@ Scope {
             }
         }
     }
-    CustomShortcut {
+    NacreShortcut {
         name: "session"
         description: "Toggle session menu"
         onPressed: {
@@ -36,7 +36,7 @@ Scope {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "launcher"
         description: "Toggle launcher"
         onPressed: root.launcherInterrupted = false
@@ -49,7 +49,7 @@ Scope {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "launcherInterrupt"
         description: "Interrupt launcher keybind"
         onPressed: root.launcherInterrupted = true

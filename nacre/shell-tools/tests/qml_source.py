@@ -39,7 +39,7 @@ def install_foundation_interaction(fixtures, widgets):
     fixtures, widgets = Path(fixtures), Path(widgets)
     manifest = fixtures / "qmldir"
     text = manifest.read_text()
-    for name in ("NacreTokens", "NacreInteraction", "StateLayer"):
+    for name in ("NacreTokens", "NacreInteraction"):
         source = (widgets / (name + ".qml")).read_text()
         source = source.replace("import qs.services", 'import "."')
         (fixtures / (name + ".qml")).write_text(source)

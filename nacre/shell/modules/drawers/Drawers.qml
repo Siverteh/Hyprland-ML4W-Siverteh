@@ -29,7 +29,7 @@ Variants {
             bar: bar
         }
 
-        StyledWindow {
+        NacreWindow {
             id: win
 
             screen: scope.modelData
@@ -80,9 +80,9 @@ Variants {
             }
             readonly property Region frameMask: Region {
                 x: Visibilities.hidden || visibilities.previewOnly ? 0 : bar.implicitWidth
-                y: Visibilities.hidden || visibilities.previewOnly ? 0 : BorderConfig.headerHeight
-                width: Visibilities.hidden || visibilities.previewOnly ? win.width : win.width - bar.implicitWidth - BorderConfig.right
-                height: Visibilities.hidden || visibilities.previewOnly ? win.height : win.height - BorderConfig.headerHeight - BorderConfig.bottom
+                y: Visibilities.hidden || visibilities.previewOnly ? 0 : NacreFrame.headerHeight
+                width: Visibilities.hidden || visibilities.previewOnly ? win.width : win.width - bar.implicitWidth - NacreFrame.right
+                height: Visibilities.hidden || visibilities.previewOnly ? win.height : win.height - NacreFrame.headerHeight - NacreFrame.bottom
                 intersection: Intersection.Xor
 
                 regions: regions.instances
@@ -138,16 +138,16 @@ Variants {
                 }
             }
 
-            StyledRect {
+            NacreSurface {
                 anchors.fill: parent
                 opacity: visibilities.session ? 0.5 : 0
                 color: Colours.palette.m3scrim
 
                 Behavior on opacity {
                     NumberAnimation {
-                        duration: Appearance.anim.durations.normal
+                        duration: NacreAppearance.anim.durations.normal
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: Appearance.anim.curves.standard
+                        easing.bezierCurve: NacreAppearance.anim.curves.standard
                     }
                 }
             }
@@ -249,7 +249,7 @@ Variants {
 
             Item {
                 id: bar
-                implicitWidth: BorderConfig.left
+                implicitWidth: NacreFrame.left
                 function checkPopout(y) {
                     panels.popouts.hasCurrent = false;
                 }

@@ -8,8 +8,8 @@ import QtQuick
 
 Singleton {
     id: root
-    readonly property string currentNamePath: `${Paths.state}/wallpaper/last.txt`.slice(7)
-    readonly property string path: `${Paths.pictures}/Wallpapers`.slice(7)
+    readonly property string currentNamePath: `${NacrePaths.state}/wallpaper/last.txt`.slice(7)
+    readonly property string path: `${NacrePaths.pictures}/Wallpapers`.slice(7)
     readonly property list<Wallpaper> list: wallpapers.instances
     property var preferences: ({
             kind: "static",
@@ -211,7 +211,7 @@ Singleton {
     }
     FileView {
         id: mediaFile
-        path: `${Paths.state}/wallpaper/media.json`
+        path: `${NacrePaths.state}/wallpaper/media.json`
         watchChanges: true
         preload: false
         onFileChanged: reload()

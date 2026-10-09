@@ -25,15 +25,13 @@ class EdgeHandleTests(unittest.TestCase):
                 .replace("import qs.widgets", "")
             )
             (target / "EdgeMenuHandle.qml").write_text(source)
-            (target / "fixtures/MaterialIcon.qml").write_text(
-                "import QtQuick\nText {}\n"
-            )
+            (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}\n")
             (target / "fixtures/DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject { property var data:({animations:false}) }"
             )
             with (target / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nMaterialIcon 1.0 MaterialIcon.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
+                    "\nNacreIcon 1.0 NacreIcon.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
                 )
             (target / "tst_handle.qml").write_text("""import QtQuick
 import QtTest

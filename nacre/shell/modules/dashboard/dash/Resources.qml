@@ -9,8 +9,8 @@ Row {
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    padding: Appearance.padding.large
-    spacing: Appearance.spacing.normal
+    padding: NacreAppearance.padding.large
+    spacing: NacreAppearance.spacing.normal
 
     Resource {
         icon: "memory"
@@ -39,29 +39,29 @@ Row {
 
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.margins: Appearance.padding.large
+        anchors.margins: NacreAppearance.padding.large
         implicitWidth: icon.implicitWidth
 
-        StyledRect {
+        NacreSurface {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.bottom: icon.top
-            anchors.bottomMargin: Appearance.spacing.small
-            implicitWidth: DashboardConfig.sizes.resourceProgessThickness
+            anchors.bottomMargin: NacreAppearance.spacing.small
+            implicitWidth: NacreDashboard.sizes.resourceProgessThickness
             color: Colours.palette.m3surfaceContainerHigh
-            radius: Appearance.rounding.full
+            radius: NacreAppearance.rounding.full
 
-            StyledRect {
+            NacreSurface {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 implicitHeight: res.value * parent.height
                 color: res.colour
-                radius: Appearance.rounding.full
+                radius: NacreAppearance.rounding.full
             }
         }
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
 
             anchors.bottom: parent.bottom
@@ -71,9 +71,9 @@ Row {
 
         Behavior on value {
             NumberAnimation {
-                duration: Appearance.anim.durations.large
+                duration: NacreAppearance.anim.durations.large
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }

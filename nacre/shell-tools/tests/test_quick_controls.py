@@ -89,7 +89,7 @@ class QuickControlsTests(unittest.TestCase):
                     ).read_text()
                 )
             )
-            for name in ["ActionButton", "StateLayer"]:
+            for name in ["ActionButton", "NacreInteraction"]:
                 text = (
                     (ROOT.parent / "shell/widgets" / (name + ".qml"))
                     .read_text()
@@ -98,7 +98,7 @@ class QuickControlsTests(unittest.TestCase):
                     .replace("import qs.config", "")
                 )
                 (target / "fixtures" / (name + ".qml")).write_text(text)
-            (target / "fixtures/MaterialIcon.qml").write_text("import QtQuick\nText {}")
+            (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
             (target / "fixtures/PwObjectTracker.qml").write_text(
                 "import QtQuick\nQtObject {property var objects:[]}"
             )
@@ -147,7 +147,7 @@ class QuickControlsTests(unittest.TestCase):
                 for name in [*services, "Visibilities"]:
                     f.write(f"\nsingleton {name} 1.0 {name}.qml")
                 f.write(
-                    "\nMaterialIcon 1.0 MaterialIcon.qml\nStateLayer 1.0 StateLayer.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\n"
+                    "\nNacreIcon 1.0 NacreIcon.qml\nNacreInteraction 1.0 NacreInteraction.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/qml/tst_quick_controls.qml",

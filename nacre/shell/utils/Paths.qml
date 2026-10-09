@@ -1,13 +1,10 @@
 pragma Singleton
-import Qt.labs.platform
-import Quickshell
+import QtQuick
 
-Singleton {
-    id: root
-
-    readonly property url home: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
-    readonly property url pictures: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-    readonly property url data: `${StandardPaths.standardLocations(StandardPaths.GenericDataLocation)[0]}/nacre`
-    readonly property url state: `${StandardPaths.standardLocations(StandardPaths.GenericStateLocation)[0]}/nacre`
-    readonly property url cache: `${StandardPaths.standardLocations(StandardPaths.GenericCacheLocation)[0]}/nacre`
+QtObject {
+    readonly property string home: NacrePaths.home
+    readonly property string pictures: NacrePaths.pictures
+    readonly property string config: NacrePaths.config
+    readonly property string state: NacrePaths.state
+    readonly property string cache: NacrePaths.cache
 }

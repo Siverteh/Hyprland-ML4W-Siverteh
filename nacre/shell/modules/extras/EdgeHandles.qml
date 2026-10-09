@@ -15,7 +15,7 @@ Variants {
         readonly property var visibility: Visibilities.screens[modelData.name]
         readonly property bool available: DesktopSettings.data.clickEdgeMenus === true && !Visibilities.hidden && !!visibility && !visibility.launcher && !visibility.session && visibility.edgeMenu === "" && !visibility.dashboardPinned
 
-        StyledWindow {
+        NacreWindow {
             id: left
 
             name: "left-menu-handle"
@@ -45,7 +45,7 @@ Variants {
             }
         }
 
-        StyledWindow {
+        NacreWindow {
             id: right
 
             name: "right-menu-handle"

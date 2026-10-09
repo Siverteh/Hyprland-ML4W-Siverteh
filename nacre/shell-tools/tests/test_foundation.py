@@ -1,6 +1,7 @@
 """Actual Nacre primitives with native Qt input and text/layout tests."""
 
 import json
+import base64
 import os
 from pathlib import Path
 import shutil
@@ -28,10 +29,12 @@ class FoundationTests(unittest.TestCase):
                 "NacreSurface",
                 "NacreText",
                 "NacreInteraction",
-                "StyledRect",
-                "StyledText",
-                "StateLayer",
                 "ActionButton",
+                "NacreIcon",
+                "NacreTextField",
+                "NacreSlider",
+                "NacreScrollBar",
+                "NacreImage",
             )
             manifest = "module qs.widgets\n"
             for name in names:
@@ -43,8 +46,6 @@ class FoundationTests(unittest.TestCase):
                     + name
                     + ".qml\n"
                 )
-            (widgets / "MaterialIcon.qml").write_text("import QtQuick\nText {}\n")
-            manifest += "MaterialIcon 1.0 MaterialIcon.qml\n"
             (widgets / "qmldir").write_text(manifest)
             palette = {
                 "m3surface": "#202226",
@@ -68,6 +69,38 @@ class FoundationTests(unittest.TestCase):
             (services / "qmldir").write_text(
                 "module qs.services\nsingleton Colours 1.0 Colours.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
             )
+            config = target / "qs/config"
+            config.mkdir()
+            config_manifest = "module qs.config\n"
+            for path in (WIDGETS.parent / "config").glob("Nacre*.qml"):
+                shutil.copy2(path, config / path.name)
+                config_manifest += f"singleton {path.stem} 1.0 {path.name}\n"
+            (config / "qmldir").write_text(config_manifest)
+            (target / "test.png").write_bytes(
+                base64.b64decode(
+                    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg=="
+                )
+            )
+            (services / "Thumbnailer.qml").write_text("""pragma Singleton
+import QtQuick
+QtObject {
+ id: root
+ property int calls: 0
+ property int liveCount: 0
+ property Component factory: Component {
+  QtObject {
+   property string path: ""
+   Component.onDestruction: root.liveCount--
+  }
+ }
+ function go(item) {
+  calls++; liveCount++;
+  return factory.createObject(item, {path:item.path});
+ }
+}
+""")
+            with (services / "qmldir").open("a") as manifest:
+                manifest.write("singleton Thumbnailer 1.0 Thumbnailer.qml\n")
             shutil.copy2(
                 ROOT / "tests/foundation-qml/tst_foundation.qml",
                 target / "tst_foundation.qml",
@@ -115,9 +148,6 @@ class FoundationTests(unittest.TestCase):
                 "NacreSurface",
                 "NacreText",
                 "NacreClip",
-                "StyledRect",
-                "StyledText",
-                "StyledClippingRect",
             ):
                 shutil.copy2(WIDGETS / (name + ".qml"), widgets / (name + ".qml"))
             palette = {

@@ -23,7 +23,7 @@ Item {
         topPadding: 0
         bottomPadding: 0
 
-        delegate: StyledText {
+        delegate: NacreText {
             required property var model
 
             width: (days.width - days.spacing * 6) / 7
@@ -56,14 +56,14 @@ Item {
             width: (dates.width - dates.spacing * 6) / 7
             height: root.cellHeight
 
-            StyledRect {
+            NacreSurface {
                 width: Math.min(32, parent.width - 4)
                 height: width
                 radius: width / 2
                 anchors.centerIn: parent
                 color: day.model.today ? Colours.palette.m3primary : "transparent"
 
-                StyledText {
+                NacreText {
                     anchors.centerIn: parent
                     text: day.model.day
                     font.pointSize: 12

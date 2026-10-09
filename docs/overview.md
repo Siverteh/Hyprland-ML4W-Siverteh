@@ -100,3 +100,8 @@ inherited implementation. [Orient](specs/orient.md) describes the independent pa
 [comparison proposal](specs/orient-comparison.md) was superseded by the user
 request for direct production implementation. See [Orient behavior](features/orient.md)
 for extraction, readability, cached per-wallpaper palette choices, frame tint and compatibility.
+
+Shared shell controls and layout defaults are owned by the independent
+[Nacre foundation](features/foundation.md). Maintained consumers use Nacre type
+names; compatibility adapters preserve older external configuration. Exterior
+chrome uses one body token, while inner cards use raised surfaces.

@@ -9,7 +9,7 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 
-StyledRect {
+NacreSurface {
     id: root
 
     required property Notifs.Notif modelData
@@ -23,11 +23,11 @@ StyledRect {
     property bool expanded
 
     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
-    radius: Appearance.rounding.normal
-    implicitWidth: NotifsConfig.sizes.width
+    radius: NacreAppearance.rounding.normal
+    implicitWidth: NacreNotifications.sizes.width
     implicitHeight: inner.implicitHeight
 
-    x: NotifsConfig.sizes.width
+    x: NacreNotifications.sizes.width
     Component.onCompleted: x = 0
 
     RetainableLock {
@@ -55,7 +55,7 @@ StyledRect {
                 Notifs.dismiss(root.modelData);
         }
         onReleased: event => {
-            if (Math.abs(root.x) < NotifsConfig.sizes.width * NotifsConfig.clearThreshold)
+            if (Math.abs(root.x) < NacreNotifications.sizes.width * NacreNotifications.clearThreshold)
                 root.x = 0;
             else if (root.history)
                 Notifs.dismiss(root.modelData);
@@ -65,12 +65,12 @@ StyledRect {
         onPositionChanged: event => {
             if (pressed) {
                 const diffY = event.y - startY;
-                if (Math.abs(diffY) > NotifsConfig.expandThreshold)
+                if (Math.abs(diffY) > NacreNotifications.expandThreshold)
                     root.expanded = diffY > 0;
             }
         }
         onClicked: event => {
-            if (!NotifsConfig.actionOnClick || event.button !== Qt.LeftButton)
+            if (!NacreNotifications.actionOnClick || event.button !== Qt.LeftButton)
                 return;
 
             const actions = root.modelData.actions;
@@ -81,9 +81,9 @@ StyledRect {
 
     Behavior on x {
         NumberAnimation {
-            duration: Appearance.anim.durations.normal
+            duration: NacreAppearance.anim.durations.normal
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasizedDecel
         }
     }
 
@@ -93,7 +93,7 @@ StyledRect {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.margins: Appearance.padding.normal
+        anchors.margins: NacreAppearance.padding.normal
 
         implicitHeight: root.nonAnimHeight
 
@@ -109,14 +109,14 @@ StyledRect {
 
             anchors.left: parent.left
             anchors.top: parent.top
-            width: NotifsConfig.sizes.image
-            height: NotifsConfig.sizes.image
+            width: NacreNotifications.sizes.image
+            height: NacreNotifications.sizes.image
             visible: root.hasImage || root.hasAppIcon
 
             sourceComponent: ClippingRectangle {
-                radius: Appearance.rounding.full
-                implicitWidth: NotifsConfig.sizes.image
-                implicitHeight: NotifsConfig.sizes.image
+                radius: NacreAppearance.rounding.full
+                implicitWidth: NacreNotifications.sizes.image
+                implicitHeight: NacreNotifications.sizes.image
 
                 Image {
                     anchors.fill: parent
@@ -139,11 +139,11 @@ StyledRect {
             anchors.right: root.hasImage ? image.right : undefined
             anchors.bottom: root.hasImage ? image.bottom : undefined
 
-            sourceComponent: StyledRect {
-                radius: Appearance.rounding.full
+            sourceComponent: NacreSurface {
+                radius: NacreAppearance.rounding.full
                 color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3tertiaryContainer
-                implicitWidth: root.hasImage ? NotifsConfig.sizes.badge : NotifsConfig.sizes.image
-                implicitHeight: root.hasImage ? NotifsConfig.sizes.badge : NotifsConfig.sizes.image
+                implicitWidth: root.hasImage ? NacreNotifications.sizes.badge : NacreNotifications.sizes.image
+                implicitHeight: root.hasImage ? NacreNotifications.sizes.badge : NacreNotifications.sizes.image
 
                 Loader {
                     id: icon
@@ -169,7 +169,7 @@ StyledRect {
                     asynchronous: true
                     anchors.fill: icon
 
-                    sourceComponent: Colouriser {
+                    sourceComponent: NacreTint {
                         source: icon
                         colorizationColor: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onTertiaryContainer
                     }
@@ -180,7 +180,7 @@ StyledRect {
                     asynchronous: true
                     anchors.centerIn: parent
 
-                    sourceComponent: MaterialIcon {
+                    sourceComponent: NacreIcon {
                         text: {
                             const summary = root.modelData.summary.toLowerCase();
                             if (summary.includes("reboot"))
@@ -207,24 +207,24 @@ StyledRect {
                         }
 
                         color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onTertiaryContainer
-                        font.pointSize: Appearance.font.size.large
+                        font.pointSize: NacreAppearance.font.size.large
                     }
                 }
             }
         }
 
-        StyledText {
+        NacreText {
             id: appName
 
             anchors.top: parent.top
             anchors.left: image.right
-            anchors.leftMargin: Appearance.spacing.smaller
+            anchors.leftMargin: NacreAppearance.spacing.smaller
 
             animate: true
             text: appNameMetrics.elidedText
             maximumLineCount: 1
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
 
             opacity: root.expanded ? 1 : 0
 
@@ -240,15 +240,15 @@ StyledRect {
             font.family: appName.font.family
             font.pointSize: appName.font.pointSize
             elide: Text.ElideRight
-            elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
+            elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - NacreAppearance.spacing.small * 3
         }
 
-        StyledText {
+        NacreText {
             id: summary
 
             anchors.top: parent.top
             anchors.left: image.right
-            anchors.leftMargin: Appearance.spacing.smaller
+            anchors.leftMargin: NacreAppearance.spacing.smaller
 
             animate: true
             text: summaryMetrics.elidedText
@@ -275,9 +275,9 @@ StyledRect {
                     property: "maximumLineCount"
                 }
                 AnchorAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
 
@@ -293,19 +293,19 @@ StyledRect {
             font.family: summary.font.family
             font.pointSize: summary.font.pointSize
             elide: Text.ElideRight
-            elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
+            elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - NacreAppearance.spacing.small * 3
         }
 
-        StyledText {
+        NacreText {
             id: timeSep
 
             anchors.top: parent.top
             anchors.left: summary.right
-            anchors.leftMargin: Appearance.spacing.small
+            anchors.leftMargin: NacreAppearance.spacing.small
 
             text: "•"
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
 
             states: State {
                 name: "expanded"
@@ -319,25 +319,25 @@ StyledRect {
 
             transitions: Transition {
                 AnchorAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }
 
-        StyledText {
+        NacreText {
             id: time
 
             anchors.top: parent.top
             anchors.left: timeSep.right
-            anchors.leftMargin: Appearance.spacing.small
+            anchors.leftMargin: NacreAppearance.spacing.small
 
             animate: true
             horizontalAlignment: Text.AlignLeft
             text: root.modelData.timeStr
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
         }
 
         Item {
@@ -349,38 +349,38 @@ StyledRect {
             implicitWidth: expandIcon.height
             implicitHeight: expandIcon.height
 
-            StateLayer {
-                radius: Appearance.rounding.full
+            NacreInteraction {
+                radius: NacreAppearance.rounding.full
 
                 function onClicked() {
                     root.expanded = !root.expanded;
                 }
             }
 
-            MaterialIcon {
+            NacreIcon {
                 id: expandIcon
 
                 anchors.centerIn: parent
 
                 animate: true
                 text: root.expanded ? "expand_less" : "expand_more"
-                font.pointSize: Appearance.font.size.normal
+                font.pointSize: NacreAppearance.font.size.normal
             }
         }
 
-        StyledText {
+        NacreText {
             id: bodyPreview
 
             anchors.left: summary.left
             anchors.right: expandBtn.left
             anchors.top: summary.bottom
-            anchors.rightMargin: Appearance.spacing.small
+            anchors.rightMargin: NacreAppearance.spacing.small
 
             animate: true
             textFormat: Text.MarkdownText
             text: bodyPreviewMetrics.elidedText
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
 
             opacity: root.expanded ? 0 : 1
 
@@ -399,19 +399,19 @@ StyledRect {
             elideWidth: bodyPreview.width
         }
 
-        StyledText {
+        NacreText {
             id: body
 
             anchors.left: summary.left
             anchors.right: expandBtn.left
             anchors.top: summary.bottom
-            anchors.rightMargin: Appearance.spacing.small
+            anchors.rightMargin: NacreAppearance.spacing.small
 
             animate: true
             textFormat: Text.MarkdownText
             text: root.modelData.body
             color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: NacreAppearance.font.size.small
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 
             opacity: root.expanded ? 1 : 0
@@ -426,9 +426,9 @@ StyledRect {
 
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: body.bottom
-            anchors.topMargin: Appearance.spacing.small
+            anchors.topMargin: NacreAppearance.spacing.small
 
-            spacing: Appearance.spacing.smaller
+            spacing: NacreAppearance.spacing.smaller
 
             opacity: root.expanded ? 1 : 0
 
@@ -439,34 +439,34 @@ StyledRect {
             Repeater {
                 model: root.modelData.actions
 
-                delegate: StyledRect {
+                delegate: NacreSurface {
                     id: action
 
                     required property NotificationAction modelData
 
-                    radius: Appearance.rounding.full
+                    radius: NacreAppearance.rounding.full
                     color: Colours.palette.m3surfaceContainerHigh
 
-                    Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
-                    Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
-                    implicitWidth: actionText.width + Appearance.padding.normal * 2
-                    implicitHeight: actionText.height + Appearance.padding.small * 2
+                    Layout.preferredWidth: actionText.width + NacreAppearance.padding.normal * 2
+                    Layout.preferredHeight: actionText.height + NacreAppearance.padding.small * 2
+                    implicitWidth: actionText.width + NacreAppearance.padding.normal * 2
+                    implicitHeight: actionText.height + NacreAppearance.padding.small * 2
 
-                    StateLayer {
-                        radius: Appearance.rounding.full
+                    NacreInteraction {
+                        radius: NacreAppearance.rounding.full
 
                         function onClicked(): void {
                             action.modelData.invoke();
                         }
                     }
 
-                    StyledText {
+                    NacreText {
                         id: actionText
 
                         anchors.centerIn: parent
                         text: actionTextMetrics.elidedText
                         color: Colours.palette.m3onSurfaceVariant
-                        font.pointSize: Appearance.font.size.small
+                        font.pointSize: NacreAppearance.font.size.small
                     }
 
                     TextMetrics {
@@ -478,7 +478,7 @@ StyledRect {
                         elide: Text.ElideRight
                         elideWidth: {
                             const numActions = root.modelData.actions.length;
-                            return (inner.width - actions.spacing * (numActions - 1)) / numActions - Appearance.padding.normal * 2;
+                            return (inner.width - actions.spacing * (numActions - 1)) / numActions - NacreAppearance.padding.normal * 2;
                         }
                     }
                 }
@@ -487,8 +487,8 @@ StyledRect {
     }
 
     component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.normal
+        duration: NacreAppearance.anim.durations.normal
         easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.anim.curves.standard
+        easing.bezierCurve: NacreAppearance.anim.curves.standard
     }
 }

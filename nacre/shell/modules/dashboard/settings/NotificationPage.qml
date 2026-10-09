@@ -17,7 +17,7 @@ SettingsPage {
             label: "Show message previews while locked"
             setting: "lockNotificationContents"
         }
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: "Do not disturb silences popups while keeping history. Notifications stay here until you dismiss them."
@@ -59,7 +59,7 @@ SettingsPage {
                 spacing: 4
                 Row {
                     width: parent.width
-                    StyledText {
+                    NacreText {
                         width: parent.width - 55
                         text: parent.parent.modelData.appName + " · " + parent.parent.modelData.timeStr
                         color: Colours.palette.m3primary
@@ -71,13 +71,13 @@ SettingsPage {
                         onClicked: Notifs.dismiss(parent.parent.modelData)
                     }
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     text: parent.modelData.summary
                     wrapMode: Text.Wrap
                     font.pointSize: 12
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     text: parent.modelData.body
                     wrapMode: Text.Wrap

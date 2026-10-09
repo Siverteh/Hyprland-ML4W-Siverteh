@@ -17,13 +17,13 @@ Item {
         width: root.width
         spacing: 12
 
-        StyledText {
+        NacreText {
             text: "Wi-Fi"
             font.pointSize: 14
             color: Colours.palette.m3primary
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             text: !Network.wifiEnabled ? "Wi-Fi is off" : Network.active ? "Connected to " + Network.active.ssid : "Not connected"
             wrapMode: Text.Wrap
@@ -56,7 +56,7 @@ Item {
             Repeater {
                 model: root.nearby
 
-                StyledRect {
+                NacreSurface {
                     id: network
 
                     required property var modelData
@@ -73,14 +73,14 @@ Item {
                         width: parent.width - 110
                         spacing: 3
 
-                        StyledText {
+                        NacreText {
                             width: parent.width
                             text: network.modelData.ssid
                             elide: Text.ElideRight
                             font.pointSize: 10
                         }
 
-                        StyledText {
+                        NacreText {
                             text: (network.modelData.active ? "Connected · " : "") + network.modelData.strength + "% signal"
                             font.pointSize: 9
                             color: Colours.palette.m3onSurfaceVariant
@@ -107,14 +107,14 @@ Item {
             }
         }
 
-        StyledText {
+        NacreText {
             visible: Network.wifiEnabled && !root.nearby.length
             text: "No nearby networks found"
             color: Colours.palette.m3onSurfaceVariant
             font.pointSize: 10
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             visible: DeviceActions.lastAction.startsWith("wifi") && text.length > 0
             text: DeviceActions.message

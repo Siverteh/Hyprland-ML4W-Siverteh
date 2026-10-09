@@ -19,9 +19,9 @@ Item {
 
     clip: true
     implicitWidth: Math.max(speaker.implicitWidth, network.implicitWidth, bluetooth.implicitWidth, battery.implicitWidth, bell.implicitWidth)
-    implicitHeight: speaker.implicitHeight + network.implicitHeight + bluetooth.implicitHeight + battery.implicitHeight + bell.implicitHeight + Appearance.spacing.small * 4
+    implicitHeight: speaker.implicitHeight + network.implicitHeight + bluetooth.implicitHeight + battery.implicitHeight + bell.implicitHeight + NacreAppearance.spacing.small * 4
 
-    MaterialIcon {
+    NacreIcon {
         id: speaker
 
         rotation: root.horizontal ? 90 : 0
@@ -30,37 +30,37 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    MaterialIcon {
+    NacreIcon {
         id: network
 
         rotation: root.horizontal ? 90 : 0
         animate: true
-        text: Network.active ? Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
+        text: Network.active ? NacreIcons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
         color: root.colour
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: speaker.bottom
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
     }
 
-    MaterialIcon {
+    NacreIcon {
         id: bluetooth
 
         rotation: root.horizontal ? 90 : 0
         anchors.horizontalCenter: network.horizontalCenter
         anchors.top: network.bottom
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
         animate: true
         text: Bluetooth.powered ? "bluetooth" : "bluetooth_disabled"
         color: root.colour
     }
 
-    MaterialIcon {
+    NacreIcon {
         id: battery
 
         rotation: root.horizontal ? 90 : 0
         anchors.horizontalCenter: bluetooth.horizontalCenter
         anchors.top: bluetooth.bottom
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
         animate: true
         text: {
             if (!UPower.displayDevice.isLaptopBattery) {
@@ -92,7 +92,7 @@ Item {
 
         anchors.horizontalCenter: battery.horizontalCenter
         anchors.top: battery.bottom
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
         implicitWidth: root.horizontal ? bellRow.implicitHeight : bellRow.implicitWidth
         implicitHeight: root.horizontal ? bellRow.implicitWidth : bellRow.implicitHeight
 
@@ -103,13 +103,13 @@ Item {
             rotation: root.horizontal ? 90 : 0
             spacing: 2
 
-            MaterialIcon {
+            NacreIcon {
                 text: "notifications"
                 color: root.colour
                 fill: Notifs.retained.length ? 1 : 0
             }
 
-            StyledText {
+            NacreText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 4
                 visible: Notifs.retained.length > 0
@@ -122,17 +122,17 @@ Item {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Appearance.anim.durations.normal
+            duration: NacreAppearance.anim.durations.normal
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasized
         }
     }
 
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: Appearance.anim.durations.normal
+            duration: NacreAppearance.anim.durations.normal
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasized
         }
     }
 }

@@ -29,7 +29,7 @@ SearchSurface {
             view: list
         }
 
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             visible: list.count === 0
             text: DesktopExtras.busy.keys ? "Reading shortcuts…" : "No matching shortcuts"
@@ -37,7 +37,7 @@ SearchSurface {
 
         ScrollBar.vertical: ScrollBar {}
 
-        delegate: StyledRect {
+        delegate: NacreSurface {
             required property var modelData
 
             width: list.width
@@ -45,7 +45,7 @@ SearchSurface {
             radius: 10
             color: Colours.palette.m3surfaceContainer
 
-            StyledText {
+            NacreText {
                 anchors.left: parent.left
                 anchors.leftMargin: 12
                 anchors.verticalCenter: parent.verticalCenter
@@ -56,7 +56,7 @@ SearchSurface {
                 color: Colours.palette.m3primary
             }
 
-            StyledText {
+            NacreText {
                 anchors.left: parent.left
                 anchors.leftMargin: 365
                 anchors.right: parent.right

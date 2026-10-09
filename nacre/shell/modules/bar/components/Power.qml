@@ -3,21 +3,21 @@ import qs.services
 import qs.config
 import Quickshell
 
-MaterialIcon {
+NacreIcon {
     text: "power_settings_new"
     color: Colours.palette.m3error
     font.bold: true
-    font.pointSize: Appearance.font.size.normal
+    font.pointSize: NacreAppearance.font.size.normal
 
-    StateLayer {
+    NacreInteraction {
         anchors.fill: undefined
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: 1
 
-        implicitWidth: parent.implicitHeight + Appearance.padding.small * 2
+        implicitWidth: parent.implicitHeight + NacreAppearance.padding.small * 2
         implicitHeight: implicitWidth
 
-        radius: Appearance.rounding.full
+        radius: NacreAppearance.rounding.full
 
         function onClicked(): void {
             const v = Visibilities.screens[QsWindow.window.screen.name];

@@ -1,5 +1,7 @@
 import QtQuick
+import QtQuick.Controls
 import QtTest
+import qs.config
 import qs.widgets
 import qs.services
 
@@ -12,16 +14,158 @@ TestCase {
     when: windowShown
 
     function init() {
-        NacreTokens.reduceMotion = false;
+        NacreTokens.reduceMotion = Qt.binding(() => DesktopSettings.data.reduceMotion === true);
         DesktopSettings.data = {
             animations: true
         };
     }
     function cleanup() {
-        NacreTokens.reduceMotion = false;
+        NacreTokens.reduceMotion = Qt.binding(() => DesktopSettings.data.reduceMotion === true);
         DesktopSettings.data = {
             animations: true
         };
+    }
+    function test_textfield_edit_selection_validation_and_escape() {
+        const field = createTemporaryObject(editor, test);
+        compare(field.font.family, NacreTokens.textFamily);
+        compare(field.color, NacreTokens.ink);
+        compare(field.selectionColor, NacreTokens.accent);
+        field.forceActiveFocus();
+        keyClick(Qt.Key_A);
+        keyClick(Qt.Key_B);
+        compare(field.text, "ab");
+        field.selectAll();
+        compare(field.selectedText, "ab");
+        keyClick(Qt.Key_C);
+        compare(field.text, "c");
+        field.readOnly = true;
+        keyClick(Qt.Key_D);
+        compare(field.text, "c");
+        field.readOnly = false;
+        field.text = "";
+        field.validator = numeric;
+        keyClick(Qt.Key_A);
+        compare(field.text, "");
+        keyClick(Qt.Key_5);
+        verify(field.acceptableInput);
+        keyClick(Qt.Key_Return);
+        compare(field.acceptedCount, 1);
+        keyClick(Qt.Key_Escape);
+        compare(field.escapeCount, 1);
+    }
+    function test_slider_pointer_keys_clamp_and_external_updates() {
+        const slider = createTemporaryObject(levelControl, test);
+        compare(slider.orientation, Qt.Vertical);
+        slider.value = 0.5;
+        compare(slider.moveCount, 0);
+        slider.forceActiveFocus();
+        keyClick(Qt.Key_Up);
+        compare(slider.value, 0.6);
+        compare(slider.moveCount, 1);
+        mouseClick(slider, 15, 10);
+        verify(slider.value >= 0.9);
+        verify(slider.moveCount >= 2);
+        slider.value = 2;
+        compare(slider.value, 1);
+        slider.enabled = false;
+        const count = slider.moveCount;
+        mouseClick(slider, 15, 115);
+        compare(slider.value, 1);
+        compare(slider.moveCount, count);
+    }
+    function test_attached_scrollbar_tracks_content_without_filling_track() {
+        const list = createTemporaryObject(scrollingList, test);
+        const bar = list.ScrollBar.vertical;
+        verify(bar.visualSize < 1);
+        compare(bar.orientation, Qt.Vertical);
+        list.contentY = 200;
+        tryCompare(bar, "position", 0.2);
+        bar.position = 0.4;
+        tryCompare(list, "contentY", 400);
+        list.contentHeight = 100;
+        tryCompare(bar, "size", 1);
+        compare(bar.contentItem.opacity, 0);
+    }
+    IntValidator {
+        id: numeric
+        bottom: 0
+        top: 9
+    }
+    Component {
+        id: editor
+        NacreTextField {
+            width: 220
+            height: 40
+            property int acceptedCount: 0
+            property int escapeCount: 0
+            onAccepted: acceptedCount++
+            Keys.onEscapePressed: escapeCount++
+        }
+    }
+    Component {
+        id: levelControl
+        NacreSlider {
+            width: 30
+            height: 120
+            stepSize: 0.1
+            property int moveCount: 0
+            onMoved: moveCount++
+        }
+    }
+    Component {
+        id: scrollingList
+        Flickable {
+            width: 100
+            height: 100
+            contentHeight: 1000
+            ScrollBar.vertical: NacreScrollBar {}
+        }
+    }
+    function test_config_chrome_and_motion_follow_desktop_preferences() {
+        compare(NacreFrame.colour, NacreTokens.body);
+        compare(NacreFrame.headerHeight, 50);
+        DesktopSettings.data = {
+            topEdge: false,
+            leftEdge: false,
+            frameWidth: 14,
+            frameRounding: 19,
+            reduceMotion: true
+        };
+        compare(NacreFrame.headerHeight, 0);
+        compare(NacreFrame.left, 0);
+        compare(NacreFrame.right, 14);
+        compare(NacreFrame.rounding, 19);
+        compare(NacreAppearance.anim.durations.normal, 0);
+        compare(NacreAppearance.font.family.sans, NacreTokens.textFamily);
+        compare(NacreLauncher.maxShown, 8);
+        compare(NacreDashboard.sizes.mediaCoverArtSize, 150);
+        compare(NacreNotifications.defaultExpireTimeout, 5000);
+    }
+    function test_image_coalesces_changes_and_releases_obsolete_handles() {
+        const initial = Thumbnailer.liveCount;
+        const image = createTemporaryObject(picture, test, {
+            path: Qt.resolvedUrl("test.png").toString()
+        });
+        tryCompare(image, "status", Image.Ready);
+        compare(Thumbnailer.liveCount, initial + 1);
+        const calls = Thumbnailer.calls;
+        image.width = 72;
+        image.height = 48;
+        image.width = 80;
+        wait(100);
+        compare(Thumbnailer.calls, calls + 1);
+        compare(Thumbnailer.liveCount, initial + 1);
+        image.path = "";
+        wait(100);
+        compare(String(image.source), "");
+        compare(Thumbnailer.liveCount, initial);
+    }
+    Component {
+        id: picture
+        NacreImage {
+            width: 60
+            height: 40
+        }
     }
     function test_transparent_surface_and_explicit_geometry() {
         const view = createTemporaryObject(surface, test);
@@ -188,20 +332,20 @@ TestCase {
     Keys.onEscapePressed: escapes += 1
     Component {
         id: surface
-        StyledRect {
+        NacreSurface {
             width: 120
             height: 60
         }
     }
     Component {
         id: label
-        StyledText {
+        NacreText {
             text: "Foundation"
         }
     }
     Component {
         id: control
-        StateLayer {
+        NacreInteraction {
             anchors.fill: undefined
             width: 100
             height: 60

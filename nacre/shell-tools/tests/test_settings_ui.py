@@ -81,18 +81,18 @@ class SettingsUITests(unittest.TestCase):
             (target / "fixtures/BrandLogo.qml").write_text(
                 "import QtQuick\nItem {implicitWidth:26;implicitHeight:26}"
             )
-            (target / "fixtures/MaterialIcon.qml").write_text("import QtQuick\nText {}")
+            (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
             with (target / "fixtures/qmldir").open("a") as manifest:
                 for name in services:
                     manifest.write("\nsingleton " + name + " 1.0 " + name + ".qml")
                 manifest.write(
-                    "\nPwObjectTracker 1.0 PwObjectTracker.qml\nBrandLogo 1.0 BrandLogo.qml\nMaterialIcon 1.0 MaterialIcon.qml\n"
+                    "\nPwObjectTracker 1.0 PwObjectTracker.qml\nBrandLogo 1.0 BrandLogo.qml\nNacreIcon 1.0 NacreIcon.qml\n"
                 )
             shutil.copy2(
                 ROOT.parent / "shell/widgets/FastScroll.qml",
                 target / "fixtures/FastScroll.qml",
             )
-            (target / "fixtures/StateLayer.qml").write_text(
+            (target / "fixtures/NacreInteraction.qml").write_text(
                 "import QtQuick\nMouseArea {anchors.fill:parent}"
             )
             (target / "fixtures/DesktopSettings.qml").write_text(

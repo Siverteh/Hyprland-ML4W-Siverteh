@@ -1,13 +1,7 @@
 pragma Singleton
 import QtQuick
-import Quickshell
 
-Singleton {
-    readonly property int hideDelay: 2000
-    readonly property Sizes sizes: Sizes {}
-
-    component Sizes: QtObject {
-        readonly property int sliderWidth: 30
-        readonly property int sliderHeight: 150
-    }
+QtObject {
+    readonly property var hideDelay: NacreOsd.hideDelay
+    readonly property var sizes: NacreOsd.sizes
 }

@@ -12,15 +12,15 @@ Item {
     property bool hasCurrent
     property real lastWidth: 200
     property real lastHeight: 80
-    readonly property real targetWidth: (body.item?.implicitWidth > 0 ? body.item.implicitWidth : lastWidth) + Appearance.padding.large * 2
-    readonly property real targetHeight: (body.item?.implicitHeight > 0 ? body.item.implicitHeight : lastHeight) + Appearance.padding.large * 2
+    readonly property real targetWidth: (body.item?.implicitWidth > 0 ? body.item.implicitWidth : lastWidth) + NacreAppearance.padding.large * 2
+    readonly property real targetHeight: (body.item?.implicitHeight > 0 ? body.item.implicitHeight : lastHeight) + NacreAppearance.padding.large * 2
     anchors.centerIn: parent
     implicitWidth: targetWidth
     implicitHeight: hasCurrent ? targetHeight : 0
     Loader {
         id: body
         anchors.fill: parent
-        anchors.margins: Appearance.padding.large
+        anchors.margins: NacreAppearance.padding.large
         clip: true
         asynchronous: false
         source: ({
@@ -51,8 +51,8 @@ Item {
         Anim {}
     }
     component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.normal
+        duration: NacreAppearance.anim.durations.normal
         easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.anim.curves.standard
+        easing.bezierCurve: NacreAppearance.anim.curves.standard
     }
 }

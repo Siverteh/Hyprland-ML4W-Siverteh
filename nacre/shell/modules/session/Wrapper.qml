@@ -19,9 +19,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitWidth"
-                duration: Appearance.anim.durations.expressiveFastSpatial
+                duration: NacreAppearance.anim.durations.expressiveFastSpatial
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.expressiveFastSpatial
+                easing.bezierCurve: NacreAppearance.anim.curves.expressiveFastSpatial
             }
         },
         Transition {
@@ -31,9 +31,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitWidth"
-                duration: root.visibilities.osd ? Appearance.anim.durations.expressiveFastSpatial : Appearance.anim.durations.normal
+                duration: root.visibilities.osd ? NacreAppearance.anim.durations.expressiveFastSpatial : NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: root.visibilities.osd ? Appearance.anim.curves.expressiveFastSpatial : Appearance.anim.curves.emphasized
+                easing.bezierCurve: root.visibilities.osd ? NacreAppearance.anim.curves.expressiveFastSpatial : NacreAppearance.anim.curves.emphasized
             }
         }
     ]

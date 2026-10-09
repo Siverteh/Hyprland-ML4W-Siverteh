@@ -22,8 +22,8 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: Appearance.padding.normal
-        anchors.margins: Appearance.padding.large
+        anchors.topMargin: NacreAppearance.padding.normal
+        anchors.margins: NacreAppearance.padding.large
         nonAnimWidth: root.nonAnimWidth
         currentIndex: root.visibilities.dashboardTab
         onCurrentIndexChanged: {
@@ -40,8 +40,8 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.margins: Appearance.padding.large
-        radius: Appearance.rounding.normal
+        anchors.margins: NacreAppearance.padding.large
+        radius: NacreAppearance.rounding.normal
         color: "transparent"
 
         Flickable {
@@ -104,9 +104,9 @@ Item {
 
             Behavior on contentX {
                 NumberAnimation {
-                    duration: Appearance.anim.durations.normal
+                    duration: NacreAppearance.anim.durations.normal
                     easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.anim.curves.standard
+                    easing.bezierCurve: NacreAppearance.anim.curves.standard
                 }
             }
         }
@@ -114,17 +114,17 @@ Item {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasized
         }
     }
 
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: NacreAppearance.anim.durations.large
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            easing.bezierCurve: NacreAppearance.anim.curves.emphasized
         }
     }
 }

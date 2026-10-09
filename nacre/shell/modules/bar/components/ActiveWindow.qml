@@ -75,12 +75,12 @@ Item {
         implicitWidth: Math.max(icon.implicitWidth, current.implicitHeight)
         implicitHeight: icon.implicitHeight + current.implicitWidth + current.anchors.topMargin
 
-        MaterialIcon {
+        NacreIcon {
             id: icon
             rotation: -90
 
             animate: true
-            text: Icons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
+            text: NacreIcons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
             color: root.colour
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -98,8 +98,8 @@ Item {
             id: metrics
 
             text: root.displayTitle
-            font.pointSize: Appearance.font.size.smaller
-            font.family: Appearance.font.family.mono
+            font.pointSize: NacreAppearance.font.size.smaller
+            font.family: NacreAppearance.font.family.mono
             elide: Qt.ElideRight
             elideWidth: root.height - icon.height
 
@@ -113,17 +113,17 @@ Item {
 
         Behavior on implicitWidth {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.emphasized
+                easing.bezierCurve: NacreAppearance.anim.curves.emphasized
             }
         }
 
         Behavior on implicitHeight {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.emphasized
+                easing.bezierCurve: NacreAppearance.anim.curves.emphasized
             }
         }
     }
@@ -133,29 +133,29 @@ Item {
         visible: root.horizontal
         anchors.centerIn: parent
         width: Math.min(implicitWidth, root.width)
-        spacing: Appearance.spacing.small
-        MaterialIcon {
-            text: Icons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
+        spacing: NacreAppearance.spacing.small
+        NacreIcon {
+            text: NacreIcons.getAppCategoryIcon(Hyprland.activeClient?.wmClass, "desktop_windows")
             color: root.colour
             Layout.alignment: Qt.AlignVCenter
         }
-        StyledText {
+        NacreText {
             text: root.displayTitle
             color: root.colour
-            font.pointSize: Appearance.font.size.smaller
-            font.family: Appearance.font.family.mono
+            font.pointSize: NacreAppearance.font.size.smaller
+            font.family: NacreAppearance.font.family.mono
             elide: Text.ElideRight
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
         }
     }
 
-    component Title: StyledText {
+    component Title: NacreText {
         id: text
 
         anchors.horizontalCenter: icon.horizontalCenter
         anchors.top: icon.bottom
-        anchors.topMargin: Appearance.spacing.small
+        anchors.topMargin: NacreAppearance.spacing.small
 
         font.pointSize: metrics.font.pointSize
         font.family: metrics.font.family
@@ -173,9 +173,9 @@ Item {
 
         Behavior on opacity {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }

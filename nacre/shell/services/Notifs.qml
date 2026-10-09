@@ -149,7 +149,7 @@ Singleton {
         }
     }
 
-    CustomShortcut {
+    NacreShortcut {
         name: "clearNotifs"
         description: "Clear all notifications"
         onPressed: root.hidePopups()
@@ -249,9 +249,9 @@ Singleton {
 
         readonly property Timer timer: Timer {
             running: notif.popup && !notif.hovered && !Visibilities.hidden && !Object.values(Visibilities.panels).some(p => p.notifications.suppressed)
-            interval: (notif.notification?.expireTimeout ?? 0) > 0 ? notif.notification.expireTimeout : NotifsConfig.defaultExpireTimeout
+            interval: (notif.notification?.expireTimeout ?? 0) > 0 ? notif.notification.expireTimeout : NacreNotifications.defaultExpireTimeout
             onTriggered: {
-                if (NotifsConfig.expire)
+                if (NacreNotifications.expire)
                     if (notif.retain)
                         notif.popup = false;
                     else

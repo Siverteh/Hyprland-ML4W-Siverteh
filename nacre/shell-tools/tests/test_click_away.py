@@ -46,12 +46,12 @@ class ClickAwayTests(unittest.TestCase):
             (path / "fixtures/DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({leftDrawer:true})}"
             )
-            (path / "fixtures/BorderConfig.qml").write_text(
+            (path / "fixtures/NacreFrame.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property int rounding:20}"
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton BorderConfig 1.0 BorderConfig.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton Hyprland 1.0 Hyprland.qml\n"
+                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton HoverIntent 1.0 HoverIntent.qml\nsingleton Hyprland 1.0 Hyprland.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/click-away-qml/tst_click_away.qml",

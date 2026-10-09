@@ -19,14 +19,14 @@ Item {
     clip: true
     visible: height > 0
     implicitHeight: !visibilities.launcher ? 0 : fullScreenGallery ? Math.max(0, parent.height - 24) : content.item?.implicitHeight ?? 0
-    implicitWidth: fullScreenGallery ? Math.max(0, parent.width - 48) : content.item?.implicitWidth ?? LauncherConfig.sizes.itemWidth
+    implicitWidth: fullScreenGallery ? Math.max(0, parent.width - 48) : content.item?.implicitWidth ?? NacreLauncher.sizes.itemWidth
 
     // Retarget on mode changes, including while an opening animation is in flight.
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: Appearance.anim.durations.normal
+            duration: NacreAppearance.anim.durations.normal
             easing.type: Easing.BezierSpline
-            easing.bezierCurve: Appearance.anim.curves.standard
+            easing.bezierCurve: NacreAppearance.anim.curves.standard
         }
     }
 

@@ -19,22 +19,22 @@ Scope {
 
     ExclusionZone {
         anchors.top: true
-        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.headerHeight
+        exclusiveZone: Visibilities.hidden ? 0 : NacreFrame.headerHeight
     }
 
     ExclusionZone {
         anchors.right: true
-        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.right
+        exclusiveZone: Visibilities.hidden ? 0 : NacreFrame.right
     }
 
     ExclusionZone {
         anchors.bottom: true
-        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.bottom
+        exclusiveZone: Visibilities.hidden ? 0 : NacreFrame.bottom
     }
 
-    component ExclusionZone: StyledWindow {
+    component ExclusionZone: NacreWindow {
         screen: root.screen
         name: "border-exclusion"
-        exclusiveZone: Visibilities.hidden ? 0 : BorderConfig.thickness
+        exclusiveZone: Visibilities.hidden ? 0 : NacreFrame.thickness
     }
 }

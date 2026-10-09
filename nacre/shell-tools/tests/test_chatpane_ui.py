@@ -40,17 +40,17 @@ class ChatPaneUITests(unittest.TestCase):
                 .replace("import qs.services", "")
             )
             (target / "fixtures/ActionButton.qml").write_text(button)
-            (target / "fixtures/MaterialIcon.qml").write_text("import QtQuick\nText {}")
+            (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
             with (target / "fixtures/qmldir").open("a") as manifest:
-                manifest.write("\nMaterialIcon 1.0 MaterialIcon.qml\n")
+                manifest.write("\nNacreIcon 1.0 NacreIcon.qml\n")
             layer = (
-                (ROOT.parent / "shell/widgets/StateLayer.qml")
+                (ROOT.parent / "shell/widgets/NacreInteraction.qml")
                 .read_text()
                 .replace("import qs.widgets", "")
                 .replace("import qs.services", "")
                 .replace("import qs.config", "")
             )
-            (target / "fixtures/StateLayer.qml").write_text(layer)
+            (target / "fixtures/NacreInteraction.qml").write_text(layer)
             install_foundation_interaction(
                 target / "fixtures", ROOT.parent / "shell/widgets"
             )

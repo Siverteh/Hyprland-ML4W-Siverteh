@@ -26,7 +26,7 @@ SettingsPage {
             Column {
                 width: parent.width - Math.min(300, parent.width * .44) - 16
                 spacing: 12
-                StyledText {
+                NacreText {
                     width: parent.width
                     text: Wallpapers.current.split("/").pop().replace(" - 4K", "")
                     wrapMode: Text.Wrap
@@ -120,7 +120,7 @@ SettingsPage {
             }
             Row {
                 spacing: 12
-                StyledText {
+                NacreText {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "Custom interval (minutes)"
                     font.pointSize: 10
@@ -132,9 +132,9 @@ SettingsPage {
                     implicitHeight: 40
                     leftPadding: 38
                     rightPadding: 38
-                    font.family: Appearance.font.family.sans
+                    font.family: NacreAppearance.font.family.sans
                     font.pointSize: 10
-                    background: StyledRect {
+                    background: NacreSurface {
                         radius: 20
                         color: Colours.palette.m3surfaceContainerHigh
                         border.width: 1
@@ -153,13 +153,13 @@ SettingsPage {
                         inputMethodHints: Qt.ImhDigitsOnly
                         selectByMouse: true
                     }
-                    up.indicator: StyledRect {
+                    up.indicator: NacreSurface {
                         x: intervalControl.mirrored ? 0 : intervalControl.width - width
                         implicitWidth: 36
                         height: intervalControl.height
                         radius: 18
                         color: intervalControl.up.pressed ? Qt.alpha(Colours.palette.m3primary, 0.18) : intervalControl.up.hovered ? Qt.alpha(Colours.palette.m3primary, 0.1) : "transparent"
-                        MaterialIcon {
+                        NacreIcon {
                             anchors.centerIn: parent
                             text: "add"
                             color: Colours.palette.m3primary
@@ -167,13 +167,13 @@ SettingsPage {
                             font.pointSize: 16
                         }
                     }
-                    down.indicator: StyledRect {
+                    down.indicator: NacreSurface {
                         x: intervalControl.mirrored ? intervalControl.width - width : 0
                         implicitWidth: 36
                         height: intervalControl.height
                         radius: 18
                         color: intervalControl.down.pressed ? Qt.alpha(Colours.palette.m3primary, 0.18) : intervalControl.down.hovered ? Qt.alpha(Colours.palette.m3primary, 0.1) : "transparent"
-                        MaterialIcon {
+                        NacreIcon {
                             anchors.centerIn: parent
                             text: "remove"
                             color: Colours.palette.m3primary
@@ -191,7 +191,7 @@ SettingsPage {
                     })
                 }
             }
-            StyledText {
+            NacreText {
                 width: parent.width
                 text: "30 minutes gives you variety without frequent changes. Use a longer interval if you prefer fewer interruptions."
                 wrapMode: Text.Wrap
@@ -244,14 +244,14 @@ SettingsPage {
                     })
                 }
             }
-            StyledText {
+            NacreText {
                 width: parent.width
                 text: "Rotation pauses while you are locked, asleep or browsing settings and wallpapers. A scheduled change waits until you return, without restarting the countdown."
                 wrapMode: Text.Wrap
                 font.pointSize: 10
                 color: Colours.palette.m3onSurfaceVariant
             }
-            StyledText {
+            NacreText {
                 width: parent.width
                 text: Wallpapers.rotationStatus
                 wrapMode: Text.Wrap
@@ -292,7 +292,7 @@ SettingsPage {
             width: parent.width
             spacing: 10
             visible: Wallpapers.paletteOptions.length > 0
-            StyledText {
+            NacreText {
                 text: "From this wallpaper"
                 font.pointSize: 11
             }
@@ -302,7 +302,7 @@ SettingsPage {
                 objectName: "wallpaperPaletteOptions"
                 Repeater {
                     model: Wallpapers.paletteOptions
-                    StyledRect {
+                    NacreSurface {
                         id: sourceTile
                         objectName: "wallpaperPaletteTile"
                         required property var modelData
@@ -343,7 +343,7 @@ SettingsPage {
                                     }
                                 }
                             }
-                            StyledText {
+                            NacreText {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: sourceTile.modelData.name
                                 font.pointSize: 10
@@ -359,7 +359,7 @@ SettingsPage {
                 }
             }
         }
-        StyledText {
+        NacreText {
             text: "Fixed palettes"
             font.pointSize: 11
         }
@@ -395,7 +395,7 @@ SettingsPage {
             objectName: "paletteOptions"
             Repeater {
                 model: Wallpapers.palettePresets.filter(p => root.paletteGroup === "all" || (p.group ?? "soft") === root.paletteGroup)
-                StyledRect {
+                NacreSurface {
                     required property var modelData
                     objectName: "paletteColorTile"
                     property bool chosen: Wallpapers.preferences.palettePreset === modelData.id
@@ -424,7 +424,7 @@ SettingsPage {
                                 }
                             }
                         }
-                        StyledText {
+                        NacreText {
                             width: parent.parent.width - 16
                             horizontalAlignment: Text.AlignHCenter
                             elide: Text.ElideRight
@@ -445,14 +445,14 @@ SettingsPage {
                 }
             }
         }
-        StyledText {
+        NacreText {
             width: parent.width
             text: (Wallpapers.preferences.palettePreset ?? "wallpaper") === "wallpaper" ? "Colors change with the wallpaper across the shell, apps, terminal, lock screen and login." : (Wallpapers.palettePresets.find(p => p.id === Wallpapers.preferences.palettePreset)?.name ?? "This palette") + " stays fixed as wallpapers change. Light and dark mode remain your choice."
             wrapMode: Text.Wrap
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant
         }
-        StyledText {
+        NacreText {
             visible: Wallpapers.error.length > 0
             width: parent.width
             text: Wallpapers.error
@@ -479,7 +479,7 @@ SettingsPage {
                 required property var modelData
                 width: wallGrid.cellWidth
                 height: wallGrid.cellHeight
-                StyledRect {
+                NacreSurface {
                     x: 0
                     y: 0
                     width: 148
@@ -487,7 +487,7 @@ SettingsPage {
                     radius: 8
                     visible: thumb.status !== Image.Ready
                     color: Colours.palette.m3surfaceContainerHigh
-                    MaterialIcon {
+                    NacreIcon {
                         anchors.centerIn: parent
                         text: "landscape"
                         color: Colours.palette.m3onSurfaceVariant

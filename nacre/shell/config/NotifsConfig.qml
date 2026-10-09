@@ -1,18 +1,11 @@
 pragma Singleton
 import QtQuick
-import Quickshell
 
-Singleton {
-    readonly property bool expire: true
-    readonly property int defaultExpireTimeout: 5000
-    readonly property real clearThreshold: 0.3
-    readonly property int expandThreshold: 20
-    readonly property bool actionOnClick: false
-    readonly property Sizes sizes: Sizes {}
-
-    component Sizes: QtObject {
-        readonly property int width: 400
-        readonly property int image: 41
-        readonly property int badge: 20
-    }
+QtObject {
+    readonly property var expire: NacreNotifications.expire
+    readonly property var defaultExpireTimeout: NacreNotifications.defaultExpireTimeout
+    readonly property var clearThreshold: NacreNotifications.clearThreshold
+    readonly property var expandThreshold: NacreNotifications.expandThreshold
+    readonly property var actionOnClick: NacreNotifications.actionOnClick
+    readonly property var sizes: NacreNotifications.sizes
 }

@@ -56,9 +56,9 @@ Shape {
             quad(a[0], a[1], b[0], b[1]);
         }
 
-        const r = BorderConfig.rounding, L = bar.implicitWidth, T = panels.y, R = width - BorderConfig.right, B = height - BorderConfig.bottom;
-        const tl = L > 0 && BorderConfig.headerHeight > 0 ? r : 0, tr = BorderConfig.right > 0 && BorderConfig.headerHeight > 0 ? r : 0;
-        const bl = L > 0 && BorderConfig.bottom > 0 ? r : 0, br = BorderConfig.right > 0 && BorderConfig.bottom > 0 ? r : 0;
+        const r = NacreFrame.rounding, L = bar.implicitWidth, T = panels.y, R = width - NacreFrame.right, B = height - NacreFrame.bottom;
+        const tl = L > 0 && NacreFrame.headerHeight > 0 ? r : 0, tr = NacreFrame.right > 0 && NacreFrame.headerHeight > 0 ? r : 0;
+        const bl = L > 0 && NacreFrame.bottom > 0 ? r : 0, br = NacreFrame.right > 0 && NacreFrame.bottom > 0 ? r : 0;
         const commands = [];
         move(0, 0);
         line(width, 0);
@@ -127,7 +127,7 @@ Shape {
     preferredRendererType: Shape.CurveRenderer
 
     ShapePath {
-        fillColor: BorderConfig.colour
+        fillColor: NacreFrame.colour
         strokeWidth: -1
         fillRule: ShapePath.OddEvenFill
 

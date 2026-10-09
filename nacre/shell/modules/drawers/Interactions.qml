@@ -19,7 +19,7 @@ MouseArea {
 
     function withinPanelHeight(panel: Item, x: real, y: real): bool {
         const panelY = panels.y + panel.y;
-        return y >= panelY - BorderConfig.rounding && y <= panelY + panel.height + BorderConfig.rounding;
+        return y >= panelY - NacreFrame.rounding && y <= panelY + panel.height + NacreFrame.rounding;
     }
 
     function inRightPanel(panel: Item, x: real, y: real): bool {
@@ -28,7 +28,7 @@ MouseArea {
 
     function inTopPanel(panel: Item, x: real, y: real): bool {
         const panelX = bar.implicitWidth + panel.x;
-        return y < panels.y + panel.y + panel.height && x >= panelX - BorderConfig.rounding && x <= panelX + panel.width + BorderConfig.rounding;
+        return y < panels.y + panel.y + panel.height && x >= panelX - NacreFrame.rounding && x <= panelX + panel.width + NacreFrame.rounding;
     }
 
     anchors.fill: parent
@@ -103,13 +103,13 @@ MouseArea {
         // Show/hide session on drag
         if (pressed && withinPanelHeight(panels.session, x, y)) {
             const dragX = x - dragStart.x;
-            if (dragX < -SessionConfig.dragThreshold)
+            if (dragX < -NacreSession.dragThreshold)
                 visibilities.session = true;
-            else if (dragX > SessionConfig.dragThreshold)
+            else if (dragX > NacreSession.dragThreshold)
                 visibilities.session = false;
         }
 
-        if (visibilities.left && visibilities.edgeMenu !== "left" && !visibilities.leftPinned && !((x < bar.implicitWidth + panels.leftDrawer.width + BorderConfig.rounding) && withinPanelHeight(panels.leftDrawer, x, y)))
+        if (visibilities.left && visibilities.edgeMenu !== "left" && !visibilities.leftPinned && !((x < bar.implicitWidth + panels.leftDrawer.width + NacreFrame.rounding) && withinPanelHeight(panels.leftDrawer, x, y)))
             visibilities.left = false;
 
         // Show dashboard on hover
@@ -119,7 +119,7 @@ MouseArea {
         // Header popouts extend down from the top edge and remain while entered.
         if (popouts.hasCurrent && !popouts.headerHovered && !popouts.pinned) {
             const px = bar.implicitWidth + popouts.x, py = panels.y + popouts.y;
-            if (y > py + popouts.height + BorderConfig.rounding || x < px - BorderConfig.rounding || x > px + popouts.width + BorderConfig.rounding)
+            if (y > py + popouts.height + NacreFrame.rounding || x < px - NacreFrame.rounding || x > px + popouts.width + NacreFrame.rounding)
                 popouts.hasCurrent = false;
         }
     }

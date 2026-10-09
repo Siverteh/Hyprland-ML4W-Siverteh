@@ -66,3 +66,26 @@ remain headless Qt tests. No test draws a new window on the user's desktop.
 
 The remaining shared controls, config/services, panel designs and icon/logo work
 are separate batches. Applicable LICENSE/NOTICE files remain during the rewrite.
+
+## Shared controls and Nacre names
+
+The remaining foundation helpers are independently implemented as NacreTextField,
+NacreSlider, NacreScrollBar, NacreWindow, NacreShortcut, NacreImage, NacreTint and
+NacreIcon. Maintained panels use these names and the Nacre text/surface primitives;
+old names remain only as freshly written compatibility adapters. Config providers
+use NacreAppearance, NacreFrame, NacreBar, NacreDashboard, NacreLauncher,
+NacreNotifications, NacreOsd and NacreSession. NacrePaths and NacreIcons resolve
+XDG roots and desktop metadata. See the [controls spec](../specs/foundation-controls.md).
+
+The exterior frame, drawer backgrounds and top bar share the body surface color.
+Orient's brighter frame color is reserved as a decorative palette token. Raised
+cards and input backgrounds keep their separate tones. Text selection now follows
+the wallpaper accent, and narrow scrollbars keep a usable thumb. OSD sliders use
+Qt's standard mouse/keyboard semantics with rounded track/focus geometry.
+
+Image helpers retain existing pixels while a replacement is prepared, coalesce
+resize requests and release obsolete thumbnail handles. Thumbnailer remains an
+inherited service awaiting its own rewrite. Material Symbols remains a licensed
+font dependency; the rewritten NacreIcon helper does not claim ownership of it.
+The appearance provider keeps existing layout dimensions but supplies new bounded
+easing curves and honors reduce motion. No foundation widget polls or animates idle.

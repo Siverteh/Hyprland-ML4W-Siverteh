@@ -12,7 +12,7 @@ import QtQuick.Layouts
 
 Variants {
     model: DisplayRecovery.surfaceScreens
-    StyledWindow {
+    NacreWindow {
         id: win
         required property ShellScreen modelData
         screen: modelData
@@ -26,7 +26,7 @@ Variants {
         anchors.top: true
         anchors.left: true
         anchors.right: true
-        implicitHeight: BorderConfig.headerHeight
+        implicitHeight: NacreFrame.headerHeight
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Top
         color: "transparent"
@@ -34,7 +34,7 @@ Variants {
         property string hoverHint: ""
         Rectangle {
             anchors.fill: parent
-            color: Colours.palette.m3surface
+            color: NacreTokens.body
         }
         readonly property var visibility: Visibilities.screens[screen.name]
         Timer {
@@ -64,9 +64,9 @@ Variants {
         RowLayout {
             id: leftGroup
             anchors.left: parent.left
-            anchors.leftMargin: Appearance.padding.large
+            anchors.leftMargin: NacreAppearance.padding.large
             anchors.verticalCenter: parent.verticalCenter
-            spacing: Appearance.spacing.normal
+            spacing: NacreAppearance.spacing.normal
             BrandLogo {
                 compact: true
                 MouseArea {
@@ -80,18 +80,18 @@ Variants {
                     }
                 }
             }
-            StyledRect {
-                radius: Appearance.rounding.full
+            NacreSurface {
+                radius: NacreAppearance.rounding.full
                 color: Colours.palette.m3surfaceContainer
                 implicitHeight: 34
-                implicitWidth: workspaces.implicitWidth + Appearance.padding.small * 2
+                implicitWidth: workspaces.implicitWidth + NacreAppearance.padding.small * 2
                 WorkspaceStrip {
                     id: workspaces
                     anchors.centerIn: parent
                 }
             }
         }
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             visible: win.hoverHint !== ""
             text: win.hoverHint
@@ -109,9 +109,9 @@ Variants {
         RowLayout {
             id: rightGroup
             anchors.right: parent.right
-            anchors.rightMargin: Appearance.padding.large
+            anchors.rightMargin: NacreAppearance.padding.large
             anchors.verticalCenter: parent.verticalCenter
-            spacing: Appearance.spacing.normal
+            spacing: NacreAppearance.spacing.normal
             Item {
                 implicitWidth: updateRow.implicitWidth
                 implicitHeight: 34
@@ -119,11 +119,11 @@ Variants {
                     id: updateRow
                     anchors.centerIn: parent
                     spacing: 4
-                    MaterialIcon {
+                    NacreIcon {
                         text: "package_2"
                         color: Colours.palette.m3primary
                     }
-                    StyledText {
+                    NacreText {
                         text: Updates.message || String(Updates.count)
                         color: Colours.palette.m3primary
                     }
@@ -137,11 +137,11 @@ Variants {
                     }
                 }
             }
-            StyledRect {
+            NacreSurface {
                 id: statusHolder
-                radius: Appearance.rounding.full
+                radius: NacreAppearance.rounding.full
                 color: Colours.palette.m3surfaceContainer
-                implicitWidth: status.implicitHeight + Appearance.padding.normal * 2
+                implicitWidth: status.implicitHeight + NacreAppearance.padding.normal * 2
                 implicitHeight: 34
                 Native.StatusIcons {
                     id: status
@@ -237,12 +237,12 @@ Variants {
                 Row {
                     id: clockRow
                     anchors.centerIn: parent
-                    spacing: Appearance.spacing.small
-                    MaterialIcon {
+                    spacing: NacreAppearance.spacing.small
+                    NacreIcon {
                         text: "calendar_month"
                         color: Colours.palette.m3tertiary
                     }
-                    StyledText {
+                    NacreText {
                         text: Time.format("HH:mm")
                         color: Colours.palette.m3tertiary
                     }

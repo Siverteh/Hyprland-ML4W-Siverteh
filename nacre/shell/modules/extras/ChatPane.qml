@@ -72,7 +72,7 @@ Item {
                 onClicked: SidebarChat.workspace()
             }
         }
-        StyledText {
+        NacreText {
             width: parent.width
             elide: Text.ElideRight
             text: (SidebarChat.provider ? SidebarChat.provider.charAt(0).toUpperCase() + SidebarChat.provider.slice(1) : "Assistant") + " · " + SidebarChat.title
@@ -183,7 +183,7 @@ Item {
             })
         onHeightChanged: if (follow && !restoring)
             latest()
-        delegate: StyledRect {
+        delegate: NacreSurface {
             id: bubble
             required property string role
             required property string text
@@ -191,7 +191,7 @@ Item {
             implicitHeight: message.implicitHeight + 45 + copyActions.implicitHeight
             radius: 13
             color: role === "user" ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
-            StyledText {
+            NacreText {
                 x: 12
                 y: 9
                 text: bubble.role === "user" ? "You" : "Nacre AI"
@@ -235,7 +235,7 @@ Item {
                 selectedTextColor: Colours.palette.m3onPrimary
             }
         }
-        StyledText {
+        NacreText {
             anchors.centerIn: parent
             visible: transcript.count === 0
             text: "Start a conversation"
@@ -277,7 +277,7 @@ Item {
         anchors.bottom: parent.bottom
         width: parent.width
         spacing: 8
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             visible: SidebarChat.error.length > 0 || SidebarChat.status.length > 0
@@ -309,7 +309,7 @@ Item {
                         required property var modelData
                         width: parent.width
                         spacing: 6
-                        StyledText {
+                        NacreText {
                             width: parent.width
                             wrapMode: Text.Wrap
                             text: q.modelData.question
@@ -327,13 +327,13 @@ Item {
                                 }
                             }
                         }
-                        StyledTextField {
+                        NacreTextField {
                             objectName: "questionAnswer-" + q.modelData.id
                             width: parent.width
                             height: 35
                             placeholderText: "Your answer"
                             leftPadding: 10
-                            background: StyledRect {
+                            background: NacreSurface {
                                 radius: 10
                                 color: Colours.palette.m3surfaceContainerHigh
                             }
@@ -390,7 +390,7 @@ Item {
                 selectedTextColor: Colours.palette.m3onPrimary
                 font.family: "IBM Plex Sans"
                 font.pointSize: 12
-                background: StyledRect {
+                background: NacreSurface {
                     radius: 14
                     color: Colours.palette.m3surfaceContainerHigh
                 }

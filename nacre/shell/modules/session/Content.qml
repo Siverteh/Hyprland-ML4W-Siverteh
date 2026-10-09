@@ -12,8 +12,8 @@ Column {
 
     anchors.verticalCenter: parent.verticalCenter
     anchors.left: parent.left
-    padding: Appearance.padding.large
-    spacing: Appearance.spacing.small
+    padding: NacreAppearance.padding.large
+    spacing: NacreAppearance.spacing.small
 
     Repeater {
         id: actions
@@ -41,7 +41,7 @@ Column {
             }
         ]
 
-        StyledRect {
+        NacreSurface {
             id: button
 
             required property var modelData
@@ -49,7 +49,7 @@ Column {
 
             implicitWidth: 120
             implicitHeight: 80
-            radius: Appearance.rounding.normal
+            radius: NacreAppearance.rounding.normal
             color: activeFocus ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
             Keys.onReturnPressed: proc.startDetached()
             Keys.onEnterPressed: proc.startDetached()
@@ -84,20 +84,20 @@ Column {
                 anchors.centerIn: parent
                 spacing: 5
 
-                MaterialIcon {
+                NacreIcon {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: button.modelData.icon
                     font.pointSize: 24
                     color: button.index === 3 ? Colours.palette.m3error : Colours.palette.m3onSurface
                 }
 
-                StyledText {
+                NacreText {
                     text: button.modelData.label
                     font.pointSize: 11
                 }
             }
 
-            StateLayer {
+            NacreInteraction {
                 function onClicked() {
                     proc.startDetached();
                 }

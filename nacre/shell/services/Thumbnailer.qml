@@ -9,7 +9,7 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property string thumbDir: `${Paths.cache}/thumbnails`.slice(7)
+    readonly property string thumbDir: `${NacrePaths.cache}/thumbnails`.slice(7)
 
     function go(obj: var): var {
         return thumbComp.createObject(obj, {

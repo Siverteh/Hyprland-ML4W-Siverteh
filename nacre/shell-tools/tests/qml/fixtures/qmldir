@@ -1,11 +1,11 @@
 module Fixtures
 singleton SidebarChat 1.0 SidebarChat.qml
 singleton Colours 1.0 Colours.qml
-StyledRect 1.0 StyledRect.qml
-StyledText 1.0 StyledText.qml
+NacreSurface 1.0 NacreSurface.qml
+NacreText 1.0 NacreText.qml
 ActionButton 1.0 ActionButton.qml
-StyledTextField 1.0 StyledTextField.qml
+NacreTextField 1.0 NacreTextField.qml
 FastScroll 1.0 FastScroll.qml
 
-singleton Appearance 1.0 Appearance.qml
-StateLayer 1.0 StateLayer.qml
+singleton NacreAppearance 1.0 NacreAppearance.qml
+NacreInteraction 1.0 NacreInteraction.qml

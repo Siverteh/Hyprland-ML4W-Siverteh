@@ -70,7 +70,7 @@ SearchSurface {
         FastScroll {
             view: list
         }
-        delegate: StyledRect {
+        delegate: NacreSurface {
             id: tile
             required property var modelData
             required property int index
@@ -82,20 +82,20 @@ SearchSurface {
                 anchors.fill: parent
                 anchors.margins: 12
                 spacing: 12
-                MaterialIcon {
+                NacreIcon {
                     text: tile.modelData.icon
                     anchors.verticalCenter: parent.verticalCenter
                     color: Colours.palette.m3primary
                 }
                 Column {
                     spacing: 2
-                    StyledText {
+                    NacreText {
                         width: list.width - 90
                         elide: Text.ElideRight
                         text: tile.modelData.name
                         textFormat: Text.PlainText
                     }
-                    StyledText {
+                    NacreText {
                         text: tile.modelData.description
                         font.pointSize: 10
                         color: Colours.palette.m3onSurfaceVariant

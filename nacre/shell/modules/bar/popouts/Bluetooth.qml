@@ -21,7 +21,7 @@ Item {
         width: root.width
         spacing: 12
 
-        StyledText {
+        NacreText {
             text: "Bluetooth"
             font.pointSize: 14
             color: Colours.palette.m3primary
@@ -41,7 +41,7 @@ Item {
             Repeater {
                 model: root.known
 
-                StyledRect {
+                NacreSurface {
                     id: device
 
                     required property var modelData
@@ -58,14 +58,14 @@ Item {
                         width: parent.width - 115
                         spacing: 3
 
-                        StyledText {
+                        NacreText {
                             width: parent.width
                             text: device.modelData.alias || device.modelData.name
                             elide: Text.ElideRight
                             font.pointSize: 10
                         }
 
-                        StyledText {
+                        NacreText {
                             text: device.modelData.connected ? "Connected" : "Not connected"
                             font.pointSize: 9
                             color: Colours.palette.m3onSurfaceVariant
@@ -85,7 +85,7 @@ Item {
             }
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             visible: !Bluetooth.powered || !root.known.length
@@ -94,7 +94,7 @@ Item {
             color: Colours.palette.m3onSurfaceVariant
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             visible: DeviceActions.lastAction.startsWith("bluetooth") && text.length > 0
             text: DeviceActions.message

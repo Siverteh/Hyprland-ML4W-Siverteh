@@ -52,29 +52,29 @@ Item {
         id: indicator
 
         anchors.top: bar.bottom
-        anchors.topMargin: DashboardConfig.sizes.tabIndicatorSpacing
+        anchors.topMargin: NacreDashboard.sizes.tabIndicatorSpacing
 
         implicitWidth: bar.currentItem.contentItem.implicitWidth
-        implicitHeight: DashboardConfig.sizes.tabIndicatorHeight
+        implicitHeight: NacreDashboard.sizes.tabIndicatorHeight
 
         x: bar.currentItem.x + (bar.currentItem.width - implicitWidth) / 2
 
         clip: true
 
-        StyledRect {
+        NacreSurface {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
             implicitHeight: parent.implicitHeight * 2
 
             color: Colours.palette.m3primary
-            radius: Appearance.rounding.full
+            radius: NacreAppearance.rounding.full
         }
 
         // Selection feedback follows the clicked tab in the same frame.
     }
 
-    StyledRect {
+    NacreSurface {
         id: separator
 
         anchors.top: indicator.bottom
@@ -152,16 +152,16 @@ Item {
                         properties: "implicitWidth,implicitHeight"
                         from: 0
                         to: rippleAnim.radius * 2
-                        duration: Appearance.anim.durations.large
-                        easing.bezierCurve: Appearance.anim.curves.standardDecel
+                        duration: NacreAppearance.anim.durations.large
+                        easing.bezierCurve: NacreAppearance.anim.curves.standardDecel
                     }
                     Anim {
                         target: ripple
                         property: "opacity"
                         to: 0
-                        duration: Appearance.anim.durations.large
+                        duration: NacreAppearance.anim.durations.large
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: Appearance.anim.curves.standardDecel
+                        easing.bezierCurve: NacreAppearance.anim.curves.standardDecel
                     }
                 }
             }
@@ -172,12 +172,12 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                implicitHeight: parent.height + DashboardConfig.sizes.tabIndicatorSpacing * 2
+                implicitHeight: parent.height + NacreDashboard.sizes.tabIndicatorSpacing * 2
 
                 color: "transparent"
-                radius: Appearance.rounding.small
+                radius: NacreAppearance.rounding.small
 
-                StyledRect {
+                NacreSurface {
                     id: stateLayer
 
                     anchors.fill: parent
@@ -190,10 +190,10 @@ Item {
                     }
                 }
 
-                StyledRect {
+                NacreSurface {
                     id: ripple
 
-                    radius: Appearance.rounding.full
+                    radius: NacreAppearance.rounding.full
                     color: tab.current ? Colours.palette.m3primary : Colours.palette.m3onSurface
                     opacity: 0
 
@@ -204,7 +204,7 @@ Item {
                 }
             }
 
-            MaterialIcon {
+            NacreIcon {
                 id: icon
 
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -213,18 +213,18 @@ Item {
                 text: tab.iconName
                 color: tab.current ? Colours.palette.m3primary : Colours.palette.m3onSurfaceVariant
                 fill: tab.current ? 1 : 0
-                font.pointSize: Appearance.font.size.large
+                font.pointSize: NacreAppearance.font.size.large
 
                 Behavior on fill {
                     NumberAnimation {
-                        duration: Appearance.anim.durations.normal
+                        duration: NacreAppearance.anim.durations.normal
                         easing.type: Easing.BezierSpline
-                        easing.bezierCurve: Appearance.anim.curves.standard
+                        easing.bezierCurve: NacreAppearance.anim.curves.standard
                     }
                 }
             }
 
-            StyledText {
+            NacreText {
                 id: label
 
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -238,8 +238,8 @@ Item {
     }
 
     component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.normal
+        duration: NacreAppearance.anim.durations.normal
         easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.anim.curves.standard
+        easing.bezierCurve: NacreAppearance.anim.curves.standard
     }
 }

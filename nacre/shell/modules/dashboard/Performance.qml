@@ -5,13 +5,13 @@ import qs.widgets
 
 Item {
     implicitWidth: metrics.implicitWidth
-    implicitHeight: metrics.implicitHeight + summary.implicitHeight + Appearance.padding.large * 2
+    implicitHeight: metrics.implicitHeight + summary.implicitHeight + NacreAppearance.padding.large * 2
 
     Row {
         id: metrics
 
-        spacing: Appearance.spacing.large * 3
-        padding: Appearance.padding.large
+        spacing: NacreAppearance.spacing.large * 3
+        padding: NacreAppearance.padding.large
         leftPadding: padding * 2
         rightPadding: padding * 3
 
@@ -50,7 +50,7 @@ Item {
         }
     }
 
-    StyledText {
+    NacreText {
         id: summary
 
         anchors.top: metrics.bottom
@@ -71,15 +71,15 @@ Item {
         required property string label2
         property bool primary
         readonly property real primaryMult: primary ? 1.2 : 1
-        readonly property real thickness: DashboardConfig.sizes.resourceProgessThickness * primaryMult
+        readonly property real thickness: NacreDashboard.sizes.resourceProgessThickness * primaryMult
         property color fg1: Colours.palette.m3primary
         property color fg2: Colours.palette.m3secondary
         property color bg1: Colours.palette.m3primaryContainer
         property color bg2: Colours.palette.m3secondaryContainer
 
         anchors.verticalCenter: parent.verticalCenter
-        implicitWidth: DashboardConfig.sizes.resourceSize * primaryMult
-        implicitHeight: DashboardConfig.sizes.resourceSize * primaryMult
+        implicitWidth: NacreDashboard.sizes.resourceSize * primaryMult
+        implicitHeight: NacreDashboard.sizes.resourceSize * primaryMult
         onValue1Changed: canvas.requestPaint()
         onValue2Changed: canvas.requestPaint()
         onFg1Changed: canvas.requestPaint()
@@ -90,17 +90,17 @@ Item {
         Column {
             anchors.centerIn: parent
 
-            StyledText {
+            NacreText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: res.label1
-                font.pointSize: Appearance.font.size.extraLarge * res.primaryMult
+                font.pointSize: NacreAppearance.font.size.extraLarge * res.primaryMult
             }
 
-            StyledText {
+            NacreText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: res.sublabel1
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.smaller * res.primaryMult
+                font.pointSize: NacreAppearance.font.size.smaller * res.primaryMult
             }
         }
 
@@ -108,19 +108,19 @@ Item {
             anchors.horizontalCenter: parent.right
             anchors.top: parent.verticalCenter
             anchors.horizontalCenterOffset: -res.thickness / 2
-            anchors.topMargin: res.thickness / 2 + Appearance.spacing.small
+            anchors.topMargin: res.thickness / 2 + NacreAppearance.spacing.small
 
-            StyledText {
+            NacreText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: res.label2
-                font.pointSize: Appearance.font.size.smaller * res.primaryMult
+                font.pointSize: NacreAppearance.font.size.smaller * res.primaryMult
             }
 
-            StyledText {
+            NacreText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: res.sublabel2
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small * res.primaryMult
+                font.pointSize: NacreAppearance.font.size.small * res.primaryMult
             }
         }
 
@@ -172,49 +172,49 @@ Item {
 
         Behavior on value1 {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on value2 {
             NumberAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on fg1 {
             ColorAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on fg2 {
             ColorAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on bg1 {
             ColorAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
 
         Behavior on bg2 {
             ColorAnimation {
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }

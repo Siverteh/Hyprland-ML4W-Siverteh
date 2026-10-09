@@ -4,7 +4,7 @@ import qs.widgets
 
 Item {
     implicitWidth: 370
-    implicitHeight: grid.implicitHeight + Appearance.padding.large * 2
+    implicitHeight: grid.implicitHeight + NacreAppearance.padding.large * 2
 
     CalendarGrid {
         id: grid
@@ -12,6 +12,6 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Appearance.padding.large
+        anchors.margins: NacreAppearance.padding.large
     }
 }

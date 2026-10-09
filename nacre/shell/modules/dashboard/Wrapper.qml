@@ -19,9 +19,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitHeight"
-                duration: Appearance.anim.durations.expressiveDefaultSpatial
+                duration: NacreAppearance.anim.durations.expressiveDefaultSpatial
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
+                easing.bezierCurve: NacreAppearance.anim.curves.expressiveDefaultSpatial
             }
         },
         Transition {
@@ -31,9 +31,9 @@ Item {
             NumberAnimation {
                 target: root
                 property: "implicitHeight"
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.emphasized
+                easing.bezierCurve: NacreAppearance.anim.curves.emphasized
             }
         }
     ]

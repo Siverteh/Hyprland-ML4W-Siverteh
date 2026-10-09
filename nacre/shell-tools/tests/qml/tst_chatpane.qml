@@ -312,7 +312,7 @@ TestCase {
             radius: 40
             color: "white"
 
-            StateLayer {
+            NacreInteraction {
                 objectName: "roundHover"
             }
         }

@@ -50,7 +50,7 @@ class RotationTests(unittest.TestCase):
             for name in ["wallpaper-rotation.js", "fuzzysort.js"]:
                 shutil.copy2(ROOT.parent / "shell/utils/scripts" / name, target / name)
             services = {
-                "Paths": 'property string state:"/tmp";property string pictures:"/tmp"',
+                "NacrePaths": 'property string state:"/tmp";property string pictures:"/tmp"',
                 "ThemePresentation": "property var pending:({});property var active:({})",
                 "WallpaperPlayback": "property bool sleeping:false;property bool locked:false",
                 "Visibilities": "property var screens:({})",

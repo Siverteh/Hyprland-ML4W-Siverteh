@@ -14,7 +14,7 @@ ShellRoot {
                 anchors.fill: parent
                 color: "#f0f0f4"
             }
-            StyledClippingRect {
+            NacreClip {
                 id: clipper
                 x: 20
                 y: 20
@@ -27,14 +27,14 @@ ShellRoot {
                     color: "#2679cd"
                 }
             }
-            StyledRect {
+            NacreSurface {
                 x: 150
                 y: 20
                 width: 120
                 height: 60
                 radius: 20
                 color: "#303640"
-                StyledText {
+                NacreText {
                     anchors.centerIn: parent
                     text: "Nacre"
                     color: "#fafafa"

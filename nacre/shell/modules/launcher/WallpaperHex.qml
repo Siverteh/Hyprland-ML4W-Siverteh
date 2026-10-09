@@ -120,14 +120,14 @@ Item {
             }
         }
     }
-    StyledRect {
+    NacreSurface {
         x: 25
         y: parent.height - 50
         width: parent.width - 50
         height: 28
         radius: 14
         color: Qt.alpha(Colours.palette.m3surface, 0.85)
-        StyledText {
+        NacreText {
             anchors.fill: parent
             anchors.margins: 5
             text: root.entry?.name ?? ""

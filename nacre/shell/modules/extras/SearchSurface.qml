@@ -36,7 +36,7 @@ Item {
         anchors.margins: 16
         height: 30
         spacing: 12
-        StyledText {
+        NacreText {
             width: parent.width - 110
             text: root.title
             font.pointSize: 17
@@ -49,7 +49,7 @@ Item {
             onClicked: root.visibilities.launcher = false
         }
     }
-    StyledTextField {
+    NacreTextField {
         id: search
         anchors.left: parent.left
         anchors.right: parent.right
@@ -59,7 +59,7 @@ Item {
         leftPadding: 15
         rightPadding: 15
         placeholderText: root.placeholder
-        background: StyledRect {
+        background: NacreSurface {
             color: Colours.palette.m3surfaceContainerHigh
             radius: 22
         }

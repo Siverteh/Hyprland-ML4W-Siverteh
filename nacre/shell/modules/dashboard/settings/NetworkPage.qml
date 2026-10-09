@@ -7,7 +7,7 @@ SettingsPage {
         title: "Connection"
         description: "Wi-Fi networks reported by NetworkManager."
 
-        StyledText {
+        NacreText {
             text: Network.active ? "Connected to " + Network.active.ssid : "No active Wi-Fi connection"
             color: Colours.palette.m3primary
         }
@@ -34,7 +34,7 @@ SettingsPage {
             }
         }
 
-        StyledText {
+        NacreText {
             width: parent.width
             wrapMode: Text.Wrap
             text: DeviceActions.message
@@ -61,14 +61,14 @@ SettingsPage {
                     width: parent.width - connectionAction.implicitWidth - parent.spacing
                     spacing: 3
 
-                    StyledText {
+                    NacreText {
                         width: parent.width
                         elide: Text.ElideRight
                         text: parent.parent.modelData.ssid
                         font.pointSize: 12
                     }
 
-                    StyledText {
+                    NacreText {
                         text: (parent.parent.modelData.active ? "Connected · " : "") + parent.parent.modelData.strength + "% signal · " + Math.round(parent.parent.modelData.frequency / 1000 * 10) / 10 + " GHz"
                         font.pointSize: 10
                         color: Colours.palette.m3onSurfaceVariant
@@ -91,7 +91,7 @@ SettingsPage {
             }
         }
 
-        StyledText {
+        NacreText {
             visible: Network.networks.length === 0
             text: "No Wi-Fi networks found"
             color: Colours.palette.m3onSurfaceVariant

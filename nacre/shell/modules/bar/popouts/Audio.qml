@@ -17,20 +17,20 @@ Item {
         id: body
         width: root.width
         spacing: 12
-        StyledText {
+        NacreText {
             text: "Sound"
             font.pointSize: 14
             color: Colours.palette.m3primary
         }
         Row {
             width: parent.width
-            StyledText {
+            NacreText {
                 width: parent.width - 65
                 text: Audio.sink?.description ?? "No output device"
                 elide: Text.ElideRight
                 font.pointSize: 11
             }
-            StyledText {
+            NacreText {
                 text: Math.round(Audio.volume * 100) + "%"
                 font.pointSize: 11
             }
@@ -62,7 +62,7 @@ Item {
                 onClicked: Audio.toggleMic()
             }
         }
-        StyledText {
+        NacreText {
             text: "Microphone"
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant
@@ -76,7 +76,7 @@ Item {
             value: Audio.micVolume
             onMoved: Audio.setMicVolume(value)
         }
-        StyledText {
+        NacreText {
             text: "Output device"
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant
@@ -85,7 +85,7 @@ Item {
             maximumHeight: 132
             Repeater {
                 model: root.outputs
-                StyledRect {
+                NacreSurface {
                     id: device
                     required property var modelData
                     property bool chosen: Pipewire.defaultAudioSink === modelData
@@ -93,7 +93,7 @@ Item {
                     height: 40
                     radius: 10
                     color: chosen ? Colours.palette.m3primaryContainer : Colours.palette.m3surfaceContainerHigh
-                    StyledText {
+                    NacreText {
                         anchors.left: parent.left
                         anchors.leftMargin: 12
                         anchors.verticalCenter: parent.verticalCenter
@@ -102,14 +102,14 @@ Item {
                         elide: Text.ElideRight
                         font.pointSize: 10
                     }
-                    MaterialIcon {
+                    NacreIcon {
                         anchors.right: parent.right
                         anchors.rightMargin: 10
                         anchors.verticalCenter: parent.verticalCenter
                         text: device.chosen ? "check" : "speaker"
                         font.pointSize: 13
                     }
-                    StateLayer {
+                    NacreInteraction {
                         function onClicked() {
                             Pipewire.preferredDefaultAudioSink = device.modelData;
                         }

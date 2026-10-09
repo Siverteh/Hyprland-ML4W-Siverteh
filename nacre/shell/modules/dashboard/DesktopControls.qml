@@ -34,7 +34,7 @@ Item {
             id: content
             width: parent.width
             spacing: 16
-            StyledText {
+            NacreText {
                 visible: DesktopSettings.message.length > 0 && DesktopSettings.message !== "Changes save automatically"
                 text: DesktopSettings.message
                 width: parent.width
@@ -46,7 +46,7 @@ Item {
                 width: parent.width
                 visible: root.page === "maintenance"
                 heading: "Desktop health"
-                StyledText {
+                NacreText {
                     width: parent.width
                     text: "Installed release: " + (Maintenance.data.release?.revision ?? "Unrecorded").slice(0, 12)
                     color: Colours.palette.m3onSurfaceVariant
@@ -56,7 +56,7 @@ Item {
                     spacing: 16
                     Repeater {
                         model: Object.entries(Maintenance.data.services ?? {})
-                        StyledText {
+                        NacreText {
                             required property var modelData
                             text: ({
                                     "nacre-shell.service": "Desktop",
@@ -73,7 +73,7 @@ Item {
                         }
                     }
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: "Knowledge sync: " + (Maintenance.data.brainSync?.message ?? "Not checked") + " · Last success: " + (Maintenance.data.brainSync?.lastSuccess ? new Date(Maintenance.data.brainSync.lastSuccess * 1000).toLocaleString() : "not yet recorded")
@@ -91,18 +91,18 @@ Item {
                         onActivated: Maintenance.recover("repair-portals")
                     }
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: (Maintenance.data.configErrors || "Compositor configuration is valid") + " · " + (Maintenance.data.drift ?? []).length + " locally changed managed files"
                     color: Maintenance.data.configErrors ? Colours.palette.m3error : Colours.palette.m3onSurfaceVariant
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: Maintenance.data.performance?.cpuCorePercent !== undefined ? "Last sample: " + Maintenance.data.performance.cpuCorePercent + "% of one core · " + Maintenance.data.performance.memoryMiB + " MiB (" + Maintenance.data.performance.label + ")" : "No performance sample yet"
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: "Session: " + (Maintenance.data.session?.event ?? "not checked") + " · Wallet: " + (Maintenance.data.session?.wallet ?? "unknown") + " · Update cache: " + (Maintenance.data.updatesAgeSeconds === null ? "not available" : Math.round((Maintenance.data.updatesAgeSeconds ?? 0) / 60) + " minutes old")
@@ -139,7 +139,7 @@ Item {
                     id: rollbackConfirm
                     visible: false
                     spacing: 8
-                    StyledText {
+                    NacreText {
                         text: "Restore the previous desktop release?"
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -155,7 +155,7 @@ Item {
                         onActivated: rollbackConfirm.visible = false
                     }
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: Maintenance.message
@@ -186,7 +186,7 @@ Item {
                 width: parent.width
                 visible: root.page === "workflows"
                 heading: "Personal workflow setup"
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: "Save your current audio devices and display layout for the selected preset. Only connected devices are recalled; microphone mute stays unchanged."
@@ -209,7 +209,7 @@ Item {
                     }
                 }
             }
-            StyledRect {
+            NacreSurface {
                 objectName: "settingsDisplays"
                 visible: root.page === "displays"
                 width: parent.width
@@ -220,13 +220,13 @@ Item {
                     anchors.fill: parent
                     anchors.margins: 16
                     spacing: 12
-                    StyledText {
+                    NacreText {
                         text: "Displays"
                         font.weight: 500
                     }
                     Row {
                         spacing: 10
-                        StyledText {
+                        NacreText {
                             text: DesktopSettings.monitors.length < 2 ? "Connect a second screen to extend or mirror your desktop." : "Main screen"
                             anchors.verticalCenter: parent.verticalCenter
                             color: Colours.palette.m3onSurfaceVariant
@@ -258,7 +258,7 @@ Item {
                             enabled: DesktopSettings.monitors.length > 1 && !DesktopSettings.pending
                             onActivated: DesktopSettings.request(["display", "mirror", root.primary])
                         }
-                        StyledText {
+                        NacreText {
                             text: DesktopSettings.monitors.map(m => m.name + " · " + m.width + "×" + m.height).join("   ")
                             font.pointSize: 10
                             anchors.verticalCenter: parent.verticalCenter
@@ -277,7 +277,7 @@ Item {
                             label: "Revert"
                             onActivated: DesktopSettings.request(["revert"])
                         }
-                        StyledText {
+                        NacreText {
                             text: "Reverts after 20 seconds unless kept"
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -294,7 +294,7 @@ Item {
                         required property var modelData
                         width: parent.width
                         spacing: 10
-                        StyledText {
+                        NacreText {
                             text: parent.modelData.name + " · " + parent.modelData.width + "×" + parent.modelData.height + " · " + Math.round(parent.modelData.refreshRate) + " Hz"
                             color: Colours.palette.m3primary
                         }
@@ -327,7 +327,7 @@ Item {
                         }
                     }
                 }
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: "Display changes revert after 20 seconds unless you keep them."
@@ -423,7 +423,7 @@ Item {
                 visible: root.page === "desktop"
                 width: parent.width
                 heading: "Edge menu activation"
-                StyledText {
+                NacreText {
                     width: parent.width
                     wrapMode: Text.Wrap
                     text: "Click handles appear over the desktop without moving windows. Hover restores automatic edge opening."
@@ -487,7 +487,7 @@ Item {
             }
         }
     }
-    component Action: StyledRect {
+    component Action: NacreSurface {
         id: action
         property string label
         property bool selected: false
@@ -497,19 +497,19 @@ Item {
         radius: 17
         opacity: enabled ? 1 : .4
         color: selected ? Colours.palette.m3primary : Colours.palette.m3surfaceContainerHigh
-        StyledText {
+        NacreText {
             id: title
             anchors.centerIn: parent
             text: action.label
             color: action.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
         }
-        StateLayer {
+        NacreInteraction {
             function onClicked() {
                 action.activated();
             }
         }
     }
-    component Section: StyledRect {
+    component Section: NacreSurface {
         id: section
         property string heading
         default property alias contents: stack.data
@@ -524,7 +524,7 @@ Item {
             anchors.top: parent.top
             anchors.margins: 16
             spacing: 12
-            StyledText {
+            NacreText {
                 text: section.heading
                 font.weight: 500
                 color: Colours.palette.m3primary
@@ -538,11 +538,11 @@ Item {
         readonly property bool checked: DesktopSettings.data[setting] === true
         width: parent.width
         height: 36
-        StyledText {
+        NacreText {
             text: toggle.label
             anchors.verticalCenter: parent.verticalCenter
         }
-        StyledRect {
+        NacreSurface {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             width: 48
@@ -573,11 +573,11 @@ Item {
         spacing: 3
         Row {
             width: parent.width
-            StyledText {
+            NacreText {
                 width: parent.width - 55
                 text: number.label
             }
-            StyledText {
+            NacreText {
                 width: 55
                 horizontalAlignment: Text.AlignRight
                 text: Math.round(control.value) + " px"

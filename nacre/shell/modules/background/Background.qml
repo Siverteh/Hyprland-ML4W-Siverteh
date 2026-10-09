@@ -5,7 +5,7 @@ import qs.widgets
 Variants {
     model: Quickshell.screens
 
-    StyledWindow {
+    NacreWindow {
         id: win
 
         required property ShellScreen modelData

@@ -133,3 +133,8 @@ names are thin compatibility adapters. Tokens consume existing palette/settings
 providers; native rounded clipping is a Quickshell dependency, not Nacre-owned
 low-level rendering. [Foundation behavior](features/foundation.md) describes
 input, focus, motion and the remaining control/config rewrite boundaries.
+
+Shared shell controls and layout defaults are owned by the independent
+[Nacre foundation](features/foundation.md). Maintained consumers use Nacre type
+names; compatibility adapters preserve older external configuration. Exterior
+chrome uses one body token, while inner cards use raised surfaces.

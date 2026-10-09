@@ -68,8 +68,9 @@ Item {
                 color: String(Colours.palette.m3primary),
                 secondary: String(Colours.palette.m3secondary),
                 tertiary: String(Colours.palette.m3tertiary),
-                frame: String(BorderConfig.colour),
-                expectedFrame: ThemePresentation.active.colours?.frame ?? "",
+                frame: String(NacreFrame.colour),
+                decorativeFrame: ThemePresentation.active.colours?.frame ?? "",
+                expectedFrame: ThemePresentation.active.colours?.surface ?? "",
                 paletteChoices: ThemePresentation.active.paletteOptions?.length ?? 0,
                 selectedAccent: ThemePresentation.active.selectedAccent ?? "",
                 motionAllowed: root.motionAllowed,
@@ -126,9 +127,9 @@ Item {
             NumberAnimation {
                 target: img
                 properties: "opacity,scale"
-                duration: Appearance.anim.durations.normal
+                duration: NacreAppearance.anim.durations.normal
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: Appearance.anim.curves.standard
+                easing.bezierCurve: NacreAppearance.anim.curves.standard
             }
         }
     }

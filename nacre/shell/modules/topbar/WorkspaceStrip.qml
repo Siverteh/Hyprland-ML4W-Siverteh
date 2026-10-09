@@ -7,7 +7,7 @@ Row {
     spacing: 3
     Repeater {
         model: 7
-        StyledRect {
+        NacreSurface {
             id: button
             required property int index
             readonly property int ws: index + 1
@@ -20,12 +20,12 @@ Row {
             Row {
                 anchors.centerIn: parent
                 spacing: 4
-                MaterialIcon {
-                    text: BarConfig.workspaceIcons[button.index]
+                NacreIcon {
+                    text: NacreBar.workspaceIcons[button.index]
                     font.pointSize: 12
                     color: button.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurfaceVariant
                 }
-                StyledText {
+                NacreText {
                     text: button.ws
                     font.pointSize: 10
                     color: button.selected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurfaceVariant

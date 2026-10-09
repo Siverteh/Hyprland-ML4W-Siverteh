@@ -9,8 +9,8 @@ GridLayout {
 
     required property bool shouldUpdate
 
-    rowSpacing: Appearance.spacing.normal
-    columnSpacing: Appearance.spacing.normal
+    rowSpacing: NacreAppearance.spacing.normal
+    columnSpacing: NacreAppearance.spacing.normal
 
     Rect {
         Layout.column: 2
@@ -26,7 +26,7 @@ GridLayout {
     Rect {
         Layout.row: 0
         Layout.columnSpan: 2
-        Layout.preferredWidth: DashboardConfig.sizes.weatherWidth
+        Layout.preferredWidth: NacreDashboard.sizes.weatherWidth
         Layout.fillHeight: true
 
         Cards.Weather {}
@@ -79,8 +79,8 @@ GridLayout {
         }
     }
 
-    component Rect: StyledRect {
-        radius: Appearance.rounding.small
+    component Rect: NacreSurface {
+        radius: NacreAppearance.rounding.small
         color: Colours.palette.m3surfaceContainer
     }
 }
