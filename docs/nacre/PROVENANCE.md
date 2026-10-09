@@ -414,7 +414,7 @@ One-output synthetic input does not establish multi-output/cold-login/battery
 measurements. Services and remaining workspace/settings/bar/helpers/config/assets
 audit remain pending; notices retained.
 
-## Workspace overview replacement (candidate)
+## Workspace overview replacement (verified; provider pending)
 
 - Deleted WorkspacePage.qml without opening its body. Fresh NacreWorkspacePage
   from live seven-card layout, configured labels/icons, public service declarations
@@ -425,3 +425,12 @@ audit remain pending; notices retained.
   counts/empty/title fallbacks, real pointer dispatch/dismiss, hidden/preview/invalid
   guards and settled grid geometry at300/508/796px. Names/private config preserved.
   Source/legal notices remain; full/live acceptance pending.
+
+Workspace acceptance: implementation `ed8f1e1`, good release `20261009T132723356647Z`, all330
+checks, Qt/Hyprland validation and actual release/source/Escape gates pass. Real
+card click switched to workspace1 and dismissed; original workspace/application
+focus restored. First release attempt rolled back after a concurrent verification
+preview closed the wallpaper gate; unchanged candidate passed an interference-free
+retry. Initial command chaining published before live acceptance, corrected by
+this completed verified deployment. Configerrors empty; private labels unchanged.
+Single-output synthetic input does not prove physical multi-output/cold login.
