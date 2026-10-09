@@ -132,3 +132,7 @@ Release gates require the desktop and any deployed Brain component, and preserve
 services that were active before deployment. A deliberately inactive sidebar
 worker remains inactive; a desktop-only update neither starts it nor fails because
 it was already stopped. Previously active workers must still pass the live gate.
+
+CI pulls the official Arch Linux GHCR base image to avoid Docker Hub anonymous pull
+limits. The full system update/dependency set and native Qt/Lua checks are unchanged.
+See [Arch OCI image documentation](https://github.com/archlinux/archlinux-docker/blob/master/README.md).
