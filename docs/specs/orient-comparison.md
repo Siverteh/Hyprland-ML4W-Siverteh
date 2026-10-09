@@ -1,6 +1,9 @@
 # Orient palette comparison prototype
 
-Status: specification; tool not implemented. [Engine spec](orient.md).
+Status: superseded planning reference. The user requested direct production
+implementation on 2026-10-08; this separate tool will not be built. Read-only
+private image audits and timing tests are implementation validation instead.
+[Engine spec](orient.md).
 
 ## Deliverable
 

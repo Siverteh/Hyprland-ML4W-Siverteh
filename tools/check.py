@@ -99,6 +99,11 @@ def main():
             "Desktop QML parser skipped; target-host validation remains required.",
             flush=True,
         )
+    # Child suites must exercise the candidate engine, never the deployed old one.
+    engine_source = str(ROOT / "nacre/shell-cli/src")
+    os.environ["PYTHONPATH"] = (
+        engine_source + os.pathsep + os.environ.get("PYTHONPATH", "")
+    )
     for suite in (
         "tools/tests",
         "ai/tests",
@@ -117,7 +122,7 @@ def main():
         cli_python = (
             Path.home() / ".local/share/siverteh-ai/shell-runtime/venv/bin/python"
         )
-    if not cli_python.exists() and importlib.util.find_spec("materialyoucolor"):
+    if not cli_python.exists() and importlib.util.find_spec("PIL"):
         cli_python = Path(sys.executable)
     if cli_python.exists():
         environment = dict(os.environ, PYTHONPATH=str(ROOT / "nacre/shell-cli/src"))

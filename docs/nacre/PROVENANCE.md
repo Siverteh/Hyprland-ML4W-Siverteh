@@ -1,6 +1,6 @@
 # Nacre independent implementation tracker
 
-Status: planning inventory, 2026-10-08. No replacement has been completed here.
+Status: Orient replacement implemented; live verification pending, 2026-10-08.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -33,7 +33,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 
 | Order | Area / current paths | Status | Spec and remaining work |
 |---|---|---|---|
-| 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | spec ready | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
+| 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | replaced | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
 | 2 | `shell/widgets/{StyledRect,StyledText,StyledTextField,StyledClippingRect,StyledWindow,StateLayer,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | audit pending | Separate surfaces/text, interaction/input, and media/window batches |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | audit pending | Design tokens and compatibility boundaries; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
@@ -67,3 +67,23 @@ Use this template when an area starts:
 The general public extraction, host/personal-data separation and final license
 choice follow this rewrite and final audit. No public repository transfer or
 runtime path consolidation is part of these documentation changes.
+
+## Orient replacement record
+
+- Scope: all inherited implementation/data under `nacre/shell-cli/src/nacre_shell`
+  deleted without opening those sources during replacement. Newly authored engine,
+  image analysis, role policy, storage and CLI modules implement the behavior spec.
+- Contracts: installed CLI help/output, consumer call sites and legacy output role
+  names (`nacre/shell-tools/tests/orient-roles.json`); no inherited color values or
+  algorithm used. Existing preset IDs/seeds from our preset UI are retained; all
+  mode colors and the default seed file are independently generated through Orient.
+- References: Björn Ottosson's public-domain OKLab equations, W3C color standards,
+  Pillow image/profile API. Pillow 12.3.0 is the only runtime dependency; Material
+  You is absent from the new environment. Existing LICENSE/NOTICE retained.
+- Integration: publisher retained, query bridge narrowed, complete cache identity,
+  mode/variant/override watcher invalidation, immutable environment activation and
+  byte-backed runtime rollback. Publisher/helpers are not certified original here.
+- The separate prototype/user-review gate was explicitly superseded by the user's
+  request for direct production implementation. Synthetic fixtures, private visual
+  inspection, full checks and live release gates remain acceptance requirements.
+- Replacement commit, final measurements and live deployment: record after gates.

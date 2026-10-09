@@ -5,7 +5,7 @@
 | Session and compositor | `hypr/`, `uwsm/` | SDDM → UWSM → Hyprland; installed configuration copies in `~/.config/hypr` |
 | Desktop UI | `nacre/shell/` | `nacre-shell.service`; validated source in `~/.local/share/nacre/shell` |
 | Desktop helpers | `nacre/shell-tools/` | Native settings, notifications, clipboard, update checks, startup apps and assistant bridge |
-| Palette and wallpaper engine | `nacre/shell-cli/` | Isolated Python package; the native bridge is the sole palette publisher |
+| Palette and wallpaper engine | `nacre/shell-cli/` | Orient in an isolated Pillow-only Python environment; native bridge is the sole palette publisher |
 | Knowledge browser | `brain/` | Loopback server and dedicated browser profile; private Markdown vault remains external |
 | AI workflow | `ai/`, `bin/` | Codex/Claude accounts, chats, project registry, skills and memory helpers |
 | Login appearance | `nacre/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
@@ -106,3 +106,15 @@ Desktop-owned runtime/preferences now use the canonical Nacre roots described in
 names remain compatibility aliases for existing callers and validated releases.
 Personal AI accounts, workflows and the private vault retain their existing roots.
 The rename does not change inherited-code provenance or license obligations.
+
+## Orient engine boundary
+
+The independent Orient implementation under `nacre/shell-cli` replaces the inherited
+palette generator and CLI internals. The native publisher and existing wallpaper
+preparation/rotation retain ownership. Both direct and prepared paths use the same
+mode/settings and versioned cache identity. [Orient](features/orient.md) documents
+compatibility names, per-image accents and measured acceptance requirements.
+Runtime environments are built separately under private `palette-engines/` and
+selected through `palette-runtime`; successful tests precede activation and
+release snapshots retain the old engine bytes for recovery. Other inherited UI
+areas and their attribution remain until their own rewrites and final audit.

@@ -201,3 +201,46 @@ class WallpaperMediaTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 media.select(source)
             self.assertFalse((media.STATE / "media.json").exists())
+
+
+class OrientPreparedCacheTests(unittest.TestCase):
+    def test_mode_variant_accent_and_engine_change_invalidate_prepared_cache(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (32, 24), "red").save(poster)
+            state = home / ".local/state/nacre"
+            state.mkdir(parents=True)
+            config = home / ".config/nacre"
+            config.mkdir(parents=True)
+            runtime = home / ".local/share/nacre/palette-runtime"
+            (runtime / "venv/bin").mkdir(parents=True)
+            (runtime / "venv/bin/nacre_shell").write_text("fixture")
+            marker = runtime / "orient-build.json"
+            marker.write_text('{"source":"one"}')
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "CACHE", home / "cache"),
+            ):
+                (state / "scheme.json").write_text(
+                    '{"mode":"dark","variant":"tonalspot"}'
+                )
+                first = media.palette_marker(poster, "default")
+                self.assertEqual(media.palette_marker(poster, "default"), first)
+                (state / "scheme.json").write_text(
+                    '{"mode":"light","variant":"tonalspot"}'
+                )
+                second = media.palette_marker(poster, "default")
+                self.assertNotEqual(first, second)
+                (state / "scheme.json").write_text(
+                    '{"mode":"light","variant":"neutral"}'
+                )
+                third = media.palette_marker(poster, "default")
+                self.assertNotEqual(second, third)
+                (config / "cli.json").write_text(
+                    '{"orient":{"accents":{"image":"ff3030"}}}'
+                )
+                fourth = media.palette_marker(poster, "default")
+                self.assertNotEqual(third, fourth)
+                marker.write_text('{"source":"two"}')
+                self.assertNotEqual(fourth, media.palette_marker(poster, "default"))

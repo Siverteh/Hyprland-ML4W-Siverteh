@@ -76,6 +76,8 @@ def commit_prepared(home, wallpaper, data, thumbnail, live=True):
         if (
             current.get("name") != "dynamic"
             or current.get("flavour") != data["flavour"]
+            or current.get("mode") != data["mode"]
+            or current.get("variant", "tonalspot") != data.get("variant", "tonalspot")
         ):
             return False
         atomic_write(state / "scheme.json", json.dumps(data))

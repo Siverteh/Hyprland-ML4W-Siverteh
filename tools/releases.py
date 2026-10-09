@@ -131,7 +131,7 @@ def capture(repo, revision):
         )
         backup = Path(entry["backup"])
         backup.parent.mkdir(parents=True, exist_ok=True)
-        if path.is_symlink() and path.name == "shell-runtime":
+        if path.is_symlink() and path.name in ("shell-runtime", "palette-runtime"):
             entry.update(kind="runtime", link=os.readlink(path))
             shutil.copytree(
                 path.resolve(),

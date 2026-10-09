@@ -139,3 +139,30 @@ class OptionalServiceGateTests(unittest.TestCase):
             "siverteh-observatory-brain.service",
             m.required_live_services(["brain"], set()),
         )
+
+
+class OrientRuntimeSnapshotTests(unittest.TestCase):
+    def test_palette_runtime_link_snapshots_bytes_and_restores_after_target_loss(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            repo = home / "repo"
+            repo.mkdir()
+            runtime = home / ".local/share/nacre/palette-runtime"
+            target = home / "engine"
+            (target / "venv").mkdir(parents=True)
+            (target / "venv/keep").write_text("known-good-engine")
+            runtime.parent.mkdir(parents=True)
+            runtime.symlink_to(target)
+            with (
+                patch.object(m, "HOME", home),
+                patch.object(m, "STATE", home / "releases"),
+                patch.object(m.subprocess, "run"),
+            ):
+                release, record = m.capture(repo, "orient")
+                entry = next(e for e in record["entries"] if e["path"] == str(runtime))
+                self.assertEqual(entry["kind"], "runtime")
+                (target / "venv/keep").unlink()
+                m.restore(release, record, force=True)
+                self.assertEqual(
+                    (runtime / "venv/keep").read_text(), "known-good-engine"
+                )

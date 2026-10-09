@@ -95,6 +95,7 @@ legacy aliases, namespace recovery and the separate system-owned migration.
 ## Independent implementation work
 
 The [rewrite tracker](nacre/PROVENANCE.md) records the planned replacement of
-inherited implementation. [Orient](specs/orient.md) and its
-[comparison prototype](specs/orient-comparison.md) are specifications, not
-deployed components; the current palette engine remains active.
+inherited implementation. [Orient](specs/orient.md) describes the independent palette engine. The separate
+[comparison proposal](specs/orient-comparison.md) was superseded by the user
+request for direct production implementation. See [Orient behavior](features/orient.md)
+for extraction, readability, caching and compatibility.

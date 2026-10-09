@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Regenerate fixed desktop palettes with the maintained, pinned CLI runtime."""
+"""Reproducible fixed palettes using Orient's independent role policy."""
 
 import json
 from pathlib import Path
-from types import SimpleNamespace
-from nacre_shell.utils.material.generator import gen_scheme, hex_to_hct
-from materialyoucolor.hct import Hct
+from nacre_shell.palette import generate
 
 SOFT = [
     ("amethyst", "Amethyst", "8b6bd1"),
@@ -43,62 +41,14 @@ VIVID = [
 ]
 
 
-def luminance(value):
-    def linear(part):
-        return part / 12.92 if part <= 0.04045 else ((part + 0.055) / 1.055) ** 2.4
-
-    rgb = [linear(int(value[i : i + 2], 16) / 255) for i in (0, 2, 4)]
-    return sum(a * b for a, b in zip(rgb, (0.2126, 0.7152, 0.0722)))
-
-
-def contrast(a, b):
-    low, high = sorted([luminance(a), luminance(b)])
-    return (high + 0.05) / (low + 0.05)
-
-
-def hct_hex(hue, chroma, tone):
-    return format(Hct.from_hct(hue, chroma, tone).to_int() & 0xFFFFFF, "06x")
-
-
 def build():
     presets = []
-    for group, choices in [("soft", SOFT), ("vivid", VIVID)]:
+    for group, choices in (("soft", SOFT), ("vivid", VIVID)):
         for ident, name, seed in choices:
             modes = {}
-            for mode in ["dark", "light"]:
-                variant = (
-                    "neutral"
-                    if ident == "slate"
-                    else "vibrant"
-                    if group == "vivid"
-                    else "tonalspot"
-                )
-                source = hex_to_hct(seed)
-                colors = gen_scheme(
-                    SimpleNamespace(mode=mode, variant=variant, flavour="default"),
-                    source,
-                )
-                if group == "vivid":
-                    # Keep saturated seed colors, instead of Material's default pastel
-                    # dark accents. Raise luminance only enough for header contrast.
-                    if mode == "dark":
-                        primary = seed
-                        tone = source.tone
-                        while (
-                            contrast(primary, colors["surfaceContainer"]) < 4.5
-                            and tone < 90
-                        ):
-                            tone += 1
-                            primary = hct_hex(source.hue, source.chroma, tone)
-                    else:
-                        primary = hct_hex(source.hue, source.chroma, 40)
-                    foreground = max(
-                        ["000000", "ffffff"], key=lambda c: contrast(c, primary)
-                    )
-                    colors.update(
-                        primary=primary, onPrimary=foreground, surfaceTint=primary
-                    )
-                modes[mode] = colors
+            for mode in ("dark", "light"):
+                variant = "neutral" if group == "soft" else "vibrant"
+                modes[mode] = generate(seed, mode, variant)
             presets.append(
                 dict(id=ident, name=name, seed="#" + seed, group=group, modes=modes)
             )

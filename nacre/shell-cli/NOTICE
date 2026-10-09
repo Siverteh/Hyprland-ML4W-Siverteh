@@ -1,3 +1,11 @@
 Nacre palette engine
 
 Contains source from caelestia-dots/cli and its contributors, under GPL-3.0-only; LICENSE is retained. Trimmed to the scheme and wallpaper commands and renamed siverteh_shell for Siverteh OS on 2026-10-03.
+
+2026-10-08: The retained palette implementation was replaced by Orient, written
+for Nacre from docs/specs/orient.md and black-box command/output contracts.
+The new engine does not import Material You or Caelestia implementation modules.
+OKLab conversion matrices follow Björn Ottosson's published public-domain
+mathematical definition: https://bottosson.github.io/posts/oklab/ . Pillow remains
+an independently licensed dependency. Historical attribution and LICENSE remain
+pending the whole-project provenance review; this does not relicense other areas.

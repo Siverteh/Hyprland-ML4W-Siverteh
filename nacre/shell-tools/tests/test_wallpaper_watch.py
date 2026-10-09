@@ -41,7 +41,8 @@ class WallpaperWatchTests(unittest.TestCase):
                 self.assertTrue(json.loads(process.stdout.readline())["changed"])
                 self.assertFalse(select.select([process.stdout], [], [], 0.8)[0])
                 scheme.write_text('{"flavour":"default","mode":"light"}')
-                self.assertFalse(select.select([process.stdout], [], [], 0.8)[0])
+                self.assertTrue(select.select([process.stdout], [], [], 3)[0])
+                self.assertTrue(json.loads(process.stdout.readline())["changed"])
                 scheme.write_text('{"flavour":"tonal"}')
                 self.assertTrue(select.select([process.stdout], [], [], 3)[0])
             finally:

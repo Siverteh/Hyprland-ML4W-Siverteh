@@ -19,9 +19,17 @@ IGNORED = 0x8000
 
 def flavour(path):
     try:
-        return json.loads(path.read_text()).get("flavour", "default")
+        data = json.loads(path.read_text())
+        return tuple(
+            data.get(key, default)
+            for key, default in (
+                ("flavour", "default"),
+                ("mode", "dark"),
+                ("variant", "tonalspot"),
+            )
+        )
     except (OSError, ValueError):
-        return "default"
+        return ("default", "dark", "tonalspot")
 
 
 def watch(root, scheme, engine=None):
@@ -42,6 +50,7 @@ def watch(root, scheme, engine=None):
             scheme.parent,
             engine.parent,
             root.parent,
+            Path.home() / ".config/nacre",
             *(p for p in root.rglob("*") if p.is_dir() and not p.is_symlink()),
         }
         for wd, path in list(paths.items()):
@@ -90,6 +99,8 @@ def watch(root, scheme, engine=None):
                                 current = flavour(scheme)
                                 dirty |= current != previous
                                 previous = current
+                        elif path == Path.home() / ".config/nacre":
+                            dirty |= name == "cli.json"
                         elif path == root.parent:
                             if name == root.name:
                                 dirty = True

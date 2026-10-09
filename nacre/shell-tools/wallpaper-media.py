@@ -276,15 +276,35 @@ def palette_marker(poster, flavour):
     poster = Path(poster)
     stat = poster.stat()
     cli = HOME / ".local/share/nacre/palette-runtime/venv/bin/nacre_shell"
-    engine = str(cli.stat().st_mtime_ns) if cli.exists() else "uninstalled"
+    marker = cli.parents[2] / "orient-build.json"
+    engine = (
+        marker.read_text()
+        if marker.exists()
+        else str(cli.stat().st_mtime_ns)
+        if cli.exists()
+        else "uninstalled"
+    )
+    scheme = read(HOME / ".local/state/nacre/scheme.json", {})
+    config = read(HOME / ".config/nacre/cli.json", {})
+    generation = json.dumps(
+        {
+            "mode": scheme.get("mode", "dark"),
+            "variant": scheme.get("variant", "tonalspot"),
+            "orient": config.get("orient", {}),
+        },
+        sort_keys=True,
+    )
     key = hashlib.sha256(
         (
             str(poster)
             + str(stat.st_size)
             + str(stat.st_mtime_ns)
+            + str(stat.st_ctime_ns)
+            + str(stat.st_ino)
             + str(flavour)
             + engine
-            + "palette-warm-v2"
+            + generation
+            + "palette-warm-orient-v3"
         ).encode()
     ).hexdigest()
     return CACHE / (key + ".palette.json")

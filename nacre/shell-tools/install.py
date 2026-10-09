@@ -11,6 +11,22 @@ DEST = HOME / ".local/share/nacre/shell"
 STATE = HOME / ".local/state/nacre/shell"
 
 
+def refresh_orient(runtime):
+    state = HOME / ".local/state/nacre"
+    scheme = json.loads((state / "scheme.json").read_text())
+    # Fixed presets are resolved by the existing publisher, not by this command.
+    subprocess.run(
+        [
+            str(runtime / "venv/bin/nacre_shell"),
+            "scheme",
+            "set",
+            "-m",
+            scheme.get("mode", "dark"),
+        ],
+        check=True,
+    )
+
+
 def digest(p):
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
 
@@ -102,6 +118,8 @@ def deploy(code_only=False):
         raise RuntimeError(
             "Install system desktop packages and provision the palette engine first"
         )
+    # The release transaction snapshots the old runtime before this activation.
+    subprocess.run(["python3", str(ROOT / "provision.py")], check=True)
     pending = DEST / "source.next"
     if pending.exists():
         shutil.rmtree(pending)
@@ -228,6 +246,7 @@ def deploy(code_only=False):
         current.symlink_to(DEST / "source")
         subprocess.run(["python3", str(ROOT / "install-extras.py")], check=True)
         if (HOME / ".local/state/nacre/scheme.json").exists():
+            refresh_orient(runtime)
             subprocess.run(
                 ["python3", str(DEST / "tools/classic-state.py")], check=True
             )

@@ -1,7 +1,10 @@
 # Orient: independent wallpaper palette engine
 
-Status: specification ready for a comparison prototype; production replacement
-has not started. Date: 2026-10-08. Owner: Nacre.
+Status: production implementation in progress. Date: 2026-10-08. Owner: Nacre.
+The user explicitly requested direct production implementation on 2026-10-08,
+superseding the separate prototype and pre-integration user-review milestones.
+Synthetic tests, private wallpaper inspection, measurements and deployment gates
+remain required; no standalone comparison product is being built.
 
 [Rewrite plan and provenance](../nacre/PROVENANCE.md) ·
 [Prototype specification](orient-comparison.md) · [System overview](../overview.md)
@@ -64,8 +67,8 @@ adapter boundary while inherited UI components are replaced.
   win solely because it is saturated; a dark background must not always win solely
   because it covers most pixels. Record why the chosen candidate wins.
 - Proposed analysis space: OKLab/OKLCH, separating lightness, chroma (color strength)
-  and hue (color family). The prototype determines clustering/scoring weights;
-  they are not fixed by this specification.
+  and hue (color family). The implementation settings below define the first release;
+  subsequent tuning must retain fixtures and measured behavior.
 - Return up to five useful candidates, ordered deterministically. Do not fabricate
   five distinct choices from a monochrome image. Near-neutral colors have no
   meaningful hue and must be treated accordingly.
@@ -101,8 +104,8 @@ UI, test against effective composited backgrounds; the opaque palette alone
 cannot establish contrast over arbitrary wallpapers. Consumers need an opaque or
 stronger-backdrop fallback where necessary.
 
-Hue/saturation tolerances must be selected from the prototype, recorded before
-integration, and tested on saturated fixtures. A numerical test alone cannot
+Hue/saturation tolerances are recorded in the implementation decisions below
+and tested on saturated fixtures. A numerical test alone cannot
 prove that the user's red wallpaper looks right.
 
 ## Compatibility boundary
@@ -232,3 +235,43 @@ surface tint strength, faithful versus softer option, default neutral accent,
 automatic mode thresholds and whether an existing maintained color library or
 small independently written conversion module best fits performance/maintenance.
 No new Settings controls are authorized solely by this specification.
+
+## Production decisions (2026-10-08)
+
+The direct implementation supersedes the prototype workflow above, which remains
+as planning history. No separate comparison UI or approval pause is required.
+
+- Analysis: 128px longest edge; weighted RGB bins, up to 192 converted bins;
+  merge related pigment families within 16° hue / 0.12 chroma / 0.36 lightness.
+  Candidate minimum visible coverage 0.8%, chroma 0.025; distinct candidates
+  separated by 24° hue. Coverage exponent 0.65 plus bounded chroma/lightness/spread
+  factors. Lit pigment contributes more to its family's representative color, but
+  not to its population. Neutral fallback retains a limited image tint.
+- Body chroma is at most 0.016, hard flavor halves tint. Dark surfaces span
+  OKLCH L=0.115–0.27. Rich dark pigment is lifted to L≥0.60 with relative chroma
+  scaling capped at 1.8×; gamut mapping and contrast checks finish the adjustment.
+- Saturated solid-fixture source/primary hue deviation below 2°; dark red primary
+  HSV saturation above 0.65. Existing twelve Vivid/Soft counterpart saturation and
+  all thirty preset contrast/reproducibility tests remain in force.
+- Tests enumerate legacy role vocabulary in `tests/orient-roles.json` and audit
+  primary/secondary/tertiary/onSurface/onSurfaceVariant against all representative
+  body backgrounds, plus semantic/container pairs, inverse text and focus outline.
+- Engine code fingerprint invalidates caches during patching. Normal cache keys
+  use path/device/inode/size/mtime/ctime plus mode/variant/flavor/override; image
+  content digest is recorded once during cold generation. Warm reads do not rehash.
+- Existing saved palette mode wins. Image inference is light for weighted sampled
+  OKLab lightness ≥0.68 only without saved/explicit mode; this is Nacre policy,
+  not a claim to reproduce Material smart-mode algorithms.
+- Historical expressive/fidelity/fruitsalad/rainbow/vibrant/tonalspot names map to
+  the faithful policy. Neutral/content are softer; monochrome desaturates accents.
+  Compatibility preserves names and saved settings, not inherited algorithms.
+- Read-only queries skip publication. Per-image explicit accents are an optional
+  CLI/config capability; Settings controls are unchanged.
+- Current-library engine target: cold p95 <500ms, warm p95 <20ms; no idle worker or
+  per-frame extraction. Input safety cap 50MP. Peak-process target for the current
+  library is <256MiB; larger supported files remain subject to decoder cost.
+- Runtime builds are fresh and immutable, tested before an atomic runtime link
+  selection. Release capture backs up runtime bytes rather than only its link.
+
+Complete production acceptance requires the deployment evidence recorded in the
+provenance tracker; these decisions alone do not mark a live release verified.
