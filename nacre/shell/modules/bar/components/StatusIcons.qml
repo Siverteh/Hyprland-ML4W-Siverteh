@@ -25,7 +25,7 @@ Item {
         id: speaker
 
         rotation: root.horizontal ? 90 : 0
-        text: Audio.muted ? "volume_off" : "volume_up"
+        text: NacreAudio.muted ? "volume_off" : "volume_up"
         color: root.colour
         anchors.horizontalCenter: parent.horizontalCenter
     }

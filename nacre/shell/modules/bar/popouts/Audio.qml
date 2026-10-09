@@ -26,12 +26,12 @@ Item {
             width: parent.width
             NacreText {
                 width: parent.width - 65
-                text: Audio.sink?.description ?? "No output device"
+                text: NacreAudio.sink?.description ?? "No output device"
                 elide: Text.ElideRight
                 font.pointSize: 11
             }
             NacreText {
-                text: Math.round(Audio.volume * 100) + "%"
+                text: Math.round(NacreAudio.volume * 100) + "%"
                 font.pointSize: 11
             }
         }
@@ -40,26 +40,26 @@ Item {
             width: parent.width
             from: 0
             to: 1
-            enabled: !!Audio.sink?.ready
-            value: Audio.volume
-            onMoved: Audio.setVolume(value)
+            enabled: !!NacreAudio.sink?.ready
+            value: NacreAudio.volume
+            onMoved: NacreAudio.setVolume(value)
         }
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
                 objectName: "quickOutputMute"
-                text: Audio.muted ? "Unmute output" : "Mute output"
-                selected: Audio.muted
-                enabled: !!Audio.sink?.ready
-                onClicked: Audio.toggleMute()
+                text: NacreAudio.muted ? "Unmute output" : "Mute output"
+                selected: NacreAudio.muted
+                enabled: !!NacreAudio.sink?.ready
+                onClicked: NacreAudio.toggleMute()
             }
             ActionButton {
                 objectName: "quickMicMute"
-                text: Audio.micMuted ? "Unmute mic" : "Mute mic"
-                selected: Audio.micMuted
-                enabled: Audio.micAvailable
-                onClicked: Audio.toggleMic()
+                text: NacreAudio.micMuted ? "Unmute mic" : "Mute mic"
+                selected: NacreAudio.micMuted
+                enabled: NacreAudio.micAvailable
+                onClicked: NacreAudio.toggleMic()
             }
         }
         NacreText {
@@ -72,9 +72,9 @@ Item {
             width: parent.width
             from: 0
             to: 1
-            enabled: Audio.micAvailable
-            value: Audio.micVolume
-            onMoved: Audio.setMicVolume(value)
+            enabled: NacreAudio.micAvailable
+            value: NacreAudio.micVolume
+            onMoved: NacreAudio.setMicVolume(value)
         }
         NacreText {
             text: "Output device"

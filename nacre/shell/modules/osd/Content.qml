@@ -44,16 +44,16 @@ Column {
             hasMute: true
             ActionButton {
                 text: ""
-                icon: Audio.muted ? "volume_off" : "volume_up"
-                selected: Audio.muted
+                icon: NacreAudio.muted ? "volume_off" : "volume_up"
+                selected: NacreAudio.muted
                 y: 156
                 anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: Audio.toggleMute()
+                onClicked: NacreAudio.toggleMute()
             }
             NacreSlider {
-                icon: Audio.muted ? "no_sound" : "volume_up"
-                value: Audio.volume
-                onMoved: Audio.setVolume(value)
+                icon: NacreAudio.muted ? "no_sound" : "volume_up"
+                value: NacreAudio.volume
+                onMoved: NacreAudio.setVolume(value)
                 implicitWidth: NacreOsd.sizes.sliderWidth
                 implicitHeight: 120
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -62,19 +62,19 @@ Column {
         Control {
             label: "Mic"
             hasMute: true
-            visible: Audio.micAvailable
+            visible: NacreAudio.micAvailable
             ActionButton {
                 text: ""
-                icon: Audio.micMuted ? "mic_off" : "mic"
-                selected: Audio.micMuted
+                icon: NacreAudio.micMuted ? "mic_off" : "mic"
+                selected: NacreAudio.micMuted
                 y: 156
                 anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: Audio.toggleMic()
+                onClicked: NacreAudio.toggleMic()
             }
             NacreSlider {
-                icon: Audio.micMuted ? "mic_off" : "mic"
-                value: Audio.micVolume
-                onMoved: Audio.setMicVolume(value)
+                icon: NacreAudio.micMuted ? "mic_off" : "mic"
+                value: NacreAudio.micVolume
+                onMoved: NacreAudio.setMicVolume(value)
                 implicitWidth: NacreOsd.sizes.sliderWidth
                 implicitHeight: 120
                 anchors.horizontalCenter: parent.horizontalCenter

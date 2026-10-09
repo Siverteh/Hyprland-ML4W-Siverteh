@@ -42,9 +42,9 @@ Item {
 
         onWheel: event => {
             if (event.angleDelta.y > 0)
-                Audio.setVolume(Audio.volume + 0.1);
+                NacreAudio.setVolume(NacreAudio.volume + 0.1);
             else if (event.angleDelta.y < 0)
-                Audio.setVolume(Audio.volume - 0.1);
+                NacreAudio.setVolume(NacreAudio.volume - 0.1);
         }
     }
 

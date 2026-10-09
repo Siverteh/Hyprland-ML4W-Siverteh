@@ -112,7 +112,7 @@ class QuickControlsTests(unittest.TestCase):
             )
             (target / "fixtures/Colours.qml").write_text(colors)
             services = {
-                "Audio": 'property var sink:({ready:true,description:"Speakers"});property real volume:.7;property real micVolume:.4;property bool muted:false;property bool micMuted:false;property bool micAvailable:true;function setVolume(v){volume=v} function setMicVolume(v){micVolume=v} function toggleMute(){muted=!muted} function toggleMic(){micMuted=!micMuted}',
+                "NacreAudio": 'property var sink:({ready:true,description:"Speakers"});property real volume:.7;property real micVolume:.4;property bool muted:false;property bool micMuted:false;property bool micAvailable:true;function setVolume(v){volume=v} function setMicVolume(v){micVolume=v} function toggleMute(){muted=!muted} function toggleMic(){micMuted=!micMuted}',
                 "Pipewire": 'property var nodes:({values:[{isStream:false,isSink:true,description:"Speakers",name:"speaker"}]});property var defaultAudioSink:nodes.values[0];property var preferredDefaultAudioSink:null',
                 "Network": 'property bool wifiEnabled:true;property string wifiInterface:"wlan0";property var active:({ssid:"ab"});property var networks:[{ssid:"ab",active:false,strength:90},{ssid:"Guest",active:false,strength:65},{ssid:"ab",active:true,strength:30}];readonly property var visibleNetworks:Wifi.group(networks)',
                 "Bluetooth": 'property bool powered:true;property var devices:[{name:"Headphones",alias:"Headphones",address:"AA:BB:CC:DD:EE:FF",connected:true,paired:true,trusted:true},{name:"Unpaired",alias:"Unpaired",address:"00:11:22:33:44:55",connected:false,paired:false,trusted:false}]',

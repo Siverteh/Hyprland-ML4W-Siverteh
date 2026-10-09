@@ -38,7 +38,7 @@ Singleton {
             }
         }
 
-        target: Audio
+        target: NacreAudio
     }
 
     IpcHandler {

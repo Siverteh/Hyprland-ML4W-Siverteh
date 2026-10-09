@@ -19,7 +19,7 @@ Scope {
     }
 
     Connections {
-        target: Audio
+        target: NacreAudio
 
         function onMutedChanged(): void {
             root.show();

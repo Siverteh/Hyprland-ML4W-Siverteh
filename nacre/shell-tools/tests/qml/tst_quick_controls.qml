@@ -31,9 +31,9 @@ TestCase {
         const volume = findChild(popup, "quickOutputVolume");
         volume.value = 0.5;
         volume.moved();
-        compare(Audio.volume, 0.5);
+        compare(NacreAudio.volume, 0.5);
         findChild(popup, "quickMicMute").clicked();
-        compare(Audio.micMuted, true);
+        compare(NacreAudio.micMuted, true);
         verify(!findChild(popup, "quickSettingsLink"));
         Visibilities.openDeviceSettings("audio");
         compare(Visibilities.settingsPage, "sound");
