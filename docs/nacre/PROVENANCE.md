@@ -793,3 +793,13 @@ whole files as independent. Added read-only focus/target diagnostics omit titles
 and identities. powerprofilesctl works with system Python; this chat's palette
 venv PATH lacks GI, so live profile checks used native D-Bus. No package mutation.
 Notices retained; full goal still active and unfinished.
+
+Font-bound follow-up acceptance (2026-10-09): software `dc01bf9`, good release
+`20261009T190606699900Z`. CI37977172512 identified font-dependent rotated geometry when
+Material Symbols was absent. Added fixed24×28 logical-pixel clipped/elided glyph
+boxes and a deliberate missing-font test; kept geometry assertions/native text.
+All363 local checks, native Hyprland and installer gates passed again. Five actual
+hover popouts/three header Settings routes/Escape/power-menu Escape and full frame
+click/keyboard checks reran successfully; live capture inspected without clipped
+normal glyphs. Profiles/volume/private hashes unchanged; no runtime diagnostics.
+Final CI is required for the follow-up before reporting verified publishing.
