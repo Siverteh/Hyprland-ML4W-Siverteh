@@ -30,3 +30,31 @@ def remove_objects(source, pattern):
         else:
             raise ValueError("Unclosed fixture object")
     return source
+
+
+def install_foundation_interaction(fixtures, widgets):
+    """Use the actual interaction and tokens while adapting only service providers."""
+    from pathlib import Path
+
+    fixtures, widgets = Path(fixtures), Path(widgets)
+    manifest = fixtures / "qmldir"
+    text = manifest.read_text()
+    for name in ("NacreTokens", "NacreInteraction", "StateLayer"):
+        source = (widgets / (name + ".qml")).read_text()
+        source = source.replace("import qs.services", 'import "."')
+        (fixtures / (name + ".qml")).write_text(source)
+        if name not in text:
+            text += (
+                "\n"
+                + ("singleton " if name == "NacreTokens" else "")
+                + name
+                + " 1.0 "
+                + name
+                + ".qml\n"
+            )
+    if not (fixtures / "DesktopSettings.qml").exists():
+        (fixtures / "DesktopSettings.qml").write_text(
+            "pragma Singleton\nimport QtQuick\nQtObject {property var data:({animations:true})}\n"
+        )
+        text += "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\n"
+    manifest.write_text(text)

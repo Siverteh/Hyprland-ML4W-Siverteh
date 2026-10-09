@@ -1,3 +1,5 @@
+from qml_source import install_foundation_interaction
+
 """Real popup controls and navigation, with fake devices to preserve live connections."""
 
 import importlib.util
@@ -150,6 +152,9 @@ class QuickControlsTests(unittest.TestCase):
             shutil.copy2(
                 ROOT / "tests/qml/tst_quick_controls.qml",
                 target / "tst_quick_controls.qml",
+            )
+            install_foundation_interaction(
+                target / "fixtures", ROOT.parent / "shell/widgets"
             )
             result = subprocess.run(
                 [str(runner), "-input", str(target), "-o", "-,txt"],

@@ -71,6 +71,7 @@ that is different from the current private wallpaper library. See the
 
 ## Feature guides
 
+- [Text and surface foundation](features/foundation.md)
 - [Settings and prepared lock screen](features/settings-lock.md)
 - [Wallpaper previews and layouts](features/wallpapers.md)
 - [Rotation and fixed color palettes](features/appearance.md)

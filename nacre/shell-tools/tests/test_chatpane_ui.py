@@ -1,3 +1,5 @@
+from qml_source import install_foundation_interaction
+
 """Exercise the production composer with a fixture backend and Qt Quick controls."""
 
 import os, shutil, subprocess, tempfile, unittest
@@ -49,6 +51,9 @@ class ChatPaneUITests(unittest.TestCase):
                 .replace("import qs.config", "")
             )
             (target / "fixtures/StateLayer.qml").write_text(layer)
+            install_foundation_interaction(
+                target / "fixtures", ROOT.parent / "shell/widgets"
+            )
             result = subprocess.run(
                 [str(runner), "-input", str(target), "-o", "-,txt"],
                 env=dict(os.environ, QT_QPA_PLATFORM="offscreen"),

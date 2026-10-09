@@ -11,7 +11,7 @@ jobs:
     container: archlinux:latest
     steps:
       - name: Install target-platform checks
-        run: pacman -Syu --noconfirm --needed git python python-pip python-pillow ruff lua qt6-declarative qt6-wayland quickshell qt6-multimedia qt6-multimedia-ffmpeg qt6-imageformats gcc pkgconf gtk3 nodejs xorg-server-xvfb xorg-xauth dbus ttf-dejavu
+        run: pacman -Syu --noconfirm --needed git python python-pip python-pillow ruff lua qt6-declarative qt6-wayland quickshell qt6-multimedia qt6-multimedia-ffmpeg qt6-imageformats gcc pkgconf gtk3 nodejs xorg-server-xvfb xorg-xauth mesa dbus ttf-dejavu
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Install the pinned palette engine in an isolated environment
         run: |

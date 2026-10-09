@@ -10,6 +10,8 @@ QtObject {
             "m3secondary": "blue",
             "m3tertiary": "green",
             "m3surface": "black",
+            "m3frame": "#232323",
+            "m3outline": "gray",
             "m3outlineVariant": "gray",
             "m3onPrimary": "black",
             "m3secondaryContainer": "#333333",

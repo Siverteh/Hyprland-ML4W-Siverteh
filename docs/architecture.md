@@ -124,3 +124,12 @@ its cached output. The existing publisher carries those previews/selection with
 matched presentation state; Appearance calls the same locked CLI to set or clear
 private per-image accent overrides. A dedicated frame role supplies the shell's
 wallpaper tint without changing panel geometry.
+
+## Shared primitive ownership
+
+`nacre/shell/widgets/NacreTokens`, `NacreSurface`, `NacreText`, `NacreClip` and
+`NacreInteraction` own the first independent UI foundation. Four legacy type
+names are thin compatibility adapters. Tokens consume existing palette/settings
+providers; native rounded clipping is a Quickshell dependency, not Nacre-owned
+low-level rendering. [Foundation behavior](features/foundation.md) describes
+input, focus, motion and the remaining control/config rewrite boundaries.

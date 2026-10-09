@@ -1,6 +1,6 @@
 # Nacre independent implementation tracker
 
-Status: Orient replacement deployed and core live checks verified, 2026-10-08.
+Status: Orient verified; independent text/surface foundation implemented, live gates pending, 2026-10-08.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -34,7 +34,8 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | Order | Area / current paths | Status | Spec and remaining work |
 |---|---|---|---|
 | 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | verified | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
-| 2 | `shell/widgets/{StyledRect,StyledText,StyledTextField,StyledClippingRect,StyledWindow,StateLayer,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | audit pending | Separate surfaces/text, interaction/input, and media/window batches |
+| 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | replaced | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
+| 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | audit pending | Remaining controls, media/window and icon batches |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | audit pending | Design tokens and compatibility boundaries; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
 | 4 | `shell/modules/notifications/{Notification,Content,Wrapper}.qml` | audit pending | Popups/history/filtering/accessibility |
@@ -106,3 +107,22 @@ runtime path consolidation is part of these documentation changes.
   generated theme files and publication pairing. Physical next-login, full visual
   inspection of every external toolkit app and a secure lock/unlock cycle are not
   established by these checks. Other inherited areas remain audit pending.
+
+## Foundation text/surface replacement record
+
+- Spec: [design foundation](../specs/design-foundation.md), authored before source
+  replacement in this area branch. Four inherited bodies deleted and recreated
+  as thin adapters to independently authored primitives and NacreTokens.
+- Contract basis: current consumer usage, deployed QObject property inspection
+  and behavior measurements. No target implementation bodies opened during this
+  replacement; preliminary broad search exposed a couple of public declarations
+  before target paths were excluded. No upstream implementation sources consulted.
+- References: public Qt Text/MouseArea/PropertyAnimation and Quickshell
+  ClippingRectangle APIs. Clipping internals remain third-party dependency code.
+- Legacy dependencies retained: Colours, Appearance, desktop settings, fonts/icons
+  and other widgets/services/config. This is not completion of the whole foundation
+  or authority to remove any shared NOTICE/LICENSE.
+- Validation: real new primitives and ActionButton under Qt; actual Quickshell RHI
+  clipped-circle pixels; private native component sheet inspected. Chat and quick
+  controls fixtures use the actual new interaction/token dependencies.
+- Final source/test/deployment evidence: fill after live release gates.
