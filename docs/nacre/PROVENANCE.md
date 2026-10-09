@@ -482,7 +482,7 @@ New files match installed source; retired page absent; configerrors empty.
 Fixture numeric/palette/interval/scroll tests verify writes without changing
 real preferences. Other Settings pages/providers/audit remain; notices retained.
 
-## Desktop/display/workflow/maintenance pages (candidate)
+## Desktop/display/workflow/maintenance pages (verified; owners pending)
 
 - Deleted DesktopControls body without opening it. Four fresh own pages replace
   its overloaded page branches through the existing Settings routes. Public
@@ -497,3 +497,13 @@ real preferences. Other Settings pages/providers/audit remain; notices retained.
   blocking, alongside existing all-route/palette/device/lock tests.
 - Helper/service provenance and other settings bodies still pending; applicable
   notices kept. Full/live/source validation pending.
+
+Desktop-page acceptance: software `cbef0e4`, good release `20261009T140346123880Z`, all330
+checks/Qt parsing/formatting/Hyprland/source/native release gates passed. Four
+actual pages inspected and desktop preference file bytes unchanged by opening;
+twelve routes, keyboard search, five tabs and Settings Escape/offclick passed.
+Installed sources match; DesktopControls absent; configerrors empty. Display/
+workflow/recovery commands verified against fixture owners, not by disrupting
+real monitors/devices/services. Other pages/providers/final audit remain pending;
+notices retained. Single-output synthetic input is not cold-login/multi-output
+or measured battery acceptance.
