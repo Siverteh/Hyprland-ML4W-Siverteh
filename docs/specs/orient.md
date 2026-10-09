@@ -296,16 +296,3 @@ Appearance controls. Up to five named directions preview their three accents and
 frame color; selection uses the existing publisher and private per-image override.
 Automatic/Match wallpaper clears that override. No extra daemon or polling is
 introduced; choice metadata is generated/cached once with the image palette.
-
-## Supporting-color hierarchy refinement (2026-10-08)
-
-User chose distinct wallpaper colors with restrained hierarchy rather than forcing
-secondary into the primary hue family. Secondary UI chroma is bounded to 55% of
-the final primary accent, tertiary to 65%; strength is applied after dark/subtle
-hue enhancement so that enhancement cannot bypass the hierarchy. Supporting
-dim/container/fixed roles use the same reduced chroma budget. Normal text keeps
-4.5:1 contrast through lightness/foreground adjustment, not increased saturation.
-Supporting fill lightness also stays behind primary when possible; contrast
-fitting takes priority over that brightness preference. Primary, body/frame tint,
-source candidate choice, full-color orient branding
-colors and semantic/ANSI colors retain their existing policies.

@@ -271,62 +271,6 @@ class OrientTests(unittest.TestCase):
             self.assertGreater(lch(data["frame"])[1], lch(data["surface"])[1])
             self.assertGreaterEqual(contrast(data["onSurface"], data["frame"]), 4.5)
 
-    def test_supporting_hues_remain_distinct_but_primary_leads(self):
-        for mode in ("dark", "light"):
-            for hue in range(0, 360, 30):
-                seed = color(0.6, 0.17, hue)
-                companions = [
-                    color(0.45, 0.24, (hue + shift) % 360) for shift in (110, 225)
-                ]
-                colors = generate(seed, mode, companions=companions)
-                primary_chroma = lch(colors["primary"])[1]
-                for role, ratio, source in (
-                    ("secondary", 0.55, companions[0]),
-                    ("tertiary", 0.65, companions[1]),
-                ):
-                    for suffix in ("", "Dim", "Container", "Fixed", "FixedDim"):
-                        self.assertLessEqual(
-                            lch(colors[role + suffix])[1],
-                            primary_chroma * ratio + 0.004,
-                        )
-                    self.assertLess(
-                        hue_distance(lch(colors[role])[2], lch(source)[2]), 6
-                    )
-                    self.assertGreaterEqual(
-                        contrast(colors[role], colors["frame"]), 4.5
-                    )
-                    self.assertGreaterEqual(
-                        contrast(colors["on" + role.title()], colors[role]), 4.5
-                    )
-                # The branding colors retain the unrestrained image palette.
-                self.assertEqual(colors["orient1"], seed)
-                self.assertEqual(colors["orient2"], companions[0])
-                self.assertEqual(colors["orient3"], companions[1])
-
-    def test_white_companion_highlights_do_not_outshine_main_dark_accent(self):
-        colors = generate("477fe0", companions=["efdcff", "fff9e5"])
-        for role in ("secondary", "tertiary"):
-            self.assertLessEqual(lch(colors[role])[0], lch(colors["primary"])[0] + 0.02)
-            self.assertGreaterEqual(contrast(colors[role], colors["frame"]), 4.5)
-
-    def test_muted_supporting_hues_do_not_collapse_to_gray(self):
-        for mode in ("dark", "light"):
-            seed = color(0.4, 0.025, 65)
-            companions = [color(0.4, 0.025, h) for h in (130, 320)]
-            colors = generate(seed, mode, companions=companions)
-            for role in ("secondary", "tertiary"):
-                self.assertGreater(lch(colors[role])[1], 0.009)
-                self.assertGreater(
-                    hue_distance(lch(colors[role])[2], lch(colors["primary"])[2]), 35
-                )
-
-    def test_monochrome_has_no_colored_supporting_ui_accents(self):
-        colors = generate(
-            "d01818", variant="monochrome", companions=["2255aa", "119955"]
-        )
-        for role in ("primary", "secondary", "tertiary"):
-            self.assertLess(lch(colors[role])[1], 0.002)
-
     def test_print_and_query_never_publish(self):
         path = self.image("d01818")
         result = self.cli("wallpaper", "-p", str(path))
