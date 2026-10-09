@@ -7,7 +7,7 @@ import "overview.js" as Overview
 NacreOverviewCard {
     id: root
     property bool active: false
-    readonly property var player: Players.active
+    readonly property var player: NacrePlayers.active
     property real positionSeconds: 0
     property bool artReady: false
     property string artUrl: ""

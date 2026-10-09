@@ -22,6 +22,7 @@ class DeviceServiceTests(unittest.TestCase):
             fixtures = target / "fixtures"
             fixtures.mkdir()
             definitions = {
+                "Mpris": "property var players:({values:[]})",
                 "Pipewire": "property var nodes:({values:[]});property var defaultAudioSink:null;property var defaultAudioSource:null",
                 "Bluetooth": "property var devices:({values:[]});property var defaultAdapter:null",
             }
@@ -42,7 +43,7 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {signal read(string data)}"
             )
             (fixtures / "qmldir").write_text(
-                "singleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
+                "singleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
             )
             source = (ROOT.parent / "shell/services" / (name + ".qml")).read_text()
             source = (
@@ -51,12 +52,15 @@ class DeviceServiceTests(unittest.TestCase):
                 .replace(
                     "import Quickshell.Bluetooth as Bluez", 'import "fixtures" as Bluez'
                 )
+                .replace("import Quickshell.Services.Mpris", 'import "fixtures"')
+                .replace("import Quickshell.Hyprland", "")
                 .replace("import Quickshell.Io", 'import "fixtures"')
                 .replace("import Quickshell", "import QtQuick")
                 .replace("Singleton {", "Item {")
                 .replace('Quickshell.env("HOME")', '"/fixture"')
             )
             source = remove_objects(source, r"\bIpcHandler\s*\{")
+            source = remove_objects(source, r"\bGlobalShortcut\s*\{")
             (target / (name + ".qml")).write_text(source)
             shutil.copy2(
                 ROOT / "tests/device-qml" / ("tst_" + name + ".qml"),
@@ -80,3 +84,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_network_snapshot_publication_and_coalescing(self):
         self.run_service("NacreNetwork")
+
+    def test_media_selection_capabilities_and_removed_manual_player(self):
+        self.run_service("NacrePlayers")

@@ -10,7 +10,7 @@ Item {
     id: root
     required property bool shouldUpdate
     required property PersistentProperties visibilities
-    readonly property var player: Players.active
+    readonly property var player: NacrePlayers.active
     property real positionSeconds: 0
     property string artwork: ""
     property var seekOwner: null
@@ -23,7 +23,7 @@ Item {
     implicitWidth: 766
     implicitHeight: Math.max(compact ? 620 : 340, choices.visible ? choices.y + choices.height + 16 : details.y + details.height + 16)
     function member(actor) {
-        return actor && [...Players.list].includes(actor);
+        return actor && [...NacrePlayers.list].includes(actor);
     }
     function refresh() {
         if (!seek.pressed)
@@ -45,7 +45,7 @@ Item {
     }
     function choose(actor) {
         if (shouldUpdate && member(actor))
-            Players.manualActive = actor;
+            NacrePlayers.manualActive = actor;
     }
     function perform(action) {
         const actor = player;
@@ -272,13 +272,13 @@ Item {
         Flow {
             id: choices
             objectName: "fullPlayerChoices"
-            visible: Players.list.length > 1
+            visible: NacrePlayers.list.length > 1
             x: 16
             y: details.y + details.height + 12
             width: parent.width - 32
             spacing: 6
             Repeater {
-                model: Players.list
+                model: NacrePlayers.list
                 delegate: ActionButton {
                     required property var modelData
                     text: modelData.identity || "Media player"

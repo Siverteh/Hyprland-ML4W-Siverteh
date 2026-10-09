@@ -75,17 +75,17 @@ TestCase {
         }
     }
     function init() {
-        Players.list = [];
-        Players.active = null;
-        Players.manualActive = null;
+        NacrePlayers.list = [];
+        NacrePlayers.active = null;
+        NacrePlayers.manualActive = null;
         DesktopSettings.data = {
             animations: false
         };
     }
     function setup() {
         const actor = createTemporaryObject(player, test);
-        Players.list = [actor];
-        Players.active = actor;
+        NacrePlayers.list = [actor];
+        NacrePlayers.active = actor;
         actor.writes = 0;
         const view = createTemporaryObject(page, test);
         wait(20);
@@ -153,13 +153,13 @@ TestCase {
         const second = createTemporaryObject(player, test, {
             identity: "Second player"
         });
-        Players.list = [actor, second];
+        NacrePlayers.list = [actor, second];
         view.choose(second);
-        compare(Players.active, second);
-        Players.list = [actor];
-        Players.active = actor;
+        compare(NacrePlayers.active, second);
+        NacrePlayers.list = [actor];
+        NacrePlayers.active = actor;
         view.choose(second);
-        compare(Players.active, actor);
+        compare(NacrePlayers.active, actor);
         actor.canRaise = false;
         view.raisePlayer();
         compare(actor.raiseCalls, 0);
@@ -203,8 +203,8 @@ TestCase {
         mouseMove(slider, slider.width * .7, 17);
         const second = createTemporaryObject(player, test);
         second.writes = 0;
-        Players.list = [second];
-        Players.active = second;
+        NacrePlayers.list = [second];
+        NacrePlayers.active = second;
         mouseRelease(slider, slider.width * .7, 17);
         compare(actor.writes, 0);
         compare(second.writes, 0);
@@ -232,8 +232,8 @@ TestCase {
         actor.lengthSupported = false;
         compare(view.canSeek, false);
         compare(view.progress, 0);
-        Players.list = [];
-        Players.active = null;
+        NacrePlayers.list = [];
+        NacrePlayers.active = null;
         compare(view.positionSeconds, 0);
         compare(view.artwork, "");
         compare(view.sampling, false);
@@ -243,11 +243,11 @@ TestCase {
         wait(20);
         compare(view.metrics[0].detail, "Unavailable");
         compare(view.metrics[0].value, "—°C");
-        SystemUsage.gpuTemp = 0;
+        NacreSystemUsage.gpuTemp = 0;
         compare(view.metrics[0].value, "—°C");
-        SystemUsage.gpuUsageAvailable = true;
+        NacreSystemUsage.gpuUsageAvailable = true;
         compare(view.metrics[0].value, "0°C");
-        SystemUsage.gpuUsageAvailable = false;
+        NacreSystemUsage.gpuUsageAvailable = false;
         compare(view.metrics[1].detail, "15%");
         compare(view.metrics[2].value, "14.6 GiB");
         verify(findChild(view, "performanceSummary").text.includes("root free"));
