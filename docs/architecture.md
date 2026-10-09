@@ -14,8 +14,8 @@
 NacreDashboardPanel and NacreDashboardNavigation own page selection and lazy
 loading. NacreOverview owns overview card composition; its calendar is independent
 of the retained CalendarGrid helper. Host cards use asynchronous FileView reads;
-media uses the shared active-player service without another MPRIS owner. Larger
-media/performance/workspace/settings pages remain separate originality work.
+media uses the shared active-player service without another MPRIS owner. NacreMediaPage and NacrePerformancePage own media controls and metric rendering;
+workspace/settings pages remain separate originality work.
 
 NacreNotice and NacreNotificationStack own notification card/stack presentation.
 Notifs owns native notification objects, popup expiry and private history; neither

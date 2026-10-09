@@ -380,3 +380,19 @@ configerrors empty and shell active. Transport checks use a fixture player and
 never skip the user's real track. One-output synthetic checks do not establish
 physical multi-output/cold-login or measured battery consumption. Services, other
 pages/shared helpers/assets and final provenance audit remain pending; notices kept.
+
+## Full Media and Performance replacement (candidate)
+
+- Deleted dashboard/Media.qml and Performance.qml bodies without opening them;
+  fresh NacreMediaPage/NacrePerformancePage and media/ helpers from the behavior
+  spec, runtime screenshots, public declarations and dependency APIs.
+- Prior exposure: public import/property/function declarations and bongo caller
+  reference line; no upstream body consulted. Own overview/foundation code was
+  reused only as contract/test support. Players/SystemUsage still pending.
+- Removed assets/bongocat.gif after confirming its only maintained caller was the
+  replaced Media page; no replacement artwork or persistent animation added.
+- Actual QML tests cover pointer/keyboard seek, no rendering writes, single-release
+  commits, stale track/player/capability cancellation, native capability guards,
+  selection/raise, repeat/shuffle/volume, missing data, resource units and sizing.
+  Native generated-art renders and actual album-mask pixels inspected across wide
+  and compact layouts. Full/live acceptance remains pending. Notices retained.

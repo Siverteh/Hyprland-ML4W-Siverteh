@@ -125,3 +125,14 @@ Host description/uptime use native asynchronous file reads; only an open card
 refreshes uptime once per minute. Media progress samples once per second only
 while visible and playing, with capability-aware controls and a circular cached
 album preview. Existing service owners, user preferences and playback remain.
+
+## Full Media and Performance pages
+
+NacreMediaPage keeps native player selection/raise, guarded transport, seek/time
+labels, and supported shuffle/repeat/volume controls. The seek control commits
+once on pointer release and rejects player/track changes during a drag. Normal
+progress redraw never seeks; hidden or paused pages stop sampling. A second
+player-choice row appears only when multiple players are available. The old bongo
+asset is removed. NacrePerformancePage consumes the shared system collector, with
+paired own arc gauges, explicit unavailable GPU data, resource sizes and load/
+kernel details. Neither page creates a new service or resource poller.

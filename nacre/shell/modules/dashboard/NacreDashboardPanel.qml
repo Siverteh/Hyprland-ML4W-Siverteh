@@ -51,14 +51,16 @@ NacreSurface {
     }
     Component {
         id: media
-        Media {
+        NacreMediaPage {
             shouldUpdate: root.updating
             visibilities: root.visibilities
         }
     }
     Component {
         id: performance
-        Performance {}
+        NacrePerformancePage {
+            shouldUpdate: root.updating
+        }
     }
     Component {
         id: workspaces
