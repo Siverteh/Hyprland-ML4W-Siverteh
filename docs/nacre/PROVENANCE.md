@@ -312,7 +312,7 @@ are empty. Synthetic native visual review and one-output virtual pointer checks
 do not establish physical multi-output/cold-login behavior. Existing providers
 remain explicitly pending; no license/notice retired.
 
-## Dashboard assembly batch (candidate)
+## Dashboard assembly batch (verified; page bodies pending)
 
 - Deleted inherited Tabs/Content/Wrapper bodies without opening them; fresh
   NacreDashboardPanel and NacreDashboardNavigation implement page loading,
@@ -325,3 +325,12 @@ remain explicitly pending; no license/notice retired.
 - Actual replacement tests cover all pages/required bindings, clicked immediate
   underline/pinning, lazy lifecycle, fixed closing geometry, reopen, hidden
   updates, Escape, viewport bounds and reduced motion. Full/live checks pending.
+
+Dashboard assembly verification (2026-10-09): implementation `1cd6ab7`, all
+325 checks, QML formatting/parsing, target Hyprland validation and actual release
+launcher/Escape gates passed. Live pointer clicks switched all five tabs; only
+Settings acquired modal focus. Appearance page routing, real Settings Escape and
+outside click passed. Dashboard native capture visually reviewed, page geometry
+within output bounds, installed source matched and configerrors empty. Retained
+page/card/settings/service bodies are still pending; this verifies assembly only.
+No license/notice removed and physical multi-monitor/cold login remain untested.
