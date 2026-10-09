@@ -83,9 +83,10 @@ cards and input backgrounds keep their separate tones. Text selection now follow
 the wallpaper accent, and narrow scrollbars keep a usable thumb. OSD sliders use
 Qt's standard mouse/keyboard semantics with rounded track/focus geometry.
 
-Image helpers retain existing pixels while a replacement is prepared, coalesce
-resize requests and release obsolete thumbnail handles. Thumbnailer remains an
-inherited service awaiting its own rewrite. Material Symbols remains a licensed
+Image helpers retain pixels during native Qt loading and coalesce path/resize/
+DPI requests. Failed or cleared paths remove obsolete pixels. The unused generic
+Thumbnailer service is retired; maintained wallpaper previews remain in their
+prepared cache. Material Symbols remains a licensed
 font dependency; the rewritten NacreIcon helper does not claim ownership of it.
 The appearance provider keeps existing layout dimensions but supplies new bounded
 easing curves and honors reduce motion. No foundation widget polls or animates idle.

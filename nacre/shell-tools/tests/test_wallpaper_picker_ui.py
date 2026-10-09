@@ -27,7 +27,7 @@ class WallpaperPickerUITests(unittest.TestCase):
                 .replace("import qs.widgets", 'import "fixtures"')
             )
             presentation = (
-                (ROOT.parent / "shell/services/ThemePresentation.qml")
+                (ROOT.parent / "shell/services/NacrePresentation.qml")
                 .read_text()
                 .replace("pragma Singleton", "")
                 .replace("import qs.utils", "")
@@ -35,8 +35,14 @@ class WallpaperPickerUITests(unittest.TestCase):
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "Item {")
             )
-            (target / "ThemePresentation.qml").write_text(
-                remove_objects(presentation, r"\bFileView\s*\{")
+            (target / "NacrePresentation.qml").write_text(
+                remove_objects(
+                    remove_objects(presentation, r"\bFileView\s*\{"),
+                    r"\bIpcHandler\s*\{",
+                )
+            )
+            shutil.copy2(
+                ROOT.parent / "shell/services/colour-data.js", target / "colour-data.js"
             )
             for name in (
                 "NacreWallpaperPicker",

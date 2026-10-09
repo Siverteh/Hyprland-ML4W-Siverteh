@@ -63,20 +63,20 @@ Item {
             return JSON.stringify({
                 displayed: root.current.path,
                 status: root.current.status,
-                pending: ThemePresentation.pending.poster,
-                active: ThemePresentation.active.poster,
+                pending: NacrePresentation.pending.poster,
+                active: NacrePresentation.active.poster,
                 color: String(NacreColours.palette.m3primary),
                 secondary: String(NacreColours.palette.m3secondary),
                 tertiary: String(NacreColours.palette.m3tertiary),
                 frame: String(NacreFrame.colour),
-                decorativeFrame: ThemePresentation.active.colours?.frame ?? "",
-                expectedFrame: ThemePresentation.active.colours?.surface ?? "",
-                paletteChoices: ThemePresentation.active.paletteOptions?.length ?? 0,
-                selectedAccent: ThemePresentation.active.selectedAccent ?? "",
+                decorativeFrame: NacrePresentation.active.colours?.frame ?? "",
+                expectedFrame: NacrePresentation.active.colours?.surface ?? "",
+                paletteChoices: NacrePresentation.active.paletteOptions?.length ?? 0,
+                selectedAccent: NacrePresentation.active.selectedAccent ?? "",
                 motionAllowed: root.motionAllowed,
                 decoderActive: video.active,
                 batteryPaused: WallpaperPlayback.batteryPaused,
-                expected: ThemePresentation.active.colours?.primary ?? ""
+                expected: NacrePresentation.active.colours?.primary ?? ""
             });
         }
     }
@@ -90,7 +90,7 @@ Item {
             const srcPath = decodeURIComponent(`${root.source}`.slice(7));
             if (path === srcPath && status === Image.Ready) {
                 root.current = this;
-                ThemePresentation.activate(srcPath);
+                NacrePresentation.activate(srcPath);
             } else
                 path = srcPath;
         }
@@ -109,7 +109,7 @@ Item {
         onStatusChanged: {
             if (status === Image.Ready && path === decodeURIComponent(root.source.toString().slice(7))) {
                 root.current = this;
-                ThemePresentation.activate(path);
+                NacrePresentation.activate(path);
             }
         }
 

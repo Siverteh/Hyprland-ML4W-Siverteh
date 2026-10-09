@@ -13,8 +13,8 @@ Singleton {
     function snapshot() {
         const p = NacrePlayers.active;
         return {
-            "colors": ThemePresentation.active.colours,
-            "wallpaper": ThemePresentation.active.poster ?? Wallpapers.poster,
+            "colors": NacrePresentation.active.colours,
+            "wallpaper": NacrePresentation.active.poster ?? Wallpapers.poster,
             "system": {
                 "cpu": NacreSystemUsage.cpuPerc,
                 "memory": NacreSystemUsage.memPerc,

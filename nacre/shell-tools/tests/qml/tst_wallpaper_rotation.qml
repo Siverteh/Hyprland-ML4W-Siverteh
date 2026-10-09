@@ -184,7 +184,7 @@ TestCase {
             "rotationAnchorMs": changed - 10000
         };
         const due = view.rotationDueMs;
-        ThemePresentation.active = {
+        NacrePresentation.active = {
             "poster": "a",
             "changedAtMs": changed,
             "colours": {
@@ -192,7 +192,7 @@ TestCase {
             }
         };
         compare(view.rotationDueMs, due);
-        ThemePresentation.active = {
+        NacrePresentation.active = {
             "poster": "a",
             "changedAtMs": changed,
             "colours": {
@@ -200,7 +200,7 @@ TestCase {
             }
         };
         compare(view.rotationDueMs, due);
-        ThemePresentation.active = ({});
+        NacrePresentation.active = ({});
     }
 
     name: "WallpaperRotation"

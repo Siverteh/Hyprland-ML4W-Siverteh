@@ -46,7 +46,7 @@ Singleton {
         return apply(Data.textPayload(text));
     }
     function present() {
-        const active = ThemePresentation.active;
+        const active = NacrePresentation.active;
         if (active?.colours)
             return apply({
                 mode: active.mode,
@@ -71,7 +71,7 @@ Singleton {
     }
     Component.onCompleted: present()
     Connections {
-        target: ThemePresentation
+        target: NacrePresentation
         function onActiveChanged() {
             root.present();
         }
@@ -81,7 +81,7 @@ Singleton {
         watchChanges: true
         printErrors: false
         onFileChanged: reload()
-        onLoaded: if (!ThemePresentation.available)
+        onLoaded: if (!NacrePresentation.available)
             root.load(text())
     }
     IpcHandler {

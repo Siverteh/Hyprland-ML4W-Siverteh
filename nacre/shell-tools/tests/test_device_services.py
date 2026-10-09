@@ -24,7 +24,7 @@ class DeviceServiceTests(unittest.TestCase):
             definitions = {
                 "Visibilities": 'property var screens:({});property var panels:({});property string settingsPage:"notifications"',
                 "Hyprland": "property var toplevels: QtObject {property var values:[]};property var workspaces:({values:[]});property var monitors:({values:[]});property var focusedMonitor:null;property var focusedWorkspace:null;property var activeToplevel:null;property bool usingLua:true;property var requests:[];property int refreshes:0;signal rawEvent(var event);function dispatch(value){requests=[...requests,value]}function refreshToplevels(){refreshes++}function refreshMonitors(){}function refreshWorkspaces(){}",
-                "ThemePresentation": "property var active:({});property bool available:false",
+                "NacrePresentation": "property var active:({});property bool available:false",
                 "NacrePaths": 'property string state:"/fixture"',
                 "Environment": 'property var screens:[{name:"eDP-1"}]',
                 "NacreBrightness": "property bool controlsVisible:false;property var hardware:({keyboard:null})",
@@ -55,14 +55,14 @@ class DeviceServiceTests(unittest.TestCase):
                 "import QtQuick\nQtObject {signal read(string data)}"
             )
             (fixtures / "qmldir").write_text(
-                "singleton ThemePresentation 1.0 ThemePresentation.qml\nsingleton NacrePaths 1.0 NacrePaths.qml\nsingleton Environment 1.0 Environment.qml\nsingleton NacreBrightness 1.0 NacreBrightness.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton Hyprland 1.0 Hyprland.qml\nsingleton DesktopEntries 1.0 DesktopEntries.qml\nsingleton LauncherPreferences 1.0 LauncherPreferences.qml\nsingleton AppLaunch 1.0 AppLaunch.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
+                "singleton NacrePresentation 1.0 NacrePresentation.qml\nsingleton NacrePaths 1.0 NacrePaths.qml\nsingleton Environment 1.0 Environment.qml\nsingleton NacreBrightness 1.0 NacreBrightness.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton Hyprland 1.0 Hyprland.qml\nsingleton DesktopEntries 1.0 DesktopEntries.qml\nsingleton LauncherPreferences 1.0 LauncherPreferences.qml\nsingleton AppLaunch 1.0 AppLaunch.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreNotifications 1.0 NacreNotifications.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton Mpris 1.0 Mpris.qml\nsingleton Pipewire 1.0 Pipewire.qml\nsingleton Bluetooth 1.0 Bluetooth.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\nProcess 1.0 Process.qml\nStdioCollector 1.0 StdioCollector.qml\nSplitParser 1.0 SplitParser.qml\n"
             )
             (fixtures / "FileView.qml").write_text(
                 'import QtQuick\nQtObject {property string path:"";property bool printErrors:false;property bool watchChanges:false;signal loadFailed(int error);signal fileChanged();signal loaded();function text(){return ""}function reload(){}}'
             )
             with (fixtures / "qmldir").open("a") as manifest:
                 manifest.write("\nFileView 1.0 FileView.qml\n")
-            if name == "NacreColours":
+            if name in ("NacreColours", "NacrePresentation"):
                 shutil.copy2(
                     ROOT.parent / "shell/services/colour-data.js",
                     target / "colour-data.js",
@@ -77,6 +77,14 @@ class DeviceServiceTests(unittest.TestCase):
                         .replace('Quickshell.env("HOME")', '"/fixture"')
                     )
                     (target / (component + ".qml")).write_text(source)
+            if name == "NacrePresentation":
+                (fixtures / "NacrePresentation.qml").unlink()
+                manifest = fixtures / "qmldir"
+                manifest.write_text(
+                    manifest.read_text().replace(
+                        "singleton NacrePresentation 1.0 NacrePresentation.qml\n", ""
+                    )
+                )
             if name == "NacreBrightness":
                 manifest = fixtures / "qmldir"
                 (fixtures / "NacreBrightness.qml").unlink()
@@ -200,3 +208,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_keyboard_light_raw_steps_cycle_and_closed_timer(self):
         self.run_service("NacreKeyboardLight")
+
+    def test_matched_presentation_validation_clone_and_stale_readiness(self):
+        self.run_service("NacrePresentation")

@@ -46,20 +46,20 @@ TestCase {
         verify(!colours.publishing);
     }
     function test_committed_presentation_and_explicit_mode_request() {
-        ThemePresentation.active = {};
-        ThemePresentation.available = false;
+        NacrePresentation.active = {};
+        NacrePresentation.available = false;
         AppLaunch.calls = [];
         const colours = createTemporaryObject(service, test);
-        ThemePresentation.active = {
+        NacrePresentation.active = {
             mode: "dark",
             colours: Data.fallback
         };
-        ThemePresentation.available = true;
+        NacrePresentation.available = true;
         verify(colours.ready);
         const raw = Object.assign({}, Data.fallback, {
             primary: "ee0000"
         });
-        ThemePresentation.active = {
+        NacrePresentation.active = {
             mode: "dark",
             colours: raw
         };

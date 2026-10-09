@@ -18,8 +18,8 @@ Singleton {
             pauseCovered: true
         })
     property var palettePresets: []
-    readonly property var paletteOptions: ThemePresentation.active.paletteOptions ?? []
-    readonly property string selectedAccent: ThemePresentation.active.selectedAccent ?? ""
+    readonly property var paletteOptions: NacrePresentation.active.paletteOptions ?? []
+    readonly property string selectedAccent: NacrePresentation.active.selectedAccent ?? ""
     property var rotationRemaining: []
     readonly property var rotationPool: Rotation.pool(list, preferences.rotationKind ?? "all")
     readonly property string rotationKey: (preferences.rotationKind ?? "all") + ":" + (preferences.rotationShuffle ?? true) + ":" + rotationPool.join("|")
@@ -32,7 +32,7 @@ Singleton {
     readonly property real rotationIntervalMs: Math.max(5, Math.min(1440, preferences.rotationMinutes ?? 30)) * 60000
     property real rotationStartupMs: Date.now()
     property real rotationRetryMs: 0
-    readonly property real rotationAnchorMs: Math.max(media.appliedAtMs ?? 0, ThemePresentation.active.changedAtMs ?? 0, preferences.rotationAnchorMs ?? 0) || rotationStartupMs
+    readonly property real rotationAnchorMs: Math.max(media.appliedAtMs ?? 0, NacrePresentation.active.changedAtMs ?? 0, preferences.rotationAnchorMs ?? 0) || rotationStartupMs
     readonly property real rotationDueMs: Math.max(rotationAnchorMs + rotationIntervalMs, rotationRetryMs)
     readonly property string rotationPauseReason: WallpaperPlayback.sleeping ? "asleep" : WallpaperPlayback.locked ? "locked" : pickerOpen ? "wallpaper picker open" : appearanceOpen ? "Settings open" : rotationPool.length < 2 ? "fewer than two wallpapers" : !rotationReady ? "applying changes" : ""
     readonly property string rotationStatus: !preferences.rotationEnabled ? "Rotation is off" : rotationPauseReason ? "Paused: " + rotationPauseReason + ". The scheduled change is preserved." : "Next wallpaper at " + Qt.formatTime(new Date(rotationDueMs), "hh:mm")
@@ -84,10 +84,10 @@ Singleton {
     readonly property string poster: currentEntry?.poster ?? current
     readonly property string preview: currentEntry?.preview ?? poster
     readonly property string thumbnail: currentEntry?.thumbnail ?? poster
-    readonly property string pendingPoster: ThemePresentation.pending.poster ?? poster
-    readonly property var displayEntry: media.poster === ThemePresentation.active.poster ? media : list.find(w => w.poster === ThemePresentation.active.poster) ?? null
+    readonly property string pendingPoster: NacrePresentation.pending.poster ?? poster
+    readonly property var displayEntry: media.poster === NacrePresentation.active.poster ? media : list.find(w => w.poster === NacrePresentation.active.poster) ?? null
     readonly property string displayPath: displayEntry?.path ?? actualCurrent
-    readonly property string displayPreview: displayEntry?.preview ?? ThemePresentation.active.poster ?? preview
+    readonly property string displayPreview: displayEntry?.preview ?? NacrePresentation.active.poster ?? preview
     readonly property bool displayDynamic: displayEntry?.dynamic ?? false
     readonly property bool displayAnimated: displayEntry?.animated ?? false
     readonly property bool dynamic: currentEntry?.dynamic ?? false

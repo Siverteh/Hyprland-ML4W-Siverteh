@@ -51,7 +51,7 @@ class RotationTests(unittest.TestCase):
                 shutil.copy2(ROOT.parent / "shell/utils/scripts" / name, target / name)
             services = {
                 "NacrePaths": 'property string state:"/tmp";property string pictures:"/tmp"',
-                "ThemePresentation": "property var pending:({});property var active:({})",
+                "NacrePresentation": "property var pending:({});property var active:({})",
                 "WallpaperPlayback": "property bool sleeping:false;property bool locked:false",
                 "Visibilities": "property var screens:({})",
             }

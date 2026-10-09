@@ -81,3 +81,9 @@ References: [Qt TextField](https://doc.qt.io/qt-6/qml-qtquick-controls-textfield
 [MultiEffect](https://doc.qt.io/qt-6/qml-qtquick-effects-multieffect.html),
 [Quickshell PanelWindow](https://quickshell.org/docs/v0.2.0/types/Quickshell/PanelWindow/),
 [DesktopEntries](https://quickshell.org/docs/v0.2.0/types/Quickshell/DesktopEntries/).
+
+2026-10-09 image dependency refinement: runtime inventory found no maintained
+NacreImage/CachingImage users and only this adapter referenced Thumbnailer. The
+[image/presentation spec](image-presentation-services.md) supersedes its thumbnail
+handle contract: native Qt decode/cache/coalescing now backs the optional helper,
+while the unused inherited service is retired. Prepared wallpaper caches unchanged.

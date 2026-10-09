@@ -1,6 +1,7 @@
 import QtQuick
 import QtTest
 import "fixtures"
+import "colour-data.js" as Palette
 
 TestCase {
     id: test
@@ -22,7 +23,7 @@ TestCase {
     }
     Component {
         id: presentation
-        ThemePresentation {}
+        NacrePresentation {}
     }
     Component {
         id: backdrop
@@ -234,33 +235,33 @@ TestCase {
     function test_theme_waits_for_matching_image_ready_and_rejects_stale_ack() {
         const view = createTemporaryObject(presentation, test);
         const first = {
-            poster: "one",
+            poster: "/fixture/one",
             mode: "dark",
-            colours: {
+            colours: Object.assign({}, Palette.fallback, {
                 primary: "112233"
-            }
+            })
         }, next = {
-            poster: "two",
+            poster: "/fixture/two",
             mode: "light",
-            colours: {
+            colours: Object.assign({}, Palette.fallback, {
                 primary: "aabbcc"
-            }
+            })
         };
         view.accept(first);
-        compare(view.active.poster, "one");
+        compare(view.active.poster, "/fixture/one");
         view.accept(next);
-        compare(view.active.poster, "one");
-        view.activate("one");
-        compare(view.active.poster, "one");
-        view.activate("two");
-        compare(view.active.poster, "two");
+        compare(view.active.poster, "/fixture/one");
+        view.activate("/fixture/one");
+        compare(view.active.poster, "/fixture/one");
+        view.activate("/fixture/two");
+        compare(view.active.poster, "/fixture/two");
         compare(view.active.colours.primary, "aabbcc");
         view.accept({
-            poster: "two",
+            poster: "/fixture/two",
             mode: "dark",
-            colours: {
+            colours: Object.assign({}, Palette.fallback, {
                 primary: "445566"
-            }
+            })
         });
         compare(view.active.mode, "dark");
     }

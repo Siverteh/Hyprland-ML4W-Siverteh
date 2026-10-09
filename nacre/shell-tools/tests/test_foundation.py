@@ -81,26 +81,6 @@ class FoundationTests(unittest.TestCase):
                     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg=="
                 )
             )
-            (services / "Thumbnailer.qml").write_text("""pragma Singleton
-import QtQuick
-QtObject {
- id: root
- property int calls: 0
- property int liveCount: 0
- property Component factory: Component {
-  QtObject {
-   property string path: ""
-   Component.onDestruction: root.liveCount--
-  }
- }
- function go(item) {
-  calls++; liveCount++;
-  return factory.createObject(item, {path:item.path});
- }
-}
-""")
-            with (services / "qmldir").open("a") as manifest:
-                manifest.write("singleton Thumbnailer 1.0 Thumbnailer.qml\n")
             shutil.copy2(
                 ROOT / "tests/foundation-qml/tst_foundation.qml",
                 target / "tst_foundation.qml",

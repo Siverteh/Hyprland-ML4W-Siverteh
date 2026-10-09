@@ -1,33 +1,14 @@
 pragma Singleton
-import qs.utils
 import Quickshell
-import Quickshell.Io
-import QtQuick
 
 Singleton {
-    id: root
-    property var pending: ({})
-    property var active: ({})
-    readonly property bool available: !!pending.colours
+    readonly property var pending: NacrePresentation.pending
+    readonly property var active: NacrePresentation.active
+    readonly property bool available: NacrePresentation.available
     function accept(data) {
-        if (!data?.colours || !data.poster)
-            return;
-        pending = data;
-        if (!active.colours || active.poster === data.poster)
-            active = data;
+        return NacrePresentation.accept(data);
     }
     function activate(poster) {
-        if (pending.poster === poster)
-            active = pending;
-    }
-    FileView {
-        path: `${NacrePaths.state}/presentation.json`
-        watchChanges: true
-        onFileChanged: reload()
-        onLoaded: {
-            try {
-                root.accept(JSON.parse(text()));
-            } catch (e) {}
-        }
+        return NacrePresentation.activate(poster);
     }
 }

@@ -690,3 +690,20 @@ keyboard/colour comparison and indicator inspection reran successfully; private
 preferences/history/hardware values remain unchanged. Installed source matches,
 configerrors empty and no runtime QML diagnostics. Earlier accepted colour/light
 results remain valid; final publishing uses this guarded source.
+
+## Thumbnail retirement and matched presentation (implemented; live pending)
+
+- Runtime inventory: Thumbnailer.go only in NacreImage; NacreImage only in its
+  CachingImage alias/tests. Maintained views use native images/prepared caches.
+  Deleted inherited Thumbnailer without opening its body; optional own image
+  helper now native, with meaningful decode/resize/clear/error checks.
+- Deleted ThemePresentation body before fresh NacrePresentation with own role/
+  poster/schema validation, copied immutable state, staged readiness and safe
+  errors. Old name an own forwarder. Other callers mechanically renamed; their
+  bodies and actual cache/producer/helper provenance remain separate tasks.
+- Exposure: declarations/current caller and producer JSON schema, existing
+  tests/runtime and earlier turns' provider inspection; primary Qt/Quickshell
+  image/file APIs. No upstream implementation consulted; no legal clean-room
+  claim. Retain notices.
+- Twelve initially listed services addressed: eleven replaced, one retired.
+  Remaining mixed providers/UI/config/helpers/assets/final audit unfinished.

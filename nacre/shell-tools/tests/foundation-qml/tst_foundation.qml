@@ -141,24 +141,30 @@ TestCase {
         compare(NacreDashboard.sizes.mediaCoverArtSize, 150);
         compare(NacreNotifications.defaultExpireTimeout, 5000);
     }
-    function test_image_coalesces_changes_and_releases_obsolete_handles() {
-        const initial = Thumbnailer.liveCount;
+    function test_native_image_resize_original_clear_and_error() {
         const image = createTemporaryObject(picture, test, {
             path: Qt.resolvedUrl("test.png").toString()
         });
         tryCompare(image, "status", Image.Ready);
-        compare(Thumbnailer.liveCount, initial + 1);
-        const calls = Thumbnailer.calls;
         image.width = 72;
         image.height = 48;
         image.width = 80;
         wait(100);
-        compare(Thumbnailer.calls, calls + 1);
-        compare(Thumbnailer.liveCount, initial + 1);
+        compare(image.decodeSize.width, 80);
+        compare(image.decodeSize.height, 48);
+        image.loadOriginal = true;
+        wait(100);
+        compare(image.decodeSize.width, -1);
         image.path = "";
         wait(100);
         compare(String(image.source), "");
-        compare(Thumbnailer.liveCount, initial);
+        ignoreWarning(/.*Cannot open:.*missing-image\.png/);
+        image.path = Qt.resolvedUrl("missing-image.png").toString();
+        tryVerify(() => image.error.length > 0);
+        compare(String(image.source), "");
+        image.path = Qt.resolvedUrl("test.png").toString();
+        tryCompare(image, "status", Image.Ready);
+        compare(image.error, "");
     }
     Component {
         id: picture

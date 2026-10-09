@@ -1,32 +1,29 @@
 import QtQuick
-import qs.services
+import QtQuick.Window
 
 Image {
     id: root
     property string path: ""
     property bool loadOriginal: false
-    property var thumbnail: null
     property bool ready: false
     property url displayedSource: ""
+    property size decodeSize: Qt.size(-1, -1)
+    property string error: ""
     asynchronous: true
     cache: true
     retainWhileLoading: true
     fillMode: Image.PreserveAspectCrop
     source: displayedSource
-    function acceptThumbnail() {
-        const value = thumbnail?.path;
-        if (value)
-            displayedSource = String(value).startsWith("file:") ? value : "file://" + value;
+    function urlFor(value) {
+        return /^(file|https?|image|qrc):/.test(value) ? value : value ? "file://" + value : "";
     }
     function refresh() {
         if (!ready)
             return;
-        if (thumbnail)
-            thumbnail.destroy();
-        thumbnail = path && width > 0 && height > 0 ? Thumbnailer.go(root) : null;
-        if (!path)
-            displayedSource = "";
-        acceptThumbnail();
+        error = "";
+        decodeSize = loadOriginal ? Qt.size(-1, -1) : Qt.size(Math.max(1, Math.ceil(width * Screen.devicePixelRatio)), Math.max(1, Math.ceil(height * Screen.devicePixelRatio)));
+        sourceSize = decodeSize;
+        displayedSource = urlFor(path);
     }
     function schedule() {
         if (ready)
@@ -36,15 +33,17 @@ Image {
     onWidthChanged: schedule()
     onHeightChanged: schedule()
     onLoadOriginalChanged: schedule()
+    Screen.onDevicePixelRatioChanged: schedule()
+    onStatusChanged: {
+        if (status === Image.Error) {
+            error = "Image could not be loaded.";
+            displayedSource = "";
+        } else if (status === Image.Ready)
+            error = "";
+    }
     Component.onCompleted: {
         ready = true;
         refresh();
-    }
-    Connections {
-        target: root.thumbnail
-        function onPathChanged() {
-            root.acceptThumbnail();
-        }
     }
     Timer {
         id: pending

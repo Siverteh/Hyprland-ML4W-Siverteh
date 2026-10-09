@@ -151,3 +151,10 @@ from the matched presentation owner. NacreBrightness/NacreKeyboardLight share
 read-only discovery and NacreLightChannel native file readers/user-only writes.
 Controls use NacreBacklight, with explicit adjusted signals for the indicator.
 See [colour and light services](features/colour-light.md).
+
+The unused generic Thumbnailer provider is retired. Optional NacreImage uses
+native Qt loading/size/cache/error behavior, while maintained wallpaper previews
+stay with their prepared-cache owner. NacrePresentation validates and stages one
+watched wallpaper/palette record; only matching readiness activates a new poster.
+The ThemePresentation name forwards to it. See
+[image and presentation behavior](features/image-presentation.md).
