@@ -378,7 +378,7 @@ def select(lines, prompt, header="", back=True, details=None):
         curses.init_pair(1, curses.COLOR_BLUE, -1)
         curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)
         curses.init_pair(3, curses.COLOR_WHITE, -1)
-        image_path = Path.home() / ".local/share/siverteh-ai/branding/sh.png"
+        image_path = Path.home() / ".local/share/nacre/branding/sh.png"
         graphic = (
             os.environ.get("TERM") == "xterm-kitty"
             and sys.stdout.isatty()
@@ -412,9 +412,9 @@ def select(lines, prompt, header="", back=True, details=None):
             x = max(1, (width - box_width) // 2)
             y = max(1, min(5, height // 7))
             accent = curses.color_pair(1)
-            logo = ["  ┏━┓ ╻ ╻", "  ┗━┓ ┣━┫   Siverteh AI", "  ┗━┛ ╹ ╹"]
+            logo = ["  ┏━┓ ╻ ╻", "  ┗━┓ ┣━┫   Nacre AI", "  ┗━┛ ╹ ╹"]
             if graphic:
-                put(y + 1, x + 12, "Siverteh AI", accent | curses.A_BOLD)
+                put(y + 1, x + 12, "Nacre AI", accent | curses.A_BOLD)
             else:
                 for offset, line in enumerate(logo):
                     put(y + offset, x, line, accent | curses.A_BOLD)
@@ -543,7 +543,7 @@ def worker_window(args):
         )
     else:
         print(
-            "Siverteh AI · New chat"
+            "Nacre AI · New chat"
             if project.get("chat_directory")
             else f"AI workspace · {label} · {location}",
             flush=True,

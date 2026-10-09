@@ -3,7 +3,7 @@ name: siverteh-brain
 description: Retrieve or save durable personal knowledge, host/device facts, project context, and operational lessons in Siverteh's private local Markdown vault.
 ---
 
-# Siverteh Brain
+# Nacre Brain
 
 The vault lives at `$HOME/Documents/Siverteh-Brain`, independent of ChatGPT
 accounts. Use `siverteh-brain path` if the user configured a different location.

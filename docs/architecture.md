@@ -3,12 +3,12 @@
 | Component | Source | Owner and deployed location |
 |---|---|---|
 | Session and compositor | `hypr/`, `uwsm/` | SDDM → UWSM → Hyprland; installed configuration copies in `~/.config/hypr` |
-| Desktop UI | `siverteh/shell/` | `siverteh-os-shell.service`; validated source in `~/.local/share/siverteh-ai/siverteh-shell` |
-| Desktop helpers | `siverteh/shell-tools/` | Native settings, notifications, clipboard, update checks, startup apps and assistant bridge |
-| Palette and wallpaper engine | `siverteh/shell-cli/` | Isolated Python package; the native bridge is the sole palette publisher |
+| Desktop UI | `nacre/shell/` | `nacre-shell.service`; validated source in `~/.local/share/nacre/shell` |
+| Desktop helpers | `nacre/shell-tools/` | Native settings, notifications, clipboard, update checks, startup apps and assistant bridge |
+| Palette and wallpaper engine | `nacre/shell-cli/` | Isolated Python package; the native bridge is the sole palette publisher |
 | Knowledge browser | `brain/` | Loopback server and dedicated browser profile; private Markdown vault remains external |
 | AI workflow | `ai/`, `bin/` | Codex/Claude accounts, chats, project registry, skills and memory helpers |
-| Login appearance | `siverteh/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
+| Login appearance | `nacre/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
 | Terminal presentation | `kitty/`, `fastfetch/` | Installed static config plus private generated SH logo and terminal palette |
 
 The desktop shell and its desktop-actions helper own core control commands.
@@ -25,16 +25,16 @@ Hyprland startup configuration.
 Compositor loading order is base Lua configuration, optional private monitor
 overrides, committed palette, saved desktop settings, native shortcuts and private
 `host.lua`. Managed binds live in both `hypr/conf/keybinding.lua` and
-`siverteh/shell-tools/shortcuts.lua`; static app placement lives in `windowrule.lua`. App
+`nacre/shell-tools/shortcuts.lua`; static app placement lives in `windowrule.lua`. App
 routing comes from Lua rules. Startup opens the six requested workspace apps
 idempotently; ordinary terminals are unrestricted. No background script rewrites
 the source routing rules or broadly moves browser windows.
 
-The native palette bridge publishes to `~/.config/siverteh-shell`, GTK and the
+The native palette bridge publishes to `~/.config/nacre`, GTK and the
 installed Hyprlock configuration. The repository contains a boot seed, generation code and generated
 `palette-presets.json` fixed-color layouts. A pinned-engine regeneration test
 checks the presets. Wallpaper-derived host colors are never committed. Wallpapers live under the user's Pictures directory. App choices can
-be overridden with executable argument arrays in `~/.config/siverteh-shell/apps.json`.
+be overridden with executable argument arrays in `~/.config/nacre/apps.json`.
 
 Runtime names containing `observatory` remain compatibility identifiers for the
 existing Brain service and profile. They do not install another desktop. The
@@ -52,7 +52,7 @@ was not used to infer that a component was running.
 Pacman owns Quickshell, Qt multimedia/image plugins, Thunar/Xfconf and Papirus.
 Shell launchers use the system binaries without private library or Qt import path
 injection. `shell-runtime/venv` contains only the isolated palette Python engine;
-`thunar-style/siverteh-thunar-theme.so` is the private GTK style module. The module
+`thunar-style/nacre-thunar-theme.so` is the private GTK style module. The module
 applies generated CSS only inside Thunar and leaves applications it opens alone.
 System icon artwork supplies the small palette-colored folder overlay.
 
@@ -94,7 +94,15 @@ uses rotating bootstrap tokens and a private restart-safe cookie credential; no
 secret-bearing command arguments or public source snapshots are introduced.
 
 The managed power-button binding locks on press, with the compatible
-`siverteh-manual-power.service` owning low-level logind key inhibition. A
+`nacre-power-key.service` owning low-level logind key inhibition. A
 backup-preserving migration removes the recognized private DPMS release binding;
 private display-wake and idle policies remain separate. Firmware continues to
 own physical hold-to-force-off behavior.
+
+## Nacre identity
+
+Desktop-owned runtime/preferences now use the canonical Nacre roots described in
+[the migration guide](features/nacre-rename.md). Old directory and desktop command
+names remain compatibility aliases for existing callers and validated releases.
+Personal AI accounts, workflows and the private vault retain their existing roots.
+The rename does not change inherited-code provenance or license obligations.

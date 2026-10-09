@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Explicit component deployment for an existing supported Siverteh OS host."""
+"""Explicit component deployment for an existing supported Nacre host."""
 
 import argparse
 import subprocess
@@ -40,18 +40,21 @@ def main():
         ],
         "shell": [
             "python3",
-            str(ROOT / "siverteh/shell-tools/install.py"),
+            str(ROOT / "nacre/shell-tools/install.py"),
             *(
                 ["--code-only"]
-                if (
-                    Path.home() / ".local/share/siverteh-ai/siverteh-shell/bin/qs"
-                ).exists()
+                if (Path.home() / ".local/share/nacre/shell/bin/qs").exists()
                 else []
             ),
         ],
         "brain": ["python3", str(ROOT / "brain/install.py")],
         "ai": ["python3", str(ROOT / "ai/install.py")],
     }
+    import nacre_migration
+
+    namespace_plan = nacre_migration.plan()
+    for old, new in namespace_plan:
+        print(f"namespace: {old} -> {new} (legacy alias retained)", flush=True)
     for name in components:
         print(name + ": " + " ".join(commands[name]), flush=True)
     if not args.apply:
@@ -63,6 +66,9 @@ def main():
         raise RuntimeError(
             "AI workflow deployment is separate; use ai/install.py to preserve account setup"
         )
+    if namespace_plan:
+        manifest = nacre_migration.apply()
+        print("Namespace migration manifest:", manifest, flush=True)
     subprocess.run(
         [
             sys.executable,

@@ -42,14 +42,14 @@ def files(root=ROOT):
         for source in (root / folder).rglob("*"):
             if source.is_file():
                 result[Path(".config") / source.relative_to(root)] = source
-    for name in ("siverteh-os-app", "xdg-open"):
+    for name in ("nacre-app", "siverteh-os-app", "xdg-open"):
         result[Path(".local/bin") / name] = root / "bin" / name
     result[Path(".local/bin/siverteh-brain-sync")] = root / "bin/siverteh-brain-sync"
     result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (
         root / "ai/systemd/siverteh-brain-sync.service"
     )
-    result[Path(".config/systemd/user/siverteh-manual-power.service")] = (
-        root / "siverteh/shell-tools/siverteh-manual-power.service"
+    result[Path(".config/systemd/user/nacre-power-key.service")] = (
+        root / "nacre/shell-tools/nacre-power-key.service"
     )
     # Fixture repositories may not contain optional shared-knowledge helpers.
     return {path: source for path, source in result.items() if source.exists()}
@@ -68,7 +68,7 @@ def atomic(path, data, mode=0o644):
             os.unlink(temp)
 
 
-IDLE_WRAPPER = "# Host locking policy is private; installation seeds it only once.\nsource = ~/.config/siverteh-shell/hypridle.local.conf\n"
+IDLE_WRAPPER = "# Host locking policy is private; installation seeds it only once.\nsource = ~/.config/nacre/hypridle.local.conf\n"
 
 
 POWER_TAIL = '\n-- Local manual power-button and display-wake preference.\nrequire("conf.manual-power")\n'
@@ -86,7 +86,7 @@ def power_policy(home, root, migrate_idle):
     if current.read_text() != old_base + POWER_TAIL:
         return None
     content = (home / ".config/hypr/conf/manual-power.lua").read_bytes()
-    private = home / ".config/siverteh-shell/host.lua"
+    private = home / ".config/nacre/host.lua"
     if private.exists() and private.read_bytes() != content:
         raise RuntimeError("Private host policy differs; reconcile it before migration")
     return content
@@ -96,7 +96,7 @@ def idle_policy(home, root, migrate_idle):
     source = root / "hypr/hypridle.conf"
     if not source.exists() or source.read_text() != IDLE_WRAPPER:
         return None
-    private = home / ".config/siverteh-shell/hypridle.local.conf"
+    private = home / ".config/nacre/hypridle.local.conf"
     current = home / ".config/hypr/hypridle.conf"
     if migrate_idle and current.exists() and current.read_text() != IDLE_WRAPPER:
         content = current.read_bytes()
@@ -111,7 +111,7 @@ def idle_policy(home, root, migrate_idle):
 
 
 LEGACY_SYNC = {
-    ".config/systemd/user/siverteh-manual-power.service": "e4ea2240157898be3c3f4355a04985681df0d9cd1a72163f6f6f2316a8b3b200",
+    ".config/systemd/user/nacre-power-key.service": "e4ea2240157898be3c3f4355a04985681df0d9cd1a72163f6f6f2316a8b3b200",
     ".local/bin/siverteh-brain-sync": "b1f7eb81b42ab6c205fb3e9bf19df46371ef31bfe854c6d3e1d984b70ea0c799",
     ".config/systemd/user/siverteh-brain-sync.service": "8ea45eb1bf5536819ba8fdbda31fa8cae115910db406b950abc3aa5c30ecbc83",
 }
@@ -121,7 +121,9 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
     if not app_routes_only:
         idle_policy(home, root, migrate_idle)
         power_policy(home, root, migrate_idle)
-    manifest = home / ".local/state/siverteh-os/configuration.json"
+    manifest = home / ".local/state/nacre/configuration.json"
+    if not manifest.exists():
+        manifest = home / ".local/state/siverteh-os/configuration.json"
     known = json.loads(manifest.read_text()) if manifest.exists() else {}
     desired = files(root)
     if app_routes_only:
@@ -129,7 +131,7 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
             path: source
             for path, source in desired.items()
             if path.parent == Path(".local/bin")
-            and path.name in ("siverteh-os-app", "xdg-open")
+            and path.name in ("nacre-app", "siverteh-os-app", "xdg-open")
         }
     links = {}
     for name in (*ACTIVE_DIRS, *RETIRED_DIRS):
@@ -195,8 +197,14 @@ def plan(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fal
             raise RuntimeError(f"Local edit preserved: {dest}")
         changed.append((relative, source))
     for relative, previous in known.items():
+        if relative in {
+            ".config/systemd/user/siverteh-manual-power.service",
+            ".config/systemd/user/siverteh-os-shell.service",
+            ".config/systemd/user/siverteh-session-watch.service",
+        }:
+            continue  # The namespace migration retains these as service aliases.
         if app_routes_only and Path(relative).name not in (
-            "siverteh-os-app",
+            "nacre-app",
             "xdg-open",
         ):
             continue
@@ -215,13 +223,13 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
     changed, links, known = plan(home, root, migrate, app_routes_only, migrate_idle)
     host_policy = None if app_routes_only else power_policy(home, root, migrate_idle)
     if host_policy is not None:
-        atomic(home / ".config/siverteh-shell/host.lua", host_policy, 0o600)
+        atomic(home / ".config/nacre/host.lua", host_policy, 0o600)
     policy = None if app_routes_only else idle_policy(home, root, migrate_idle)
     if policy is not None:
-        atomic(home / ".config/siverteh-shell/hypridle.local.conf", policy, 0o600)
+        atomic(home / ".config/nacre/hypridle.local.conf", policy, 0o600)
     if not changed and not links:
         atomic(
-            home / ".local/state/siverteh-os/configuration.json",
+            home / ".local/state/nacre/configuration.json",
             json.dumps(
                 (
                     {
@@ -230,7 +238,7 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
                             str(p): digest(home / p)
                             for p in files(root)
                             if p.parent == Path(".local/bin")
-                            and p.name in ("siverteh-os-app", "xdg-open")
+                            and p.name in ("nacre-app", "siverteh-os-app", "xdg-open")
                         },
                     }
                     if app_routes_only
@@ -243,7 +251,7 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
         return None
     backup = (
         home
-        / ".local/state/siverteh-os/backups"
+        / ".local/state/nacre/backups"
         / dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     )
     backup.mkdir(parents=True, mode=0o700)
@@ -254,7 +262,7 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
         shutil.copytree(target, saved, symlinks=True)
         entries.append(dict(path=str(dest), backup=str(saved), link=str(target)))
     monitor = home / ".config/hypr/conf/monitor.lua"
-    private_monitor = home / ".config/siverteh-shell/monitor.lua"
+    private_monitor = home / ".config/nacre/monitor.lua"
     if (
         home / ".config/hypr" in links
         and monitor.exists()
@@ -295,7 +303,7 @@ def apply(home, root=ROOT, migrate=False, app_routes_only=False, migrate_idle=Fa
             )
             known[str(relative)] = digest(dest)
     atomic(
-        home / ".local/state/siverteh-os/configuration.json",
+        home / ".local/state/nacre/configuration.json",
         json.dumps(known, indent=2).encode(),
         0o600,
     )

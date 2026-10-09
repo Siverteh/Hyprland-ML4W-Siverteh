@@ -17,7 +17,7 @@ class ConfigurationTests(unittest.TestCase):
             root, home = Path(directory) / "repo", Path(directory) / "home"
             (root / "bin").mkdir(parents=True)
             (root / "hypr").mkdir()
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             source = root / "hypr/hyprland.lua"
             source.write_text("current source")
@@ -35,18 +35,16 @@ class ConfigurationTests(unittest.TestCase):
             root, home = Path(directory) / "repo", Path(directory) / "home"
             (root / "bin").mkdir(parents=True)
             (root / "hypr").mkdir()
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("old route")
             (root / "hypr/hypridle.conf").write_text("original idle")
             module.apply(home, root)
-            manifest = home / ".local/state/siverteh-os/configuration.json"
+            manifest = home / ".local/state/nacre/configuration.json"
             before = json.loads(manifest.read_text())[".config/hypr/hypridle.conf"]
             (home / ".config/hypr/hypridle.conf").write_text("personal idle choice")
-            (root / "bin/siverteh-os-app").write_text("new route")
+            (root / "bin/nacre-app").write_text("new route")
             module.apply(home, root, app_routes_only=True)
-            self.assertEqual(
-                (home / ".local/bin/siverteh-os-app").read_text(), "new route"
-            )
+            self.assertEqual((home / ".local/bin/nacre-app").read_text(), "new route")
             self.assertEqual(
                 (home / ".config/hypr/hypridle.conf").read_text(),
                 "personal idle choice",
@@ -76,14 +74,14 @@ class ConfigurationTests(unittest.TestCase):
             (old / "hypr/conf/monitor.lua").write_text("host monitor override")
             (old / "hypr/old.conf").write_text("retired")
             (root / "hypr/conf/monitor.lua").write_text("generic fallback")
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             (home / ".config/hypr").symlink_to(old / "hypr")
             with self.assertRaises(RuntimeError):
                 module.apply(home, root)
             backup = module.apply(home, root, migrate=True)
             self.assertEqual(
-                (home / ".config/siverteh-shell/monitor.lua").read_text(),
+                (home / ".config/nacre/monitor.lua").read_text(),
                 "host monitor override",
             )
             self.assertEqual((backup / ".config/hypr/old.conf").read_text(), "retired")
@@ -96,7 +94,7 @@ class ConfigurationTests(unittest.TestCase):
             home = Path(directory) / "home"
             (root / "uwsm").mkdir(parents=True)
             (root / "bin").mkdir()
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             (root / "uwsm/env").write_text("export XCURSOR_SIZE=24\n")
             (root / "uwsm/env-hyprland").write_text("export HYPRCURSOR_SIZE=24\n")
@@ -118,10 +116,10 @@ class ConfigurationTests(unittest.TestCase):
                 root / "bin",
                 old / "functions",
                 home / ".config",
-                home / ".local/state/siverteh-os",
+                home / ".local/state/nacre",
             ):
                 path.mkdir(parents=True)
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             (root / "fish/functions/fish_title.fish").write_text("owned title")
             (old / "functions/fish_title.fish").write_text("owned title")
@@ -132,7 +130,7 @@ class ConfigurationTests(unittest.TestCase):
                     old / "functions/fish_title.fish"
                 )
             }
-            (home / ".local/state/siverteh-os/configuration.json").write_text(
+            (home / ".local/state/nacre/configuration.json").write_text(
                 json.dumps(manifest)
             )
             with self.assertRaises(RuntimeError):
@@ -152,7 +150,7 @@ class ConfigurationTests(unittest.TestCase):
             root, home = Path(directory) / "repo", Path(directory) / "home"
             (root / "hypr").mkdir(parents=True)
             (root / "bin").mkdir()
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             old = root / "hypr/retired.lua"
             old.write_text("owned old configuration")
@@ -173,7 +171,7 @@ class IdleMigrationTests(unittest.TestCase):
             (root / "bin").mkdir(parents=True)
             (root / "hypr").mkdir()
             (root / "tools/defaults").mkdir(parents=True)
-            for name in ("siverteh-os-app", "xdg-open"):
+            for name in ("nacre-app", "xdg-open"):
                 (root / "bin" / name).write_text("helper")
             source = root / "hypr/hypridle.conf"
             source.write_text("original")
@@ -186,7 +184,7 @@ class IdleMigrationTests(unittest.TestCase):
                 module.plan(home, root)
             backup = module.apply(home, root, migrate_idle=True)
             self.assertEqual(
-                (home / ".config/siverteh-shell/hypridle.local.conf").read_text(),
+                (home / ".config/nacre/hypridle.local.conf").read_text(),
                 "manual locking only",
             )
             self.assertEqual(
@@ -205,10 +203,8 @@ class IdleMigrationTests(unittest.TestCase):
             (root / "hypr/hypridle.conf").write_text(module.IDLE_WRAPPER)
             (home / ".config/hypr").mkdir(parents=True)
             (home / ".config/hypr/hypridle.conf").write_text("manual policy")
-            (home / ".config/siverteh-shell").mkdir()
-            (home / ".config/siverteh-shell/hypridle.local.conf").write_text(
-                "different policy"
-            )
+            (home / ".config/nacre").mkdir()
+            (home / ".config/nacre/hypridle.local.conf").write_text("different policy")
             with self.assertRaisesRegex(RuntimeError, "Private idle policy differs"):
                 module.plan(home, root, migrate_idle=True)
 
@@ -236,7 +232,7 @@ class SharedHelperOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root, home = Path(folder) / "repo", Path(folder) / "home"
             (root / "bin").mkdir(parents=True)
-            for name in ("siverteh-os-app", "xdg-open", "siverteh-brain-sync"):
+            for name in ("nacre-app", "xdg-open", "siverteh-brain-sync"):
                 (root / "bin" / name).write_text("new helper")
             target = home / ".local/bin/siverteh-brain-sync"
             target.parent.mkdir(parents=True)

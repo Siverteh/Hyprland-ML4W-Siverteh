@@ -4,7 +4,7 @@
 
 ## Terminal workspace logo refresh
 
-The terminal Siverteh AI workspace menu displays a palette-generated Kitty PNG.
+The terminal Nacre AI workspace menu displays a palette-generated Kitty PNG.
 Its input loop normally waits for a key, so updating the file alone can leave
 that graphic stale while terminal text colors have already changed. The existing
 palette publisher now creates the brand assets immediately after presentation

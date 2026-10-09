@@ -1,4 +1,4 @@
--- Siverteh OS compositor configuration. Host overrides load after defaults.
+-- Nacre compositor configuration. Host overrides load after defaults.
 -- -----------------------------------------------------
 -- Monitor
 -- -----------------------------------------------------
@@ -39,28 +39,28 @@ require("conf.animation")
 -- -----------------------------------------------------
 -- Shared Desktop Rules
 -- -----------------------------------------------------
-require("conf.siverteh")
+require("conf.nacre")
 
 -- Siverteh Observatory
 require("conf.brain")
 
 -- Private overrides retain this order; one broken file must not stop later ones.
 local function load_private(name)
-    local path = os.getenv("HOME") .. "/.config/siverteh-shell/" .. name .. ".lua"
+    local path = os.getenv("HOME") .. "/.config/nacre/" .. name .. ".lua"
     local file = io.open(path, "r")
     if not file then return end
     file:close()
     local ok, err = pcall(dofile, path)
     if not ok then
-        hl.notification.create({ text = "Siverteh: " .. name .. " failed: " .. tostring(err), timeout = 15000, icon = "error" })
+        hl.notification.create({ text = "Nacre: " .. name .. " failed: " .. tostring(err), timeout = 15000, icon = "error" })
     end
 end
 load_private("monitor")
--- Siverteh committed wallpaper palette
+-- Nacre committed wallpaper palette
 load_private("palette")
--- Siverteh desktop settings
+-- Nacre desktop settings
 load_private("desktop")
--- Siverteh native desktop shortcuts
+-- Nacre native desktop shortcuts
 load_private("shortcuts")
 -- Optional private host behavior.
 load_private("host")

@@ -1,6 +1,6 @@
-# How Siverteh OS fits together
+# How Nacre fits together
 
-Siverteh OS is the maintained software and configuration for this CachyOS desktop.
+Nacre is the maintained software and configuration for this CachyOS desktop.
 The [maintenance guide](maintenance.md) explains checks, deployment and rollback.
 
 ## The main pieces
@@ -18,7 +18,7 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   dashboard supplies weather, media, palette, resource gauges and notifications;
   Hyprlock owns its password field. SDDM handles the initial login. Wallpaper code
   supplies appearance only.
-- **Siverteh AI** manages Codex/Claude conversations and project work. **Brain**
+- **Nacre AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
   conversations and the Markdown vault are private data outside this repository.
 
@@ -55,13 +55,13 @@ on lock and on sleep; the picker temporarily allows a live preview.
 | Change | Edit |
 |---|---|
 | Workspaces and app placement | `hypr/conf/windowrule.lua`; Brain exceptions in `brain.lua` |
-| Keys and window appearance | `hypr/conf/keybinding.lua`, `siverteh/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
+| Keys and window appearance | `hypr/conf/keybinding.lua`, `nacre/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
 | Environment and cursor defaults | `uwsm/env`, `uwsm/env-hyprland`, `hypr/conf/cursor.lua` |
-| Idle locking | Private listeners in `~/.config/siverteh-shell/hypridle.local.conf`; sleep hooks in `hypr/hypridle.conf` |
-| Bar, menus and picker layouts | `siverteh/shell/modules/` |
-| Shared UI state and background work | `siverteh/shell/services/` |
-| Wallpaper/palette publication | `siverteh/shell-tools/wallpaper-media.py`, `classic-state.py`; generator in `siverteh/shell-cli/` |
-| Startup selections and host preferences | Settings UI; private `~/.config/siverteh-shell/` files |
+| Idle locking | Private listeners in `~/.config/nacre/hypridle.local.conf`; sleep hooks in `hypr/hypridle.conf` |
+| Bar, menus and picker layouts | `nacre/shell/modules/` |
+| Shared UI state and background work | `nacre/shell/services/` |
+| Wallpaper/palette publication | `nacre/shell-tools/wallpaper-media.py`, `classic-state.py`; generator in `nacre/shell-cli/` |
+| Startup selections and host preferences | Settings UI; private `~/.config/nacre/` files |
 | AI commands or Brain behavior | `ai/` or `brain/`; follow their project instructions |
 
 Source is deployed as copies. Host-generated colors, wallpaper libraries and personal
@@ -88,3 +88,6 @@ wallpaper-derived host colors remain private.
 The [health and recovery guide](features/health-and-recovery.md) explains sync,
 portal status and per-output view recovery. [Brain authentication](features/brain-authentication.md)
 explains the automatic local browser session and private credential boundary.
+
+The [Nacre name migration](features/nacre-rename.md) lists canonical directories,
+legacy aliases, namespace recovery and the separate system-owned migration.

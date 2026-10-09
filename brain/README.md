@@ -1,4 +1,4 @@
-# Siverteh Brain
+# Nacre Brain
 
 The private knowledge browser follows the current wallpaper palette and angular SH branding. Its persistent app stays on workspace6; Super+B brings it forward. The compatibility command/service paths retain the observatory name so existing shortcuts and sessions continue to work.
 

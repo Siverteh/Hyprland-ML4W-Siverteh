@@ -12,7 +12,7 @@ class PrivateLuaTests(unittest.TestCase):
         source = source[source.index("local function load_private") :]
         with tempfile.TemporaryDirectory() as directory:
             home = Path(directory)
-            private = home / ".config/siverteh-shell"
+            private = home / ".config/nacre"
             private.mkdir(parents=True)
             (private / "desktop.lua").write_text('error("broken setting")')
             (private / "shortcuts.lua").write_text('table.insert(loaded, "shortcuts")')

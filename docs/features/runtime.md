@@ -12,16 +12,16 @@ Install these through the distribution before provisioning:
 
 ```sh
 sudo pacman -Syu quickshell thunar xfconf exo libxfce4ui libgtop qt6-multimedia qt6-multimedia-ffmpeg qt6-imageformats papirus-icon-theme wtype ddcutil cpptrace libdwarf
-python3 siverteh/shell-tools/provision.py
-python3 siverteh/shell-tools/install-thunar.py
+python3 nacre/shell-tools/provision.py
+python3 nacre/shell-tools/install-thunar.py
 ```
 
 On mixed CachyOS/Arch repositories, ensure the selected Qt plugins and Quickshell
 match the already installed Qt release; choose explicit repository packages when
 necessary. Do not downgrade Qt plugins independently. Provisioning validates the
 system packages and installs only the pinned palette engine in
-`~/.local/share/siverteh-ai/shell-runtime/venv`. The Thunar installer compiles only
-`thunar-style/siverteh-thunar-theme.so`. Launchers remove private native library
+`~/.local/share/nacre/palette-runtime/venv`. The Thunar installer compiles only
+`thunar-style/nacre-thunar-theme.so`. Launchers remove private native library
 and Qt plugin/import overrides; Thunar uses normal distribution Xfconf activation.
 
 Before replacing a private runtime, retain a release snapshot, test system
@@ -31,10 +31,10 @@ snapshots can restore code/configuration; pacman owns package-version recovery.
 
 ## Future path consolidation
 
-The proposed canonical roots are `~/.config/siverteh-os` for preferences,
-`~/.local/state/siverteh-os` for durable desktop state, and
-`~/.cache/siverteh-os` for disposable caches. Existing `siverteh-shell`,
-`siverteh_shell`, and `siverteh-native-shell` paths remain compatibility contracts
+The proposed canonical roots are `~/.config/nacre` for preferences,
+`~/.local/state/nacre` for durable desktop state, and
+`~/.cache/nacre` for disposable caches. Existing `nacre`,
+`nacre_shell`, and `siverteh-native-shell` paths remain compatibility contracts
 for current tools; this review does not move personal state.
 
 A future migration should inventory each owner, stop only affected idle services,

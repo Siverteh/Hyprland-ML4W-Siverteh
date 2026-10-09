@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 class FilesRouteTests(unittest.TestCase):
     def test_default_uses_styled_thunar_with_literal_path(self):
-        loader = SourceFileLoader("app_route", str(ROOT / "bin/siverteh-os-app"))
+        loader = SourceFileLoader("app_route", str(ROOT / "bin/nacre-app"))
         spec = importlib.util.spec_from_loader(loader.name, loader)
         app = importlib.util.module_from_spec(spec)
         loader.exec_module(app)
@@ -25,22 +25,22 @@ class FilesRouteTests(unittest.TestCase):
             ):
                 app.main()
                 execute.assert_called_once_with(
-                    str(Path(directory) / ".local/bin/siverteh-os-shell"),
+                    str(Path(directory) / ".local/bin/nacre-shell"),
                     [
-                        str(Path(directory) / ".local/bin/siverteh-os-shell"),
+                        str(Path(directory) / ".local/bin/nacre-shell"),
                         "thunar",
                         "/tmp/with spaces",
                     ],
                 )
 
     def test_explicit_file_manager_is_preserved(self):
-        loader = SourceFileLoader("app_route", str(ROOT / "bin/siverteh-os-app"))
+        loader = SourceFileLoader("app_route", str(ROOT / "bin/nacre-app"))
         spec = importlib.util.spec_from_loader(loader.name, loader)
         app = importlib.util.module_from_spec(spec)
         loader.exec_module(app)
         with tempfile.TemporaryDirectory() as directory:
             home = Path(directory)
-            config = home / ".config/siverteh-shell/apps.json"
+            config = home / ".config/nacre/apps.json"
             config.parent.mkdir(parents=True)
             config.write_text('{"files":["thunar"]}')
             with (

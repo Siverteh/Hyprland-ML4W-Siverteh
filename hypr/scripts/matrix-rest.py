@@ -57,7 +57,7 @@ def read_color_from_rasi(name, fallback):
 
 
 def read_color_file(name, fallback):
-    path = Path.home() / ".config" / "siverteh" / "colors" / name
+    path = Path.home() / ".config" / "nacre" / "colors" / name
     if not path.exists():
         return fallback
 

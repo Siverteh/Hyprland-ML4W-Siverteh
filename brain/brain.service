@@ -1,5 +1,5 @@
 [Unit]
-Description=Siverteh Brain persistent desktop observatory
+Description=Nacre Brain persistent desktop observatory
 PartOf=graphical-session.target
 After=graphical-session.target
 

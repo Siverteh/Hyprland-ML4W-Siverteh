@@ -5,8 +5,8 @@ import argparse, datetime as dt, fcntl, hashlib, json, os, shutil, subprocess, s
 from pathlib import Path
 
 HOME = Path.home()
-STATE = HOME / ".local/state/siverteh-os/releases"
-CONTROL = HOME / ".local/share/siverteh-os/control"
+STATE = HOME / ".local/state/nacre/releases"
+CONTROL = HOME / ".local/share/nacre/control"
 
 
 def atomic(path, data):
@@ -45,20 +45,22 @@ def fingerprint(path):
 def paths(repo):
     # Explicit code/config allowlist. Never snapshot accounts, browser profiles, chats or wallets.
     result = [
-        HOME / ".local/share/siverteh-ai" / p
+        HOME / p
         for p in (
-            "siverteh-shell",
-            "shell-runtime",
-            "observatory",
-            "thunar-runtime",  # Retain old code in rollback during migration.
-            "thunar-style",
+            ".local/share/nacre/shell",
+            ".local/share/nacre/palette-runtime",
+            ".local/share/nacre/thunar-style",
+            ".local/share/siverteh-ai/observatory",
+            ".local/share/siverteh-ai/thunar-runtime",
         )
     ]
     result += [
         HOME / ".local/bin" / p
         for p in (
+            "nacre-shell",
             "siverteh-os-shell",
-            "siverteh-os-app",
+            "siverteh-os",
+            "nacre-app",
             "xdg-open",
             "siverteh-brain-ui",
             "siverteh-brain-sync",
@@ -68,21 +70,24 @@ def paths(repo):
     result += [
         HOME / ".config/systemd/user" / p
         for p in (
+            "nacre-shell.service",
             "siverteh-os-shell.service",
+            "siverteh-session-watch.service",
+            "siverteh-manual-power.service",
             "siverteh-sidebar-ai.service",
             "siverteh-observatory-brain.service",
-            "siverteh-session-watch.service",
+            "nacre-session-watch.service",
             "siverteh-brain-sync.service",
-            "siverteh-manual-power.service",
+            "nacre-power-key.service",
         )
     ]
     result += [
-        HOME / ".local/state/siverteh-os/configuration.json",
-        HOME / ".config/siverteh_shell/shell.json",
+        HOME / ".local/state/nacre/configuration.json",
+        HOME / ".config/nacre/shell.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
-        HOME / ".local/share/applications/siverteh-thunar.desktop",
+        HOME / ".local/share/applications/nacre-thunar.desktop",
     ]
-    managed = HOME / ".local/state/siverteh-os/configuration.json"
+    managed = HOME / ".local/state/nacre/configuration.json"
     for rel in json.loads(managed.read_text()) if managed.exists() else []:
         p = Path(rel)
         if p.is_absolute() or ".." in p.parts:
@@ -157,9 +162,9 @@ def restore(release, record=None, force=False):
             if "after" in e and fingerprint(Path(e["path"])) != e["after"]:
                 raise RuntimeError("Later edit preserved: " + e["path"])
     for service in (
-        "siverteh-os-shell.service",
+        "nacre-shell.service",
         "siverteh-observatory-brain.service",
-        "siverteh-session-watch.service",
+        "nacre-session-watch.service",
     ):
         subprocess.run(["systemctl", "--user", "stop", service], capture_output=True)
     for e in record["entries"]:
@@ -182,6 +187,21 @@ def restore(release, record=None, force=False):
             shutil.copytree(e["backup"], path, symlinks=True)
         elif e["kind"] == "file":
             shutil.copy2(e["backup"], path)
+    for old, new in [
+        ("siverteh-os-shell.service", "nacre-shell.service"),
+        ("siverteh-session-watch.service", "nacre-session-watch.service"),
+        ("siverteh-manual-power.service", "nacre-power-key.service"),
+    ]:
+        legacy = HOME / ".config/systemd/user" / old
+        canonical = legacy.with_name(new)
+        if not canonical.exists() and legacy.exists():
+            canonical.unlink(missing_ok=True)
+            canonical.symlink_to(legacy.name)
+            subprocess.run(
+                ["systemctl", "--user", "enable", legacy.name],
+                check=True,
+                capture_output=True,
+            )
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
     subprocess.run(["hyprctl", "reload"], check=True, capture_output=True)
     subprocess.run(
@@ -189,13 +209,13 @@ def restore(release, record=None, force=False):
             "systemctl",
             "--user",
             "start",
-            "siverteh-os-shell.service",
+            "nacre-shell.service",
             "siverteh-observatory-brain.service",
         ],
         check=True,
     )
     subprocess.run(
-        ["systemctl", "--user", "start", "siverteh-session-watch.service"],
+        ["systemctl", "--user", "start", "nacre-session-watch.service"],
         capture_output=True,
     )
     record["status"] = "rolled-back"
@@ -211,12 +231,15 @@ def install_controller(repo):
     CONTROL.mkdir(parents=True, exist_ok=True)
     for name in ("releases.py", "check-overlays.py"):
         shutil.copy2(repo / "tools" / name, CONTROL / name)
-    wrapper = HOME / ".local/bin/siverteh-os"
+    wrapper = HOME / ".local/bin/nacre"
     wrapper.parent.mkdir(parents=True, exist_ok=True)
     wrapper.write_text(
-        '#!/bin/sh\nexec python3 "$HOME/.local/share/siverteh-os/control/releases.py" "$@"\n'
+        '#!/bin/sh\nexec python3 "$HOME/.local/share/nacre/control/releases.py" "$@"\n'
     )
     wrapper.chmod(0o755)
+    legacy = HOME / ".local/bin/siverteh-os"
+    legacy.write_text('#!/bin/sh\nexec "$HOME/.local/bin/nacre" "$@"\n')
+    legacy.chmod(0o755)
 
 
 def prune_releases(keep=10):
@@ -273,6 +296,7 @@ def retire_native_runtimes(release):
     """Move recognized obsolete package trees out of active paths after live gates."""
     candidates = (
         (HOME / ".local/share/siverteh-ai/shell-runtime/usr", "bin/quickshell"),
+        (HOME / ".local/share/nacre/palette-runtime/usr", "bin/quickshell"),
         (HOME / ".local/share/siverteh-ai/thunar-runtime", "usr/bin/thunar"),
     )
     retired = []
@@ -299,7 +323,7 @@ def retire_native_runtimes(release):
 
 
 DESKTOP_SERVICES = (
-    "siverteh-os-shell.service",
+    "nacre-shell.service",
     "siverteh-sidebar-ai.service",
     "siverteh-observatory-brain.service",
 )
@@ -307,7 +331,7 @@ DESKTOP_SERVICES = (
 
 def required_live_services(components, initially_active):
     required = set(initially_active)
-    required.add("siverteh-os-shell.service")
+    required.add("nacre-shell.service")
     if "brain" in components:
         required.add("siverteh-observatory-brain.service")
     return sorted(required)
@@ -347,7 +371,7 @@ def deploy(repo, components, keyboard, migrate=False):
         == 0
     }
     release, record = capture(repo, revision)
-    environment = dict(os.environ, SIVERTEH_RELEASE_TRANSACTION="1")
+    environment = dict(os.environ, NACRE_RELEASE_TRANSACTION="1")
     try:
         for component in components:
             commands = {
@@ -365,7 +389,7 @@ def deploy(repo, components, keyboard, migrate=False):
                 ],
                 "shell": [
                     sys.executable,
-                    str(repo / "siverteh/shell-tools/install.py"),
+                    str(repo / "nacre/shell-tools/install.py"),
                     "--code-only",
                 ],
                 "brain": [sys.executable, str(repo / "brain/install.py")],
@@ -394,7 +418,7 @@ def deploy(repo, components, keyboard, migrate=False):
         errors = subprocess.check_output(["hyprctl", "configerrors"], text=True).strip()
         if errors:
             raise RuntimeError(errors)
-        installed = HOME / ".local/share/siverteh-ai/siverteh-shell"
+        installed = HOME / ".local/share/nacre/shell"
         good = installed / "source.good"
         pending = installed / "source.good.next"
         if pending.exists():
@@ -457,10 +481,7 @@ def main():
         subprocess.run(
             [
                 sys.executable,
-                str(
-                    HOME
-                    / ".local/share/siverteh-ai/siverteh-shell/tools/maintenance.py"
-                ),
+                str(HOME / ".local/share/nacre/shell/tools/maintenance.py"),
                 "state" if a.action == "doctor" else a.action,
             ],
             check=True,

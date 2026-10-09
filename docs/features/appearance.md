@@ -22,8 +22,8 @@ Red and Cobalt Blue); Soft includes eighteen gentler choices, preserving the
 original six. The page filters Vivid, Soft or All colors. Vivid accents preserve
 saturation while ensuring header and button contrast; light mode uses deeper
 accents for readable text. Regenerate the precomputed file with the maintained
-runtime's Python and `siverteh/shell-tools/generate-palettes.py`; output lives in
-`siverteh/shell-tools/palette-presets.json`. Match wallpaper restores image-derived
+runtime's Python and `nacre/shell-tools/generate-palettes.py`; output lives in
+`nacre/shell-tools/palette-presets.json`. Match wallpaper restores image-derived
 colors. Private picker preferences also hold rotation options, the fixed preset
 and its chosen mode. `classic-state.py` resolves fixed colors inside the existing
 publisher before updating shell presentation, frame, GTK, Qt, terminal, lock and

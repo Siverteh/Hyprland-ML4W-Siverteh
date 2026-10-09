@@ -142,7 +142,7 @@ def list_chats(args):
 
 def guidance():
     return (
-        "This session was opened with Siverteh AI. Read ~/.codex/AGENTS.md for shared personal workflow, "
+        "This session was opened with Nacre AI. Read ~/.codex/AGENTS.md for shared personal workflow, "
         "and ~/.config/siverteh-ai/projects.json for project/build-host locations. "
         "Read the selected project and working directory AGENTS.md as well as CLAUDE.md before editing. "
         "Follow project instructions and use isolated worktrees. Keep this conversation when the user changes project. "

@@ -193,12 +193,12 @@ class DiscoveryTests(unittest.TestCase):
             path="wiki/personal.md",
             meta={"entity": "world", "name": "Siverteh", "project": "personal"},
         )
-        product = note(2, "Siverteh OS", "Desktop settings")
+        product = note(2, "Nacre", "Desktop settings")
         product.update(
             path="wiki/os.md",
-            meta={"entity": "world", "name": "Siverteh OS", "project": "os"},
+            meta={"entity": "world", "name": "Nacre", "project": "os"},
         )
-        work = note(3, "A desktop tweak", "Siverteh OS panel configuration")
+        work = note(3, "A desktop tweak", "Nacre panel configuration")
         m.organize([person, product, work])
         self.assertNotIn("personal", {v["subject"] for v in work["memberships"]})
 

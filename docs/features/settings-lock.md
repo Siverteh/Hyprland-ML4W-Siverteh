@@ -6,7 +6,7 @@
 
 Settings remains inside the top-menu dashboard. Its navigation rail groups
 Appearance, Desktop, Displays, Sound, Network, Bluetooth, Notifications,
-Workflows, Lock screen, Siverteh AI and Maintenance. Search matches page names
+Workflows, Lock screen, Nacre AI and Maintenance. Search matches page names
 and setting keywords. Only the active page is loaded while Settings is open.
 Display scale/mode changes use the same20-second Keep/Revert safeguard as layouts.
 
@@ -24,7 +24,7 @@ unlock the session. Weather retrieval is bounded HTTPS with a private cache;
 failed refreshes retain their original timestamp and display a cached label.
 Lock widget IPC/cache contains presentation data only, never authentication.
 
-`siverteh-os-shell lock-preview` opens a clearly labelled layout preview with
+`nacre-shell lock-preview` opens a clearly labelled layout preview with
 Escape dismissal; it does not lock or authenticate. Changes take effect on the
 next real lock. Source changes require actual Hyprlock render checks in an
 isolated nested compositor, followed by the user's password-unlock check on the

@@ -28,12 +28,12 @@ def main():
         )
     home = Path.home()
     ipc = [
-        str(home / ".local/share/siverteh-ai/siverteh-shell/bin/qs"),
+        str(home / ".local/share/nacre/shell/bin/qs"),
         "-c",
-        "siverteh_shell",
+        "nacre",
         "ipc",
         "call",
-        "siverteh",
+        "nacre",
     ]
 
     def state():
@@ -53,9 +53,7 @@ def main():
         subprocess.run([*ipc, "close"], check=True)
     try:
         for action, mode in (("launcher", "apps"), ("wallpaper", "wallpaper")):
-            subprocess.run(
-                [str(home / ".local/bin/siverteh-os-shell"), action], check=True
-            )
+            subprocess.run([str(home / ".local/bin/nacre-shell"), action], check=True)
             time.sleep(0.6)
             opened = state()
             if not opened["launcher"] or opened["launcherMode"] != mode:

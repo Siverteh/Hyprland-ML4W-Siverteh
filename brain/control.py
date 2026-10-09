@@ -525,15 +525,15 @@ def search_notes(query):
 
 def desktop_theme():
     try:
-        return json.loads(
-            (HOME / ".local/state/siverteh_shell/scheme.json").read_text()
-        )["colours"]
+        return json.loads((HOME / ".local/state/nacre/scheme.json").read_text())[
+            "colours"
+        ]
     except (OSError, ValueError, KeyError):
         return {}
 
 
 def palette():
-    p = HOME / ".config/siverteh-shell/colors/primary"
+    p = HOME / ".config/nacre/colors/primary"
     try:
         value = p.read_text().strip()
         return value if re.fullmatch(r"#[0-9a-fA-F]{6}", value) else "#808080"
@@ -549,7 +549,7 @@ def action(name, value=""):
         ensure_brain(focus=True)
         return
     if name in ("tasks", "new", "resume"):
-        launch_app([str(HOME / ".local/bin/siverteh-os-shell"), name])
+        launch_app([str(HOME / ".local/bin/nacre-shell"), name])
         return
     if name == "assign-note":
         data = json.loads(value)
@@ -753,9 +753,7 @@ class Handler(BaseHTTPRequestHandler):
                     )
                 )
             if path.path == "/api/navigation":
-                nav = (
-                    HOME / ".local/state/siverteh-native-shell/extras/brain-focus.json"
-                )
+                nav = HOME / ".local/state/nacre/shell/extras/brain-focus.json"
                 value = json.loads(nav.read_text()) if nav.exists() else {}
                 if time.time() - value.get("created", 0) > 60:
                     value = {}
@@ -961,11 +959,11 @@ def ensure_brain(focus=False):
         if window:
             bootstrap_existing_browser()
         if focus:
-            run([str(HOME / ".local/bin/siverteh-os-shell"), "workspace", "6"])
+            run([str(HOME / ".local/bin/nacre-shell"), "workspace", "6"])
             if window:
                 run(
                     [
-                        str(HOME / ".local/bin/siverteh-os-shell"),
+                        str(HOME / ".local/bin/nacre-shell"),
                         "focus",
                         window["address"],
                     ]

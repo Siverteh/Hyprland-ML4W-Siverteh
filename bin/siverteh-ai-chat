@@ -61,7 +61,7 @@ class Codex:
                     "clientInfo": {
                         "name": "siverteh_workflow",
                         "version": "1.0",
-                        "title": "Siverteh AI",
+                        "title": "Nacre AI",
                     }
                 },
             )

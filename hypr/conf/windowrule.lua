@@ -67,7 +67,7 @@ hl.window_rule({
 
 -- Thunar uses the shared Files route bound in keybinding.lua.
 hl.window_rule({
-    name = "siverteh-thunar-files",
+    name = "nacre-thunar-files",
     match = { class = "^([Tt]hunar)$" },
     float = true,
     center = true,

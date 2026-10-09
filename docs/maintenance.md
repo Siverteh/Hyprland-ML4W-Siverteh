@@ -3,7 +3,7 @@
 This is the maintained source for a CachyOS/Arch desktop using Hyprland's Lua API.
 It is not an installer for an arbitrary Linux distribution. Install OS packages
 through the distribution's package manager, then provision the isolated shell
-palette environment with `python3 siverteh/shell-tools/provision.py`. Native packages are
+palette environment with `python3 nacre/shell-tools/provision.py`. Native packages are
 checked against the SHA-256 values in the local package database before extraction;
 the palette engine's tested Python dependency versions are pinned.
 
@@ -48,7 +48,7 @@ desktop configuration is backed up and removed. Unrecognized links and subsequen
 local edits cause a refusal before configuration writes.
 
 `tools/configure.py` tracks deployed file hashes in
-`~/.local/state/siverteh-os/configuration.json`. Routine updates replace files
+`~/.local/state/nacre/configuration.json`. Routine updates replace files
 only when they still match the previous deployment. Edit host preferences through
 the native settings UI or private override files; source changes belong in Git.
 AI workflow deployment is an explicit `--component ai` operation and preserves
@@ -60,10 +60,10 @@ Shell deployment parses QML before cutover, requires native IPC readiness and
 verifies the deployed source against the candidate. The supervisor can restore
 `source.good` after a startup failure; `source.previous` retains the preceding
 deployment. Configuration migration backups include a manifest under
-`~/.local/state/siverteh-os/backups`. Brain deployment keeps a private source backup
+`~/.local/state/nacre/backups`. Brain deployment keeps a private source backup
 and does not terminate the browser profile or other assistants.
 
-After applying, check `systemctl --user is-active siverteh-os-shell.service
+After applying, check `systemctl --user is-active nacre-shell.service
 siverteh-sidebar-ai.service siverteh-observatory-brain.service` and
 `hyprctl configerrors`. Preserve the original source revision and private backup
 until actual next-login startup has been checked. A health check cannot establish
@@ -87,7 +87,7 @@ all captured components. Accounts, wallets, browser profiles, conversations and
 personal preferences are outside these snapshots. Operating-system packages
 remain owned by the distribution's package manager.
 
-`~/.local/bin/siverteh-os doctor`, `profile`, `session`, `check`, and `rollback`
+`~/.local/bin/nacre doctor`, `profile`, `session`, `check`, and `rollback`
 provide the same maintenance actions as the Settings page. Rollback refuses later
 edits instead of silently overwriting them. The sidebar worker stays alive while
 its renderer is replaced; code changes to that worker are activated after it is
@@ -107,7 +107,7 @@ rollback and recovery.
 ## Host overrides and dependency updates
 
 The managed idle file owns lock and sleep hooks and sources private idle listeners
-from `~/.config/siverteh-shell/hypridle.local.conf`. `idle-policy.py` migrates old
+from `~/.config/nacre/hypridle.local.conf`. `idle-policy.py` migrates old
 full-policy overrides with a backup while preserving timeout values. A Hypridle
 service pre-start helper creates a missing listener file; missing preferences
 mean no idle timeout, with before-sleep locking still active. Private `host.lua`
@@ -115,7 +115,7 @@ continues to own optional power-button and display-wake behavior.
 
 Successful promotion keeps ten newest good releases plus current, previous and
 any retired-native backup. Older eligible good snapshots are pruned only after
-live gates pass. `siverteh-os doctor` reports release disk usage. Failed or unknown
+live gates pass. `nacre doctor` reports release disk usage. Failed or unknown
 snapshots remain diagnostic evidence; deletion of retired code requires a separate
 explicit cleanup. Only `tools/configure.py` writes managed `hyprland.lua`; private
 loaders catch errors and continue in monitor, palette, desktop, shortcuts, host order.

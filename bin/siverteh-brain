@@ -39,7 +39,7 @@ def initialize():
         (root / name).mkdir(exist_ok=True, mode=0o700)
     readme = root / "README.md"
     if not readme.exists():
-        readme.write_text("""# Siverteh Brain
+        readme.write_text("""# Nacre Brain
 
 This private local folder is the durable knowledge bank shared by your Codex and Claude accounts.
 Open this folder as an Obsidian vault, or use `siverteh-brain search WORDS`.
@@ -184,7 +184,7 @@ def main():
                 "secret-tool",
                 "store",
                 "--label",
-                f"Siverteh Brain: {args.name}",
+                f"Nacre Brain: {args.name}",
                 "service",
                 "siverteh-brain",
                 "name",

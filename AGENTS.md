@@ -1,4 +1,4 @@
-# Siverteh OS development
+# Nacre development
 
 This repository owns the current Hyprland Lua configuration, Quickshell desktop,
 palette engine, Brain, AI workflow and optional SDDM appearance. See

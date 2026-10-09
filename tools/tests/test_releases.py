@@ -17,7 +17,7 @@ class ReleaseTests(unittest.TestCase):
             home = Path(folder)
             repo = home / "repo"
             repo.mkdir()
-            source = home / ".local/share/siverteh-ai/siverteh-shell/source"
+            source = home / ".local/share/nacre/shell/source"
             source.mkdir(parents=True)
             (source / "shell.qml").write_text("before")
             account = home / ".codex/auth.json"
@@ -40,7 +40,7 @@ class ReleaseTests(unittest.TestCase):
             home = Path(folder)
             repo = home / "repo"
             repo.mkdir()
-            source = home / ".local/bin/siverteh-os-shell"
+            source = home / ".local/bin/nacre-shell"
             source.parent.mkdir(parents=True)
             source.write_text("before")
             with (
@@ -113,7 +113,7 @@ class RetentionTests(unittest.TestCase):
 
 class OptionalServiceGateTests(unittest.TestCase):
     def test_stopped_sidebar_is_not_required_or_started_by_desktop_deployment(self):
-        active = {"siverteh-os-shell.service", "siverteh-observatory-brain.service"}
+        active = {"nacre-shell.service", "siverteh-observatory-brain.service"}
         self.assertNotIn(
             "siverteh-sidebar-ai.service",
             m.required_live_services(["configs", "shell", "brain"], active),

@@ -20,8 +20,8 @@ RETIRED = (
     "matugen",
     "nwg-dock-hyprland",
     "rice",
-    "siverteh/wallpapers",
-    "siverteh/welcome",
+    "nacre/wallpapers",
+    "nacre/welcome",
 )
 
 
@@ -73,7 +73,7 @@ def main():
     print("Python, JSON, shell syntax and retired-tree checks passed.", flush=True)
     from window_rules import conflicts, bind_conflicts
 
-    extra_lua = [ROOT / "siverteh/shell-tools/shortcuts.lua"]
+    extra_lua = [ROOT / "nacre/shell-tools/shortcuts.lua"]
     contradictory = conflicts(ROOT / "hypr/conf", extra_lua) + bind_conflicts(
         ROOT / "hypr/conf", extra_lua
     )
@@ -87,7 +87,7 @@ def main():
         print("Lua syntax passed.", flush=True)
     formatter = Path("/usr/lib/qt6/bin/qmlformat")
     if formatter.exists():
-        for path in (ROOT / "siverteh").rglob("*.qml"):
+        for path in (ROOT / "nacre").rglob("*.qml"):
             formatted = run([str(formatter), str(path)], stdout_only=True)
             if formatted != path.read_text():
                 raise RuntimeError(
@@ -103,7 +103,7 @@ def main():
         "tools/tests",
         "ai/tests",
         "brain/tests",
-        "siverteh/shell-tools/tests",
+        "nacre/shell-tools/tests",
     ):
         output = run([sys.executable, "-m", "unittest", "discover", "-s", suite])
         summary = "\n".join(
@@ -112,18 +112,22 @@ def main():
             if line.startswith(("Ran ", "OK ", "OK"))
         )
         print(suite + ": " + summary.replace("\n", "; "), flush=True)
-    cli_python = Path.home() / ".local/share/siverteh-ai/shell-runtime/venv/bin/python"
+    cli_python = Path.home() / ".local/share/nacre/palette-runtime/venv/bin/python"
+    if not cli_python.exists():
+        cli_python = (
+            Path.home() / ".local/share/siverteh-ai/shell-runtime/venv/bin/python"
+        )
     if not cli_python.exists() and importlib.util.find_spec("materialyoucolor"):
         cli_python = Path(sys.executable)
     if cli_python.exists():
-        environment = dict(os.environ, PYTHONPATH=str(ROOT / "siverteh/shell-cli/src"))
+        environment = dict(os.environ, PYTHONPATH=str(ROOT / "nacre/shell-cli/src"))
         help_text = run(
-            [str(cli_python), "-m", "siverteh_shell", "--help"], env=environment
+            [str(cli_python), "-m", "nacre_shell", "--help"], env=environment
         )
         if "{scheme,wallpaper}" not in help_text:
             raise RuntimeError("Unexpected palette CLI commands")
         run(
-            [str(cli_python), "-m", "siverteh_shell", "scheme", "list", "--names"],
+            [str(cli_python), "-m", "nacre_shell", "scheme", "list", "--names"],
             env=environment,
         )
         print("Current palette CLI imported and parsed successfully.", flush=True)
@@ -142,7 +146,7 @@ def main():
     )
     if node_cmd:
         run([*node_cmd, "--check", str(ROOT / "brain/web/app.js")])
-        run([*node_cmd, str(ROOT / "siverteh/shell-tools/tests/test_beats.mjs")])
+        run([*node_cmd, str(ROOT / "nacre/shell-tools/tests/test_beats.mjs")])
         print("Brain JavaScript syntax and audio beat tests passed.", flush=True)
     else:
         print("Node.js checks skipped: Node.js unavailable.", flush=True)

@@ -6,13 +6,13 @@
 
 The Date and time page separates NTP clock synchronization from local timezone
 selection. Optional system integration is installed with administrator
-authentication: `pkexec /usr/bin/python3 siverteh/shell-tools/timezone.py install`.
+authentication: `pkexec /usr/bin/python3 nacre/shell-tools/timezone.py install`.
 The root-owned helper lives in `/usr/local/libexec`, with a system timer checking
 every15minutes and a NetworkManager dispatcher hook for connection changes.
 The device-location lookup accepts only fresh, sufficiently accurate fixes and
 valid IANA timezone names. Failed or imprecise fixes retain the last trustworthy
 or user-confirmed timezone. Root integration is separate from desktop release
-rollback; installation backups are under `/var/lib/siverteh-os/timezone`.
+rollback; installation backups are under `/var/lib/nacre/timezone`.
 
 Automatic mode uses the installed GeoClue GPS/Wi-Fi positioning service instead
 of public IP location. Mobile roaming and VPN gateways therefore cannot directly
@@ -22,7 +22,7 @@ coordinates. Offline libgweather maps an uncertainty envelope to a nearest-city
 timezone, rejecting differing-zone results near boundaries. This is conservative
 city-based mapping, not a guarantee of exact timezone-boundary geometry.
 
-The root-only `siverteh-os-timezone` client permission and desktop identity are
+The root-only `nacre-timezone` client permission and desktop identity are
 installed explicitly, without impersonating a GNOME app. Device requests are
 bounded to 12 seconds and stop after lookup; fixes older than five minutes or
 coarser than 5km are rejected. If a trustworthy fix is unavailable, the helper

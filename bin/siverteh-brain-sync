@@ -179,7 +179,7 @@ def merge(root, incoming, base, excluded=()):
     return changed, conflicts
 
 
-STATUS = Path.home() / ".local/state/siverteh-os/brain-sync.json"
+STATUS = Path.home() / ".local/state/nacre/brain-sync.json"
 
 
 def read_status():

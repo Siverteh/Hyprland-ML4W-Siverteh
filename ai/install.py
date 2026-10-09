@@ -227,7 +227,7 @@ def main():
         config.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         config.write_text(
             json.dumps(
-                {"projects": [{"id": "os", "label": "Siverteh OS", "path": str(repo)}]},
+                {"projects": [{"id": "os", "label": "Nacre", "path": str(repo)}]},
                 indent=2,
             )
             + "\n"

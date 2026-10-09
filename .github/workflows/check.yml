@@ -16,6 +16,6 @@ jobs:
       - name: Install the pinned palette engine in an isolated environment
         run: |
           python -m venv /tmp/check-env
-          /tmp/check-env/bin/pip install ./siverteh/shell-cli ruff==0.16.10
+          /tmp/check-env/bin/pip install ./nacre/shell-cli ruff==0.16.10
       - name: Source and native UI regression checks
         run: dbus-run-session -- xvfb-run -a /tmp/check-env/bin/python tools/check.py

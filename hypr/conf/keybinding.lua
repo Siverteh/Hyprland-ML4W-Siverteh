@@ -39,21 +39,21 @@ hl.bind("XF86PowerOff", hl.dsp.exec_cmd("loginctl lock-session"), {locked = true
 -- -------------------- Screen Brightness (with OSD) --------------------
 
 -- F5 = Brightness Down
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell brightness down"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/nacre-shell brightness down"))
 
 -- F6 = Brightness Up
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell brightness up"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/nacre-shell brightness up"))
 
 -- -------------------- Keyboard Backlight (with OSD) --------------------
 
 -- F4 = Keyboard brightness up
-hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell keyboard-light up"))
-hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell keyboard-light down"))
+hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("~/.local/bin/nacre-shell keyboard-light up"))
+hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("~/.local/bin/nacre-shell keyboard-light down"))
 
 -- -------------------- Emoji picker --------------------
 
 -- Emoji picker
-hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app emoji"))
+hl.bind("SUPER + period", hl.dsp.exec_cmd("~/.local/bin/nacre-app emoji"))
 
 -- -------------------- Microphone Controls (with OSD) --------------------
 
@@ -133,7 +133,7 @@ hl.bind("SUPER + SHIFT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/window-mini
 hl.bind("SUPER + ALT + H", hl.dsp.exec_cmd("~/.config/hypr/scripts/window-minimize.sh restore-current"))
 
 -- Display settings
-hl.bind("SUPER + ALT + K", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell settings"))
+hl.bind("SUPER + ALT + K", hl.dsp.exec_cmd("~/.local/bin/nacre-shell settings"))
 
 -- Window states
 hl.bind("SUPER + T", hl.dsp.window.float({ action = "toggle" }))
@@ -211,7 +211,7 @@ hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("uwsm app -- code"))
 hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- cursor"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd("uwsm app -- discord"))
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- spotify"))
-hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files"))
+hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/nacre-app files"))
 
 -- =====================================================
 
@@ -220,24 +220,24 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-app files
 -- =====================================================
 
 -- Categorized bottom launcher; require an explicit chord.
-hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell launcher"))
+hl.bind("SUPER + A", hl.dsp.exec_cmd("~/.local/bin/nacre-shell launcher"))
 
 -- Window picker
-hl.bind("SUPER + D", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell overview"))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("~/.local/bin/nacre-shell overview"))
 
 -- Scratchpad
 hl.bind("SUPER + grave", hl.dsp.workspace.toggle_special(""))
 hl.bind("SUPER + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
 
 -- Clipboard manager
-hl.bind("SUPER + V", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell clipboard"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd("~/.local/bin/nacre-shell clipboard"))
 
 -- =====================================================
 
 -- SYSTEM CONTROLS
 
 -- =====================================================
-hl.bind("SUPER + X", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell session"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd("~/.local/bin/nacre-shell session"))
 hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
@@ -248,10 +248,10 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 -- UTILITIES & TOOLS
 
 -- =====================================================
-hl.bind("SUPER + W", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell wallpaper"))
-hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell hide"))
-hl.bind("SUPER + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell toggle"))
-hl.bind("SUPER + SHIFT + O", hl.dsp.exec_cmd("~/.local/bin/siverteh-os-shell settings"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd("~/.local/bin/nacre-shell wallpaper"))
+hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/.local/bin/nacre-shell hide"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd("~/.local/bin/nacre-shell toggle"))
+hl.bind("SUPER + SHIFT + O", hl.dsp.exec_cmd("~/.local/bin/nacre-shell settings"))
 hl.bind("SUPER + CTRL + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/matrix-rest.sh"))
 
 -- =====================================================

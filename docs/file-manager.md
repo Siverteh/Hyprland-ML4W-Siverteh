@@ -3,7 +3,7 @@
 Thunar is the maintained file manager. Super+Shift+F, the Files app route, the
 Thunar Files launcher and directory associations all use its styled launcher.
 Super+F remains the fullscreen shortcut. Explicit personal app routes in
-`~/.config/siverteh-shell/apps.json` remain supported.
+`~/.config/nacre/apps.json` remain supported.
 
 The layout uses a centered floating window, 96-pixel icons, 24-pixel Places
 icons, readable Noto Sans text, breadcrumb navigation, a hidden menu bar and

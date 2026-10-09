@@ -1,15 +1,19 @@
-# Siverteh OS
+# Nacre
 
-Personal CachyOS/Hyprland desktop with a wallpaper-driven horizontal Quickshell bar, curved desktop frame, native dashboard and persistent AI sidebar. Siverteh AI supports conversation-first Codex/Claude chats; the private Brain organizes saved knowledge into subjects and topics without a coding-project registry.
+Nacre is mother-of-pearl: the layered, iridescent lining inside a shell. This
+Quickshell desktop takes its colors from your wallpaper and coordinates the
+whole desktop around them. Previously maintained as Siverteh OS.
+
+Personal CachyOS/Hyprland desktop with a wallpaper-driven horizontal Quickshell bar, curved desktop frame, native dashboard and persistent AI sidebar. Nacre AI supports conversation-first Codex/Claude chats; the private Brain organizes saved knowledge into subjects and topics without a coding-project registry.
 
 [System overview](docs/overview.md) explains the components, startup order and where to make changes.
 
 ## Current components
 
-- [Desktop shell](siverteh/shell/README.md) and [deployment helpers](siverteh/shell-tools/README.md): settings, audio/microphone/display/keyboard sliders, notification history, clipboard, app launcher and wallpaper chooser.
-- [Siverteh AI](ai/README.md): provider/account settings, new/resume/load chats, isolated project work and shared memory.
+- [Desktop shell](nacre/shell/README.md) and [deployment helpers](nacre/shell-tools/README.md): settings, audio/microphone/display/keyboard sliders, notification history, clipboard, app launcher and wallpaper chooser.
+- [Nacre AI](ai/README.md): provider/account settings, new/resume/load chats, isolated project work and shared memory.
 - [Brain](brain/README.md): overview, connections, full-text notes and inline reading. [Discovery design](brain/DISCOVERY.md) explains local semantic grouping, evidence-led growth and limitations.
-- [Login theme](siverteh/login/README.md): wallpaper-matched SDDM with manual authentication.
+- [Login theme](nacre/login/README.md): wallpaper-matched SDDM with manual authentication.
 
 ## Deployment
 
@@ -37,4 +41,4 @@ The semantic model is optional: `siverteh-ai-tools python brain/provision-semant
 | Super+Z | Fade bar and frame |
 | Super+B | Brain on workspace 6 |
 
-Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under siverteh/; retained third-party licenses and notices are included alongside adapted components, including the [palette-engine NOTICE](siverteh/shell-cli/NOTICE).
+Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under nacre/; retained third-party licenses and notices are included alongside adapted components, including the [palette-engine NOTICE](nacre/shell-cli/NOTICE).
