@@ -1,6 +1,6 @@
 # Nacre independent implementation tracker
 
-Status: Orient verified; independent text/surface foundation implemented, live gates pending, 2026-10-08.
+Status: Orient and first text/surface foundation batch verified, 2026-10-08.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -34,7 +34,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | Order | Area / current paths | Status | Spec and remaining work |
 |---|---|---|---|
 | 1 | All `nacre/shell-cli/`; generator imports in `shell-tools/generate-palettes.py`; inherited seed values in `reference-style.json` | verified | [Orient](../specs/orient.md), [comparison](../specs/orient-comparison.md); contract capture/prototype/review precede replacement |
-| 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | replaced | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
+| 2a | `shell/widgets/{StyledRect,StyledText,StyledClippingRect,StateLayer}.qml` | verified | [Design foundation spec](../specs/design-foundation.md); independent Nacre implementations plus compatibility adapters |
 | 2b | `shell/widgets/{StyledTextField,StyledWindow,MaterialIcon,Colouriser,CachingImage,VerticalSlider,StyledScrollBar,CustomShortcut}.qml` | audit pending | Remaining controls, media/window and icon batches |
 | 2 | `shell/config/{Appearance,BarConfig,DashboardConfig,LauncherConfig,NotifsConfig,OsdConfig,SessionConfig,BorderConfig}.qml`; `shell/utils/{Icons,Paths}.qml` | audit pending | Design tokens and compatibility boundaries; final fonts/icons remain undecided |
 | 3 | `shell/modules/launcher/{Content,ContentList,AppList,AppItem,Actions,ActionItem,WallpaperItem,WallpaperList}.qml` | audit pending | Include imports/helpers and current categories/favorites behavior |
@@ -125,4 +125,13 @@ runtime path consolidation is part of these documentation changes.
 - Validation: real new primitives and ActionButton under Qt; actual Quickshell RHI
   clipped-circle pixels; private native component sheet inspected. Chat and quick
   controls fixtures use the actual new interaction/token dependencies.
-- Final source/test/deployment evidence: fill after live release gates.
+- Spec commit `64e0dcd`, implementation `cb07776`. All 311 checks passed, including
+  native Qt input/text and actual Quickshell RHI clipping pixels; Hyprland config
+  verification passed. CI adds Mesa for the graphics capture under Xvfb.
+- Shell-only deployment promoted good release `20261009T032125352245Z`; installed
+  primitive bytes match the candidate, native IPC/source checks and actual
+  launcher/wallpaper Escape gates passed. No new-widget runtime errors or failed
+  user units found; configerrors empty. Approved richer Orient engine unchanged.
+- Remaining acceptance: physical cold login/lock and complete assistive-technology
+  coverage are not established. Icon-only labels, shared controls and config/provider
+  replacements remain their own batches. No license/notice removed.
