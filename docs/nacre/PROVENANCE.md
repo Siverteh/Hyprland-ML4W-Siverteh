@@ -2,7 +2,7 @@
 
 Status: Orient, foundation/frame/launcher/notifications and all dashboard/Settings
 views verified. All initially listed services addressed: eleven replaced, unused
-Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers verified. Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
+Thumbnailer retired. Matched presentation provider replaced. Wallpaper/weather providers verified. Bar controls and battery/calendar verified. Remaining mixed providers, supporting UI/config/helpers and whole-tree audit remain; 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -754,7 +754,7 @@ private state. No physical suspend/cold-login/multi-output/battery or whole-tree
 provenance completion claim. Remaining playback/helper/UI/config/assets and final
 audit still required; notices retained.
 
-## Bar controls and battery/calendar popouts (replaced; live verification pending)
+## Bar controls and battery/calendar popouts (verified)
 
 Deleted inherited/mixed ActiveWindow/Power/StatusIcons/Battery/Calendar bodies
 before NacreActiveTitle/NacrePowerButton/NacreStatusIcons/NacreBatteryPopup/
@@ -771,3 +771,25 @@ counter-rotated target positions/reactivity; native battery readiness and truthf
 unknown readings; estimates; profile availability/invalid-enum/user-only writes;
 calendar leap/year/local-day behavior; keyboard activation of the session menu.
 TopBar, other popouts and shared wrappers/services remain separate audit areas.
+
+Bar acceptance (2026-10-09): software `96c83f4`, good release `20261009T185728917153Z`.
+All363 checks, native QML format/parse, target Hyprland and final installer rerun /
+strict source/startup/launcher/wallpaper/Escape gates passed. Real five status
+hover targets and actual Battery/Calendar popouts captured/inspected. Sound,
+Network and Bluetooth header clicks open the correct Settings page and Escape
+closes each; power-menu opening/Escape passed without a power action. Six native
+hover/close/application-click/keyboard cycles plus launcher/wallpaper offclick
+passed. Profiles, volume and exact private preference/history hashes unchanged;
+installed owners match and CalendarGrid absent. Shell active, configerrors empty,
+no QML runtime error/binding-loop diagnostics. One physical output; cold-login,
+other output/rotation/profile-write/hardware/battery measurements not claimed.
+
+Live acceptance found existing explicit Settings focus and stale pin weaknesses:
+prior fixture injected focus manually. Own NacreDashboardPanel now requests it
+only for visible pinned Settings; fixture no longer injects it. Explicit root
+close resets dashboard/popout pins and edge-menu flags. Root shell/TopBar bodies
+remain separate audit tasks; small fixes/renamed callers do not certify those
+whole files as independent. Added read-only focus/target diagnostics omit titles
+and identities. powerprofilesctl works with system Python; this chat's palette
+venv PATH lacks GI, so live profile checks used native D-Bus. No package mutation.
+Notices retained; full goal still active and unfinished.
