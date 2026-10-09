@@ -243,6 +243,11 @@ TestCase {
         wait(20);
         compare(view.metrics[0].detail, "Unavailable");
         compare(view.metrics[0].value, "—°C");
+        SystemUsage.gpuTemp = 0;
+        compare(view.metrics[0].value, "—°C");
+        SystemUsage.gpuUsageAvailable = true;
+        compare(view.metrics[0].value, "0°C");
+        SystemUsage.gpuUsageAvailable = false;
         compare(view.metrics[1].detail, "15%");
         compare(view.metrics[2].value, "14.6 GiB");
         verify(findChild(view, "performanceSummary").text.includes("root free"));

@@ -396,3 +396,9 @@ pages/shared helpers/assets and final provenance audit remain pending; notices k
   selection/raise, repeat/shuffle/volume, missing data, resource units and sizing.
   Native generated-art renders and actual album-mask pixels inspected across wide
   and compact layouts. Full/live acceptance remains pending. Notices retained.
+
+Live data refinement: the retained collector uses0 as missing GPU temperature
+when usage is unavailable. The page treats that combination as unknown, while
+retaining genuine0 readings with available GPU data and nonzero sensor readings.
+A regression covers the sentinel. Hidden single-player choices do not add blank
+scroll range; only visible controls contribute to the page's intrinsic height.

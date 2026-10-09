@@ -290,6 +290,6 @@ Item {
                 }
             }
         }
-        contentHeight: Math.max(root.implicitHeight, choices.y + choices.height + 16)
+        contentHeight: root.implicitHeight
     }
 }

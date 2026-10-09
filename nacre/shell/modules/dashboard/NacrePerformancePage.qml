@@ -8,12 +8,14 @@ Item {
     id: root
     required property bool shouldUpdate
     readonly property bool compact: width < 700
+    // The current collector uses zero when no GPU sensor/usage data exists.
+    readonly property real gpuTemperature: !SystemUsage.gpuUsageAvailable && SystemUsage.gpuTemp === 0 ? NaN : SystemUsage.gpuTemp
     readonly property var metrics: [
         {
-            value: Model.temperature(SystemUsage.gpuTemp),
+            value: Model.temperature(root.gpuTemperature),
             label: "GPU temperature",
             first: SystemUsage.gpuUsageAvailable ? SystemUsage.gpuPerc : NaN,
-            second: Number.isFinite(SystemUsage.gpuTemp) ? SystemUsage.gpuTemp / 100 : NaN,
+            second: Number.isFinite(root.gpuTemperature) ? root.gpuTemperature / 100 : NaN,
             detail: SystemUsage.gpuUsageAvailable ? Model.percent(SystemUsage.gpuPerc) : "Unavailable",
             detailLabel: "GPU usage"
         },
