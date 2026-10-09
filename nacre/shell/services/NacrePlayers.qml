@@ -63,18 +63,22 @@ Singleton {
         }
     }
     GlobalShortcut {
+        appid: "nacre_shell"
         name: "mediaToggle"
         onPressed: root.control("playPause")
     }
     GlobalShortcut {
+        appid: "nacre_shell"
         name: "mediaNext"
         onPressed: root.control("next")
     }
     GlobalShortcut {
+        appid: "nacre_shell"
         name: "mediaPrev"
         onPressed: root.control("previous")
     }
     GlobalShortcut {
+        appid: "nacre_shell"
         name: "mediaStop"
         onPressed: root.control("stop")
     }

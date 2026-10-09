@@ -211,6 +211,7 @@ Singleton {
         onNotification: notification => root.receive(notification)
     }
     GlobalShortcut {
+        appid: "nacre_shell"
         name: "clearNotifs"
         onPressed: root.hidePopups()
     }
