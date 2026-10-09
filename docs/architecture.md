@@ -254,3 +254,6 @@ maintained utility window rules; private loaders retain final precedence. Kitty
 loads private generated palette and optional overrides. Fastfetch's plain layout
 and validated filesystem-age helper are independent; logo helpers/generator remain
 separate audit. Retiring an unused app rule does not uninstall that application.
+
+The [whole-tree provenance audit](nacre/CURRENT-TREE-AUDIT.md) inventories source,
+helpers, tests, configuration and assets separately from functional acceptance.

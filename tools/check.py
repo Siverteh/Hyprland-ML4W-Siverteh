@@ -71,6 +71,11 @@ def main():
     else:
         print("Ruff unavailable; Python formatting check skipped.", flush=True)
     print("Python, JSON, shell syntax and retired-tree checks passed.", flush=True)
+    run([sys.executable, str(ROOT / "tools/provenance.py"), "--check"])
+    print(
+        "Provenance registry integrity passed (pending audits remain explicit).",
+        flush=True,
+    )
     from window_rules import conflicts, bind_conflicts
 
     extra_lua = [ROOT / "nacre/shell-tools/shortcuts.lua"]

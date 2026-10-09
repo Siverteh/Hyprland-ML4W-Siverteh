@@ -172,3 +172,6 @@ stay with their prepared-cache owner. NacrePresentation validates and stages one
 watched wallpaper/palette record; only matching readiness activates a new poster.
 The ThemePresentation name forwards to it. See
 [image and presentation behavior](features/image-presentation.md).
+
+The [whole-tree provenance audit](nacre/CURRENT-TREE-AUDIT.md) inventories source,
+helpers, tests, configuration and assets separately from functional acceptance.

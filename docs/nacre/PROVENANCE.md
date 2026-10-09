@@ -6,6 +6,9 @@ background and topbar/hover verified. Root/shortcuts/panel-state also verified. 
 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
+See the [whole-current-tree audit](CURRENT-TREE-AUDIT.md) for repeatable coverage
+and explicit pending reviews beyond this initial list.
+
 ## Goal and evidence
 
 Replace implementation derived from Caelestia shell/CLI and ML4W dotfiles before
