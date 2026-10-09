@@ -1,6 +1,6 @@
 # Independent session input and placement defaults
 
-Spec ready, 2026-10-09. Next originality area after the audio retirement and Orient
+Implementation written, acceptance pending, 2026-10-09. Next originality area after the audio retirement and Orient
 source review. Target: `hypr/conf/{keyboard,cursor-behavior,cursor,layout,monitor,window}.lua`.
 The current Lua introduction (`f3290a5`) overlaps the old dotfile configuration;
 keyboard.conf history reaches the initial dotfiles import (`e0ef6d7`). A language
@@ -56,3 +56,32 @@ source/dependency review; tests or a new name alone do not establish origin.
 
 Remaining larger config areas (animation, autostart, keybindings, window routing)
 and other helpers are separate follow-up branches.
+
+## Recorded contract and implementation origin
+
+Native21-option capture before replacement: Norwegian layout with empty variant/
+model/options, numlock enabled, follow_mouse1/mouse_refocusfalse, sensitivity0,
+natural touchpad scrolling0.25 without disable-while-typing, no cursor warps,
+dwindle preserve_split, back-and-forthfalse/cyclestrue/pass-mousefalse, gaps6/12,
+border1/dwindle/resize-on-bordertrue. Monitor fallback is preferred/auto/scale1;
+private output policy retains the actual150% scale. Current border colors are
+palette-owned and naturally change with rotation; do not freeze them as defaults.
+Three-finger horizontal workspace gesture retained from its public declaration.
+
+Six bodies deleted before own flat-key option declarations and single startup
+cursor adapter were written. Cursor reads UWSM theme/size, uses POSIX single-quoted
+argument escaping, and ignores absent/invalid/noninteger native-int size values
+instead of inventing another preference source. Tests invoke its captured startup
+callback with a safe fake command owner, checking exact argv and malformed inputs.
+No real shell command executes in those tests. The native compositor parses the
+actual new config. Startup callback does not fire on ordinary config reload.
+
+Public option/gesture/monitor declarations and partial cursor callback call site
+were exposed during contract discovery; prior review/source exposure is acknowledged.
+No upstream/inherited implementation body was consulted for this replacement; no
+legal clean-room claim. Standard Hyprland API names and saved scalar preference
+values are behavior contracts, not a reused legacy implementation.
+
+References: [Lua utilities](https://wiki.hypr.land/configuring/core/advanced-configuration/lua-utilities/),
+[gestures](https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/), and
+[startup event](https://wiki.hypr.land/0.55.0/Configuring/Basics/Autostart/).

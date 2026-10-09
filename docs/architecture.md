@@ -263,3 +263,7 @@ prepared wallpaper posters supply previews without a second thumbnail worker.
 
 The unused Cava/Spectrum visualizer and its beat utility are retired. Maintained
 media views read the native player provider; no audio visualizer process is needed.
+
+Session input/layout/window/output defaults are independently expressed in the
+six small Hyprland config files; UWSM owns cursor preference and private overrides
+retain final precedence. See [the session-default spec](specs/session-defaults.md).

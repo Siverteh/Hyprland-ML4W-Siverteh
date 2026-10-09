@@ -1,24 +1,14 @@
--- -----------------------------------------------------
-
--- Keyboard Layout
-
--- https://wiki.hyprland.org/Configuring/Variables/#input
-
--- -----------------------------------------------------
+-- Nacre input defaults. Private desktop preferences load after this file.
 hl.config({
-    input = {
-        kb_layout = "no",
-        kb_variant = "",
-        kb_model = "",
-        kb_options = "",
-        numlock_by_default = true,
-        follow_mouse = 1,
-        mouse_refocus = false,
-        touchpad = {
-            natural_scroll = true,
-            scroll_factor = 0.25,
-            disable_while_typing = false,
-        },
-        sensitivity = 0,
-    },
+    ["input.kb_layout"] = "no",
+    ["input.kb_variant"] = "",
+    ["input.kb_model"] = "",
+    ["input.kb_options"] = "",
+    ["input.numlock_by_default"] = true,
+    ["input.follow_mouse"] = 1,
+    ["input.mouse_refocus"] = false,
+    ["input.sensitivity"] = 0,
+    ["input.touchpad.natural_scroll"] = true,
+    ["input.touchpad.scroll_factor"] = 0.25,
+    ["input.touchpad.disable_while_typing"] = false,
 })

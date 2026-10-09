@@ -1,28 +1,10 @@
--- -----------------------------------------------------
-
--- Layouts
-
--- name: "Default"
-
--- -----------------------------------------------------
+-- Stable split direction and predictable workspace cycling.
 hl.config({
-    dwindle = {
-        preserve_split = true,
-    },
+    ["dwindle.preserve_split"] = true,
+    ["binds.workspace_back_and_forth"] = false,
+    ["binds.allow_workspace_cycles"] = true,
+    ["binds.pass_mouse_when_bound"] = false,
 })
 
--- new_status = master
-hl.config({
-    binds = {
-        workspace_back_and_forth = false,
-        allow_workspace_cycles = true,
-        pass_mouse_when_bound = false,
-    },
-})
-
--- Laptop touchpad gestures:
-hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace",
-})
+-- The existing three-finger workspace gesture remains compositor-owned.
+hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })

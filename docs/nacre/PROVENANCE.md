@@ -1042,3 +1042,15 @@ batch; config plan0 changes, no redundant runtime cutover. Compatible output nam
 are distinguished from inherited algorithms. No upstream bodies consulted, no
 final similarity/legal clean-room/license conclusion; retained notices and remaining
 publisher/helper/config/test/asset/full-runtime audit stay required.
+
+## Session input and placement default replacement
+
+[Spec](../specs/session-defaults.md): six keyboard/cursor-behavior/cursor/layout/
+monitor/window Lua bodies deleted before fresh Nacre declarations and startup
+cursor adapter. Native21-option snapshot and public option/gesture/monitor/caller
+contracts retain current behavior; private output/desktop/palette/host overrides
+remain last. Cursor arguments are session-owned and safely quoted; callback tests
+cover malformed data/space/quote/substitution text without executing commands.
+Prior declaration/call-site exposure acknowledged, no upstream bodies consulted
+or legal clean-room claim. This does not audit the root/global seed, animation/
+keybinding/startup/routing/helper sources or establish a final license change.
