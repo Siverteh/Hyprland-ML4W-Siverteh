@@ -18,12 +18,12 @@ TestCase {
     property var groupedAPs: Wifi.group([firstAP, secondAP])
 
     function init() {
-        Visibilities.screens = ({
+        NacrePanelState.screens = ({
                 "test": {
                     "dashboard": false
                 }
             });
-        Visibilities.panels = ({
+        NacrePanelState.panels = ({
                 "test": {
                     "popouts": {
                         "hasCurrent": true,
@@ -46,12 +46,12 @@ TestCase {
         findChild(popup, "quickMicMute").clicked();
         compare(NacreAudio.micMuted, true);
         verify(!findChild(popup, "quickSettingsLink"));
-        Visibilities.openDeviceSettings("audio");
-        compare(Visibilities.settingsPage, "sound");
-        compare(Visibilities.screens.test.dashboardTab, 4);
-        verify(Visibilities.screens.test.dashboard);
-        verify(!Visibilities.panels.test.popouts.hasCurrent);
-        verify(!Visibilities.panels.test.popouts.pinned);
+        NacrePanelState.openDeviceSettings("audio");
+        compare(NacrePanelState.settingsPage, "sound");
+        compare(NacrePanelState.screens.test.dashboardTab, 4);
+        verify(NacrePanelState.screens.test.dashboard);
+        verify(!NacrePanelState.panels.test.popouts.hasCurrent);
+        verify(!NacrePanelState.panels.test.popouts.pinned);
     }
 
     function test_connected_ap_updates_when_same_name_roams() {
@@ -83,8 +83,8 @@ TestCase {
         findChild(popup, "quickWifiPower").clicked();
         compare(DeviceActions.lastRequest.join("|"), "wifi-radio|off");
         verify(!findChild(popup, "quickSettingsLink"));
-        Visibilities.openDeviceSettings("network");
-        compare(Visibilities.settingsPage, "network");
+        NacrePanelState.openDeviceSettings("network");
+        compare(NacrePanelState.settingsPage, "network");
     }
 
     function test_bluetooth_shows_known_devices_and_links_settings() {
@@ -94,8 +94,8 @@ TestCase {
         findChild(popup, "quickBluetoothPower").clicked();
         compare(DeviceActions.lastRequest.join("|"), "bluetooth-power|off");
         verify(!findChild(popup, "quickSettingsLink"));
-        Visibilities.openDeviceSettings("bluetooth");
-        compare(Visibilities.settingsPage, "bluetooth");
+        NacrePanelState.openDeviceSettings("bluetooth");
+        compare(NacrePanelState.settingsPage, "bluetooth");
     }
 
     function test_display_never_changes_devices_or_history_and_rejects_stale_rows() {

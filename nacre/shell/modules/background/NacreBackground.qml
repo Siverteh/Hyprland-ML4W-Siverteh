@@ -11,7 +11,7 @@ Variants {
         required property var modelData
         screen: modelData
         name: "background"
-        visible: !Visibilities.hidden
+        visible: !NacrePanelState.hidden
         anchors.top: true
         anchors.bottom: true
         anchors.left: true

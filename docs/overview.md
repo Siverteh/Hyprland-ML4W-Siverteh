@@ -15,6 +15,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   remains separate.
 - **Notification presentation** uses NacreNotice and a bounded popup stack; the
   NacreNotifs owns expiry, DND and private retained history.
+- **Root and panel routing** use NacrePanelState, NacreShellIpc and
+  NacreShellShortcuts; display recovery and private workers keep their ownership.
 - **Top bar and hover policy** use NacreTopBar/Header/WorkspaceRow and
   NacreHoverIntent, with separate nonmodal trigger and passive click forwarding.
 - **Bar controls** use NacreActiveTitle, NacreStatusIcons and NacrePowerButton;

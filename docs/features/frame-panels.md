@@ -57,3 +57,13 @@ the four existing allowlisted actions through AppLaunch, with no action on displ
 The enclosing frame retains Escape/outside-click/input ownership. Closing releases
 logical regions immediately and clips a short transition before unloading content.
 Reduced motion settles immediately. See the [wrapper spec](../specs/desktop-wrappers.md).
+
+## Root composition and panel routing
+
+NacrePanelState is the sole owner of panel flags and routing. NacreShellIpc preserves
+maintenance/control commands, previews, galleries, workspace/tab selection and
+recovery handoff. NacreShellShortcuts delegates keyboard/legacy drawer commands to
+the same owner. The root composes the existing independent surfaces and shared
+providers once. Ordinary reads/opening do not start an AI worker, change settings,
+apply a wallpaper or run a device action. The old Visibilities interface forwards
+mutable maps/preferences to the same owner for compatibility.

@@ -194,15 +194,15 @@ class QuickControlsTests(unittest.TestCase):
                 .replace("import qs.widgets", 'import "."')
             )
             visibility = (
-                (ROOT.parent / "shell/services/Visibilities.qml")
+                (ROOT.parent / "shell/services/NacrePanelState.qml")
                 .read_text()
                 .replace("import Quickshell", "")
                 .replace("Singleton {", "QtObject {")
                 .replace(": PersistentProperties", "")
             )
-            (target / "fixtures/Visibilities.qml").write_text(visibility)
+            (target / "fixtures/NacrePanelState.qml").write_text(visibility)
             with (target / "fixtures/qmldir").open("a") as f:
-                for name in [*services, "Visibilities"]:
+                for name in [*services, "NacrePanelState"]:
                     f.write(f"\nsingleton {name} 1.0 {name}.qml")
                 f.write(
                     "\nNacreNotice 1.0 NacreNotice.qml\nPowerProfile 1.0 PowerProfile.qml\nNacreIcon 1.0 NacreIcon.qml\nNacreInteraction 1.0 NacreInteraction.qml\nPwObjectTracker 1.0 PwObjectTracker.qml\n"

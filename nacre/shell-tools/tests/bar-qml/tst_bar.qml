@@ -28,13 +28,13 @@ TestCase {
         PowerProfiles.hasPerformanceProfile = true;
         PowerProfiles.profile = PowerProfile.Balanced;
         PowerProfiles.writes = 0;
-        Visibilities.view = {
+        NacrePanelState.view = {
             session: false,
             launcher: true,
             dashboard: true,
             osd: true
         };
-        Visibilities.panels = {
+        NacrePanelState.panels = {
             test: {
                 popouts: {
                     hasCurrent: true,
@@ -194,18 +194,18 @@ TestCase {
     }
     function test_power_keyboard_only_toggles_menu_not_machine() {
         const view = createTemporaryObject(power, test);
-        verify(!Visibilities.view.session);
+        verify(!NacrePanelState.view.session);
         const action = findChild(view, "nacrePowerActivation");
         action.forceActiveFocus();
         keyClick(Qt.Key_Return);
-        verify(Visibilities.view.session);
-        verify(!Visibilities.view.launcher);
-        verify(!Visibilities.view.dashboard);
-        verify(!Visibilities.view.osd);
-        verify(!Visibilities.panels.test.popouts.hasCurrent);
-        verify(!Visibilities.panels.test.popouts.pinned);
+        verify(NacrePanelState.view.session);
+        verify(!NacrePanelState.view.launcher);
+        verify(!NacrePanelState.view.dashboard);
+        verify(!NacrePanelState.view.osd);
+        verify(!NacrePanelState.panels.test.popouts.hasCurrent);
+        verify(!NacrePanelState.panels.test.popouts.pinned);
         keyClick(Qt.Key_Return);
-        verify(!Visibilities.view.session);
+        verify(!NacrePanelState.view.session);
         compare(NacreAudio.writes.length, 0);
         compare(PowerProfiles.writes, 0);
     }

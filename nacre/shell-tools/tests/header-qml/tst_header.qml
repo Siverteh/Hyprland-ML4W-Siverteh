@@ -27,7 +27,7 @@ TestCase {
     }
     function init() {
         NacreHyprland.requests = [];
-        Visibilities.calls = [];
+        NacrePanelState.calls = [];
         AppLaunch.calls = [];
         NacreHyprland.activeWsId = 2;
         NacreHyprland.clients = [];
@@ -53,7 +53,7 @@ TestCase {
     function test_header_display_no_commands_and_status_geometry() {
         const view = createTemporaryObject(header, test);
         wait(1);
-        compare(Visibilities.calls.length, 0);
+        compare(NacrePanelState.calls.length, 0);
         compare(AppLaunch.calls.length, 0);
         compare(view.width, 1920);
         compare(view.height, 50);
@@ -72,7 +72,7 @@ TestCase {
                 modal: false
             }
         };
-        Visibilities.panels = {
+        NacrePanelState.panels = {
             test: panel
         };
         const view = createTemporaryObject(header, test);
@@ -81,15 +81,15 @@ TestCase {
         verify(status && region);
         NacreHoverIntent.rearm("popouts", view.screen);
         view.showPopup("battery", status, true);
-        compare(Visibilities.calls[0], "battery");
+        compare(NacrePanelState.calls[0], "battery");
         verify(panel.popouts.headerHovered);
         verify(NacreHoverIntent.popupRegions.test.width > 0);
-        Visibilities.screens.test.session = true;
-        const calls = Visibilities.calls.length;
+        NacrePanelState.screens.test.session = true;
+        const calls = NacrePanelState.calls.length;
         view.showPopup("notifications", status, true);
-        compare(Visibilities.calls.length, calls);
-        Visibilities.screens.test.session = false;
-        Visibilities.panels = ({});
+        compare(NacrePanelState.calls.length, calls);
+        NacrePanelState.screens.test.session = false;
+        NacrePanelState.panels = ({});
     }
     function test_header_registration_follows_replaced_screen_and_safe_teardown() {
         const view = createTemporaryObject(header, test);

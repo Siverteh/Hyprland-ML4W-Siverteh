@@ -26,7 +26,7 @@ TestCase {
             name: "test"
         };
         NacreHyprland.clients = [];
-        Visibilities.screens = ({});
+        NacrePanelState.screens = ({});
         NacreWallpapers.displayDynamic = false;
         NacreWallpapers.displayAnimated = false;
         NacrePresentation.pending = ({});
@@ -215,14 +215,14 @@ TestCase {
         WallpaperPlayback.locked = true;
         verify(!view.motionAllowed);
         WallpaperPlayback.locked = false;
-        Visibilities.screens = {
+        NacrePanelState.screens = {
             test: {
                 launcher: true,
                 launcherMode: "wallpaper"
             }
         };
         verify(!view.motionAllowed);
-        Visibilities.screens = ({});
+        NacrePanelState.screens = ({});
         NacreHyprland.clients = [
             {
                 workspace: {

@@ -58,7 +58,7 @@ class RotationTests(unittest.TestCase):
                 "NacrePaths": 'property string state:"/tmp";property string pictures:"/tmp"',
                 "NacrePresentation": "property var pending:({});property var active:({})",
                 "WallpaperPlayback": "property bool sleeping:false;property bool locked:false",
-                "Visibilities": "property var screens:({})",
+                "NacrePanelState": "property var screens:({})",
             }
             for name, body in services.items():
                 (target / "fixtures" / (name + ".qml")).write_text(

@@ -183,7 +183,7 @@ Singleton {
         }
     }
     function execute(action, value) {
-        const v = Visibilities.getForActive();
+        const v = NacrePanelState.getForActive();
         if (!v)
             return;
         v.previewOnly = false;
@@ -191,11 +191,11 @@ Singleton {
         v.left = false;
         v.leftPinned = false;
         if (["apps", "palette", "overview", "clipboard", "keys", "wallpaper"].includes(action)) {
-            Visibilities.openMode(action);
+            NacrePanelState.openMode(action);
             return;
         }
         if (action === "settings") {
-            Visibilities.openSettings();
+            NacrePanelState.openSettings();
             return;
         }
         if (action === "left") {

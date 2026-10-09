@@ -12,7 +12,7 @@ Singleton {
     property var detector: Beats.create()
     property list<int> values
     property bool restartRequested: false
-    readonly property bool wanted: !Visibilities.hidden && Object.values(Visibilities.screens).some(v => {
+    readonly property bool wanted: !NacrePanelState.hidden && Object.values(NacrePanelState.screens).some(v => {
         return v.dashboard && v.dashboardTab < 2;
     })
 

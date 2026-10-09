@@ -12,7 +12,7 @@ Singleton {
     readonly property var retained: list.filter(entry => entry.retain)
     readonly property var popups: dnd ? [] : list.filter(entry => entry.popup)
     readonly property bool dnd: DesktopSettings.data.dnd === true
-    readonly property bool suppressed: Object.values(Visibilities.screens).some(view => view.launcher || view.dashboard || view.session) || Object.values(Visibilities.panels).some(panel => panel.notifications?.suppressed === true)
+    readonly property bool suppressed: Object.values(NacrePanelState.screens).some(view => view.launcher || view.dashboard || view.session) || Object.values(NacrePanelState.panels).some(panel => panel.notifications?.suppressed === true)
     readonly property bool expire: NacreNotifications.expire
     readonly property int defaultTimeout: NacreNotifications.defaultExpireTimeout
     property date clock: new Date()
@@ -166,7 +166,7 @@ Singleton {
     Timer {
         interval: 60000
         repeat: true
-        running: root.popups.length > 0 || Object.values(Visibilities.screens).some(view => view.dashboard && Visibilities.settingsPage === "notifications")
+        running: root.popups.length > 0 || Object.values(NacrePanelState.screens).some(view => view.dashboard && NacrePanelState.settingsPage === "notifications")
         onTriggered: root.clock = new Date()
     }
     Timer {

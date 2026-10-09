@@ -106,7 +106,7 @@ class SettingsUITests(unittest.TestCase):
                 adapted(ROOT.parent / "shell/widgets/ActionButton.qml", ".")
             )
             services = {
-                "Visibilities": 'property string settingsPage:"appearance";function openSettings(page){settingsPage=page}',
+                "NacrePanelState": 'property string settingsPage:"appearance";function openSettings(page){settingsPage=page}',
                 "TimezoneSettings": 'property var status:({timezone:"UTC",localTime:"12:34",automatic:false,installed:false});property string message:"";property bool busy:false;property var changes:[];function refresh(){} function change(kind,value){changes=[...changes,[kind,value]]}',
                 "NacreTime": "function format(pattern){return Qt.formatDateTime(new Date(2026,9,8,14,54),pattern)}",
                 "NacreWallpapers": 'property string poster:"";property string preview:"";property string current:"";property var list:[]; readonly property var retained:list;property var preferences:({rotationEnabled:true,rotationMinutes:30,rotationKind:"all",rotationShuffle:true,palettePreset:"wallpaper"});property string selectedAccent:"";property var paletteOptions:[{accent:"aabbcc",name:"Blue",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property var palettePresets:[{id:"ocean",name:"Ocean",group:"vivid",surface:"102030",swatches:["aabbcc","ccbbaa","abcabc"]}];property bool themeBusy:false;property bool rotationReady:true;property string rotationStatus:"Next wallpaper at 12:30";property string error:"";function preference(value){preferences=Object.assign({},preferences,value)} function advanceRotation(manual){} function setWallpaper(path){}',

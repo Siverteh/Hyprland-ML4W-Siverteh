@@ -6,7 +6,7 @@ Item {
     required property var screen
     property Item statusItem: null
     property Item calendarItem: null
-    readonly property var panel: Visibilities.panels[screen.name]
+    readonly property var panel: NacrePanelState.panels[screen.name]
     property alias handler: observer
     anchors.fill: parent
     visible: panel?.input?.modal === true

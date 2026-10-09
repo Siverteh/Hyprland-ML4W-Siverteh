@@ -45,7 +45,7 @@ class ClickAwayTests(unittest.TestCase):
             (path / "fixtures/DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({leftDrawer:true})}"
             )
-            (path / "fixtures/Visibilities.qml").write_text(
+            (path / "fixtures/NacrePanelState.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property bool hidden:false}"
             )
             (path / "fixtures/NacreFrame.qml").write_text(
@@ -53,7 +53,7 @@ class ClickAwayTests(unittest.TestCase):
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(
-                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton Visibilities 1.0 Visibilities.qml\nsingleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\n"
+                    "\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacreFrame 1.0 NacreFrame.qml\nsingleton NacrePanelState 1.0 NacrePanelState.qml\nsingleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\n"
                 )
             shutil.copy2(
                 ROOT / "tests/click-away-qml/tst_click_away.qml",

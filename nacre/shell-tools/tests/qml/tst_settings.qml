@@ -55,7 +55,7 @@ TestCase {
         wait(20);
         compare(view.pages.length, 12);
         compare(view.pages[0].label, "Appearance");
-        Visibilities.settingsPage = "bluetooth";
+        NacrePanelState.settingsPage = "bluetooth";
         wait(20);
         compare(view.page, "bluetooth");
         view.open("unknown");

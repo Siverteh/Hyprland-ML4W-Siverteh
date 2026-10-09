@@ -241,3 +241,10 @@ the native compositor owner. NacreHeaderTrigger/Forwarder split passive hover fr
 modal click observation. NacreHoverIntent owns per-output rearm/geometry state;
 old names are forwarding interfaces, not second owners. Surface recovery and frame
 input remain separate existing owners.
+
+The root shell now independently composes retained surfaces/providers once.
+NacrePanelState owns shared/per-output visibility, NacreShellIpc owns supported
+control/recovery queries, and NacreShellShortcuts owns native shortcut callbacks.
+The writable Visibilities compatibility adapter forwards to this single owner;
+registry/recovery still update owner-checked maps. App launch, palette/device and
+private assistant services are separate and unchanged by visibility commands.

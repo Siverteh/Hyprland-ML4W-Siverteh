@@ -49,7 +49,7 @@ TestCase {
     }
     function test_no_fast_or_slow_timer_hidden_and_rebase_when_reopened() {
         const view = createTemporaryObject(visible, test);
-        Visibilities.screens = {
+        NacrePanelState.screens = {
             fixture: view
         };
         const state = createTemporaryObject(service, test);
@@ -73,7 +73,7 @@ TestCase {
         view.dashboardTab = 2;
         verify(state.visibleDashboard);
         view.dashboard = false;
-        Visibilities.screens = {};
+        NacrePanelState.screens = {};
         verify(!state.visibleDashboard);
     }
 }

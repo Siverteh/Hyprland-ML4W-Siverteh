@@ -15,7 +15,7 @@ MouseArea {
         NacreHoverIntent.headers[screen.name] = containsMouse;
         if (clickMenus || y > NacreHoverIntent.dashboardDepth || !visibility || visibility.session || visibility.launcher || visibility.dashboardPinned || !NacreHoverIntent.canOpen("dashboard", screen, buttons))
             return;
-        const panel = Visibilities.panels[screen.name];
+        const panel = NacrePanelState.panels[screen.name];
         if (panel)
             panel.popouts.hasCurrent = false;
         visibility.dashboard = true;
@@ -31,7 +31,7 @@ MouseArea {
         id: expiry
         interval: 120
         onTriggered: {
-            const panel = Visibilities.panels[root.screen.name];
+            const panel = NacrePanelState.panels[root.screen.name];
             if (!root.clickMenus && !root.containsMouse && !panel?.dashboardHovered && !root.visibility?.dashboardPinned && root.visibility?.edgeMenu !== "dashboard")
                 root.visibility.dashboard = false;
         }

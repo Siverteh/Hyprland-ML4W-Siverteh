@@ -13,7 +13,7 @@ TestCase {
     function cleanup() {
         NacrePresentation.active = ({});
         NacrePresentation.pending = ({});
-        Visibilities.screens = ({});
+        NacrePanelState.screens = ({});
     }
     function entry(path, dynamic) {
         return {

@@ -9,14 +9,14 @@ NacreSurface {
     radius: width / 2
     color: "transparent"
     function toggle() {
-        const view = Visibilities.getForActive();
+        const view = NacrePanelState.getForActive();
         if (!view)
             return;
         const opening = !view.session;
         view.launcher = false;
         view.dashboard = false;
         view.osd = false;
-        for (const panel of Object.values(Visibilities.panels)) {
+        for (const panel of Object.values(NacrePanelState.panels)) {
             panel.popouts.hasCurrent = false;
             panel.popouts.pinned = false;
         }

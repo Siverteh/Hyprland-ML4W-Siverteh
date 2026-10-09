@@ -1,9 +1,10 @@
 # Nacre independent implementation tracker
 
-Status: Orient, foundation/frame/launcher/notifications and dashboard/Settings
-views verified. Initial services, matched presentation, wallpaper/weather providers
-and bar controls/battery/calendar verified. Quick popups/assembly also verified; supporting UI/config/helpers and whole-tree audit
-remain; 2026-10-09.
+Status: Orient, foundation/frame/launcher/notices/dashboard/Settings, initial
+services and presentation/wallpaper/weather providers, all bar/popups, OSD/session/
+background and topbar/hover verified. Root/shortcuts/panel-state replaced (acceptance
+pending). Other state/helpers/extras/config/assets and whole-tree audit remain;
+2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 ## Goal and evidence
@@ -912,3 +913,19 @@ verified in Qt fixtures. New helper policy validates finite inputs and does not 
 polling, process/update instances or focus grabs. Physical multi-output/hotplug/
 cold-login/battery are not claimed. Root shell/Shortcuts/shared providers/helpers,
 ML4W configs/assets/generators/tests and final audit remain. Notices retained.
+
+## Root shell, shortcuts and visibility owner (replaced; acceptance pending)
+
+Deleted mixed shell.qml/Shortcuts/Visibilities before independently composing root
+and NacreShellIpc/NacreShellShortcuts/NacrePanelState. Public contracts/IPC schema,
+shortcut names, current registry/recovery payloads, own views/services and tests
+were references. Prior full/partial source exposure acknowledged; no upstream
+implementation/no legal clean-room claim. Existing callers/fixtures renamed;
+small writable compatibility adapter forwards one owner. Recovery/assistant/
+device/palette providers remain separate audits and are not rewritten by renaming.
+
+Qt tests exercise actual router/bridge/shortcut methods with safe owners, multi-
+output/fallback, competing views, explicit pin/preview/query/reset, malformed/
+legacy/v2 restore, gallery/state/ranges, global press/release/interruption and
+passive dismissal. Registry maps and compatibility assignment share ownership;
+no settings/device/process action from display. Applicable notices retained.

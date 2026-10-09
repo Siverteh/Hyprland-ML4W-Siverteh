@@ -19,13 +19,13 @@ Variants {
         implicitHeight: NacreFrame.headerHeight
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         mask: Region {
-            width: Visibilities.hidden ? 0 : surface.width
+            width: NacrePanelState.hidden ? 0 : surface.width
             height: surface.height
         }
         NacreHeader {
             anchors.fill: parent
             screen: surface.screen
-            opacity: Visibilities.reveal
+            opacity: NacrePanelState.reveal
         }
     }
 }

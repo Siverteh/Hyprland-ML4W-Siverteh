@@ -39,7 +39,7 @@ Singleton {
             } catch (e) {}
         }
     }
-    readonly property bool visibleSettings: Object.values(Visibilities.screens).some(v => v.dashboard && v.dashboardTab === 4)
+    readonly property bool visibleSettings: Object.values(NacrePanelState.screens).some(v => v.dashboard && v.dashboardTab === 4)
     onVisibleSettingsChanged: if (visibleSettings)
         refresh()
     Timer {

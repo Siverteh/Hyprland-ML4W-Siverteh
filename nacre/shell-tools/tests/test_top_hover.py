@@ -44,11 +44,11 @@ Item {
             (folder / "DesktopSettings.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var data:({frameWidth:10})}"
             )
-            (folder / "Visibilities.qml").write_text(
+            (folder / "NacrePanelState.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}"
             )
             (folder / "qmldir").write_text(
-                "singleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton Visibilities 1.0 Visibilities.qml\n"
+                "singleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacrePanelState 1.0 NacrePanelState.qml\n"
             )
             (folder / "tst_trigger.qml").write_text("""import QtQuick
 import QtTest

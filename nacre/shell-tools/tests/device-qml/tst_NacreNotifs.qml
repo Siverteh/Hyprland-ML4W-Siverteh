@@ -54,7 +54,7 @@ TestCase {
         DesktopSettings.data = {
             dnd: false
         };
-        Visibilities.screens = {};
+        NacrePanelState.screens = {};
         NacreNotifications.defaultExpireTimeout = 5000;
     }
     function test_clean_load_never_writes_and_live_arrivals_merge_before_save() {
@@ -153,14 +153,14 @@ TestCase {
         verify(entry.deadline.running);
         entry.hovered = true;
         verify(!entry.deadline.running);
-        Visibilities.screens = {
+        NacrePanelState.screens = {
             test: {
                 dashboard: true
             }
         };
         verify(!entry.hovered);
         verify(!entry.deadline.running);
-        Visibilities.screens = {};
+        NacrePanelState.screens = {};
         verify(entry.deadline.running);
         native.closed(1);
         compare(entry.notification, null);

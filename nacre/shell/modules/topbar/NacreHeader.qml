@@ -9,8 +9,8 @@ import qs.modules.bar.components
 Item {
     id: root
     required property var screen
-    readonly property var visibility: Visibilities.screens[screen.name]
-    readonly property var panel: Visibilities.panels[screen.name]
+    readonly property var visibility: NacrePanelState.screens[screen.name]
+    readonly property var panel: NacrePanelState.panels[screen.name]
     readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus === true
     property string hoverHint: ""
     property string registeredName: ""
@@ -59,7 +59,7 @@ Item {
         const target = targets[name] || item;
         const p = target.mapToItem(root, target.width / 2, target.height / 2);
         if (!panel.popouts.hasCurrent || panel.popouts.currentName !== name)
-            Visibilities.popout(name, p.x, screen.name);
+            NacrePanelState.popout(name, p.x, screen.name);
     }
     function statusName(x) {
         const targets = [status.audioItem, status.network, status.bluetoothItem, status.battery, status.notificationsItem];
@@ -104,7 +104,7 @@ Item {
             NacreInteraction {
                 accessibleName: "Open applications"
                 function onClicked() {
-                    Visibilities.openMode("apps", "", false);
+                    NacrePanelState.openMode("apps", "", false);
                 }
             }
         }
@@ -190,7 +190,7 @@ Item {
                 onExited: root.leavePopup()
                 onClicked: {
                     const name = root.statusName(mouseX);
-                    if (Visibilities.openDeviceSettings(name))
+                    if (NacrePanelState.openDeviceSettings(name))
                         return;
                     if (name === "notifications" && root.panel?.popouts.hasCurrent && root.panel.popouts.currentName === name && root.panel.popouts.pinned) {
                         root.panel.input.dismiss();
@@ -254,9 +254,9 @@ Item {
     EdgeMenuHandle {
         anchors.centerIn: parent
         z: 3
-        visible: root.clickMenus && !Visibilities.hidden && root.visibility?.edgeMenu === "" && !root.visibility?.dashboard && !root.visibility?.launcher && !root.visibility?.session
+        visible: root.clickMenus && !NacrePanelState.hidden && root.visibility?.edgeMenu === "" && !root.visibility?.dashboard && !root.visibility?.launcher && !root.visibility?.session
         externalHovered: titleTrigger.containsMouse
-        onClicked: Visibilities.openEdge("dashboard", root.screen.name)
+        onClicked: NacrePanelState.openEdge("dashboard", root.screen.name)
     }
     IpcHandler {
         target: "header-" + root.screen.name

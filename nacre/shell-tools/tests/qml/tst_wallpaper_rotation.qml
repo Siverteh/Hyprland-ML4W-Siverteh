@@ -9,7 +9,7 @@ TestCase {
     function cleanup() {
         WallpaperPlayback.sleeping = false;
         WallpaperPlayback.locked = false;
-        Visibilities.screens = ({});
+        NacrePanelState.screens = ({});
     }
 
     function test_shuffle_visits_each_scene_before_repeating() {
@@ -61,21 +61,21 @@ TestCase {
         verify(!clock.running);
         WallpaperPlayback.sleeping = false;
         verify(clock.running);
-        Visibilities.screens = ({
+        NacrePanelState.screens = ({
                 "test": {
                     "launcher": true,
                     "launcherMode": "wallpaper"
                 }
             });
         verify(!clock.running);
-        Visibilities.screens = ({
+        NacrePanelState.screens = ({
                 "test": {
                     "dashboard": true,
                     "dashboardTab": 4
                 }
             });
         verify(!clock.running);
-        Visibilities.screens = ({});
+        NacrePanelState.screens = ({});
         verify(clock.running);
         view.preferences = Object.assign({}, view.preferences, {
             "rotationMinutes": 60

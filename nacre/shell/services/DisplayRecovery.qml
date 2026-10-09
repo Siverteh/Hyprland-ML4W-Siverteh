@@ -45,7 +45,7 @@ Singleton {
     function remember(name) {
         if (rebuilding.includes(name))
             return;
-        const v = Visibilities.screens[name], p = Visibilities.panels[name];
+        const v = NacrePanelState.screens[name], p = NacrePanelState.panels[name];
         if (!v || !p)
             return;
         const flags = {};
@@ -61,7 +61,7 @@ Singleton {
     function restoreSaved(data) {
         saved = data.screens || {};
         restoringNames = Object.keys(saved);
-        Visibilities.settingsPage = data.settingsPage || "appearance";
+        NacrePanelState.settingsPage = data.settingsPage || "appearance";
         restore.start();
     }
     function request(name) {
@@ -105,7 +105,7 @@ Singleton {
             for (const name of root.restoringNames) {
                 if (!Quickshell.screens.some(s => s.name === name))
                     continue;
-                const snapshot = root.saved[name], v = Visibilities.screens[name], p = Visibilities.panels[name];
+                const snapshot = root.saved[name], v = NacrePanelState.screens[name], p = NacrePanelState.panels[name];
                 if (!v || !p) {
                     failed = true;
                     continue;
@@ -132,7 +132,7 @@ Singleton {
         onStarted: write(JSON.stringify({
             version: 2,
             screens: root.saved,
-            settingsPage: Visibilities.settingsPage
+            settingsPage: NacrePanelState.settingsPage
         }) + "\n")
     }
     IpcHandler {

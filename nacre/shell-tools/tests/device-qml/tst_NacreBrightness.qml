@@ -28,13 +28,13 @@ TestCase {
         compare(state.monitors[0].brightness, .5);
         compare(state.monitors[0].writer.starts, 0);
         verify(!findChild(state, "screenLightTimer").running);
-        Visibilities.screens = {
+        NacrePanelState.screens = {
             test: {
                 osd: true
             }
         };
         verify(findChild(state, "screenLightTimer").running);
-        Visibilities.screens = {};
+        NacrePanelState.screens = {};
         const external = {
             name: "DP-1"
         };

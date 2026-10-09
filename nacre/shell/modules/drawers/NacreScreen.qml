@@ -36,9 +36,9 @@ NacreWindow {
     }
     Component.onCompleted: {
         registeredName = screen.name;
-        Registry.register(Visibilities, registeredName, flags, panelHost);
+        Registry.register(NacrePanelState, registeredName, flags, panelHost);
     }
-    Component.onDestruction: Registry.release(Visibilities, registeredName, flags, panelHost)
+    Component.onDestruction: Registry.release(NacrePanelState, registeredName, flags, panelHost)
     mask: NacrePanelMask {
         controller: inputController
     }
@@ -48,7 +48,7 @@ NacreWindow {
     FocusScope {
         id: scene
         anchors.fill: parent
-        opacity: Visibilities.reveal
+        opacity: NacrePanelState.reveal
         focus: true
         Keys.priority: Keys.AfterItem
         Keys.onEscapePressed: event => {

@@ -13,7 +13,7 @@ Item {
         ready = true;
         settleHover();
     }
-    property bool hidden: Visibilities.hidden
+    property bool hidden: NacrePanelState.hidden
     readonly property real padding: Math.max(12, NacreFrame.rounding / 2)
     readonly property bool modal: !hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.dashboard && visibilities.dashboardPinned || panels.popouts.pinned && panels.popouts.hasCurrent || visibilities.edgeMenu === "dashboard" && visibilities.dashboard || visibilities.edgeMenu === "left" && visibilities.left && !visibilities.leftPinned || visibilities.edgeMenu === "osd" && visibilities.osd)
     readonly property bool autoEdges: !hidden && !modal && DesktopSettings.data.clickEdgeMenus !== true && !visibilities.launcher && !visibilities.session && !NacreHoverIntent.fullscreenFor(screen.name)

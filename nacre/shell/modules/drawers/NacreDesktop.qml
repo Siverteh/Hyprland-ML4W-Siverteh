@@ -14,8 +14,8 @@ Scope {
     IpcHandler {
         target: "leftEdge"
         function state(): string {
-            const name = NacreHyprland.focusedMonitor?.name ?? Object.keys(Visibilities.panels)[0];
-            const input = Visibilities.panels[name]?.input;
+            const name = NacreHyprland.focusedMonitor?.name ?? Object.keys(NacrePanelState.panels)[0];
+            const input = NacrePanelState.panels[name]?.input;
             return JSON.stringify({
                 registered: !!input,
                 visible: input?.leftEdgeAvailable ?? false,
@@ -27,7 +27,7 @@ Scope {
     IpcHandler {
         target: "frame"
         function state(): string {
-            return JSON.stringify(Object.entries(Visibilities.panels).map(entry => Object.assign({
+            return JSON.stringify(Object.entries(NacrePanelState.panels).map(entry => Object.assign({
                     screen: entry[0]
                 }, entry[1].input.describe())));
         }

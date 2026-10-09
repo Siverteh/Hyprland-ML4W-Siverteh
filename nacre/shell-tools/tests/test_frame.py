@@ -56,11 +56,11 @@ Item {
  MouseArea {id:child;anchors.fill:parent;hoverEnabled:true;onClicked:root.clicks++}
  NacreHeaderForwarder {id:forwarder;screen:({name:"test"})}
 }""")
-            (target / "Visibilities.qml").write_text(
+            (target / "NacrePanelState.qml").write_text(
                 "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}\n"
             )
             (target / "qmldir").write_text(
-                "singleton Visibilities 1.0 Visibilities.qml\n"
+                "singleton NacrePanelState 1.0 NacrePanelState.qml\n"
             )
             (target / "tst_forward.qml").write_text("""import QtQuick
 import QtTest
@@ -71,7 +71,7 @@ TestCase {
  QtObject{id:controller;property bool modal:true;property int calls:0;function outsideClick(point){calls++}}
  function test_forwarding_preserves_child_clicks(){
   const view=createTemporaryObject(scene,this);
-  Visibilities.panels={test:{input:controller}};
+  NacrePanelState.panels={test:{input:controller}};
   controller.modal=true;controller.calls=0;
   wait(30);mouseMove(view,80,20);wait(10);
   mouseClick(view,80,20);
@@ -135,7 +135,7 @@ TestCase {
                     }
                 ),
                 "services/DesktopSettings": "property var data:({animations:false,leftDrawer:true,rightEdge:true})",
-                "services/Visibilities": "property bool hidden:false",
+                "services/NacrePanelState": "property bool hidden:false",
                 "services/NacreHyprland": "property var focusedMonitor:({name:'test'});property var activeClient:null",
                 "config/NacreFrame": "property int left:10;property int right:10;property int bottom:10;property int headerHeight:50;property int rounding:20",
             }

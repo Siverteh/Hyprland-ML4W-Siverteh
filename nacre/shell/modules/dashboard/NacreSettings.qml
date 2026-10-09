@@ -10,7 +10,7 @@ import "settings-catalog.js" as Catalog
 Item {
     id: root
     property bool active: true
-    property string page: Visibilities.settingsPage
+    property string page: NacrePanelState.settingsPage
     property string query: ""
     readonly property var pages: Catalog.pages
     readonly property var current: Catalog.find(page)
@@ -22,8 +22,8 @@ Item {
         const target = Catalog.find(id).id;
         page = target;
         query = "";
-        if (Visibilities.settingsPage !== target)
-            Visibilities.settingsPage = target;
+        if (NacrePanelState.settingsPage !== target)
+            NacrePanelState.settingsPage = target;
         if (scroll)
             scroll.contentY = 0;
     }
@@ -32,9 +32,9 @@ Item {
     onQueryChanged: if (scroll)
         scroll.contentY = 0
     Connections {
-        target: Visibilities
+        target: NacrePanelState
         function onSettingsPageChanged() {
-            root.open(Visibilities.settingsPage);
+            root.open(NacrePanelState.settingsPage);
         }
     }
     NacreSurface {

@@ -12,8 +12,8 @@ Variants {
         id: scope
 
         required property ShellScreen modelData
-        readonly property var visibility: Visibilities.screens[modelData.name]
-        readonly property bool available: DesktopSettings.data.clickEdgeMenus === true && !Visibilities.hidden && !!visibility && !visibility.launcher && !visibility.session && visibility.edgeMenu === "" && !visibility.dashboardPinned
+        readonly property var visibility: NacrePanelState.screens[modelData.name]
+        readonly property bool available: DesktopSettings.data.clickEdgeMenus === true && !NacrePanelState.hidden && !!visibility && !visibility.launcher && !visibility.session && visibility.edgeMenu === "" && !visibility.dashboardPinned
 
         NacreWindow {
             id: left
@@ -35,7 +35,7 @@ Variants {
                 width: parent.width
                 height: parent.height
                 icon: "chevron_right"
-                onClicked: Visibilities.openEdge("left", scope.modelData.name)
+                onClicked: NacrePanelState.openEdge("left", scope.modelData.name)
             }
 
             mask: Region {
@@ -65,7 +65,7 @@ Variants {
                 width: parent.width
                 height: parent.height
                 icon: "tune"
-                onClicked: Visibilities.openEdge("osd", scope.modelData.name)
+                onClicked: NacrePanelState.openEdge("osd", scope.modelData.name)
             }
 
             mask: Region {
