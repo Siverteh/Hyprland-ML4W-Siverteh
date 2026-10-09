@@ -283,6 +283,7 @@ Variants {
         }
         Item {
             id: modalForwarderPane
+            visible: Visibilities.panels[win.screen.name]?.input.modal === true
             anchors.fill: parent
             z: 100
             PointHandler {
@@ -290,7 +291,14 @@ Variants {
                 acceptedButtons: Qt.AllButtons
                 onActiveChanged: {
                     if (active) {
-                        const controller = Visibilities.panels[win.screen.name]?.input;
+                        const panel = Visibilities.panels[win.screen.name];
+                        const controller = panel?.input;
+                        function inside(item) {
+                            const origin = item.mapToItem(win.contentItem, 0, 0);
+                            return point.position.x >= origin.x && point.position.x < origin.x + item.width && point.position.y >= origin.y && point.position.y < origin.y + item.height;
+                        }
+                        if (panel?.popouts?.pinned && (inside(statusHolder) || inside(calendarItem)))
+                            return;
                         if (controller?.modal)
                             controller.outsideClick(point.position);
                     }

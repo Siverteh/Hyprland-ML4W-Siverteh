@@ -47,7 +47,7 @@ class FrameTests(unittest.TestCase):
             )
             trigger = source[start:end]
             (target / "Forwarder.qml").write_text(
-                "import QtQuick\nimport \".\"\nItem {id:win;width:200;height:50;readonly property Item contentItem:win;property var screen:({name:'test'});property alias handler:modalForwarder;property int clicks:0;MouseArea{anchors.fill:parent;onClicked:win.clicks++}\n"
+                "import QtQuick\nimport \".\"\nItem {id:win;width:200;height:50;readonly property Item contentItem:win;property var screen:({name:'test'});property alias handler:modalForwarder;property int clicks:0;property alias childHovered:child.containsMouse;MouseArea{id:child;anchors.fill:parent;hoverEnabled:true;onClicked:win.clicks++}\n"
                 + trigger
                 + "\n}"
             )
@@ -76,6 +76,8 @@ TestCase {
   mouseClick(view,80,20);
   compare(controller.calls,1);
   compare(view.clicks,2);
+  mouseMove(this,280,80);mouseMove(view,80,20);
+  tryCompare(view,"childHovered",true);
  }
 }
 """)
