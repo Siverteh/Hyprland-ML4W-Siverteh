@@ -57,3 +57,8 @@ required. Live QA does not write volume/radios/history/profile preferences.
 
 References: https://doc.qt.io/qt-6/qml-qtquick-loader.html
 https://quickshell.org/docs/v0.2.1/types/Quickshell.Services.Pipewire/Pipewire/
+
+Live Escape follow-up: pinned history closed correctly but immediately reopened
+from the header still under the pointer. Escape also calls the existing
+HoverIntent.dismiss(screen) before logical close; the header must be left/rearmed
+before passive reopening. Keep the native regression and fixture dismiss count.

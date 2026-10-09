@@ -1,5 +1,6 @@
 import QtQuick
 import qs.widgets
+import qs.services
 
 Item {
     id: root
@@ -65,6 +66,7 @@ Item {
         }
     }
     Keys.onEscapePressed: event => {
+        HoverIntent.dismiss(screen);
         hasCurrent = false;
         event.accepted = true;
     }

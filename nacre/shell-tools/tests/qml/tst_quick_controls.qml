@@ -167,6 +167,7 @@ TestCase {
             }
         ];
         NacreNotifs.clears = 0;
+        HoverIntent.dismissed = 0;
         DesktopSettings.writes = [];
         const popup = createTemporaryObject(assembly, test);
         popup.currentName = "notifications";
@@ -180,6 +181,7 @@ TestCase {
         findChild(popup.currentItem, "quickClearHistory").clicked();
         compare(NacreNotifs.clears, 1);
         keyClick(Qt.Key_Escape);
+        compare(HoverIntent.dismissed, 1);
         verify(!popup.hasCurrent);
         verify(!popup.pinned);
         NacreNotifs.retained = [];
