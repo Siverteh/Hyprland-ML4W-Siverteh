@@ -70,3 +70,19 @@ Old Audio/Network/Bluetooth service names are small external compatibility
 forwarders. Their popup filenames are separate presentation components and
 remain unchanged. The [service spec](../specs/device-services.md) records source
 boundaries; other services/popouts and helper provenance remain pending.
+
+## Independent bar targets
+
+NacreActiveTitle, NacreStatusIcons and NacrePowerButton now implement the bar's
+focused title, five status targets and explicit power-menu activation. Shared
+native services own the data; these views add no polling. Unknown battery data
+stays unknown until UPower is ready. The read-only `barStatus-OUTPUT state` IPC
+reports target geometry/counts for interaction checks without exposing window
+titles, network identities or notification text.
+
+NacreBatteryPopup uses native profile buttons with availability guards; opening
+it does not change a profile. NacreCalendarPopup uses Nacre's own local-date helper
+and locale week order. The inherited CalendarGrid is retired after its last caller
+was replaced. Old component names are small forwarders. Popup assembly and the
+other quick controls remain separate audit areas. See the
+[bar behavior spec](../specs/bar-controls.md).

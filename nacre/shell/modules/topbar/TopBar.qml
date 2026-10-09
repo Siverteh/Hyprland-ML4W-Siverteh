@@ -118,7 +118,7 @@ Variants {
             text: win.hoverHint
             color: NacreColours.palette.m3onSurfaceVariant
         }
-        Native.ActiveWindow {
+        Native.NacreActiveTitle {
             visible: win.hoverHint === ""
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
@@ -164,8 +164,9 @@ Variants {
                 color: NacreColours.palette.m3surfaceContainer
                 implicitWidth: status.implicitHeight + NacreAppearance.padding.normal * 2
                 implicitHeight: 34
-                Native.StatusIcons {
+                Native.NacreStatusIcons {
                     id: status
+                    screenName: win.screen.name
                     anchors.centerIn: parent
                     rotation: -90
                     horizontal: true
@@ -300,7 +301,7 @@ Variants {
                     }
                 }
             }
-            Native.Power {}
+            Native.NacrePowerButton {}
         }
         Item {
             id: modalForwarderPane

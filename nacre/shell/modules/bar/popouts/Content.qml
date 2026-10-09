@@ -28,8 +28,8 @@ Item {
                 notifications: "Notifications.qml",
                 network: "Network.qml",
                 bluetooth: "Bluetooth.qml",
-                calendar: "Calendar.qml",
-                battery: "Battery.qml"
+                calendar: "NacreCalendarPopup.qml",
+                battery: "NacreBatteryPopup.qml"
             })[root.currentName] ?? ""
         onLoaded: {
             if (item.implicitWidth > 0)

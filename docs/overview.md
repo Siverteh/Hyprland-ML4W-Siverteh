@@ -15,6 +15,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   remains separate.
 - **Notification presentation** uses NacreNotice and a bounded popup stack; the
   NacreNotifs owns expiry, DND and private retained history.
+- **Bar controls** use NacreActiveTitle, NacreStatusIcons and NacrePowerButton;
+  battery/calendar popouts use native data and Nacre calendar calculations.
 - **Wallpaper and weather providers** use NacreWallpapers and NacreWeather.
   Wallpaper commits share one queue and preserved rotation deadline; weather reads
   private cached forecasts and reports unavailable/stale data.

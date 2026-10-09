@@ -215,3 +215,10 @@ wallpaper-media.py remains the sole publication/cache helper. Matched active
 NacrePresentation state controls displayed assets. NacreWeather owns validated
 cached/live readings and coalesced refresh; weather.py owns bounded retrieval.
 Legacy provider names are minimal forwarders, not duplicate workers.
+
+NacreActiveTitle and NacreStatusIcons render existing compositor/device state;
+NacrePowerButton only opens the session menu. NacreBatteryPopup consumes native
+UPower/PowerProfiles; user activation alone changes a profile. NacreCalendarPopup
+reuses the independent overview calendar helper; CalendarGrid is retired. TopBar
+and dynamic popup assembly retain ownership of hover/focus and need their own
+remaining originality audits. Compatibility names do not add data owners.

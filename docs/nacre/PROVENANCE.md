@@ -753,3 +753,21 @@ publication failures and queues exercised through native fixtures, not applied t
 private state. No physical suspend/cold-login/multi-output/battery or whole-tree
 provenance completion claim. Remaining playback/helper/UI/config/assets and final
 audit still required; notices retained.
+
+## Bar controls and battery/calendar popouts (replaced; live verification pending)
+
+Deleted inherited/mixed ActiveWindow/Power/StatusIcons/Battery/Calendar bodies
+before NacreActiveTitle/NacrePowerButton/NacreStatusIcons/NacreBatteryPopup/
+NacreCalendarPopup implementations. Public declarations, layout declarations,
+TopBar caller and dynamic route map, own service/primitives/calendar data, native
+power API probe, dependency documentation and actual Qt tests informed the code.
+Prior source exposure acknowledged; no upstream body consulted/no legal clean-room
+claim. Maintained callers/routes use new names; old names minimal forwarders.
+Retired inherited CalendarGrid without opening its body after no remaining runtime
+or fixture callers. Stock icon/font dependencies and notices retained.
+
+Tests cover title elision/plain text/removal and bounded wheel writes; five
+counter-rotated target positions/reactivity; native battery readiness and truthful
+unknown readings; estimates; profile availability/invalid-enum/user-only writes;
+calendar leap/year/local-day behavior; keyboard activation of the session menu.
+TopBar, other popouts and shared wrappers/services remain separate audit areas.
