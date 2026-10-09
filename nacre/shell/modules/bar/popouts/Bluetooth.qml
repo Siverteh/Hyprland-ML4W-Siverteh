@@ -5,7 +5,7 @@ import qs.widgets
 Item {
     id: root
 
-    readonly property var known: Bluetooth.devices.filter(d => {
+    readonly property var known: NacreBluetooth.devices.filter(d => {
         return d.paired || d.trusted || d.connected;
     }).sort((a, b) => {
         return Number(b.connected) - Number(a.connected);
@@ -29,14 +29,14 @@ Item {
 
         ActionButton {
             objectName: "quickBluetoothPower"
-            text: Bluetooth.powered ? "Bluetooth on" : "Bluetooth off"
-            selected: Bluetooth.powered
+            text: NacreBluetooth.powered ? "Bluetooth on" : "Bluetooth off"
+            selected: NacreBluetooth.powered
             enabled: !DeviceActions.busy
-            onClicked: DeviceActions.request(["bluetooth-power", Bluetooth.powered ? "off" : "on"])
+            onClicked: DeviceActions.request(["bluetooth-power", NacreBluetooth.powered ? "off" : "on"])
         }
 
         QuickList {
-            visible: Bluetooth.powered
+            visible: NacreBluetooth.powered
 
             Repeater {
                 model: root.known
@@ -88,8 +88,8 @@ Item {
         NacreText {
             width: parent.width
             wrapMode: Text.Wrap
-            visible: !Bluetooth.powered || !root.known.length
-            text: !Bluetooth.powered ? "Turn on Bluetooth to connect your devices." : "No known devices. Open Bluetooth settings to find and pair one."
+            visible: !NacreBluetooth.powered || !root.known.length
+            text: !NacreBluetooth.powered ? "Turn on Bluetooth to connect your devices." : "No known devices. Open Bluetooth settings to find and pair one."
             font.pointSize: 10
             color: Colours.palette.m3onSurfaceVariant
         }

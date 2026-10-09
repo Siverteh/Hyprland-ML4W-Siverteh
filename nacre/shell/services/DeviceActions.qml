@@ -22,7 +22,7 @@ Singleton {
         id: worker
         onExited: {
             if (root.lastAction.startsWith("bluetooth"))
-                Bluetooth.refresh();
+                NacreBluetooth.refresh();
             else if (root.lastAction.startsWith("wifi"))
                 Network.refresh();
         }

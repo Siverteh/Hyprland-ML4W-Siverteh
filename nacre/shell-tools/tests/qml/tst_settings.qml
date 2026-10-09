@@ -423,7 +423,7 @@ TestCase {
             paired: true,
             trusted: false
         };
-        Bluetooth.devices = [device];
+        NacreBluetooth.devices = [device];
         view.open("bluetooth");
         wait(20);
         const bt = findChild(view, "settingsPage").item;
@@ -436,7 +436,7 @@ TestCase {
         DeviceActions.busy = true;
         bt.deviceAction(device, "trust");
         DeviceActions.busy = false;
-        Bluetooth.devices = [];
+        NacreBluetooth.devices = [];
         bt.deviceAction(device, "trust");
         compare(DeviceActions.requests.length, 2);
     }

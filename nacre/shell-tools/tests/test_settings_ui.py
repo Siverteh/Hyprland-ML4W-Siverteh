@@ -113,7 +113,7 @@ class SettingsUITests(unittest.TestCase):
                 "AppLaunch": "property var commands:[];function run(command){commands=[...commands,command]}",
                 "DesktopActions": "property var actions:[];function execute(action){actions=[...actions,action]}",
                 "Network": 'property bool wifiEnabled:true;property var active:null;property var networks:[];property var visibleNetworks:[];property string wifiInterface:""',
-                "Bluetooth": "property bool powered:false;property var devices:[]",
+                "NacreBluetooth": "property bool powered:false;property var devices:[]",
                 "DeviceActions": 'property bool busy:false;property string message:"";property var requests:[];property string connectedSSID:"";function request(args){requests=[...requests,args]} function connectWifi(ssid){connectedSSID=ssid}',
                 "Weather": 'property string description:"";property string location:"";property string error:"";property string displayTemperature:"";function reload(){}',
                 "Notifs": 'property var list:[]; readonly property var retained:list;property int clears:0;property string dismissed:"";function clearHistory(){clears++} function dismiss(entry){dismissed=entry.key}',

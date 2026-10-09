@@ -7,21 +7,21 @@ NacreSettingsPage {
     property string page: "bluetooth"
     function power() {
         if (!DeviceActions.busy)
-            DeviceActions.request(["bluetooth-power", Bluetooth.powered ? "off" : "on"]);
+            DeviceActions.request(["bluetooth-power", NacreBluetooth.powered ? "off" : "on"]);
     }
     function deviceAction(device, action) {
-        if (DeviceActions.busy || !Bluetooth.devices.includes(device) || !["connect", "disconnect", "trust", "untrust"].includes(action))
+        if (DeviceActions.busy || !NacreBluetooth.devices.includes(device) || !["connect", "disconnect", "trust", "untrust"].includes(action))
             return;
         DeviceActions.request(["bluetooth-" + action, device.address]);
     }
     NacreSettingsSection {
         title: "Bluetooth"
-        description: Bluetooth.powered ? "Bluetooth is on" : "Bluetooth is off"
+        description: NacreBluetooth.powered ? "Bluetooth is on" : "Bluetooth is off"
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
-                text: Bluetooth.powered ? "Turn Bluetooth off" : "Turn Bluetooth on"
+                text: NacreBluetooth.powered ? "Turn Bluetooth off" : "Turn Bluetooth on"
                 enabled: !DeviceActions.busy
                 onClicked: root.power()
             }
@@ -35,7 +35,7 @@ NacreSettingsPage {
         title: "Devices"
         description: "Pairing and discovery open in the Bluetooth manager."
         Repeater {
-            model: Bluetooth.devices
+            model: NacreBluetooth.devices
             delegate: Column {
                 required property var modelData
                 width: parent.width
@@ -56,7 +56,7 @@ NacreSettingsPage {
                     spacing: 8
                     ActionButton {
                         text: parent.parent.modelData.connected ? "Disconnect" : "Connect"
-                        enabled: !DeviceActions.busy && Bluetooth.powered
+                        enabled: !DeviceActions.busy && NacreBluetooth.powered
                         onClicked: root.deviceAction(parent.parent.modelData, parent.parent.modelData.connected ? "disconnect" : "connect")
                     }
                     ActionButton {
@@ -69,7 +69,7 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            visible: Bluetooth.devices.length === 0
+            visible: NacreBluetooth.devices.length === 0
             text: "No devices saved. Open the Bluetooth manager to pair one."
             wrapMode: Text.Wrap
             color: NacreTokens.mutedInk

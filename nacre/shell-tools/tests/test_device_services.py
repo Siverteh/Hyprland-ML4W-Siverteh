@@ -74,3 +74,6 @@ class DeviceServiceTests(unittest.TestCase):
 
     def test_audio_native_state_and_safe_writes(self):
         self.run_service("NacreAudio")
+
+    def test_bluetooth_native_models_are_readonly_and_reactive(self):
+        self.run_service("NacreBluetooth")

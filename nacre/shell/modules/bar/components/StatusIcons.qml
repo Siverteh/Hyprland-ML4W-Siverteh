@@ -50,7 +50,7 @@ Item {
         anchors.top: network.bottom
         anchors.topMargin: NacreAppearance.spacing.small
         animate: true
-        text: Bluetooth.powered ? "bluetooth" : "bluetooth_disabled"
+        text: NacreBluetooth.powered ? "bluetooth" : "bluetooth_disabled"
         color: root.colour
     }
 
