@@ -992,3 +992,16 @@ the only maintained preview paths. The installer copies the whole shell tree,
 so the dead file was still deployed. [Retirement spec](../specs/retired-thumbnail-helper.md)
 and the retired-path integrity guard cover the source boundary. Applicable
 notices remain; this does not certify unrelated thumbnail/publisher helpers.
+
+Retirement acceptance (2026-10-09): source `3544a59`, good release
+`20261009T214342269080Z`. All373 checks (37 tools,96 AI,35 Brain,205 shell),
+QML/native Hyprland and shell-only plan/apply transaction passed. Exact236-file
+active shell matches source and contains no retired helper. Actual wallpaper
+chooser/Appearance preview/Escape, matched palette/poster readiness, six
+application click/key-return cycles and outside dismissal passed; preview visually
+inspected.20 private wallpapers and recorded private preference/history hashes
+unchanged; busy assistant worker not restarted. Shell active/configerrors empty.
+Whole-tree registry covers614 current artifacts and records rewrite-change pointers
+for327; final review remains explicit pending, not a license/originality conclusion.
+Current reference inventory also finds Cava/Spectrum/beat utility isolated from
+maintained views; validate that dead group next, then mixed providers/helpers.
