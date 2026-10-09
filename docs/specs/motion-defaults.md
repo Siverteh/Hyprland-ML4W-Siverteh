@@ -1,6 +1,6 @@
 # Independent compositor motion defaults
 
-Implementation written, acceptance pending, 2026-10-09. Target: `hypr/conf/animation.lua`; larger startup/binding/
+Implemented and natively deployed, 2026-10-09. Fresh-session registry audit remains pending. Target: `hypr/conf/animation.lua`; larger startup/binding/
 routing files follow independently. The Lua file was introduced in `f3290a5`
 alongside old dotfile edits; translation and preset-header removal alone do not
 establish original implementation. Prior exposure must remain explicit.
@@ -68,3 +68,23 @@ validate the host's actual argument shape/values, not just this fixture's model.
 Full source and assets/dependencies still need final review and comparison.
 
 Reference: [Hyprland animation API/tree](https://wiki.hypr.land/configuring/core/animations/).
+
+## Reload limitation found during native acceptance
+
+Hyprland0.56.2 keeps existing named curve registrations across reload. After the
+new source loaded, the native registry was exactly its prior15 entries plus4 Nacre
+entries, not a freshly rebuilt6-entry registry. The initial strict registry-count
+check failed and exposed this behavior. All35 animation nodes match after the4
+ID mappings, all6 currently used/native curve shapes match, and no leaf refers to
+old custom IDs. Registry comparison now checks the exact union (no unplanned data
+change), rather than merely accepting any extra entry. The native Lua API exposes
+curve registration but no remove_curve/delete_curve method. No compositor restart
+or internal-memory manipulation was performed while user work is active.
+
+The nine unused registrations are removed from source, not claimed gone from the
+running process. A future fresh compositor session must confirm only the4 authored
+curves plus platform curves are registered. Keep this as an explicit runtime-audit
+follow-up before the whole originality completion claim. The temporary-window
+probe and screenshot filmstrip establish an actual opening/render sequence, not
+a300ms timing benchmark: timestamps include IPC/capture overhead. Native graph
+parameters are the exact before/after duration and inheritance evidence.

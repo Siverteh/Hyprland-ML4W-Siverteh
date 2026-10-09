@@ -1085,3 +1085,21 @@ Private override identifier checks found no old-curve consumer and use no privat
 implementation body. Prior declaration/source exposure recorded; no upstream
 consultation/legal clean-room/final-license claim. Underlying private profile
 helper/root/startup/binding/routing/test/assets remain separate audits.
+
+Motion acceptance (2026-10-09): source `427a889`, good release
+`20261009T222133697056Z`. All377 checks (41 tools,96 AI,35 Brain,205 shell),
+QML/native Hyprland and one-file config plan/apply strict transaction gates passed.
+All35 animation nodes exactly equal after4 ID mappings; four new shapes/default/
+linear match, no active leaf refers to old IDs. Installed file matches source,
+eight private preference hashes/worker identity and233-file shell source unchanged.
+Actual owned window opening/render filmstrip inspected and six app click/key-return
+cycles/menu outside dismissal passed. Capture timestamps include IPC/tool overhead,
+not a duration benchmark; graph values establish unchanged configured durations.
+
+Initial fresh-registry expectation failed: Hyprland0.56.2 retains registered curves
+on reload, leaving prior15+new4 exactly. Native Lua has no remove_curve/delete_curve
+API. The check now verifies that exact union and separately rejects old active
+references; no internal-memory manipulation or disruptive restart. Nine unused
+registrations retired in source, not falsely claimed removed from live memory.
+Fresh compositor-session registry check remains a final runtime-audit follow-up.
+Notices retained; larger source/helper/config/tests/assets and comparison remain.

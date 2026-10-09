@@ -828,6 +828,15 @@
         "hypr/conf/window.lua",
         "tools/tests/test_session_cursor.py"
       ]
+    },
+    {
+      "area": "motion-defaults",
+      "commit": "427a889",
+      "spec": "docs/specs/motion-defaults.md",
+      "paths": [
+        "hypr/conf/animation.lua",
+        "tools/tests/test_motion_defaults.py"
+      ]
     }
   ],
   "reviews": {
@@ -973,6 +982,15 @@
         "docs/specs/session-defaults.md",
         "docs/nacre/PROVENANCE.md#session-input-and-placement-default-replacement",
         "replacement 0ffb982: bodies deleted then independently composed from native option observations/public contracts and Hyprland APIs; installed bytes and native behavior verified; root/private dependencies remain separate audits"
+      ]
+    },
+    "hypr/conf/animation.lua": {
+      "disposition": "independent",
+      "sha256": "0f22c57ee019514c9858b415dc1da4c03082ce1923a9b6f8576729c85776aca7",
+      "evidence": [
+        "docs/specs/motion-defaults.md",
+        "docs/nacre/PROVENANCE.md#compositor-motion-default-replacement",
+        "replacement 427a889: target deleted then independently authored from native motion observations/public contracts; prior exposed declarations acknowledged; live active graph verified, dormant reload registrations remain explicit follow-up"
       ]
     }
   }
