@@ -95,6 +95,30 @@ TestCase {
         verify(!loader.item);
     }
 
+    function test_appearance_interval_writes_only_on_user_input() {
+        const prior = Wallpapers.preferences;
+        Wallpapers.preferences = Object.assign({}, prior, {
+            rotationMinutes: 30,
+            paletteAccent: "aabbcc"
+        });
+        const view = createTemporaryObject(settings, test);
+        view.open("appearance");
+        wait(30);
+        const field = findChild(findChild(view, "settingsPage").item, "wallpaperInterval");
+        compare(field.value, 30);
+        field.value = 45;
+        compare(Wallpapers.preferences.rotationMinutes, 30);
+        const scroll = findChild(view, "settingsScroll");
+        scroll.contentY = Math.max(0, field.mapToItem(scroll.contentItem, 0, 0).y - 80);
+        wait(30);
+        mouseClick(field, field.width - 17, field.height / 2);
+        compare(Wallpapers.preferences.rotationMinutes, 46);
+        compare(Wallpapers.preferences.paletteAccent, "aabbcc");
+        compare(field.from, 5);
+        compare(field.to, 1440);
+        Wallpapers.preferences = prior;
+    }
+
     function test_palette_rows_fit_the_available_width() {
         const prior = Wallpapers.palettePresets;
         Wallpapers.palettePresets = Array.from({

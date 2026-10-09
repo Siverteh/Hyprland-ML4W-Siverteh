@@ -28,6 +28,8 @@ class SettingsUITests(unittest.TestCase):
                     .replace("import Quickshell", "")
                     .replace("Quickshell.screens[0].height", "1080")
                     .replace("Quickshell.screens[0].width", "1920")
+                    .replace('Quickshell.env("HOME")', '"/fixture"')
+                    .replace('Quickshell.env("XDG_STATE_HOME")', '"/fixture/state"')
                 )
 
             source = adapted(ROOT.parent / "shell/modules/dashboard/NacreSettings.qml")
@@ -45,7 +47,10 @@ class SettingsUITests(unittest.TestCase):
             for path in (ROOT.parent / "shell/modules/dashboard/settings").glob(
                 "*.qml"
             ):
-                (pages / path.name).write_text(adapted(path, "../fixtures"))
+                source = adapted(path, "../fixtures")
+                if path.name == "NacreAppearancePage.qml":
+                    source = remove_objects(source, r"\bFileView\s*\{")
+                (pages / path.name).write_text(source)
             preview = (
                 adapted(ROOT.parent / "shell/lock-preview.qml")
                 .replace('import "widgets"', 'import "fixtures"')

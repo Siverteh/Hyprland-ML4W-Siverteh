@@ -213,7 +213,7 @@ Item {
     }
     Component {
         id: appearance
-        AppearancePage {}
+        NacreAppearancePage {}
     }
     Component {
         id: desktop

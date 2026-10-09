@@ -460,3 +460,17 @@ match; retired bodies absent; configerrors empty. No preference/hardware/account
 write during live verification. Page bodies/DesktopControls/services remain
 pending; notices kept. One output/synthetic inputs do not prove cold login or
 physical multi-output.
+
+## Appearance page replacement (candidate)
+
+- Deleted AppearancePage body without opening it; own NacreAppearancePage,
+  palette tile and styled number control from spec/runtime/test/owner contracts.
+  Existing preset data/Orient and wallpaper/desktop owners retained.
+- Preserved scene preview/picker, motion, timed rotation/pool/order/interval,
+  image accents/fixed palettes, light/dark, Natural/Harmony, native scheme style/
+  contrast and private frame/edge preferences. Scheme state is a native watched
+  file, with no interpreter poll; only explicit input writes.
+- Existing palette/harmony/tile/scroll tests remain and now run actual fresh page.
+  Palette width uses integer pixel sizes to avoid floating-point flow wrap.
+  Providers/helpers and other settings pages still pending; notices retained.
+  Full/native/live acceptance pending.

@@ -154,3 +154,12 @@ Appearance replaces an internal type-name label. NacreSettingsPage/Section/Toggl
 measure content and wrapped labels, expose the existing content aliases and call
 the preference owner only after user activation. Individual page bodies remain
 separate rewrite work; existing device, palette, lock and account behavior stays.
+
+## Independent Appearance controls
+
+NacreAppearancePage uses the existing wallpaper/palette owners for cached scene
+previews, motion, rotation and color choices. NacrePaletteTile shows cached real
+swatches; NacreNumberField uses the shell colors and emits only user modifications.
+Natural/Harmony, remembered accents, fixed palette groups and mode remain. Scheme
+style/contrast commands use Orient's existing CLI; a native file watcher shows
+current state. Loading the page never changes colors, rotation or frame settings.
