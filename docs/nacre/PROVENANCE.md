@@ -611,3 +611,22 @@ were not exercised. Shell active, configerrors empty and no QML runtime error/
 binding-loop diagnostics. No physical/cold-login/battery measurement or whole-tree
 license conclusion. Remaining providers/bar/wrappers/config/helpers/assets/audit
 still pending; notices retained.
+
+## App discovery, clock and compositor providers (implemented; live checks pending)
+
+- Deleted Apps/Time/Hyprland bodies before fresh NacreApps/Time/Hyprland, NacreClient
+  and app-search.js. Minimal old-name forwarders preserve current API callers;
+  consumer changes are mechanical service-name migrations, not proof of those
+  other bodies' originality. Wallpaper fuzzy helper remains a separate task.
+- Exposure: public declarations/consumer/launch interfaces, prior schemas, runtime
+  UI/tests and official native APIs. No upstream implementation consulted; no
+  legal clean-room assertion. Notices remain.
+- Own native catalog/ranker and guarded parsed-command launch; native civil clock
+  at minute precision with opt-in seconds; stable native client views, event
+  metadata coalescing, canonical addresses and generation-guarded focus bootstrap,
+  existing Lua dispatch paths and no periodic client/focus interpreter polling.
+- Native probe caught premature metadata queries and unprefixed addresses/missing
+  activated handles. Fixes now match actual focused workspace/window. Full-check
+  fixture missed a service path migration; corrected without runtime suppression.
+- Other providers, palette/brightness, bar/wrappers/config/helpers/assets and final
+  audit remain pending. Full/live acceptance follows.

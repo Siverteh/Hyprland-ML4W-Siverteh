@@ -138,3 +138,10 @@ views and uses occasional read-only disk/sysfs snapshots. NacreNotifs owns the
 single notification server, live entries and guarded private-history merging/
 saving; old service names forward to these owners. See
 [the service guide](features/state-services.md) for limits and lifecycle behavior.
+
+NacreApps owns native desktop discovery and independently ranked search, while
+AppLaunch retains parsed-command/themed-entry scope. NacreTime supplies one native
+minute clock with optional seconds. NacreHyprland exposes stable native client
+views, canonical addresses, event-driven metadata/focus and Lua-aware dispatch.
+See [platform services](features/platform-services.md); palette and brightness
+providers remain separate work.
