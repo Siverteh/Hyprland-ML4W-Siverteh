@@ -1,7 +1,7 @@
 # Nacre independent implementation tracker
 
 Status: Orient/foundation/frame/launcher and notification presentation verified;
-dashboard assembly verified with page bodies pending. Whole rewrite unfinished,
+dashboard assembly and overview cards verified; larger page bodies pending. Whole rewrite unfinished,
 2026-10-09.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
@@ -337,7 +337,7 @@ within output bounds, installed source matched and configerrors empty. Retained
 page/card/settings/service bodies are still pending; this verifies assembly only.
 No license/notice removed and physical multi-monitor/cold login remain untested.
 
-## Dashboard overview cards (candidate)
+## Dashboard overview cards (verified; services/larger pages pending)
 
 - Deleted dashboard/Dash.qml and dash/{Weather,User,DateTime,Calendar,Resources,
   Media}.qml without opening their bodies. New NacreOverview and overview/
@@ -368,3 +368,15 @@ Candidate refinement: explicit viewport intersection stops host/media sampling
 when narrow-layout cards scroll offscreen. Artwork follows the current player
 only while visible, keeps loaded pixels during asynchronous replacement and
 falls back after failure/removal. Actual scroll tests cover these transitions.
+
+Overview acceptance (2026-10-09): implementation `0a2b8a2`, good release
+`20261009T124333312676Z` (exact release manifest remains private). All 328 tests,
+Qt parsing/formatting, Hyprland validation and native launcher/Escape/source
+release gates passed. Real pointer month navigation visibly changed October2026
+→ November2026 → October2026 (isolated label OCR verified); live overview918×604
+inspected. All five dashboard tabs still load, only Settings is modal, Appearance
+navigation/Escape/outside click pass. Installed overview files match candidate,
+configerrors empty and shell active. Transport checks use a fixture player and
+never skip the user's real track. One-output synthetic checks do not establish
+physical multi-output/cold-login or measured battery consumption. Services, other
+pages/shared helpers/assets and final provenance audit remain pending; notices kept.
