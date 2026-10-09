@@ -21,7 +21,8 @@ The main decorative `overtone` retains the selected source color. Text/UI accent
 change lightness only as needed for readability, preserving hue with OKLCH gamut
 mapping. Very dark pigments retain relative color strength when lifted. Body
 surfaces have restrained tint, with a dedicated more visible wallpaper-colored
-frame role. Normal wallpaper button accents have a comfortable chroma ceiling;
+frame role for palette previews and decoration. Exterior shell chrome uses the
+same darker body token as the top bar. Normal wallpaper button accents have a comfortable chroma ceiling;
 explicit Vivid presets retain their intensity. Subtle real image hues are gently
 strengthened so supporting accents stay distinct. ANSI/semantic colors keep their recognizable
 meaning. Normal role pairs meet 4.5:1; essential outlines target 3:1. Actual
@@ -78,12 +79,13 @@ snapshots copy runtime bytes so rollback does not depend on an old symlink targe
 Do not delete historical environments until recovery references have been reviewed.
 Image assets and palette caches remain private, outside Git/release snapshots.
 
-Only the palette implementation is replaced. Existing GPL/notices remain pending
-review of the rest of the desktop; other inherited shell code is unchanged.
+The palette and shared foundation implementations are replaced. Existing GPL/notices
+remain pending the [whole-desktop audit](../nacre/PROVENANCE.md); panel/service and
+other inherited areas still need independent replacement.
 
 ## Validation measurements
 
-On the current laptop, the 2026-10-08 private audit covered all twenty library
+For the initial Orient implementation (`5ecf556`), the 2026-10-08 private audit covered all twenty library
 wallpapers/posters. Across 240 repeated uncached extraction/generation operations
 (including decoding, warm OS file cache), median was 74.84ms and nearest-rank p95
 92.98ms. Across 240 cached reads, median was 0.30ms and p95 0.34ms. The audit
