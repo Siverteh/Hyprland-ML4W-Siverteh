@@ -84,3 +84,7 @@ release and does not require a Quickshell rebuild. The preflight compares releas
 versions, including dependency epochs, rather than warning for every Qt package
 revision. Actual release changes still retain the rebuild guard and the post-update
 runtime/build check.
+
+Orient runtime identity excludes formatter/test/build caches and generated egg
+metadata, while tracking maintained source, package data and notices. Moving
+to a fresh worktree or running Ruff does not rebuild an unchanged palette engine.

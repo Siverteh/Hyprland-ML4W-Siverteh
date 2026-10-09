@@ -29,7 +29,10 @@ def source_digest(source):
     digest = hashlib.sha256()
     for path in sorted(source.rglob("*")):
         if path.is_file() and not any(
-            p in ("__pycache__", "build", "dist", ".git") for p in path.parts
+            p
+            in ("__pycache__", "build", "dist", ".git", ".ruff_cache", ".pytest_cache")
+            or p.endswith(".egg-info")
+            for p in path.parts
         ):
             digest.update(str(path.relative_to(source)).encode())
             digest.update(path.read_bytes())
