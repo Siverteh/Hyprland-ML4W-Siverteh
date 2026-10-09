@@ -1115,3 +1115,21 @@ startup tasks/wallet scope/argument boundaries without real execution. Private
 helper/credential/app idempotence behavior stays with existing owners and is not
 certified original here. Prior declaration/exposure acknowledged; no upstream
 implementation/no legal clean-room/final license claim.
+
+Startup acceptance (2026-10-09): source `e90cf66`, good release
+`20261009T223650641342Z`. All379 checks (43 tools,96 AI,35 Brain,205 shell),
+QML/native Hyprland and one-file config plan/apply strict transaction passed.
+Four service PID/start identities, six application windows and recorded private
+preference hashes unchanged before/after reload and six app input/dismissal cycles.
+Installed startup file exact source,233-file shell unchanged, shell active and
+configerrors empty. No real startup task/credential/device/power action by QA.
+Actual Lua fixture proves load doesn't launch and startup callback emits correct
+ordered argv; native cold-login/PAM readiness/completion timing not established.
+Source review tied to SHA/spec/replacement, helper provenance remains separate.
+
+Startup tracing found active UWSM low-battery scope with helper origin `989022d`
+(explicit ML4W file import). This is remaining active inherited implementation,
+not merely a dead name; capture its public notification policy and replace next.
+Startup-apps Python origin `b0632b9` is a local Brain/startup feature; do not presume
+it inherited from its filename. Existing notices/permissions/palette/update policy
+stay; full current-tree/source/runtime comparison and cold-session follow-ups open.

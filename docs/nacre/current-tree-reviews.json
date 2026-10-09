@@ -837,6 +837,15 @@
         "hypr/conf/animation.lua",
         "tools/tests/test_motion_defaults.py"
       ]
+    },
+    {
+      "area": "session-startup",
+      "commit": "e90cf66",
+      "spec": "docs/specs/session-startup.md",
+      "paths": [
+        "hypr/conf/autostart.lua",
+        "tools/tests/test_session_startup.py"
+      ]
     }
   ],
   "reviews": {
@@ -991,6 +1000,15 @@
         "docs/specs/motion-defaults.md",
         "docs/nacre/PROVENANCE.md#compositor-motion-default-replacement",
         "replacement 427a889: target deleted then independently authored from native motion observations/public contracts; prior exposed declarations acknowledged; live active graph verified, dormant reload registrations remain explicit follow-up"
+      ]
+    },
+    "hypr/conf/autostart.lua": {
+      "disposition": "independent",
+      "sha256": "297a153b188ec2c02d9d8e9e71f1ce956647c19bddb8f95b1c52f10fa7e5a90f",
+      "evidence": [
+        "docs/specs/session-startup.md",
+        "docs/nacre/PROVENANCE.md#graphical-session-startup-composition-replacement",
+        "replacement e90cf66: deleted then own task-argument composition from public startup/service contracts; old current file already locally narrowed, no blanket inheritance claim; exact installed bytes and no-reload-launch verified; helper provenance/cold-login remain separate"
       ]
     }
   }

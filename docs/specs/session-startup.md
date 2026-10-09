@@ -1,6 +1,6 @@
 # Independent graphical-session startup composition
 
-Implementation written, acceptance pending, 2026-10-09. Target: `hypr/conf/autostart.lua`; app keybindings and
+Implemented and natively deployed, 2026-10-09. Cold-login/PAM acceptance remains separate. Target: `hypr/conf/autostart.lua`; app keybindings and
 window routing follow in separate branches. The Lua introduction in `f3290a5`
 coincides with old dotfile edits; translating old startup config is not originality.
 Identify locally added services and keep the original exposure record honest.
