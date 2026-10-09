@@ -51,7 +51,7 @@ live gate and any remaining derived adapters. Preserve rollback until proven.
 | 7a | `modules/osd/`, `modules/session/`, `modules/background/` wrapper/control/renderer bodies | verified | [Desktop wrapper spec](../specs/desktop-wrappers.md); native controls/media/lifecycle verified |
 | 7b | `modules/Shortcuts.qml`; root shell, shared playback/state helpers | audit pending | Keep data/input ownership and private behavior; full-body audit/replacement required |
 | 8 | `shell/assets/bongocat.gif`, `shell/utils/scripts/fuzzysort.js`, Material Symbols, `shell-tools/reference-style.json` | partly verified | Bongocat/fuzzysort retired; independent seed in Orient. Stock font/icon license audit remains |
-| 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | audit pending | Independent minimal defaults, unused app rules and stale headers; confirm actual renamed paths |
+| 8 | `kitty/kitty.conf`, `fastfetch/config.jsonc`, `hypr/conf/{misc,decoration,nacre}.lua` | verified | [Configuration spec](../specs/config-defaults.md); live baseline preserved and unused inherited rules retired |
 | Final | Remaining QML/JS/Python/Lua, assets, tests, generated files and packaging | audit pending | Review beyond the supplied list; document dependencies and perform provenance comparison |
 
 Paths beginning `shell/` or `shell-tools/` above are under `nacre/`. Brace notation
@@ -945,7 +945,7 @@ are not claimed. No real app/workspace/device/power/settings/AI action by route 
 Other state/playback/helpers/extras/widgets/ML4W configs/assets/generators/tests
 and final audit remain; notices retained and goal stays active.
 
-## ML4W-era compositor/terminal defaults (replaced; acceptance pending)
+## ML4W-era compositor/terminal defaults (verified)
 
 Deleted misc/decoration/nacre Lua, Kitty and Fastfetch config bodies before fresh
 Nacre defaults from public declarations/native values/maintained helper calls and
@@ -963,3 +963,19 @@ validates birth time/future/unknown rather than claiming OS installation date.
 Native Kitty effective options identical and parser passes; Fastfetch native data
 mode parsed (render-only Colors module has no JSON representation). Whole related
 logo/generator/helper/config audit remains, notices retained.
+
+Config acceptance (2026-10-09): software `00fbe78`, good release `20261009T211555804785Z`.
+All368 checks (32 tools,96 AI,35 Brain,205 shell), QML/syntax/native Hyprland and
+config transaction/strict launcher/wallpaper/Escape gates passed. All20 native
+compositor options identical before/after; all6 installed files exact source.
+Native Kitty parser has no bad options, all non-colour effective settings identical;
+selection RGB naturally changed via user's rotating private palette, not static
+config. Native Fastfetch data modules parse (render-only Colors has no JSON value).
+Normal graphic terminal preview inspected after removing QA-only NO_COLOR env;
+user environment/packages were unchanged. Age tests cover valid/zero/future/invalid
+birth timestamps. Actual temporary mixer/controls/PiP/preview windows match float/
+pin/size rules; original focus/workspace restored and only owned windows terminated.
+Six application click/key-return cycles passed, shell active/configerrors empty.
+No private host overrides/generator/logo assets or accounts changed. Empty custom
+Kitty override stays quiet. Related helpers/other configs/whole provenance and
+physical cold-login/hardware behavior remain; notices retained, goal active.
