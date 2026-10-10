@@ -3988,6 +3988,78 @@
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
         "Full current body reviewed; basis e3d0298: local separate persistent AI worker unit; backend implementation and permission/account policy remain separately audited. Later current-path changes: 548f0b4. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
       ]
+    },
+    "nacre/shell-tools/cli-bridge.sh": {
+      "disposition": "independent",
+      "sha256": "2cdf2d823f315db1a4dd65f5c653f3d1560c9a4a5bd4a8a64476f20a1ce91257",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis 5ecf556: own locked Orient publisher integration; prior local bridge path traced through548f0b4 to4874385, current full-body public query/mutation/FD9 contracts and1488f68 fix reviewed. Later path history: 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/cli.json": {
+      "disposition": "non-implementation",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis 2fa3a95: empty standard JSON object; real own Orient accent/directory/hook readers exist, no vendor algorithm or preset data in this default. Later path history: 548f0b4. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/generate-palettes.py": {
+      "disposition": "independent",
+      "sha256": "8d1b855de0ff2d06675de68cc8049cdb3cf88d2cdf8b626533cf660292b2bff0",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis 5ecf556: own role generation loop with locally selected named seeds; current790b508 emits boot seed too through independent default_palette. Later path history: 790b508. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/palette-presets.json": {
+      "disposition": "independent",
+      "sha256": "143e74c4f73d4ef3910abdd5d483e47e42e13ff07cfd8a4be37038abec6b17aa",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis 5ecf556: all30 own named seed entries and60 mode outputs regenerated exactly with current independent engine; every serialized color role reproduced, not merely sampled. Later path history: 9c9089f, 06632c9, bd17192, 372fe77, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/reference-style.json": {
+      "disposition": "independent",
+      "sha256": "48b5e332e49c989b029abb88fc0090e5a59c153c1af2748bc230181dfbc5a5a3",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis 5ecf556: vendor reference replaced by Orient output;790b508 freshly regenerates entire default data from current own engine after five stale containers and old engine identity were demonstrated. Later path history: 790b508, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/wallpaper-collection.json": {
+      "disposition": "independent",
+      "sha256": "6410d124836fc20490cbe7df7cb2c82ca0fe587778e1f1e10c3f3b05d981c6f4",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis eec2004: locally curated19 entries with own names and pinned third-party source URLs; metadata only, no bundled artwork bytes or artwork-license claim. Later path history: 548f0b4. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/fetch-wallpapers.py": {
+      "disposition": "independent",
+      "sha256": "d9502fe8938253fab046105fe1d7367b2cedde426c0795b52082541ef41a2744",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis eec2004: locally authored manual catalogue downloader to private Pictures; no automatic fetch or imported framework implementation. Later path history: 548f0b4, 83b3531. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
+    },
+    "nacre/shell-tools/tests/test_generated_presets.py": {
+      "disposition": "independent",
+      "sha256": "bb8b23ab557ef080ec782f6c18fcc47fb085970a319335e188c21445ca014274",
+      "evidence": [
+        "docs/specs/palette-data-source-audit.md",
+        "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
+        "Complete current source/data reviewed. Basis d7bf767: own pinned-generator fixture and5ecf556 engine migration;790b508 adds actual boot-policy regression and isolated real generator no-home-writes test; baseline boot mismatch fails then regenerated artifact passes. Later path history: 790b508, 5ecf556, 548f0b4. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+      ]
     }
   }
 }
