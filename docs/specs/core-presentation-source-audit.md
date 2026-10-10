@@ -41,3 +41,18 @@ Exact-main CI, source/dependency/fixture limits explicit. Physical auth/hardware
 cold-login/fresh-session curve checks are not inferred from safe fake fixtures.
 Complete originality goal remains until all original requirements, other current
 source/assets/tests/packaging/AI+Brain and final comparison are proven complete.
+
+Current 62 full presentation bodies follow independently composed replacements
+609a1e4/239af3a (frame/layout), ce69bc0/28db63f (bar/popups), 966ae9e (header),
+216f23a (OSD/session/background) and 5da1132 (root). Retain those bodies/adapters
+with current SHA/later history evidence, honest prior exposure, no clean-room
+claim or certification of referenced other panel/helper/asset/test sources.
+
+Actual native regression: history DND button calls DesktopSettings.change, but
+real producer has set only. Inline test fixture also had change and hid failure;
+change fixture to observed set contract, baseline fails, corrected button passes.
+Live readonly bar 100 vs lock payload 1 confirms fraction/percent mismatch. Actual
+LockWidgets fixture tests 0/.5/1->0/50/100 and unavailable->null; reassess prior
+service source SHA/evidence after correction, not blind hash refresh. Existing
+session/device/AI policy untouched; no actual DND preference or battery change
+for QA. Native locker/hardware/auth confirmation remains separate.

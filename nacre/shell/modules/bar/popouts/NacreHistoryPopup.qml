@@ -37,7 +37,7 @@ Item {
             objectName: "quickDnd"
             text: NacreNotifs.dnd ? "Do not disturb: On" : "Do not disturb: Off"
             selected: NacreNotifs.dnd
-            onClicked: DesktopSettings.change("dnd", !NacreNotifs.dnd)
+            onClicked: DesktopSettings.set("dnd", !NacreNotifs.dnd)
         }
         NacreText {
             width: parent.width

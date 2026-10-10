@@ -22,7 +22,7 @@ remain contracts; helpers/assets/tests are not certified by association.
 | `nacre/shell/services/Hyprland.qml` | `ea5653e` | unchanged | `4d3d93d2a5154afc483a7d8bacee15b4f3023df00973247516231e164e7cc991` |
 | `nacre/shell/services/KeyboardLight.qml` | `02b2bda` | unchanged | `281409106b1cfdd49b37598ea26ba210bf350662e41a25371b5efc3232b27c2b` |
 | `nacre/shell/services/LauncherPreferences.qml` | `a3e2420` | 548f0b4, 2c1d2ca, 83b3531, e044859, 7ed920d | `24fe1eabd65ed90feae3b69d1e19896d2bff976233fbca330057d01b7a9da08a` |
-| `nacre/shell/services/LockWidgets.qml` | `a0090ce` | 28707f7, eea01b9, a492dc6, e4d2474, 548f0b4, 55fbe20, 2c1d2ca, 8ff30bc, 3369d3d, 83b3531 | `195b1cca797bdaba7fb6ffbf6c922f428c446d3496fb253d1a8f76bc59588006` |
+| `nacre/shell/services/LockWidgets.qml` | `a0090ce` | 28707f7, eea01b9, a492dc6, e4d2474, 548f0b4, 55fbe20, 2c1d2ca, 8ff30bc, 3369d3d, 83b3531 | `bc40890cb809ea4f5de9dffaaf1f174abb4d3e44b2881ec866a72d608fb3f793` |
 | `nacre/shell/services/Maintenance.qml` | `8bd5e65` | 5da1132, 548f0b4, bfba6bb, 2c1d2ca, 83b3531 | `c9d1026a2ac18411336d8aec1fa845ff94aeb8d22531a87e93e0162c6e1dce40` |
 | `nacre/shell/services/NacreApps.qml` | `3d93b32` | unchanged | `668eb405d1800d1f484aa3d5e1e9e7e9a45f16b08d2ac91f059b730937df3779` |
 | `nacre/shell/services/NacreAudio.qml` | `2f9300f` | unchanged | `f1074dea487408c1a928f12aeae85680e941f1f8eae167de8f5ecff1e1ed89a6` |

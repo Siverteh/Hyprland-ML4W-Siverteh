@@ -56,7 +56,7 @@ Singleton {
                     });
             }),
             "count": NacreNotifs.retained.length,
-            "battery": Math.round(UPower.displayDevice.percentage)
+            "battery": UPower.displayDevice.ready && UPower.displayDevice.isLaptopBattery && Number.isFinite(UPower.displayDevice.percentage) && UPower.displayDevice.percentage >= 0 && UPower.displayDevice.percentage <= 1 ? Math.round(UPower.displayDevice.percentage * 100) : null
         };
     }
 

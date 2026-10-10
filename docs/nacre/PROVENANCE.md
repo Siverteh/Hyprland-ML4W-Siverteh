@@ -1740,3 +1740,26 @@ dismissal pass, configerrors empty. No physical device/power/account/auth action
 AI restart or user preference reset. 55 reviews added (54 source and one native
 fixture); helpers/assets/other fixture/packaging/source/final comparison and
 physical/cold-login/fresh-session requirements remain. Notices/full goal active.
+
+## Core presentation current source review
+
+[Table](CORE-PRESENTATION-SOURCE-AUDIT.md) records 62 current root/frame/bar/popup/
+header/background/OSD/session source hashes and authoring/replacement bases. Full
+bodies inspected against completed spec/deletion/independent construction
+boundaries 609a1e4/239af3a/ce69bc0/28db63f/966ae9e/216f23a/5da1132 and actual
+later meaningful fixes. Old names are owned adapters, public data/API defaults
+are contracts; Qt/Quickshell/fonts/stock icons separate dependencies. Prior source
+exposure acknowledged, no old/upstream bodies consulted for local corrections
+or legal clean-room/final-license claim. Other referenced panel/helper/assets/
+fixtures/source areas not certified by association.
+
+Actual native DND test fixture formerly mocked missing DesktopSettings.change,
+hiding production undefined-method failure. Fixture now exposes real set contract;
+baseline fails, popup corrected to set passes. Own harness origins 51eb6e1 and later
+local provider/popup/root changes reviewed; shared fixture bodies remain separate.
+Read-only live bar 100% vs lock payload 1, new actual LockWidgets fake-provider
+fixture reproduces fraction conversion error. Convert valid native fraction to
+0-100 percent, unavailable to null; existing service review/table SHA reassessed
+with explicit correction evidence. No actual preference/battery/power change.
+Two native test source reviews added; all remaining source/assets/tests/dependency/
+packaging/full comparison and notices/goal remain open.

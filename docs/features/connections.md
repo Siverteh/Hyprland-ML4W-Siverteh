@@ -103,3 +103,8 @@ wheel scrolling with finite easing/native drag; NacreQuickSlider uses native Qt
 user-moved semantics and palette-colored rounded controls. No polling or extra
 data owner is introduced. Old names are compatibility forwarders. See the
 [popup spec](../specs/quick-popups.md).
+
+The notification popup's Do Not Disturb button uses the desktop setting owner's
+set API. The native fixture mirrors that real interface, so a stale mocked method
+cannot hide a broken click. Lock snapshots convert native battery fractions to
+percent values and use null for unavailable data, matching the bar's semantics.

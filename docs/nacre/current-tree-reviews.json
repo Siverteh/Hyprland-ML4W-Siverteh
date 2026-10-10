@@ -2398,11 +2398,12 @@
     },
     "nacre/shell/services/LockWidgets.qml": {
       "disposition": "independent",
-      "sha256": "195b1cca797bdaba7fb6ffbf6c922f428c446d3496fb253d1a8f76bc59588006",
+      "sha256": "bc40890cb809ea4f5de9dffaaf1f174abb4d3e44b2881ec866a72d608fb3f793",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement a0090ce: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 28707f7, eea01b9, a492dc6, e4d2474, 548f0b4, 55fbe20, 2c1d2ca, 8ff30bc, 3369d3d, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+        "Full current body reviewed; authoring/replacement a0090ce: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 28707f7, eea01b9, a492dc6, e4d2474, 548f0b4, 55fbe20, 2c1d2ca, 8ff30bc, 3369d3d, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/core-presentation-source-audit.md: reassessed current own snapshot body after demonstrated native battery fraction/percent mismatch; new native fixture validates conversion/unavailable handling, no new auth/device owner."
       ]
     },
     "nacre/shell/services/Maintenance.qml": {
@@ -2744,6 +2745,582 @@
       "evidence": [
         "docs/specs/services-source-audit.md",
         "new actual SidebarChat owner imported into native Qt fixture with fake process/IPC only; current/stale attachment response and queue-context behavior from observed gaps, no backend/account/private asset interaction or upstream implementation fixture"
+      ]
+    },
+    "nacre/shell/modules/NacreShellIpc.qml": {
+      "disposition": "independent",
+      "sha256": "8ae178b4660f3ba211c4d569b67c3306b39c051c86711162ba182698b1d9917b",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/NacreShellShortcuts.qml": {
+      "disposition": "independent",
+      "sha256": "712d6c4b107134e65063375baddb2a0bb1ca34156a88f7a3588f7f95f71fbda7",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/Shortcuts.qml": {
+      "disposition": "independent",
+      "sha256": "eae64d7c69ab58bb0bbb8a57ece7937bce04fb6d6759162f3e6333b47cfe3d81",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/Background.qml": {
+      "disposition": "independent",
+      "sha256": "92bf4602f6fcedc18ed94990c4969b0160025e72d06d76311679235d1edcf046",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/DynamicWallpaper.qml": {
+      "disposition": "independent",
+      "sha256": "b7ad0b5b7885f6f18eb627833b8ea15e8b0f9b7160abda86763e699b53b8e032",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/NacreBackground.qml": {
+      "disposition": "independent",
+      "sha256": "5ef1d6ac4e004aff4734a5745a43a631a8bef3dfa52d9fd824a01f4735bfdf61",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/NacreDesktopVideo.qml": {
+      "disposition": "independent",
+      "sha256": "d5e1b55240e7ad0fcd210088e222c44427bf765aa3856a8434f03678c7d86168",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/NacreWallpaperScene.qml": {
+      "disposition": "independent",
+      "sha256": "244365d7b015fab4b929925941395933c3aacf4a6ca82ab057452000e98ff404",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: 5da1132, d1d9a1e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/background/Wallpaper.qml": {
+      "disposition": "independent",
+      "sha256": "8319c36eea91572eb82b9ebc6f6d9fb34bd80a92734d76994790006ca9b12e91",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/ActiveWindow.qml": {
+      "disposition": "independent",
+      "sha256": "9c6e718083aaa43e0fea88bfda581c937e5feec9658fe90f93a0557ec7ba9347",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/NacreActiveTitle.qml": {
+      "disposition": "independent",
+      "sha256": "abf5dcb381d4084b6f54efe4860b00fdd9e6eb22bc0a0ceb288b809dfb7e4c01",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/NacrePowerButton.qml": {
+      "disposition": "independent",
+      "sha256": "ae48e901f1f4d2fb6b44d06ed211d43e7dda060f016571a7fbdcab04c8245d3e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/NacreStatusIcons.qml": {
+      "disposition": "independent",
+      "sha256": "9365fcb0a033bad2abbe1824a5df060df81e42509af1df2d06cb374b86bb8f9f",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: 5da1132, dc01bf9, 96c83f4. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/Power.qml": {
+      "disposition": "independent",
+      "sha256": "36df82c1e2a031380261d7205cd55f23b78eecf3618f0d594f9e997f75afcb52",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/components/StatusIcons.qml": {
+      "disposition": "independent",
+      "sha256": "24fb0163a0f73ef6145a4af860d8f8f04a21083ddc33e6fbab33763c2a925ddd",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Audio.qml": {
+      "disposition": "independent",
+      "sha256": "9f4685cac77c9395b7c0cca8ac7548dfe2f0e63a185343859ecd9e0c9e1897af",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Battery.qml": {
+      "disposition": "independent",
+      "sha256": "4fe7e5fd1e17fecde29124baa12509ca4b2e5f414a531b4eb9f259446b10abfa",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Bluetooth.qml": {
+      "disposition": "independent",
+      "sha256": "3498d08b3e225faac2fab771dc317a698e302ba9f0ff36a8c147c19304e5361b",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Calendar.qml": {
+      "disposition": "independent",
+      "sha256": "028582f9ac2ba5731e1ae77918d7974847a864339a51b31eb51b04d9a646feaa",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Content.qml": {
+      "disposition": "independent",
+      "sha256": "79cd5753185018f3252c918571d77ad1be10f59eef7450be2f88dc3f65cfc2d2",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreBatteryPopup.qml": {
+      "disposition": "independent",
+      "sha256": "7a5466c6e025f5b1da124fdb77c318d84627395702dedfcab331892e970703f3",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreBluetoothPopup.qml": {
+      "disposition": "independent",
+      "sha256": "b6eb3fdd41130a2d76ef1771d4ff7eac0e962b994d7230535121048f611b9c9e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreCalendarPopup.qml": {
+      "disposition": "independent",
+      "sha256": "655d8fd12b561aae6e012a559e556819922add6a4b5eeb80435f5097a0c60955",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreHistoryPopup.qml": {
+      "disposition": "independent",
+      "sha256": "ffcf9ecf0815c69f2d145a6a127bedba3ea5595befd4a222f4dccb91c8253229",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreNetworkPopup.qml": {
+      "disposition": "independent",
+      "sha256": "87df4880ecba42708ff8e1736ee8d9dbf1a60e6d99434bdca97d93b386982c7f",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacrePopupContent.qml": {
+      "disposition": "independent",
+      "sha256": "47b600a127fc26c8ff32cd14987361e3136c2877b772614dda80ada436a7af9c",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacrePopupPanel.qml": {
+      "disposition": "independent",
+      "sha256": "28a7ac8efb79d5d0bffc2670b8832e940a32cdbdca0c6ada220956a8d041a5b4",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: 490d457, 6e09600. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreQuickList.qml": {
+      "disposition": "independent",
+      "sha256": "767e1426779ca1af4409cbd8adc66b61f05082fd86152c16d4dd0b5d0db825ef",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreQuickSlider.qml": {
+      "disposition": "independent",
+      "sha256": "a00f6873f3633ccdac70ad3f070bd8d25a6cc3aeaffa81cac322c15257459c15",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/NacreSoundPopup.qml": {
+      "disposition": "independent",
+      "sha256": "b3ce0cefba0cc060ec4ee6065653a22c21b63182b4348c9b77d33f0ee96ed1ba",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: ada8f42. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Network.qml": {
+      "disposition": "independent",
+      "sha256": "a0ffd9451cc0f74f5b60072e0462b15e204aaeea1a0dc2eb9a6a869e40aaa02e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Notifications.qml": {
+      "disposition": "independent",
+      "sha256": "d7cf5e438373d737368778cffb13defc817c9e2f587947578b45670200db0a54",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/QuickList.qml": {
+      "disposition": "independent",
+      "sha256": "36490eb6319a4acca44f7e3fedded7dd5db1e9fbe402a637596de997b099e618",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/QuickSlider.qml": {
+      "disposition": "independent",
+      "sha256": "6466a304d7a82f5e3c438108befc2dd1755e24d7d23d1fd731eb7a51f737ce78",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/bar/popouts/Wrapper.qml": {
+      "disposition": "independent",
+      "sha256": "f7308416fa81f3e744daae9fd693cd66da460d0d529da8253b57637f37b2905c",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacreChrome.qml": {
+      "disposition": "independent",
+      "sha256": "63e1fd15f9397058527527782b1dc7c4c720c8027b8c7c1524e8ecc4d5ad616f",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacreDesktop.qml": {
+      "disposition": "independent",
+      "sha256": "b08c84e2ff356d1bfff0abcf71f4d6f95dafffc0deef39a962236212a6aad4b5",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e, ea5653e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacrePanelHost.qml": {
+      "disposition": "independent",
+      "sha256": "7e062ae0a6c8721ab41aa1f54fa08e1be30a11c014f1cf1a8de6dca7ef70ac69",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 216f23a, 28db63f, 1cd6ab7, e869927, 7b53c65, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacrePanelInput.qml": {
+      "disposition": "independent",
+      "sha256": "3ff1d6d165545769ad08469d353883b9ade121f9d252795d355f0a2e1920a559",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacrePanelMask.qml": {
+      "disposition": "independent",
+      "sha256": "0555541a289ac48db8274d7734e820df73e2dd53236b556936d51d992abf361e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacreReservedEdges.qml": {
+      "disposition": "independent",
+      "sha256": "25d6e248614f874111ae091e0675017b20c2efc4fa64f62175e7eff03b7a7e82",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacreScreen.qml": {
+      "disposition": "independent",
+      "sha256": "208c31bab243e5fb20cf8a599478f901548b2442e7211d812492c326ea461477",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 216f23a, 8d96a29, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/layout.js": {
+      "disposition": "independent",
+      "sha256": "612da7d5655dfb6cd9aa814e0433ffa7187519bc754675a53e8efcac61d4e5da",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 239af3a: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/drawers/registry.js": {
+      "disposition": "independent",
+      "sha256": "640445c5b66cfbb3472abeafe0a30faa19e42adbcc500501c6edb1fa40ccf10e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/Content.qml": {
+      "disposition": "independent",
+      "sha256": "23e8024d2e8a3bb94564aa37a10c8ab0e90cde527a100bc68563496fad4d09f6",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/Interactions.qml": {
+      "disposition": "independent",
+      "sha256": "28a43e8053ffb60b05d36fe6986c5451cdd4723d722d3c32c45b9d6d648739f0",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/NacreOsdControls.qml": {
+      "disposition": "independent",
+      "sha256": "9a32efdca63736baef5c251e6c4d137b015fa48f53e0465e069c2cc326527637",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/NacreOsdEvents.qml": {
+      "disposition": "independent",
+      "sha256": "a915eee18bfc7c4332a4ff5cf5b41d9829892f66e8a94afb55427430b03605ea",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/NacreOsdPanel.qml": {
+      "disposition": "independent",
+      "sha256": "96992b605188b699592086160dc3a3431cf8407852ac7bddb020ab4f8806b2df",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/osd/Wrapper.qml": {
+      "disposition": "independent",
+      "sha256": "e268d215aaf703a6b421e4ecf44e4c055ac537625df174e4b43784dc351f5d6f",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/session/Content.qml": {
+      "disposition": "independent",
+      "sha256": "0e6e111f09106fc1d7caee7e385d21c56e1787150e815974e7137cb94e37cae4",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/session/NacreSessionControls.qml": {
+      "disposition": "independent",
+      "sha256": "facf3caa7369eb974cf300b58f385fb647edd3d13c7001e2f624f35f26a6616e",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/session/NacreSessionPanel.qml": {
+      "disposition": "independent",
+      "sha256": "3042ff147de53dce4269d1a9feff4e9c239339f83bd06a917c0d33fad59c41c8",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: d1d9a1e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/session/Wrapper.qml": {
+      "disposition": "independent",
+      "sha256": "4ac89fd90e7d88acc6697d5012476e1b804c6e8e626ac35213c53eb2ffb7037d",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/NacreHeader.qml": {
+      "disposition": "independent",
+      "sha256": "f34ccb48b1377a507ebb6e4de940353311ded7c7851e8f7bffe0e87a54a2ecdc",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132, 7c8f3a6. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/NacreHeaderForwarder.qml": {
+      "disposition": "independent",
+      "sha256": "7528e10fbe234162252f93867c1071dba8e89a32ece5f5261ea52d29d5b8ceb6",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/NacreHeaderTrigger.qml": {
+      "disposition": "independent",
+      "sha256": "da16a40627257699f48ffd32209ebe9b12cade457e618d10246814d3c4975f0c",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/NacreTopBar.qml": {
+      "disposition": "independent",
+      "sha256": "384bc53e3a86aaa3eadb60293285f1ca7757920498503e1deaf66ad8844f4713",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/NacreWorkspaceRow.qml": {
+      "disposition": "independent",
+      "sha256": "861ad3050d2ce7be1eb951e9b58049c6ba7fbe8e4c8bc47994a9bffe1dbb88fc",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/TopBar.qml": {
+      "disposition": "independent",
+      "sha256": "b71c105b0b0118cc7319d88021edbdd749901b5c661ddeeefde7890336ebd954",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/modules/topbar/WorkspaceStrip.qml": {
+      "disposition": "independent",
+      "sha256": "72fce00f6a128339d1afb71ced8103d49d2ba67623e1bff5ffb98ad716893efd",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell/shell.qml": {
+      "disposition": "independent",
+      "sha256": "d3e40ea09882259a0f0480c0790c20b3b705d804cf9366ffff84373ff295ac3c",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: 36c35e0. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+      ]
+    },
+    "nacre/shell-tools/tests/test_quick_controls.py": {
+      "disposition": "independent",
+      "sha256": "7894046e5b099fab172ef234fd9edf61d67f9a5e11d39847ed04c07c5e01f60a",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/PROVENANCE.md#core-presentation-current-source-review",
+        "Own Qt popup/helper harness first 51eb6e1 and subsequent independent provider/popup/root migrations traced. Full current body reviewed. Corrected inline DesktopSettings fixture to actual set API (old change stub hid production failure); real native DND handler test fails baseline then passes fix. Fake device/preference owners only; included fixture/dependency originals remain separately audited."
+      ]
+    },
+    "nacre/shell-tools/tests/test_lock_snapshot.py": {
+      "disposition": "independent",
+      "sha256": "2b90a49a9bb5776cc3d3c6a62737fca80ef685f2c77c4d43b6a56fc2a57f27c6",
+      "evidence": [
+        "docs/specs/core-presentation-source-audit.md",
+        "docs/nacre/PROVENANCE.md#core-presentation-current-source-review",
+        "New own actual LockWidgets QML snapshot fixture with fake native/provider/process data, from live fraction/percent mismatch. Zero/half/full and unavailable battery semantics test fail baseline then pass; no real battery/power action, private state or upstream implementation fixture."
       ]
     }
   }
