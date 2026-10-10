@@ -9,7 +9,9 @@ They overlay current reserved edges; they never change application geometry.
 Hover opens only marked targets, without keyboard focus; click opens deliberately.
 Click-only preference, held-button/fullscreen guards, explicit dismissal rearming,
 Escape, outside-click, explicit-only AI pinning and reduced motion remain supported.
-The frame has a quiet palette-derived iridescent inner edge, static at rest.
+The lips are longer, shallow and unoutlined, with no seam or frame ring. The top
+activation column spans its 208px visual length all the way to the screen edge;
+bar and lip hover sources combine so moving between them keeps the menu open.
 
 Right-center opens a bounded 400–440px control center, adapting to small outputs.
 Horizontal volume/mic and display/keyboard controls remain immediately accessible.

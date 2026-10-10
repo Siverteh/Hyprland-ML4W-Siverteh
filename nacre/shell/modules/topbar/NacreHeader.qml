@@ -33,6 +33,29 @@ Item {
         blocking: false
         onPointChanged: NacreHoverIntent.observe(root.screen, point.position.x, point.position.y)
     }
+    MouseArea {
+        id: centerBand
+        objectName: "nacreHeaderCenterBand"
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: Math.min(208, root.width)
+        height: parent.height
+        hoverEnabled: true
+        acceptedButtons: Qt.LeftButton
+        function approach(buttons) {
+            NacreHoverIntent.observe(root.screen, x + mouseX, mouseY);
+            NacreHoverIntent.setHeaderHover(root.screen.name, "bar", containsMouse);
+            if (!root.clickMenus && root.visibility && !root.panel?.input?.modal && NacreHoverIntent.canOpen("dashboard", root.screen, buttons))
+                NacrePanelState.hoverEdge("dashboard", root.screen.name);
+        }
+        onEntered: approach(pressedButtons)
+        onPositionChanged: event => approach(event.buttons)
+        onExited: {
+            NacreHoverIntent.setHeaderHover(root.screen.name, "bar", false);
+            NacreHoverIntent.rearm("dashboard", root.screen);
+            root.panel?.input?.settleHover();
+        }
+        onClicked: NacrePanelState.openEdge("dashboard", root.screen.name)
+    }
     Rectangle {
         anchors.fill: parent
         color: NacreTokens.body

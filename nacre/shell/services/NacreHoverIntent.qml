@@ -10,6 +10,7 @@ Singleton {
     property var lipRegions: ({})
     property var blocked: ({})
     property var headers: ({})
+    property var headerSources: ({})
     property var popupHovered: ({})
     property var popupRegions: ({})
     property var owners: ({})
@@ -26,6 +27,12 @@ Singleton {
         if (name === "dashboard")
             return !!point && point.y >= 0 && point.y <= dashboardDepth && Math.abs(point.x - point.width / 2) <= Math.min(350, point.width * .225);
         return !!point && (name === "left" ? point.x < edgeWidth : point.x >= point.width - edgeWidth);
+    }
+    function setHeaderHover(name, source, hovered) {
+        headerSources[name] = Object.assign({}, headerSources[name] || {}, {
+            [source]: hovered
+        });
+        headers[name] = Object.values(headerSources[name]).some(Boolean);
     }
     function titleContains(point) {
         return markedContains("dashboard", point);
@@ -95,7 +102,7 @@ Singleton {
     function release(name, owner) {
         if (owners[name] !== owner)
             return;
-        for (const map of [positions, blocked, headers, popupHovered, popupRegions, lipRegions, owners])
+        for (const map of [positions, blocked, headers, headerSources, popupHovered, popupRegions, lipRegions, owners])
             delete map[name];
     }
 }

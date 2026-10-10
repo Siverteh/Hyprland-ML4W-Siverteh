@@ -61,7 +61,7 @@ Item {
                 "NacreTime": 'function format(value){return "12:34"}',
                 "Updates": 'property int count:3;property string message:""',
                 "AppLaunch": "property var calls:[];function run(command){calls=[...calls,command]}",
-                "NacrePanelState": 'property bool hidden:false;property var screens:({test:{session:false,launcher:false,dashboard:false,dashboardPinned:false,edgeMenu:""}});property var panels:({});property var calls:[];function openMode(mode,q,preview){calls=[...calls,mode]}function popout(name,center,screen){calls=[...calls,name]}function openDeviceSettings(name){calls=[...calls,name];return ["audio","network","bluetooth"].includes(name)}function openControls(name,screen){calls=[...calls,name]}function openEdge(name,screen){calls=[...calls,name]}',
+                "NacrePanelState": 'property bool hidden:false;property var screens:({test:{session:false,launcher:false,dashboard:false,dashboardPinned:false,edgeMenu:""}});property var panels:({});property var calls:[];function openMode(mode,q,preview){calls=[...calls,mode]}function popout(name,center,screen){calls=[...calls,name]}function openDeviceSettings(name){calls=[...calls,name];return ["audio","network","bluetooth"].includes(name)}function openControls(name,screen){calls=[...calls,name]}function hoverEdge(name,screen){calls=[...calls,name]}function openEdge(name,screen){calls=[...calls,name]}',
             }
             with (fixtures / "qmldir").open("a") as manifest:
                 for name in (

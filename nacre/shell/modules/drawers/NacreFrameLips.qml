@@ -9,14 +9,14 @@ Item {
     required property var visibilities
     required property var controller
     readonly property bool available: !NacrePanelState.hidden && !controller.modal && !visibilities.launcher && !visibilities.session && !visibilities.dashboardPinned && !NacreHoverIntent.fullscreenFor(screen.name)
-    readonly property rect topRect: NacreFrame.headerHeight > 0 ? Qt.rect((width - 136) / 2, NacreFrame.headerHeight - 1, 136, 18) : Qt.rect(0, 0, 0, 0)
-    readonly property rect leftRect: NacreFrame.left > 0 ? Qt.rect(0, (height - 88) / 2, NacreFrame.left + 12, 88) : Qt.rect(0, 0, 0, 0)
-    readonly property rect rightRect: NacreFrame.right > 0 ? Qt.rect(width - NacreFrame.right - 12, (height - 88) / 2, NacreFrame.right + 12, 88) : Qt.rect(0, 0, 0, 0)
+    readonly property rect topRect: NacreFrame.headerHeight > 0 ? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 9) : Qt.rect(0, 0, 0, 0)
+    readonly property rect leftRect: NacreFrame.left > 0 ? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 6, 144) : Qt.rect(0, 0, 0, 0)
+    readonly property rect rightRect: NacreFrame.right > 0 ? Qt.rect(width - NacreFrame.right - 6, (height - 144) / 2, NacreFrame.right + 6, 144) : Qt.rect(0, 0, 0, 0)
     function publishRegions() {
         if (!screen?.name)
             return;
         NacreHoverIntent.lipRegions[screen.name] = {
-            dashboard: topRect,
+            dashboard: Qt.rect((width - 208) / 2, 0, 208, NacreFrame.headerHeight + 9),
             left: leftRect,
             osd: rightRect
         };
@@ -29,7 +29,7 @@ Item {
         const point = lip.mapToItem(root, lip.pointerX, lip.pointerY);
         NacreHoverIntent.observe(screen, point.x, point.y);
         if (name === "dashboard")
-            NacreHoverIntent.headers[screen.name] = true;
+            NacreHoverIntent.setHeaderHover(screen.name, "lip", true);
         if (DesktopSettings.data.clickEdgeMenus === true || !available || !NacreHoverIntent.canOpen(name, screen, buttons))
             return;
         if (!visibilities[name])
@@ -37,7 +37,7 @@ Item {
     }
     function leave(name) {
         if (name === "dashboard")
-            NacreHoverIntent.headers[screen.name] = false;
+            NacreHoverIntent.setHeaderHover(screen.name, "lip", false);
         NacreHoverIntent.rearm(name, screen);
         controller.settleHover();
     }

@@ -3,12 +3,11 @@
 Nacre's frame has three permanent shallow curved lips: top-center for the full
 dashboard, left-center for the assistant and right-center for the control center.
 They overlay the existing reserved frame edges. Their protrusion adds no reserved
-space and never changes application geometry. A thin palette-derived iridescent
-inner edge is static at rest. The existing dashboard features and AI backend are
+space and never changes application geometry. Lips are long, shallow and unoutlined, with uninterrupted joins to the frame. The existing dashboard features and AI backend are
 retained; see [control center](control-center.md).
 
-Hover mode opens only the marked lip areas, without a keyboard grab. Ordinary
-bar text and the surrounding edge do not open panels. Status icons show passive,
+Hover mode opens the side lips and the 208px top lip column, including the full
+bar above it up to the screen edge, without a keyboard grab. The rest of the bar and the surrounding side edges do not open panels. Status icons show passive,
 click-through hints; clicking opens the corresponding control-center section.
 Calendar remains a deliberate quick popup. Desktop → Edge menu activation offers
 Hover lips or Click only. Both modes use the same visible targets and shared state.

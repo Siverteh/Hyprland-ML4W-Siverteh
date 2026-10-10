@@ -76,7 +76,7 @@ TestCase {
  function init(){DesktopSettings.data={animations:false,clickEdgeMenus:false};NacreHyprland.activeClient=null;NacreHoverIntent.blocked=({});NacreHoverIntent.lipRegions=({});}
  function test_only_marked_regions_open_and_explicit_dismissal_rearms(){
   const view=createTemporaryObject(scene,this);wait(30);
-  mouseMove(view,500,25);verify(!view.flags.dashboard);
+  mouseMove(view,100,25);verify(!view.flags.dashboard);
   mouseMove(view,500,53);verify(view.flags.dashboard);
   NacreHoverIntent.dismiss(view.screen);view.flags.dashboard=false;
   mouseMove(view,501,54);verify(!view.flags.dashboard);
@@ -88,6 +88,12 @@ TestCase {
   NacreHoverIntent.observe(view.screen,500,53);
   NacreHoverIntent.dismiss(view.screen,false);
   verify(!NacreHoverIntent.blocked.test.dashboard);
+  NacreHoverIntent.setHeaderHover("test","lip",true);
+  NacreHoverIntent.setHeaderHover("test","bar",true);
+  NacreHoverIntent.setHeaderHover("test","lip",false);
+  verify(NacreHoverIntent.headers.test);
+  NacreHoverIntent.setHeaderHover("test","bar",false);
+  verify(!NacreHoverIntent.headers.test);
   compare(view.width,1000);compare(view.height,700);
  }
  function test_click_only_and_fullscreen_held_button_guards(){

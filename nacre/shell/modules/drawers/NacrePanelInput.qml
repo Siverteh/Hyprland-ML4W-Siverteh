@@ -22,9 +22,9 @@ Item {
     readonly property bool leftEdgeAvailable: lipsAvailable && DesktopSettings.data.leftDrawer !== false && !visibilities.left
     readonly property bool rightEdgeAvailable: lipsAvailable && DesktopSettings.data.rightEdge !== false && !visibilities.osd
     readonly property bool topEdgeAvailable: lipsAvailable && !visibilities.dashboard
-    readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 88) / 2, NacreFrame.left + 12, 88)
-    readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 12, (height - 88) / 2, NacreFrame.right + 12, 88)
-    readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 136) / 2, NacreFrame.headerHeight - 1, 136, 18)
+    readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 6, 144)
+    readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 6, (height - 144) / 2, NacreFrame.right + 6, 144)
+    readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 9)
     readonly property rect launcherRect: box(panels.launcher, visibilities.launcher)
     readonly property rect dashboardRect: box(panels.dashboard, visibilities.dashboard)
     readonly property rect leftRect: box(panels.leftDrawer, visibilities.left)

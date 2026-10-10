@@ -219,6 +219,6 @@ TestCase {
             self.assertEqual(gallery.getpixel((300, 200)), (86, 125, 154))
 
             self.assertEqual(closed.getpixel((300, 55)), (25, 26, 32))
-            self.assertEqual(closed.getpixel((15, 200)), (25, 26, 32))
-            self.assertEqual(closed.getpixel((585, 200)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((13, 200)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((587, 200)), (25, 26, 32))
             self.assertEqual(closed.getpixel((15, 100)), (86, 125, 154))
