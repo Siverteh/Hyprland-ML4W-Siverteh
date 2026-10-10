@@ -50,6 +50,7 @@ Item {
     Osd.NacreOsdPanel {
         id: osd
         section: root.visibilities.controlSection || "home"
+        keyboardActive: root.visibilities.edgeMenu === "osd" && !root.visibilities.previewOnly
         onSectionRequested: section => root.visibilities.controlSection = section
         screen: root.screen
         visibility: root.visibilities.osd && !root.visibilities.session

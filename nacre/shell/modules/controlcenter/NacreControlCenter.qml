@@ -8,10 +8,11 @@ import qs.config
 import qs.modules.bar.popouts as Details
 import qs.modules.notifications
 
-Item {
+FocusScope {
     id: root
     required property var screen
     required property bool visibility
+    property bool keyboardActive: false
     property string section: "home"
     signal sectionRequested(string section)
     property real presentedWidth: visibility ? contentWidth : 0
@@ -25,9 +26,20 @@ Item {
     function syncSize() {
         presentedWidth = visibility ? contentWidth : 0;
     }
-    onVisibilityChanged: syncSize()
+    function focusExplicit() {
+        if (visibility && keyboardActive)
+            forceActiveFocus(Qt.OtherFocusReason);
+    }
+    onKeyboardActiveChanged: Qt.callLater(focusExplicit)
+    onVisibilityChanged: {
+        syncSize();
+        Qt.callLater(focusExplicit);
+    }
     onContentWidthChanged: syncSize()
-    Component.onCompleted: syncSize()
+    Component.onCompleted: {
+        syncSize();
+        Qt.callLater(focusExplicit);
+    }
     Behavior on presentedWidth {
         enabled: NacreTokens.motionEnabled
         NumberAnimation {

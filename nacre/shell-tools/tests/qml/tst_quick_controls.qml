@@ -75,6 +75,9 @@ TestCase {
         NacreControlTools.writes = 0;
         const scene = createTemporaryObject(center, this), panel = scene.panel;
         wait(50);
+        verify(!panel.activeFocus);
+        panel.keyboardActive = true;
+        tryCompare(panel, "activeFocus", true);
         compare(NacreAudio.writes, 0);
         compare(NacreKeyboardLight.writes.length, 0);
         compare(NacreBrightness.device.writes.length, 0);
