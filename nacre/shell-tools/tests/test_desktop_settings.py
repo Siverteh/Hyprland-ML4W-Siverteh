@@ -55,6 +55,7 @@ class DesktopSettingsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             with (
+                patch.object(desktop, "HOME", root),
                 patch.object(desktop, "STATE", root / "desktop.json"),
                 patch.object(desktop, "LUA", root / "desktop.lua"),
                 patch.object(desktop, "PENDING", root / "pending.json"),
@@ -83,6 +84,7 @@ class DesktopSettingsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             with (
+                patch.object(desktop, "HOME", root),
                 patch.object(desktop, "STATE", root / "desktop.json"),
                 patch.object(desktop, "LUA", root / "desktop.lua"),
                 patch.object(desktop, "PENDING", root / "pending.json"),
@@ -108,6 +110,46 @@ class DesktopSettingsTests(unittest.TestCase):
                     desktop.main()
                 self.assertEqual(desktop.load()["weatherLocation"], "New city")
                 self.assertFalse(desktop.load()["lockNotificationContents"])
+
+    def test_every_preset_preserves_current_lock_and_weather_preferences(self):
+        import io, sys
+        from contextlib import redirect_stdout
+
+        private = dict(
+            lockMedia=False,
+            lockWeather=False,
+            lockNotifications=False,
+            lockNotificationContents=True,
+            weatherLocation="Fixture city",
+            weatherFahrenheit=True,
+        )
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            with (
+                patch.object(desktop, "HOME", root),
+                patch.object(desktop, "STATE", root / "desktop.json"),
+                patch.object(desktop, "LUA", root / "desktop.lua"),
+                patch.object(desktop, "PENDING", root / "pending.json"),
+                patch.object(desktop, "hypr", return_value="[]"),
+            ):
+                desktop.persist(dict(desktop.DEFAULTS, **private))
+                for name in (
+                    "focused",
+                    "presentation",
+                    "minimal",
+                    "meeting",
+                    "music",
+                    "docked",
+                    "normal",
+                ):
+                    with (
+                        self.subTest(preset=name),
+                        patch.object(sys, "argv", ["desktop-settings", "preset", name]),
+                        redirect_stdout(io.StringIO()),
+                    ):
+                        desktop.main()
+                        data = desktop.load()
+                        self.assertEqual({key: data[key] for key in private}, private)
 
     def test_revert_restores_displays_without_losing_later_window_settings(self):
         with tempfile.TemporaryDirectory() as folder:

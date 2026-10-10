@@ -349,15 +349,7 @@ def main():
                     ),
                     "meeting": dict(dnd=True, blur=False),
                     "music": dict(dnd=True),
-                    "docked": dict(
-                        dnd=False,
-                        lockMedia=True,
-                        lockWeather=True,
-                        lockNotifications=True,
-                        lockNotificationContents=False,
-                        weatherLocation="",
-                        weatherFahrenheit=False,
-                    ),
+                    "docked": dict(dnd=False),
                     "minimal": dict(
                         topEdge=True,
                         clickEdgeMenus=False,

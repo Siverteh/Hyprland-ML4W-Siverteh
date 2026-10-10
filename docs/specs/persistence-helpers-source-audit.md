@@ -32,3 +32,11 @@ require full formatting/checks/native Hyprland, reviewed plan/apply/strict sourc
 IPC/input gates and exact-main CI. Audit-only records retain validated runtime.
 Other config/AI+Brain/packaging/test/documentation/asset/dependency/final comparison
 requirements remain separate; keep the whole goal active until all are proven.
+
+Verified gaps: existing preset fixtures patch temporary STATE/LUA but not HOME,
+so nested workflow lookup can reach real private profiles. Isolate HOME before
+executing any preset tests. Docked's explicit overrides reset lock/weather values
+even though PRESET_KEYS deliberately excludes them. Add an actual temp-home main()
+regression across all seven presets, fail Docked first, then remove those reset
+overrides. Preserve its desktop DND choice and every current privacy/weather value.
+Never apply a real preset or inspect private workflow contents for this proof.
