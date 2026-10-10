@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Nacre AI
+GenericName=AI Workspace
+Comment=Open the Nacre AI chat workspace
+Exec=kitty --class siverteh-ai-dashboard --title "Nacre AI" -- nacre-ai
+TryExec=nacre-ai
+Icon=nacre-ai
+Terminal=false
+StartupWMClass=siverteh-ai-dashboard
+Categories=Utility;
+Keywords=Nacre;AI;Assistant;Chat;Codex;Claude;

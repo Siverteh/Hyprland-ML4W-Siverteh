@@ -1744,7 +1744,7 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "2ad51734deb9bcc30e4117eea2b63f2db0cbaa3500b528b4b22588ae2287391c",
+      "sha256": "58f4ab21a49f5cf0b18497e63ec37a92d209add5231b79708792a293ffddc7be",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1752,7 +1752,8 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
@@ -1779,7 +1780,7 @@
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "96f1eff0fd836f5154c599cb55b5fb6c30920b0a038f79c215b7b5aa27c0090a",
+      "sha256": "c62a10200fedd53bbeb34755fc7070613c1261c98d6b1ee680ac5267f5e950df",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1789,7 +1790,8 @@
         "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/specs/terminal-polish.md",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -4970,13 +4972,14 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "0da611e57e16ade34fbed296e4724efb00496ab5af13b4c037e6a328b5c00a38",
+      "sha256": "3e53d84393098698bba2f0eaac68bf302e0fcbf9c465d2cec300175c920a2007",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -5084,13 +5087,14 @@
     },
     "tools/tests/test_configure.py": {
       "disposition": "independent",
-      "sha256": "3fb6a9787f548360834167cca7710aadb5442a91f646da09b20b3ca28d80f9f5",
+      "sha256": "e81a064a498c6a35250dd3cf86192deec4ac2ba5254a9435cea81c323c901c52",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: own temp home/source/manifest drift, migration/private policy, routes/retirement ownership tests. Later path changes: 548f0b4, 871e2e7, 9397909, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status."
+        "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ]
     },
     "tools/tests/test_releases.py": {
@@ -6513,7 +6517,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "89d9d2ca2eeb5f80050943137bdbfa52b5dc9b7376cabcbc538fc6fefdd9dce1",
+      "sha256": "de70662cd8011747e5d2979d0eea716b05641f531dfec61a4706d59328983147",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6521,7 +6525,8 @@
         "docs/specs/visual-cleanup.md",
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6648,7 +6653,7 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "c886dd0e3ad9f578f0094fe3988686f62dbbf064eaa3f2dd40003d97634b7343",
+      "sha256": "72c6aaad37819cc8a03e94f99aed8741db58ee4a497531e2a93eb9c0fd07137d",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6656,7 +6661,8 @@
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-polish.md",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -6691,13 +6697,14 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "312b5a8070b9712dd40ca38b0cd44a44f0239832645e2ebbb5ea110c49bf345f",
+      "sha256": "6ceaa4e6a359faf069cc2bd4264ba4550420acc90912887c62b826a4a7563f42",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -7952,6 +7959,13 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "sha256": "ec688337984bfdd0a1d29ca2d3027bd119f1ee1f9aeb2faa5bb15355e2c894c4"
+    },
+    "nacre/desktop/nacre-ai.desktop": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+      ],
+      "sha256": "6ab5a16b10b6084ad6a8b46e743b0d10b6d2f15e94ffbb0afe569ba14c643295"
     }
   }
 }

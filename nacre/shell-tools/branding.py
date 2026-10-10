@@ -245,6 +245,10 @@ def publish(colors, home=None):
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo().encode())
 
+    atomic(
+        home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg",
+        svg(False, colors).encode(),
+    )
     # Already-open old menus read the previous filename; it contains the new art.
     for legacy, current in [
         ("sh.png", "nacre.png"),

@@ -55,6 +55,9 @@ def files(root=ROOT):
         "xdg-open",
     ):
         result[Path(".local/bin") / name] = root / "bin" / name
+    result[Path(".local/share/applications/nacre-ai.desktop")] = (
+        root / "nacre/desktop/nacre-ai.desktop"
+    )
     result[Path(".local/bin/siverteh-brain-sync")] = root / "bin/siverteh-brain-sync"
     result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (
         root / "ai/systemd/siverteh-brain-sync.service"

@@ -107,3 +107,5 @@ command for existing sessions and private workflow helpers.
 Terminal logo colors follow palette events through the existing publisher. The
 Fastfetch startup hook prepares its registered image; see the
 [terminal guide](features/terminal-branding.md) for behavior and limits.
+
+Search for **Nacre AI** in the app launcher to open its terminal workspace menu.

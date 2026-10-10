@@ -137,6 +137,12 @@ class TerminalBrandingTests(unittest.TestCase):
             self.assertEqual(image.mode, "RGBA")
             self.assertEqual(image.getpixel((0, 0))[3], 0)
             self.assertEqual(image.size, (512, 512))
+            self.assertEqual(
+                (
+                    home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg"
+                ).read_bytes(),
+                (folder / "nacre.svg").read_bytes(),
+            )
             pixels = (
                 list(image.get_flattened_data())
                 if hasattr(image, "get_flattened_data")

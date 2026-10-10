@@ -1,6 +1,8 @@
 import importlib.util
 from pathlib import Path
 import json
+import configparser
+import shlex
 import os
 import shutil
 import subprocess
@@ -15,6 +17,35 @@ spec.loader.exec_module(module)
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_nacre_ai_desktop_entry_installs_the_public_menu_route(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "nacre/desktop").mkdir(parents=True)
+            source = module.ROOT / "nacre/desktop/nacre-ai.desktop"
+            shutil.copy2(source, root / "nacre/desktop/nacre-ai.desktop")
+            module.apply(home, root)
+            target = home / ".local/share/applications/nacre-ai.desktop"
+            self.assertEqual(target.read_bytes(), source.read_bytes())
+            entry = configparser.ConfigParser(interpolation=None)
+            entry.read(target)
+            app = entry["Desktop Entry"]
+            self.assertEqual(app["Name"], "Nacre AI")
+            self.assertEqual(app["TryExec"], "nacre-ai")
+            self.assertEqual(app["Icon"], "nacre-ai")
+            self.assertEqual(
+                shlex.split(app["Exec"]),
+                [
+                    "kitty",
+                    "--class",
+                    "siverteh-ai-dashboard",
+                    "--title",
+                    "Nacre AI",
+                    "--",
+                    "nacre-ai",
+                ],
+            )
+            self.assertEqual(module.plan(home, root)[0], [])
+
     def test_nacre_ai_entry_preserves_arguments_and_controller_exit_status(self):
         with tempfile.TemporaryDirectory() as directory:
             root, home = Path(directory) / "repo", Path(directory) / "home"

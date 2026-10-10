@@ -70,3 +70,7 @@ checks the persistent shell's identity and PTY device before each write; closed
 sessions are discarded. No background timer, automatic Fastfetch rerun or
 animation playback is added. Older already-printed Fastfetch images need one
 rerun after the update; new normal Kitty sessions register automatically.
+
+Nacre AI is also installed as an application: search its name in the launcher.
+Its desktop entry uses `nacre-ai`, the existing AI window class and a generated
+transparent shell icon; it does not launch an assistant worker until requested.
