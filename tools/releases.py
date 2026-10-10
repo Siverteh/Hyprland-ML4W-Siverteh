@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Versioned desktop releases: snapshot, stage, exercise, promote, or restore."""
 
-import argparse, datetime as dt, fcntl, hashlib, json, os, shutil, subprocess, sys
+import argparse, datetime as dt, fcntl, hashlib, importlib.util, json, os, shutil, subprocess, sys
 from pathlib import Path
 
 HOME = Path.home()
@@ -99,10 +99,12 @@ def paths(repo):
         path = HOME / ".config" / name
         if path.is_symlink():
             result.append(path)
-    for folder in ("hypr", "kitty", "fastfetch", "fish", "uwsm"):
-        for source in (repo / folder).rglob("*"):
-            if source.is_file():
-                result.append(HOME / ".config" / source.relative_to(repo))
+    spec = importlib.util.spec_from_file_location(
+        "release_config_owner", Path(__file__).with_name("configure.py")
+    )
+    configuration = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(configuration)
+    result.extend(HOME / relative for relative in configuration.files(repo))
     return sorted(set(result), key=str)
 
 
@@ -231,7 +233,7 @@ def restore(release, record=None, force=False):
 
 def install_controller(repo):
     CONTROL.mkdir(parents=True, exist_ok=True)
-    for name in ("releases.py", "check-overlays.py"):
+    for name in ("releases.py", "check-overlays.py", "configure.py"):
         shutil.copy2(repo / "tools" / name, CONTROL / name)
     wrapper = HOME / ".local/bin/nacre"
     wrapper.parent.mkdir(parents=True, exist_ok=True)

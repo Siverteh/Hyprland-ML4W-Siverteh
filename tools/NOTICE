@@ -1,0 +1,17 @@
+Native Quickshell recovery dependency
+
+quickshell-qt612.patch contains changes from quickshell-mirror/quickshell commit
+5d5d49873fe8cf1f99ddfd5006ceb2057c5c9b13, authored by Cloud0310 and committed
+by outfoxxed. The fifteen source-file changes are retained; its changelog entry
+is omitted for the backport to release 0.3.1 commit
+1a4716cde794a59928d9d9fc15f2afc7a95de360. This material is Quickshell source,
+not original Nacre implementation, and remains under its upstream GNU LGPL v3.
+
+Source: https://github.com/quickshell-mirror/quickshell/commit/5d5d49873fe8cf1f99ddfd5006ceb2057c5c9b13
+Release: https://github.com/quickshell-mirror/quickshell/tree/1a4716cde794a59928d9d9fc15f2afc7a95de360
+License: licenses/Quickshell-LGPL-3.0.txt (verbatim pinned upstream LICENSE).
+The incorporated GNU GPL v3 text is retained in the repository root LICENSE.
+
+quickshell.PKGBUILD is the local recovery integration. It fetches the pinned
+native source and installs through pacman; the application desktop code does
+not include these native implementation bodies.
