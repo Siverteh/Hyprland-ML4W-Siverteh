@@ -1724,3 +1724,19 @@ revision guards/backend permissions unchanged. One independently authored actual
 QML service fixture review added with fake processes/IPC; no real picker/account/
 message/network/hardware action for QA. Remaining tree/dependencies/fixtures/full
 comparison and notices/goal remain open.
+
+Service audit acceptance (2026-10-10 UTC): source ecbedfb, good shell release
+20261010T022459621470Z. All 408 tests (55 tools, 96 AI, 35 Brain, 222 shell),
+formatting/QML/native Hyprland and reviewed shell transaction/live gates pass.
+Actual SidebarChat fixture demonstrates Qt fromEntries unsupported, supported
+merge-only stale-result failure, then current/stale/queued context success. No
+real picker/account/send/attachment action by fixture. Native device/resource/
+notification/presentation/panel/provider fixtures retained. All 54 reviewed source
+files and 235 shell files exact installed bytes; eleven read-only provider IPC
+snapshots return data, palette/presentation ready. Private preference/history
+hashes and AI worker PID/start unchanged, palette/poster/deadline same baseline.
+Six owned app hover/dismiss/click/key-return cycles plus launcher/wallpaper outside
+dismissal pass, configerrors empty. No physical device/power/account/auth action,
+AI restart or user preference reset. 55 reviews added (54 source and one native
+fixture); helpers/assets/other fixture/packaging/source/final comparison and
+physical/cold-login/fresh-session requirements remain. Notices/full goal active.

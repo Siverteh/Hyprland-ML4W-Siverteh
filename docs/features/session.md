@@ -69,3 +69,8 @@ Current mixer, Bluetooth/network editor, share picker, controls, preview and PiP
 rules stay; unreferenced old ML4W app/hub/dotfiles rules are retired. Installed nwg
 tools remain available but no longer receive inherited special window placement.
 The lock preview rule now matches its actual Nacre title.
+
+Attachment additions retain their originating composer key across queued and
+in-flight file/picker/screenshot jobs. Results from an old composer are ignored;
+current results merge through Qt-supported Map APIs. Existing draft save/load
+revision behavior and backend full-access permission policy remain unchanged.
