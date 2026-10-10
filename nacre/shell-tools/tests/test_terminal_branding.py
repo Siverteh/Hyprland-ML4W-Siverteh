@@ -3,6 +3,7 @@
 import base64
 import fcntl
 import importlib.util
+import json
 import os
 from pathlib import Path
 import pty
@@ -26,6 +27,24 @@ spec.loader.exec_module(branding)
 
 
 class TerminalBrandingTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("fastfetch"), "Fastfetch unavailable")
+    def test_real_fastfetch_accepts_shipped_config(self):
+        result = subprocess.run(
+            [
+                "fastfetch",
+                "--config",
+                str(ROOT / "fastfetch/config.jsonc"),
+                "--format",
+                "json",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=True,
+        )
+        self.assertIsInstance(json.loads(result.stdout), list)
+        self.assertNotIn("JsonConfig Error", result.stderr)
+
     @unittest.skipUnless(
         Path("/usr/lib/qt6/bin/qmlformat").exists() or shutil.which("qmlformat"),
         "QML formatter unavailable",

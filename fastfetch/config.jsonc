@@ -3,7 +3,6 @@
   "logo": {
     "type": "kitty-direct",
     "source": "~/.local/share/nacre/branding/nacre.png",
-    "width": 0,
     "height": 12,
     "padding": {
       "right": 2
