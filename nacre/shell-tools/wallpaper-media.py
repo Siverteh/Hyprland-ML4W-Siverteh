@@ -168,6 +168,7 @@ def preference(value):
         "paletteMode": ("dark", "light"),
         "palettePersonality": (
             "natural",
+            "source",
             "harmony",
             "pop",
             "mist",

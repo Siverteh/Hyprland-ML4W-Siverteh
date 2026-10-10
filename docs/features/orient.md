@@ -11,7 +11,8 @@ one instance. Closing does not stop an already requested Apply/export action.
 
 | Mode | Intent |
 |---|---|
-| Natural (default) | Image pigments with their real sampled coverage; backgrounds use observed shadow/highlight families |
+| Natural (default) | Distinct real image families; restrained backgrounds tinted toward the chosen accent, as in the original Natural |
+| Source | The same diverse image accents, with backgrounds taken from observed shadow/highlight families |
 | Harmony | Neighboring hues around the main family, with lightness separation |
 | Pop | A substantial, saturated minority becomes the accent; body stays calm |
 | Mist | Soft, nearly neutral accents and body |
@@ -45,6 +46,13 @@ labels and shapes remain necessary. Pinned/neutral colors may remain too close,
 in which case the report explains the limitation rather than inventing source
 colors or changing a pin. Transparency and arbitrary third-party app usage cannot
 be guaranteed by an opaque palette alone.
+
+Fine shade clusters are aggregated into pigment families before ranking, so shaded
+rock counts as one population rather than losing to an unfragmented sky. Family
+coverage and spatial maps sum the original clusters; representatives favor lit
+pigment. Candidate options reserve room for different families before nearby hues.
+Natural retains real supporting families rather than filling roles with shades of
+the main color. Single-family/neutral images still use tonal fallbacks.
 
 Clustering uses perceptual OKLab distance with a chroma-adaptive tolerance. Center,
 local detail and chroma affect bounded salience; true coverage is kept separate.
@@ -88,7 +96,7 @@ pure substitution helper inside the one existing publisher.
 ## Gallery and checks
 
 `nacre/shell-tools/tests/orient-gallery` contains six CC0 procedural images, a
-four-frame animation, its generator and all14personality/mode snapshots per image.
+four-frame animation, its generator and all16personality/mode snapshots per image.
 Regenerate explicitly with `generate.py` and `snapshot.py`; changing snapshots is
 a reviewed palette change. The generator does not use private commercial artwork.
 Before/after rendered sheets and real-wallpaper screenshots stay in temporary QA

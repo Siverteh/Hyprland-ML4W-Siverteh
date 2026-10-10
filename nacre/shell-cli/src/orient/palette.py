@@ -42,7 +42,14 @@ def supporting_sources(seed, candidates, harmony=False):
     records = [dict(c) if isinstance(c, dict) else {"hex": clean(c)} for c in candidates]
     records = [c for c in records if clean(c["hex"]) != clean(seed)]
     if not harmony:
-        return [clean(c["hex"]) for c in records[:2]]
+        chosen = []
+        for candidate in records:
+            value = clean(candidate["hex"])
+            if all(hue_distance(lch(value)[2], lch(other)[2]) >= 18 for other in [seed, *chosen]):
+                chosen.append(value)
+            if len(chosen) == 2:
+                break
+        return chosen
     main = lch(seed)
     dominant = max((c.get("coverage", 0) for c in candidates if isinstance(c, dict)), default=0)
     ranked = []
@@ -72,7 +79,7 @@ def supporting_sources(seed, candidates, harmony=False):
     return chosen
 
 
-PERSONALITIES = ("natural", "harmony", "pop", "mist", "vivid", "pearl", "tide")
+PERSONALITIES = ("natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide")
 
 
 def generate(
@@ -106,6 +113,8 @@ def generate(
         variant = "vibrant"
     if mode not in ("light", "dark") or variant not in VARIANTS or flavour not in ("default", "hard"):
         raise ValueError("Unsupported palette mode, variant or flavour")
+    # Natural retains the original restrained accent tint; Source uses sampled tones.
+    body = None if personality == "natural" else body
     dark = mode == "dark"
     _, chroma, hue = lch(seed)
     chroma *= saturation * (1.35 if personality == "vivid" else 1.0)

@@ -58,7 +58,9 @@ def parser():
         default=None,
         help="prefer related, substantial supporting colors",
     )
-    wallpaper.add_argument("--personality", choices=("natural", "harmony", "pop", "mist", "vivid", "pearl", "tide"))
+    wallpaper.add_argument(
+        "--personality", choices=("natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide")
+    )
     return cli
 
 

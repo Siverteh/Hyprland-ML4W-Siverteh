@@ -69,7 +69,7 @@ class ColorsBackendTests(unittest.TestCase):
         self.assertFalse(colors.STORE.exists())
         self.assertFalse(colors.media.PREFS.exists())
         self.assertFalse((self.home / ".local/state/nacre/scheme.json").exists())
-        self.assertEqual(len(data["comparisons"]), 7)
+        self.assertEqual(len(data["comparisons"]), 8)
         self.assertTrue(data["palette"]["accessibility"]["textPasses"])
         self.assertEqual(colors.record(data["id"])["request"]["personality"], "pop")
         Image.new("RGB", (64, 40), "#ee8844").save(self.image)

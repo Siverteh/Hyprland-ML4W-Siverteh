@@ -194,7 +194,7 @@ def from_image(
             "regions": match.get("regions") if match else None,
         }
     provenance = {}
-    body_source = analysis["body"]["dark" if mode == "dark" else "light"]["hex"]
+    body_source = seed if personality == "natural" else analysis["body"]["dark" if mode == "dark" else "light"]["hex"]
     semantic_sources = dict(SEMANTIC_SEEDS, error=SEMANTIC_SEEDS["red"], success=SEMANTIC_SEEDS["green"])
     ansi_sources = ("surface", "red", "green", "yellow", "blue", "mauve", "teal", "onSurface")
     for role, value in colors.items():

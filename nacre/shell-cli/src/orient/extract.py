@@ -12,7 +12,7 @@ import warnings
 import json
 
 from PIL import Image, ImageCms, ImageOps
-from .colour import color, lab_from_rgb
+from .colour import color, lab_from_rgb, lch
 
 SAMPLE_EDGE = 128
 MAX_PIXELS = 50_000_000
@@ -141,6 +141,66 @@ def distance(a, b, light_weight=1.0):
     return math.sqrt((a[0] - b[0]) ** 2 * light_weight + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2)
 
 
+def pigment_families(records):
+    """Aggregate shade populations before ranking; retain fine clusters separately.
+
+    Compare chromatic OKLab directions at a common strength so a shadow and
+    highlight of one pigment share coverage. Complete-link membership prevents
+    chains of neighboring hues from swallowing a genuinely different family.
+    """
+    groups = []
+    for record in sorted(records, key=lambda r: (-r["coverage"], r["hex"])):
+        if record["chroma"] < 0.012 or not 0.12 < record["lightness"] < 0.96:
+            continue
+        light, chroma, hue = lch(record["hex"])
+        angle = math.radians(hue)
+        vector = (0.0, 0.1 * math.cos(angle), 0.1 * math.sin(angle))
+        compatible = [group for group in groups if all(distance(vector, v) < 0.028 for v in group["vectors"])]
+        group = compatible[0] if compatible else {"members": [], "vectors": []}
+        if not compatible:
+            groups.append(group)
+        group["members"].append(record)
+        group["vectors"].append(vector)
+    families = []
+    for group in groups:
+        members = group["members"]
+        coverage = sum(r["coverage"] for r in members)
+        if coverage < 0.0025:
+            continue
+        pigment = [r["coverage"] * (0.25 + 0.75 * min(r["lightness"] / 0.65, 1)) for r in members]
+        mass = sum(pigment)
+        labs = [lab_from_rgb(tuple(int(r["hex"][k : k + 2], 16) / 255 for k in (0, 2, 4))) for r in members]
+        light, a, b = (sum(lab[k] * w for lab, w in zip(labs, pigment)) / mass for k in range(3))
+        chroma = math.hypot(a, b)
+        salience = sum(r["salience"] * r["coverage"] for r in members) / coverage
+        cells = Counter()
+        for r in members:
+            for cell in r["regions"]["cells"]:
+                cells[cell["index"]] += cell["coverage"]
+        score = coverage**0.7 * min(chroma / 0.12, 1.5) ** 0.8 * (0.5 + 0.5 * min(light / 0.55, 1)) * salience
+        families.append(
+            {
+                "hex": color(light, chroma, math.degrees(math.atan2(b, a))),
+                "coverage": round(coverage, 6),
+                "chroma": round(chroma, 6),
+                "lightness": round(light, 6),
+                "salience": round(salience, 4),
+                "score": round(score, 7),
+                "spread": round(len(cells) / (GRID[0] * GRID[1]), 4),
+                "location": {
+                    k: round(sum(r["location"][k] * r["coverage"] for r in members) / coverage, 4) for k in ("x", "y")
+                },
+                "regions": {
+                    "columns": GRID[0],
+                    "rows": GRID[1],
+                    "cells": [{"index": i, "coverage": round(w, 6)} for i, w in cells.most_common()],
+                },
+                "members": [r["hex"] for r in members],
+            }
+        )
+    return sorted(families, key=lambda r: (-r["score"], r["hex"]))
+
+
 def analyze(path):
     path = Path(path).expanduser().resolve(strict=True)
     images = frames(path)
@@ -180,7 +240,19 @@ def analyze(path):
     for record in sorted(bins.values(), key=lambda r: (-r["weight"], r["rgb"])):
         weight = record["weight"]
         lab = lab_from_rgb(tuple(v / weight / 255 for v in record["rgb"]))
-        eligible = [(distance(lab, g["lab"], 0.45), g) for g in groups]
+
+        def pigment_direction(value):
+            strength = math.hypot(value[1], value[2])
+            return (0.0, value[1] * 0.1 / strength, value[2] * 0.1 / strength)
+
+        def compatible(other):
+            chromatic = math.hypot(lab[1], lab[2]) >= 0.012
+            other_chromatic = math.hypot(other[1], other[2]) >= 0.012
+            if chromatic != other_chromatic:
+                return False
+            return not chromatic or distance(pigment_direction(lab), pigment_direction(other)) < 0.028
+
+        eligible = [(distance(lab, g["lab"], 0.45), g) for g in groups if compatible(g["lab"])]
         best = min(eligible, key=lambda item: item[0]) if eligible else None
         limit = max(0.012, min(0.045, math.hypot(lab[1], lab[2]) * 0.4))
         if best and best[0] < limit:
@@ -235,21 +307,16 @@ def analyze(path):
             }
         )
     records.sort(key=lambda r: (-r["score"], r["hex"]))
+    families = pigment_families(records)
     candidates = []
-    for record in records:
-        if record["coverage"] < 0.0025 or record["chroma"] < 0.012 or not 0.12 < record["lightness"] < 0.96:
-            continue
-        lab = lab_from_rgb(tuple(int(record["hex"][k : k + 2], 16) / 255 for k in (0, 2, 4)))
-
-        def separated(candidate):
-            other = lab_from_rgb(tuple(int(candidate["hex"][k : k + 2], 16) / 255 for k in (0, 2, 4)))
-            strength = max(record["chroma"], candidate["chroma"])
-            return distance(lab, other, 0.35) >= min(0.06, max(0.012, strength * 0.5)) and distance(
-                lab, other, 0.0
-            ) >= min(0.025, max(0.010, strength * 0.35))
-
-        if all(separated(c) for c in candidates):
-            candidates.append(record)
+    # Reserve options for different families before offering neighboring tones.
+    for separation in (48, 18):
+        for record in families:
+            hue = lch(record["hex"])[2]
+            if all(abs((hue - lch(c["hex"])[2] + 180) % 360 - 180) >= separation for c in candidates):
+                candidates.append(record)
+            if len(candidates) == 5:
+                break
         if len(candidates) == 5:
             break
     neutral = not candidates
@@ -272,12 +339,13 @@ def analyze(path):
     return {
         "seed": candidates[0]["hex"],
         "candidates": candidates,
+        "families": families,
         "clusters": sorted(records, key=lambda r: -r["coverage"])[:64],
         "body": {"dark": population_tone(True), "light": population_tone(False)},
         "meanLightness": round(sum(r["lightness"] * r["coverage"] for r in records), 6),
         "neutral": neutral,
         "sample": {"width": images[0].width, "height": images[0].height, "frames": len(images)},
-        "reason": "perceptual distance; true coverage with bounded center/detail/chroma salience",
+        "reason": "perceptual shade clusters; aggregated pigment-family coverage with bounded salience",
     }
 
 

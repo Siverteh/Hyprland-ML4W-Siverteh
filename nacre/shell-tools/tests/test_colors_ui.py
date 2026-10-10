@@ -75,6 +75,7 @@ TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;when:windowShown
  function test_resize_and_preview_controls_are_read_only(){
   const view=createTemporaryObject(studio,test);wait(30);
   const initial=NacreColorsApp.actions.length;
+  findChild(view,"sourcePersonality").clicked();compare(NacreColorsApp.options.personality,"source");
   findChild(view,"popPersonality").clicked();compare(NacreColorsApp.options.personality,"pop");compare(NacreColorsApp.actions.length,initial);
   for(const w of [740,960,1180]){view.width=w;wait(10);const canvas=findChild(view,"colorsCanvas");verify(canvas.width>400);verify(canvas.x+canvas.width<=view.width+.1);}
  }

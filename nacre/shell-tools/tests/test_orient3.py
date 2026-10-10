@@ -15,10 +15,10 @@ ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT.parent / "shell-cli/src"))
 from PIL import Image
 from orient.engine import from_image
-from orient.colour import lch, hue_distance
+from orient.colour import color, lch, hue_distance
 from orient.accessibility import simulate, difference
 from orient.export import export, render
-from orient.extract import sample_color
+from orient.extract import sample_color, analyze
 from orient.palette import PERSONALITIES
 
 
@@ -46,28 +46,92 @@ class Orient3Tests(unittest.TestCase):
         image.save(p)
         return p
 
-    def test_natural_body_comes_from_shadow_not_accent(self):
+    def test_natural_restores_accent_tint_and_source_remains_separate(self):
         p = self.scene("28160f", "2870db")
-        data = from_image(p)
+        for mode in ("dark", "light"):
+            natural = from_image(p, mode, accent="2870db")
+            source = from_image(p, mode, accent="2870db", personality="source")
+            self.assertEqual(natural["input"]["personality"], "natural")
+            self.assertLess(
+                hue_distance(lch(natural["colours"]["surface"])[2], lch("2870db")[2]),
+                10,
+            )
+            self.assertNotEqual(
+                natural["colours"]["surface"], source["colours"]["surface"]
+            )
+            self.assertEqual(natural["provenance"]["surface"]["original"], "2870db")
+            self.assertTrue(natural["accessibility"]["textPasses"])
+            self.assertTrue(source["accessibility"]["textPasses"])
+
+    def test_canyon_shade_populations_beat_one_sky_cluster(self):
+        path = self.home / "canyon.png"
+        image = Image.new("RGB", (128, 80), "#202020")
+        for i, light in enumerate((0.30, 0.41, 0.52, 0.63)):
+            image.paste("#" + color(light, 0.10, 35), (i * 8, 0, (i + 1) * 8, 80))
+        image.paste("#" + color(0.63, 0.10, 245), (100, 0, 110, 80))
+        image.save(path)
+        result = analyze(path)
+        self.assertLess(hue_distance(lch(result["seed"])[2], 35), 8)
+        main = result["candidates"][0]
+        self.assertGreaterEqual(len(main["members"]), 4)
+        self.assertAlmostEqual(main["coverage"], 0.25, delta=0.01)
+        self.assertAlmostEqual(
+            sum(c["coverage"] for c in main["regions"]["cells"]),
+            main["coverage"],
+            delta=0.0001,
+        )
+        # Explicit sky choice stays honored even though the rock is recommended.
+        picked = from_image(path, accent=color(0.63, 0.10, 245))
+        self.assertLess(hue_distance(lch(picked["colours"]["overtone"])[2], 245), 3)
+
+    def test_natural_supports_use_different_real_families(self):
+        path = self.home / "jungle.png"
+        image = Image.new("RGB", (128, 80), "#87373c")
+        for i, light in enumerate((0.3, 0.4, 0.5, 0.6)):
+            image.paste("#" + color(light, 0.10, 19), (i * 24, 0, (i + 1) * 24, 80))
+        image.paste("#b46549", (96, 0, 112, 80))
+        image.paste("#dbcf79", (112, 0, 128, 80))
+        image.save(path)
+        for mode in ("dark", "light"):
+            result = from_image(path, mode)
+            hues = [lch(s["sourceColor"])[2] for s in result["roleSources"].values()]
+            self.assertTrue(any(hue_distance(h, 19) < 8 for h in hues))
+            self.assertTrue(any(hue_distance(h, lch("b46549")[2]) < 8 for h in hues))
+            self.assertTrue(any(hue_distance(h, lch("dbcf79")[2]) < 8 for h in hues))
+            self.assertTrue(
+                all(s["type"] == "observed" for s in result["roleSources"].values())
+            )
+            self.assertTrue(result["accessibility"]["textPasses"])
+
+    def test_source_body_comes_from_shadow_not_accent(self):
+        p = self.scene("28160f", "2870db")
+        data = from_image(p, personality="source")
         self.assertLess(
             hue_distance(lch(data["colours"]["surface"])[2], lch("28160f")[2]), 15
         )
         self.assertLess(
             hue_distance(
-                lch(from_image(p, accent="df2020")["colours"]["surface"])[2],
+                lch(
+                    from_image(p, accent="df2020", personality="source")["colours"][
+                        "surface"
+                    ]
+                )[2],
                 lch("28160f")[2],
             ),
             15,
         )
         q = self.scene("07152b", "ed566e", "navy.png")
         self.assertLess(
-            hue_distance(lch(from_image(q)["colours"]["surface"])[2], lch("07152b")[2]),
+            hue_distance(
+                lch(from_image(q, personality="source")["colours"]["surface"])[2],
+                lch("07152b")[2],
+            ),
             15,
         )
 
     def test_light_body_from_bright_population_and_every_role_has_provenance(self):
         p = self.scene("eee3ce", "276ba0")
-        data = from_image(p, "light")
+        data = from_image(p, "light", personality="source")
         self.assertGreater(lch(data["colours"]["surface"])[0], 0.94)
         self.assertLess(
             hue_distance(lch(data["colours"]["surface"])[2], lch("eee3ce")[2]), 20

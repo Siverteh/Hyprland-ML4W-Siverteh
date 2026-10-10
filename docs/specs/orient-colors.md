@@ -20,7 +20,14 @@ independent of the chosen accent. Crop/frame stability is measured, never claime
 absolutely. Animated inputs aggregate a small fixed frame sample; no frame-time
 worker. Unsupported video decoding returns a useful error.
 
-Personalities: Natural default, Harmony (neighboring hues), Pop (salient minority),
+2026-10-10 preference correction: Natural keeps the original diverse observed
+accents and restrained accent-tinted surfaces. Source preserves the newer observed
+shadow/highlight body policy as a separate explicit choice. Rank aggregated pigment
+families, retaining fine clusters and their summed provenance, so brightness shades
+do not split one pigment into competing populations. Supporting accents reserve
+different real families; pins remain authoritative and neutral scenes invent no hues.
+
+Personalities: Natural default, Source (observed bodies), Harmony (neighboring hues), Pop (salient minority),
 Mist, Vivid, Pearl (fixed signature hues), Tide (explicit hour input, optional
 mode inference). Overrides and brightness/chroma nudges go through the same
 contrast/gamut policy. Format version 1 records engine fingerprint, settings,

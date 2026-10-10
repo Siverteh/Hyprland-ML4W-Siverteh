@@ -52,7 +52,7 @@ Item {
         width: parent.width
         spacing: 7
         Repeater {
-            model: ["natural", "harmony", "pop", "mist", "vivid", "pearl", "tide"]
+            model: ["natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide"]
             ActionButton {
                 required property string modelData
                 objectName: modelData + "Personality"
