@@ -11,6 +11,21 @@ spec.loader.exec_module(media)
 
 
 class WallpaperMediaTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        home = Path(temporary.name)
+        isolated = patch.multiple(
+            media,
+            HOME=home,
+            LIBRARY=home / "pictures",
+            CACHE=home / "cache",
+            STATE=home / "state",
+            PREFS=home / "config/picker.json",
+        )
+        isolated.start()
+        self.addCleanup(isolated.stop)
+
     def test_static_and_animated_gif_have_distinct_identity_and_posters(self):
         with (
             tempfile.TemporaryDirectory() as folder,

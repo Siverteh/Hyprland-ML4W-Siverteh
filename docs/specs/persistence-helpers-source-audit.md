@@ -40,3 +40,9 @@ even though PRESET_KEYS deliberately excludes them. Add an actual temp-home main
 regression across all seven presets, fail Docked first, then remove those reset
 overrides. Preserve its desktop DND choice and every current privacy/weather value.
 Never apply a real preset or inspect private workflow contents for this proof.
+
+Complete fixture review also found wallpaper cases using default user CACHE and
+a native watcher observing the real HOME configuration folder. Scope all first
+WallpaperMediaTests globals to a temporary home/cache/library/state and the watcher
+child's HOME to its fixture. Keep successful/failure/cache/rotation checks meaningful;
+no test should populate user wallpaper caches or react to unrelated private edits.

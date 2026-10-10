@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import select
 import subprocess
@@ -28,6 +29,7 @@ class WallpaperWatchTests(unittest.TestCase):
                 ],
                 stdout=subprocess.PIPE,
                 text=True,
+                env={**os.environ, "HOME": str(base)},
             )
             try:
                 time.sleep(0.2)
