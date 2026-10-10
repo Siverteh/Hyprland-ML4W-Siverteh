@@ -1810,3 +1810,28 @@ reviews and 361 pending. These are audit counts, not an originality percentage.
 Only run.fish remains pending in the shell-source category; separate desktop
 helpers, login, workflow, packaging, fixtures and final comparison remain open.
 Applicable notices and the complete originality goal remain in place.
+
+## Retired unused shell launcher
+
+2026-10-10 UTC. [Spec](../specs/retire-legacy-shell-runner.md): removed
+`nacre/shell/run.fish`, imported in 4874385 and renamed in 548f0b4. No maintained
+caller used it. Actual installed service/control/supervisor/Qt-wrapper copies
+match the supported startup chain. No replacement copied its warning-filtering
+pipeline; prior discovery exposure is recorded. The retired-path check rejects
+reintroduction. Overview and architecture explain the single startup owner.
+
+Source 8ec9023 deployed in good release 20261010T030303577778Z after all 409 tests,
+native QML/Hyprland checks and reviewed shell plan. Deployment reran checks and
+passed launcher/wallpaper real Escape gates. All 234 current and good shell files
+match source, with the old wrapper absent. Six owned application hover/dismiss/
+click/keyboard-return cycles and launcher/wallpaper outside dismissal pass.
+Private state, busy worker and palette/poster/deadline unchanged; live native
+IPC/services ready and configerrors empty. Historical rollback snapshots stay.
+No actual hardware/authentication/power/AI-message action was used for proof.
+
+All 231 current shell-source artifacts now have explicit source reviews. This
+does not certify the whole project: 50 desktop helper/data files, 10 other
+desktop configuration/helpers, 4 login artifacts, 44 AI/Brain workflow files,
+15 packaging/maintenance files, 129 fixtures/tests, 102 documentation artifacts
+and 7 license notices remain pending. Those pending files are not necessarily
+inherited. Final whole-tree comparison and applicable notices remain open.
