@@ -27,3 +27,12 @@ hl.window_rule({
     center = true,
     size = "70% 75%",
 })
+
+-- Dolphin uses the same current-workspace popup geometry as Files.
+hl.window_rule({
+    name = "nacre-dolphin-files",
+    match = { class = "^(org[.]kde[.]dolphin|[Dd]olphin)$" },
+    float = true,
+    center = true,
+    size = "70% 75%",
+})

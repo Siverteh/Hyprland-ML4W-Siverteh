@@ -1,63 +1,49 @@
-# Thunar Files and live colors
+# Dolphin Files and live Nacre colors
 
-Thunar is the maintained file manager. Super+Shift+F, the Files app route, the
-Thunar Files launcher and directory associations all use its styled launcher.
-Super+F remains the fullscreen shortcut. Explicit personal app routes in
-`~/.config/nacre/apps.json` remain supported.
+Dolphin is Nacre's selected file manager. Super+Shift+F, the Files app route,
+folder associations and ZIP associations use its Nacre launcher. Super+F remains
+the fullscreen shortcut. Personal explicit routes in `~/.config/nacre/apps.json`
+are supported.
 
-The layout uses a centered floating window, 96-pixel icons, 24-pixel Places
-icons, readable Noto Sans text, breadcrumb navigation, a hidden menu bar and
-local image thumbnails. Ctrl+M reveals the menu; Ctrl+L edits the path;
-Ctrl+mouse-wheel adjusts zoom; F3 opens split view. Layout defaults are applied
-once through Xfconf, recording previous values privately. Later user changes
-are preserved. The folder association is also applied once and recorded.
+Double-click ZIP archives to browse their contents like a folder. This is native
+Dolphin/KIO archive navigation; it does not extract every file into the parent
+folder. Copy items out when needed. The native setting is
+`General/BrowseThroughArchives` in dolphinrc.
 
-## Shared wallpaper colors
+The default layout uses a centered floating window, 80px file icons, 96px previews,
+22px Places icons and the shared Noto Sans font. Breadcrumb navigation, a quiet
+menu toolbar and Nacre's dark/light surfaces, text, accents and Papirus folder
+colors follow the existing palette publisher. First-run setup backs up preferences
+and associations; later layout edits are not overwritten. Ctrl+L edits the path,
+Ctrl+M shows the menu and F3 toggles split view.
 
-`classic-state.py` remains the palette publisher. `thunar.css` uses its generated
-GTK roles for the file view, toolbar, sidebar, text and selections. The existing
-Papirus folder overlay follows the accent family; original Papirus app/MIME
-artwork supplies fallbacks. Fixed palettes in Appearance remain fixed.
+`dolphin-files.py` removes old native-library/QML overrides and selects the scoped
+NacreDolphin style. The compiled style-only adapter uses public Qt/KDE interfaces
+and native Breeze. It watches generated `Nacre.colors` and kdeglobals, refreshes
+KDE's shared scheme cache and Dolphin's item-style caches, and recolors open windows
+without restarting them or interrupting transfers. Other applications do not
+activate its palette watcher. No second palette engine or polling timer is added.
+Native Qt, KDE, Dolphin, thumbnailers and Papirus remain pacman-managed.
 
-A small app-scoped GTK3 module watches atomic replacements of the generated
-palette and settings files. It coalesces file events, reloads CSS and updates
-folder icons and dark/light settings in the same process, without polling or
-restarting. It checks the application name to avoid activating in unrelated
-apps that inherit the launch environment. No second palette owner is introduced.
-Settings and CSS use the [documented Xfce interfaces](https://docs.xfce.org/xfce/thunar/hidden-settings).
-No Xfce desktop/session is enabled. Existing GVfs and Tumbler handle trash,
-mounting and thumbnails.
+Install native packages, then deploy through the normal plan/apply workflow:
 
-## Installation and validation
+```sh
+sudo pacman -S --needed dolphin kdegraphics-thumbnailers ffmpegthumbs archlinux-xdg-menu
+./install.sh --component configs --component shell
+./install.sh --apply --component configs --component shell
+```
 
-Pacman owns Thunar, Xfconf and their native libraries and verifies package
-signatures. `install-thunar.py` builds only the private app-scoped style module
-using a C compiler, pkg-config and GTK3 headers. Distribution D-Bus activation
-starts Xfconf on demand; personal preferences remain outside release snapshots.
+The shell installer builds only the small local style adapter, seeds archive/layout
+preferences once and prepares KDE application-menu metadata. Its folder activation
+service starts Dolphin on demand. Already-running older file-manager services can
+retain their bus ownership until closed; migration never kills active transfers.
 
-The compiled style module and desktop launcher are included in release snapshots.
-`./install.sh --component apps --component shell` updates Files routes and shell
-software without replacing unrelated compositor configuration. Run
-`python3 tools/check.py`, the Hyprland configuration check, plan/apply and live
-IPC/source checks. The native GTK regression verifies actual CSS parsing and
-atomic palette replacement recoloring an existing widget. It requires a display
-and GTK3 headers; CI reports skips when these are absent. Live tests can use a
-private copy of GTK palette/settings to verify colors and icons without changing
-the user's wallpaper. Do not terminate active file operations to test theming.
+Tests verify native palette replacement and app isolation, literal file routes,
+backup/default handling and later-edit preservation. Actual isolated previews
+validate palette colors and ZIP navigation. Source/license credits for native
+Breeze/Papirus remain with their distribution packages; no upstream implementation
+source is copied into the adapter.
 
-The earlier Yazi and Dolphin/Nautilus trial launch/configuration code is retired.
-The selected host removed those applications and their private trial runtimes;
-shared toolkit libraries, themes, personal preferences and release backups remain.
-
-## Icon artwork and other applications
-
-Pacman owns Papirus artwork under the system icon directory. `file-icons.py`
-creates a small user-local folder overlay linking to that artwork and inheriting
-its app/MIME icons. It does not copy the native package into a private runtime.
-Folder colors follow the nearest accent family. GTK settings and GNOME’s icon
-preference select the same overlay; generated themes stay outside Git.
-
-Other GTK applications may require reopening to read a changed custom stylesheet.
-Thunar’s app-scoped file-event module refreshes its existing window instead. Palette
-publication never terminates active file operations. Papirus retains its upstream
-license; its artwork is not original Nacre art.
+The previous Thunar command and its installed libraries may remain as a rollback
+fallback. It no longer owns normal Files routes or gets rebuilt on routine shell
+deployment. Personal preferences and old release backups are preserved.

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class FilesRouteTests(unittest.TestCase):
-    def test_default_uses_styled_thunar_with_literal_path(self):
+    def test_default_uses_styled_dolphin_with_literal_path(self):
         loader = SourceFileLoader("app_route", str(ROOT / "bin/nacre-app"))
         spec = importlib.util.spec_from_loader(loader.name, loader)
         app = importlib.util.module_from_spec(spec)
@@ -28,7 +28,7 @@ class FilesRouteTests(unittest.TestCase):
                     str(Path(directory) / ".local/bin/nacre-shell"),
                     [
                         str(Path(directory) / ".local/bin/nacre-shell"),
-                        "thunar",
+                        "dolphin",
                         "/tmp/with spaces",
                     ],
                 )

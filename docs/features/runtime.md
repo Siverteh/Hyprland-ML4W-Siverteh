@@ -11,18 +11,19 @@ Qt APIs and needs a matching build after Qt releases:
 Install these through the distribution before provisioning:
 
 ```sh
-sudo pacman -Syu quickshell thunar xfconf exo libxfce4ui libgtop qt6-multimedia qt6-multimedia-ffmpeg qt6-imageformats papirus-icon-theme wtype ddcutil cpptrace libdwarf
+sudo pacman -Syu quickshell dolphin kio-extras qt6ct breeze kdegraphics-thumbnailers ffmpegthumbs archlinux-xdg-menu qt6-multimedia qt6-multimedia-ffmpeg qt6-imageformats papirus-icon-theme wtype ddcutil cpptrace libdwarf
 python3 nacre/shell-tools/provision.py
-python3 nacre/shell-tools/install-thunar.py
+python3 nacre/shell-tools/install-dolphin.py
 ```
 
 On mixed CachyOS/Arch repositories, ensure the selected Qt plugins and Quickshell
 match the already installed Qt release; choose explicit repository packages when
 necessary. Do not downgrade Qt plugins independently. Provisioning validates the
 system packages and installs only the pinned palette engine in
-`~/.local/share/nacre/palette-runtime/venv`. The Thunar installer compiles only
-`thunar-style/nacre-thunar-theme.so`. Launchers remove private native library
-and Qt plugin/import overrides; Thunar uses normal distribution Xfconf activation.
+`~/.local/share/nacre/palette-runtime/venv`. The Dolphin installer compiles only its uniquely named local style plugin using
+public Qt/KDE APIs. Launchers remove private native-library/QML overrides; the
+Dolphin wrapper adds only the style-plugin directory. No extracted Qt runtime is
+used. Existing Thunar libraries/configuration remain available for rollback.
 
 Before replacing a private runtime, retain a release snapshot, test system
 Quickshell separately, and validate live shell IPC after deployment. Retire the

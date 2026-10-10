@@ -212,7 +212,7 @@ def deploy(code_only=False):
         check=True,
         stdout=subprocess.DEVNULL,
     )
-    subprocess.run(["python3", str(ROOT / "install-thunar.py")], check=True)
+    subprocess.run(["python3", str(ROOT / "install-dolphin.py")], check=True)
     import importlib.util
 
     spec = importlib.util.spec_from_file_location(

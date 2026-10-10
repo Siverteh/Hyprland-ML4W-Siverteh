@@ -50,6 +50,7 @@ def paths(repo):
             ".local/share/nacre/shell",
             ".local/share/nacre/palette-runtime",
             ".local/share/nacre/thunar-style",
+            ".local/share/nacre/dolphin-style",
             ".local/share/nacre/control",
             ".local/share/siverteh-ai/observatory",
             ".local/share/siverteh-ai/thunar-runtime",
@@ -87,6 +88,7 @@ def paths(repo):
         HOME / ".local/state/nacre/configuration.json",
         HOME / ".config/nacre/shell.json",
         HOME / ".local/share/dbus-1/services/org.freedesktop.Notifications.service",
+        HOME / ".local/share/dbus-1/services/org.freedesktop.FileManager1.service",
         HOME / ".local/share/applications/nacre-thunar.desktop",
     ]
     managed = HOME / ".local/state/nacre/configuration.json"

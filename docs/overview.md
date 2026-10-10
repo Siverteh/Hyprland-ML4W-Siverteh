@@ -15,9 +15,9 @@ recovery can preserve running conversations.
 
 Orient extracts wallpaper colors and generates readable UI roles. Desktop helpers
 publish those roles to the shell, window borders, GTK/Qt, Kitty, branding, lock
-screen and optional login appearance. Thunar uses an app-scoped style module;
-Quickshell, Thunar, Qt plugins and Papirus are system packages owned by pacman.
-The palette Python environment and compiled Thunar style module stay local.
+screen and optional login appearance. Dolphin uses a scoped native Qt/KDE palette adapter;
+Quickshell, Dolphin, Qt/KDE plugins and Papirus are system packages owned by pacman.
+The palette Python environment and compiled Dolphin style adapter stay local.
 
 Hypridle and Hyprlock own idle/sleep locking and password authentication. SDDM
 owns login authentication. Nacre prepares their appearance; it does not replace
@@ -88,7 +88,7 @@ possible future extraction; it is not an implemented public installer.
 - [Audio, Wi-Fi and Bluetooth](features/connections.md), [state services](features/state-services.md)
 - [Platform services](features/platform-services.md), [color/light services](features/colour-light.md)
 - [Image/presentation state](features/image-presentation.md), [fonts](features/fonts.md)
-- [Thunar](file-manager.md), [terminal branding](features/terminal-branding.md)
+- [Dolphin](file-manager.md), [terminal branding](features/terminal-branding.md)
 - [Session environment](features/session.md), [travel timezone](features/travel-timezone.md)
 - [Runtime ownership](features/runtime.md), [Nacre name migration](features/nacre-rename.md)
 - [Health and recovery](features/health-and-recovery.md), [Brain authentication](features/brain-authentication.md)

@@ -7,6 +7,7 @@ case "${1:-start}" in
  brightness|keyboard-light)
   target=brightness; [[ "$1" != keyboard-light ]] || target=keyboardLight
   exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call "$target" step "${2:-up}" ;;
+ dolphin) exec python3 "$HOME/.local/share/nacre/shell/tools/dolphin-files.py" "${@:2}" ;;
  thunar) exec python3 "$HOME/.local/share/nacre/shell/tools/thunar-files.py" "${@:2}" ;;
  start) exec python3 "$HOME/.local/share/nacre/shell/tools/shell-supervisor.py" ;;
  close) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre close ;;

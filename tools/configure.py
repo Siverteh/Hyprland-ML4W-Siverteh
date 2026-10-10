@@ -55,6 +55,9 @@ def files(root=ROOT):
         "xdg-open",
     ):
         result[Path(".local/bin") / name] = root / "bin" / name
+    result[Path(".local/share/applications/org.kde.dolphin.desktop")] = (
+        root / "nacre/desktop/org.kde.dolphin.desktop"
+    )
     result[Path(".local/share/applications/nacre-ai.desktop")] = (
         root / "nacre/desktop/nacre-ai.desktop"
     )

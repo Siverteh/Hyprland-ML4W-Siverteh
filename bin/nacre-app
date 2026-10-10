@@ -6,7 +6,7 @@ from pathlib import Path
 
 DEFAULTS = {
     "browser": ["google-chrome-stable"],
-    "files": ["nacre-shell", "thunar"],
+    "files": ["nacre-shell", "dolphin"],
     "mail": ["google-chrome-stable", "--app=https://mail.google.com/"],
     "emoji": ["rofimoji", "--action", "copy"],
 }
@@ -26,7 +26,7 @@ def main():
     if name == "mail" and name not in choices and shutil.which("evolution"):
         argv = ["evolution"]
     if name == "files" and name not in choices:
-        argv = [str(Path.home() / ".local/bin/nacre-shell"), "thunar"]
+        argv = [str(Path.home() / ".local/bin/nacre-shell"), "dolphin"]
     if not shutil.which(argv[0]):
         raise SystemExit(
             "Install the selected application or edit ~/.config/nacre/apps.json"

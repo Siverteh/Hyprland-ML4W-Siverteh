@@ -1491,11 +1491,12 @@
     },
     "hypr/conf/windowrule.lua": {
       "disposition": "independent",
-      "sha256": "61fa11ab8d75e9c311a7acf105011fd334a10972e1753fcdab3fc61cc5c474b8",
+      "sha256": "963effd76ee8c186e9009517c994c8a36174eeb65d9e13418851088acefcd58a",
       "evidence": [
         "docs/specs/window-routing.md",
         "docs/nacre/PROVENANCE.md#application-route-composition-replacement",
-        "replacement e944518: target deleted then own ordered route composition from11 captured public native rule contracts/APIs; generated conflicts/full checks/owned-window comparison and exact installed source verified; prior exposure acknowledged; no upstream body copied; companion/real-app audits separate"
+        "replacement e944518: target deleted then own ordered route composition from11 captured public native rule contracts/APIs; generated conflicts/full checks/owned-window comparison and exact installed source verified; prior exposure acknowledged; no upstream body copied; companion/real-app audits separate",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "hypr/hyprland.lua": {
@@ -4075,12 +4076,13 @@
     },
     "nacre/shell-tools/control.sh": {
       "disposition": "independent",
-      "sha256": "7fe93a997aea7595917c2c20a69a7157ed761dafd47226596008367c4bae44f1",
+      "sha256": "8a082d271cdfb2f936ddcde0acc7f628df2ed3a211e208a734c475957d1a24b8",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
         "Full current body reviewed; basis 548f0b4: 4874385 original local dispatcher; follow old siverteh path through ba5e48f desktop/Brain split and 1e24b63 light IPC; current renamed body and1488f68 locked palette CLI routing. Later current-path changes: 1488f68. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -4104,11 +4106,12 @@
     },
     "nacre/shell-tools/install.py": {
       "disposition": "independent",
-      "sha256": "6351ecc6745611dc0b784205861f85bdb872ae112122cdda900784ce4d129382",
+      "sha256": "75bda43b2d4ffa2d5f5d7f23a8dd273fa1e3eda3ca60af80948981587db34cd5",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
-        "Full current body reviewed; basis 4874385: local reversible source/config deployment; release transaction integration8bd5e65, native packages47b06d4, loader ownershipbcdbd69, independent Orient5ecf556 and font owner59c7202. Later current-path changes: 59c7202, 5ecf556, 548f0b4, 73092de, 4886426, 5df2e69, bcdbd69, 9397909, 07f5cdd, 47b06d4, 83b3531, 85316eb, 8bd5e65, 2fa3a95, e3d0298, 007d020, a9a683d, 746fc96, a8b816f, 8afd305, 3c1b16d, 42a8183. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+        "Full current body reviewed; basis 4874385: local reversible source/config deployment; release transaction integration8bd5e65, native packages47b06d4, loader ownershipbcdbd69, independent Orient5ecf556 and font owner59c7202. Later current-path changes: 59c7202, 5ecf556, 548f0b4, 73092de, 4886426, 5df2e69, bcdbd69, 9397909, 07f5cdd, 47b06d4, 83b3531, 85316eb, 8bd5e65, 2fa3a95, e3d0298, 007d020, a9a683d, 746fc96, a8b816f, 8afd305, 3c1b16d, 42a8183. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "nacre/shell-tools/install-extras.py": {
@@ -4937,14 +4940,15 @@
     },
     ".github/workflows/check.yml": {
       "disposition": "independent",
-      "sha256": "761ea4df55074fd9edee137fec47f7a6e537bf62b4635842057cdd6804679217",
+      "sha256": "ac9aaf7e347fa51b4f78aeacdf75beff49019c44064d92c7ee291e4d16fe4387",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: locally authored target/CI orchestration; native Arch image/tools, candidate engine and current exact-checkout trust changes traced. Later path changes: c550bba, c8d3d69, 36de6d6, cb07776, 548f0b4, 1964e9d, 73e71c4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
         "docs/nacre/FINAL-COMPARISON.md",
         "docs/specs/nacre-logo.md",
-        "Current workflow explicitly reassessed: added native librsvg package so the approved logo PNG/geometry tests run in CI. Other container/test/pinning behavior preserved."
+        "Current workflow explicitly reassessed: added native librsvg package so the approved logo PNG/geometry tests run in CI. Other container/test/pinning behavior preserved.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Changed full source re-reviewed: independently authored immutable-registry completion gate, isolated actual-Git/JSON-output regression, or explicit CI invocation, from final verification spec and public Git/Python interfaces. No upstream Caelestia/ML4W body used for this implementation. Existing own base remains; no active user/provider state touched."
     },
@@ -4986,14 +4990,15 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "3e53d84393098698bba2f0eaac68bf302e0fcbf9c465d2cec300175c920a2007",
+      "sha256": "2edd30ed179971a351bfee36df15000bd12b1f02c22705d34043a370f2093fec",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -5063,11 +5068,12 @@
     },
     "tools/releases.py": {
       "disposition": "independent",
-      "sha256": "f433b4617c6fb663c1b877f6dae102a53a2704c961d4fd7c041cc291a1031fb7",
+      "sha256": "a978934008adbc58f2399201088180bfb27139b5d6f6fbf957d838996c8b05dd",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 8bd5e65: complete local allowlist snapshot/owned restore/gates/promotion/retention/runtime/control owner;0106a03/4ac764e align candidate config map and carry mapping dependency. Later path changes: 4ac764e, 0106a03, 5ecf556, b2a540f, 548f0b4, 73092de, d5d7158, 871e2e7, 5a28cf1, f39c2d1, 805c7ef, 9397909, 3d2b7cd, bb46dd6, 47b06d4, a046f7b, 338417c, 30a52ae, 5bf0bcd, 86bebe6, 83b3531, 85316eb, 37df5a4, 9bdad72. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+        "Full current body/data/licence reviewed. Basis 8bd5e65: complete local allowlist snapshot/owned restore/gates/promotion/retention/runtime/control owner;0106a03/4ac764e align candidate config map and carry mapping dependency. Later path changes: 4ac764e, 0106a03, 5ecf556, b2a540f, 548f0b4, 73092de, d5d7158, 871e2e7, 5a28cf1, f39c2d1, 805c7ef, 9397909, 3d2b7cd, bb46dd6, 47b06d4, a046f7b, 338417c, 30a52ae, 5bf0bcd, 86bebe6, 83b3531, 85316eb, 37df5a4, 9bdad72. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "tools/window_rules.py": {
@@ -5316,11 +5322,12 @@
     },
     "bin/nacre-app": {
       "disposition": "independent",
-      "sha256": "630c7ca01630f4e043e1ee601fc0c31bcbf8f98eafbe964e77d652ee0794a857",
+      "sha256": "ff7b12c424c35c61dc1d8397589391d44e778ca202ac2d0f3bee0817c255917a",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis 2fa3a95; subsequent changes: 548f0b4, a046f7b, 86bebe6, 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis 2fa3a95; subsequent changes: 548f0b4, a046f7b, 86bebe6, 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "bin/obsidian": {
@@ -6145,11 +6152,12 @@
     },
     "tools/tests/fixtures/window-routing-contract.json": {
       "disposition": "non-implementation",
-      "sha256": "c0f5936fbfc111ac849efde236198de39ad0b5254569410e730559e730729d70",
+      "sha256": "ef9da11bcb4879ac14d847b180ce3f7e6efb5586755df0433f9330e8c404f41c",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation e944518 tools/tests/fixtures/window-routing-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation e944518 tools/tests/fixtures/window-routing-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "ai/tests/test_chat_titles.py": {
@@ -6450,11 +6458,12 @@
     },
     "tools/tests/test_app_files.py": {
       "disposition": "independent",
-      "sha256": "f0a107a8806e627674efe8207dff9be1353c4996d1a92c41e6353a9ede6770e3",
+      "sha256": "f019fb57cdaec630302643ed7a7b4974f5561c38c942e0b63cb1b05f4d510a63",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 86bebe6:tools/tests/test_app_files.py; subsequent 548f0b4, a046f7b. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 86bebe6:tools/tests/test_app_files.py; subsequent 548f0b4, a046f7b. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ]
     },
     "tools/tests/test_bindings.py": {
@@ -6541,7 +6550,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "ae4d58235a578dd6342120b579c1c478382837a8437045a57b5edbb177e0a008",
+      "sha256": "7054b24ee310683338a280c6f8c1cdfc927d03b34a46dcb3e3b0842caa360523",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6551,7 +6560,8 @@
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6653,10 +6663,11 @@
     },
     "docs/features/runtime.md": {
       "disposition": "non-implementation",
-      "sha256": "0769595c186d31e9ba6799b1f4261789d5fd964b447ee6500c4d2d4a6707a975",
+      "sha256": "eb3c811558348402fb7bfbb0d304f65dd61c81921c260ce0585b95e944335e1d",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6728,7 +6739,7 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "4fe0ec9ad8e898c7e932330dfe56fef4f874033142e76430eb193586a4d5a879",
+      "sha256": "da9ba5333629ceb291087b6b66d998450e142dd48bbb5d4c63ed3bfd51c0f201",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6736,7 +6747,8 @@
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6953,10 +6965,11 @@
     },
     "docs/file-manager.md": {
       "disposition": "non-implementation",
-      "sha256": "ac6412c050b09be023ec312d56ee316bab185ddf8e05c1e93aa9c56db899957d",
+      "sha256": "86ff472209bf77cced7d770a39ccc8c14e9f6e44e3d154eccf2731ef243e0706",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 86bebe6 Use comfortably sized Dolphin with live wallpaper palette updates"
     },
@@ -8119,6 +8132,69 @@
       ],
       "sha256": "113d81b3303a40fe2b95c19d5a1d3dc7ac0f9cd4f2eb7a11fd588500ae1570e5",
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell-tools/tests/test_dolphin_files.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "9c067f7f39c0dedcc5c0d17d1af021a7177ac693e22211f659bcd4d6b18e5171"
+    },
+    "nacre/shell-tools/install-dolphin.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "85f461426ffef02aba039e5dd9472da90818778da64da5d29d93b56375872b03"
+    },
+    "nacre/shell-tools/tests/test_dolphin_style.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "ef86bba11edce8a62b076898621d5a509bfd8541d5faae294751e186080b8109"
+    },
+    "docs/specs/dolphin-files.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "5daf4bc3952174ac163942394669e6800645cd6626dbf8562901aab0f21957ca"
+    },
+    "nacre/shell-tools/dolphin-files.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "3bddd21adcded90b5f2db096898c1d8963e1d1401e29b646d725b8eac97a2741"
+    },
+    "nacre/desktop/org.kde.dolphin.desktop": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "79898fe41cce91a3310e6c1cde1e02b310d2924e39783ebf4797fd008773fbcd"
+    },
+    "nacre/shell-tools/dolphin-style.cpp": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "bff7ea6698f47f49f2ac084ac6c3904223320c1cde151b39453327e5775d2af4"
+    },
+    "nacre/shell-tools/tests/native/dolphin-palette.cpp": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "5b213e7ca560beb7df7c8fbe3583035021db3c5f12584fafedf992e5a6b16080"
+    },
+    "nacre/shell-tools/dolphin-style.json": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+      ],
+      "sha256": "d4f7729f561e65fa425a7c519c7785d20c4667c7894804aaae4df7a33d946a08"
     }
   }
 }
