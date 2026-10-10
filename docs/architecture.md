@@ -81,8 +81,8 @@ retain the previous loaded image during replacement. Rotation keeps its saved
 deadline when unrelated preferences or only colors change.
 
 Companion helpers prepare GTK/Qt, Kitty, icon overlays, branding, Hyprlock and SDDM
-appearance. Dolphin’s scoped native style adapter consumes generated KDE colors, retaining the existing
-private environment into opened applications. Fonts are pinned official assets
+appearance. Dolphin’s scoped native style adapter consumes generated KDE colors. Its palette
+watcher activates only inside Dolphin; native Qt/KDE libraries remain system-owned. Fonts are pinned official assets
 with separate notices and an ownership/rollback registry; generated host branding
 and icon caches are outside Git. Third-party font/icon artwork remains licensed
 separately from Nacre code.

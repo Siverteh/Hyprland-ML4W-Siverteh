@@ -20,8 +20,8 @@ class WindowRoutingTests(unittest.TestCase):
         )
         actual = capture(TOOLS.parent / "hypr/conf/windowrule.lua", "rules")
         self.assertEqual(actual, expected)
-        self.assertEqual(len(actual), 11)
-        self.assertEqual(len({rule["name"] for rule in actual}), 11)
+        self.assertEqual(len(actual), 12)
+        self.assertEqual(len({rule["name"] for rule in actual}), 12)
 
     def test_generated_route_conflicts_are_not_hidden_by_tables(self):
         with tempfile.TemporaryDirectory() as directory:

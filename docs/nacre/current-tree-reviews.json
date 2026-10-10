@@ -6522,11 +6522,12 @@
     },
     "tools/tests/test_window_routing.py": {
       "disposition": "independent",
-      "sha256": "4a3c77c42194ba3e9b0a404a7ca421d39782fddd35aa9357df428c765c7cd1b0",
+      "sha256": "ab2eb19cea40068d1fc5b0e3973b53ea3c1b14cd6b988d68f1fcb87ffb01cb27",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation e944518:tools/tests/test_window_routing.py; subsequent none. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation e944518:tools/tests/test_window_routing.py; subsequent none. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/dolphin-files.md: explicit Dolphin popup adds a twelfth route/popup contract; existing eleven remain preserved. Scoped adapter ownership wording reviewed."
       ]
     },
     "README.md": {
@@ -6550,7 +6551,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "7054b24ee310683338a280c6f8c1cdfc927d03b34a46dcb3e3b0842caa360523",
+      "sha256": "414539a10fb742a1f8779c4003f7bcab2b384924e5e454174ab42735a14cefaa",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6561,7 +6562,8 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/frame-control-center.md",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/dolphin-files.md: explicit Dolphin popup adds a twelfth route/popup contract; existing eleven remain preserved. Scoped adapter ownership wording reviewed."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
