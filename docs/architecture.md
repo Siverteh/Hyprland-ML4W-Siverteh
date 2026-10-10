@@ -154,3 +154,8 @@ Login theme code is root-owned; only color/wallpaper appearance remains user-own
 The public `nacre-ai` command is a managed entry point to the existing private AI
 controller. It forwards arguments and exit status without migrating accounts,
 conversations or worker state; legacy `siverteh-ai` callers remain compatible.
+
+Terminal image refresh remains part of the palette publisher. The Fastfetch
+startup hook registers a Kitty logo against its persistent shell and PTY; palette
+events edit existing image data, without owning keyboard input or application
+lifetime. The private registry is not configuration or public project data.

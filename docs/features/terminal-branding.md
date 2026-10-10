@@ -60,3 +60,13 @@ for subtle desktop texture. Light-mode terminal TUIs retain the existing dark
 inverse surface. Font, logo geometry and prompt layout are unchanged. The existing
 publisher reloads Kitty in place; it does not restart terminal sessions or workers.
 A private kitty/custom.conf still has final precedence.
+## Live terminal images
+
+AI menu refresh accepts default menus and resolved managed controller paths.
+Fastfetch startup prepares a uniquely identified Kitty image through the existing
+render-logo.sh hook. On palette changes the publisher edits that image's root
+frame in place, retaining its placement and the terminal prompt. Registration
+checks the persistent shell's identity and PTY device before each write; closed
+sessions are discarded. No background timer, automatic Fastfetch rerun or
+animation playback is added. Older already-printed Fastfetch images need one
+rerun after the update; new normal Kitty sessions register automatically.

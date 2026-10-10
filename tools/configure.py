@@ -47,7 +47,13 @@ def files(root=ROOT):
                 and source.name != ".qmlls.ini"
             ):
                 result[Path(".config") / source.relative_to(root)] = source
-    for name in ("nacre-app", "nacre-ai", "siverteh-os-app", "xdg-open"):
+    for name in (
+        "nacre-app",
+        "nacre-ai",
+        "nacre-terminal-logo",
+        "siverteh-os-app",
+        "xdg-open",
+    ):
         result[Path(".local/bin") / name] = root / "bin" / name
     result[Path(".local/bin/siverteh-brain-sync")] = root / "bin/siverteh-brain-sync"
     result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (

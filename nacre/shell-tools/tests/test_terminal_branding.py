@@ -157,6 +157,7 @@ class TerminalBrandingTests(unittest.TestCase):
             menu = str(home / ".local/bin/siverteh-ai")
             for pid, argv in [
                 (111, ["python3", menu, "dashboard"]),
+                (112, ["python3", menu]),
                 (222, ["kitty", menu, "dashboard"]),
                 (333, ["python3", menu, "new"]),
                 (444, ["python3", "/other/siverteh-ai", "dashboard"]),
@@ -170,9 +171,12 @@ class TerminalBrandingTests(unittest.TestCase):
                 patch.object(branding.os, "close") as closed,
             ):
                 branding.refresh_terminal_menus(home, proc)
-            opened.assert_called_once_with(111)
-            notified.assert_called_once_with(7, signal.SIGWINCH)
-            closed.assert_called_once_with(7)
+            self.assertCountEqual(
+                [call.args[0] for call in opened.call_args_list], [111, 112]
+            )
+            self.assertEqual(notified.call_count, 2)
+            notified.assert_any_call(7, signal.SIGWINCH)
+            self.assertEqual(closed.call_count, 2)
 
     def test_real_idle_curses_menu_reloads_png_after_redraw_signal(self):
         with tempfile.TemporaryDirectory() as folder:

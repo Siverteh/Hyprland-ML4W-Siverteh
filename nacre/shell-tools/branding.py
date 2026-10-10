@@ -2,6 +2,7 @@
 """One user-approved shell geometry for Nacre web, Qt, lock and terminal branding."""
 
 import io
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -183,7 +184,8 @@ def atomic(path, data):
 
 def refresh_terminal_menus(home, proc=Path("/proc")):
     """Wake the logo renderer with ncurses' normal resize event; never restart it."""
-    expected = str(Path(home) / ".local/bin/siverteh-ai")
+    command = Path(home) / ".local/bin/siverteh-ai"
+    expected = {str(command), str(command.resolve())}
     for entry in proc.iterdir():
         if not entry.name.isdigit():
             continue
@@ -199,9 +201,12 @@ def refresh_terminal_menus(home, proc=Path("/proc")):
             # Kitty also includes this command in its argv. Only notify Python's
             # menu controller, never its terminal server or assistant workers.
             if (
-                len(arguments) < 3
+                len(arguments) < 2
                 or not Path(arguments[0]).name.startswith("python")
-                or arguments[1:3] != [expected, "dashboard"]
+                or arguments[1] not in expected
+                or (
+                    len(arguments) > 2 and arguments[2] not in ("dashboard", "settings")
+                )
             ):
                 continue
             descriptor = os.pidfd_open(int(entry.name))
@@ -239,6 +244,7 @@ def publish(colors, home=None):
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo().encode())
+
     # Already-open old menus read the previous filename; it contains the new art.
     for legacy, current in [
         ("sh.png", "nacre.png"),
@@ -247,6 +253,12 @@ def publish(colors, home=None):
     ]:
         atomic(folder / legacy, (folder / current).read_bytes())
     refresh_terminal_menus(home)
+    live = HERE / "terminal-branding.py"
+    if live.is_file():
+        spec = importlib.util.spec_from_file_location("terminal_branding", live)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.refresh(home)
 
 
 def build():

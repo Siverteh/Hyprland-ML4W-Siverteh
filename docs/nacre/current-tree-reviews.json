@@ -1620,7 +1620,7 @@
     },
     "fastfetch/config.jsonc": {
       "disposition": "independent",
-      "sha256": "0ff8d06799f6eb2cfa25890f6d14d21fd2b2c22f29b7c3c06b2d6895b4a13e77",
+      "sha256": "0ab0f3910890021eda07a14ce5fc20e9bb025a39da74742f2bee360ec53b2318",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
@@ -1629,7 +1629,8 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing.",
-        "docs/specs/terminal-polish.md"
+        "docs/specs/terminal-polish.md",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -1743,14 +1744,15 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "dc023a1391cf9264077fd019c128603ad6accb476f1504c698788b1f916b108e",
+      "sha256": "2ad51734deb9bcc30e4117eea2b63f2db0cbaa3500b528b4b22588ae2287391c",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Locally introduced generator b0632b9 for explicit SH polygons, compact/runtime/control refresh changes 772e23b/8ad6532/8ff30bc and import/format/home corrections 14a55db/dfecaf0/bb46dd6 traced. Current own body reviewed and no five-line peer/predecessor copies found as supporting evidence. Corrected source emitter to NacreColours and build-only CLI side effects; actual reproduction and native rendering tests pass. No upstream body copied while implementing corrections.",
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
-        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles."
+        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
@@ -1777,7 +1779,7 @@
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "085a43be013e7b82178b282d5293aea94876b4ef1b0d6914dbbedaedff95742f",
+      "sha256": "96f1eff0fd836f5154c599cb55b5fb6c30920b0a038f79c215b7b5aa27c0090a",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1786,7 +1788,8 @@
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
-        "docs/specs/terminal-polish.md"
+        "docs/specs/terminal-polish.md",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -4791,11 +4794,12 @@
     },
     "fastfetch/render-logo.sh": {
       "disposition": "independent",
-      "sha256": "0ba9fe84e7d7f58835204dac17774b15ad0964cd49c020cb5cd72da6ade3b7f2",
+      "sha256": "ae27ab2ab5b172b1158a8b76384f898b00086ee9093380cab9473bdee698f570",
       "evidence": [
         "docs/specs/config-helper-source-audit.md",
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
-        "Full current source/data body reviewed. Basis 98b724d: local active compatibility cache producer;6c8f06d cache name nowNacre, hook path retained. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+        "Full current source/data body reviewed. Basis 98b724d: local active compatibility cache producer;6c8f06d cache name nowNacre, hook path retained. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped.",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ]
     },
     "hypr/hypridle.conf": {
@@ -4966,12 +4970,13 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "fe60894de08218724b9a7a6bbb356e9c50d3021e4f2167597f7c2bbe3db7c36f",
+      "sha256": "0da611e57e16ade34fbed296e4724efb00496ab5af13b4c037e6a328b5c00a38",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -6508,14 +6513,15 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "a921aa005a9f59cefd24d5bc6fb432e8291d30147097e52f8744e44bd7c16539",
+      "sha256": "89d9d2ca2eeb5f80050943137bdbfa52b5dc9b7376cabcbc538fc6fefdd9dce1",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/nacre/FINAL-COMPARISON.md",
         "docs/specs/visual-cleanup.md",
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6642,14 +6648,15 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "cbb283856c4218488f9729fef1bbcb30b14553a335a8c5e4a03ef332ba02fc8e",
+      "sha256": "c886dd0e3ad9f578f0094fe3988686f62dbbf064eaa3f2dd40003d97634b7343",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "docs/specs/terminal-polish.md"
+        "docs/specs/terminal-polish.md",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -6684,12 +6691,13 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "4fece3f7e5d1e85c7cfb97dc02bb9ae65ad590aad187b3b81bde66b50fed4b65",
+      "sha256": "312b5a8070b9712dd40ca38b0cd44a44f0239832645e2ebbb5ea110c49bf345f",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -7916,6 +7924,34 @@
       ],
       "sha256": "f75116928d4b3b3cf5d93e2c5c668bbea0bf16f08ec8d47e5c33b6ea21d252b2",
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
+    },
+    "nacre/shell-tools/terminal-branding.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+      ],
+      "sha256": "2c0c77dedbd24bce2fd409e1f6cb53b29fac45b5e81ec9cdc1ab6d2195d085c3"
+    },
+    "nacre/shell-tools/tests/test_live_terminal_logo.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+      ],
+      "sha256": "3f0e88fb7b346c986e8bb8eef855442604fb89a69d3ac8bfdc6318b6ef9b7d3e"
+    },
+    "bin/nacre-terminal-logo": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+      ],
+      "sha256": "89374a699c78a90e9b038b720a44ed96673e093ddc2ff2a328dc384d305899f3"
+    },
+    "docs/specs/terminal-logo-refresh.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested."
+      ],
+      "sha256": "ec688337984bfdd0a1d29ca2d3027bd119f1ee1f9aeb2faa5bb15355e2c894c4"
     }
   }
 }

@@ -103,3 +103,7 @@ master and its small/large, web, login, lock and terminal forms.
 
 `nacre-ai` opens the AI workspace menu. `siverteh-ai` remains a compatibility
 command for existing sessions and private workflow helpers.
+
+Terminal logo colors follow palette events through the existing publisher. The
+Fastfetch startup hook prepares its registered image; see the
+[terminal guide](features/terminal-branding.md) for behavior and limits.
