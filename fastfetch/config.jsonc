@@ -36,10 +36,6 @@
       "key": "Compositor"
     },
     {
-      "type": "de",
-      "key": "Desktop"
-    },
-    {
       "type": "terminal",
       "key": "Terminal"
     },

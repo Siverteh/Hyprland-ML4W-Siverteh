@@ -32,3 +32,11 @@ runtime corrections needed, spec first, deletion/reimplementation for inherited
 portions, appropriate config/shell plan/apply/strict/live gates. Exact-main CI,
 private worker/state preservation and registry integrity required. Notices and
 complete originality goal remain until whole-tree requirements are proven.
+
+Native follow-up: both original acceptance JSON and current Fastfetch report
+DE: No DE found, with Colors unsupported in JSON as expected. The DE absence is
+normal for this Hyprland setup, not a parser failure. Prior acceptance wording
+that all data modules succeeded was too broad. Remove the redundant DE detector
+row: the existing custom Nacre identity and Hyprland compositor rows remain.
+Keep other layout/data modules and private logo unchanged. This is a correction
+to independently authored configuration, not an inherited-code replacement.

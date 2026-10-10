@@ -1370,3 +1370,28 @@ restart. Fresh login propagation remains a separate observation, although values
 are unchanged. Initial incorrect Fish probe and unstaged-test registry rejection
 were resolved before deployment; neither protection was bypassed. Four current
 file reviews added; full-tree notices/audits remain.
+
+## Base defaults current source review
+
+[Audit spec](../specs/base-config-source-audit.md) consolidates seven current
+file reviews for the independently composed replacement in 3bf8870. Current
+Kitty, misc/decoration/nacre Lua and new age helper bytes are unchanged since that
+replacement. Fastfetch layout correction 00fbe78 is independently authored.
+Original inherited target bodies were deleted before fresh composition from
+public contracts, native measurements and platform APIs; earlier source exposure
+was recorded, no upstream body reused or legal clean-room/final-license claim.
+Private palette/custom/host precedence, logo assets and helper dependencies remain
+separate owners/audits. Age tests also first authored 3bf8870, using isolated
+stat/date executables rather than inherited implementation fixtures.
+
+Current native follow-up found a documentation overclaim: original candidate
+Fastfetch JSON and current JSON both report DE: No DE found, as well as Colors
+unsupported in JSON. Earlier wording that all data modules succeeded was too broad.
+The DE detector is redundant on this Hyprland setup; removing it preserves the
+Nacre identity and compositor rows and removes a misleading error. Corrected
+native JSON now has 13 modules, no data errors, with
+only render-only Colors unsupported. No private logo/palette change. Kitty actual
+parser reports no bad lines, size 12/padding 10/opacity 0.98/scrollback 2000; all 20
+sampled compositor options match original live replacement baseline. Current
+source/history evidence plus behavior tests support these bounded SHA reviews,
+not a whole-tree certification. Notices remain and complete goal stays active.
