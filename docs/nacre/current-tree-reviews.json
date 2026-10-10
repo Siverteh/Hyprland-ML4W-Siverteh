@@ -986,6 +986,17 @@
         "nacre/shell-tools/tests/test_lock_ready.py",
         "nacre/shell-tools/tests/test_lock_dashboard.py"
       ]
+    },
+    {
+      "area": "font-provenance",
+      "commit": "59c7202",
+      "spec": "docs/specs/font-provenance.md",
+      "paths": [
+        "nacre/shell-tools/font-assets.json",
+        "nacre/shell-tools/font-setup.py",
+        "nacre/shell-tools/tests/test_font_setup.py",
+        "nacre/shell-tools/install.py"
+      ]
     }
   ],
   "reviews": {

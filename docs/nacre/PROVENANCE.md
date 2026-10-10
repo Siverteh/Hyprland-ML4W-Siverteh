@@ -1644,3 +1644,20 @@ the whole installer. Font installation remains separate from code snapshot
 rollback; normal failures recover files, no filesystem crash-atomicity claim.
 Properly licensed third-party fonts remain dependencies, not Nacre-original art.
 Whole remaining sources/assets/tests/dependencies and notices/goal stay open.
+
+Font acceptance (2026-10-10 UTC): source 59c7202, good shell release
+20261010T014950447260Z. All 407 tests (55 tools, 96 AI, 35 Brain, 221 shell),
+formatting/QML/native Hyprland and reviewed shell transaction/live gates passed.
+Detailed six-file migration plan verified before apply. Official font/notice
+bytes exact, migrated to canonical user directory; actual fc-match for Plex,
+Material and compatibility Rubik resolves there. Native font hashes and Pillow
+text/glyph pixel hashes equal before for all three families. Six manifest assets
+and installed owner/manifest plus all 235 shell files exact; legacy recognized
+directory now empty/retired. Reapply is no-op without network/cache rebuild.
+Private asset backup/transaction retained separately from code release; tests
+prove rollback/collision/checksum failures, no crash-transaction guarantee.
+Nine private preference/history hashes, AI worker PID/start and palette/poster/
+deadline unchanged, configerrors empty. No user app logout/restart/package/admin
+action or typography change. Three current source/manifest/test reviews added;
+whole installer remains separately audited. Remaining source/assets/tests/
+packaging/dependencies and final comparison still open, notices/full goal retained.
