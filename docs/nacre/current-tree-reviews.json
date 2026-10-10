@@ -8938,11 +8938,12 @@
     },
     "nacre/shell-cli/src/orient/export.py": {
       "disposition": "independent",
-      "sha256": "845190c58cd0ee269b5d4263de3e5fd6e68b6549222d10e384af039caba54c43",
+      "sha256": "fa82520ad43cc9ddb2fd2c7be6174046e260ff902fbe02198d2fab9369f66077",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed."
       ]
     },
     "nacre/shell-cli/src/orient/extract.py": {
@@ -9226,11 +9227,12 @@
     },
     "nacre/shell-tools/tests/test_orient3.py": {
       "disposition": "independent",
-      "sha256": "bcafe6c257e44ffb81b4a51494ecea672ecc83f095bb488213170d524dd86f64",
+      "sha256": "504ff21417fddf498675a56d409360ada947c2993bb76215c66a4744a7c0d9e7",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed."
       ]
     },
     "nacre/shell/branding/nacre-colors-compact.svg": {

@@ -138,6 +138,16 @@ class Orient3Tests(unittest.TestCase):
         self.assertFalse((self.home / ".config/nacre").exists())
         self.assertFalse((self.home / ".state/nacre").exists())
 
+    def test_installed_runtime_symlink_can_export_builtins(self):
+        import orient.export as exporter
+
+        alias = self.home / "active-runtime"
+        alias.symlink_to(Path(exporter.__file__).parent, target_is_directory=True)
+        data = from_image(self.scene("203450", "aa679b"))
+        with patch.object(exporter, "__file__", str(alias / "export.py")):
+            paths = exporter.export(data, self.home / "export-symlink")
+        self.assertEqual(len(paths), 13)
+
     def test_vision_simulation_neutrals_and_safe_adjustments(self):
         for vision in ("protanopia", "deuteranopia", "tritanopia"):
             value = simulate("808080", vision)

@@ -13,7 +13,7 @@ def render(template, palette):
 
 
 def export(palette, directory, templates=None):
-    root = Path(templates).resolve() if templates else Path(__file__).with_name("templates")
+    root = (Path(templates) if templates else Path(__file__).with_name("templates")).resolve()
     directory = Path(directory).expanduser().resolve()
     pending = []
     for path in sorted(root.rglob("*.in")):
