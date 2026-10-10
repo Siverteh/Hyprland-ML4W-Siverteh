@@ -1,9 +1,9 @@
 # Frame lips and edge menus
 
-Nacre's frame has three permanent shallow curved lips: top-center for the full
+Nacre's frame has three permanent flat edge tabs: top-center for the full
 dashboard, left-center for the assistant and right-center for the control center.
 They overlay the existing reserved frame edges. Their protrusion adds no reserved
-space and never changes application geometry. Lips are long, shallow and unoutlined, with uninterrupted joins to the frame. The existing dashboard features and AI backend are
+space and never changes application geometry. The handles have straight middles and eased shoulders, with uninterrupted joins to the frame. The existing dashboard features and AI backend are
 retained; see [control center](control-center.md).
 
 Hover mode opens the side lips and the 208px top lip column, including the full
@@ -39,11 +39,15 @@ The top target widens to the dashboard's actual width while it is open. Moving
 across the header above that panel keeps it open; once closed, only the narrow
 lip column can open it again.
 
-Only the protruding curve blends from the body color at its join to the primary
-wallpaper accent at its tip. The base frame stays body-colored and unoutlined.
-Hover/open slightly strengthens that accent over120ms, with reduced motion
-settling immediately; palette changes remain immediate and there is no idle loop.
+The visible tabs are160px long at the top and104px at the sides, with6px/5px
+visible depth. Existing208px/144px targets stay broader than the artwork so precise
+aiming is unnecessary. Enamel flows along the tab from primary to secondary,
+with a finite240ms pearly highlight on hover/open. It is still at rest and stops
+immediately with reduced motion. Palette changes remain immediate.
 
-Visible depth is5px beyond each side frame and6px beneath the bar, with the
-existing144px side lengths and208px top width. Shape bounds and input regions
-include the full protrusion; reserved window space stays unchanged.
+A faint1px iridescent rim follows the same exposed contour as the frame and open
+panels. It does not outline their hidden joins. Appearance → Desktop frame →
+Frame sheen switches the rim off for a quieter look, retaining the handles.
+Full-screen wallpaper galleries hide the rim and handles. Reserved window space,
+shared surface ownership and logical input-release behavior remain unchanged.
+See [iridescent frame specification](../specs/iridescent-frame.md).

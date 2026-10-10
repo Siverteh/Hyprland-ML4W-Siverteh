@@ -24,8 +24,17 @@ ShellRoot {
                 color: "#567d9a"
             }
             NacreChrome {
+                id: chrome
+                lips: lips
                 anchors.fill: parent
                 host: host
+            }
+            NacreFrameRim {
+                anchors.fill: parent
+                contour: chrome.silhouette.rim
+                engaged: flags.dashboard || flags.left || flags.osd
+                visible: !chrome.gallery
+                z: 2
             }
             Item {
                 id: host
@@ -112,6 +121,8 @@ ShellRoot {
                     })
             }
             NacreFrameLips {
+                id: lips
+                z: 3
                 anchors.fill: parent
                 screen: input.screen
                 visibilities: flags
@@ -125,7 +136,7 @@ ShellRoot {
             running: true
             onTriggered: {
                 sheet.grabToImage(result => {
-                    const names = ["closed", "joined", "recoloured", "no-edges", "notice-joined", "gallery-clear"];
+                    const names = ["closed", "joined", "recoloured", "no-edges", "notice-joined", "gallery-clear", "quiet", "rim-enabled", "light"];
                     if (!result.saveToFile(names[window.phase] + ".png"))
                         throw new Error("capture failed");
                     console.log("FRAME_CAPTURE " + names[window.phase]);
@@ -182,6 +193,27 @@ ShellRoot {
                         launch.width = host.width;
                         launch.height = host.height;
                         launch.fullScreenGallery = true;
+                    } else if (window.phase === 5) {
+                        launch.fullScreenGallery = false;
+                        launch.width = 0;
+                        launch.height = 0;
+                        DesktopSettings.data = {
+                            animations: false,
+                            frameSheen: false
+                        };
+                    } else if (window.phase === 6) {
+                        DesktopSettings.data = {
+                            animations: false,
+                            frameSheen: true
+                        };
+                    } else if (window.phase === 7) {
+                        NacreColours.light = true;
+                        NacreColours.palette = Object.assign({}, NacreColours.palette, {
+                            m3surface: "#f5f2ed",
+                            m3primary: "#335cad",
+                            m3secondary: "#90445e",
+                            m3onSurface: "#161a20"
+                        });
                     } else {
                         console.log("FRAME_NATIVE_OK");
                         Qt.quit();

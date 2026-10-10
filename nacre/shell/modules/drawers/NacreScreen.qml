@@ -70,8 +70,17 @@ NacreWindow {
             }
         }
         NacreChrome {
+            id: chrome
             anchors.fill: parent
             host: panelHost
+            lips: lips
+        }
+        NacreFrameRim {
+            anchors.fill: parent
+            contour: chrome.silhouette.rim
+            engaged: flags.dashboard || flags.left || flags.osd || flags.session || panelHost.popouts.hasCurrent
+            visible: !chrome.gallery
+            z: 2
         }
         NacrePanelInput {
             id: inputController

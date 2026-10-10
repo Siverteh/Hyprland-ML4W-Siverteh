@@ -9,8 +9,11 @@ launcher, dashboard, sidebar, OSD, session, notification and popout components.
 Their component bodies have separate source reviews in the provenance tracker.
 
 The frame and joined backgrounds use the same dark body token as the bar. Native
-Qt Shape geometry draws the rounded desktop opening and panel attachment curves;
-full-screen wallpaper galleries retain their own backdrop. Clipping follows each
+The body and iridescent rim share one union contour of reserved edges, painted
+panels and flat handles. Overlaps contribute only exposed boundaries, so panel
+attachments have no internal outline. Native Qt Shapes draw the rounded opening
+and gradient stroke; full-screen wallpaper galleries retain their own backdrop
+and suppress the rim/handles. Appearance can switch off Frame sheen. Clipping follows each
 panel's current dimensions. No new process or idle animation draws the frame.
 
 Input geometry follows logical visibility. A closing panel immediately stops

@@ -4,17 +4,14 @@ Keep the full top dashboard, approved logo, wallpaper palette and persistent AI
 workflow. Establish the first visual identity slice using the existing shared
 panel state and device/notification providers.
 
-Three permanent shallow curved lips mark top-center, left-center and right-center.
-They overlay current reserved edges; they never change application geometry.
-Hover opens only marked targets, without keyboard focus; click opens deliberately.
-Click-only preference, held-button/fullscreen guards, explicit dismissal rearming,
-Escape, outside-click, explicit-only AI pinning and reduced motion remain supported.
-The lips are shallow smooth curves, unoutlined, with no seam or frame ring:
-5px beyond the side frame and 6px beneath the bar. The top shape overlaps the
-bar by1px; cubic control points are chosen so side tips reach the stated depth. They follow their panel
-edges throughout opening and closing without changing application allocation. The top
-activation column spans its 208px visual length all the way to the screen edge;
-bar and lip hover sources combine so moving between them keeps the menu open.
+Three flat edge handles mark top-center, left-center and right-center. They
+follow their panel edges throughout opening/closing without changing application
+allocation. Their current shape, rim and motion follow [iridescent frame](iridescent-frame.md),
+which supersedes the earlier domed size/tint trials. Keep wider208px top and144px
+side hover regions and the full bar above the top target up to the screen edge.
+Hover opens only marked targets without taking keyboard focus; clicks open
+explicitly. Click-only, fullscreen/held-button guards, dismissal rearm, Escape,
+outside click, explicit-only AI pinning and reduced motion remain supported.
 
 Right-center opens a bounded 400–440px control center, adapting to small outputs.
 Horizontal volume/mic and display/keyboard controls remain immediately accessible.
@@ -43,8 +40,3 @@ header drawn above frame chrome and included in the shared input mask. A second
 bar layer surface is forbidden: compositor focus can raise same-layer windows.
 Verify the actual tiled workspace through modal transitions, not only a separate
 floating validation window.
-
-For discoverability, tint only the protrusion from body at the join to primary
-at its outer tip. Keep geometry/masks and frame pixels unchanged. Hover/open may
-strengthen the accent with a finite reduced-motion-aware transition, never an
-idle animation or palette-publication delay.

@@ -406,6 +406,17 @@ NacreSettingsPage {
     }
     NacreSettingsSection {
         title: "Desktop frame"
+        NacreSettingToggle {
+            label: "Frame sheen"
+            setting: "frameSheen"
+        }
+        NacreText {
+            width: parent.width
+            text: "A soft wallpaper-color rim around the screen and open panels."
+            wrapMode: Text.WordWrap
+            color: NacreTokens.mutedInk
+            font.pointSize: 10
+        }
         Row {
             spacing: 12
             width: parent.width

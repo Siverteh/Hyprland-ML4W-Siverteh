@@ -113,6 +113,21 @@ TestCase {
   view.flags.dashboard=false;view.flags.left=false;view.flags.osd=false;
   verify(top.visible);verify(left.visible);verify(right.visible);
  }
+ function test_sheen_is_finite_and_reduce_motion_stops_it(){
+  mouseMove(this,800,500);
+  DesktopSettings.data={animations:true,clickEdgeMenus:false};
+  const view=createTemporaryObject(scene,this);wait(30);
+  const lip=findChild(view,"frameTopLip");
+  view.flags.dashboard=true;
+  tryCompare(lip,"sheenRunning",true);
+  wait(350);compare(lip.sheenRunning,false);
+  view.flags.dashboard=false;view.flags.dashboard=true;
+  tryCompare(lip,"sheenRunning",true);
+  DesktopSettings.data={animations:true,reduceMotion:true,clickEdgeMenus:false};
+  tryCompare(lip,"sheenRunning",false);
+  view.flags.dashboard=false;view.flags.dashboard=true;wait(30);
+  compare(lip.sheenRunning,false);
+ }
  function test_click_only_and_fullscreen_held_button_guards(){
   DesktopSettings.data={animations:false,clickEdgeMenus:true};
   const view=createTemporaryObject(scene,this);wait(30);

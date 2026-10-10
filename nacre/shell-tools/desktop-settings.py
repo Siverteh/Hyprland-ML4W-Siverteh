@@ -24,6 +24,7 @@ DEFAULTS = dict(
     rounding=10,
     frameWidth=10,
     frameRounding=25,
+    frameSheen=True,
     topEdge=True,
     clickEdgeMenus=False,
     leftEdge=True,

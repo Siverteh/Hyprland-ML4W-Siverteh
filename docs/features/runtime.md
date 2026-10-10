@@ -83,3 +83,6 @@ runtime/build check.
 Orient runtime identity excludes formatter/test/build caches and generated egg
 metadata, while tracking maintained source, package data and notices. Moving
 to a fresh worktree or running Ruff does not rebuild an unchanged palette engine.
+
+The iridescent frame uses Qt6.12 native ShapePath.strokeGradient. Keep the
+distribution Qt/Quickshell ABI match; older Qt cannot parse this visual component.

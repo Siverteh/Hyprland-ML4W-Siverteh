@@ -45,7 +45,9 @@ newer and other-output owners.
 surface. Bar controls, workspace selection and shared update state therefore
 cannot be covered when the compositor raises a panel surface. The input mask
 includes the header whenever it is enabled. There is no separate bar window. Hover triggering is separate from modal panel input. A modal header click
-dismisses once and is consumed before it can activate a bar control. `NacreFrameLips` owns the three marked edge targets, with actual rectangles shared
+dismisses once and is consumed before it can activate a bar control. `NacreChrome` computes one exposed body contour through its own contour.js geometry;
+`NacreFrameRim` passively paints a native Qt6.12 gradient stroke from that contour.
+`NacreFrameLips` owns the three marked edge targets, with actual rectangles shared
 by the frame input mask and hover-intent guard. `NacreControlCenter` owns explicit
 right-menu presentation, while `NacreOsdEvents`/`NacreLevelNotice` own short automatic
 level feedback. `NacreControlTools` discovers optional tools and delegates explicit

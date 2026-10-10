@@ -11,7 +11,8 @@ Hyprland places windows and handles workspaces and keyboard bindings. UWSM suppl
 the session environment and starts enabled user services. Quickshell draws Nacre's
 bar, frame, dashboard, settings, launcher, wallpaper picker, notifications and
 control center and temporary level feedback. The bar, frame and panels share one
-window per output so their drawing order stays fixed. Its renderer is separate from the persistent AI backend, so UI
+window per output so their drawing order stays fixed. Flat gradient handles and
+a faint joined rim use Orient colors; Appearance can turn off Frame sheen. Its renderer is separate from the persistent AI backend, so UI
 recovery can preserve running conversations.
 
 Orient extracts wallpaper colors and generates readable UI roles. Desktop helpers

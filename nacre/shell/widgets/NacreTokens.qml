@@ -23,6 +23,8 @@ QtObject {
     readonly property color ink: NacreColours.palette.m3onSurface
     readonly property color mutedInk: NacreColours.palette.m3onSurfaceVariant
     readonly property color accent: NacreColours.palette.m3primary
+    readonly property color orientSecondary: NacreColours.palette.m3secondary ?? accent
+    readonly property color orientHighlight: Qt.tint(accent, Qt.alpha("#fff9f1", .22))
     readonly property color outline: NacreColours.palette.m3outline
 
     readonly property bool light: NacreColours.light

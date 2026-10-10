@@ -2326,12 +2326,14 @@
     },
     "nacre/shell/widgets/NacreTokens.qml": {
       "disposition": "independent",
-      "sha256": "17fb570bcc34219b5e12745266c35ea539c0d94027bbd2b9328f7098eac65c67",
+      "sha256": "2654e34c9b3528aad3718268bc449ea8b44d1c8522b7fa83d0477e68f5ae873c",
       "evidence": [
         "docs/specs/foundation-source-audit.md",
         "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
         "docs/specs/design-foundation.md",
-        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: 02b2bda. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: 02b2bda. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
       ]
     },
     "nacre/shell/widgets/NacreWindow.qml": {
@@ -3272,15 +3274,16 @@
     },
     "nacre/shell/modules/drawers/NacreChrome.qml": {
       "disposition": "independent",
-      "sha256": "4e4f930008043985eb522e779f6008975ce712b732cb5722f891634710e4995c",
+      "sha256": "836634d58a3cb59ee7ee748de6be145672088b7c5626c3a6e16e01c016e49ac4",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/panel-integration.md",
-        "docs/specs/frame-control-center.md"
-      ],
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "docs/specs/frame-control-center.md",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell/modules/drawers/NacreDesktop.qml": {
       "disposition": "independent",
@@ -3343,7 +3346,7 @@
     },
     "nacre/shell/modules/drawers/NacreScreen.qml": {
       "disposition": "independent",
-      "sha256": "652382205e74fe2173e416106aa73d81c6735bf98ea9f29dadf322170943eb0a",
+      "sha256": "94ae526635a48fae5ac8fa3213cbf10410b4c4f6bae81164c159052a7540de69",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
@@ -3351,9 +3354,10 @@
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current body reviewed: fullscreen visibility uses the stable output model identity rather than reading the surface screen during its own map/unmap transition. Real Wayland fullscreen/open/Escape and log checks validate this integration. Independent local correction, no inherited upstream implementation used.",
-        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell/modules/drawers/layout.js": {
       "disposition": "independent",
@@ -3768,11 +3772,13 @@
     },
     "nacre/shell/modules/dashboard/settings/NacreAppearancePage.qml": {
       "disposition": "independent",
-      "sha256": "9588bc49e0bfc4abef41c5977d6e4c5cdbedb1de68fd9a012892f8a95edc8940",
+      "sha256": "f4978e4b7aa64a9b96ae074d2fab326663d19f5da6f59300a27a43ae83325e96",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
+        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
       ]
     },
     "nacre/shell/modules/dashboard/settings/NacreAudioNode.qml": {
@@ -4663,11 +4669,13 @@
     },
     "nacre/shell-tools/desktop-settings.py": {
       "disposition": "independent",
-      "sha256": "feae32a100baef1094bac45b364284223539230cb3006c9b731cf7b9e926defb",
+      "sha256": "89865994d90007dd2daef0b4d8ea0ba0f618e3eb298bbc4a67427c7d309ee016",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
-        "Complete current source/data body reviewed. Basis a9a683d: local validated desktop state/Lua/public monitor contracts and rollback;2636534 preserves lock/weather choices across all presets. Later path changes: 2636534, 548f0b4, bcdbd69, bb46dd6, 9deeee7, 6fb4d5a, 83b3531, 146b068, 5100e73, a0090ce, 8bd5e65, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+        "Complete current source/data body reviewed. Basis a9a683d: local validated desktop state/Lua/public monitor contracts and rollback;2636534 preserves lock/weather choices across all presets. Later path changes: 2636534, 548f0b4, bcdbd69, bb46dd6, 9deeee7, 6fb4d5a, 83b3531, 146b068, 5100e73, a0090ce, 8bd5e65, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
       ]
     },
     "nacre/shell-tools/display-recover.py": {
@@ -4773,11 +4781,13 @@
     },
     "nacre/shell-tools/tests/test_desktop_settings.py": {
       "disposition": "independent",
-      "sha256": "440fefa0df20ec0753073dbf212a136a37fb98c625b583750f490435d4e51d8c",
+      "sha256": "a869212f1213a9779841876f9107750b8d479eb0db1ed0af6831931974c60f8b",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
-        "Complete current source/data body reviewed. Basis a9a683d: own temp validated setting/display/preset/revert fixture;2636534 isolates HOME and proves all seven presets preserve current private lock/weather values. Later path changes: 2636534, 548f0b4, 83b3531, 5100e73, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+        "Complete current source/data body reviewed. Basis a9a683d: own temp validated setting/display/preset/revert fixture;2636534 isolates HOME and proves all seven presets preserve current private lock/weather values. Later path changes: 2636534, 548f0b4, 83b3531, 5100e73, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
       ]
     },
     "nacre/shell-tools/tests/test_launcher_preferences.py": {
@@ -5945,16 +5955,17 @@
     },
     "nacre/shell-tools/tests/frame-qml/render.qml": {
       "disposition": "independent",
-      "sha256": "c1842f29563ea70f340701c5315a716dcf8a83a5cab60f1d730adb8de3aae78a",
+      "sha256": "6af0b5fa6a666278237fbbbbf8eb974530318dab37ed2b5f76a22ae1ff9e8a09",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/render.qml; subsequent 02b2bda. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/panel-integration.md",
         "docs/specs/frame-control-center.md",
-        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell-tools/tests/frame-qml/tst_registry.qml": {
       "disposition": "independent",
@@ -6349,7 +6360,7 @@
     },
     "nacre/shell-tools/tests/test_frame.py": {
       "disposition": "independent",
-      "sha256": "291b0dcc4b9f6a8272be27a873cda20cbec56906f4886877e6b8a0442e4d15cd",
+      "sha256": "dcb5c1ed5b84d7b55d7962640a75cc45ee26ff7587267ab066181b4ce8d2f974",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
@@ -6359,9 +6370,10 @@
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
         "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell-tools/tests/test_header_widgets.py": {
       "disposition": "independent",
@@ -6481,16 +6493,17 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "04b618ca544f2967aca511e87ed2136a43143fb9a6c37bd34b10f3bc771d9e00",
+      "sha256": "5d74a21d9ef13023e245144c262b55d7ef7cdf2b5f28e6c4e4808742e7f7f3bb",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell-tools/tests/test_wallpaper_native.py": {
       "disposition": "independent",
@@ -6624,7 +6637,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "81f28ec68b2ba89c5cc44739c3e3435ad4262ddfd831b56f5c5e47f38aa6eba7",
+      "sha256": "5e81ad090f8c433def2495c362660695361fd38d7b812685aaebffb623e06d68",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6640,9 +6653,10 @@
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
         "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "docs/features/appearance.md": {
       "disposition": "non-implementation",
@@ -6675,16 +6689,17 @@
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "7c5085cdb463e617cac1af68dd24cda2dd93bfaf002517eaa70ad3151702b75a",
+      "sha256": "463b7ecd100254dacde4d52d3858fdc7d678f5e71dcdbb2363bbb5cc3f4e30fd",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/frame-control-center.md",
         "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted.",
         "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "docs/features/foundation.md": {
       "disposition": "non-implementation",
@@ -6697,16 +6712,17 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "2a91adcea28d1b0d9188f3d6014672a6ba829bb26e4a58af4076a93462563ac9",
+      "sha256": "e57ae90005089d49a702bf28a0686a92ff8ec827ff18c4706e1bac8be3c7a1a8",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/visual-cleanup.md",
         "docs/specs/panel-integration.md",
         "docs/specs/frame-control-center.md",
-        "Current guide reviewed and reconciled with single-surface header ownership and consuming modal click dismissal; documentation only, verified against implemented owners and native tests."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "Current guide reviewed and reconciled with single-surface header ownership and consuming modal click dismissal; documentation only, verified against implemented owners and native tests.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "docs/features/image-presentation.md": {
       "disposition": "non-implementation",
@@ -6746,13 +6762,14 @@
     },
     "docs/features/runtime.md": {
       "disposition": "non-implementation",
-      "sha256": "eb3c811558348402fb7bfbb0d304f65dd61c81921c260ce0585b95e944335e1d",
+      "sha256": "726442d7836112a596a5260f29ccea6e0c3c586fbd158dcb9f9d0a40e7795334",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
-      ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "docs/features/settings-lock.md": {
       "disposition": "non-implementation",
@@ -6824,7 +6841,7 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "556500f99808ef6aa966ea7173fac79d15c1ab43fed060c2a52bed1d52acbe4e",
+      "sha256": "0d4aa72bce9680914085c44ddda9a2798402900233596bb8ebbde1400c9d6066",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6835,9 +6852,10 @@
         "docs/specs/frame-control-center.md",
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/login/README.md": {
       "disposition": "non-implementation",
@@ -8125,15 +8143,16 @@
     },
     "docs/specs/frame-control-center.md": {
       "disposition": "non-implementation",
+      "sha256": "8badc324bd3209bc58498a6d3042e8b53ca2cca0651acbb1d6236098a2fa2d45",
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
         "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "sha256": "2a1670dbd0a296d12b5ad7a2774204f479f8d34a007120b239f31ad96cba5a68",
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell-tools/control-tools.py": {
       "disposition": "independent",
@@ -8185,13 +8204,14 @@
     },
     "nacre/shell/modules/drawers/NacreFrameLips.qml": {
       "disposition": "independent",
+      "sha256": "e0bdd44bdfc00dd9a8b9c31d12834340ef5c050ba831b05914fa22b19b034570",
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "sha256": "7ae410aa47dafa34af541bd817b0879dfe6a2b8ac54e94dabb94ec9eb143681d",
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell/modules/osd/NacreLevelNotice.qml": {
       "disposition": "independent",
@@ -8219,14 +8239,15 @@
     },
     "nacre/shell/widgets/NacreFrameLip.qml": {
       "disposition": "independent",
+      "sha256": "1a2354b50fa61a60a5646f0f07cd338967ae5a832d0d836d6ffd62eec3cf0eed",
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
-        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
-      ],
-      "sha256": "e811d34b4ab84e5805646e8cc34ef96d083f3a19c2d4c6b329510fa8c4ccbc24",
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
     },
     "nacre/shell/widgets/NacreRangeSlider.qml": {
       "disposition": "independent",
@@ -8492,6 +8513,38 @@
       "sha256": "6c66571329327515b4bef5a45c971d5af8203ccb756506f9e43d8ca5c72960fb",
       "evidence": [
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "docs/specs/iridescent-frame.md": {
+      "disposition": "non-implementation",
+      "sha256": "dfe769dd6fd872b303a65a5b8e9399270eaaeb0360aaf44f85b1e83242b0e857",
+      "evidence": [
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
+    },
+    "nacre/shell-tools/tests/test_frame_contour.py": {
+      "disposition": "independent",
+      "sha256": "76d71c29837d0e521f889d1c0f8c5572cedc8814e2a01e9eee08a4f2bb2275e5",
+      "evidence": [
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
+    },
+    "nacre/shell/modules/drawers/NacreFrameRim.qml": {
+      "disposition": "independent",
+      "sha256": "f7e8ad9fa199d747fd62dfc7e0d47a72b1ca59895c35640e810f7890af47ad12",
+      "evidence": [
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
+    },
+    "nacre/shell/modules/drawers/contour.js": {
+      "disposition": "independent",
+      "sha256": "018e90b327fa3d5f041ca60456bfa99fe64df16f1877a48f767c8d13a14fa135",
+      "evidence": [
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
       ]
     }
   }

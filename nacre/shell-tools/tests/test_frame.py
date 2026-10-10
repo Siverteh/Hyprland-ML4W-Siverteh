@@ -126,11 +126,16 @@ TestCase {
                 "NacrePanelInput",
                 "NacrePanelMask",
                 "NacreFrameLips",
+                "NacreFrameRim",
             ):
                 shutil.copy2(
                     SHELL / "modules/drawers" / (name + ".qml"),
                     target / "modules/drawers" / (name + ".qml"),
                 )
+            shutil.copy2(
+                SHELL / "modules/drawers/contour.js",
+                target / "modules/drawers/contour.js",
+            )
             shutil.copy2(
                 SHELL / "widgets/NacreTokens.qml", target / "widgets/NacreTokens.qml"
             )
@@ -226,14 +231,18 @@ TestCase {
             self.assertEqual(gallery.getpixel((500, 60)), (86, 125, 154))
             self.assertEqual(gallery.getpixel((300, 200)), (86, 125, 154))
 
-            # Only the protrusion receives the primary tint; the shared frame
-            # pixels checked above stay at the original body color.
-            for point in ((300, 51), (11, 200), (588, 200)):
-                red, green, blue = closed.getpixel(point)
-                self.assertGreater(blue, 80)
-                self.assertGreater(blue, red + 20)
-            # The new outermost pixels distinguish the larger curves from the
-            # previous smaller version and keep the base frame unchanged.
-            for point in ((300, 55), (14, 200), (585, 200)):
-                self.assertGreater(closed.getpixel(point)[2], 180)
+            quiet, rim = pixels("quiet"), pixels("rim-enabled")
+            self.assertNotEqual(quiet.getpixel((100, 50)), rim.getpixel((100, 50)))
+            self.assertEqual(quiet.getpixel((5, 200)), rim.getpixel((5, 200)))
+            self.assertEqual(pixels("light").getpixel((5, 200)), (245, 242, 237))
+
+            # Along-length enamel uses different source accents, while the
+            # handle's middle stays flat and its shoulders return to the frame.
+            top_left = closed.getpixel((250, 54))
+            top_right = closed.getpixel((350, 54))
+            self.assertGreater(top_left[2], top_left[0] + 30)
+            self.assertGreater(top_right[0], top_left[0] + 25)
+            self.assertEqual(closed.getpixel((218, 54)), (86, 125, 154))
+            self.assertGreater(closed.getpixel((14, 200))[2], 100)
+            self.assertGreater(closed.getpixel((585, 200))[2], 100)
             self.assertEqual(closed.getpixel((15, 100)), (86, 125, 154))
