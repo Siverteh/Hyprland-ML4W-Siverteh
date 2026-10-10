@@ -29,7 +29,9 @@ def install_launcher(repo, home, apply=False, name="siverteh-ai"):
     source = repo / "bin" / name
     print("Controller-only plan:", source, "→", target)
     if not apply:
-        print("Plan only; add --apply to replace the controller and save its prior copy.")
+        print(
+            "Plan only; add --apply to replace the controller and save its prior copy."
+        )
         return
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = home / ".local/state/siverteh-ai/backups" / stamp
