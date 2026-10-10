@@ -211,3 +211,8 @@ Private overrides keep their monitor → palette → desktop → shortcuts → h
 and contained errors. Brain and extra shortcut declarations retain their verified
 local authoring history; their command implementations remain separate audit areas.
 See [the entry-point spec](specs/compositor-entrypoint.md).
+
+The palette publisher validates all required roles before applying them and
+serializes direct, prepared and CLI selections through the same commit guard.
+It keeps the current wallpaper deadline when only colors are re-published.
+See [appearance publication behavior](features/appearance.md#publishing-a-palette-safely).

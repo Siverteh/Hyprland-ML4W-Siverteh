@@ -35,3 +35,17 @@ The temporary wallpaper tournament is separate from maintained desktop code.
 Completed user results and archived originals remain private; its launcher,
 shortcut, isolated worktree and scratch files can be removed after completion.
 
+
+## Publishing a palette safely
+
+The toolkit publisher validates the complete palette before it writes consumer
+files. Missing roles, invalid color strings or unsupported modes fail without
+replacing the current presentation. Direct calls and prepared selections share
+the CLI's commit lock; an inherited CLI descriptor is checked rather than trusting
+its environment marker alone. Prepared publication can re-enter the same owner.
+
+Each output is replaced atomically and normal publication is serialized. This
+prevents readers from seeing half-written files or simultaneous publishers from
+interleaving. It does not make the whole collection of application settings a
+single filesystem crash transaction. Private sidebar/history writes keep their
+existing lightweight atomic primitive; no new polling or per-keystroke disk sync.

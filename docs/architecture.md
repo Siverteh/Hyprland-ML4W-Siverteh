@@ -293,3 +293,9 @@ Private overrides keep their monitor → palette → desktop → shortcuts → h
 and contained errors. Brain and extra shortcut declarations retain their verified
 local authoring history; their command implementations remain separate audit areas.
 See [the entry-point spec](specs/compositor-entrypoint.md).
+
+Palette publication has one reentrant commit guard for direct, prepared and
+CLI-owned calls. Complete role/mode validation precedes consumer writes; the
+CLI's inherited descriptor is verified and its parent lock remains owned. This
+serializes normal publication while retaining per-file replacement semantics.
+Toolkit/branding/lock/login generators remain separate dependency audit areas.

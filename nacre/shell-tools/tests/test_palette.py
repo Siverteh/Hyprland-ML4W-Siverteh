@@ -1,6 +1,13 @@
 from unittest.mock import patch
 import importlib.util
 import json
+import fcntl
+import os
+import shutil
+import signal
+import subprocess
+import sys
+import time
 from pathlib import Path
 import tempfile
 import unittest
@@ -307,6 +314,148 @@ class PaletteCommitTest(unittest.TestCase):
                 palette.apply_palette(home, live=False)
             self.assertEqual(current.read_text(), "previous palette")
             self.assertFalse((home / ".config/nacre/palette.lua").exists())
+
+
+class PublicationBoundaryTests(unittest.TestCase):
+    def seed(self, home, missing=None):
+        state = home / ".local/state/nacre"
+        state.mkdir(parents=True)
+        colors = json.loads(
+            Path(palette.__file__).with_name("reference-style.json").read_text()
+        )["colours"]
+        if missing:
+            colors.pop(missing)
+        (state / "scheme.json").write_text(
+            json.dumps({"mode": "dark", "colours": colors})
+        )
+        return state
+
+    def snapshot(self, home):
+        return {
+            str(p.relative_to(home)): p.read_bytes()
+            for p in home.rglob("*")
+            if p.is_file() and p.name != "palette-commit.lock"
+        }
+
+    def probe(self):
+        return (
+            "import importlib.util,sys; from pathlib import Path; "
+            "s=importlib.util.spec_from_file_location('publisher',sys.argv[1]); "
+            "p=importlib.util.module_from_spec(s); s.loader.exec_module(p); "
+            "print('ready',flush=True); p.apply_palette(Path(sys.argv[2]),'/tmp/isolated-poster.png',live=False)"
+        )
+
+    def test_missing_late_role_rejects_before_publication(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            self.seed(home, missing="onPrimary")
+            before = self.snapshot(home)
+            with self.assertRaises(ValueError):
+                palette.apply_palette(home, "/tmp/isolated-poster.png", live=False)
+            self.assertEqual(self.snapshot(home), before)
+
+    def test_direct_publisher_waits_for_real_lock_even_with_stale_marker(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            state = self.seed(home)
+            with (state / "palette-commit.lock").open("a") as lock:
+                fcntl.flock(lock, fcntl.LOCK_EX)
+                process = subprocess.Popen(
+                    [sys.executable, "-c", self.probe(), palette.__file__, str(home)],
+                    env={**os.environ, "NACRE_PALETTE_LOCKED": "1"},
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                )
+                try:
+                    self.assertEqual(process.stdout.readline().strip(), "ready")
+                    time.sleep(0.2)
+                    self.assertFalse((state / "presentation.json").exists())
+                    self.assertIsNone(process.poll())
+                finally:
+                    fcntl.flock(lock, fcntl.LOCK_UN)
+                    stdout, stderr = process.communicate(timeout=15)
+                self.assertEqual(process.returncode, 0, stderr)
+                self.assertTrue((state / "presentation.json").is_file())
+
+    def test_actual_prepared_commit_can_reenter_shared_publisher(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            state = self.seed(home)
+            data = json.loads((state / "scheme.json").read_text())
+            data.update(name="dynamic", flavour="default", variant="tonalspot")
+            (state / "scheme.json").write_text(json.dumps(data))
+            (home / "wall.png").write_bytes(b"fixture")
+            thumbnail = home / ".cache/nacre/wallpapers/probe/thumbnail.jpg"
+            thumbnail.parent.mkdir(parents=True)
+            thumbnail.write_bytes(b"fixture")
+            script = (
+                "import importlib.util,json,sys; from pathlib import Path; "
+                "s=importlib.util.spec_from_file_location('publisher',sys.argv[1]); "
+                "p=importlib.util.module_from_spec(s); s.loader.exec_module(p); "
+                "h=Path(sys.argv[2]); data=json.loads((h/'.local/state/nacre/scheme.json').read_text()); "
+                "assert p.commit_prepared(h,h/'wall.png',data,h/'.cache/nacre/wallpapers/probe/thumbnail.jpg',live=False)"
+            )
+            result = subprocess.run(
+                [sys.executable, "-c", script, palette.__file__, str(home)],
+                capture_output=True,
+                text=True,
+                timeout=15,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(
+                json.loads((state / "presentation.json").read_text())["poster"],
+                str(home / "wall.png"),
+            )
+
+    @unittest.skipUnless(
+        shutil.which("bash") and shutil.which("flock"), "Bash/flock unavailable"
+    )
+    def test_cli_inherited_descriptor_does_not_deadlock_publisher(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            state = self.seed(home)
+            marker = home / "published"
+            process = subprocess.Popen(
+                [
+                    "bash",
+                    "-c",
+                    'exec 9>"$1"; flock 9; export NACRE_PALETTE_LOCKED=1; "$2" -c "$3" "$4" "$5" || exit $?; printf done >"$6"; read -r release',
+                    "probe",
+                    str(state / "palette-commit.lock"),
+                    sys.executable,
+                    self.probe(),
+                    palette.__file__,
+                    str(home),
+                    str(marker),
+                ],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                start_new_session=True,
+            )
+            try:
+                deadline = time.monotonic() + 15
+                while (
+                    not marker.exists()
+                    and process.poll() is None
+                    and time.monotonic() < deadline
+                ):
+                    time.sleep(0.02)
+                self.assertTrue(marker.exists(), "CLI publisher failed or deadlocked")
+                self.assertIsNone(process.poll())
+                with (state / "palette-commit.lock").open("a") as competitor:
+                    with self.assertRaises(BlockingIOError):
+                        fcntl.flock(competitor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            finally:
+                try:
+                    stdout, stderr = process.communicate(input="\n", timeout=3)
+                except subprocess.TimeoutExpired:
+                    os.killpg(process.pid, signal.SIGTERM)
+                    stdout, stderr = process.communicate(timeout=5)
+            self.assertEqual(process.returncode, 0, stderr)
+            self.assertTrue((state / "presentation.json").is_file())
 
 
 if __name__ == "__main__":

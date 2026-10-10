@@ -1346,6 +1346,24 @@
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
         "New locally authored 3bf8870 birth-time executable fixtures, retained unchanged. Real Bash isolated stat/date mocks exercise valid, absent, invalid and future values; no upstream implementation bodies or user fixture data included. Fastfetch layout correction validated with its actual native parser rather than a structural test that merely mirrors the JSON edit."
       ]
+    },
+    "nacre/shell-tools/classic-state.py": {
+      "disposition": "independent",
+      "sha256": "bebc7b8cc47281a7a703978fc3692360913203b82303e1043b15818fbbf95a64",
+      "evidence": [
+        "docs/specs/palette-publication.md",
+        "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
+        "Local synchronization script introduced 4874385; structured atomic publication 8afd305, prepared validation 81827c1, contrast 2b16add and later local toolkit/rotation/branding/Orient integrations traced. Formatting 83b3531/rename 548f0b4 distinguished from authoring. Original+current bodies compared mechanically to original peers/predecessors: no five-line contiguous copies. Current own body reviewed; valid output manifests match baseline in dark/light/fixed fixtures. New independently authored shared lock/complete-validation corrections tested against real owners. Called templates/icons/branding/KDE/lock/login dependencies remain separate reviews, not certified by association."
+      ]
+    },
+    "nacre/shell-tools/tests/test_palette.py": {
+      "disposition": "independent",
+      "sha256": "ee0fb80326115751f3b8683c2dc4ed683360e1cbc52d2884acafcc19af41b5ba",
+      "evidence": [
+        "docs/specs/palette-publication.md",
+        "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
+        "Local fixtures introduced 8afd305 and extended with own sync/rotation/GTK/fixed-palette/prepared/contrast changes. Current fixture uses separately replaced own Orient reference/preset data rather than old Caelestia output. New actual process/flock/missing-role/prepared-reentry tests authored from current publication spec, two failures observed on baseline then pass. No private source/wallpaper or upstream implementation body in fixture."
+      ]
     }
   }
 }

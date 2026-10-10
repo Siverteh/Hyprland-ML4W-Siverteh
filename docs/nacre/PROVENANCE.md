@@ -1408,3 +1408,40 @@ options unchanged; all 235 shell files exact, live IPC healthy/configerrors empt
 No other preferences, logo assets, packages or user terminals changed. Seven
 SHA reviews added; separate publisher/generator/helper/assets/tests and whole-tree
 comparison remain. Notices retained and full goal active.
+
+## Palette publication source and boundary review
+
+[Spec](../specs/palette-publication.md): local initial synchronization script
+4874385, structured publisher/shared writes 8afd305, prepared validation 81827c1,
+contrast 2b16add, later own toolkit/rotation/branding/Orient changes traced through
+current source. Formatting 83b3531 and rename 548f0b4 are not authoring proof.
+Mechanically compared first and current bodies against initial peers/predecessors
+without displaying upstream bodies; no five-line contiguous matches. This is
+supplemental evidence, not the sole originality test. Current own implementation
+and local feature/caller history reviewed; retain public role/formatting contracts
+and own rendering code rather than rewrite locally authored work unnecessarily.
+Current body exposure acknowledged; no legal clean-room/final-license claim.
+Referenced rofi template, branding/icon/KDE/lock/login helpers, reference/preset
+data and private assets remain separately scoped audits/dependencies.
+
+Actual new boundary tests demonstrate two baseline failures: missing onPrimary
+starts output then fails with KeyError; direct apply ignores the held palette lock.
+Shared reentrant publication guard now handles direct/prepared/CLI callers, checks
+marker plus actual descriptor9 identity before borrowing the CLI lock and leaves
+that owner's lock held. Stale marker without descriptor acquires its own lock.
+Complete role/mode/metadata validation precedes consumer publication and fixed
+preset scheme mutation. Real subprocess/flock tests, actual prepared re-entry and
+CLI inherited-descriptor no-deadlock tests pass. A competing real flock is
+rejected after the publisher exits while the owning CLI shell remains alive,
+proving the publisher retains that parent lock. Existing shared write primitive
+for sidebar/history/settings untouched; no extra polling or fsync on chat writes.
+
+Dark/light/fixed-preset isolated valid output manifests match baseline byte content,
+permissions and links (273/273/274 artifacts), ignoring only coordination lock and
+normalizing isolated HOME prefixes. This does not prove every future input or
+filesystem failure atomicity. Guarantees are serialized normal publication and
+per-file replacement, not filesystem-wide crash rollback. Own palette fixtures
+trace to 8afd305 and subsequent local feature tests; current color fixtures use
+independently replaced Orient reference/preset data. Two SHA reviews added after
+current source/test review. Full dependency/asset/whole-tree comparison remains;
+notices and complete goal retained.

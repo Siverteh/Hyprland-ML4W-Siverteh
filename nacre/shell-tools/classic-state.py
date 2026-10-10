@@ -3,6 +3,72 @@
 
 import fcntl, json, os, re, signal, subprocess, sys, tempfile, time
 from pathlib import Path
+from contextlib import contextmanager
+import threading
+
+
+_publication_gate = threading.RLock()
+_publication_owner = threading.local()
+
+
+@contextmanager
+def publication_lock(home):
+    """Serialize direct callers, prepared commits and the inherited CLI lock."""
+    path = (Path(home) / ".local/state/nacre/palette-commit.lock").resolve()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with _publication_gate:
+        previous = getattr(_publication_owner, "path", None)
+        if previous == path:
+            yield
+            return
+        inherited = False
+        if os.environ.get("NACRE_PALETTE_LOCKED") == "1":
+            try:
+                descriptor = os.fstat(9)
+                expected = path.stat()
+                inherited = (descriptor.st_dev, descriptor.st_ino) == (
+                    expected.st_dev,
+                    expected.st_ino,
+                )
+            except OSError:
+                pass
+        if inherited:
+            # Same open description as the CLI: reacquire safely, never unlock its owner.
+            fcntl.flock(9, fcntl.LOCK_EX)
+            _publication_owner.path = path
+            try:
+                yield
+            finally:
+                _publication_owner.path = previous
+        else:
+            with path.open("a") as owner:
+                fcntl.flock(owner, fcntl.LOCK_EX)
+                _publication_owner.path = path
+                try:
+                    yield
+                finally:
+                    _publication_owner.path = previous
+
+
+def validated_colors(data):
+    """Reject incomplete or malformed public roles before any consumer output."""
+    if not isinstance(data, dict) or data.get("mode") not in ("light", "dark"):
+        raise ValueError("Invalid palette mode")
+    values = data.get("colours")
+    roles = json.loads(Path(__file__).with_name("reference-style.json").read_text())[
+        "colours"
+    ]
+    if not isinstance(values, dict) or not roles.keys() <= values.keys():
+        raise ValueError("Palette is missing required color roles")
+    for key, value in values.items():
+        if not isinstance(key, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", key):
+            raise ValueError("Invalid palette role name")
+        if not isinstance(value, str) or not re.fullmatch(r"#?[0-9a-fA-F]{6}", value):
+            raise ValueError("Invalid palette color")
+    for name in ("source", "input"):
+        if name in data and not isinstance(data[name], dict):
+            raise ValueError("Invalid palette metadata")
+    return {key: value.lstrip("#") for key, value in values.items()}
 
 
 def atomic_write(path, text):
@@ -40,18 +106,8 @@ def commit_prepared(home, wallpaper, data, thumbnail, live=True):
     if not thumbnail.is_relative_to((home / ".cache/nacre/wallpapers").resolve()):
         return False
     try:
-        roles = json.loads(
-            Path(__file__).with_name("reference-style.json").read_text()
-        )["colours"]
-        colors = data["colours"]
-        if data["name"] != "dynamic" or data["mode"] not in ("light", "dark"):
-            return False
-        if not isinstance(colors, dict) or not roles.keys() <= colors.keys():
-            return False
-        if any(
-            not isinstance(v, str) or not re.fullmatch("#?[0-9a-fA-F]{6}", v)
-            for v in colors.values()
-        ):
+        validated_colors(data)
+        if data["name"] != "dynamic":
             return False
         if any(
             not isinstance(data[k], str)
@@ -67,14 +123,14 @@ def commit_prepared(home, wallpaper, data, thumbnail, live=True):
     except (OSError, ValueError, KeyError, TypeError):
         return False
     state.mkdir(parents=True, exist_ok=True)
-    with (state / "palette-commit.lock").open("a") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+    with publication_lock(home):
         try:
             current = json.loads((state / "scheme.json").read_text())
         except (OSError, ValueError):
             return False
         if (
-            current.get("name") != "dynamic"
+            not isinstance(current, dict)
+            or current.get("name") != "dynamic"
             or current.get("flavour") != data["flavour"]
             or current.get("mode") != data["mode"]
             or current.get("variant", "tonalspot") != data.get("variant", "tonalspot")
@@ -111,12 +167,19 @@ def readable(value, background, minimum=4.5):
 
 
 def apply_palette(home, wallpaper=None, live=True):
+    home = Path(home)
+    with publication_lock(home):
+        return _apply_palette(home, wallpaper, live=live)
+
+
+def _apply_palette(home, wallpaper=None, live=True):
     state = home / ".local/state/nacre"
     data = json.loads((state / "scheme.json").read_text())
     preferences = home / ".config/nacre/wallpaper-picker.json"
     options = json.loads(preferences.read_text()) if preferences.exists() else {}
     preset = options.get("palettePreset", "wallpaper")
-    if preset != "wallpaper":
+    fixed = preset != "wallpaper"
+    if fixed:
         presets = json.loads(
             Path(__file__).with_name("palette-presets.json").read_text()
         )
@@ -125,11 +188,10 @@ def apply_palette(home, wallpaper=None, live=True):
         if chosen is None or mode not in ("dark", "light"):
             raise ValueError("Invalid fixed palette preference")
         data = dict(data, mode=mode, colours=chosen["modes"][mode])
-        # The CLI remains the scheme owner; all publishers resolve this preference.
+    colors = validated_colors(data)
+    if fixed:
+        # Resolve preferences only after the complete candidate passes validation.
         atomic_write(state / "scheme.json", json.dumps(data))
-    colors = {k: v.lstrip("#") for k, v in data["colours"].items()}
-    if any(not re.fullmatch("[0-9a-fA-F]{6}", v) for v in colors.values()):
-        raise ValueError("Invalid palette color")
     # Validate required roles before publishing any state.
     primary, secondary, inactive, shadow = (
         colors[k] for k in ("primary", "secondary", "outlineVariant", "shadow")

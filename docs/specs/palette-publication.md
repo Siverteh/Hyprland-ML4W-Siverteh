@@ -66,3 +66,24 @@ new preferences solely for QA. Private hashes and AI worker identity unchanged.
 Exact-main CI; cold login/app restart/physical hardware limits explicit. Source
 review must cover called dependencies separately before whole originality can be
 claimed. Keep complete goal active until its full requirements are proven.
+
+## Current audit findings and correction
+
+History and mechanical comparison support a locally authored publisher rather
+than copied upstream implementation; retain traced own role maps/rendering code,
+with its dependency/template/asset audits remaining separate. Current body read
+after origin investigation is acknowledged, not a legal clean-room claim.
+Two new actual-owner regressions fail on baseline: missing onPrimary writes
+presentation/assets before a later KeyError, and direct publication ignores a
+held palette lock. The normal CLI already locks descriptor9 and sets the marker;
+blindly nesting a second file lock would deadlock that owner. Shared reentrant
+guard now accepts only a matching inherited descriptor, retains its lock, and
+otherwise acquires its own lock. Complete role/mode/metadata validation runs before
+consumer output or fixed-preset scheme mutation. Prepared/direct paths use the
+same gate; actual prepared re-entry and real CLI-descriptor probes must pass.
+
+Guarantees are per-file atomic replacement and serialized normal publication,
+not a filesystem-wide crash transaction or rollback of arbitrary later I/O/tool
+failures. These broader recovery semantics must not be claimed from narrow tests.
+Shared atomic_write behavior for sidebar/history stays unchanged; no new polling,
+image generation or per-keystroke fsync added.
