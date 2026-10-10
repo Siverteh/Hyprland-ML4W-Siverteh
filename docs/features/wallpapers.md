@@ -137,3 +137,17 @@ The user has reported layout, scrolling and animation regressions after the
 rewrite. Those require a separate live visual cleanup after the final originality
 audit; these source reviews do not establish that the preferred appearance is
 restored.
+
+## Picker spacing and continuous travel
+
+The compact chooser uses a shorter 320px content area and a centered complete
+odd-card strip. During movement, partial edge cards remain visible inside the
+strip's clip instead of disappearing early. Visible and destination buffers retain
+thumbnail sources during rapid travel. Spotlight centers its toolbar, wide gallery
+and navigation as one measured group; the hero keeps a broad aspect ratio.
+Continuous circular travel drives both position and width, including wraparound.
+Wheel packets accumulate before changing selection; empty packets do not move it.
+The current output's viewport is supplied by the launcher, avoiding first-output
+sizing on other displays. The hexagon grid keeps its existing masked tiles and
+uses the shared faster scrolling. Backdrop fades keep the prior image opaque
+under the incoming image; reduced motion settles the final buffer immediately.

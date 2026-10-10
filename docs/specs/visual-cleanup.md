@@ -76,3 +76,18 @@ must pass. Update feature/ownership docs and private checkpoints. Preserve rollb
 and other sessions. Record physical multi-output/scale/login limitations honestly.
 Goal stays active until every reported area is polished and verified; do not claim
 full cleanup from a title/grid patch or merely passing headless fixtures.
+
+## Implemented candidate and verified scope
+
+Native regressions fail on the baseline title/grid and pass with the new layouts.
+Actual Qt tests cover packet accumulation, unchanged device requests while scrolling,
+release momentum, content-size clamp/reduced motion, and the backdrop's opaque
+underlayer. Real Quickshell RHI captures with synthetic SVG scenes and fake services
+were inspected for header/levels, sound/network/Bluetooth, retained notification
+cards, compact carousel, Spotlight and Hexagons. Captures use current palette
+roles and actual primitives/fonts without exposing private messages or changing
+devices/wallpaper preferences. All captures are private QA artifacts.
+
+Full-suite, target deployment/input/source and final exact-main CI checks remain
+required; these captures alone do not establish live multi-output/physical input
+acceptance or completion of the goal.

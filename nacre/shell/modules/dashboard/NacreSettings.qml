@@ -24,13 +24,16 @@ Item {
         query = "";
         if (NacrePanelState.settingsPage !== target)
             NacrePanelState.settingsPage = target;
-        if (scroll)
-            scroll.contentY = 0;
+        resetScroll();
     }
-    onPageChanged: if (scroll)
-        scroll.contentY = 0
-    onQueryChanged: if (scroll)
-        scroll.contentY = 0
+    function resetScroll() {
+        if (scroll && pageMotion) {
+            pageMotion.cancel();
+            scroll.contentY = 0;
+        }
+    }
+    onPageChanged: resetScroll()
+    onQueryChanged: resetScroll()
     Connections {
         target: NacrePanelState
         function onSettingsPageChanged() {
@@ -129,6 +132,7 @@ Item {
         clip: true
         boundsBehavior: Flickable.StopAtBounds
         FastScroll {
+            id: pageMotion
             view: scroll
         }
         Column {

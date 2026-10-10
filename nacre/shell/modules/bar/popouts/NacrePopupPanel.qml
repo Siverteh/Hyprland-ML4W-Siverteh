@@ -60,8 +60,8 @@ Item {
         enabled: NacreTokens.motionEnabled
         NumberAnimation {
             id: sizeMotion
-            duration: NacreTokens.motionEnabled ? 180 : 0
-            easing.type: Easing.OutCubic
+            duration: NacreTokens.motionEnabled ? 230 : 0
+            easing.type: Easing.InOutCubic
         }
     }
 }

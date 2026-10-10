@@ -76,6 +76,59 @@ TestCase {
         wait(220);
         verify(!view.active);
     }
+    function test_wheel_packets_are_accumulated_and_empty_packets_ignored() {
+        const view = createTemporaryObject(picker, test);
+        view.visibilities.previewOnly = true;
+        NacreWallpapers.preference({
+            layout: "spotlight"
+        });
+        const packet = {
+            pixelDelta: {
+                x: 0,
+                y: -20
+            },
+            angleDelta: {
+                x: 0,
+                y: 0
+            },
+            accepted: false
+        };
+        view.wheelStep(packet);
+        compare(view.currentIndex, 0);
+        view.wheelStep(packet);
+        compare(view.currentIndex, 0);
+        view.wheelStep(packet);
+        compare(view.currentIndex, 1);
+        view.wheelStep({
+            pixelDelta: {
+                x: 0,
+                y: 0
+            },
+            angleDelta: {
+                x: 0,
+                y: 0
+            }
+        });
+        compare(view.currentIndex, 1);
+        compare(NacreWallpapers.browsed, "");
+    }
+    function test_backdrop_keeps_an_opaque_underlayer_during_fade() {
+        const first = NacreWallpapers.list[0].poster;
+        const view = createTemporaryObject(backdrop, test, {
+            path: first
+        });
+        tryCompare(view, "hasImage", true);
+        const old = view.current;
+        view.path = first.replace("poster.png", "second.png");
+        tryVerify(() => view.current !== old);
+        wait(50);
+        compare(old.opacity, 1);
+        verify(view.current.opacity > 0 && view.current.opacity < 1);
+        verify(view.current.z > old.z);
+        wait(400);
+        compare(view.current.opacity, 1);
+        compare(old.opacity, 0);
+    }
     function test_gallery_motion_respects_pause_and_close() {
         const view = createTemporaryObject(picker, test);
         NacreWallpapers.preference({
@@ -154,7 +207,7 @@ TestCase {
             const view = createTemporaryObject(picker, test);
             wait(60);
             verify(!view.fullScreen);
-            compare(view.implicitHeight, 360);
+            verify(view.implicitHeight >= 300 && view.implicitHeight <= 340);
             const strip = findChild(view, "carouselStrip");
             verify(strip.slots % 2 === 1);
             for (let i = 0; i < 12; i++) {

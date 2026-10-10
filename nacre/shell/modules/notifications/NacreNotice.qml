@@ -15,10 +15,10 @@ NacreSurface {
     implicitWidth: NacreNotifications.sizes.width
     implicitHeight: contents.implicitHeight + 28
     x: dragOffset
-    radius: 18
+    radius: 14
     color: NacreColours.palette.m3surfaceContainer
     border.width: 1
-    border.color: modelData.urgency === 2 ? NacreColours.palette.m3error || NacreColours.palette.m3primary : NacreColours.palette.m3outlineVariant
+    border.color: modelData.urgency === 2 ? NacreColours.palette.m3error || NacreColours.palette.m3primary : Qt.alpha(NacreColours.palette.m3outlineVariant, 0.45)
     activeFocusOnTab: true
     clip: true
     Accessible.role: Accessible.AlertMessage

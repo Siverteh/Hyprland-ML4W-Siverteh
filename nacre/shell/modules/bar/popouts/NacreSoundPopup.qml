@@ -7,7 +7,7 @@ Item {
     id: root
     readonly property var candidates: Pipewire.nodes.values.filter(node => !node.isStream && node.isSink)
     readonly property var outputs: candidates.filter(node => !!node.audio)
-    implicitWidth: 320
+    implicitWidth: 352
     implicitHeight: body.implicitHeight
     function chooseOutput(node) {
         if (!node || !outputs.includes(node) || !node.ready || !node.audio)
@@ -30,12 +30,13 @@ Item {
             width: parent.width
             spacing: 10
             NacreText {
-                width: parent.width - 104
+                width: Math.max(0, parent.width - outputMute.width - parent.spacing)
                 anchors.verticalCenter: parent.verticalCenter
                 text: NacreAudio.sink?.description || "Output unavailable"
                 elide: Text.ElideMiddle
             }
             ActionButton {
+                id: outputMute
                 text: NacreAudio.muted ? "Unmute" : "Mute"
                 enabled: NacreAudio.available
                 compact: true
@@ -56,12 +57,13 @@ Item {
             width: parent.width
             spacing: 10
             NacreText {
-                width: parent.width - 104
+                width: Math.max(0, parent.width - micMute.width - parent.spacing)
                 anchors.verticalCenter: parent.verticalCenter
                 text: NacreAudio.micAvailable ? "Microphone" : "Microphone unavailable"
                 elide: Text.ElideRight
             }
             ActionButton {
+                id: micMute
                 objectName: "quickMicMute"
                 text: NacreAudio.micMuted ? "Unmute" : "Mute"
                 enabled: NacreAudio.micAvailable
@@ -90,19 +92,28 @@ Item {
                         required property var modelData
                         readonly property bool selected: Pipewire.defaultAudioSink === modelData
                         width: parent.width - 10
-                        height: 34
-                        radius: 17
+                        height: 44
+                        radius: 12
                         enabled: modelData.ready
                         opacity: enabled ? 1 : 0.45
-                        color: selected ? NacreColours.palette.m3primary : NacreColours.palette.m3surfaceContainerHigh
+                        color: selected ? Qt.alpha(NacreTokens.accent, 0.12) : "transparent"
+                        NacreIcon {
+                            x: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: parent.selected ? "check" : "speaker"
+                            font.pointSize: 14
+                            color: parent.selected ? NacreTokens.accent : NacreTokens.mutedInk
+                        }
                         NacreText {
-                            anchors.fill: parent
-                            anchors.margins: 10
+                            x: 40
+                            y: 10
+                            width: parent.width - 50
+                            height: parent.height - 20
                             text: parent.modelData.description || parent.modelData.name || "Audio output"
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideMiddle
                             font.pointSize: 11
-                            color: parent.selected ? NacreColours.palette.m3onPrimary : NacreColours.palette.m3onSurface
+                            color: NacreTokens.ink
                         }
                         NacreInteraction {
                             accessibleName: "Use output " + (parent.modelData.description || parent.modelData.name || "Audio output")

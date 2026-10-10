@@ -135,3 +135,9 @@ assets/dependencies and active runtime from historical releases and functional
 acceptance. The [final comparison](nacre/FINAL-COMPARISON.md) joins the source/fixture,
 dependency and active-runtime evidence. Current and historical attribution have
 separate scope; passing source checks does not certify physical/visual acceptance.
+
+The post-rewrite [visual cleanup specification](specs/visual-cleanup.md) preserves
+these owners. Title paint bounds and the 2×2 level composition live in the existing
+bar/OSD components. Settings, quick menus and galleries share the event-driven
+FastScroll policy; picker travel/backdrop buffers remain local presentation state,
+not another wallpaper publisher or input owner.

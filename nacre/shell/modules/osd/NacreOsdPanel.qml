@@ -8,19 +8,22 @@ Item {
     required property bool visibility
     property real presentedWidth: 0
     implicitWidth: Math.max(0, presentedWidth)
-    implicitHeight: 220
+    readonly property real contentWidth: controls.item?.implicitWidth ?? 196
+    implicitHeight: controls.item?.implicitHeight ?? 392
     visible: width > 0
     enabled: visibility
     clip: true
     function syncSize() {
-        presentedWidth = visibility ? 260 : 0;
+        presentedWidth = visibility ? contentWidth : 0;
     }
     onVisibilityChanged: syncSize()
+    onContentWidthChanged: syncSize()
     Component.onCompleted: syncSize()
     Loader {
+        id: controls
         active: root.visibility || root.presentedWidth > 0
-        width: 260
-        height: 220
+        width: root.contentWidth
+        height: root.implicitHeight
         sourceComponent: NacreOsdControls {
             monitor: NacreBrightness.getMonitorForScreen(root.screen)
         }

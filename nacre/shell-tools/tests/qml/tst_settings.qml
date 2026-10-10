@@ -278,9 +278,11 @@ TestCase {
         wait(100);
         verify(scroll.contentY > 0);
         wait(220);
-        verify(Math.abs(scroll.contentY - Math.min(limit, 480)) < 2);
+        verify(Math.abs(scroll.contentY - Math.min(limit, 600)) < 2);
+        mouseWheel(scroll, 600, 80, 0, -120);
+        wait(20);
         view.open("maintenance");
-        wait(30);
+        wait(300);
         compare(scroll.contentY, 0);
     }
 

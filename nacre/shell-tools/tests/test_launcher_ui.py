@@ -1,4 +1,4 @@
-from qml_source import remove_objects
+from qml_source import remove_objects, install_foundation_interaction
 
 """Native category/search/navigation behavior with production QML and a fixture app index."""
 import os, shutil, subprocess, tempfile, unittest
@@ -82,6 +82,9 @@ class LauncherUITests(unittest.TestCase):
             shutil.copy2(
                 ROOT / "tests/launcher-qml/tst_launcher.qml",
                 target / "tst_launcher.qml",
+            )
+            install_foundation_interaction(
+                target / "fixtures", ROOT.parent / "shell/widgets"
             )
             result = subprocess.run(
                 [str(runner), "-input", str(target), "-o", "-,txt"],

@@ -89,8 +89,8 @@ NacreSurface {
     }
     Behavior on presentedHeight {
         NumberAnimation {
-            duration: NacreTokens.motionEnabled ? 250 : 0
-            easing.type: Easing.OutCubic
+            duration: NacreTokens.motionEnabled ? 360 : 0
+            easing.type: Easing.InOutCubic
         }
     }
     Keys.onEscapePressed: {

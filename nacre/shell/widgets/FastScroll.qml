@@ -4,10 +4,12 @@ WheelHandler {
     id: root
 
     required property var view
-    property real step: 480
-    property real pixelMultiplier: 2.4
+    property real step: 600
+    property real pixelMultiplier: 3.0
     property real destination: 0
-    property int smoothDuration: 260
+    property int smoothDuration: 210
+    property bool motionEnabled: NacreTokens.motionEnabled
+    readonly property bool horizontal: view?.orientation === ListView.Horizontal || view?.flickableDirection === Flickable.HorizontalFlick
     property bool kinetic: true
     property real velocity: 0
     property real lastPixelTime: 0
@@ -15,8 +17,8 @@ WheelHandler {
     readonly property Timer release: Timer {
         interval: 65
         onTriggered: {
-            if (root.pixelSamples > 1 && Math.abs(root.velocity) > 100)
-                root.view.flick(0, -Math.max(-2600, Math.min(2600, root.velocity)));
+            if (root.motionEnabled && root.pixelSamples > 1 && Math.abs(root.velocity) > 100)
+                root.view.flick(root.horizontal ? -Math.max(-2600, Math.min(2600, root.velocity)) : 0, root.horizontal ? 0 : -Math.max(-2600, Math.min(2600, root.velocity)));
             else
                 root.settled();
             root.velocity = 0;
@@ -26,16 +28,37 @@ WheelHandler {
 
     readonly property Connections movement: Connections {
         function onMovementEnded() {
+            root.destination = root.position();
             root.settled();
         }
 
+        function onVisibleChanged() {
+            if (!root.view.visible)
+                root.cancel();
+        }
+        function onDraggingChanged() {
+            if (root.view.dragging)
+                root.cancel();
+        }
+        function onContentHeightChanged() {
+            root.clamp();
+        }
+        function onHeightChanged() {
+            root.clamp();
+        }
+        function onWidthChanged() {
+            root.clamp();
+        }
+        function onContentWidthChanged() {
+            root.clamp();
+        }
         target: root.view
     }
 
     readonly property NumberAnimation motion: NumberAnimation {
         target: root.view
-        property: "contentY"
-        duration: root.smoothDuration
+        property: root.horizontal ? "contentX" : "contentY"
+        duration: root.motionEnabled ? root.smoothDuration : 0
         easing.type: Easing.OutCubic
         onFinished: root.settled()
     }
@@ -43,21 +66,68 @@ WheelHandler {
     signal scrolled
     signal settled
 
+    function position() {
+        return view ? view[horizontal ? "contentX" : "contentY"] : 0;
+    }
+    function origin() {
+        return view ? (horizontal ? view.originX : view.originY) || 0 : 0;
+    }
+    function maximum() {
+        return view ? origin() + Math.max(0, horizontal ? view.contentWidth - view.width : view.contentHeight - view.height) : 0;
+    }
+    function setPosition(value) {
+        if (view)
+            view[horizontal ? "contentX" : "contentY"] = value;
+    }
+    function clamp() {
+        if (!view)
+            return;
+        const minimum = origin();
+        const upper = maximum();
+        if (position() < minimum || position() > upper) {
+            cancel();
+            setPosition(Math.max(minimum, Math.min(upper, position())));
+        }
+        destination = Math.max(minimum, Math.min(upper, destination));
+        if (motion.running && (motion.to < minimum || motion.to > upper)) {
+            motion.stop();
+            motion.from = position();
+            motion.to = destination;
+            motion.start();
+        }
+    }
+
+    onMotionEnabledChanged: if (!motionEnabled) {
+        const finalPosition = motion.running ? destination : position();
+        cancel();
+        if (view)
+            setPosition(Math.max(origin(), Math.min(maximum(), finalPosition)));
+    }
+
+    onHorizontalChanged: {
+        cancel();
+        destination = position();
+    }
+
     function scrollBy(delta, smooth) {
+        if (!view || !Number.isFinite(delta))
+            return;
         view.cancelFlick();
-        const base = motion.running ? destination : view.contentY;
-        destination = Math.max(view.originY, Math.min(view.originY + Math.max(0, view.contentHeight - view.height), base + delta));
+        const base = motion.running ? destination : position();
+        destination = Math.max(origin(), Math.min(maximum(), base + delta));
         motion.stop();
-        if (smooth) {
-            motion.from = view.contentY;
+        if (smooth && motionEnabled) {
+            motion.from = position();
             motion.to = destination;
             motion.start();
         } else {
-            view.contentY = destination;
+            setPosition(destination);
         }
     }
 
     function pixelScroll(delta) {
+        if (!view || !Number.isFinite(delta))
+            return;
         const now = Date.now();
         const elapsed = now - lastPixelTime;
         if (elapsed > 120 || velocity * delta < 0) {
@@ -69,7 +139,7 @@ WheelHandler {
         lastPixelTime = now;
         pixelSamples++;
         scrollBy(delta, false);
-        if (kinetic)
+        if (kinetic && motionEnabled)
             release.restart();
         else
             settled();
@@ -78,7 +148,8 @@ WheelHandler {
     function cancel() {
         release.stop();
         motion.stop();
-        view.cancelFlick();
+        if (view)
+            view.cancelFlick();
         velocity = 0;
         pixelSamples = 0;
     }
@@ -87,13 +158,15 @@ WheelHandler {
     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
     onWheel: event => {
         scrolled();
-        if (event.pixelDelta.y) {
-            pixelScroll(-event.pixelDelta.y * pixelMultiplier);
-        } else if (event.angleDelta.y) {
+        const pixels = horizontal ? event.pixelDelta.x || event.pixelDelta.y : event.pixelDelta.y;
+        const angles = horizontal ? event.angleDelta.x || event.angleDelta.y : event.angleDelta.y;
+        if (pixels) {
+            pixelScroll(-pixels * pixelMultiplier);
+        } else if (angles) {
             release.stop();
             velocity = 0;
             pixelSamples = 0;
-            scrollBy(-event.angleDelta.y / 120 * step, true);
+            scrollBy(-angles / 120 * step, true);
         }
         event.accepted = true;
     }

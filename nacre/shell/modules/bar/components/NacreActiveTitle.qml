@@ -20,7 +20,7 @@ Item {
         id: row
         anchors.centerIn: parent
         spacing: NacreAppearance.spacing.small
-        width: root.width
+        width: Math.min(root.width, root.implicitWidth)
         NacreIcon {
             id: glyph
             text: root.client ? NacreIcons.getAppCategoryIcon(root.client.wmClass, "desktop_windows") : "desktop_windows"

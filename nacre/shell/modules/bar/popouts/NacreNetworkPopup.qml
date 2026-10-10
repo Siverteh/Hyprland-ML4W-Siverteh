@@ -5,7 +5,7 @@ import qs.services
 Item {
     id: root
     readonly property var nearby: NacreNetwork.visibleNetworks
-    implicitWidth: 320
+    implicitWidth: 352
     implicitHeight: body.implicitHeight
     function activate(point) {
         const current = nearby.find(entry => point?.bssid && entry.bssid === point.bssid);
@@ -27,12 +27,13 @@ Item {
             width: parent.width
             spacing: 12
             NacreText {
-                width: parent.width - 100
+                width: Math.max(0, parent.width - radioButton.width - parent.spacing)
                 anchors.verticalCenter: parent.verticalCenter
                 text: "Wi-Fi"
                 font.pointSize: 14
             }
             ActionButton {
+                id: radioButton
                 objectName: "quickWifiPower"
                 text: NacreNetwork.wifiEnabled ? "Turn off" : "Turn on"
                 compact: true
@@ -54,20 +55,25 @@ Item {
                 spacing: 6
                 Repeater {
                     model: root.nearby
-                    delegate: Item {
+                    delegate: NacreSurface {
                         required property var modelData
                         width: parent.width - 10
-                        height: 38
+                        height: 48
+                        radius: 12
+                        color: modelData.active ? Qt.alpha(NacreTokens.accent, 0.12) : "transparent"
                         NacreText {
-                            width: parent.width - 110
+                            x: 10
+                            width: Math.max(0, parent.width - connectionButton.width - 30)
                             height: parent.height
                             text: parent.modelData.ssid || "Hidden network"
                             verticalAlignment: Text.AlignVCenter
                             elide: Text.ElideRight
                         }
                         ActionButton {
+                            id: connectionButton
                             objectName: parent.modelData.active ? "connectedWifiAction" : "availableWifiAction"
                             anchors.right: parent.right
+                            anchors.rightMargin: 8
                             anchors.verticalCenter: parent.verticalCenter
                             text: parent.modelData.active ? "Disconnect" : "Connect"
                             compact: true

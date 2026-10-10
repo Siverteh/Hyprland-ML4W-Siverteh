@@ -214,6 +214,10 @@ class QuickControlsTests(unittest.TestCase):
             install_foundation_interaction(
                 target / "fixtures", ROOT.parent / "shell/widgets"
             )
+            shutil.copy2(
+                ROOT.parent / "shell/widgets/FastScroll.qml",
+                target / "fixtures/FastScroll.qml",
+            )
             (target / "fixtures/NacreScrollBar.qml").write_text(
                 (ROOT.parent / "shell/widgets/NacreScrollBar.qml").read_text()
             )

@@ -63,7 +63,7 @@ class LauncherPanelTests(unittest.TestCase):
                 )
             )
             (target / "NacreWallpaperPicker.qml").write_text(
-                "import QtQuick\nItem {required property var visibilities;property int count:3;property int currentIndex:0;implicitWidth:800;implicitHeight:360;function move(delta){currentIndex=Math.max(0,Math.min(2,currentIndex+delta))}}"
+                "import QtQuick\nItem {required property var visibilities;property real viewportWidth:0;property real viewportHeight:0;property int count:3;property int currentIndex:0;implicitWidth:800;implicitHeight:360;function move(delta){currentIndex=Math.max(0,Math.min(2,currentIndex+delta))}}"
             )
             helpers = {
                 "NacreTokens": "property bool motionEnabled:true",

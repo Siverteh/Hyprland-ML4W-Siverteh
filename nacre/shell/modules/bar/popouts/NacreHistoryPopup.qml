@@ -20,12 +20,23 @@ Item {
             width: parent.width
             spacing: 10
             NacreText {
-                width: parent.width - 84
+                width: Math.max(0, parent.width - dndToggle.width - clearButton.width - parent.spacing * 2)
                 anchors.verticalCenter: parent.verticalCenter
                 text: "Notifications"
                 font.pointSize: 14
             }
             ActionButton {
+                id: dndToggle
+                objectName: "quickDnd"
+                text: "DND"
+                Accessible.name: NacreNotifs.dnd ? "Disable do not disturb" : "Enable do not disturb"
+                icon: NacreNotifs.dnd ? "do_not_disturb_on" : "notifications_active"
+                compact: true
+                selected: NacreNotifs.dnd
+                onClicked: DesktopSettings.set("dnd", !NacreNotifs.dnd)
+            }
+            ActionButton {
+                id: clearButton
                 objectName: "quickClearHistory"
                 text: "Clear"
                 compact: true
@@ -33,12 +44,7 @@ Item {
                 onClicked: root.clear()
             }
         }
-        ActionButton {
-            objectName: "quickDnd"
-            text: NacreNotifs.dnd ? "Do not disturb: On" : "Do not disturb: Off"
-            selected: NacreNotifs.dnd
-            onClicked: DesktopSettings.set("dnd", !NacreNotifs.dnd)
-        }
+
         NacreText {
             width: parent.width
             visible: root.entries.length === 0

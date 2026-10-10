@@ -59,8 +59,7 @@ TestCase {
         wait(300);
         verify(loader.item.shouldUpdate);
         view.visibilities.dashboard = false;
-        wait(300);
-        compare(view.height, 0);
+        tryCompare(view, "height", 0, 500);
         compare(loader.active, false);
         compare(loader.item, null);
     }

@@ -98,6 +98,36 @@ TestCase {
         view.adjustVolume(NaN);
         compare(NacreAudio.writes.length, writes);
     }
+    function test_short_title_painted_group_is_centered_and_resizes() {
+        const view = createTemporaryObject(title, test, {
+            width: 650
+        });
+        for (const text of ["Files", "Terminal", "Desktop"]) {
+            NacreHyprland.activeClient = {
+                wmClass: "editor",
+                title: text
+            };
+            wait(0);
+            const caption = findChild(view, "nacreActiveTitle");
+            const row = caption.parent;
+            const glyph = row.children[0];
+            const left = glyph.mapToItem(view, 0, 0).x;
+            const right = caption.mapToItem(view, 0, 0).x + caption.contentWidth;
+            verify(Math.abs((left + right) / 2 - view.width / 2) < 1, "painted icon/title group must be centered, not only its full-width container");
+            view.width = 260;
+            wait(0);
+            verify(row.x >= 0 && row.x + row.width <= view.width + 1);
+            view.width = 650;
+        }
+        NacreHyprland.activeClient = {
+            wmClass: "editor",
+            title: "A very long title ".repeat(50)
+        };
+        wait(0);
+        const caption = findChild(view, "nacreActiveTitle");
+        verify(caption.parent.width <= view.width);
+        compare(NacreAudio.writes.length, 0);
+    }
     function test_status_geometry_reactivity_unknown_battery_and_no_writes() {
         const view = createTemporaryObject(status, test);
         compare(view.batteryPercent, 53);

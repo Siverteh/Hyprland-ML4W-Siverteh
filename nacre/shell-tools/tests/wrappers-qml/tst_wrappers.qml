@@ -130,9 +130,35 @@ TestCase {
             animations: false
         };
         panel.visibility = true;
-        compare(panel.width, 260);
+        verify(panel.width >= 170 && panel.width <= 240);
         panel.visibility = false;
         compare(panel.width, 0);
+    }
+    function test_level_controls_are_two_by_two_with_contained_mutes() {
+        DesktopSettings.data = {
+            animations: false
+        };
+        const panel = createTemporaryObject(osd, test);
+        panel.visibility = true;
+        wait(0);
+        const names = ["Screen", "Keyboard", "Volume", "Microphone"];
+        const controls = names.map(name => findChild(panel, "osd" + name));
+        verify(controls.every(control => !!control));
+        const positions = controls.map(control => control.mapToItem(panel, 0, 0));
+        compare(positions[0].y, positions[1].y);
+        compare(positions[2].y, positions[3].y);
+        verify(positions[0].x < positions[1].x && positions[2].x < positions[3].x);
+        verify(positions[2].y >= positions[0].y + controls[0].height + 20);
+        for (let i = 0; i < controls.length; i++) {
+            verify(positions[i].x >= 0 && positions[i].x + controls[i].width <= panel.width);
+            verify(positions[i].y >= 0 && positions[i].y + controls[i].height <= panel.height);
+            const level = controls[i].parent;
+            const lower = level.mapToItem(panel, 0, level.height).y;
+            verify(lower <= panel.height);
+        }
+        compare(NacreAudio.writes.length, 0);
+        compare(NacreKeyboardLight.writes.length, 0);
+        compare(NacreBrightness.device.writes.length, 0);
     }
     function test_osd_ready_baseline_focus_hover_and_deadline() {
         const view = createTemporaryObject(events, test);

@@ -2165,13 +2165,15 @@
     },
     "nacre/shell/widgets/FastScroll.qml": {
       "disposition": "independent",
-      "sha256": "c77a4223d54c8afd71d87cba52ae2d899763df86d8436e69c53190c4742606e5",
+      "sha256": "9dcc663e981c361c54914e4af602c3374f5bcf67eb5f4eb37223ba907c63df17",
       "evidence": [
         "docs/specs/foundation-source-audit.md",
         "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
         "docs/specs/foundation-controls.md",
-        "Current full body reviewed; basis e3d0298: Local chat scrolling owner, momentum 973e0a4, shared speed 36dc0ba; current Qt WheelHandler/finite animation/native flick implementation retained. Subsequent current-file history: 548f0b4, 2c1d2ca, 83b3531, 36dc0ba, 973e0a4, 5c3cd84. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
-      ]
+        "Current full body reviewed; basis e3d0298: Local chat scrolling owner, momentum 973e0a4, shared speed 36dc0ba; current Qt WheelHandler/finite animation/native flick implementation retained. Subsequent current-file history: 548f0b4, 2c1d2ca, 83b3531, 36dc0ba, 973e0a4, 5c3cd84. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/widgets/MaterialIcon.qml": {
       "disposition": "independent",
@@ -2988,12 +2990,14 @@
     },
     "nacre/shell/modules/bar/components/NacreActiveTitle.qml": {
       "disposition": "independent",
-      "sha256": "abf5dcb381d4084b6f54efe4860b00fdd9e6eb22bc0a0ceb288b809dfb7e4c01",
+      "sha256": "dd137abdbf9ad37549b2c227d9e1c638a573eb1dcde569f2df17419497a3cc53",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/components/NacrePowerButton.qml": {
       "disposition": "independent",
@@ -3087,12 +3091,14 @@
     },
     "nacre/shell/modules/bar/popouts/NacreBluetoothPopup.qml": {
       "disposition": "independent",
-      "sha256": "b6eb3fdd41130a2d76ef1771d4ff7eac0e962b994d7230535121048f611b9c9e",
+      "sha256": "8bdcc277263d6e2c0be70fcf3b4c28d6aa5c29239a43b0235bf3a1d5ce8937ab",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/NacreCalendarPopup.qml": {
       "disposition": "independent",
@@ -3105,21 +3111,25 @@
     },
     "nacre/shell/modules/bar/popouts/NacreHistoryPopup.qml": {
       "disposition": "independent",
-      "sha256": "ffcf9ecf0815c69f2d145a6a127bedba3ea5595befd4a222f4dccb91c8253229",
+      "sha256": "e1aea34cba6b1a845728a8346c9a706dc2a0209831c34be8f82c25806fa9f126",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/NacreNetworkPopup.qml": {
       "disposition": "independent",
-      "sha256": "87df4880ecba42708ff8e1736ee8d9dbf1a60e6d99434bdca97d93b386982c7f",
+      "sha256": "156401fbd0355375c9f30c227faf8dab45dd7d11a77f76ec59f1cfaaf89f14c4",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/NacrePopupContent.qml": {
       "disposition": "independent",
@@ -3132,21 +3142,25 @@
     },
     "nacre/shell/modules/bar/popouts/NacrePopupPanel.qml": {
       "disposition": "independent",
-      "sha256": "28a7ac8efb79d5d0bffc2670b8832e940a32cdbdca0c6ada220956a8d041a5b4",
+      "sha256": "c88e2e8e6578fad1a9277d2a3e4bbd28c01fd352f6bd348200464bfab7a1cf91",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: 490d457, 6e09600. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: 490d457, 6e09600. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/NacreQuickList.qml": {
       "disposition": "independent",
-      "sha256": "767e1426779ca1af4409cbd8adc66b61f05082fd86152c16d4dd0b5d0db825ef",
+      "sha256": "574cf5a26ad2bd301b64651e79292239943cd00fc26d509aa91ea62441eb7189",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/NacreQuickSlider.qml": {
       "disposition": "independent",
@@ -3159,12 +3173,14 @@
     },
     "nacre/shell/modules/bar/popouts/NacreSoundPopup.qml": {
       "disposition": "independent",
-      "sha256": "b3ce0cefba0cc060ec4ee6065653a22c21b63182b4348c9b77d33f0ee96ed1ba",
+      "sha256": "f8727fca289f95253998a691d1e7d1df01ab37cb5deef26804621ff9f6e86593",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: ada8f42. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 28db63f: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: ada8f42. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/bar/popouts/Network.qml": {
       "disposition": "independent",
@@ -3312,12 +3328,14 @@
     },
     "nacre/shell/modules/osd/NacreOsdControls.qml": {
       "disposition": "independent",
-      "sha256": "9a32efdca63736baef5c251e6c4d137b015fa48f53e0465e069c2cc326527637",
+      "sha256": "6c53294c516eb557aa89f9bf9a20389e1b2f15a6aca80730850b5b704b0bdcc9",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/osd/NacreOsdEvents.qml": {
       "disposition": "independent",
@@ -3330,12 +3348,14 @@
     },
     "nacre/shell/modules/osd/NacreOsdPanel.qml": {
       "disposition": "independent",
-      "sha256": "96992b605188b699592086160dc3a3431cf8407852ac7bddb020ab4f8806b2df",
+      "sha256": "884f17fdc6f407d004b6a6d23f14a9ae71b4ff0781b468e3d979dbedebbac4df",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/osd/Wrapper.qml": {
       "disposition": "independent",
@@ -3456,12 +3476,14 @@
     },
     "nacre/shell-tools/tests/test_quick_controls.py": {
       "disposition": "independent",
-      "sha256": "7894046e5b099fab172ef234fd9edf61d67f9a5e11d39847ed04c07c5e01f60a",
+      "sha256": "0365655100f5626d52618c00d9331578d6bb9b48d38e0d9dba3f24bf59e5f68a",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/PROVENANCE.md#core-presentation-current-source-review",
-        "Own Qt popup/helper harness first 51eb6e1 and subsequent independent provider/popup/root migrations traced. Full current body reviewed. Corrected inline DesktopSettings fixture to actual set API (old change stub hid production failure); real native DND handler test fails baseline then passes fix. Fake device/preference owners only; included fixture/dependency originals remain separately audited."
-      ]
+        "Own Qt popup/helper harness first 51eb6e1 and subsequent independent provider/popup/root migrations traced. Full current body reviewed. Corrected inline DesktopSettings fixture to actual set API (old change stub hid production failure); real native DND handler test fails baseline then passes fix. Fake device/preference owners only; included fixture/dependency originals remain separately audited.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/test_lock_snapshot.py": {
       "disposition": "independent",
@@ -3492,12 +3514,14 @@
     },
     "nacre/shell/modules/dashboard/NacreDashboardPanel.qml": {
       "disposition": "independent",
-      "sha256": "5e700d5575660bc03a4c4fa92162abff94b8848fec251aaee8e42db9fe33916c",
+      "sha256": "867945ec54db8a629e94379ee8b35aa742816c50fa6cde9aee7f30eebcf74f46",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 1cd6ab7: fresh dashboard assembly and immediate navigation. Later current-file changes: 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis 1cd6ab7: fresh dashboard assembly and immediate navigation. Later current-file changes: 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/dashboard/NacreMediaPage.qml": {
       "disposition": "independent",
@@ -3528,12 +3552,13 @@
     },
     "nacre/shell/modules/dashboard/NacreSettings.qml": {
       "disposition": "independent",
-      "sha256": "b2e64510749a2cd1e68ca5f9a76aafc860e5958a57298c2f6a9d7a100dbc771a",
+      "sha256": "9dde4138cd867a989a0b86dc498fd696d39f4e42d2963b3945093bed6ede072f",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 5da1132, 02b2bda, b770506, cbef0e4, c230d36. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/dashboard/NacreWorkspacePage.qml": {
       "disposition": "independent",
@@ -3915,12 +3940,14 @@
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
       "disposition": "independent",
-      "sha256": "02d83b1d65247d481aa4dae0e6891f8ac17b66a3cf5bf93510d6d4996e2b29a5",
+      "sha256": "0ea4056a68c8d1454156ae5baea873f36359a293510a2d59dac213b62b2b5af5",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 7b53c65: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, bc7c7e2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis 7b53c65: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, bc7c7e2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/launcher/NacreSearchPanel.qml": {
       "disposition": "independent",
@@ -3933,12 +3960,14 @@
     },
     "nacre/shell/modules/launcher/NacreWallpaperBackdrop.qml": {
       "disposition": "independent",
-      "sha256": "3d310c9372f28163a8f9029df4fe2d2db9c02aad02335c208b00df4f8e356868",
+      "sha256": "c4464a8b3cc54c10b1b00885f7c63c79dae0953266f777e644f5fbb4bc278dc2",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/launcher/NacreWallpaperHex.qml": {
       "disposition": "independent",
@@ -3960,12 +3989,14 @@
     },
     "nacre/shell/modules/launcher/NacreWallpaperPicker.qml": {
       "disposition": "independent",
-      "sha256": "86e9d6978d7ab3edc8553d385e3af8cadb2eb68131bf6ab69fccb914463abe64",
+      "sha256": "a6613a72921c92d0b46ffd6aa6db9e81775c0b168117ce144f8a271c45098293",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/launcher/app-browser.js": {
       "disposition": "independent",
@@ -3978,12 +4009,14 @@
     },
     "nacre/shell/modules/notifications/NacreNotice.qml": {
       "disposition": "independent",
-      "sha256": "1b09b5abdea2989d50903b1abed5d234b6b43f964bc2c65d0925e605d13185e8",
+      "sha256": "7b9cca691216ed85253133d81280d8ee9fee21d1e2e960c3f2f70d851ace1bda",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis e869927: fresh notification presentation after inherited card/content/wrapper deletion. Later current-file changes: 02b2bda, e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis e869927: fresh notification presentation after inherited card/content/wrapper deletion. Later current-file changes: 02b2bda, e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/notifications/NacreNotificationStack.qml": {
       "disposition": "independent",
@@ -5554,12 +5587,14 @@
     },
     "nacre/shell-tools/tests/bar-qml/tst_bar.qml": {
       "disposition": "independent",
-      "sha256": "ff5ccd4f1d15640af4f5c83e81a95de9fd5925e0ac3f8fe3d7051aa1f1ad93e5",
+      "sha256": "4cc965cd5aa04da4e1aae195fbc5fcd7611ea44515a885226cd6c7a386fa3ee7",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation ce69bc0 nacre/shell-tools/tests/bar-qml/tst_bar.qml; subsequent 5da1132, dc01bf9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation ce69bc0 nacre/shell-tools/tests/bar-qml/tst_bar.qml; subsequent 5da1132, dc01bf9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/battery-qml/tst_battery.qml": {
       "disposition": "independent",
@@ -5581,12 +5616,13 @@
     },
     "nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml": {
       "disposition": "independent",
-      "sha256": "073c4dec7aceb5ef992a83df7a74aceb04808a4f3617bfd39403f2680294f849",
+      "sha256": "9b98eb04d774a9be577b4c2585cd4930208a11d955c5195c776c091eeb0a30fb",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 1cd6ab7 nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml; subsequent 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/device-qml/tst_NacreApps.qml": {
       "disposition": "independent",
@@ -5923,30 +5959,34 @@
     },
     "nacre/shell-tools/tests/qml/tst_chatpane.qml": {
       "disposition": "independent",
-      "sha256": "bb30fae1a3772a762a1605613b03cd22bcf07c597d18384309a379175bd72e04",
+      "sha256": "3f85a80e42acdcf56a00be1dbcda309760ee9040711e7d5c332c6920c3de89b1",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/tst_chatpane.qml; subsequent 9a3b9a7, 548f0b4, 2c1d2ca, 83b3531, 36dc0ba, e83d56f, 973e0a4, 5c3cd84, a7495cb. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/qml/tst_quick_controls.qml": {
       "disposition": "independent",
-      "sha256": "e5a05954d0e99f85f0aa6f4a96a7fedeac5ea94a74db71f85a46fdf39da9125c",
+      "sha256": "568e8a49b69e2851b312e0a743467a97a219f022f19f9d0fa0615bd213d38574",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 51eb6e1 siverteh/shell-tools/tests/qml/tst_quick_controls.qml; subsequent 5da1132, 490d457, 6e09600, 28db63f, 2f9300f, 548f0b4, 2c1d2ca, d2e2e40, c2bb50a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 51eb6e1 siverteh/shell-tools/tests/qml/tst_quick_controls.qml; subsequent 5da1132, 490d457, 6e09600, 28db63f, 2f9300f, 548f0b4, 2c1d2ca, d2e2e40, c2bb50a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/qml/tst_settings.qml": {
       "disposition": "independent",
-      "sha256": "5b904019fd1b3f582ae43b573b534b197a71a2fec7d15ba39a523cebee99d8e0",
+      "sha256": "91a15b1d7029556fa958314bd723b7f5190e00a30b3fcdd274ec44c9ce701578",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 36dc0ba siverteh/shell-tools/tests/qml/tst_settings.qml; subsequent 5da1132, 28707f7, e4d2474, 977f628, d4a82bb, b770506, cbef0e4, c230d36, 19083bd, 9c9089f, 372fe77, 548f0b4, 807f257, 2c1d2ca, 5f22a11, 4ea19d5, 83b3531, 9dd732a, 4e411a5, a0090ce. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/qml/tst_wallpaper_rotation.qml": {
       "disposition": "independent",
@@ -5968,12 +6008,14 @@
     },
     "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
       "disposition": "independent",
-      "sha256": "ac6fd73b32a96012768824515a5ea8845f1ec2cba651c057fa9b027b998c58e7",
+      "sha256": "b619a5f0f08c0b0b8a326d54e9a756ae95e9811485bf8194222d8dc302c3fa71",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 06ffaf4 siverteh/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml; subsequent 28707f7, eea01b9, bc7c7e2, 548f0b4, 1bee816, 83b3531, 4b142ae, 81827c1, 09f9ceb, 0eda691, ee6eeae, e336713. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 06ffaf4 siverteh/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml; subsequent 28707f7, eea01b9, bc7c7e2, 548f0b4, 1bee816, 83b3531, 4b142ae, 81827c1, 09f9ceb, 0eda691, ee6eeae, e336713. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/workspace-qml/tst_workspace.qml": {
       "disposition": "independent",
@@ -5986,12 +6028,14 @@
     },
     "nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml": {
       "disposition": "independent",
-      "sha256": "695c3a507c1e94f68f5c02e19733d345e4383c52f153dc0706c98a4f6504ad1b",
+      "sha256": "969b274a454822aeab33d1b4eeb8ebb13e05bd64ce50127293259ce2e71177d4",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 216f23a nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml; subsequent 5da1132, d1d9a1e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 216f23a nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml; subsequent 5da1132, d1d9a1e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "tools/tests/fixtures/keybindings-contract.json": {
       "disposition": "non-implementation",
@@ -6157,21 +6201,23 @@
     },
     "nacre/shell-tools/tests/test_launcher_panel.py": {
       "disposition": "independent",
-      "sha256": "dc577a4e45eddda7a17700a1abd44eb904075c73771f8aa92f9e451c23e087ce",
+      "sha256": "939bf4757e1430cb5f1d1c26df366508fa8f3c360e84b8c8aa79c808d6ec33ab",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 7b53c65:nacre/shell-tools/tests/test_launcher_panel.py; subsequent 28707f7, 02b2bda, 3d93b32, bc7c7e2. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/test_launcher_ui.py": {
       "disposition": "independent",
-      "sha256": "eaaac2829e86f37a0f8eb1c996571e1ea67facb449e6e31a862c27baef3d24aa",
+      "sha256": "860a2ac97bdd82d61b1649203bc0cdceee0f2ed61fd83168b177a83390f845ee",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell-tools/tests/test_media_performance_ui.py": {
       "disposition": "independent",
@@ -6392,13 +6438,14 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "71fe0f6410c2c222616b558ed30587e7cda4f9b66e3b91f14f624947466d14be",
+      "sha256": "0f7570b26aa5fec5b317ec5ae9b03c2961ab4e6752b2f147b363a3c68bd57c6b",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/nacre/FINAL-COMPARISON.md"
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "docs/features/appearance.md": {
       "disposition": "non-implementation",
@@ -6420,12 +6467,13 @@
     },
     "docs/features/connections.md": {
       "disposition": "non-implementation",
-      "sha256": "c43e47ce53b558c7ee9d636287612c1febb8c2671c739615679d0c5d04a22580",
+      "sha256": "5d33d56698f43598976c4135fc5ce1286478beea5db5512930cd9fe0f2338837",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
@@ -6447,12 +6495,13 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "0d543aca4740be2246bb0cf15af1fe1c2d6f1a7ccf9c5a90141c5e586d01c753",
+      "sha256": "4e5dddd986ff23a1395c2008e46634d348a3d20b6b587b3cca3323fd1a479f9e",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "docs/features/image-presentation.md": {
       "disposition": "non-implementation",
@@ -6537,12 +6586,13 @@
     },
     "docs/features/wallpapers.md": {
       "disposition": "non-implementation",
-      "sha256": "de103898bd32512254375c780fee847c836fdba494bb645cca689e2700e37f9f",
+      "sha256": "9cbc9ebf1bad35e5720f99a013f588f266ff6d284e6e4596965948f2d13e881f",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "docs/maintenance.md": {
       "disposition": "non-implementation",
@@ -7663,6 +7713,14 @@
         "docs/specs/final-provenance-comparison.md"
       ],
       "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/specs/visual-cleanup.md": {
+      "disposition": "non-implementation",
+      "sha256": "38297a25ed2362305ad9b217ff64ed4063ba8699e08177528d2a110e61e264de",
+      "evidence": [
+        "docs/specs/visual-cleanup.md"
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     }
   }
 }

@@ -51,6 +51,8 @@ Item {
     Component {
         id: wallpapers
         NacreWallpaperPicker {
+            viewportWidth: root.viewportWidth
+            viewportHeight: root.viewportHeight
             visibilities: root.visibilities
         }
     }

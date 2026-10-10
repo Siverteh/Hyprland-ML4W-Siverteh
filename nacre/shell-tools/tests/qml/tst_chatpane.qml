@@ -99,7 +99,7 @@ TestCase {
         compare(questions.height, 0);
     }
 
-    function test_chat_wheel_glides_then_settles_480_pixels_per_notch() {
+    function test_chat_wheel_glides_then_settles_600_pixels_per_notch() {
         for (let i = 0; i < 80; i++)
             SidebarChat.messages.append({
                 "id": String(i),
@@ -117,11 +117,11 @@ TestCase {
         mouseWheel(transcript, 230, 80, 0, -120);
         wait(100);
         const mid = transcript.contentY;
-        verify(mid - before > 0 && mid - before < 479);
+        verify(mid - before > 0 && mid - before < 599);
         wait(230);
         verify(transcript.contentY - mid > 10);
-        verify(transcript.contentY - before >= 479, "scroll delta=" + (transcript.contentY - before));
-        verify(transcript.contentY - before <= 481);
+        verify(transcript.contentY - before >= 599, "scroll delta=" + (transcript.contentY - before));
+        verify(transcript.contentY - before <= 601);
     }
 
     function test_hover_layer_follows_round_button_shape() {

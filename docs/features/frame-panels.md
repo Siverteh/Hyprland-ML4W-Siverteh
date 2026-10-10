@@ -67,3 +67,12 @@ the same owner. The root composes the existing independent surfaces and shared
 providers once. Ordinary reads/opening do not start an AI worker, change settings,
 apply a wallpaper or run a device action. The old Visibilities interface forwards
 mutable maps/preferences to the same owner for compatibility.
+
+## Visual cleanup after the rewrite
+
+The title's painted icon/text group now centers within its bounded header slot,
+including short titles. Right-edge levels return to a narrow 2×2 layout: screen
+and keyboard above output/microphone, with separate mute controls below. Fixed
+content geometry remains clipped while the panel closes; device owners and user-only
+writes are unchanged. Dashboard geometry eases over 360ms without delaying its
+hover trigger. Quick popup geometry uses a finite 230ms transition.

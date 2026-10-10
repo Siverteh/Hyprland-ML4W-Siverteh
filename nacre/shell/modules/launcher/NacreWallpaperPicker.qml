@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.widgets
@@ -19,8 +20,10 @@ Item {
     property real travelTarget: 0
     property real travel: travelTarget
     property real wheelDelta: 0
-    implicitWidth: Math.min(1360, Quickshell.screens[0].width - 140)
-    implicitHeight: fullScreen ? Quickshell.screens[0].height - 100 : 360
+    property real viewportWidth: Quickshell.screens[0].width
+    property real viewportHeight: Quickshell.screens[0].height
+    implicitWidth: Math.max(320, Math.min(1360, viewportWidth - 96))
+    implicitHeight: fullScreen ? Math.max(360, viewportHeight - 100) : 320
     function reconcile() {
         const found = entries.findIndex(entry => entry.path === selectionPath);
         currentIndex = found >= 0 ? found : Math.max(0, Math.min(currentIndex, entries.length - 1));
@@ -36,6 +39,23 @@ Item {
         selectionPath = currentEntry.path;
         if (!visibilities.previewOnly)
             NacreWallpapers.browse(selectionPath);
+    }
+    function wheelStep(event) {
+        const pixels = event.pixelDelta.y || event.pixelDelta.x;
+        const angles = event.angleDelta.y || event.angleDelta.x;
+        const amount = pixels ? pixels * 2 : angles;
+        if (!amount)
+            return;
+        wheelDelta += amount;
+        const steps = Math.trunc(wheelDelta / 120);
+        if (steps) {
+            move(-steps);
+            wheelDelta -= steps * 120;
+        }
+        event.accepted = true;
+    }
+    function circularOffset(index) {
+        return count ? ((index - travel + count / 2) % count + count) % count - count / 2 : 0;
     }
     function move(delta) {
         select(currentIndex + delta);
@@ -82,11 +102,13 @@ Item {
         id: toolbar
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: root.fullScreen ? 18 : 12
+        anchors.topMargin: root.layout === "spotlight" ? Math.max(18, (root.height - toolbar.height - spotlight.height - navigation.height - 32) / 2) : root.fullScreen ? 18 : 12
         spacing: 8
-        Row {
+        GridLayout {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 8
+            columns: root.width < 400 ? 2 : root.width < 720 ? 3 : 6
+            columnSpacing: 8
+            rowSpacing: 8
             ActionButton {
                 text: "Static"
                 compact: true
@@ -136,8 +158,9 @@ Item {
         }
         NacreTextField {
             id: query
+            anchors.horizontalCenter: parent.horizontalCenter
             objectName: "wallpaperSearch"
-            width: Math.min(640, root.width - 80)
+            width: Math.max(160, Math.min(640, root.width - 48))
             height: 40
             padding: 12
             placeholderText: "Search wallpapers"
@@ -159,12 +182,14 @@ Item {
         objectName: "carouselStrip"
         anchors.horizontalCenter: parent.horizontalCenter
         y: toolbar.y + toolbar.height + 10
-        width: root.width - 48
-        height: root.height - y - 48
+        width: slots * cardWidth + Math.max(0, slots - 1) * 16
+        height: Math.max(0, Math.min(root.height - y - 52, cardWidth * .66))
+        clip: true
         visible: root.layout === "carousel"
-        readonly property int candidate: Math.min(root.count, Math.max(1, Math.floor(width / 246)))
+        readonly property real availableWidth: Math.max(0, root.width - 48)
+        readonly property int candidate: Math.min(root.count, Math.max(1, Math.round((availableWidth / 266 - 1) / 2) * 2 + 1))
         readonly property int slots: candidate > 1 && candidate % 2 === 0 ? candidate - 1 : candidate
-        readonly property real cardWidth: Math.min(280, (width - Math.max(0, slots - 1) * 16) / Math.max(1, slots))
+        readonly property real cardWidth: Math.min(280, (availableWidth - Math.max(0, slots - 1) * 16) / Math.max(1, slots))
         Repeater {
             model: root.entries
             Card {
@@ -172,71 +197,56 @@ Item {
                 required property var modelData
                 objectName: "carouselCard" + index
                 entry: modelData
-                decode: Math.min(Math.abs(index - root.currentIndex), root.count - Math.abs(index - root.currentIndex)) <= Math.max(2, Math.ceil(carousel.slots / 2) + 1)
+                decode: Math.abs(root.circularOffset(index)) <= Math.max(2, Math.ceil(carousel.slots / 2) + 1) || Math.min(Math.abs(index - root.currentIndex), root.count - Math.abs(index - root.currentIndex)) <= Math.max(2, Math.ceil(carousel.slots / 2) + 1)
                 width: carousel.cardWidth
                 height: carousel.height
                 x: (carousel.width - width) / 2 + ((((index - root.travel + root.count / 2) % root.count) + root.count) % root.count - root.count / 2) * (width + 16)
                 selected: index === root.currentIndex
-                visible: x >= -0.01 && x + width <= carousel.width + 0.01
+                visible: x + width > 0 && x < carousel.width
                 onChosen: root.select(index)
             }
         }
         WheelHandler {
-            onWheel: event => {
-                root.wheelDelta += event.angleDelta.y || event.pixelDelta.y * 2;
-                if (Math.abs(root.wheelDelta) >= 90) {
-                    root.move(root.wheelDelta < 0 ? 1 : -1);
-                    root.wheelDelta = 0;
-                }
-                event.accepted = true;
-            }
+            target: null
+            onWheel: event => root.wheelStep(event)
         }
     }
     Item {
         id: spotlight
         objectName: "spotlightStrip"
         x: 24
-        y: toolbar.y + toolbar.height + 24
-        width: root.width - 48
-        height: root.height - y - 68
+        readonly property real topInset: toolbar.y + toolbar.height + 24
+        readonly property real availableHeight: Math.max(0, root.height - toolbar.height - navigation.height - 64)
+        y: toolbar.y + toolbar.height + 16
+        width: Math.max(0, root.width - 48)
+        height: Math.min(availableHeight, heroWidth * .625)
+        clip: true
         visible: root.layout === "spotlight"
-        readonly property real heroWidth: Math.min(width * .52, 1000)
-        readonly property int sideSlots: Math.min(4, Math.floor((root.count - 1) / 2))
+        readonly property real heroWidth: Math.min(width * (root.count > 1 ? .56 : .8), 1160)
+        readonly property int sideSlots: Math.max(0, Math.min(4, Math.ceil((root.count - 1) / 2)))
         readonly property real sideWidth: Math.max(36, (width - heroWidth - Math.max(0, sideSlots * 2) * 12) / Math.max(1, sideSlots * 2))
         Repeater {
             model: root.entries
             Card {
                 required property int index
                 required property var modelData
-                readonly property int offset: root.count ? ((index - root.currentIndex + Math.floor(root.count / 2) + root.count) % root.count) - Math.floor(root.count / 2) : 0
+                readonly property real offset: root.circularOffset(index)
+                readonly property real weight: Math.max(0, 1 - Math.abs(offset))
+                readonly property real centerDistance: (spotlight.heroWidth + spotlight.sideWidth) / 2 + 12
                 objectName: "spotlightCard" + index
                 entry: modelData
                 decode: Math.abs(offset) <= spotlight.sideSlots + 1
-                width: offset === 0 ? spotlight.heroWidth : spotlight.sideWidth
+                width: spotlight.sideWidth + (spotlight.heroWidth - spotlight.sideWidth) * weight
                 height: spotlight.height
-                x: offset === 0 ? (spotlight.width - spotlight.heroWidth) / 2 : offset > 0 ? (spotlight.width + spotlight.heroWidth) / 2 + 12 + (offset - 1) * (spotlight.sideWidth + 12) : (spotlight.width - spotlight.heroWidth) / 2 + offset * (spotlight.sideWidth + 12)
-                selected: offset === 0
-                visible: Math.abs(offset) <= spotlight.sideSlots
+                x: spotlight.width / 2 + Math.sign(offset) * (Math.min(1, Math.abs(offset)) * centerDistance + Math.max(0, Math.abs(offset) - 1) * (spotlight.sideWidth + 12)) - width / 2
+                selected: index === root.currentIndex
+                visible: x + width > 0 && x < spotlight.width
                 onChosen: root.select(index)
-                Behavior on x {
-                    NumberAnimation {
-                        duration: NacreTokens.motionEnabled ? 300 : 0
-                        easing.type: Easing.OutCubic
-                    }
-                }
-                Behavior on width {
-                    NumberAnimation {
-                        duration: NacreTokens.motionEnabled ? 300 : 0
-                        easing.type: Easing.OutCubic
-                    }
-                }
             }
         }
         WheelHandler {
-            onWheel: event => {
-                root.move(event.angleDelta.y < 0 ? 1 : -1);
-                event.accepted = true;
-            }
+            target: null
+            onWheel: event => root.wheelStep(event)
         }
     }
     Flickable {
@@ -251,7 +261,7 @@ Item {
         readonly property real tileWidth: Math.min(340, (width - 30) / (1 + (columns - 1) * .76))
         readonly property real tileHeight: tileWidth * .87
         contentWidth: width
-        contentHeight: Math.ceil(root.count / columns) * (tileHeight + 12) + tileHeight * .5
+        contentHeight: root.count ? Math.ceil(root.count / columns) * (tileHeight + 12) + tileHeight * .5 : 0
         Repeater {
             model: root.entries
             NacreWallpaperHex {
@@ -273,9 +283,10 @@ Item {
         }
     }
     Row {
+        id: navigation
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 8
+        anchors.bottomMargin: root.layout === "spotlight" ? Math.max(12, root.height - spotlight.y - spotlight.height - 16 - height) : 12
         spacing: 14
         ActionButton {
             text: ""

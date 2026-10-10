@@ -36,6 +36,51 @@ TestCase {
         DesktopSettings.writes = [];
     }
 
+    Component {
+        id: scrollingList
+        NacreQuickList {
+            width: 300
+            maximumHeight: 200
+            Rectangle {
+                width: 290
+                implicitHeight: 2200
+                color: "transparent"
+            }
+        }
+    }
+    function test_quick_list_wheel_speed_tail_clamp_and_reduce_motion() {
+        const actionsBefore = JSON.stringify(DeviceActions.lastRequest);
+        DesktopSettings.data = {
+            animations: true
+        };
+        const view = createTemporaryObject(scrollingList, test);
+        const scroll = findChild(view, "quickListScroll");
+        scroll.scrollBy(240, true);
+        wait(30);
+        verify(view.contentY > 0 && view.contentY < 240);
+        wait(240);
+        compare(Math.round(view.contentY), 240);
+        scroll.pixelScroll(50);
+        wait(20);
+        scroll.pixelScroll(50);
+        const releasePosition = view.contentY;
+        wait(140);
+        verify(view.contentY > releasePosition);
+        scroll.cancel();
+        const parked = view.contentY;
+        DesktopSettings.data = {
+            animations: false
+        };
+        compare(view.contentY, parked);
+        scroll.scrollBy(200, true);
+        compare(view.contentY, parked + 200);
+        scroll.scrollBy(10000, true);
+        compare(view.contentY, view.contentHeight - view.height);
+        view.contentItem.children[0].implicitHeight = 120;
+        wait(0);
+        compare(view.contentY, 0);
+        compare(JSON.stringify(DeviceActions.lastRequest), actionsBefore);
+    }
     function test_sound_controls_and_settings_link() {
         const popup = createTemporaryObject(sound, test);
         verify(popup.implicitHeight > 100 && popup.implicitHeight < 600);

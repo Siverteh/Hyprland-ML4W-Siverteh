@@ -104,3 +104,21 @@ The user has reported layout, scrolling and animation regressions after the
 rewrite. Those require a separate live visual cleanup after the final originality
 audit; these source reviews do not establish that the preferred appearance is
 restored.
+
+## Compact popup polish
+
+Quick devices use wider readable name/action rows with measured button gaps,
+soft connected/current-output tint and contained error labels. Audio output rows
+include a device/current-selection glyph. Detailed Settings still opens on header
+click. Notification history keeps DND and Clear in its header, with lighter card
+outlines; retention/privacy/actions have their existing owners.
+
+Quick lists now share the scrolling policy used by Settings and other views,
+with a 240px wheel step rather than 72px. The common default step is 600px;
+precise pixel scrolling has a 3× multiplier and a bounded release tail. Momentum
+stops for direct dragging, hidden views and reduced motion; resize/content changes
+clamp the target. Horizontal category strips follow their own axis. These are
+finite input responses, not idle timers or background processes.
+
+Settings navigation cancels any pending scroll tail before resetting its page or
+search position. A tail from the previous page cannot scroll the newly opened one.

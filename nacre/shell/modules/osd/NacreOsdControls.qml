@@ -5,12 +5,28 @@ import qs.services
 Item {
     id: root
     required property var monitor
-    implicitWidth: 260
-    implicitHeight: 220
-    Row {
-        x: 10
-        y: 14
-        spacing: 4
+    implicitWidth: 196
+    implicitHeight: 392
+    Grid {
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 12
+        columns: 2
+        columnSpacing: 20
+        rowSpacing: 16
+        Level {
+            label: "Screen"
+            icon: "brightness_6"
+            level: root.monitor?.brightness || 0
+            usable: root.monitor?.available === true
+            onAdjusted: value => root.monitor?.setBrightness(value)
+        }
+        Level {
+            label: "Keyboard"
+            icon: "keyboard"
+            level: NacreKeyboardLight.brightness
+            usable: NacreKeyboardLight.available
+            onAdjusted: value => NacreKeyboardLight.setBrightness(value)
+        }
         Level {
             label: "Volume"
             icon: NacreAudio.muted ? "volume_off" : "volume_up"
@@ -29,24 +45,10 @@ Item {
             onAdjusted: value => NacreAudio.setMicVolume(value)
             onMute: NacreAudio.toggleMic()
         }
-        Level {
-            label: "Screen"
-            icon: "brightness_6"
-            level: root.monitor?.brightness || 0
-            usable: root.monitor?.available === true
-            onAdjusted: value => root.monitor?.setBrightness(value)
-        }
-        Level {
-            label: "Keyboard"
-            icon: "keyboard"
-            level: NacreKeyboardLight.brightness
-            usable: NacreKeyboardLight.available
-            onAdjusted: value => NacreKeyboardLight.setBrightness(value)
-        }
     }
     NacreText {
         x: 12
-        y: 198
+        y: 374
         width: root.width - 24
         text: root.monitor?.error || NacreKeyboardLight.error || ""
         visible: text !== ""
@@ -64,21 +66,21 @@ Item {
         property bool canMute: false
         signal adjusted(real value)
         signal mute
-        width: 56
+        width: 76
         height: 172
         NacreText {
             width: parent.width
-            height: 26
+            height: 24
             text: parent.label
-            font.pointSize: 9
+            font.pointSize: 10
             elide: Text.ElideRight
             horizontalAlignment: Text.AlignHCenter
         }
         NacreSlider {
             objectName: "osd" + parent.label
             y: 28
-            height: 120
-            width: 30
+            height: 108
+            width: 32
             anchors.horizontalCenter: parent.horizontalCenter
             icon: parent.canMute ? "" : parent.icon
             accessibleName: parent.label
@@ -88,11 +90,11 @@ Item {
                 parent.adjusted(value)
         }
         NacreSurface {
-            y: 152
-            width: 30
-            height: 30
+            y: 140
+            width: 32
+            height: 32
             anchors.horizontalCenter: parent.horizontalCenter
-            radius: 15
+            radius: 16
             color: "transparent"
             enabled: parent.usable && parent.canMute
             visible: parent.canMute
