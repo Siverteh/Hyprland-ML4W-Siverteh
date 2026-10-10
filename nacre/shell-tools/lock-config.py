@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Siverteh Hyprlock layout; PAM and session locking stay Hyprlock-owned."""
+"""Render the Nacre Hyprlock layout; PAM and session locking stay Hyprlock-owned."""
 
 import json, shlex, subprocess
 from pathlib import Path

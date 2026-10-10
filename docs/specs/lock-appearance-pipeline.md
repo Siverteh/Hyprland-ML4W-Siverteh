@@ -42,3 +42,23 @@ No actual auth/session/power action for QA. Exact-main CI, explicit cold-login/
 physical hardware and authentication proof limits. Login/branding/Thunar and
 other generators/assets/tests remain separately scoped, whole originality goal
 active until every required current-tree item is proven complete.
+
+## Current findings and template boundary
+
+Local helper histories/current bodies reviewed after origin investigation. Shared
+layout function in the dashboard matches local config helper, not upstream source.
+Template hyprlock.conf.in follows earlier e42b701 Observatory config with five
+lines matching the pre-existing imported hypr/hyprlock.conf. This ancestry is
+uncertain even though current fields are standard directives. Include template
+in area; record earlier current-template exposure, delete before fresh composition
+from these public effective contracts: general ignore_empty_input=true; background
+all outputs, chosen wallpaper token, surface color alpha ff, brightness 0.95,
+contrast 1, noise 0, blur_passes 0. Do not alter auth/session hooks or invent safety
+from changed comments alone. No inherited/upstream body consulted while composing.
+
+Demonstrated before/after: future cached timestamp previously reused private
+messages, local artwork read(-1) before size check. Require 0 <= age < 2 and local
+read at most 4000001 bytes, then reject over 4 MB before decode. Existing fallback
+kept. Decorative script label now nacrefetch.sh, not a new command. Native locker
+has no help-listed validation-only mode; do not invoke real lock for QA. Use owned
+synthetic image and generated config/geometry/privacy probes.

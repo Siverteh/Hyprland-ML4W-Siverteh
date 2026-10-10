@@ -316,7 +316,7 @@ def render(data, colors, wallpaper, artwork, home, monitor=None):
     rect((16, 168, 460, 428), card_color)
     rect((30, 184, 60, 214), (*accent, 255), 9)
     copy("›", (45, 182), 27, surface, center=True)
-    copy("sivertehfetch.sh", (69, 188), 14)
+    copy("nacrefetch.sh", (69, 188), 14)
     # Arch silhouette drawn locally, with an inset cutout; no external artwork.
     draw.polygon(
         [

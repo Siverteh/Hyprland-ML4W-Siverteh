@@ -1571,3 +1571,37 @@ native palette ready/configerrors empty. No terminal/worker restart or wallpaper
 choice for QA. Six current source/asset reviews added; remaining helpers/login/
 lock/Thunar/data/assets/tests/packaging/AI+Brain/full comparison and cold-login
 checks remain. Notices and complete originality goal retained.
+
+## Lock appearance pipeline source review
+
+[Spec](../specs/lock-appearance-pipeline.md): config/info helpers locally authored
+a0090ce, own geometry/plain text/cached layout corrections 80a23f2/8ff30bc,
+dashboard/preparation 55fbe20, call-time home/namespace changes traced. Current
+own helper/test bodies inspected after origin investigation. Mechanical initial
+comparisons supplement history; shared dashboard scale block matches own local
+config helper, not a vendor body. Visual reference is acknowledged, not a
+code-origin certificate. Fonts/icons/Pillow/native services are separate inputs.
+Earlier template e42b701 has five-line ancestry in imported hyprlock config;
+current template read during audit then deleted and fresh composition written
+from public effective backdrop/empty-input settings. No old/upstream body used
+while composing; previous exposure honest, no legal clean-room or final claim.
+
+Actual baseline regressions: future cache timestamp retains stale private
+notifications; local artwork is fully read before 4 MB rejection. Require nonnegative
+age below 2 seconds and read at most 4000001 bytes before decode, with existing
+fallback/actions unchanged. Decorative label now nacrefetch.sh. All 19 relevant
+actual lock tests pass, covering hidden content, Pango escaping, long labels,
+media/monitor geometry, alpha/preload, ready-file permissions, concurrent raster
+publication and cache retention. Synthetic 2880x1620 panel inspected; four generated
+config output/rotation cases retain one native password field, balanced blocks,
+resolved tokens and no unlock action. No actual auth/lock/power action for QA.
+Native Hyprlock help has no validation-only flag; no invented parser-pass claim.
+
+Asset boundary remains explicit: current fontconfig resolves IBM Plex Sans and
+Material Symbols Rounded from unowned private fonts/caelestia files. IBM upstream
+[license](https://github.com/IBM/plex/blob/master/LICENSE.txt) is OFL 1.1; Google
+Material Design repo [license](https://github.com/google/material-design-icons/blob/master/LICENSE)
+is Apache 2.0. Exact font binary/version provenance and independent installation/
+notice ownership remain pending, not certified from family names or directory
+labels. No font assets committed or silently replaced here. Other font/art/
+helpers/assets/dependency/whole-tree comparison and notices/goal stay open.

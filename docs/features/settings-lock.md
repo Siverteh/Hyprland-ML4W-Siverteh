@@ -207,3 +207,10 @@ changes share a coalesced request; results from a prior requested city are ignor
 Celsius/Fahrenheit changes only affect formatting. This provider neither writes
 preferences nor changes the system timezone. The weather helper's provenance is
 a separate remaining audit item.
+
+Lock information cache freshness requires an age between zero and two seconds;
+future timestamps trigger a fresh read rather than exposing stale messages. Local
+and HTTPS artwork reads are capped before image decoding, with the same prepared
+fallback. These helpers supply presentation only; Hyprlock retains authentication
+and the managed session/sleep lock path. Private font-source ownership remains a
+separate asset audit, not inferred from the presentation code.

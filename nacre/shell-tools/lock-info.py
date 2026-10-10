@@ -39,9 +39,10 @@ def snapshot():
         fcntl.flock(guard, fcntl.LOCK_EX)
         try:
             cached = json.loads(CACHE.read_text())
-            if time.time() - cached.get("time", 0) < 2:
+            age = time.time() - cached.get("time", 0)
+            if 0 <= age < 2:
                 return cached["data"]
-        except (OSError, ValueError):
+        except (OSError, ValueError, TypeError, KeyError):
             pass
         try:
             data = json.loads(ipc("lockWidgets", "state"))
@@ -188,7 +189,8 @@ def artwork(data):
     try:
         parsed = urllib.parse.urlparse(url)
         if parsed.scheme == "file":
-            raw = Path(urllib.parse.unquote(parsed.path)).read_bytes()
+            with Path(urllib.parse.unquote(parsed.path)).open("rb") as source:
+                raw = source.read(4000001)
         elif parsed.scheme == "https":
             with urllib.request.urlopen(url, timeout=4) as response:
                 if urllib.parse.urlparse(response.url).scheme != "https":

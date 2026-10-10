@@ -1487,6 +1487,78 @@
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Own tests introduced 8ad6532 for pidfd exact-controller/real idle curses PTY refresh, later call-time-home and namespace corrections. New empty-home actual generator/reproduction and PNG alpha/role tests authored from current spec. No upstream implementation fixture or user state; only owned process actors."
       ]
+    },
+    "nacre/shell-tools/lock-config.py": {
+      "disposition": "independent",
+      "sha256": "d05a020481aec2508642dfa31233078c1d2a5a026bb054db42f05018bcd9cbfa",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Local generated native config helper introduced a0090ce, layout corrections 80a23f2/8ff30bc, single-panel integration 55fbe20 and home/namespace corrections traced. Own current body reviewed, public geometry/native roles and controls preserved. First-source comparison no upstream peer body identified; called template replaced separately after uncertain ancestor finding. No auth backend or session-hook implementation claim."
+      ]
+    },
+    "nacre/shell-tools/lock-info.py": {
+      "disposition": "independent",
+      "sha256": "6012908b4561b0f7ae23509262ecdea1c382e6514e21beb94180073c69589292",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Own local read-only IPC/label/art helper a0090ce with layout/plain-text/weather/fallback updates traced. Current implementation inspected, public libraries only; new actual baseline failures demonstrate future cache reuse and unbounded local read. Fixed freshness range and bounded read, actions allowlist unchanged. Font/artwork/IPC dependencies separately scoped."
+      ]
+    },
+    "nacre/shell-tools/lock-dashboard.py": {
+      "disposition": "independent",
+      "sha256": "8d704bf1b3422676bff7b1ca4425f823ffb2cd60aa0ec7803a1b2413a4700576",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "New local Pillow dashboard 55fbe20 from visual reference, using local layout helper and own polygon/image/text rendering. Mechanical first peer match only local config scale block; no upstream code reused. Current full body inspected; cosmetic label Nacre and synthetic render/geometry/privacy tests pass. Visual inspiration and own implementation distinguished; fonts/artwork not certified by this review."
+      ]
+    },
+    "nacre/shell-tools/lock-prepare.py": {
+      "disposition": "independent",
+      "sha256": "2b9d02a550c3212e9810a9dcf09708450662a9647a48d31a0a6bf671470a8c06",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Locally introduced pre-render/cache helper 8ff30bc, single-panel 55fbe20, home bb46dd6 and namespace 548f0b4. Current own bounded preparation/permissions/label/art/display output reviewed and tested with fake HOME/IPC; no inherited body found. Shared cache/asset/font dependencies remain separate."
+      ]
+    },
+    "nacre/shell-tools/hyprlock.conf.in": {
+      "disposition": "independent",
+      "sha256": "6bbec88c80e18da69c010e9cbf462fdee8bff15bb35e786fbb5820e24c854ebf",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Earlier Observatory template e42b701 traces five lines to pre-existing imported dotfiles; current body exposed during audit then deleted. Fresh backdrop/general composition from public effective contracts, preserving empty-input/background/brightness/contrast/noise/blur semantics and public tokens. No old/upstream body consulted while composing; no clean-room claim or certificate by comment rename."
+      ]
+    },
+    "nacre/shell-tools/tests/test_lock_widgets.py": {
+      "disposition": "independent",
+      "sha256": "ddce2a114675560374cfba269fdfcf323d0e4e11d34e32ff28113e57054eec07",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Own mixed lock/device/weather fixtures introduced a0090ce, layout and dashboard corrections 80a23f2/55fbe20/namespace 548f0b4. Current full test body reviewed; new future-cache/bounded-local-read regressions from observed implementation gaps, fail baseline and pass fix. Stubbed weather/device/IPC actors; actual other helper implementation audits remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_lock_ready.py": {
+      "disposition": "independent",
+      "sha256": "fc0a2b8422428defc744d6407bd41a7e85738d1d7e3523cd8b0de015ce8d0815",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Own actual cached-geometry/transparent-logo/preloaded-safe-label tests introduced 8ff30bc and adapted 55fbe20/namespace 548f0b4. Current body reviewed; private inputs synthetic/temporary and process owners fake, no copied upstream implementation fixture."
+      ]
+    },
+    "nacre/shell-tools/tests/test_lock_dashboard.py": {
+      "disposition": "independent",
+      "sha256": "0d337bd01e9326ffeae68fe6fd51f128b0c747a3b86f3fa5ff0038a1f39c041a",
+      "evidence": [
+        "docs/specs/lock-appearance-pipeline.md",
+        "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
+        "Own raster privacy/geometry/concurrency/icon-path/cache-retention fixtures introduced 55fbe20. Actual Pillow owner with synthetic data/temp HOME, current independent palette roles and local code. Current test bodies reviewed and pass; no private wallpaper/notification fixture or upstream implementation body."
+      ]
     }
   }
 }

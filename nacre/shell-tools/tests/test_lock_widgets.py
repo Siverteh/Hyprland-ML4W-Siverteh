@@ -1,4 +1,5 @@
 import importlib.util, json, tempfile, unittest
+import io
 from pathlib import Path
 from unittest.mock import patch
 
@@ -19,6 +20,58 @@ weather = module("weather", "weather.py")
 
 
 class LockAndDeviceTests(unittest.TestCase):
+    def test_future_snapshot_timestamp_does_not_reuse_private_messages(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cache = Path(directory) / "lock-widgets.json"
+            cache.write_text(
+                json.dumps(
+                    {
+                        "time": 500,
+                        "data": {"notifications": [{"summary": "old private message"}]},
+                    }
+                )
+            )
+            with (
+                patch.object(info, "CACHE", cache),
+                patch.object(info.time, "time", return_value=100),
+                patch.object(info, "ipc", return_value='{"notifications":[]}') as fetch,
+            ):
+                self.assertEqual(info.snapshot(), {"notifications": []})
+                fetch.assert_called_once_with("lockWidgets", "state")
+
+    def test_local_artwork_read_is_bounded_before_decoding(self):
+        class BoundedStream(io.BytesIO):
+            def read(self, size=-1):
+                self.observed.append(size)
+                return super().read(size)
+
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            cache = home / "lock-widgets.json"
+            stream = BoundedStream(b"x" * 4000002)
+            stream.observed = []
+            original = Path.open
+
+            def open_file(path, *args, **kwargs):
+                return (
+                    stream
+                    if str(path) == "/isolated-art.bin"
+                    else original(path, *args, **kwargs)
+                )
+
+            with (
+                patch.object(info, "HOME", home),
+                patch.object(info, "CACHE", cache),
+                patch.object(Path, "open", open_file),
+                patch.object(info.Image, "open") as decoder,
+            ):
+                result = info.artwork({"media": {"art": "file:///isolated-art.bin"}})
+            self.assertEqual(stream.observed, [4000001])
+            decoder.assert_not_called()
+            self.assertEqual(
+                result, str(home / ".local/share/nacre/branding/sh-lock.png")
+            )
+
     def test_notification_privacy_is_enforced_again_after_cache_read(self):
         data = {
             "count": 1,
