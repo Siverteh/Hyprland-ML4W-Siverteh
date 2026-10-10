@@ -1835,3 +1835,34 @@ desktop configuration/helpers, 4 login artifacts, 44 AI/Brain workflow files,
 15 packaging/maintenance files, 129 fixtures/tests, 102 documentation artifacts
 and 7 license notices remain pending. Those pending files are not necessarily
 inherited. Final whole-tree comparison and applicable notices remain open.
+
+## Desktop startup and installer source review
+
+2026-10-10 UTC. [Spec](../specs/desktop-startup-source-audit.md) and
+[individual source table](DESKTOP-STARTUP-SOURCE-AUDIT.md) cover the complete
+control, launch, supervisor, installer, shortcut installer, provisioner and two
+service bodies. Local authoring history and later native/Orient/font integration
+traced. The current control path was added during rename; the prior path was
+explicitly followed. Git's shell-unit copy detection traces standard systemd
+scaffolding to the locally authored Brain unit, not a vendor implementation.
+First-source five-line peer comparisons in the mixed import/authoring snapshots
+found no copies; they supplement actual body/contracts/history review rather
+than certify origin alone. Prior exposure acknowledged; final upstream/licensing
+comparison and called helper/test/asset ownership remain separate.
+
+Retained these eight independent implementations unchanged. Existing recovery
+tests reject bad QML before source activation and preserve preferences/rejected
+code during fallback. Orient promotion tests cover failed link replacement and
+preserved prior runtime. All 409 tests, native QML/formatting, Hyprland and registry
+checks pass. Plan reviewed; configuration plan has zero files/migrations. Actual
+Qt-checked launch.sh --version succeeds with native Quickshell. Eight installed
+helper/unit copies and public launcher wrappers match source; all 234 shell files
+exact, native IPC/services healthy and configerrors empty. Private state, worker
+and palette/poster/deadline unchanged in read-only checks. No runtime cutover for
+source-review/documentation changes; good release 20261010T030303577778Z remains.
+No actual account/device/power/auth/AI-message action or busy worker restart.
+
+Registry: 658 artifacts, 397 change pointers, 303 explicit reviews and 355 pending.
+Counts describe audit coverage, not originality percentages. Remaining helper/
+data/login/workflow/packaging/test/documentation/license and final comparison
+requirements remain open; notices and the complete goal are retained.

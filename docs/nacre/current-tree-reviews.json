@@ -3916,6 +3916,78 @@
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis e869927: fresh notification presentation after inherited card/content/wrapper deletion. Later current-file changes: e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
       ]
+    },
+    "nacre/shell-tools/control.sh": {
+      "disposition": "independent",
+      "sha256": "7b0fc6d6f6db8d5a5662c83369589aeca4461492620fcda26c9287f2d387da13",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 548f0b4: 4874385 original local dispatcher; follow old siverteh path through ba5e48f desktop/Brain split and 1e24b63 light IPC; current renamed body and1488f68 locked palette CLI routing. Later current-path changes: 1488f68. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/launch.sh": {
+      "disposition": "independent",
+      "sha256": "91085757d98fb57679f5c52dabed07eb45f6273bbf48095b529d7cfc061f3331",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 4874385: local native runner/environment assembly, with47b06d4 system package ownership,a1e6926/ac8be46 Qt guard and preserved PATH. Later current-path changes: 548f0b4, ac8be46, 79916a3, c0816b6, a1e6926, 47b06d4, 2fa3a95, a8b816f. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/shell-supervisor.py": {
+      "disposition": "independent",
+      "sha256": "1d984b695e3cdc321319abbd8df3d6cc28a72a74cac58da8d3001e96cf65e1cb",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis e3d0298: local persistent renderer/supervisor authoring and validated source recovery; no upstream supervisor body. Later current-path changes: 548f0b4, bb46dd6, 83b3531. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/install.py": {
+      "disposition": "independent",
+      "sha256": "6351ecc6745611dc0b784205861f85bdb872ae112122cdda900784ce4d129382",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 4874385: local reversible source/config deployment; release transaction integration8bd5e65, native packages47b06d4, loader ownershipbcdbd69, independent Orient5ecf556 and font owner59c7202. Later current-path changes: 59c7202, 5ecf556, 548f0b4, 73092de, 4886426, 5df2e69, bcdbd69, 9397909, 07f5cdd, 47b06d4, 83b3531, 85316eb, 8bd5e65, 2fa3a95, e3d0298, 007d020, a9a683d, 746fc96, a8b816f, 8afd305, 3c1b16d, 42a8183. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/install-extras.py": {
+      "disposition": "independent",
+      "sha256": "4593784b0fa12d24c38991df0ad7aa5944f1f3a7b21f5fa7c95f7c46bbb9b72a",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 007d020: local native shortcut installer; bcdbd69 removes extra config-loader ownership; native Files and lock preparation remain separately scoped callees. Later current-path changes: 548f0b4, bcdbd69, 8ff30bc, a046f7b, 338417c, 30a52ae, 86bebe6, 5611be5, 83b3531, 2fa3a95. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/provision.py": {
+      "disposition": "independent",
+      "sha256": "8fc59f2013962056a53dc89a3197ecd13b298112cb68f5a7e63dbfbf3304c0fc",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 5ecf556: local provisioning first4874385; private native extraction retired47b06d4; current own immutable Orient environment/promotion body authored5ecf556, cache identity corrected0573f6b. Later current-path changes: 0573f6b. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/nacre-shell.service": {
+      "disposition": "independent",
+      "sha256": "c62043b3bd0b69c666c5d1feb66b44db3fb30a91e50f3a6b4b928aed4706d9cc",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis 4874385: local systemd desktop unit; Git copy detection traces public unit keys to own Brain unit e42b701, not a vendor service implementation. Later current-path changes: 548f0b4. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
+    },
+    "nacre/shell-tools/siverteh-sidebar-ai.service": {
+      "disposition": "independent",
+      "sha256": "20f17b1978b1d810d6291007d05da07fdde5332e0e3c9686d96e79b95fe0659e",
+      "evidence": [
+        "docs/specs/desktop-startup-source-audit.md",
+        "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
+        "Full current body reviewed; basis e3d0298: local separate persistent AI worker unit; backend implementation and permission/account policy remain separately audited. Later current-path changes: 548f0b4. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+      ]
     }
   }
 }
