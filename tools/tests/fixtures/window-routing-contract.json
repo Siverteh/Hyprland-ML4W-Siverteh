@@ -85,6 +85,9 @@
       "class": "^(org[.]kde[.]dolphin|[Dd]olphin)$"
     },
     "name": "nacre-dolphin-files",
-    "size": "70% 75%"
+    "size": [
+      "monitor_w*0.8",
+      "monitor_h*0.75"
+    ]
   }
 ]

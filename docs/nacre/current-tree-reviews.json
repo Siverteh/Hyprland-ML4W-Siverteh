@@ -1491,12 +1491,13 @@
     },
     "hypr/conf/windowrule.lua": {
       "disposition": "independent",
-      "sha256": "963effd76ee8c186e9009517c994c8a36174eeb65d9e13418851088acefcd58a",
+      "sha256": "4e873e57fc7b95b9b936820c84f589abe5a01a9758c2e8e052ba502c0d5361d9",
       "evidence": [
         "docs/specs/window-routing.md",
         "docs/nacre/PROVENANCE.md#application-route-composition-replacement",
         "replacement e944518: target deleted then own ordered route composition from11 captured public native rule contracts/APIs; generated conflicts/full checks/owned-window comparison and exact installed source verified; prior exposure acknowledged; no upstream body copied; companion/real-app audits separate",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "User-requested Dolphin popup: 80% monitor width, unchanged 75% height, centered on current workspace. Live native test verified expression-pair sizing; legacy percentage string fell back to 760x629. No upstream implementation copied."
       ]
     },
     "hypr/hyprland.lua": {
@@ -6152,12 +6153,13 @@
     },
     "tools/tests/fixtures/window-routing-contract.json": {
       "disposition": "non-implementation",
-      "sha256": "ef9da11bcb4879ac14d847b180ce3f7e6efb5586755df0433f9330e8c404f41c",
+      "sha256": "16d5e855c2140f496ba09c7a0e72a736abd559a4b8a6fe2f44bde3b8013620f8",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation e944518 tools/tests/fixtures/window-routing-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "User-requested Dolphin popup: 80% monitor width, unchanged 75% height, centered on current workspace. Live native test verified expression-pair sizing; legacy percentage string fell back to 760x629. No upstream implementation copied."
       ]
     },
     "ai/tests/test_chat_titles.py": {
@@ -6967,11 +6969,12 @@
     },
     "docs/file-manager.md": {
       "disposition": "non-implementation",
-      "sha256": "86ff472209bf77cced7d770a39ccc8c14e9f6e44e3d154eccf2731ef243e0706",
+      "sha256": "df87c9a5f518b95105ade1ab9754ab81f4244b105f4e6f19e31e051e68636489",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "User-requested Dolphin popup width: 80% width, unchanged 75% height, centered on the current workspace; routing contract updated. No upstream source consulted or copied."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 86bebe6 Use comfortably sized Dolphin with live wallpaper palette updates"
     },
