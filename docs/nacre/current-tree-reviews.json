@@ -6579,10 +6579,11 @@
     },
     "docs/features/settings-lock.md": {
       "disposition": "non-implementation",
-      "sha256": "ce6d8056d966d089324c3ef65791d5bce797d4eccda9627b583f84daec169adc",
+      "sha256": "e9109ab8cb5faed32f62e8f3528279cf95a996aba160eddfbc3fc2c65355fa71",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6597,10 +6598,11 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "e13977eb41203c5a178f16ad17375e33f69d1943dfd566fa5e411e24bd39c886",
+      "sha256": "f531dfec4ceba65c712c8fed6bbe39285cae677c5e43778d81198eefa385fefb",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6644,10 +6646,11 @@
     },
     "nacre/login/README.md": {
       "disposition": "non-implementation",
-      "sha256": "39a40660dace1fff2a1ed393bdda4e895a5c146dbf5b5a97d212c28dea5be866",
+      "sha256": "7b18881dc2e5d54d5737dbe9b0fb110f2443618d4f7d9588305f22f8dc8e0ff3",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -7830,6 +7833,13 @@
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "docs/specs/nacre-logo.md": {
+      "sha256": "ac3e15316b3a91b2ee053d83c36af2a07bf040bd2a905274fdfab2d71c77e233",
+      "disposition": "non-implementation",
+      "evidence": [
+        "User-approved logo integration specification authored for this task; records geometry, palette, deployment and provenance requirements."
       ]
     }
   }
