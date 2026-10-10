@@ -9,10 +9,10 @@ STATE = HOME / ".local/state/nacre"
 SERVICES = [
     "nacre-shell.service",
     "siverteh-sidebar-ai.service",
-    "siverteh-observatory-brain.service",
+    "nacre-brain.service",
     "nacre-session-watch.service",
     "hypridle.service",
-    "siverteh-brain-sync.timer",
+    "nacre-brain-sync.timer",
     "xdg-desktop-portal.service",
     "xdg-desktop-portal-hyprland.service",
     "xdg-document-portal.service",
@@ -189,7 +189,7 @@ def main():
                 subprocess.run(["systemctl", "--user", "restart", unit], check=True)
     elif a.action == "sync-now":
         subprocess.run(
-            [str(HOME / ".local/bin/siverteh-brain-sync"), "--force"],
+            [str(HOME / ".local/bin/nacre-brain-sync"), "--force"],
             check=False,
             timeout=75,
         )

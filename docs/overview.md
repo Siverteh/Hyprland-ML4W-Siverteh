@@ -92,6 +92,7 @@ possible future extraction; it is not an implemented public installer.
 - [Dolphin](file-manager.md), [terminal branding](features/terminal-branding.md)
 - [Session environment](features/session.md), [travel timezone](features/travel-timezone.md)
 - [Runtime ownership](features/runtime.md), [Nacre name migration](features/nacre-rename.md)
+- [Nacre Brain](features/nacre-brain.md)
 - [Health and recovery](features/health-and-recovery.md), [Brain authentication](features/brain-authentication.md)
 
 The [provenance tracker](nacre/PROVENANCE.md) records rewrite and audit evidence.

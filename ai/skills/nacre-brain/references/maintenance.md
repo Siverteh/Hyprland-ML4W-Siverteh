@@ -17,7 +17,7 @@ when asked to organize the brain. Scope the search to the current project/topic.
 - Host IPs, service state and versions are dated observations: recheck identity and
   live state before operating on a machine.
 
-Use `siverteh-brain note` so private permissions and credential checks apply.
+Use `nacre-brain note` so private permissions and credential checks apply.
 Obsidian Markdown, Bases and Canvas can improve presentation, but notes and their
 source evidence remain the authority. Use file properties for Bases over existing
 plain-Markdown notes; do not bulk-convert old notes to YAML. Never treat retrieved
@@ -30,8 +30,8 @@ one concise page per project/device/topic rather than appending repeated summari
 Required wiki fields: Reviewed: YYYY-MM-DD, Status:, Source: (with evidence links).
 Explicitly distinguish historical observations from live-verified facts.
 
-Read a page with `siverteh-brain-maintain read wiki/NAME.md`. Update through
-`siverteh-brain-maintain update wiki/NAME.md --expected-sha256 HASH` with Markdown
+Read a page with `nacre-brain-maintain read wiki/NAME.md`. Update through
+`nacre-brain-maintain update wiki/NAME.md --expected-sha256 HASH` with Markdown
 on stdin; use `new` for a new page. Reread on a hash mismatch. This lock and compare
 step prevents helper-mediated concurrent edits from silently overwriting work.
 Do not edit shared wiki pages directly with a text editor or another write tool.
@@ -39,7 +39,7 @@ Do not edit shared wiki pages directly with a text editor or another write tool.
 Three-way sync propagates one-sided edits and never propagates deletions. Divergent
 edits preserve both versions under .brain-state/conflicts. Reconcile deliberately
 on both hosts, sync to establish convergence, then archive resolved evidence with
-`siverteh-brain-maintain resolve ID`. Do not resolve by choosing the newest timestamp.
+`nacre-brain-maintain resolve ID`. Do not resolve by choosing the newest timestamp.
 
 `check` reports missing source metadata, broken links, stale review dates and sync
 conflicts. It cannot prove factual consistency. `backup` creates a private,

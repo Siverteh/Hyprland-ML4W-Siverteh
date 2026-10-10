@@ -1,12 +1,12 @@
 ---
-name: siverteh-brain
+name: nacre-brain
 description: Retrieve or save durable personal knowledge, host/device facts, project context, and operational lessons in Siverteh's private local Markdown vault.
 ---
 
 # Nacre Brain
 
-The vault lives at `$HOME/Documents/Siverteh-Brain`, independent of ChatGPT
-accounts. Use `siverteh-brain path` if the user configured a different location.
+The vault lives at `$HOME/Documents/Nacre-Brain`, independent of ChatGPT
+accounts. Use `nacre-brain path` if the user configured a different location.
 
 Search relevant terms before reading entire folders. Prefer verified, recent
 notes; inspect the cited source when the fact controls an operation. Host
@@ -20,7 +20,7 @@ and duplicates, and mark corrections as superseding older evidence. Never dump
 whole conversations or tool logs into the vault. Use the CLI:
 
 ```sh
-siverteh-brain note --kind runbooks --title 'Short factual title' \
+nacre-brain note --kind runbooks --title 'Short factual title' \
   --source 'Exact local file, command evidence, or source URL' --confidence verified
 ```
 

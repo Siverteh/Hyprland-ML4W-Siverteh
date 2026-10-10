@@ -171,7 +171,7 @@ tmux, and an explicit Git worktree. New Codex workers explicitly select danger-f
 disabled. Sidebar and worker Claude sessions run with `--dangerously-skip-permissions`, matching Codex full access.
 SSH children advertise the widely available `xterm-256color` terminal type;
 the desktop retains its own terminal setting. Copy the `siverteh-ai-remote` and
-`siverteh-brain` helpers and personal guidance to a trusted development host;
+`nacre-brain` helpers and personal guidance to a trusted development host;
 its own Codex credentials stay on that host. Run the installer with `--remote`
 when installing a copy of this tooling there. It leaves the host's Codex binary
 unchanged. Detach tmux with `Ctrl+B`, then `D`; the worker continues. Reopen it
@@ -190,17 +190,17 @@ add an account. The shared vault and guidance are the only common data.
 `python3 ai/install-obsidian.py` installs the official checksum-pinned Linux x64
 Obsidian AppImage for this user without sudo. Run it from the installed OS checkout.
 
-`~/Documents/Siverteh-Brain` is a normal Markdown folder. Open it as an Obsidian
+`~/Documents/Nacre-Brain` is a normal Markdown folder. Open it as an Obsidian
 vault; Codex can also search it without Obsidian. New notes have unique names,
 source evidence, confidence, and timestamps. Existing project instructions and
 SPEC files remain canonical; save concise pointers and operational lessons.
 
 ```sh
-siverteh-brain search 'topic'
-siverteh-brain note --kind decisions --title 'Decision title' \
+nacre-brain search 'topic'
+nacre-brain note --kind decisions --title 'Decision title' \
   --source 'Evidence location' --confidence verified < note.md
-siverteh-brain store-credential credential-name
-siverteh-brain run-with-credential --env SERVICE_KEY credential-name -- command
+nacre-brain store-credential credential-name
+nacre-brain run-with-credential --env SERVICE_KEY credential-name -- command
 ```
 
 Credentials use the OS Secret Service. On this KDE-equipped Hyprland setup the
@@ -218,10 +218,10 @@ Do not commit it, Codex homes, account state, or project registries to this publ
 repository.
 
 For private note sync, install the helpers on both hosts and create
-`~/.config/siverteh-ai/brain-sync.json` with `{"host": "my-server"}` (mode `0600`).
+`~/.config/nacre/brain-sync.json` with `{"host": "my-server"}` (mode `0600`).
 The selected SSH alias must be trusted and use key authentication. Both ends use
-their own `~/Documents/Siverteh-Brain`. Run `siverteh-brain-sync`, then enable
-`systemctl --user enable --now siverteh-brain-sync.timer` on the desktop. Opening
+their own `~/Documents/Nacre-Brain`. Run `nacre-brain-sync`, then enable
+`systemctl --user enable --now nacre-brain-sync.timer` on the desktop. Opening
 the brain also synchronizes. The timer synchronizes managed Markdown/text/Bases/Canvas files every two
 minutes. Account files, keyring data and Obsidian UI state are excluded. Common
 credential patterns are rejected before transfer. Protocol 2 accepts one-sided
@@ -348,14 +348,14 @@ health timer. Restore always uses a new directory. No automatic snapshot pruning
 is enabled. Private notes/snapshots are never placed in the public OS repo.
 
 ```sh
-siverteh-brain-maintain check
-siverteh-brain-maintain backup
-siverteh-brain-maintain read wiki/project.md
-siverteh-brain-maintain update wiki/project.md --expected-sha256 HASH < revised.md
-siverteh-brain-maintain restore /path/to/snapshot.json /new/private/restore-folder
+nacre-brain-maintain check
+nacre-brain-maintain backup
+nacre-brain-maintain read wiki/project.md
+nacre-brain-maintain update wiki/project.md --expected-sha256 HASH < revised.md
+nacre-brain-maintain restore /path/to/snapshot.json /new/private/restore-folder
 ```
 
-Enable `siverteh-brain-check.timer` and `siverteh-brain-sync.timer` with systemctl
+Enable `nacre-brain-check.timer` and `nacre-brain-sync.timer` with systemctl
 --user after install. Check results appear in the user journal; a failed check
 makes the service fail visibly. This timer does not invoke models or rewrite notes.
 Factual reconciliation remains the agents' responsibility.

@@ -52,6 +52,7 @@ def paths(repo):
             ".local/share/nacre/thunar-style",
             ".local/share/nacre/dolphin-style",
             ".local/share/nacre/control",
+            ".local/share/nacre/brain",
             ".local/share/siverteh-ai/observatory",
             ".local/share/siverteh-ai/thunar-runtime",
         )
@@ -65,9 +66,16 @@ def paths(repo):
             "siverteh-os",
             "nacre-app",
             "xdg-open",
+            "nacre-brain-ui",
             "siverteh-brain-ui",
-            "siverteh-brain-sync",
             "siverteh-observatory",
+            "nacre-brain",
+            "nacre-brain-maintain",
+            "siverteh-brain",
+            "siverteh-brain-maintain",
+            "siverteh-brain-sync",
+            "nacre-brain-sync",
+            "nacre-brain-ui",
         )
     ]
     result += [
@@ -78,9 +86,14 @@ def paths(repo):
             "siverteh-session-watch.service",
             "siverteh-manual-power.service",
             "siverteh-sidebar-ai.service",
+            "nacre-brain.service",
             "siverteh-observatory-brain.service",
-            "nacre-session-watch.service",
             "siverteh-brain-sync.service",
+            "siverteh-brain-sync.timer",
+            "siverteh-brain-check.service",
+            "siverteh-brain-check.timer",
+            "nacre-session-watch.service",
+            "nacre-brain-sync.service",
             "nacre-power-key.service",
         )
     ]
@@ -172,7 +185,7 @@ def restore(release, record=None, force=False):
                 raise RuntimeError("Later edit preserved: " + e["path"])
     for service in (
         "nacre-shell.service",
-        "siverteh-observatory-brain.service",
+        "nacre-brain.service",
         "nacre-session-watch.service",
     ):
         subprocess.run(["systemctl", "--user", "stop", service], capture_output=True)
@@ -211,6 +224,17 @@ def restore(release, record=None, force=False):
                 check=True,
                 capture_output=True,
             )
+    # Old release snapshots may contain only the legacy Brain code/unit.
+    old_brain = HOME / ".local/share/siverteh-ai/observatory"
+    new_brain = HOME / ".local/share/nacre/brain"
+    if old_brain.is_dir() and not new_brain.exists() and not old_brain.is_symlink():
+        new_brain.parent.mkdir(parents=True, exist_ok=True)
+        new_brain.symlink_to(old_brain)
+    old_unit = HOME / ".config/systemd/user/siverteh-observatory-brain.service"
+    new_unit = HOME / ".config/systemd/user/nacre-brain.service"
+    if old_unit.exists() and not new_unit.exists():
+        new_unit.unlink(missing_ok=True)
+        new_unit.symlink_to(old_unit.name)
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
     subprocess.run(["hyprctl", "reload"], check=True, capture_output=True)
     subprocess.run(
@@ -219,7 +243,7 @@ def restore(release, record=None, force=False):
             "--user",
             "start",
             "nacre-shell.service",
-            "siverteh-observatory-brain.service",
+            "nacre-brain.service",
         ],
         check=True,
     )
@@ -334,7 +358,7 @@ def retire_native_runtimes(release):
 DESKTOP_SERVICES = (
     "nacre-shell.service",
     "siverteh-sidebar-ai.service",
-    "siverteh-observatory-brain.service",
+    "nacre-brain.service",
 )
 
 
@@ -342,7 +366,7 @@ def required_live_services(components, initially_active):
     required = set(initially_active)
     required.add("nacre-shell.service")
     if "brain" in components:
-        required.add("siverteh-observatory-brain.service")
+        required.add("nacre-brain.service")
     return sorted(required)
 
 

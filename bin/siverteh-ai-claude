@@ -146,13 +146,13 @@ def guidance():
         "and ~/.config/siverteh-ai/projects.json for project/build-host locations. "
         "Read the selected project and working directory AGENTS.md as well as CLAUDE.md before editing. "
         "Follow project instructions and use isolated worktrees. Keep this conversation when the user changes project. "
-        "Search the private brain with siverteh-brain search and automatically save durable findings using "
-        "siverteh-brain note; read ~/.agents/skills/siverteh-brain/SKILL.md for details. "
+        "Search the private brain with nacre-brain search and automatically save durable findings using "
+        "nacre-brain note; read ~/.agents/skills/nacre-brain/SKILL.md for details. "
         "Codex-specific title tools do not apply to Claude: use Claude native session titles and /rename. "
         "Never copy Codex or Claude credentials between accounts. "
         "A General chat folder is for conversation; resolve relevant projects later using siverteh-ai-context QUERY. "
         "Save meaningful findings through siverteh-ai-memory with --world and --topic, including personal and research topics. "
-        "Read ~/.agents/skills/siverteh-brain/SKILL.md. Do not store transcripts or turn suggestions into facts."
+        "Read ~/.agents/skills/nacre-brain/SKILL.md. Do not store transcripts or turn suggestions into facts."
     )
 
 
@@ -223,7 +223,12 @@ def run(args):
         raise ValueError(f"The saved workspace no longer exists: {directory}")
     os.chdir(directory)
     vault = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get(
+                "SIVERTEH_BRAIN", str(Path.home() / "Documents/Nacre-Brain")
+            ),
+        )
     )
     vault.mkdir(parents=True, exist_ok=True, mode=0o700)
     argv = [

@@ -16,7 +16,7 @@ class DesktopExtrasTests(unittest.TestCase):
     ):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
-            vault = home / "Documents/Siverteh-Brain"
+            vault = home / "Documents/Nacre-Brain"
             vault.mkdir(parents=True)
             (vault / "camera.md").write_text(
                 "# Camera controller\nFrontend camera controls\n"
@@ -27,7 +27,7 @@ class DesktopExtrasTests(unittest.TestCase):
             (vault / "alias.md").symlink_to(vault / "camera.md")
             with (
                 patch.object(extras, "HOME", home),
-                patch.dict("os.environ", {"SIVERTEH_BRAIN": str(vault)}),
+                patch.dict("os.environ", {"NACRE_BRAIN": str(vault)}),
             ):
                 results = extras.brain_search("camera frontend")
                 self.assertEqual([r["path"] for r in results], ["camera.md"])
@@ -36,7 +36,7 @@ class DesktopExtrasTests(unittest.TestCase):
     def test_note_open_rejects_paths_outside_the_vault(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
-            vault = home / "Documents/Siverteh-Brain"
+            vault = home / "Documents/Nacre-Brain"
             vault.mkdir(parents=True)
             (home / "external.md").write_text("# Outside")
             (vault / "escape.md").symlink_to(home / "external.md")

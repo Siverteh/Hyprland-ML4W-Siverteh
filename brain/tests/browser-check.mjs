@@ -6,7 +6,7 @@ socket.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id){const 
 function call(method,params={}){return new Promise((resolve,reject)=>{const id=++seq;pending.set(id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));});}
 async function evaluate(expression){const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;}
 async function until(expression){for(let i=0;i<60;i++){if(await evaluate(expression))return;await new Promise(r=>setTimeout(r,150));}throw Error('Timed out: '+expression);}
-const output=process.env.HOME+'/.local/state/siverteh-observatory/qa/redesign';fs.mkdirSync(output,{recursive:true,mode:0o700});
+const output=process.env.HOME+'/.local/state/nacre/brain/qa/redesign';fs.mkdirSync(output,{recursive:true,mode:0o700});
 async function screenshot(name){const r=await call('Page.captureScreenshot',{format:'png'});fs.writeFileSync(output+'/'+name+'.png',Buffer.from(r.data,'base64'));}
 try{
  await call('Runtime.enable');await call('Emulation.setDeviceMetricsOverride',{width:1560,height:1000,deviceScaleFactor:1,mobile:false});await call('Page.navigate',{url});await until('typeof ready!=="undefined"&&ready&&document.querySelectorAll(".subject-card").length>0');

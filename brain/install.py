@@ -12,9 +12,11 @@ import subprocess
 import time
 import urllib.request
 
+import migrate
+
 ROOT = Path(__file__).resolve().parent
 HOME = Path.home()
-DEST = HOME / ".local/share/siverteh-ai/observatory"
+DEST = HOME / ".local/share/nacre/brain"
 
 
 def main():
@@ -39,20 +41,42 @@ def main():
             "Node.js is required to validate Brain JavaScript before deployment"
         )
     subprocess.run([*node_cmd, "--check", str(ROOT / "web/app.js")], check=True)
+    print("Brain namespace plan:", migrate.plan(HOME))
     backup = (
         HOME
-        / ".local/state/siverteh-observatory/backups"
+        / ".local/state/nacre/brain/backups"
         / ("brain-" + dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))
     )
     backup.mkdir(parents=True, mode=0o700)
-    if DEST.exists():
+    existing = DEST if DEST.exists() else HOME / ".local/share/siverteh-ai/observatory"
+    if existing.exists():
         shutil.copytree(
-            DEST, backup / "source", ignore=shutil.ignore_patterns("__pycache__")
+            existing, backup / "source", ignore=shutil.ignore_patterns("__pycache__")
         )
     subprocess.run(
-        ["systemctl", "--user", "stop", "siverteh-observatory-brain.service"],
+        [
+            "systemctl",
+            "--user",
+            "stop",
+            "nacre-brain.service",
+            "siverteh-observatory-brain.service",
+            "nacre-brain-sync.timer",
+            "nacre-brain-check.timer",
+            "siverteh-brain-sync.timer",
+            "siverteh-brain-check.timer",
+            "nacre-brain-sync.service",
+            "nacre-brain-check.service",
+            "siverteh-brain-sync.service",
+            "siverteh-brain-check.service",
+        ],
         capture_output=True,
     )
+    subprocess.run(
+        ["systemctl", "--user", "disable", *migrate.UNITS], capture_output=True
+    )
+    journal = migrate.apply(HOME)
+    if journal:
+        print("Private Brain migration journal:", journal)
     # Old servers may predate the service. Match only this exact program's serve argv.
     for process in Path("/proc").iterdir():
         if not process.name.isdigit():
@@ -61,7 +85,13 @@ def main():
             if process.stat().st_uid != os.getuid():
                 continue
             args = (process / "cmdline").read_bytes().split(b"\0")
-            if str(DEST / "control.py").encode() in args and b"serve" in args:
+            if (
+                any(
+                    str(path / "control.py").encode() in args
+                    for path in (DEST, HOME / ".local/share/siverteh-ai/observatory")
+                )
+                and b"serve" in args
+            ):
                 os.kill(int(process.name), signal.SIGTERM)
         except (OSError, ProcessLookupError):
             pass
@@ -81,17 +111,35 @@ def main():
     ):
         shutil.copy2(ROOT / name, DEST / name)
     shutil.copytree(ROOT / "web", DEST / "web", dirs_exist_ok=True)
-    for name in ("siverteh-brain-ui", "siverteh-observatory"):
+    for name in ("nacre-brain-ui", "siverteh-brain-ui", "siverteh-observatory"):
         wrapper = HOME / ".local/bin" / name
         wrapper.parent.mkdir(parents=True, exist_ok=True)
         if wrapper.is_symlink():
             wrapper.unlink()
         wrapper.write_text((ROOT / "launch.sh").read_text())
         wrapper.chmod(0o755)
-    service = HOME / ".config/systemd/user/siverteh-observatory-brain.service"
+    service = HOME / ".config/systemd/user/nacre-brain.service"
     service.parent.mkdir(parents=True, exist_ok=True)
     service.write_text((ROOT / "brain.service").read_text())
+    migrate.aliases(HOME)
+    # Skill names are aliases only; do not reinstall AI accounts or guidance.
+    for folder in (".agents/skills", ".codex/skills"):
+        old = HOME / folder / "siverteh-brain"
+        new = HOME / folder / "nacre-brain"
+        if old.exists() and not new.exists():
+            new.symlink_to("siverteh-brain", target_is_directory=True)
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
+    subprocess.run(
+        [
+            "systemctl",
+            "--user",
+            "enable",
+            "--now",
+            "nacre-brain-sync.timer",
+            "nacre-brain-check.timer",
+        ],
+        check=True,
+    )
     subprocess.run(["systemctl", "--user", "enable", "--now", service.name], check=True)
     for _ in range(50):
         try:

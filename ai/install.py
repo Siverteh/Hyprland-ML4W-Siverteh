@@ -115,23 +115,26 @@ def main():
         target.symlink_to(source)
 
     binaries = (
-        ["siverteh-brain", "siverteh-ai-remote"]
+        ["nacre-brain", "siverteh-ai-remote"]
         if args.remote
         else [
             "codex",
             "nacre-ai",
             "siverteh-ai",
-            "siverteh-brain",
+            "nacre-brain",
             "siverteh-ai-remote",
         ]
     )
     binaries.extend(
         [
+            "siverteh-brain",
             "siverteh-brain-maintain",
+            "siverteh-brain-sync",
+            "nacre-brain-maintain",
             "siverteh-ai-tools",
             "siverteh-ai-skills",
             "siverteh-ai-account",
-            "siverteh-brain-sync",
+            "nacre-brain-sync",
             "siverteh-ai-chat",
             "siverteh-ai-claude",
             "siverteh-ai-context",
@@ -148,10 +151,10 @@ def main():
         binaries.append("obsidian")
     if not args.remote:
         for name in (
-            "siverteh-brain-sync.service",
-            "siverteh-brain-sync.timer",
-            "siverteh-brain-check.service",
-            "siverteh-brain-check.timer",
+            "nacre-brain-sync.service",
+            "nacre-brain-sync.timer",
+            "nacre-brain-check.service",
+            "nacre-brain-check.timer",
         ):
             link(repo / "ai/systemd" / name, home / ".config/systemd/user" / name)
         secret_service = (
@@ -250,10 +253,8 @@ def main():
             + "\n"
         )
         config.chmod(0o600)
-    subprocess.run([str(home / ".local/bin/siverteh-brain"), "init"], check=True)
-    subprocess.run(
-        [str(home / ".local/bin/siverteh-brain-maintain"), "setup"], check=True
-    )
+    subprocess.run([str(home / ".local/bin/nacre-brain"), "init"], check=True)
+    subprocess.run([str(home / ".local/bin/nacre-brain-maintain"), "setup"], check=True)
     print("Personal workflow installed. Existing account credentials were not changed.")
     print("Project registry:", config)
     if backup.exists():

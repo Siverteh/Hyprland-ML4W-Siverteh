@@ -22,9 +22,11 @@ The AI application has an additive variant: independently drawn A/I paths in
 A uses primary, I secondary; lift toward foreground only when needed for 4.5:1
 contrast against the frame. Keep the approved shell and pearl paths untouched.
 Generate full/compact/symbolic AI SVGs, transparent AI PNG and a text fallback
-through the same publisher. The launcher tile and sidebar use `BrandLogo.ai`;
+through the same publisher. Brain adds paired lobes and contrasting folds via
+`brain-label.svg.in` in the same open space; `BrandLogo.brain`, the desktop entry
+and web header use that variant. The launcher tile and sidebar use `BrandLogo.ai`;
 the AI terminal controller reads nacre-ai.png. Ordinary Fastfetch, lock/login,
-Brain and desktop branding retain the unlabelled shell. No new polling or
+desktop branding retain the unlabelled shell. No new polling or
 worker/session restart. The base geometry remains suitable for future apps.
 
 Extend the current branding.py owner, not a separate publisher. Canonical

@@ -69,9 +69,9 @@ reusable lessons to the shared brain so both assistants can build on them; do no
 save speculation as a fact. This guidance applies equally to Codex and Claude Code.
 
 
-Use the private vault at `$HOME/Documents/Siverteh-Brain` for durable personal
+Use the private vault at `$HOME/Documents/Nacre-Brain` for durable personal
 preferences, dated host/device facts, project pointers, and operational lessons.
-Search only the relevant notes (`siverteh-brain search WORDS`) before relying on
+Search only the relevant notes (`nacre-brain search WORDS`) before relying on
 past context. Repository AGENTS.md, SPEC files, and live evidence remain the
 authority for project behavior; this vault is a cross-project index.
 
@@ -83,7 +83,7 @@ Skip trivial turns, duplicate facts, transient logs and speculation. Corrections
 should explicitly supersede the earlier dated fact with new evidence.
 
 Save newly verified reusable knowledge with
-`siverteh-brain note --kind KIND --title TITLE --source SOURCE --confidence verified`
+`nacre-brain note --kind KIND --title TITLE --source SOURCE --confidence verified`
 and a concise Markdown body on stdin. Include the date, evidence, exact scope,
 and remaining uncertainty. User-reported facts use `reported`; historical
 assumptions use `unverified`. Search first and avoid duplicate summaries. Unique
@@ -92,7 +92,7 @@ note files let parallel chats record facts without overwriting each other.
 The vault is private and separate from the public OS repository. Never put its
 personal notes, infrastructure inventory, conversations, or account state in
 public Git. Passwords, tokens, and private keys belong in the OS secret store;
-notes contain only references such as `secret-service://siverteh-brain/NAME`.
+notes contain only references such as `secret-service://nacre-brain/NAME`.
 Do not print secrets into transcripts, command arguments, or logs. Do not copy
 Codex authentication between accounts. Account profiles share guidance and the
 vault, while authentication and conversations remain separate.
@@ -120,7 +120,7 @@ For multi-step work, use the handoff reference in
 `~/.agents/skills/siverteh-project-work/references/handoff.md` at meaningful
 milestones and before ending unfinished work. On resume, retrieve that checkpoint
 and verify current state. When durable findings conflict or a project reaches a
-milestone, use `~/.agents/skills/siverteh-brain/references/maintenance.md` to
+milestone, use `~/.agents/skills/nacre-brain/references/maintenance.md` to
 reconcile relevant notes without deleting historical evidence. Skip unchanged
 checkpoints and trivial turns. These responsibilities apply to Codex and Claude.
 
@@ -143,8 +143,8 @@ was verified if those tools were unavailable.
 
 Start brain retrieval at INDEX.md and the relevant wiki page, then verify its
 linked evidence. The vault's AGENTS.md / CLAUDE.md reference the shared policy.
-Maintain current pages using siverteh-brain-maintain read/update with an expected
-hash. Keep evidence notes append-only. Use siverteh-brain-maintain check after
+Maintain current pages using nacre-brain-maintain read/update with an expected
+hash. Keep evidence notes append-only. Use nacre-brain-maintain check after
 substantial ingestion or reconciliation; do not invent a current fact from age alone.
 
 ## Conversation-first context and memory

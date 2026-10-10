@@ -176,3 +176,12 @@ Dolphin now owns normal Files, folder/ZIP associations and on-demand FileManager
 activation. Its uniquely named local public-Qt/KDE style plugin contains no
 private native package runtime; the existing publisher remains the color owner.
 The legacy Thunar route remains a compatibility fallback, without routine rebuilds.
+
+## Nacre Brain naming
+
+The knowledge service and vault tools now use `nacre-brain` names. Canonical
+private vault, runtime, browser profile, state and sync paths are documented in
+[the Brain guide](features/nacre-brain.md). Journaled moves retain old-name
+aliases and Obsidian registration; notes/accounts are never release artifacts.
+The shared brand generator derives the Brain-specific glyph, web header and
+palette-bound launcher icon from the same approved shell master.

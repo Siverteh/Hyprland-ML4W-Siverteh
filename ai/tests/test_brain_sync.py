@@ -15,8 +15,8 @@ def load(name):
     return module
 
 
-sync = load("siverteh-brain-sync")
-maintenance = load("siverteh-brain-maintain")
+sync = load("nacre-brain-sync")
+maintenance = load("nacre-brain-maintain")
 
 
 class SyncTests(unittest.TestCase):

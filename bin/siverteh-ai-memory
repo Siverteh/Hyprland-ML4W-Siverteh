@@ -20,11 +20,14 @@ def helper(name):
 
 def remember(args, body):
     root = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get(
+                "SIVERTEH_BRAIN", str(Path.home() / "Documents/Nacre-Brain")
+            ),
+        )
     )
-    loader = importlib.machinery.SourceFileLoader(
-        "memory_brain", helper("siverteh-brain")
-    )
+    loader = importlib.machinery.SourceFileLoader("memory_brain", helper("nacre-brain"))
     spec = importlib.util.spec_from_loader(loader.name, loader)
     m = importlib.util.module_from_spec(spec)
     loader.exec_module(m)
@@ -61,7 +64,7 @@ def remember(args, body):
         else:
             result = subprocess.run(
                 [
-                    helper("siverteh-brain"),
+                    helper("nacre-brain"),
                     "note",
                     "--kind",
                     args.kind,
@@ -104,7 +107,7 @@ def remember(args, body):
             content = f"# {world}\n\nEntity: world\nName: {world}\nAliases: {ident}\nReviewed: {dt.date.today()}\nStatus: Evidence-backed subject; initial descriptor\nSource: [[{note.relative_to(root).with_suffix('').as_posix()}]]\n\nThis subject was recorded from conversation or work. It does not imply a registered repository.\n\n## Evidence\n\n- [[{note.relative_to(root).with_suffix('').as_posix()}]]\n"
             result = subprocess.run(
                 [
-                    helper("siverteh-brain-maintain"),
+                    helper("nacre-brain-maintain"),
                     "update",
                     str(wiki.relative_to(root)),
                     "--expected-sha256",

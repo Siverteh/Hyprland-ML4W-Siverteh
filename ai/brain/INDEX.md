@@ -5,5 +5,5 @@ Preserve original observations in the dated topic folders; use raw/ for attribut
 source extracts and checkpoints/ for task handoffs. No project facts have been
 inferred on this fresh installation. Add project links as work establishes them.
 
-Read AGENTS.md for the shared policy. Run siverteh-brain-maintain check after
+Read AGENTS.md for the shared policy. Run nacre-brain-maintain check after
 substantial updates. Keep this vault and its backups out of public Git.

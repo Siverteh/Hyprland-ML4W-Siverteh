@@ -378,7 +378,7 @@ def deploy(code_only=False):
             "--user",
             "disable",
             "--now",
-            "siverteh-observatory-wallpaper.timer",
+            "nacre-brain-ui-wallpaper.timer",
         ],
         capture_output=True,
     )

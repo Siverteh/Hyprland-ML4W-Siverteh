@@ -12,7 +12,12 @@ class SemanticClient:
         self.health = "lexical fallback"
 
     def vectors(self, documents, path):
-        if os.environ.get("SIVERTEH_BRAIN_SEMANTICS") == "0":
+        if (
+            os.environ.get(
+                "NACRE_BRAIN_SEMANTICS", os.environ.get("SIVERTEH_BRAIN_SEMANTICS")
+            )
+            == "0"
+        ):
             return {}
         python = Path.home() / ".local/share/siverteh-ai/brain-model/bin/python"
         if not python.exists():

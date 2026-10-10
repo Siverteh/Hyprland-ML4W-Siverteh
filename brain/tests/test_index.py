@@ -19,7 +19,7 @@ class IndexTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.patcher = patch.object(module, "VAULT", self.root)
         self.patcher.start()
-        self.semantic = patch.dict(os.environ, {"SIVERTEH_BRAIN_SEMANTICS": "0"})
+        self.semantic = patch.dict(os.environ, {"NACRE_BRAIN_SEMANTICS": "0"})
         self.semantic.start()
 
     def tearDown(self):

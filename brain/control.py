@@ -22,9 +22,18 @@ from urllib.parse import urlparse, parse_qs, quote, unquote
 
 ROOT = Path(__file__).resolve().parent
 HOME = Path.home()
-STATE = HOME / ".local/state/siverteh-observatory"
+STATE = HOME / ".local/state/nacre/brain"
 VAULT = Path(
-    os.environ.get("SIVERTEH_BRAIN_DIR", str(HOME / "Documents/Siverteh-Brain"))
+    os.environ.get(
+        "NACRE_BRAIN_DIR",
+        os.environ.get(
+            "SIVERTEH_BRAIN_DIR",
+            os.environ.get(
+                "NACRE_BRAIN",
+                os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Nacre-Brain")),
+            ),
+        ),
+    )
 )
 PORT = 17843
 THEMES = {
@@ -543,7 +552,7 @@ def palette():
 
 def action(name, value=""):
     if name == "notes":
-        launch_app(["env", "SIVERTEH_BRAIN_VIEW=notes", "siverteh-ai", "brain"])
+        launch_app(["env", "NACRE_BRAIN_VIEW=notes", "siverteh-ai", "brain"])
         return
     if name == "brain":
         ensure_brain(focus=True)
@@ -608,14 +617,14 @@ def action(name, value=""):
             title = text.strip().splitlines()[0][:90]
             subprocess.run(
                 [
-                    "siverteh-brain",
+                    "nacre-brain",
                     "note",
                     "--kind",
                     "personal",
                     "--title",
                     title,
                     "--source",
-                    "User quick capture in Siverteh Observatory",
+                    "User quick capture in Nacre Brain",
                     "--confidence",
                     "reported",
                 ],
@@ -659,8 +668,8 @@ def browser_command(path, handoff=False):
         "--no-first-run",
         "--no-default-browser-check",
         "--ozone-platform=wayland",
-        "--class=" + ("siverteh-brain-auth" if handoff else "siverteh-brain"),
-        "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser"),
+        "--class=" + ("nacre-brain-auth" if handoff else "nacre-brain"),
+        "--user-data-dir=" + str(HOME / ".local/share/nacre/brain-browser"),
         "--app=" + Path(path).as_uri(),
     ]
 
@@ -842,19 +851,23 @@ def ensure_server():
                     return
         except (OSError, ValueError):
             pass
-    raise ValueError("Observatory server did not start")
+    raise ValueError("Nacre Brain server did not start")
 
 
 def browser_profile_pids():
-    profile = (
-        "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser")
-    ).encode()
+    profiles = {
+        ("--user-data-dir=" + str(HOME / path)).encode()
+        for path in (
+            ".local/share/nacre/brain-browser",
+            ".local/share/siverteh-ai/observatory-browser",
+        )
+    }
     profile_pids = set()
     for process in Path("/proc").iterdir():
         if not process.name.isdigit():
             continue
         try:
-            if profile in (process / "cmdline").read_bytes().split(b"\0"):
+            if profiles.intersection((process / "cmdline").read_bytes().split(b"\0")):
                 profile_pids.add(int(process.name))
         except OSError:
             pass
@@ -874,12 +887,18 @@ def brain_window():
     windows = [
         c
         for c in clients
-        if c.get("class") == "siverteh-brain"
+        if c.get("class") in ("nacre-brain", "siverteh-brain")
         or (
             c.get("pid") in profile_pids
             and (
                 c.get("class") == "chrome-127.0.0.1__-Default"
-                or "siverteh-observatory_auth_open.html" in c.get("class", "")
+                or any(
+                    fragment in c.get("class", "")
+                    for fragment in (
+                        "nacre_brain_auth_open.html",
+                        "siverteh-observatory_auth_open.html",
+                    )
+                )
             )
         )
     ]
@@ -894,9 +913,13 @@ def brain_window():
 def brain_browser_running():
     # Chrome can be alive without a mapped window while the keyring dialog
     # blocks startup. Do not keep asking that same profile for another app.
-    profile = (
-        "--user-data-dir=" + str(HOME / ".local/share/siverteh-ai/observatory-browser")
-    ).encode()
+    profiles = {
+        ("--user-data-dir=" + str(HOME / path)).encode()
+        for path in (
+            ".local/share/nacre/brain-browser",
+            ".local/share/siverteh-ai/observatory-browser",
+        )
+    }
     for process in Path("/proc").iterdir():
         if not process.name.isdigit():
             continue
@@ -906,7 +929,9 @@ def brain_browser_running():
             args = (process / "cmdline").read_bytes().split(b"\0")
         except OSError:
             continue
-        if profile in args and not any(arg.startswith(b"--type=") for arg in args):
+        if profiles.intersection(args) and not any(
+            arg.startswith(b"--type=") for arg in args
+        ):
             return True
     return False
 

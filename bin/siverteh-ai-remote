@@ -17,7 +17,10 @@ session="ai-$project_id-$account_tag-$task_id"
 worktree="$HOME/.local/share/siverteh-ai/worktrees/$project_id/$task_id"
 mkdir -p "$(dirname "$worktree")"
 git -C "$repo" worktree add -b "codex/ai-$project_id-$task_id" "$worktree" HEAD
-vault="$HOME/Documents/Siverteh-Brain"
+vault="${NACRE_BRAIN:-${SIVERTEH_BRAIN:-$HOME/Documents/Nacre-Brain}}"
+if [[ -z "${NACRE_BRAIN:-}${SIVERTEH_BRAIN:-}" && ! -d "$vault" && -d "$HOME/Documents/Siverteh-Brain" ]]; then
+    vault="$HOME/Documents/Siverteh-Brain"
+fi
 mkdir -p "$vault"
 chmod 700 "$vault"
 if [[ -n "$account" ]]; then

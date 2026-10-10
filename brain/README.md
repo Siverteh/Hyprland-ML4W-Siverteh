@@ -1,6 +1,10 @@
 # Nacre Brain
 
-The private knowledge browser follows the current wallpaper palette and angular SH branding. Its persistent app stays on workspace6; Super+B brings it forward. The compatibility command/service paths retain the observatory name so existing shortcuts and sessions continue to work.
+Nacre Brain is the private knowledge browser. Open it from the app launcher,
+with `nacre-brain`, or with Super+B; its persistent window stays on workspace6.
+Its palette-colored shell mark includes a small brain beneath the right lip.
+Commands, services and private paths now use Nacre names. Old paths and commands
+remain aliases for existing sessions. See [the naming guide](../docs/features/nacre-brain.md).
 
 ## Browse
 

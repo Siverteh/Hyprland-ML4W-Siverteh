@@ -1512,11 +1512,12 @@
     },
     "hypr/conf/brain.lua": {
       "disposition": "independent",
-      "sha256": "ff2b8c45b1ed57ec8e25c2360e8f6d7051959aa93fd00122c48131011a9b95c5",
+      "sha256": "8a07bf5c4592158e888c0a0b3489e513e855c7095d78e5e39e19b9e224788e5f",
       "evidence": [
         "docs/specs/compositor-entrypoint.md",
         "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
-        "Local Brain extension authored in e42b701 (rice/observatory/observatory.lua), incorporated f3290a5 and narrowed 2fa3a95/9a9cebe. Remaining routing/action bodies trace to own Brain work, including cookie handoff 3f4132d/de8222b/69aad30; prior appearance block removed. No upstream dependency introduced by current extension."
+        "Local Brain extension authored in e42b701 (rice/observatory/observatory.lua), incorporated f3290a5 and narrowed 2fa3a95/9a9cebe. Remaining routing/action bodies trace to own Brain work, including cookie handoff 3f4132d/de8222b/69aad30; prior appearance block removed. No upstream dependency introduced by current extension.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/shortcuts.lua": {
@@ -1750,7 +1751,7 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "ec7d3587c6b5aa19e050a259ce9d04ca07f7fc6c0ae797fe8a56038082cbdf70",
+      "sha256": "fadfd8db6428ab768078af1d0b42b941d7daaae0b3c9207b6f77283285c5caf5",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1760,36 +1761,39 @@
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "6e8a4d2d4dedc056587253a811d6acf8388559be88bddf0f0faf2c1360460343",
+      "sha256": "04b025194464096820ee2f3f025a41f726153317f9e47bcbff93606e2b6eae6f",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Current own generated component from b0632b9/772e23b emitter, qs imports/formatting 14a55db/dfecaf0 and independent native palette owner 02b2bda. Historical pre-generator widget path is not current body origin. New corrected emitter reproduces current bytes, transparent SVG/public Qt Image provider binding only, no inherited Caelestia body.",
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/login/Logo.qml": {
       "disposition": "independent",
-      "sha256": "4bbb0c476513c634e0e526683d278b79ca8d26bebaa8694facf386703bda24ec",
+      "sha256": "1a1285d81c657b4ca9e8e4da6ec7cfa29fb5b8bd1dba4be58d1f4219452127b5",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Current generated login component introduced b0632b9 from same own geometry and public Qt Image API. Current imports/formatter corrections 14a55db/dfecaf0, namespace 548f0b4. Regeneration exact; color defaults are public scalar fallback preferences, not inherited algorithm. Whole login theme remains separate audit.",
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "075ac86c2da6919b37d0fe81f7367903368057149df951b0c028497837d3bfcf",
+      "sha256": "120bfa904597621aa76cc35d305adfbffa892ca09621c01a139a312fae81b3b9",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1801,7 +1805,8 @@
         "docs/specs/terminal-polish.md",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -3819,11 +3824,12 @@
     },
     "nacre/shell/modules/dashboard/settings/NacreMaintenancePage.qml": {
       "disposition": "independent",
-      "sha256": "3b598feac6e4fe887b7f08800a71204692ce1fb0c5ef05d5e83bd1542b05c1ed",
+      "sha256": "820e76c4426e41206090cc5c45964be1d1d06be32e69f6e3d5c14ac4309e131d",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/modules/dashboard/settings/NacreNetworkPage.qml": {
@@ -3982,12 +3988,13 @@
     },
     "nacre/shell/modules/launcher/NacreAppBrowser.qml": {
       "disposition": "independent",
-      "sha256": "71596a6c93430700a7546e8957b448537254af767d7ecb776906c9a61857e2e0",
+      "sha256": "bb228969721989466fea272204113166669cb0760f24c5ac50a59e9a004ee97c",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 02b2bda, 3d93b32. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
@@ -4086,13 +4093,14 @@
     },
     "nacre/shell-tools/control.sh": {
       "disposition": "independent",
-      "sha256": "8a082d271cdfb2f936ddcde0acc7f628df2ed3a211e208a734c475957d1a24b8",
+      "sha256": "b62cfb002c96de7c7f0681e438091986459b343b82a156df4f1dbaee06c17322",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
         "Full current body reviewed; basis 548f0b4: 4874385 original local dispatcher; follow old siverteh path through ba5e48f desktop/Brain split and 1e24b63 light IPC; current renamed body and1488f68 locked palette CLI routing. Later current-path changes: 1488f68. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
         "docs/specs/frame-control-center.md",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -4116,12 +4124,13 @@
     },
     "nacre/shell-tools/install.py": {
       "disposition": "independent",
-      "sha256": "75bda43b2d4ffa2d5f5d7f23a8dd273fa1e3eda3ca60af80948981587db34cd5",
+      "sha256": "ad1319730504be39df6c47f3e4a05518d9ebd2f2ee7d19d49b9c82a26ccf44b2",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
         "Full current body reviewed; basis 4874385: local reversible source/config deployment; release transaction integration8bd5e65, native packages47b06d4, loader ownershipbcdbd69, independent Orient5ecf556 and font owner59c7202. Later current-path changes: 59c7202, 5ecf556, 548f0b4, 73092de, 4886426, 5df2e69, bcdbd69, 9397909, 07f5cdd, 47b06d4, 83b3531, 85316eb, 8bd5e65, 2fa3a95, e3d0298, 007d020, a9a683d, 746fc96, a8b816f, 8afd305, 3c1b16d, 42a8183. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/install-extras.py": {
@@ -4488,11 +4497,12 @@
     },
     "nacre/shell-tools/session-watch.py": {
       "disposition": "independent",
-      "sha256": "c29fc22793eae4491b67e9fc60fb1deabfe40690440fc557f420ff998d9b9ae9",
+      "sha256": "731ebd98129306d62b4fd06158d88d814047108e2c7bf32241c6bd28bc0d3935",
       "evidence": [
         "docs/specs/device-session-source-audit.md",
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
-        "Full current source body reviewed. Basis 8bd5e65: local event-driven session readiness/resume/hotplug observer and private labelled evidence, no simulated cold-login claim. Later path changes: 548f0b4, bb46dd6, 83b3531, 8a32ba0. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+        "Full current source body reviewed. Basis 8bd5e65: local event-driven session readiness/resume/hotplug observer and private labelled evidence, no simulated cold-login claim. Later path changes: 548f0b4, bb46dd6, 83b3531, 8a32ba0. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/isolate-apps.py": {
@@ -4506,11 +4516,12 @@
     },
     "nacre/shell-tools/startup-apps.py": {
       "disposition": "independent",
-      "sha256": "21b37b6e73426b016804bc2e0b3976addad481901304a7e0ac6cc4e1781e4c13",
+      "sha256": "236cbcdc98870d922b634fb7026a220377141ccb076a50918d99f80f9cd7d96f",
       "evidence": [
         "docs/specs/device-session-source-audit.md",
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
-        "Full current source body reviewed. Basis b0632b9: local idempotent requested six-app startup profile and acknowledged launches, existing windows preserved. Later path changes: 548f0b4, 83b3531, 8bd5e65, 2fa3a95. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+        "Full current source body reviewed. Basis b0632b9: local idempotent requested six-app startup profile and acknowledged launches, existing windows preserved. Later path changes: 548f0b4, 83b3531, 8bd5e65, 2fa3a95. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/window-chat-title.py": {
@@ -4614,11 +4625,12 @@
     },
     "nacre/shell-tools/tests/test_startup_apps.py": {
       "disposition": "independent",
-      "sha256": "5e4d43999d060aae43eb0fe0612abb0cb12b1957e6cf734cef3d76d773262eb1",
+      "sha256": "029221f62a90982192c2468485720a913f8d6c520e5522b41bbea4a13a897dcc",
       "evidence": [
         "docs/specs/device-session-source-audit.md",
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
-        "Full current source body reviewed. Basis b0632b9: own pure startup plan/duplicates/Brain-browser distinction cases. Later path changes: 548f0b4, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+        "Full current source body reviewed. Basis b0632b9: own pure startup plan/duplicates/Brain-browser distinction cases. Later path changes: 548f0b4, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/tests/test_device_actions.py": {
@@ -4641,11 +4653,12 @@
     },
     "nacre/shell-tools/desktop-extras.py": {
       "disposition": "independent",
-      "sha256": "b4a4f3813e8f843748dd0f006d2eda3ca87c5f1adf522df28e620048f25de96f",
+      "sha256": "a5bef1e6196aadfc4028298edc90af2f14540c5e71966b39ce9421c70db67a4e",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
-        "Complete current source/data body reviewed. Basis 007d020: local on-demand chat/vault/clipboard/shortcut adapters; later independent binding-contract capture9a435c3 traced. Later path changes: 9a435c3, 548f0b4, 83b3531, 7a05033. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+        "Complete current source/data body reviewed. Basis 007d020: local on-demand chat/vault/clipboard/shortcut adapters; later independent binding-contract capture9a435c3 traced. Later path changes: 9a435c3, 548f0b4, 83b3531, 7a05033. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/desktop-settings.py": {
@@ -4686,11 +4699,12 @@
     },
     "nacre/shell-tools/maintenance.py": {
       "disposition": "independent",
-      "sha256": "69ba8701e9d25ce143a1eeb2916096181a6920adcf7141824b9985ee14db8b7c",
+      "sha256": "d123ad176ecba146b001178857198065c0176693295a87b619cf836c6b27eb86",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
-        "Complete current source/data body reviewed. Basis 8bd5e65: local read-only health/service facts plus explicit recovery actions, no vendor maintenance implementation. Later path changes: 548f0b4, 871e2e7, bfba6bb, a5c973c, 3d2b7cd, bb46dd6, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+        "Complete current source/data body reviewed. Basis 8bd5e65: local read-only health/service facts plus explicit recovery actions, no vendor maintenance implementation. Later path changes: 548f0b4, 871e2e7, bfba6bb, a5c973c, 3d2b7cd, bb46dd6, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/notification-history.py": {
@@ -4749,11 +4763,12 @@
     },
     "nacre/shell-tools/tests/test_desktop_extras.py": {
       "disposition": "independent",
-      "sha256": "2f4f874a4384f37f382c6b3ca2b136f1806b2f8da934c5bc54d848858cd866cb",
+      "sha256": "f09c53c308f77376751e91d08acc3c8082d59cc67fe37ec051a739fd961cd23b",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
-        "Complete current source/data body reviewed. Basis 007d020: own temp vault/clipboard/shortcut guide fixtures, later native bind capture regression9a435c3. Later path changes: 9a435c3, 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+        "Complete current source/data body reviewed. Basis 007d020: own temp vault/clipboard/shortcut guide fixtures, later native bind capture regression9a435c3. Later path changes: 9a435c3, 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/tests/test_desktop_settings.py": {
@@ -5000,7 +5015,7 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "2edd30ed179971a351bfee36df15000bd12b1f02c22705d34043a370f2093fec",
+      "sha256": "aa2085d109f16a8e556c78588ec11a4a0355ad27e3ab8504dd3b15ed6cf68275",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
@@ -5008,7 +5023,8 @@
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -5078,12 +5094,13 @@
     },
     "tools/releases.py": {
       "disposition": "independent",
-      "sha256": "a978934008adbc58f2399201088180bfb27139b5d6f6fbf957d838996c8b05dd",
+      "sha256": "6f4945f31eca8d780a5fe1ae568b2f57e13ac9c257a9e3fb58733dae02a01e8f",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 8bd5e65: complete local allowlist snapshot/owned restore/gates/promotion/retention/runtime/control owner;0106a03/4ac764e align candidate config map and carry mapping dependency. Later path changes: 4ac764e, 0106a03, 5ecf556, b2a540f, 548f0b4, 73092de, d5d7158, 871e2e7, 5a28cf1, f39c2d1, 805c7ef, 9397909, 3d2b7cd, bb46dd6, 47b06d4, a046f7b, 338417c, 30a52ae, 5bf0bcd, 86bebe6, 83b3531, 85316eb, 37df5a4, 9bdad72. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
-        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
+        "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "tools/window_rules.py": {
@@ -5117,23 +5134,25 @@
     },
     "tools/tests/test_configure.py": {
       "disposition": "independent",
-      "sha256": "e81a064a498c6a35250dd3cf86192deec4ac2ba5254a9435cea81c323c901c52",
+      "sha256": "a9679452f490bdaf4cbde60014ffbb1b4354bb7bdf1559f87359789f08834c1b",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: own temp home/source/manifest drift, migration/private policy, routes/retirement ownership tests. Later path changes: 548f0b4, 871e2e7, 9397909, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "tools/tests/test_releases.py": {
       "disposition": "independent",
-      "sha256": "fdd2b5d73f5403a30d0c58459f9fc44937695be8a30b3bd000a815fc2603a8a0",
+      "sha256": "18049de583ec42eb7ec291ad66db9551d2297da9c403b1709d4f8b1fac9e6bfd",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 8bd5e65: own fake service/temp runtime restore/private account preservation/drift/retention/retired-native/optional service fixtures. Later path changes: 5ecf556, b2a540f, 548f0b4, d5d7158, f39c2d1, 805c7ef, bb46dd6, 83b3531. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+        "Full current body/data/licence reviewed. Basis 8bd5e65: own fake service/temp runtime restore/private account preservation/drift/retention/retired-native/optional service fixtures. Later path changes: 5ecf556, b2a540f, 548f0b4, d5d7158, f39c2d1, 805c7ef, bb46dd6, 83b3531. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "tools/tests/test_nacre_migration.py": {
@@ -5248,14 +5267,15 @@
     },
     "ai/install.py": {
       "disposition": "independent",
-      "sha256": "c3489ee056f2671e968307cb7613d7fefaed13042cec29aac0957c24a29f6db9",
+      "sha256": "6ea9a159870356ea6f5dcbc0e9397d152d4bb0a8ee5b366afa577168b7bc1f07",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
         "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 548f0b4, 7bdf0e7, 83b3531, 1bcce9d, adc96cc, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
         "Current installer reassessed in 0f31dd9: recognized three-controller code-only branch, full current body and new diff reviewed; previous SHA 5f14c1d6b9732389b449ef8b2f0b2ccbdd6219eeb01e229c21cebcb2dc598a74. See docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md and private-runtime regression.",
         "Plan-message formatting correction after full Ruff gate; parsed syntax tree identical to 0f31dd9. No behavior change.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/projects.example.json": {
@@ -5287,38 +5307,42 @@
     },
     "ai/systemd/siverteh-brain-check.service": {
       "disposition": "non-implementation",
-      "sha256": "31d1db659b061d6ddb580e96f88c8d385e9b68d981bdd58b96bd7f65c2d9dda7",
+      "sha256": "d29b166fa126d12e16543ecc1d7869bee393e4dce342b1df5a95c9b04a961674",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/systemd/siverteh-brain-check.timer": {
       "disposition": "non-implementation",
-      "sha256": "85a35eb517e74f65c4c7539d33c35d3041a1cd2d4aded407d84a9b86436569dd",
+      "sha256": "b9eaedc0651c0eb6f0d15ad65169cce0cb71ff6baf7543defc488fb1afb8dc7c",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/systemd/siverteh-brain-sync.service": {
       "disposition": "non-implementation",
-      "sha256": "faab8451427a98f54200eee51e0cbbdee5d649fdfd55a9edaa9a8f1dd10de22c",
+      "sha256": "c772b3ea2ed996caac21e1112e1cb9d51327ac03470e8e437e4029c4a0a18122",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: a5c973c, adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: a5c973c, adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/systemd/siverteh-brain-sync.timer": {
       "disposition": "non-implementation",
-      "sha256": "0d8ecf151410671daf7b68b6fab756cf7f665712da656cffb1dfec0143e30950",
+      "sha256": "b0e0a164b44e5003f15a416504920f123190ac1687cd741f025e6ab88eaba9dd",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/codex": {
@@ -5360,11 +5384,12 @@
     },
     "bin/siverteh-ai-remote": {
       "disposition": "independent",
-      "sha256": "e7218e1a7053f8556ea12d27540f15bc7317262f8efe6f564da5479c0df83f8c",
+      "sha256": "a3468e5bf8957dec18ca29006a688cbb173161442024e453e0d071f5bdad9a06",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-ai-skills": {
@@ -5414,11 +5439,12 @@
     },
     "bin/siverteh-ai-memory": {
       "disposition": "independent",
-      "sha256": "18dbabbf797025ab27d86f1e693a7a341fd3bf6c137bb3c8f9cf570d182499e1",
+      "sha256": "073f5b599ecb281998ede9e344707b8bb641eab557d4087eec86c0f815c2dd72",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-ai-usage": {
@@ -5432,52 +5458,57 @@
     },
     "bin/siverteh-brain": {
       "disposition": "independent",
-      "sha256": "991ffd72ae11ffadc612c2f764b59659cedc9fc3ed5e4e0e618abe0fcd63742c",
+      "sha256": "4e03f704d63d89f7ce0888bf661e3ec66c440c31c9db723e389a6600a2ac97e5",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis bcce02f; later 548f0b4, 83b3531, adc96cc. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis bcce02f; later 548f0b4, 83b3531, adc96cc. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-brain-maintain": {
       "disposition": "independent",
-      "sha256": "623af7b76a2db344c3947db733a0bd0a7b57cbe29e104ae4befe069151e7d4ce",
+      "sha256": "760e85d222ab1b29e1948bb07eb7e3701b463d4af4b6a4aa6527026b564aff57",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis adc96cc; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis adc96cc; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-brain-sync": {
       "disposition": "independent",
-      "sha256": "09c671149917de5fb10b7ff778c8000179e8580bdc9e71e89269de1bd114a785",
+      "sha256": "69c19f0b7b658e5078b6516a21ae3731405a059068fdd4568c8e451bd242bb7b",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis adc96cc; later 548f0b4, a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis adc96cc; later 548f0b4, a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/tests/test_conversation.py": {
       "disposition": "independent",
-      "sha256": "53a0af0f886ffcd95940b67873b1aca17c63cc9ccc5ab288aa352399ba841038",
+      "sha256": "bbd78f19fca4f08e522fac60b2832c5c61465227dc2745b3cf395f8ae9893666",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/tests/test_brain_sync.py": {
       "disposition": "independent",
-      "sha256": "e2851afbfae859307f2f276e84beb04b5a719086761af9008c481752b3d304d7",
+      "sha256": "56a66a386c07e761b84dfe826716805586626c0ee54152d7e158b7208891a499",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
-        "Complete current body and local history reviewed: basis adc96cc; later a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+        "Complete current body and local history reviewed: basis adc96cc; later a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-ai": {
       "disposition": "independent",
-      "sha256": "916b5a1d8836ccf89ac3212b17076ed7542d639a7055c73acb33aa64acdc7f62",
+      "sha256": "36f02a03670241e3dc9c68f9e6a4e398261ee478725df41329bc85245c5d04a4",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
@@ -5485,25 +5516,28 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-ai-chat": {
       "disposition": "independent",
-      "sha256": "70f51b3d5a23b3dbb6f19ba93798ac8c9965d6ef87c067a52237dce7c4eb996e",
+      "sha256": "97a38cc3d5b33bc03941b95b35afc710a0251fb544f7a626c9658af50f7b73e7",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
-        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 548f0b4, 83b3531, be81bf0, 1bcce9d. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 548f0b4, 83b3531, be81bf0, 1bcce9d. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "bin/siverteh-ai-claude": {
       "disposition": "independent",
-      "sha256": "a1395acac130f04a79bd22bde0de98d5f280efbb6bdd8d20c92a6d8f9f9b8086",
+      "sha256": "697f1d029ea72b71f4cf0b55f37582651ddff63b392c78a1044bb1d5671d4386",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
-        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 0f31dd9, 548f0b4, 83b3531, 1bcce9d, fc33e68. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 0f31dd9, 548f0b4, 83b3531, 1bcce9d, fc33e68. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "ai/tests/test_claude_workflow.py": {
@@ -5535,29 +5569,32 @@
     },
     "brain/brain.service": {
       "disposition": "non-implementation",
-      "sha256": "a9b6ae47c5a8d872c358d86b3e937255a4ff17dd17ab71a28db8f8008a1af7fd",
+      "sha256": "b3d18d0b9859a199e19ffe911fe035e3a459eca87b05169e26335d798dde560b",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis e42b701; later 548f0b4, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis e42b701; later 548f0b4, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/install.py": {
       "disposition": "independent",
-      "sha256": "ac3e26e9d09bd00e666feb799501fe75265d4ab64d6bffafecb820e3687e8d19",
+      "sha256": "ba660c159e3125cfd8887b63bcb9d14cd0e5b28dd32f02dfdc81dcdbea517bd6",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis 2fa3a95; later 3f4132d, 83b3531. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis 2fa3a95; later 3f4132d, 83b3531. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/launch.sh": {
       "disposition": "independent",
-      "sha256": "8e419fcdc69486bc368b54bea1fc25e1743faaaeeef08912c20cd897f39cffa7",
+      "sha256": "889069c4acb2dcfc02e936e3a012042b58fb1841427bb383cbbc5fd7cd11f3f9",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis 2fa3a95; later none. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis 2fa3a95; later none. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/provision-semantic.py": {
@@ -5571,11 +5608,12 @@
     },
     "brain/semantic-client.py": {
       "disposition": "independent",
-      "sha256": "84f1178d729115304603867f0ef1db24bebc6bd2587b41bedc2375c4c3c2999d",
+      "sha256": "2e2bfa2412d27ab23e526e602e8a0289f3f90844d5226178f186a75e77a27d1b",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later bb46dd6, 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later bb46dd6, 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/semantic.py": {
@@ -5589,13 +5627,14 @@
     },
     "brain/web/index.html": {
       "disposition": "independent",
-      "sha256": "3fcb744eda39ae8442681b4b370e5ce88c40b2bbff0a08206f584ccda4b5e6fc",
+      "sha256": "1a8ec90c715f77f7598e5d9dab5409b6d0ffac121234674218bf45b444578c9e",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
         "Complete current body and local history/native contracts reviewed. Basis b0632b9; later 548f0b4, 2fa3a95, 543ee68. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
         "docs/specs/nacre-logo.md",
-        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/tests/test_auth.py": {
@@ -5609,11 +5648,12 @@
     },
     "brain/control.py": {
       "disposition": "independent",
-      "sha256": "63ddc5b631a38177cfdd055003641b7be5e3aa0469d9db7a8beab322cb19be64",
+      "sha256": "0558f91098a6430d03031378708a174f733b474df7cf7ebb4a8fdfbea6cee39b",
       "evidence": [
         "docs/specs/brain-core-source-audit.md",
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
-        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 548f0b4, 0f9fd41, 69aad30, de8222b, 3f4132d, ba5e48f, bb46dd6, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 007d020, a8b816f, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 548f0b4, 0f9fd41, 69aad30, de8222b, 3f4132d, ba5e48f, bb46dd6, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 007d020, a8b816f, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/discovery.py": {
@@ -5649,11 +5689,12 @@
     },
     "brain/tests/test_index.py": {
       "disposition": "independent",
-      "sha256": "894d34843df50e87f8d85c9871b44f02cb4c6ff30a63d1a5fb86dd1dd54f263b",
+      "sha256": "a00cfea72a633230fe37ae83b0788a515a542699d376aacfac84547ef92780b4",
       "evidence": [
         "docs/specs/brain-core-source-audit.md",
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
-        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 7cc8f33, 0f9fd41, 3f4132d, ba5e48f, fc19a5d, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 7cc8f33, 0f9fd41, 3f4132d, ba5e48f, fc19a5d, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "brain/tests/test_discovery.py": {
@@ -5667,11 +5708,12 @@
     },
     "brain/tests/browser-check.mjs": {
       "disposition": "independent",
-      "sha256": "8b6cd3d91f6260086978d5dda44c3854b2385f9d28316be22d3746d86d74117b",
+      "sha256": "dd7d9665fd067c170070435a6ecbfbe110117ca064b389839585cb76a43b0c63",
       "evidence": [
         "docs/specs/brain-core-source-audit.md",
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
-        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/login/tests/tst_login.qml": {
@@ -5931,12 +5973,13 @@
     },
     "nacre/shell-tools/tests/launcher-qml/tst_launcher.qml": {
       "disposition": "independent",
-      "sha256": "d45c39ef6e07a9f65cd18a03ea6790b6d09b0065b67bd438467d3c3b69a795f9",
+      "sha256": "d80d4ba09b1e573ee5520121726cdc3c35b88ccd700e1f665b47f854ccba3ba9",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation a3e2420 siverteh/shell-tools/tests/launcher-qml/tst_launcher.qml; subsequent bc7c7e2, 548f0b4, 2c1d2ca, 83b3531, 0c00c16, a8fe3ca, fedfa0c, 7ed920d. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/tests/launcher-qml/tst_panel.qml": {
@@ -6205,11 +6248,12 @@
     },
     "ai/tests/test_workflow.py": {
       "disposition": "independent",
-      "sha256": "70e5db0871e457e75183ea95413f32f67af8043d4cd13fcc82e2c882243f8dbf",
+      "sha256": "12a01c9aa44c57b0d5c18810e29ffd016ec5e8a3b644c02d71045a42f879a6b0",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation bcce02f:ai/tests/test_workflow.py; subsequent 72d0c7a, 7bdf0e7, bb46dd6, 83b3531, be81bf0, 1bcce9d, 4c2ae49. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation bcce02f:ai/tests/test_workflow.py; subsequent 72d0c7a, 7bdf0e7, bb46dd6, 83b3531, be81bf0, 1bcce9d, 4c2ae49. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell-tools/tests/qml_source.py": {
@@ -6338,12 +6382,13 @@
     },
     "nacre/shell-tools/tests/test_launcher_ui.py": {
       "disposition": "independent",
-      "sha256": "351c73f672c5d662ec15975edb490fd0b5b34fc077c4d03143d1be604ee31bcb",
+      "sha256": "be7f795c3d25b6886b3dff6ae87c88ee45776c990ff8606b43b2a2bd1fed7441",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6565,16 +6610,17 @@
     },
     "brain/README.md": {
       "disposition": "non-implementation",
-      "sha256": "57e658cdb9d869d120bc156b8721c77ec8554c0624c708d2dbd1beeacfe2497d",
+      "sha256": "0cda9dfbb0ed500be89be492f821500b92ca6615a95db3553ce27eee4f3168e4",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "bafb285cb7bcc305b9c87e6a879d71116abdd3f5a9205566e2ca49dcfb7de470",
+      "sha256": "81f28ec68b2ba89c5cc44739c3e3435ad4262ddfd831b56f5c5e47f38aa6eba7",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6589,7 +6635,8 @@
         "docs/specs/dolphin-files.md: explicit Dolphin popup adds a twelfth route/popup contract; existing eleven remain preserved. Scoped adapter ownership wording reviewed.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
         "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6763,16 +6810,17 @@
     },
     "docs/maintenance.md": {
       "disposition": "non-implementation",
-      "sha256": "ad10894ea721c40eaf7858e8861b2eb21a18533e71e91b6e16d95e144a7228ba",
+      "sha256": "9f0e5189327a9392a7f3691aff9070f8517817a3b3a40698a3cc06c41f215b99",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "f8e031645aa7e2313b9eb72d00b90173552bcbabde16a0184c005e355dd4e8bd",
+      "sha256": "556500f99808ef6aa966ea7173fac79d15c1ab43fed060c2a52bed1d52acbe4e",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6782,7 +6830,8 @@
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/frame-control-center.md",
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
-        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used."
+        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6854,20 +6903,22 @@
     },
     "ai/AGENTS.md": {
       "disposition": "non-implementation",
-      "sha256": "400deff43a1924569bc337ad957030d58fae34131ebd61a8faca0ecb5957a31b",
+      "sha256": "e27f976a0895a1855d9e18fb4fd4ece8f5a6581a1c5f12fda38f06955d67c37c",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
     },
     "ai/README.md": {
       "disposition": "non-implementation",
-      "sha256": "62a2540f697fad6cb4ba3657a3f9976e45a03358ee07ec7cfa3f52f8dbe3ff4d",
+      "sha256": "be9c6bb8348c92ca82a39d5136aeb068f5b7a0b60fecf0c17703823b472b0454",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
     },
@@ -6882,10 +6933,11 @@
     },
     "ai/brain/AGENTS.md": {
       "disposition": "non-implementation",
-      "sha256": "8e52d1b613255637892f4bbc66c9271e50f5107d005e777b787e42bd3f876b96",
+      "sha256": "420c1cd340006a1a52b10499ca435f00fffe3a7fb0ed0ea45793fdef754c6db8",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
     },
@@ -6900,28 +6952,11 @@
     },
     "ai/brain/INDEX.md": {
       "disposition": "non-implementation",
-      "sha256": "da55d2aa22c72a8fdd1e27f1adf365e8f28b0ee3b06c4509e16358be588ada15",
+      "sha256": "38c1eea3640f18ba0e3751438e24f85ff427268c14766730be3f31d83542a1d7",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
-      ],
-      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
-    },
-    "ai/skills/siverteh-brain/SKILL.md": {
-      "disposition": "non-implementation",
-      "sha256": "b11457a4c143d8fdb7b7c7d9a30c0994acbeb95bd144b6a7770d3dad4dc5d680",
-      "evidence": [
-        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
-      ],
-      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
-    },
-    "ai/skills/siverteh-brain/references/maintenance.md": {
-      "disposition": "non-implementation",
-      "sha256": "6375475c023a087edb4a0daa5b111a5e0a64f85a5e9a7e02a186a5dfdc05d845",
-      "evidence": [
-        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
     },
@@ -6936,10 +6971,11 @@
     },
     "ai/skills/siverteh-project-work/references/handoff.md": {
       "disposition": "non-implementation",
-      "sha256": "38e00ddf0228f175c84d7626136ce8570fdc7a4ba3eb5b7ad7db158992a1c676",
+      "sha256": "363d5017520d0322a10a51941766d1a727a6e108b64c7702f6f5c6ef9945c7de",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
     },
@@ -7904,11 +7940,12 @@
     },
     "nacre/shell-tools/logo-widget.qml.in": {
       "disposition": "independent",
-      "sha256": "d35d0626e9759f91a66732bb0453211c47789924a42317e1b9e531715c33ee2e",
+      "sha256": "3a7fb9ad582a989c81bf53b0ab36a0831c01c50564a262b696fe80b2cd26dda3",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/branding/nacre-compact.svg": {
@@ -7929,11 +7966,12 @@
     },
     "nacre/shell-tools/tests/test_nacre_branding.py": {
       "disposition": "independent",
-      "sha256": "883822e412b7e2c0cc58197f7238c2cb0e4be2e38dc8e64759eff3573e8a1097",
+      "sha256": "3aee49c2ce50d2573481f80f7c7d5a303e1240d150d2fef02faca18f2e84f446",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/branding/nacre-master.svg": {
@@ -7954,29 +7992,32 @@
     },
     "nacre/shell-tools/logo-data.js.in": {
       "disposition": "independent",
-      "sha256": "b07abcfc8f1282f83497bfb510fc20a7886d9e1d6e6a28e7073ff3dfa5856f19",
+      "sha256": "18c37982163a5423ba4622908a6f20534459762c28fc6c58ec86273b763a551c",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/login/LogoData.js": {
       "disposition": "independent",
-      "sha256": "ad2e2b95a9ad56042e059d808726bfd826c48d94ce97cc974395b0a0ecb01357",
+      "sha256": "1edbde64b07588314b7fa1a988ff4fe63d79e1e65c995d0a07c99ef4046953ee",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/branding/LogoData.js": {
       "disposition": "independent",
-      "sha256": "ad2e2b95a9ad56042e059d808726bfd826c48d94ce97cc974395b0a0ecb01357",
+      "sha256": "1edbde64b07588314b7fa1a988ff4fe63d79e1e65c995d0a07c99ef4046953ee",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     },
     "nacre/shell/branding/nacre-symbolic.svg": {
@@ -7988,12 +8029,13 @@
       ]
     },
     "docs/specs/nacre-logo.md": {
-      "sha256": "8fe54fff207e7df635a85bd1a63484463cb8f026ad9a0c80dabaec96eb701b1f",
+      "sha256": "32727e3e84abeae2333520c43ad97f062b5e063b1f7d5f8fc939d568fb11d59b",
       "disposition": "non-implementation",
       "evidence": [
         "User-approved logo integration specification authored for this task; records geometry, palette, deployment and provenance requirements.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
-        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
+        "docs/specs/nacre-brain.md: own Brain glyph extension documented; original master and qualified artwork provenance retained."
       ]
     },
     "docs/specs/panel-integration.md": {
@@ -8281,6 +8323,166 @@
       "evidence": [
         "Derived from the unchanged user-provided Nacre master plus own A/I paths. No independent source-creation/licensing certification for supplied shell artwork; existing attribution retained.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+      ]
+    },
+    "ai/skills/nacre-brain/SKILL.md": {
+      "disposition": "non-implementation",
+      "sha256": "ee9679342b5f5102008b5dd3cda48285a7ca892d9b196162eb8826072a8aabe8",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
+    },
+    "ai/skills/nacre-brain/references/maintenance.md": {
+      "disposition": "non-implementation",
+      "sha256": "8cedaaf3e76ca5ca33ca08fb83914f452afb3fb7ca04c05c4a47c41fdad34be8",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "ai/skills/siverteh-brain": {
+      "disposition": "independent",
+      "sha256": "a5349903e0206ff386eb624be5a4f9d15833b6128c2edbedb43b28ed70b4ce1a",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "ai/systemd/nacre-brain-check.service": {
+      "disposition": "non-implementation",
+      "sha256": "a1627b822d9d62afc94384315d696ef272dcdc14136f9aaa9c042973dbac73e7",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "ai/systemd/nacre-brain-check.timer": {
+      "disposition": "non-implementation",
+      "sha256": "85a35eb517e74f65c4c7539d33c35d3041a1cd2d4aded407d84a9b86436569dd",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "ai/systemd/nacre-brain-sync.service": {
+      "disposition": "non-implementation",
+      "sha256": "65e25ac90e94ee54a2320ac3a1e3ede8bc3a4fba5a5e6b1fe911e8538e9579aa",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: a5c973c, adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "ai/systemd/nacre-brain-sync.timer": {
+      "disposition": "non-implementation",
+      "sha256": "0d8ecf151410671daf7b68b6fab756cf7f665712da656cffb1dfec0143e30950",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "bin/nacre-brain": {
+      "disposition": "independent",
+      "sha256": "8c05869bde033bcd6a387c45ddb61c4ac092a2ad32de5550d240c19506a85b1c",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis bcce02f; later 548f0b4, 83b3531, adc96cc. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "bin/nacre-brain-maintain": {
+      "disposition": "independent",
+      "sha256": "abff45e3c93f58d07ce26ad620afec3b9e332fde2375a92bafcf1a416a1f41d5",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis adc96cc; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "bin/nacre-brain-sync": {
+      "disposition": "independent",
+      "sha256": "4936511ab2bc8111a2bb39bb9c7f38dc341fec9518185e79e2b4bf726ae5e3af",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis adc96cc; later 548f0b4, a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "brain/migrate.py": {
+      "disposition": "independent",
+      "sha256": "7462832bcd5b48ac7f2505b5451cb4f7a57058b4f8917fd99fc4dd4bdc8d0f6a",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "brain/tests/test_migration.py": {
+      "disposition": "independent",
+      "sha256": "ac3031d6774070f79852f4f19aeaa62dac62cc895191487bdadc69a268d5bc18",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "docs/features/nacre-brain.md": {
+      "disposition": "independent",
+      "sha256": "c7fc7fadcfd4a3cfad0d636f6c499e89ae31cce3cf43e3f09ab3c336e3b4a94c",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "docs/specs/nacre-brain.md": {
+      "disposition": "independent",
+      "sha256": "fdb22673dde881ab19baa5dee8ed72d58c6553dcf04d90be28b34be393dcbf3f",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "nacre/desktop/nacre-brain.desktop": {
+      "disposition": "independent",
+      "sha256": "e63c1397c0b008293e6cd10859dc00906756613d2c390225fc9bf6fb236eee30",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "nacre/shell-tools/brain-label.svg.in": {
+      "disposition": "independent",
+      "sha256": "6aed4e3a38b659f7b289757c4eeae642732c30643a23702d97ef90aa2648f12e",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "nacre/shell/branding/nacre-brain-compact.svg": {
+      "disposition": "independent",
+      "sha256": "de1f6285724088dd41b40c4a5cd5d306876a99d76534ed36e4d3e16ddf03aece",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "nacre/shell/branding/nacre-brain-symbolic.svg": {
+      "disposition": "independent",
+      "sha256": "e83dd36a500acee0ac592ee7c4e9f6db27aba7ad250069ba8d399d4cc49c670b",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+      ]
+    },
+    "nacre/shell/branding/nacre-brain.svg": {
+      "disposition": "independent",
+      "sha256": "6c66571329327515b4bef5a45c971d5af8203ccb756506f9e43d8ca5c72960fb",
+      "evidence": [
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
       ]
     }
   }

@@ -66,7 +66,7 @@ class Conversation(unittest.TestCase):
 
     def test_memory_creates_topics_worlds_and_deduplicates_evidence(self):
         with tempfile.TemporaryDirectory() as tmp:
-            env = dict(os.environ, HOME=tmp, SIVERTEH_BRAIN=tmp + "/brain")
+            env = dict(os.environ, HOME=tmp, NACRE_BRAIN=tmp + "/brain")
             command = [
                 sys.executable,
                 str(ROOT / "bin/siverteh-ai-memory"),
@@ -150,7 +150,7 @@ class Conversation(unittest.TestCase):
                 env=dict(
                     os.environ,
                     HOME=tmp,
-                    SIVERTEH_BRAIN=str(root),
+                    NACRE_BRAIN=str(root),
                     SIVERTEH_AI_PROJECTS=str(registry),
                 ),
                 check=True,
@@ -178,7 +178,7 @@ class Conversation(unittest.TestCase):
                 input="A preference.",
                 text=True,
                 capture_output=True,
-                env=dict(os.environ, HOME=tmp, SIVERTEH_BRAIN=str(root)),
+                env=dict(os.environ, HOME=tmp, NACRE_BRAIN=str(root)),
                 check=True,
             )
             self.assertEqual(page.read_text(), original)

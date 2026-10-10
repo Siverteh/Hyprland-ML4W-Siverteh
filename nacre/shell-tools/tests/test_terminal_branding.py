@@ -86,7 +86,12 @@ class TerminalBrandingTests(unittest.TestCase):
                 folder.mkdir(parents=True, exist_ok=True)
             script = tools / "branding.py"
             shutil.copyfile(branding.__file__, script)
-            for name in ("logo-data.js.in", "logo-widget.qml.in", "ai-label.svg.in"):
+            for name in (
+                "logo-data.js.in",
+                "logo-widget.qml.in",
+                "ai-label.svg.in",
+                "brain-label.svg.in",
+            ):
                 shutil.copyfile(Path(branding.__file__).with_name(name), tools / name)
             shutil.copyfile(
                 branding.GEOMETRY, root / "nacre/shell/branding/nacre-master.svg"

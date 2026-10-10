@@ -75,7 +75,7 @@ deployment. Configuration migration backups include a manifest under
 and does not terminate the browser profile or other assistants.
 
 After applying, check `systemctl --user is-active nacre-shell.service
-siverteh-sidebar-ai.service siverteh-observatory-brain.service` and
+siverteh-sidebar-ai.service nacre-brain.service` and
 `hyprctl configerrors`. Preserve the original source revision and private backup
 until actual next-login startup has been checked. A health check cannot establish
 that every physical device or cold-boot path works.

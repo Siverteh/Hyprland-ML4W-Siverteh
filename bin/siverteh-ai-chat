@@ -270,7 +270,7 @@ def knowledge_call(name, args):
         command = [str(folder / "siverteh-ai-context"), args["query"]]
         body = None
     elif name == "find_knowledge":
-        command = [str(folder / "siverteh-brain"), "search", args["query"]]
+        command = [str(folder / "nacre-brain"), "search", args["query"]]
         body = None
     else:
         command = [
@@ -529,7 +529,7 @@ def main():
             "--ask-for-approval",
             "never",
             "--add-dir",
-            str(Path.home() / "Documents/Siverteh-Brain"),
+            str(Path.home() / "Documents/Nacre-Brain"),
         ]
         # tmux may predate this account selection; pass its home to the new child explicitly.
         if env.get("CODEX_HOME"):

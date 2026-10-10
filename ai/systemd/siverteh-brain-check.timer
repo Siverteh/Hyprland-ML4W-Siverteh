@@ -1,7 +1,1 @@
-[Unit]
-Description=Daily private brain backup and health check
-[Timer]
-OnCalendar=daily
-Persistent=true
-[Install]
-WantedBy=timers.target
+nacre-brain-check.timer

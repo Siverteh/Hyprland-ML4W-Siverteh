@@ -39,7 +39,7 @@ class StartupTests(unittest.TestCase):
                 "discord",
                 "Spotify",
                 "org.gnome.Evolution",
-                "siverteh-brain",
+                "nacre-brain",
             ]
         ]
         self.assertTrue(all(p[3] for p in m.plan(clients)))

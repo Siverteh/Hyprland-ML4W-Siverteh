@@ -164,7 +164,7 @@ def resume(key, terminal=False):
                 "-C",
                 project["path"],
                 "--add-dir",
-                str(HOME / "Documents/Siverteh-Brain"),
+                str(HOME / "Documents/Nacre-Brain"),
             ],
             env,
         )
@@ -172,7 +172,10 @@ def resume(key, terminal=False):
 
 def brain_search(query):
     vault = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Nacre-Brain")),
+        )
     ).resolve()
     words = [w.casefold() for w in query.split() if w]
     if not words:
@@ -214,7 +217,10 @@ def brain_search(query):
 
 def open_note(path):
     vault = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Nacre-Brain")),
+        )
     ).resolve()
     file = (vault / path).resolve()
     if not file.is_relative_to(vault) or file.suffix != ".md" or not file.is_file():
@@ -470,7 +476,12 @@ def main():
             result = True
         elif args.action == "explore":
             vault = Path(
-                os.environ.get("SIVERTEH_BRAIN", str(HOME / "Documents/Siverteh-Brain"))
+                os.environ.get(
+                    "NACRE_BRAIN",
+                    os.environ.get(
+                        "SIVERTEH_BRAIN", str(HOME / "Documents/Nacre-Brain")
+                    ),
+                )
             ).resolve()
             file = (vault / payload["path"]).resolve()
             if (

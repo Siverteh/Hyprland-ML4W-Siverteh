@@ -59,14 +59,15 @@ def templates():
     )
     full = re.sub(r'viewBox="[^"]+"', f'viewBox="{VIEWBOX}"', original, count=1)
     values = {"full": full, "compact": compact, "symbolic": symbolic}
-    label = (HERE / "ai-label.svg.in").read_text()
-    for variant, source in list(values.items()):
-        suffix = label
-        if variant == "symbolic":
-            suffix = suffix.replace("@AI_PRIMARY@", "currentColor").replace(
-                "@AI_SECONDARY@", "currentColor"
+    for application in ("ai", "brain"):
+        label = (HERE / (application + "-label.svg.in")).read_text()
+        for variant in ("full", "compact", "symbolic"):
+            suffix = label
+            if variant == "symbolic":
+                suffix = re.sub(r"@[A-Z_]+@", "currentColor", suffix)
+            values[application + "-" + variant] = values[variant].replace(
+                "</svg>", suffix + "</svg>"
             )
-        values["ai-" + variant] = source.replace("</svg>", suffix + "</svg>")
     return values
 
 
@@ -117,6 +118,7 @@ def role_colors(colors):
     primary = lift(colors.get("primary", "47a99a"))
     return {
         "PRIMARY": primary,
+        "ON_PRIMARY": "#ffffff" if luminance(primary) < 0.179 else "#000000",
         "SECONDARY": lift(colors.get("secondary", primary)),
         "AI_PRIMARY": lift(colors.get("primary", primary), 4.5),
         "AI_SECONDARY": lift(colors.get("secondary", primary), 4.5),
@@ -248,10 +250,11 @@ def publish(colors, home=None):
     # Kitty composites alpha over its own background, including opacity effects.
     # Baking a palette surface into the image produces a visible square.
     atomic(folder / "nacre.png", stream.getvalue())
-    ai_image = raster(svg(False, colors, "ai-full"))
-    ai_stream = io.BytesIO()
-    ai_image.save(ai_stream, format="PNG")
-    atomic(folder / "nacre-ai.png", ai_stream.getvalue())
+    for application in ("ai", "brain"):
+        image = raster(svg(False, colors, application + "-full"))
+        stream = io.BytesIO()
+        image.save(stream, format="PNG")
+        atomic(folder / ("nacre-" + application + ".png"), stream.getvalue())
     for variant, name in [
         ("full", "nacre.svg"),
         ("compact", "nacre-compact.svg"),
@@ -259,6 +262,9 @@ def publish(colors, home=None):
         ("ai-full", "nacre-ai.svg"),
         ("ai-compact", "nacre-ai-compact.svg"),
         ("ai-symbolic", "nacre-ai-symbolic.svg"),
+        ("brain-full", "nacre-brain.svg"),
+        ("brain-compact", "nacre-brain-compact.svg"),
+        ("brain-symbolic", "nacre-brain-symbolic.svg"),
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo().encode())
@@ -267,6 +273,10 @@ def publish(colors, home=None):
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg",
         svg(False, colors, "ai-full").encode(),
+    )
+    atomic(
+        home / ".local/share/icons/hicolor/scalable/apps/nacre-brain.svg",
+        svg(False, colors, "brain-full").encode(),
     )
     # Already-open old menus read the previous filename; it contains the new art.
     for legacy, current in [
@@ -301,6 +311,9 @@ def build():
         ("ai-full", "nacre-ai.svg"),
         ("ai-compact", "nacre-ai-compact.svg"),
         ("ai-symbolic", "nacre-ai-symbolic.svg"),
+        ("brain-full", "nacre-brain.svg"),
+        ("brain-compact", "nacre-brain-compact.svg"),
+        ("brain-symbolic", "nacre-brain-symbolic.svg"),
     ]:
         (root / "shell/branding" / name).write_text(values[variant])
     (root / "shell/branding/nacre-text.txt").write_text(text_logo())
@@ -315,6 +328,12 @@ def build():
         + json.dumps(values["ai-full"])
         + ";\nvar aiCompactTemplate="
         + json.dumps(values["ai-compact"])
+        + ";\n"
+        + "var brainFullTemplate="
+        + json.dumps(values["brain-full"])
+        + ";\n"
+        + "var brainCompactTemplate="
+        + json.dumps(values["brain-compact"])
         + ";\n"
         + helper
     )
@@ -359,12 +378,13 @@ def build():
     symbol_match = re.search(r'<symbol id="(?:sh|nacre)".*?</symbol>', text, re.S)
     if not symbol_match:
         raise RuntimeError("Brain logo symbol missing")
-    inner = values["compact"].split(">", 1)[1].rsplit("</svg>", 1)[0]
+    inner = values["brain-compact"].split(">", 1)[1].rsplit("</svg>", 1)[0]
     for role, var in [
         ("PRIMARY", "accent"),
         ("SECONDARY", "secondary"),
         ("TERTIARY", "tertiary"),
         ("HIGHLIGHT", "logo-highlight"),
+        ("ON_PRIMARY", "on-accent"),
     ]:
         inner = inner.replace("@" + role + "@", "var(--" + var + ")")
     text = (

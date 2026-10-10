@@ -41,9 +41,9 @@ def plan(clients):
         (
             "Brain",
             6,
-            ["systemctl", "--user", "start", "siverteh-observatory-brain.service"],
+            ["systemctl", "--user", "start", "nacre-brain.service"],
             any(
-                c["class"] == "siverteh-brain" or c.get("title") == "Nacre Brain"
+                c["class"] == "nacre-brain" or c.get("title") == "Nacre Brain"
                 for c in clients
             ),
         ),

@@ -35,8 +35,8 @@ class IsolatedWorkflowTest(unittest.TestCase):
         for key in (
             "CODEX_HOME",
             "CLAUDE_CONFIG_DIR",
-            "SIVERTEH_BRAIN",
-            "SIVERTEH_BRAIN_DIR",
+            "NACRE_BRAIN",
+            "NACRE_BRAIN_DIR",
             "SIVERTEH_AI_PROJECTS",
             "SIVERTEH_AI_SETTINGS",
         ):
@@ -58,7 +58,7 @@ class BrainTests(IsolatedWorkflowTest):
             for field in ("--title", "--source"):
                 argv = [
                     sys.executable,
-                    str(ROOT / "bin/siverteh-brain"),
+                    str(ROOT / "bin/nacre-brain"),
                     "note",
                     "--title",
                     "Title",
@@ -70,7 +70,7 @@ class BrainTests(IsolatedWorkflowTest):
                     argv,
                     input="Ordinary body",
                     text=True,
-                    env=dict(os.environ, SIVERTEH_BRAIN=tmp),
+                    env=dict(os.environ, NACRE_BRAIN=tmp),
                     capture_output=True,
                 )
                 self.assertNotEqual(result.returncode, 0)
@@ -79,10 +79,10 @@ class BrainTests(IsolatedWorkflowTest):
     def test_concurrent_notes_are_private_and_distinct(self):
         with tempfile.TemporaryDirectory() as tmp:
             vault = Path(tmp) / "private"
-            env = dict(os.environ, SIVERTEH_BRAIN=str(vault))
+            env = dict(os.environ, NACRE_BRAIN=str(vault))
             # Initialization is done by installation before concurrent writers.
             subprocess.run(
-                [sys.executable, str(ROOT / "bin/siverteh-brain"), "init"],
+                [sys.executable, str(ROOT / "bin/nacre-brain"), "init"],
                 env=env,
                 check=True,
                 capture_output=True,
@@ -92,7 +92,7 @@ class BrainTests(IsolatedWorkflowTest):
                 return subprocess.run(
                     [
                         sys.executable,
-                        str(ROOT / "bin/siverteh-brain"),
+                        str(ROOT / "bin/nacre-brain"),
                         "note",
                         "--title",
                         "Concurrent fact",
@@ -117,7 +117,7 @@ class BrainTests(IsolatedWorkflowTest):
                 self.assertEqual(stat.S_IMODE(Path(name).stat().st_mode), 0o600)
 
     def test_common_secret_values_are_rejected_but_references_allowed(self):
-        brain = module("siverteh-brain")
+        brain = module("nacre-brain")
         for text in [
             "password: example-private-value",
             "-----BEGIN OPENSSH PRIVATE KEY-----",
@@ -126,16 +126,16 @@ class BrainTests(IsolatedWorkflowTest):
             with self.assertRaises(ValueError):
                 brain.safe_note(text)
         brain.safe_note(
-            "Credential reference: secret-service://siverteh-brain/development"
+            "Credential reference: secret-service://nacre-brain/development"
         )
 
     def test_failed_note_does_not_create_a_note_file(self):
         with tempfile.TemporaryDirectory() as tmp:
-            env = dict(os.environ, SIVERTEH_BRAIN=tmp)
+            env = dict(os.environ, NACRE_BRAIN=tmp)
             result = subprocess.run(
                 [
                     sys.executable,
-                    str(ROOT / "bin/siverteh-brain"),
+                    str(ROOT / "bin/nacre-brain"),
                     "note",
                     "--title",
                     "Blocked",
@@ -499,7 +499,7 @@ class WorkflowTests(IsolatedWorkflowTest):
                 (home / ".codex/auth.json").read_text(), "Existing account data"
             )
             self.assertEqual(registry.read_text(), '{"projects": []}')
-            self.assertTrue((home / ".agents/skills/siverteh-brain").is_symlink())
+            self.assertTrue((home / ".agents/skills/nacre-brain").is_symlink())
 
     def test_installer_preserves_foreign_guidance_symlink_target(self):
         with tempfile.TemporaryDirectory() as tmp:

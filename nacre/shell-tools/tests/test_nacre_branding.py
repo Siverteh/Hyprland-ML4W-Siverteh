@@ -126,11 +126,15 @@ class NacreBrandingTests(unittest.TestCase):
         ] + [True]
         with tempfile.TemporaryDirectory() as folder:
             script = Path(folder) / "binding.js"
-            for ai, variant in [(False, "compact"), (True, "ai-compact")]:
+            for ai, brain, variant in [
+                (False, False, "compact"),
+                (True, False, "ai-compact"),
+                (False, True, "brain-compact"),
+            ]:
                 script.write_text(
                     source
                     + "\nprocess.stdout.write(colored(..."
-                    + json.dumps([*args, ai])
+                    + json.dumps([*args, ai, brain])
                     + "));"
                 )
                 result = subprocess.check_output([*command, str(script)], text=True)

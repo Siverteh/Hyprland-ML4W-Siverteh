@@ -101,7 +101,12 @@ def setup_status():
             state = "could not check login"
         rows.append(label + " · " + (account or "Default") + ": " + state)
     vault = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get(
+                "SIVERTEH_BRAIN", str(Path.home() / "Documents/Nacre-Brain")
+            ),
+        )
     )
     rows.append("Shared brain: " + ("available" if vault.is_dir() else "missing"))
     return rows
@@ -1039,7 +1044,12 @@ def load_task(args):
         "-C",
         item.get("cwd") or project["path"],
         "--add-dir",
-        os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain")),
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get(
+                "SIVERTEH_BRAIN", str(Path.home() / "Documents/Nacre-Brain")
+            ),
+        ),
     ]
     exec_local_codex(argv, env)
 
@@ -1162,7 +1172,12 @@ def run_project(args):
         return ssh_exec(p["host"], command)
     env = local_environment(args.account)
     vault = Path(
-        os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain"))
+        os.environ.get(
+            "NACRE_BRAIN",
+            os.environ.get(
+                "SIVERTEH_BRAIN", str(Path.home() / "Documents/Nacre-Brain")
+            ),
+        )
     )
     executable = str(Path.home() / ".local/bin/codex")
     if args.command == "shell":
@@ -1186,7 +1201,7 @@ def run_project(args):
             "Respect build_host/build_path for heavy builds.\n\n"
             "Use siverteh-ai-context QUERY to find project candidates and routing; do not silently guess an ambiguous target. "
             "Use siverteh-ai-memory with --world and --topic to capture meaningful durable knowledge from any subject, "
-            "including personal interests and research, not just code. Read ~/.agents/skills/siverteh-brain/SKILL.md.\n"
+            "including personal interests and research, not just code. Read ~/.agents/skills/nacre-brain/SKILL.md.\n"
         )
         trust_created_chat(directory, env)
         argv = [
@@ -1322,14 +1337,14 @@ def main():
         binary = str(Path.home() / ".local/bin/codex")
         os.execvpe(binary, [binary, "login"], env)
     elif args.command == "brain":
-        explorer = Path.home() / ".local/bin/siverteh-brain-ui"
-        if explorer.exists() and os.environ.get("SIVERTEH_BRAIN_VIEW") != "notes":
+        explorer = Path.home() / ".local/bin/nacre-brain-ui"
+        if explorer.exists() and os.environ.get("NACRE_BRAIN_VIEW") != "notes":
             subprocess.Popen([str(explorer), "brain"], start_new_session=True)
             return
         vault = subprocess.check_output(
-            [str(Path.home() / ".local/bin/siverteh-brain"), "init"], text=True
+            [str(Path.home() / ".local/bin/nacre-brain"), "init"], text=True
         ).strip()
-        sync = shutil.which("siverteh-brain-sync")
+        sync = shutil.which("nacre-brain-sync")
         if sync:
             try:
                 subprocess.run([sync], timeout=50, check=False)

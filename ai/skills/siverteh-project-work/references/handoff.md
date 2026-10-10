@@ -1,7 +1,7 @@
 # Cross-assistant task checkpoint
 
 At a verified milestone, before a long wait, or before ending unfinished work,
-save a compact checkpoint through `siverteh-brain note --kind checkpoints`.
+save a compact checkpoint through `nacre-brain note --kind checkpoints`.
 Search the project/task first and skip unchanged duplicate checkpoints.
 
 Include only useful fields:

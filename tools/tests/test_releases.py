@@ -124,7 +124,7 @@ class RetentionTests(unittest.TestCase):
 
 class OptionalServiceGateTests(unittest.TestCase):
     def test_stopped_sidebar_is_not_required_or_started_by_desktop_deployment(self):
-        active = {"nacre-shell.service", "siverteh-observatory-brain.service"}
+        active = {"nacre-shell.service", "nacre-brain.service"}
         self.assertNotIn(
             "siverteh-sidebar-ai.service",
             m.required_live_services(["configs", "shell", "brain"], active),
@@ -136,7 +136,7 @@ class OptionalServiceGateTests(unittest.TestCase):
             ),
         )
         self.assertIn(
-            "siverteh-observatory-brain.service",
+            "nacre-brain.service",
             m.required_live_services(["brain"], set()),
         )
 

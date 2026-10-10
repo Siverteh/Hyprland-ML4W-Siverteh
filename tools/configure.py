@@ -51,6 +51,12 @@ def files(root=ROOT):
         "nacre-app",
         "nacre-ai",
         "nacre-terminal-logo",
+        "nacre-brain",
+        "nacre-brain-maintain",
+        "nacre-brain-sync",
+        "siverteh-brain",
+        "siverteh-brain-maintain",
+        "siverteh-brain-sync",
         "siverteh-os-app",
         "xdg-open",
     ):
@@ -61,9 +67,15 @@ def files(root=ROOT):
     result[Path(".local/share/applications/nacre-ai.desktop")] = (
         root / "nacre/desktop/nacre-ai.desktop"
     )
-    result[Path(".local/bin/siverteh-brain-sync")] = root / "bin/siverteh-brain-sync"
-    result[Path(".config/systemd/user/siverteh-brain-sync.service")] = (
-        root / "ai/systemd/siverteh-brain-sync.service"
+    result[Path(".local/share/applications/nacre-brain.desktop")] = (
+        root / "nacre/desktop/nacre-brain.desktop"
+    )
+    for kind in ("sync", "check"):
+        for suffix in ("service", "timer"):
+            name = f"nacre-brain-{kind}.{suffix}"
+            result[Path(".config/systemd/user") / name] = root / "ai/systemd" / name
+    result[Path(".config/systemd/user/nacre-brain-sync.service")] = (
+        root / "ai/systemd/nacre-brain-sync.service"
     )
     result[Path(".config/systemd/user/nacre-power-key.service")] = (
         root / "nacre/shell-tools/nacre-power-key.service"

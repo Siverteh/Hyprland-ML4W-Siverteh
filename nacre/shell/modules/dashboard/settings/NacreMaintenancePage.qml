@@ -9,10 +9,10 @@ NacreSettingsPage {
     readonly property var serviceNames: ({
             "nacre-shell.service": "Desktop",
             "siverteh-sidebar-ai.service": "AI chat",
-            "siverteh-observatory-brain.service": "Brain",
+            "nacre-brain.service": "Brain",
             "nacre-session-watch.service": "Session monitor",
             "hypridle.service": "Sleep locking",
-            "siverteh-brain-sync.timer": "Knowledge sync",
+            "nacre-brain-sync.timer": "Knowledge sync",
             "xdg-desktop-portal.service": "Desktop portal",
             "xdg-desktop-portal-hyprland.service": "Screen sharing",
             "xdg-document-portal.service": "File access"

@@ -299,12 +299,12 @@ class SharedHelperOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root, home = Path(folder) / "repo", Path(folder) / "home"
             (root / "bin").mkdir(parents=True)
-            for name in ("nacre-app", "xdg-open", "siverteh-brain-sync"):
+            for name in ("nacre-app", "xdg-open", "nacre-brain-sync"):
                 (root / "bin" / name).write_text("new helper")
-            target = home / ".local/bin/siverteh-brain-sync"
+            target = home / ".local/bin/nacre-brain-sync"
             target.parent.mkdir(parents=True)
             target.write_text("recognized old helper")
-            legacy = {".local/bin/siverteh-brain-sync": module.digest(target)}
+            legacy = {".local/bin/nacre-brain-sync": module.digest(target)}
             with patch.object(module, "LEGACY_SYNC", legacy):
                 module.apply(home, root, app_routes_only=True)
                 self.assertEqual(target.read_text(), "recognized old helper")
