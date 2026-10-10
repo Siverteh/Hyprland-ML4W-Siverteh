@@ -24,6 +24,8 @@ Item {
  width:500; height:400
  Item {
   id:surface; width:500; height:400
+  property string liveNote:"read-only-sensitive-value"
+  TextEdit {id:note;objectName:"note";readOnly:true;text:surface.liveNote}
   TextInput {id:field;objectName:"draft";text:"draft text"}
   TextInput {id:password;objectName:"password";echoMode:TextInput.Password;text:"protected-value"}
   Flickable {id:scroll;objectName:"scroll";y:50;width:200;height:200;contentHeight:1200;contentWidth:200;Rectangle {width:200;height:1200}}
@@ -34,9 +36,16 @@ Item {
    field.select(1,4);scroll.contentY=320;
    const saved=State.capture(surface);
    verify(!JSON.stringify(saved).includes("protected-value"));
+   verify(!JSON.stringify(saved).includes("read-only-sensitive-value"));
    field.text="";scroll.contentY=0;
    State.restore(surface,saved);
    compare(field.text,"draft text");compare(field.selectionStart,1);compare(field.selectionEnd,4);compare(scroll.contentY,320);
+  }
+  function test_read_only_binding_survives_old_snapshot_restore() {
+   State.restore(surface, {"root/note": {text:"old rendered text",cursor:0}});
+   compare(note.text,surface.liveNote);
+   surface.liveNote="new live note";
+   compare(note.text,"new live note");
   }
  }
 }""")

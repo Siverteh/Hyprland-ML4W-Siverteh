@@ -1661,3 +1661,25 @@ deadline unchanged, configerrors empty. No user app logout/restart/package/admin
 action or typography change. Three current source/manifest/test reviews added;
 whole installer remains separately audited. Remaining source/assets/tests/
 packaging/dependencies and final comparison still open, notices/full goal retained.
+
+## Shared foundation current-source review
+
+[Source table](FOUNDATION-SOURCE-AUDIT.md) records 51 exact current files under
+widgets/config/utils (BrandLogo already separately reviewed). Actual full bodies
+reviewed against independent replacement specs/boundaries cb07776/9a3b9a7, with
+02b2bda native owners and eea01b9 optional native image refinement. Compatibility
+classes are new adapters; public scalar preferences/API names are preserved
+contracts, not old implementation. Mixed ActionButton/edge/scroll/view-state/
+rotation/Wi-Fi helpers trace their own local feature introductions. Mechanical
+first-body comparisons supplement history; the only five-line shared edge block
+traces to own Overview 007d020, with formatter changes distinguished. Prior own
+source exposure acknowledged, no legal clean-room/whole-license claim.
+
+Actual native Qt state fixture fails on baseline: readOnly TextEdit is serialized
+and an older snapshot overwrites its live binding. Added exclusion to both
+capture/restore; fixed test preserves editable draft/selection/scroll and password
+exclusion while read-only live binding updates normally. One own state-test review
+added; other fixture/test/dependency scopes remain explicit, not certified by
+association. No panel/typography/palette/motion/input redesign, new polling or
+user preference reset. Third-party native APIs/fonts retain their proper source
+and notices. Full remaining tree/comparison requirements and goal remain open.

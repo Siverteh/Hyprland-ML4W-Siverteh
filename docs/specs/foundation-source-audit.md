@@ -40,3 +40,15 @@ no busy backend restart or user app/account/power action. Exact-main CI, hashes
 and provenance integrity. Other services/panels/helpers/assets/tests/packaging/
 AI+Brain/full comparison and cold-login/fresh-session limits remain separate;
 whole originality goal only complete after every original requirement is proven.
+
+Current 51 source bodies reviewed individually: controls/config/adapters trace
+cb07776/9a3b9a7 and subsequent 02b2bda/eea01b9 native-owner/image refinements;
+six mixed helpers have separate local origins. Original peer/predecessor matches
+are absent except five-line Qt edge animation block traced to own Overview 007d020.
+Public preference values/interface names retained, not asserted original algorithms.
+Current source exposure acknowledged, no legal clean-room/final-license claim.
+Native state utility test demonstrates baseline read-only text capture/binding
+overwrite after old snapshot restoration. Exclude readOnly controls in capture
+and restore while keeping drafts, selections, scroll and password exclusion.
+Other foundation fixtures provide acceptance, but their whole-source reviews
+remain separate; no certification by association from actual test success.

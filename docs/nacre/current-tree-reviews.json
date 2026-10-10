@@ -1612,6 +1612,524 @@
         "docs/nacre/PROVENANCE.md#font-asset-provenance-and-independent-provisioning",
         "New own actual temp-HOME migration/install/drift/checksum/cache-failure/rollback fixtures, authored from spec and owner contracts. Small synthetic byte payloads only, no source/font blob/private state or upstream implementation fixture. Does not substitute for separate real-font/native-render acceptance."
       ]
+    },
+    "nacre/shell/config/Appearance.qml": {
+      "disposition": "independent",
+      "sha256": "78ab73b3835cce921a60f3b4a683113556a821592b3576d1cb3f619cc9cb6593",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/BarConfig.qml": {
+      "disposition": "independent",
+      "sha256": "3b7f2d4574f6bd0afc72bd9c447f97935c4ca01ceed947eae7758937227ca4a9",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/BorderConfig.qml": {
+      "disposition": "independent",
+      "sha256": "1727888b4bcace47abf07517196326852024a677f071492d7c7c3b11523df8ce",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/DashboardConfig.qml": {
+      "disposition": "independent",
+      "sha256": "e1355d86a7b9f2712dc2fd94c6139bd8a324a7adf8b4486b8c8e02734c97a063",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/LauncherConfig.qml": {
+      "disposition": "independent",
+      "sha256": "facae6705b8f5f0047829bc3f3686909d1b8ad1e10ea6b6b75d8f717df0e8cb6",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreAppearance.qml": {
+      "disposition": "independent",
+      "sha256": "4efb78e8195fbb172006482e3c66ca7c32dc02959f094458967d712ac71c9203",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreBar.qml": {
+      "disposition": "independent",
+      "sha256": "4e2ef5c78596874943d9cbb2a938bf292258758badb233436ce1402d4e3f7797",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreDashboard.qml": {
+      "disposition": "independent",
+      "sha256": "35b45c8542e5861c1f92675255783ceccbc6beb9188ac5df67322fe48c8c55cc",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreFrame.qml": {
+      "disposition": "independent",
+      "sha256": "c10f73c14fda1677c1742a75034f64e03484400d6a561301e10672b0d958de1f",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreLauncher.qml": {
+      "disposition": "independent",
+      "sha256": "a0bfde5813fb2e454c6436cf7dbec4875001232938b17a04f150f6460393430a",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreNotifications.qml": {
+      "disposition": "independent",
+      "sha256": "b9c807a62f98c1647dcf840b9cf67d0d2256dc6356a1a0ee5fa63f5e666403f7",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreOsd.qml": {
+      "disposition": "independent",
+      "sha256": "97c95f0256e87bc7db6feaf406a7351daf5f4b070edc4468f6a5ce01e7313cae",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NacreSession.qml": {
+      "disposition": "independent",
+      "sha256": "689be6fbf8f9daccef36c192ac738bcc09fbb07c03eea7deee8af31ab6f88fed",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/NotifsConfig.qml": {
+      "disposition": "independent",
+      "sha256": "52755e34ea262b46051b95b9310093eb8b90bd5109d10ac0a1a23b39fb72e6d3",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/OsdConfig.qml": {
+      "disposition": "independent",
+      "sha256": "fa4a6c77ad60d44a7dc93761ea64ed3e5bb7eb9e37c21635f2c1f0ef7d51346d",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/config/SessionConfig.qml": {
+      "disposition": "independent",
+      "sha256": "ef5ee66ccece2de19609ebdf06bdc96569c3063fded439791538783fc6078125",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/Icons.qml": {
+      "disposition": "independent",
+      "sha256": "85aedd34f87102def354020a790811519f8a5a70d6f59e242d7279b4887a16a9",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/NacreIcons.qml": {
+      "disposition": "independent",
+      "sha256": "05e60ab81c2fa6c300cf2eec52ff93e8b22ec4b469adb76dedaed303b4daa32e",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/NacrePaths.qml": {
+      "disposition": "independent",
+      "sha256": "e2cedbe6cff831a26fd4b0fef9167c174d9a104fb4c21e01ee73ab318398fc70",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/Paths.qml": {
+      "disposition": "independent",
+      "sha256": "f73f2f1a077780d0d63745947a03587c48879fcfe860b4c5d7df57a1ed936ef5",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/scripts/view-state.js": {
+      "disposition": "independent",
+      "sha256": "d9053b84dbcb475590924cada353f7c7b26e9be00b5da9778179db6eb0e83fc3",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis b12961b: Local display-rebuild UI memento; current native regression proves read-only text exclusion and preserving live bindings, new fix after baseline failure. Subsequent current-file history: 548f0b4. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/scripts/wallpaper-rotation.js": {
+      "disposition": "independent",
+      "sha256": "eddd37cd067cce7f1020cf920fa9c53ca705259972a4d32d2dd1c600ef8bb309",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 4ea19d5: Local rotation pool/shuffle/no-repeat helper from user wallpaper feature; current body retained, no wallpaper process/selection owner added. Subsequent current-file history: 548f0b4. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/utils/scripts/wifi-networks.js": {
+      "disposition": "independent",
+      "sha256": "beb843d76a5626bc5ce7c9f504174f8e3c942f99dfa3737c316c63e48a47c31b",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis d2e2e40: Local AP grouping with connected-first selection/reactive duplicate reads, public network schema, no new backend owner. Subsequent current-file history: 548f0b4. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/ActionButton.qml": {
+      "disposition": "independent",
+      "sha256": "073153e2487c6ac0689918eb39ab1a261ba4167ec23ea32b0a8c8b6fd3a19115",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 007d020: Locally introduced native-tool button; own foundation call migration 9a3b9a7 and owner 02b2bda. Subsequent current-file history: 02b2bda, 9a3b9a7, 548f0b4, 2c1d2ca, 83b3531, 5d0028f, 36dc0ba. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/CachingImage.qml": {
+      "disposition": "independent",
+      "sha256": "6e4d4d2bc63a7ad58fe9d5e38340b4e9b9e539efe2c1a1353694cc103acbb858",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/Colouriser.qml": {
+      "disposition": "independent",
+      "sha256": "43d33d2f788519a4db858f30a370d10a281776bed93326f6e7a5160cfaecb561",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/CustomShortcut.qml": {
+      "disposition": "independent",
+      "sha256": "24bbb595eb17f2700560cf8af8f5ee412a774b94e706b1b761f72f07767ec5e2",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/EdgeMenuHandle.qml": {
+      "disposition": "independent",
+      "sha256": "68cdc512ae3c28512cb943b5d3b37c1100b0f6016358a645f02fedc6e231d7f8",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 6fb4d5a: Local clickable edge feature; shared five-line native animation setup traced to own Overview 007d020, formatting 83b3531 is not authorship; foundation/owner migration 9a3b9a7/02b2bda. Subsequent current-file history: 02b2bda, 9a3b9a7, 548f0b4, 2c1d2ca. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/FastScroll.qml": {
+      "disposition": "independent",
+      "sha256": "c77a4223d54c8afd71d87cba52ae2d899763df86d8436e69c53190c4742606e5",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis e3d0298: Local chat scrolling owner, momentum 973e0a4, shared speed 36dc0ba; current Qt WheelHandler/finite animation/native flick implementation retained. Subsequent current-file history: 548f0b4, 2c1d2ca, 83b3531, 36dc0ba, 973e0a4, 5c3cd84. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/MaterialIcon.qml": {
+      "disposition": "independent",
+      "sha256": "57d296ae2742684163e82c2215db305c93ff6d7771112cbd2968a61b3f35998f",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreClip.qml": {
+      "disposition": "independent",
+      "sha256": "888291e85776d4e304c69c04a4040e3258a1ace634ae0a58e53674306345a818",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreIcon.qml": {
+      "disposition": "independent",
+      "sha256": "dc5e824918a862e33c85924ce1f2c1d888930f82cd58f9a397649a57f423dff7",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreImage.qml": {
+      "disposition": "independent",
+      "sha256": "86843b4aef0bcafaae139b05264125c51ee1bdfe73152e0fbf6b9dfbe6d73566",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: eea01b9. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreInteraction.qml": {
+      "disposition": "independent",
+      "sha256": "c50115dd0836654fde17e6d08e1290c51078396c7a33d928fd43d5eff94aab4e",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreScrollBar.qml": {
+      "disposition": "independent",
+      "sha256": "0c87b38e3543d6250d5629f042504701e3cfd04dabec680f0e9491edd1c61771",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreShortcut.qml": {
+      "disposition": "independent",
+      "sha256": "511d30f657bbecf5202e93c836234bb4a852631d927a64e0194c4fe46b3fd22d",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreSlider.qml": {
+      "disposition": "independent",
+      "sha256": "6b5b8869f542e37540571c1a6d598f43f49ca57fb58079da629f8a26c197fcd5",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreSurface.qml": {
+      "disposition": "independent",
+      "sha256": "fba49ed08619e095e596e4fc45bcea0c5ee7c2818f4f7e7706f898f809cafea9",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreText.qml": {
+      "disposition": "independent",
+      "sha256": "6da7855d881f877f193d2972808797084dad4d3f39a30cad69bcb8c302446031",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreTextField.qml": {
+      "disposition": "independent",
+      "sha256": "661aa4e41a563e605eef5b0837c5c5610900fba9d2978406fe9a69e481c947e9",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreTint.qml": {
+      "disposition": "independent",
+      "sha256": "8a733ad44c5df41c8de9f30089b99991281d5d9ec0dee686d3297b16615e6176",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreTokens.qml": {
+      "disposition": "independent",
+      "sha256": "17fb570bcc34219b5e12745266c35ea539c0d94027bbd2b9328f7098eac65c67",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: 02b2bda. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/NacreWindow.qml": {
+      "disposition": "independent",
+      "sha256": "5ac820cc9a998f3eec78382f8d75b0093a9a9dcd9620346a1d042fcbf9e7c65b",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StateLayer.qml": {
+      "disposition": "independent",
+      "sha256": "e7840f0f83117ceb8a2446709bd552f807c9617c56debd7ce01d2bad9cbdd577",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledClippingRect.qml": {
+      "disposition": "independent",
+      "sha256": "1d982ccb611144025c2080c3ae439d41b392738b85f98b3ff44cf4dbad0a2ba2",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledRect.qml": {
+      "disposition": "independent",
+      "sha256": "edfb9cea12650ce0f30a134cde55dd34ecb6a7536bf3abc50b481c97b2d45c51",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledScrollBar.qml": {
+      "disposition": "independent",
+      "sha256": "be3b85a281a7e61d69a17d66024b494c28c70ce9793f4a0630b538006552f1a2",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledText.qml": {
+      "disposition": "independent",
+      "sha256": "a929965c314b91af5fca387ecbb24c2dbd2889d4d377d877bf4510211a15481c",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/design-foundation.md",
+        "Current full body reviewed; basis cb07776: Independent text/surface/token/native-clip/interaction replacement from design-foundation spec; inherited target bodies deleted before composition and own compatibility adapters authored. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledTextField.qml": {
+      "disposition": "independent",
+      "sha256": "5ee13283e0adfed189122675875e219b80c5b8230a74d3c6952fce8494dacd5c",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/StyledWindow.qml": {
+      "disposition": "independent",
+      "sha256": "51329656f7588ce0ceae6bf8def6df8024603e317992b957ae531a81750c0428",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell/widgets/VerticalSlider.qml": {
+      "disposition": "independent",
+      "sha256": "e72dca8ed525d75ba6f8b53062248b1b415c1a87d4e4b5f13de10eb61a813259",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
+        "docs/specs/foundation-controls.md",
+        "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
+      ]
+    },
+    "nacre/shell-tools/tests/test_view_state.py": {
+      "disposition": "independent",
+      "sha256": "eb88b990f601aa59aa7c0c6952af62de2a96240f13c8f81ce29114c09f80f942",
+      "evidence": [
+        "docs/specs/foundation-source-audit.md",
+        "local display-state native fixture b12961b; current actual read-only/password/draft/selection/scroll/binding regression additions from observed gap, no private fixture or upstream implementation embedded; other native fixture origins remain separate"
+      ]
     }
   }
 }

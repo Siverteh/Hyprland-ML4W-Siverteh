@@ -214,3 +214,7 @@ and HTTPS artwork reads are capped before image decoding, with the same prepared
 fallback. These helpers supply presentation only; Hyprlock retains authentication
 and the managed session/sleep lock path. Private font-source ownership remains a
 separate asset audit, not inferred from the presentation code.
+
+Display rebuild UI state capture retains editable drafts/selections and scroll
+positions. Read-only rendered text and password controls are excluded; restoring
+an older snapshot cannot assign into a read-only text binding.

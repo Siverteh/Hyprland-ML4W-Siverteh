@@ -16,7 +16,7 @@ function capture(root) {
             state.y = item.contentY - (item.originY || 0);
             state.x = item.contentX - (item.originX || 0);
         }
-        if (typeof item.cursorPosition === "number" && (item.echoMode === undefined || item.echoMode === 0)) {
+        if (typeof item.cursorPosition === "number" && item.readOnly !== true && (item.echoMode === undefined || item.echoMode === 0)) {
             state.text = String(item.text || "").slice(0, 100000);
             state.cursor = item.cursorPosition;
             state.selectionStart = item.selectionStart;
@@ -41,7 +41,7 @@ function restore(root, saved) {
             }
             for (const key of ["section", "captureOpen", "category", "paletteGroup"])
                 if (state[key] !== undefined) item[key] = state[key];
-            if (state.text !== undefined && typeof item.cursorPosition === "number" && (item.echoMode === undefined || item.echoMode === 0)) {
+            if (state.text !== undefined && typeof item.cursorPosition === "number" && item.readOnly !== true && (item.echoMode === undefined || item.echoMode === 0)) {
                 item.text = state.text;
                 item.cursorPosition = Math.min(state.cursor, item.text.length);
                 if (typeof item.select === "function" && state.selectionStart !== undefined)
