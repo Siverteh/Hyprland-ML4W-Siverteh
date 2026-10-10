@@ -39,7 +39,9 @@ Brightness/saturation and three pinned accent sources are remembered per wallpap
 on Apply. Drag a sampled swatch onto a role or use Pin color. Click a point in the
 image to pick an accent. A highlight shows sampled source cells, not an AI object
 label. Animated sources combine four fixed frame samples; overlays show their
-combined spatial coverage. No extraction runs on every playback frame.
+combined spatial coverage. No extraction runs on every playback frame. Scheme
+refreshes and managed runtime deployments resolve a cached poster back to its
+current animation source, so the live palette agrees with the multi-frame preview.
 
 Favorites store dark and light versions and can be used with another wallpaper.
 History keeps the last20 applications. The color filter uses prepared library

@@ -202,7 +202,12 @@ def scheme(args):
             # Generate before committing either preference or palette.
             accent = accents.get(str(Path(path).resolve()))
             generated = from_image(
-                path, data["mode"], data["variant"], data["flavour"], accent, **image_settings(path, args)
+                analysis_path(path, args),
+                data["mode"],
+                data["variant"],
+                data["flavour"],
+                accent,
+                **image_settings(path, args),
             )
             if args.accent or args.auto_accent:
                 config["orient"] = {**config.get("orient", {}), "accents": accents}

@@ -197,6 +197,45 @@ class Orient3Tests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue(json.loads(result.stdout)["input"]["background_from_wallpaper"])
 
+    def test_scheme_refresh_uses_animation_not_its_static_poster(self):
+        animated = self.home / "scene.gif"
+        frames = [
+            Image.new("RGB", (64, 40), "#" + seed)
+            for seed in ("253452", "db788f", "253452", "ef9156")
+        ]
+        frames[0].save(
+            animated, save_all=True, append_images=frames[1:], duration=100, loop=0
+        )
+        poster = self.home / "poster.png"
+        frames[0].save(poster)
+        state = self.home / ".state/nacre"
+        (state / "wallpaper").mkdir(parents=True)
+        (state / "wallpaper/path.txt").write_text(str(poster))
+        (state / "wallpaper/media.json").write_text(
+            json.dumps({"path": str(animated), "poster": str(poster)})
+        )
+        (state / "scheme.json").write_text(
+            json.dumps(
+                {
+                    "name": "dynamic",
+                    "mode": "dark",
+                    "variant": "tonalspot",
+                    "flavour": "default",
+                }
+            )
+        )
+        result = subprocess.run(
+            [sys.executable, "-m", "nacre_shell", "scheme", "set", "-m", "dark"],
+            capture_output=True,
+            text=True,
+            env={**os.environ, "PYTHONPATH": str(ROOT.parent / "shell-cli/src")},
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        refreshed = json.loads((state / "scheme.json").read_text())
+        self.assertEqual(refreshed["source"]["path"], str(animated))
+        self.assertEqual(refreshed["source"]["sample"]["frames"], 4)
+        self.assertEqual(refreshed["colours"], from_image(animated)["colours"])
+
     def test_pop_fallback_does_not_invent_detail_in_single_family_or_gray_images(self):
         for base, detail in (("87373c", "ed3041"), ("303030", "909090")):
             p = self.scene(base, detail)
