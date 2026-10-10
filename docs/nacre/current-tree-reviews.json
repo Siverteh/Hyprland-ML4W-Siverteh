@@ -6625,13 +6625,14 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "ddaaca3ee94bde87c31ab8b60d754cf2db05fb49fbe7fb139eb3e1c474eea2a7",
+      "sha256": "2a91adcea28d1b0d9188f3d6014672a6ba829bb26e4a58af4076a93462563ac9",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/visual-cleanup.md",
         "docs/specs/panel-integration.md",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current guide reviewed and reconciled with single-surface header ownership and consuming modal click dismissal; documentation only, verified against implemented owners and native tests."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -7530,10 +7531,11 @@
     },
     "docs/specs/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "5bbd283a71fc69df0cd996972a2c98ca6483bb30729ce2912107ecca53771d06",
+      "sha256": "e7064b9372c66d044cf8daba2f0857d32cd1208e420295d32dce8ed476b6ea02",
       "evidence": [
         "docs/nacre/FINAL-COMPARISON.md",
-        "docs/specs/final-provenance-comparison.md"
+        "docs/specs/final-provenance-comparison.md",
+        "Current guide reviewed and reconciled with single-surface header ownership and consuming modal click dismissal; documentation only, verified against implemented owners and native tests."
       ],
       "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b0dd275cfe9d71c824467fb0a32405d08060ca85 Specify the next independent Nacre frame and panel rewrite"
     },
