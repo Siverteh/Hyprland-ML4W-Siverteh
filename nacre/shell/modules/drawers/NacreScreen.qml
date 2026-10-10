@@ -12,7 +12,8 @@ NacreWindow {
     anchors.bottom: true
     anchors.left: true
     anchors.right: true
-    WlrLayershell.layer: inputController.modal ? WlrLayer.Overlay : WlrLayer.Top
+    WlrLayershell.layer: WlrLayer.Overlay
+    visible: !NacreHoverIntent.fullscreenFor(screen.name) || inputController.modal
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
     WlrLayershell.keyboardFocus: inputController.modal ? WlrKeyboardFocus.Exclusive : (flags.left || flags.osd || flags.dashboard) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     property string registeredName: ""

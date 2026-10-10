@@ -9,14 +9,14 @@ Item {
     required property var visibilities
     required property var controller
     readonly property bool available: !NacrePanelState.hidden && !controller.modal && !visibilities.launcher && !visibilities.session && !visibilities.dashboardPinned && !NacreHoverIntent.fullscreenFor(screen.name)
-    readonly property rect topRect: NacreFrame.headerHeight > 0 ? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 9) : Qt.rect(0, 0, 0, 0)
-    readonly property rect leftRect: NacreFrame.left > 0 ? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 6, 144) : Qt.rect(0, 0, 0, 0)
-    readonly property rect rightRect: NacreFrame.right > 0 ? Qt.rect(width - NacreFrame.right - 6, (height - 144) / 2, NacreFrame.right + 6, 144) : Qt.rect(0, 0, 0, 0)
+    readonly property rect topRect: NacreFrame.headerHeight > 0 ? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1 + (controller.panels?.dashboard?.height || 0), 208, 4) : Qt.rect(0, 0, 0, 0)
+    readonly property rect leftRect: NacreFrame.left > 0 ? Qt.rect(controller.panels?.leftDrawer?.width || 0, (height - 144) / 2, NacreFrame.left + 3, 144) : Qt.rect(0, 0, 0, 0)
+    readonly property rect rightRect: NacreFrame.right > 0 ? Qt.rect(width - NacreFrame.right - 3 - (controller.panels?.osd?.width || 0), (height - 144) / 2, NacreFrame.right + 3, 144) : Qt.rect(0, 0, 0, 0)
     function publishRegions() {
         if (!screen?.name)
             return;
         NacreHoverIntent.lipRegions[screen.name] = {
-            dashboard: Qt.rect((width - 208) / 2, 0, 208, NacreFrame.headerHeight + 9),
+            dashboard: Qt.rect((width - 208) / 2, 0, 208, NacreFrame.headerHeight + 4),
             left: leftRect,
             osd: rightRect
         };
@@ -50,7 +50,7 @@ Item {
         y: root.topRect.y
         width: root.topRect.width
         height: root.topRect.height
-        visible: root.available && width > 0
+        visible: (root.available || root.visibilities.dashboard || (root.controller.panels?.dashboard?.height || 0) > 0) && width > 0
         onEntered: buttons => root.approach("dashboard", this, buttons)
         onMoved: buttons => root.approach("dashboard", this, buttons)
         onExited: root.leave("dashboard")
@@ -66,7 +66,7 @@ Item {
         y: root.leftRect.y
         width: root.leftRect.width
         height: root.leftRect.height
-        visible: root.available && width > 0 && DesktopSettings.data.leftDrawer !== false
+        visible: (root.available || root.visibilities.left || (root.controller.panels?.leftDrawer?.width || 0) > 0) && width > 0 && DesktopSettings.data.leftDrawer !== false
         onEntered: buttons => root.approach("left", this, buttons)
         onMoved: buttons => root.approach("left", this, buttons)
         onExited: root.leave("left")
@@ -82,7 +82,7 @@ Item {
         y: root.rightRect.y
         width: root.rightRect.width
         height: root.rightRect.height
-        visible: root.available && width > 0 && DesktopSettings.data.rightEdge !== false
+        visible: (root.available || root.visibilities.osd || (root.controller.panels?.osd?.width || 0) > 0) && width > 0 && DesktopSettings.data.rightEdge !== false
         onEntered: buttons => root.approach("osd", this, buttons)
         onMoved: buttons => root.approach("osd", this, buttons)
         onExited: root.leave("osd")

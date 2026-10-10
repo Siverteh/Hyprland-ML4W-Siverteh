@@ -67,9 +67,10 @@ TestCase {
   width:1000;height:700
   property alias flags: flags
   property alias lips: lips
+  property alias controller: controller
   property var screen:({name:"test",width:1000,height:700})
   QtObject {id:flags;property bool launcher:false;property bool session:false;property bool dashboard:false;property bool dashboardPinned:false;property bool left:false;property bool leftPinned:false;property bool osd:false;property bool previewOnly:false;property string controlSection:"home";property string edgeMenu:""}
-  QtObject {id:controller;property bool modal:false;function settleHover(){}}
+  QtObject {id:controller;property bool modal:false;property var panels:({dashboard:{height:0},leftDrawer:{width:0},osd:{width:0}});function settleHover(){}}
   NacreFrameLips {id:lips;anchors.fill:parent;screen:parent.screen;visibilities:flags;controller:controller}
   Component.onCompleted: {NacrePanelState.screens={test:flags};NacrePanelState.panels={test:{popouts:{hasCurrent:false,pinned:false}}}}
  }}
@@ -77,10 +78,10 @@ TestCase {
  function test_only_marked_regions_open_and_explicit_dismissal_rearms(){
   const view=createTemporaryObject(scene,this);wait(30);
   mouseMove(view,100,25);verify(!view.flags.dashboard);
-  mouseMove(view,500,53);verify(view.flags.dashboard);
+  mouseMove(view,500,51);verify(view.flags.dashboard);
   NacreHoverIntent.dismiss(view.screen);view.flags.dashboard=false;
-  mouseMove(view,501,54);verify(!view.flags.dashboard);
-  mouseMove(view,500,180);mouseMove(view,500,53);verify(view.flags.dashboard);
+  mouseMove(view,501,52);verify(!view.flags.dashboard);
+  mouseMove(view,500,180);mouseMove(view,500,51);verify(view.flags.dashboard);
   mouseMove(view,1,90);verify(!view.flags.left);
   mouseMove(view,8,350);verify(view.flags.left);verify(!view.flags.leftPinned);
   mouseMove(view,995,620);verify(!view.flags.osd);
@@ -95,6 +96,22 @@ TestCase {
   NacreHoverIntent.setHeaderHover("test","bar",false);
   verify(!NacreHoverIntent.headers.test);
   compare(view.width,1000);compare(view.height,700);
+ }
+ function test_lips_follow_panel_edges_and_keep_top_activation_column(){
+  const view=createTemporaryObject(scene,this);wait(30);
+  const top=findChild(view,"frameTopLip");
+  const left=findChild(view,"frameLeftLip");
+  const right=findChild(view,"frameRightLip");
+  const topY=top.y;const leftX=left.x;const rightX=right.x;
+  view.controller.panels={dashboard:{height:240},leftDrawer:{width:320},osd:{width:424}};
+  view.flags.dashboard=true;view.flags.left=true;view.flags.osd=true;
+  compare(top.y,topY+240);compare(left.x,leftX+320);compare(right.x,rightX-424);
+  compare(top.height,4);compare(left.width-NacreFrame.left,3);
+  const column=NacreHoverIntent.lipRegions.test.dashboard;
+  compare(column.x,396);compare(column.y,0);compare(column.width,208);
+  verify(top.visible);verify(left.visible);verify(right.visible);
+  view.flags.dashboard=false;view.flags.left=false;view.flags.osd=false;
+  verify(top.visible);verify(left.visible);verify(right.visible);
  }
  function test_click_only_and_fullscreen_held_button_guards(){
   DesktopSettings.data={animations:false,clickEdgeMenus:true};

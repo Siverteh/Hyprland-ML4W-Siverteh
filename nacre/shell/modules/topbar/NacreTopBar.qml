@@ -12,8 +12,8 @@ Variants {
         required property var modelData
         screen: modelData
         name: "topbar"
-        WlrLayershell.layer: NacrePanelState.panels[surface.screen?.name]?.input?.modal ? WlrLayer.Overlay : WlrLayer.Top
-        visible: DesktopSettings.data.topEdge !== false
+        WlrLayershell.layer: WlrLayer.Overlay
+        visible: DesktopSettings.data.topEdge !== false && (!NacreHoverIntent.fullscreenFor(surface.screen?.name) || NacrePanelState.panels[surface.screen?.name]?.input?.modal)
         anchors.top: true
         anchors.left: true
         anchors.right: true

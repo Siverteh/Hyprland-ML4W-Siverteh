@@ -10,8 +10,9 @@ never writes levels, powers radios, scans, connects, pairs or starts an AI worke
 Native providers and existing guarded write helpers remain the device owners.
 
 Quick tiles expose connections, power profiles, DND and optional Night light.
-Explicit modal panels raise their frame and header together above fullscreen
-content; passive lips remain blocked there. Detailed connection lists reuse the existing native quick controls and refresh
+Frame and header keep a stable overlay layer, so opening menus cannot reorder
+the frame over the bar. They hide over fullscreen content until a panel is
+explicitly opened; passive lips remain blocked there. Detailed connection lists reuse the existing native quick controls and refresh
 read-only state on entry. Settings remains available for advanced pairing and
 configuration. Notification history has its own bounded fast scroll. Controls
 can scroll independently on short outputs, with visible scrollbar hints. Empty,

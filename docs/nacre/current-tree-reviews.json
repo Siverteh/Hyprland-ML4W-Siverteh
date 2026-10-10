@@ -3297,12 +3297,13 @@
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
-      "sha256": "369525e747c31e56ec5714180bbf230a284a1798bdade2af6f17dd6e262d37ff",
+      "sha256": "c8eed78a2c4dd570e5d69d3f9e61d68cb93a773a021e68ec46b7c25e8114671e",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -3328,12 +3329,13 @@
     },
     "nacre/shell/modules/drawers/NacreScreen.qml": {
       "disposition": "independent",
-      "sha256": "51a32517403ee2f6cd8dde7b12245e21b1e5daab61832499605b7371069a7867",
+      "sha256": "77d56dc7071b8c3c98908af68633d5e03f27bc9e9cec2a86351a8b365c097e51",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 216f23a, 8d96a29, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -3477,12 +3479,13 @@
     },
     "nacre/shell/modules/topbar/NacreTopBar.qml": {
       "disposition": "independent",
-      "sha256": "853d793890117cd946d1093961a909f9f07844c7a455523089cf8ff77e9c881f",
+      "sha256": "713e3ec3cf2b963b44b98fb008bddf7a180df6267d9ffa0865cddea82cbbf694",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6289,13 +6292,14 @@
     },
     "nacre/shell-tools/tests/test_frame.py": {
       "disposition": "independent",
-      "sha256": "fab9698a1b0d13c6e32332895d3d9b3a40280883761c346177d2882c2f1a7fbf",
+      "sha256": "5a10db2a000893100c5f50e1d4bdf45d087be3a5a167eec85a5997e7b7c1ebcc",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 609a1e4:nacre/shell-tools/tests/test_frame.py; subsequent 5da1132, 966ae9e, 02b2bda, 98108af, bc7c7e2, 2b21f0d, 8d96a29, 239af3a. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/panel-integration.md",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -6415,12 +6419,13 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "003d464f78801b6fa572f0564d111501d4f220280ab58f805cc8abc5d5525557",
+      "sha256": "5abd477765e93b4d3a0760932bc9022d9451a55f6b68a2ea150d0fe8d8352d21",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -8032,17 +8037,19 @@
     "docs/features/control-center.md": {
       "disposition": "non-implementation",
       "evidence": [
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
-      "sha256": "8c70442d2243fed7e410bba66ef567929ae1096ec49c31c1000c1722d735aeec",
+      "sha256": "16e463c37bcf1e0a57e3fad4218b69acfe8755211f00f1b3098d1a71c2846dc3",
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/specs/frame-control-center.md": {
       "disposition": "non-implementation",
       "evidence": [
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
-      "sha256": "eefaa85ceb1720ee1121588b057329eb730a9b97815ff70eef63f3a7e2befb72",
+      "sha256": "47c9a0a1299e4506cb8342c16f344a52acfcc806f0a7d8949eeb6261bac55c8a",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell-tools/control-tools.py": {
@@ -8096,9 +8103,10 @@
     "nacre/shell/modules/drawers/NacreFrameLips.qml": {
       "disposition": "independent",
       "evidence": [
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
-      "sha256": "4087402cf79e2f90034a476fca46596b6fa10f3d550b6b0938aa529cfc3dd980",
+      "sha256": "5e3b36ea5c11dc7ec8e298bb26aa4e78a7357b2374b2614ef6bf6f7f2d3abfd3",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell/modules/osd/NacreLevelNotice.qml": {
@@ -8128,9 +8136,10 @@
     "nacre/shell/widgets/NacreFrameLip.qml": {
       "disposition": "independent",
       "evidence": [
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
       ],
-      "sha256": "9207d637fc81cad8e17909c0e75b62251ed57ade8ceee4c860c621c849d49c91",
+      "sha256": "a452300caa023bc7218ef79d02ce8409a193a16565d8b294290775d7a238ca55",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell/widgets/NacreRangeSlider.qml": {
