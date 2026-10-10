@@ -99,8 +99,11 @@ def paths(repo):
         path = HOME / ".config" / name
         if path.is_symlink():
             result.append(path)
+    configuration_source = repo / "tools/configure.py"
+    if not configuration_source.is_file():
+        configuration_source = Path(__file__).with_name("configure.py")
     spec = importlib.util.spec_from_file_location(
-        "release_config_owner", Path(__file__).with_name("configure.py")
+        "release_config_owner", configuration_source
     )
     configuration = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(configuration)

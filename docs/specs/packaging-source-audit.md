@@ -42,6 +42,12 @@ configuration mapping dependency. New temp-tree regression fails bytecode inclus
 first, then verifies omission and retained old ownership. No real rollback/delete
 is used for proof. Preserve other runtime/config/private snapshot allowlists.
 
+Candidate ownership must also come from the reviewed candidate's configure.py,
+not a potentially older installed controller copy. A synthetic candidate-only
+mapping regression fails the sibling-only loader; prefer candidate source, with
+the sibling dependency only for minimal fixture trees. Preserve explicit known
+owned paths and managed retirement entries.
+
 The initial-import tools/defaults/hypridle.conf is an uncertain compatibility seed.
 Discard its body without viewing/copying; freshly define the native baseline from
 the independently reviewed current managed lock_cmd/before_sleep/after_sleep

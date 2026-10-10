@@ -15,6 +15,20 @@ SPEC.loader.exec_module(releases)
 
 
 class ReleaseConfigurationMapTests(unittest.TestCase):
+    def test_candidate_configuration_owner_defines_its_snapshot_map(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo, home = base / "repo", base / "home"
+            (repo / "tools").mkdir(parents=True)
+            (repo / "tools/configure.py").write_text(
+                "from pathlib import Path\ndef files(root):\n"
+                ' return {Path(".config/candidate-only.json"):root/"candidate.json"}\n'
+            )
+            with patch.object(releases, "HOME", home):
+                self.assertIn(
+                    home / ".config/candidate-only.json", releases.paths(repo)
+                )
+
     def test_snapshot_omits_unowned_generated_candidate_bytecode(self):
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
