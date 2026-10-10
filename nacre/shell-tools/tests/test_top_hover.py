@@ -106,9 +106,9 @@ TestCase {
   view.controller.panels={dashboard:{height:240},leftDrawer:{width:320},osd:{width:424}};
   view.flags.dashboard=true;view.flags.left=true;view.flags.osd=true;
   compare(top.y,topY+240);compare(left.x,leftX+320);compare(right.x,rightX-424);
-  compare(top.height,4);compare(left.width-NacreFrame.left,3);
+  compare(top.height,7);compare(left.width-NacreFrame.left,5);
   const column=NacreHoverIntent.lipRegions.test.dashboard;
-  compare(column.x,396);compare(column.y,0);compare(column.width,208);
+  compare(column.x,396);compare(column.y,0);compare(column.width,208);compare(column.height,56);
   verify(top.visible);verify(left.visible);verify(right.visible);
   view.flags.dashboard=false;view.flags.left=false;view.flags.osd=false;
   verify(top.visible);verify(left.visible);verify(right.visible);

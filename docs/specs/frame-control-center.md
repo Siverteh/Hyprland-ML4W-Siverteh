@@ -10,7 +10,8 @@ Hover opens only marked targets, without keyboard focus; click opens deliberatel
 Click-only preference, held-button/fullscreen guards, explicit dismissal rearming,
 Escape, outside-click, explicit-only AI pinning and reduced motion remain supported.
 The lips are shallow smooth curves, unoutlined, with no seam or frame ring:
-3px beyond the side frame and 4px beneath the bar. They follow their panel
+5px beyond the side frame and 6px beneath the bar. The top shape overlaps the
+bar by1px; cubic control points are chosen so side tips reach the stated depth. They follow their panel
 edges throughout opening and closing without changing application allocation. The top
 activation column spans its 208px visual length all the way to the screen edge;
 bar and lip hover sources combine so moving between them keeps the menu open.

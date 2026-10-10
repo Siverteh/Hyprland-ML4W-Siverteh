@@ -3302,7 +3302,7 @@
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
-      "sha256": "15f493caa499184c128713d89a17d26b3e56304d965a0e51cf91c7c423d8c802",
+      "sha256": "f046d89586b181a035f7c5f8250e4191569a3c5d89461ba42a3f7cc727b157ad",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
@@ -3310,7 +3310,8 @@
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -6300,7 +6301,7 @@
     },
     "nacre/shell-tools/tests/test_frame.py": {
       "disposition": "independent",
-      "sha256": "79d2876ea633a5a3d865da2d1b1a311d743ed72ce6f493216a69237a8d3723dd",
+      "sha256": "291b0dcc4b9f6a8272be27a873cda20cbec56906f4886877e6b8a0442e4d15cd",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
@@ -6309,7 +6310,8 @@
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
-        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted."
+        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -6430,13 +6432,14 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "5abd477765e93b4d3a0760932bc9022d9451a55f6b68a2ea150d0fe8d8352d21",
+      "sha256": "04b618ca544f2967aca511e87ed2136a43143fb9a6c37bd34b10f3bc771d9e00",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/frame-control-center.md",
-        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -6621,13 +6624,14 @@
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "2c22a1822e23d172b32fcbdc73a57ddbf972cbb5b28065779cd2d7e9ac9efab3",
+      "sha256": "7c5085cdb463e617cac1af68dd24cda2dd93bfaf002517eaa70ad3151702b75a",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/frame-control-center.md",
         "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted.",
-        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted."
+        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -8078,9 +8082,10 @@
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted."
+        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
-      "sha256": "40794031714123a5e1da63fb24e8dd0db831ea70c39c2a86dc2e5ae1639f45db",
+      "sha256": "2a1670dbd0a296d12b5ad7a2774204f479f8d34a007120b239f31ad96cba5a68",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell-tools/control-tools.py": {
@@ -8135,9 +8140,10 @@
       "disposition": "independent",
       "evidence": [
         "docs/specs/frame-control-center.md",
-        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
-      "sha256": "5e3b36ea5c11dc7ec8e298bb26aa4e78a7357b2374b2614ef6bf6f7f2d3abfd3",
+      "sha256": "7ae410aa47dafa34af541bd817b0879dfe6a2b8ac54e94dabb94ec9eb143681d",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell/modules/osd/NacreLevelNotice.qml": {
@@ -8169,9 +8175,10 @@
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
-        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted."
+        "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
+        "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation."
       ],
-      "sha256": "3c59471438f826ed2c20a72adb7272cc8a99c837a93c9c478d7b444dc88fe064",
+      "sha256": "e811d34b4ab84e5805646e8cc34ef96d083f3a19c2d4c6b329510fa8c4ccbc24",
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell/widgets/NacreRangeSlider.qml": {

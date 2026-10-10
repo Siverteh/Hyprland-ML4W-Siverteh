@@ -232,4 +232,8 @@ TestCase {
                 red, green, blue = closed.getpixel(point)
                 self.assertGreater(blue, 80)
                 self.assertGreater(blue, red + 20)
+            # The new outermost pixels distinguish the larger curves from the
+            # previous smaller version and keep the base frame unchanged.
+            for point in ((300, 55), (14, 200), (585, 200)):
+                self.assertGreater(closed.getpixel(point)[2], 180)
             self.assertEqual(closed.getpixel((15, 100)), (86, 125, 154))

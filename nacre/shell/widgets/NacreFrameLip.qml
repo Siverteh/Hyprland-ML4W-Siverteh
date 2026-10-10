@@ -20,7 +20,8 @@ Item {
         }
     }
     readonly property color tipColor: Qt.tint(NacreTokens.body, Qt.alpha(NacreTokens.accent, accentStrength))
-    readonly property string outline: edge === "top" ? `M0 0 H${width} C${width * .8} 0 ${width * .8} ${height} ${width / 2} ${height} C${width * .2} ${height} ${width * .2} 0 0 0 Z` : edge === "left" ? `M0 0 H${base} C${width} ${height * .2} ${width} ${height * .8} ${base} ${height} H0 Z` : `M${width} 0 H${width - base} C0 ${height * .2} 0 ${height * .8} ${width - base} ${height} H${width} Z`
+    readonly property real sideControl: base + (width - base) / .75
+    readonly property string outline: edge === "top" ? `M0 0 H${width} C${width * .8} 0 ${width * .8} ${height} ${width / 2} ${height} C${width * .2} ${height} ${width * .2} 0 0 0 Z` : edge === "left" ? `M0 0 H${base} C${sideControl} ${height * .2} ${sideControl} ${height * .8} ${base} ${height} H0 Z` : `M${width} 0 H${width - base} C${width - sideControl} ${height * .2} ${width - sideControl} ${height * .8} ${width - base} ${height} H${width} Z`
     Shape {
         anchors.fill: parent
         preferredRendererType: Shape.CurveRenderer
@@ -29,7 +30,7 @@ Item {
             fillGradient: LinearGradient {
                 x1: root.edge === "top" ? root.width / 2 : root.edge === "left" ? root.base : root.width - root.base
                 y1: root.edge === "top" ? 0 : root.height / 2
-                x2: root.edge === "top" ? root.width / 2 : root.edge === "left" ? root.base + (root.width - root.base) * .75 : (root.width - root.base) * .25
+                x2: root.edge === "top" ? root.width / 2 : root.edge === "left" ? root.width : 0
                 y2: root.edge === "top" ? root.height : root.height / 2
                 GradientStop {
                     position: 0

@@ -43,3 +43,7 @@ Only the protruding curve blends from the body color at its join to the primary
 wallpaper accent at its tip. The base frame stays body-colored and unoutlined.
 Hover/open slightly strengthens that accent over120ms, with reduced motion
 settling immediately; palette changes remain immediate and there is no idle loop.
+
+Visible depth is5px beyond each side frame and6px beneath the bar, with the
+existing144px side lengths and208px top width. Shape bounds and input regions
+include the full protrusion; reserved window space stays unchanged.

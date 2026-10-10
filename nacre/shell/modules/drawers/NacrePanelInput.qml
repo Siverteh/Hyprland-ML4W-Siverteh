@@ -22,9 +22,9 @@ Item {
     readonly property bool leftEdgeAvailable: lipsAvailable && DesktopSettings.data.leftDrawer !== false && !visibilities.left
     readonly property bool rightEdgeAvailable: lipsAvailable && DesktopSettings.data.rightEdge !== false && !visibilities.osd
     readonly property bool topEdgeAvailable: lipsAvailable && !visibilities.dashboard
-    readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 3, 144)
-    readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 3, (height - 144) / 2, NacreFrame.right + 3, 144)
-    readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 4)
+    readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 5, 144)
+    readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 5, (height - 144) / 2, NacreFrame.right + 5, 144)
+    readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 7)
     readonly property rect headerRect: !hidden && DesktopSettings.data.topEdge !== false ? Qt.rect(0, 0, width, NacreFrame.headerHeight) : Qt.rect(0, 0, 0, 0)
     readonly property rect launcherRect: box(panels.launcher, visibilities.launcher)
     readonly property rect dashboardRect: box(panels.dashboard, visibilities.dashboard)
