@@ -112,6 +112,11 @@ Singleton {
                 }
                 for (const key of Object.keys(snapshot.flags))
                     v[key] = snapshot.flags[key];
+                if (v.dashboardTab === 4) {
+                    v.dashboardTab = 0;
+                    v.dashboard = false;
+                    v.dashboardPinned = false;
+                }
                 Qt.callLater(() => Views.restore(p, snapshot.ui));
             }
             root.status = failed ? "Using full renderer recovery" : "Display surfaces refreshed";

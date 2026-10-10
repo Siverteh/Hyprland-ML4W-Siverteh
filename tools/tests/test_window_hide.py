@@ -21,6 +21,22 @@ def client(address, workspace=3, name="3"):
 
 
 class WindowHideTests(unittest.TestCase):
+    def test_explicit_quiet_target_does_not_hide_the_active_other_window(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with (
+                patch.object(
+                    hide, "query", return_value=[client("0xaaa", 2), client("0xbbb", 7)]
+                ),
+                patch.object(hide, "dispatch") as dispatch,
+                patch.object(hide, "notify") as notify,
+            ):
+                hide.action("hide", directory, window="0xbbb", quiet=True)
+            dispatch.assert_called_once_with(
+                "window.move", "0xbbb", workspace="special:hidden", follow=False
+            )
+            notify.assert_not_called()
+            self.assertEqual((Path(directory) / "0xbbb").read_text().strip(), "7")
+
     def test_hide_writes_compatible_private_record_and_moves_only_active_window(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory) / "ledger"

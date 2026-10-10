@@ -36,6 +36,8 @@ TestCase {
     property var one: null
     property var two: null
     function init() {
+        NacreSettingsApp.close();
+        NacreSettingsApp.created = false;
         one = createTemporaryObject(flags, test);
         two = createTemporaryObject(flags, test);
         NacrePanelState.screens = {
@@ -121,6 +123,48 @@ TestCase {
         verify(two.launcher);
         compare(two.launcherQuery, "query");
     }
+    function test_settings_lifecycle_focus_and_minimized_activity() {
+        const window = Qt.createQmlObject('import QtQuick; QtObject {property bool minimized:false;property int activations:0;function activate(){activations++}}', test);
+        NacreSettingsApp.window = window;
+        NacreSettingsApp.open("sound");
+        verify(NacreSettingsApp.visible && NacreSettingsApp.created);
+        verify(NacrePanelState.settingsVisible);
+        compare(NacrePanelState.settingsPage, "sound");
+        NacreSettingsApp.open("network");
+        compare(NacreSettingsApp.window, window);
+        compare(window.activations, 2);
+        window.minimized = true;
+        compare(NacrePanelState.settingsVisible, false);
+        NacreSettingsApp.open();
+        compare(window.minimized, false);
+        compare(NacrePanelState.settingsPage, "network");
+        NacreHyprland.clients = [
+            {
+                pid: 0,
+                title: "Nacre Settings",
+                wmClass: "org.quickshell",
+                address: "0xabcd"
+            }
+        ];
+        NacreSettingsApp.focusExisting();
+        NacreSettingsApp.minimize();
+        const job = findChild(NacreSettingsApp, "settingsMinimizeProcess");
+        verify(job.running);
+        compare(job.command.slice(-4), ["hide", "--window", "0xabcd", "--quiet"]);
+        NacreSettingsApp.open();
+        verify(NacreSettingsApp.focusPending);
+        job.running = false;
+        job.exited(0, 0);
+        NacreSettingsApp.focusExisting();
+        verify(NacreHyprland.calls[NacreHyprland.calls.length - 1].includes("0xabcd"));
+        verify(!NacreSettingsApp.focusPending);
+        NacreSettingsApp.close();
+        verify(!NacrePanelState.settingsVisible && !NacreSettingsApp.visible);
+        verify(NacreSettingsApp.created);
+        NacreSettingsApp.window = null;
+        NacreHyprland.clients = [];
+        window.destroy();
+    }
     function test_settings_left_manual_pin_and_competing_transients() {
         one.left = true;
         one.leftPinned = true;
@@ -132,9 +176,13 @@ TestCase {
         verify(NacrePanelState.getForActive().osd);
         verify(one.left && one.leftPinned && !one.launcher && !one.dashboard);
         verify(NacrePanelState.openSettings("sound"));
-        verify(one.dashboard && one.dashboardPinned);
-        verify(!one.left && !one.leftPinned && !one.launcher);
+        verify(NacreSettingsApp.visible && NacreSettingsApp.created);
+        compare(NacrePanelState.settingsPage, "sound");
+        verify(!one.dashboard && !one.dashboardPinned && !one.launcher);
+        verify(one.left && one.leftPinned);
         verify(!NacrePanelState.panels.one.popouts.hasCurrent && !NacrePanelState.panels.one.popouts.pinned);
+        NacrePanelState.toggleLeft();
+        verify(!one.left && !one.leftPinned);
         NacrePanelState.toggleLeft();
         verify(one.left && !one.leftPinned);
         compare(one.edgeMenu, "left");
@@ -175,9 +223,10 @@ TestCase {
         view.workspace(-1);
         compare(NacreHyprland.calls.length, 1);
         view.tab(4);
-        verify(one.dashboard && one.dashboardPinned);
+        verify(NacreSettingsApp.visible);
+        verify(!one.dashboard && !one.dashboardPinned);
         view.tab(99);
-        compare(one.dashboardTab, 4);
+        compare(one.dashboardTab, 0);
         verify(!view.restore("{"));
         verify(!view.restore("[]"));
         verify(!view.restore('{"version":2}'));

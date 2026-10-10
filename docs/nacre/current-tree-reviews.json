@@ -1453,11 +1453,12 @@
     },
     "hypr/conf/keybinding.lua": {
       "disposition": "independent",
-      "sha256": "69f1f69b63d0704da1e04dedfa1ad61e37dbc01625195ca82e2c48204fcc5fe7",
+      "sha256": "72569bd1c5757bf896b7a46b7d9935c71a4d51a5440d8fd892a4ffa0160ec67b",
       "evidence": [
         "docs/specs/keybindings.md",
         "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
-        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain"
+        "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/binding-contracts.lua": {
@@ -1673,12 +1674,13 @@
     },
     "hypr/conf/nacre.lua": {
       "disposition": "independent",
-      "sha256": "442392b13366f272784ad5f41484aa05dfbd8d56ba6aa5b3cc4c81929558b1e2",
+      "sha256": "1c78f5c11b5230b17929994b1507389d9599e034b15d27fb7c6af463ccfd40e4",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
-        "Inherited body deleted before independently composed 3bf8870 scoped layer/window rules and XWayland scaling from public match/action contracts; unused ML4W tool rules retired, own names/current preview title. Current bytes unchanged since rewrite; called tools/branding/private dependencies separate."
+        "Inherited body deleted before independently composed 3bf8870 scoped layer/window rules and XWayland scaling from public match/action contracts; unused ML4W tool rules retired, own names/current preview title. Current bytes unchanged since rewrite; called tools/branding/private dependencies separate.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "tools/tests/test_config_defaults.py": {
@@ -1751,7 +1753,7 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "fadfd8db6428ab768078af1d0b42b941d7daaae0b3c9207b6f77283285c5caf5",
+      "sha256": "d2b7442a999b013fe3304263a38a26c7becae704bb619c93a380eec7bcdf1d98",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1762,12 +1764,13 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "04b025194464096820ee2f3f025a41f726153317f9e47bcbff93606e2b6eae6f",
+      "sha256": "ccbed7e0e9cba194f4b1d4efe6f43468e93e87e36074aa95815fdf433152821a",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1775,12 +1778,13 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/login/Logo.qml": {
       "disposition": "independent",
-      "sha256": "1a1285d81c657b4ca9e8e4da6ec7cfa29fb5b8bd1dba4be58d1f4219452127b5",
+      "sha256": "e8a3c62cc5ca5cbbc838c4c51fbb9f824d95da0f766443fac7e04bfc654f43a6",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1788,12 +1792,13 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "120bfa904597621aa76cc35d305adfbffa892ca09621c01a139a312fae81b3b9",
+      "sha256": "2563f5649c304624f49b70b1b2c20cc49ff643d26f0a1af8132c7bc53ac754cb",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1806,7 +1811,8 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -2517,11 +2523,12 @@
     },
     "nacre/shell/services/DesktopSettings.qml": {
       "disposition": "independent",
-      "sha256": "6e5a337768983d08291770a2a75032e8b8030496f5e11f0e3aeff2b940445fde",
+      "sha256": "6c696c951e81c82bc38dd6ce5f5a4d82bc378f4c6a34e34d47bfa73b4d4ec84e",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement a9a683d: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 83b3531, 8bd5e65. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+        "Full current body reviewed; authoring/replacement a9a683d: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 83b3531, 8bd5e65. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/services/DeviceActions.qml": {
@@ -2535,11 +2542,12 @@
     },
     "nacre/shell/services/DisplayRecovery.qml": {
       "disposition": "independent",
-      "sha256": "7b93f33793cc00eeeb70abc6da286ddfaec93e432ecc8d0989a59220e39dcfb2",
+      "sha256": "dcbab89b2e31fb27529ad1e5021da7c0039d2632ccf00bee7f39302b3279b423",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 407e5c7: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, b12961b, 83b3531, 454d1fc. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+        "Full current body reviewed; authoring/replacement 407e5c7: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, b12961b, 83b3531, 454d1fc. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/services/HoverIntent.qml": {
@@ -2590,11 +2598,12 @@
     },
     "nacre/shell/services/Maintenance.qml": {
       "disposition": "independent",
-      "sha256": "c9d1026a2ac18411336d8aec1fa845ff94aeb8d22531a87e93e0162c6e1dce40",
+      "sha256": "4d9a90c9183b8ba5c260543b62022d08c7aaae710a0bbd0730fdff6d966b4e10",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 8bd5e65: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, bfba6bb, 2c1d2ca, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+        "Full current body reviewed; authoring/replacement 8bd5e65: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, bfba6bb, 2c1d2ca, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/services/NacreApps.qml": {
@@ -2635,12 +2644,13 @@
     },
     "nacre/shell/services/NacreBrightness.qml": {
       "disposition": "independent",
-      "sha256": "eb0218f4c2a7552cf28d8afdb9e93a1464b7ad50df492c302c9dcb2391d909d6",
+      "sha256": "eb8b9045a4cf5907f10f15f62c039510208562dace57d78cdf150c98491d7f97",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, 4f8e178. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -2720,23 +2730,25 @@
     },
     "nacre/shell/services/NacreNotifs.qml": {
       "disposition": "independent",
-      "sha256": "b01e3bdd0ac6ae6273993205c9c37244007fd316db531b7c01c6747dc3b87cdc",
+      "sha256": "d00ba562c540ea445a571424f692132e6ef66b1a0916ad2cd1a48867cbddc79f",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, f7cc3b1. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/services/NacrePanelState.qml": {
       "disposition": "independent",
-      "sha256": "b30267a4e36fe6bf1b9b6944c1189249b50198a267c6e735d224ef5cd68caadd",
+      "sha256": "69c7c73d233cffb27152262600ba0f834a118b89c2f5096d1f3489da941a04e2",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
@@ -2778,12 +2790,13 @@
     },
     "nacre/shell/services/NacreWallpapers.qml": {
       "disposition": "independent",
-      "sha256": "330e7006c5d5e55ae8359eedb0d230bb2363a035c3ddfe8307948ccbdd71ef22",
+      "sha256": "2b8a322cdb6bf997e3e9bf8b8b267af5667921e8f90f403551e265fd04af7081",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
@@ -2861,11 +2874,12 @@
     },
     "nacre/shell/services/TimezoneSettings.qml": {
       "disposition": "independent",
-      "sha256": "85059255c5e5f20fb384117b626bb83e4a85e825aa8dbe2c8012243897cb3883",
+      "sha256": "402adac39e78b956b9efb3035e4a919160d4d6319c3ee954949f1f088f38143e",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 9dd732a: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 2c1d2ca, b8be61e, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+        "Full current body reviewed; authoring/replacement 9dd732a: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 2c1d2ca, b8be61e, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/services/Visibilities.qml": {
@@ -2941,12 +2955,13 @@
     },
     "nacre/shell/modules/NacreShellIpc.qml": {
       "disposition": "independent",
-      "sha256": "70dab18ffdc722df089d7f0a837b3ebaadd8bc3e950708d485910c159ce92799",
+      "sha256": "db743d952245ffb072f7078dcab01ca8b9649640477699e29738cd46df1d7ef5",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -3529,13 +3544,14 @@
     },
     "nacre/shell/shell.qml": {
       "disposition": "independent",
-      "sha256": "6a1e09d2dc8a8ae3ba88d7eb6084e6ddc898000ae909b4a3eac319cef14f0a51",
+      "sha256": "7cb6a81ad6171e2fdb10713f12b66f133f59f2be1dbc3efdab5a7d9ad0a5d084",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: 36c35e0. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md",
-        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used."
+        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -3571,21 +3587,23 @@
     },
     "nacre/shell/modules/dashboard/NacreDashboardNavigation.qml": {
       "disposition": "independent",
-      "sha256": "6400fc0cfe92ee1b64c7cc807d483b02e63336b253f62da0c5bce4f6e237e383",
+      "sha256": "8bdbece9d78b231779b0494801c34adcbad5a0e5d1c55e919c78dcc2461a9e1c",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 1cd6ab7: fresh dashboard assembly and immediate navigation. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
+        "Full current body individually reviewed. Basis 1cd6ab7: fresh dashboard assembly and immediate navigation. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/modules/dashboard/NacreDashboardPanel.qml": {
       "disposition": "independent",
-      "sha256": "867945ec54db8a629e94379ee8b35aa742816c50fa6cde9aee7f30eebcf74f46",
+      "sha256": "19136302d2cb55ce0c2a8f722fa68f5a4e8ce5c6538ec44bafa77605ea35c299",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis 1cd6ab7: fresh dashboard assembly and immediate navigation. Later current-file changes: 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -3615,16 +3633,6 @@
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis e82a4e6: fresh media/performance presentation with native capability and lifecycle guards. Later current-file changes: 18d8aab, 3a8f60a. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
       ]
-    },
-    "nacre/shell/modules/dashboard/NacreSettings.qml": {
-      "disposition": "independent",
-      "sha256": "9dde4138cd867a989a0b86dc498fd696d39f4e42d2963b3945093bed6ede072f",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 5da1132, 02b2bda, b770506, cbef0e4, c230d36. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
     "nacre/shell/modules/dashboard/NacreWorkspacePage.qml": {
       "disposition": "independent",
@@ -3752,182 +3760,6 @@
         "Full current body individually reviewed. Basis 0a2b8a2: fresh civil calendar, responsive overview and card bodies. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
       ]
     },
-    "nacre/shell/modules/dashboard/settings-catalog.js": {
-      "disposition": "independent",
-      "sha256": "c3c25441dbec86c097cd483e9d6137c3c3eb88505ef7a389fd39028036b51b48",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreAiPage.qml": {
-      "disposition": "independent",
-      "sha256": "982c5e5e6888af9ad4b09fea3f4573a6e047510fecdb88fc13a606ba0d0b5396",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreAppearancePage.qml": {
-      "disposition": "independent",
-      "sha256": "f4978e4b7aa64a9b96ae074d2fab326663d19f5da6f59300a27a43ae83325e96",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreAudioNode.qml": {
-      "disposition": "independent",
-      "sha256": "1f7ad8a9f2c7868cd1555600226b866712e48e7a1795866d789c4ad504b3a4bb",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreBluetoothPage.qml": {
-      "disposition": "independent",
-      "sha256": "10f373bad239b4c87a27742d7627fa3d3675b68e8180501ef74e55dc4bad31df",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: d4a82bb. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreDesktopPage.qml": {
-      "disposition": "independent",
-      "sha256": "20cb8f13c7a0bf4a65d077de96617da75b82da091d953b4bf3ac850f0b32616c",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/frame-control-center.md"
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
-    },
-    "nacre/shell/modules/dashboard/settings/NacreDisplaysPage.qml": {
-      "disposition": "independent",
-      "sha256": "f5071befc98e10669b80ce51175c92cbcab272c07bdd8004b8a24b73ca44aace",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreLockPage.qml": {
-      "disposition": "independent",
-      "sha256": "ae3b96cd4f2cbf54d2960352c5dbf46ac559d4f8f434049779bc8e4353a40ca5",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreMaintenancePage.qml": {
-      "disposition": "independent",
-      "sha256": "820e76c4426e41206090cc5c45964be1d1d06be32e69f6e3d5c14ac4309e131d",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreNetworkPage.qml": {
-      "disposition": "independent",
-      "sha256": "3de47daa83f9650db58e3203d7eae67c98d330defdf300c4ceecf36bc43bae41",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: f1ef99a, 977f628. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreNotificationPage.qml": {
-      "disposition": "independent",
-      "sha256": "61959d60df742786d3efab978b0bf413dcd412cf02a3ef09ae19f1af2bbaaf40",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreNumberField.qml": {
-      "disposition": "independent",
-      "sha256": "3093d13e9dec540fd44fe83ea9be5d4f22b0556156d1c39deed128e713ad6f1d",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacrePaletteTile.qml": {
-      "disposition": "independent",
-      "sha256": "c7614c0f9c9a0d1e218beb5dfd17a2a3656faabe79e2fd0f9ef818cae8f40918",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreSettingToggle.qml": {
-      "disposition": "independent",
-      "sha256": "89c889302c905871da3f955e4511b89a05e757a9ef41de2f215568f33ad0caca",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreSettingsPage.qml": {
-      "disposition": "independent",
-      "sha256": "a9edc6c728e179cbee4feff9c13c49aa501f595c4248763a1fa315818041b86f",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreSettingsSection.qml": {
-      "disposition": "independent",
-      "sha256": "6731423a090a75253f5fe7487972431c6e4450ebdae13806f5550ad6981e6b43",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreSoundPage.qml": {
-      "disposition": "independent",
-      "sha256": "d8732e870cc7dc15a9240dd8353d748690657ea51a9c9a935367438a9f855756",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreTimePage.qml": {
-      "disposition": "independent",
-      "sha256": "57458fce88c775a3ca4a04dde70754698af0c5b638c86f00ef8d3a0c97e4c35d",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/dashboard/settings/NacreWorkflowsPage.qml": {
-      "disposition": "independent",
-      "sha256": "4e4a57b7b4195ac6c9e1c25ee42af7ce8350d03a2359cc2ede5366996487f616",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
     "nacre/shell/modules/extras/ChatPane.qml": {
       "disposition": "independent",
       "sha256": "ee649fb1423e883c1b74abaf4f93d3b654423a2b2ceb0cb80f42f525170b4926",
@@ -3994,13 +3826,14 @@
     },
     "nacre/shell/modules/launcher/NacreAppBrowser.qml": {
       "disposition": "independent",
-      "sha256": "bb228969721989466fea272204113166669cb0760f24c5ac50a59e9a004ee97c",
+      "sha256": "4f3aa5ae87927dd6cf21e70ae4826686b432daa2591f50858e283281a9b0c4f0",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 02b2bda, 3d93b32. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
@@ -4394,12 +4227,13 @@
     },
     "nacre/shell-tools/desktop-actions.py": {
       "disposition": "independent",
-      "sha256": "c45ad3cdaa4e14d0a8a12fb46c56cd1467f6f3a947ca380c294e8496946261e1",
+      "sha256": "d24ada88f1a8ef36c8cd38d39d6b67a54ec9ec6d7b0c09ccbe8e9f15461bd677",
       "evidence": [
         "docs/specs/device-session-source-audit.md",
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
         "Full current source body reviewed. Basis ba5e48f: local desktop/AI launch dispatch separated from own Brain controller; bounded native command and UWSM interfaces reviewed. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/device-actions.py": {
@@ -4930,20 +4764,22 @@
     },
     "hypr/scripts/window-hide.py": {
       "disposition": "independent",
-      "sha256": "f231b88928d55f2139fde3bac2d1991f5f1439626da81bc019bc2a5b9c76b34e",
+      "sha256": "58a1e3f467cd11352e7e1112cd5534706926135566726887e360907c81a8fe4e",
       "evidence": [
         "docs/specs/config-helper-source-audit.md",
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
-        "Full current source/data body reviewed. Basis 6c8f06d: new own bounded JSON/native Lua hide/restore with compatible old numeric ledger, private locked atomic state and no source/eval of records. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+        "Full current source/data body reviewed. Basis 6c8f06d: new own bounded JSON/native Lua hide/restore with compatible old numeric ledger, private locked atomic state and no source/eval of records. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "tools/tests/test_window_hide.py": {
       "disposition": "independent",
-      "sha256": "f8db130461aa0b8a50a1c6aa6c93fc7946428eec950537180f170a6e10ed8274",
+      "sha256": "b853bf8b5718ae32010309d5c3e355184e5507cbc0d410d0c1c4a962351aa323",
       "evidence": [
         "docs/specs/config-helper-source-audit.md",
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
-        "Full current source/data body reviewed. Basis 6c8f06d: new own fake compositor/temp old-ledger cases: active/newest/current restore, malformed/symlink/stale/failed actions and native target escaping. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+        "Full current source/data body reviewed. Basis 6c8f06d: new own fake compositor/temp old-ledger cases: active/newest/current restore, malformed/symlink/stale/failed actions and native target escaping. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "tools/tests/test_matrix_palette.py": {
@@ -5025,7 +4861,7 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "aa2085d109f16a8e556c78588ec11a4a0355ad27e3ab8504dd3b15ed6cf68275",
+      "sha256": "b1c1c41e5ce4c420b96af3be2b0dca2f6a56c07ad37fbf22d672806038c581a4",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
@@ -5034,7 +4870,8 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -5770,11 +5607,12 @@
     },
     "nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml": {
       "disposition": "independent",
-      "sha256": "9b98eb04d774a9be577b4c2585cd4930208a11d955c5195c776c091eeb0a30fb",
+      "sha256": "873586bcb18685abba7f08ef902a780642160451eeb3a3ab4337eff242906f5b",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 1cd6ab7 nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml; subsequent 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation 1cd6ab7 nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml; subsequent 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -5988,13 +5826,14 @@
     },
     "nacre/shell-tools/tests/launcher-qml/tst_launcher.qml": {
       "disposition": "independent",
-      "sha256": "d80d4ba09b1e573ee5520121726cdc3c35b88ccd700e1f665b47f854ccba3ba9",
+      "sha256": "786c684a7fffd5db98757ece1f5d5d53266c2dfe6a4fe2d71302797dbdff309a",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation a3e2420 siverteh/shell-tools/tests/launcher-qml/tst_launcher.qml; subsequent bc7c7e2, 548f0b4, 2c1d2ca, 83b3531, 0c00c16, a8fe3ca, fedfa0c, 7ed920d. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/tests/launcher-qml/tst_panel.qml": {
@@ -6160,21 +5999,23 @@
     },
     "nacre/shell-tools/tests/qml/tst_wallpaper_rotation.qml": {
       "disposition": "independent",
-      "sha256": "0c8aba925a244eabb9f4fa797c5700b34a0f0626e2b213106b622319134af9cf",
+      "sha256": "2bb457e37741048838fd6baca41c16ae92cf54721232f631345238f4d634fde3",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 4ea19d5 siverteh/shell-tools/tests/qml/tst_wallpaper_rotation.qml; subsequent 5da1132, eea01b9, 548f0b4, 2c1d2ca, aee7ec3. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation 4ea19d5 siverteh/shell-tools/tests/qml/tst_wallpaper_rotation.qml; subsequent 5da1132, eea01b9, 548f0b4, 2c1d2ca, aee7ec3. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed."
       ]
     },
     "nacre/shell-tools/tests/state-qml/tst_state.qml": {
       "disposition": "independent",
-      "sha256": "9b3a7f5772a3ae47d96f716fcab81f5c24bf3d86c45f777056612dfdadd7b380",
+      "sha256": "bef810940e44437509f1ec53741c0575b16b0025b8b51c321b241284e4d288a0",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 5da1132 nacre/shell-tools/tests/state-qml/tst_state.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6215,11 +6056,12 @@
     },
     "tools/tests/fixtures/keybindings-contract.json": {
       "disposition": "non-implementation",
-      "sha256": "58ef6e31683b1764ee3487cd80be7b40b441fb70aa088530a72cc2f88412fbe3",
+      "sha256": "ed1bdd1784fa2bc44111ca67bde39ea1026a2db084aba0bfd3a50679aabbb300",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 9a435c3 tools/tests/fixtures/keybindings-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation 9a435c3 tools/tests/fixtures/keybindings-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "Settings application task deliberately retains both existing hotkeys and routes them to nacre-settings; all other captured key actions/flags remain unchanged."
       ]
     },
     "tools/tests/fixtures/window-routing-contract.json": {
@@ -6340,12 +6182,13 @@
     },
     "nacre/shell-tools/tests/test_device_services.py": {
       "disposition": "independent",
-      "sha256": "820789dbb0ace6bd2ba3687a345a0a733408c7463c1d0ddecbcc528aa5717836",
+      "sha256": "ee49274f78423f358d25160b9cdda833744e3a337e3268f27128f628b2721515",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 2f9300f:nacre/shell-tools/tests/test_device_services.py; subsequent 5da1132, 28707f7, eea01b9, 02b2bda, ea5653e, a492dc6, 3d93b32, 22a4ad1, e4d2474, 18d8aab, 13701fc, 977f628, d4a82bb. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6398,13 +6241,14 @@
     },
     "nacre/shell-tools/tests/test_launcher_ui.py": {
       "disposition": "independent",
-      "sha256": "be7f795c3d25b6886b3dff6ae87c88ee45776c990ff8606b43b2a2bd1fed7441",
+      "sha256": "0a804ecdec863ddd5a0364bfa8129e135f467d7789da39438a640030a56048ca",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6466,11 +6310,12 @@
     },
     "nacre/shell-tools/tests/test_settings_ui.py": {
       "disposition": "independent",
-      "sha256": "c5319deff4882aa4396689b0bfa9cf647e7be49fcffa7328b0c3815c3da658c4",
+      "sha256": "54d86adce943def3495e22e4de8deb4b18034db2d133112329d1602550cf55c5",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 36dc0ba:siverteh/shell-tools/tests/test_settings_ui.py; subsequent 5da1132, 28707f7, a492dc6, e4d2474, f1ef99a, 977f628, d4a82bb, b770506, cbef0e4, c230d36, 19083bd, 9a3b9a7, 372fe77, 548f0b4, 807f257, 3369d3d, aee7ec3, d2e2e40, 51eb6e1, e16d354, 4ea19d5, 83b3531, 5d0028f, 09f9ceb, 06ffaf4, 9dd732a, 4e411a5, a0090ce. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 36dc0ba:siverteh/shell-tools/tests/test_settings_ui.py; subsequent 5da1132, 28707f7, a492dc6, e4d2474, f1ef99a, 977f628, d4a82bb, b770506, cbef0e4, c230d36, 19083bd, 9a3b9a7, 372fe77, 548f0b4, 807f257, 3369d3d, aee7ec3, d2e2e40, 51eb6e1, e16d354, 4ea19d5, 83b3531, 5d0028f, 09f9ceb, 06ffaf4, 9dd732a, 4e411a5, a0090ce. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/tests/test_shell_recovery.py": {
@@ -6484,11 +6329,12 @@
     },
     "nacre/shell-tools/tests/test_shell_state.py": {
       "disposition": "independent",
-      "sha256": "0269ea689daf752856a92e0182e64ed433f5e4a9a1cbb49fd4cd1fa9750c38fc",
+      "sha256": "b06830c8e4b73d446b28f7b33922357dae1649b487de05b2b5fc3ace97b258f3",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 5da1132:nacre/shell-tools/tests/test_shell_state.py; subsequent none. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 5da1132:nacre/shell-tools/tests/test_shell_state.py; subsequent none. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
@@ -6525,11 +6371,12 @@
     },
     "nacre/shell-tools/tests/test_wallpaper_rotation.py": {
       "disposition": "independent",
-      "sha256": "da6a70446001087caf5e0f92d7d11c7d139bb6e33a3d52179db849c9af2aea48",
+      "sha256": "98691b05546f1fe741bd3f7e134331904133cef90807eb224590ea17d89f2e0e",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 4ea19d5:siverteh/shell-tools/tests/test_wallpaper_rotation.py; subsequent 5da1132, 28707f7, eea01b9, 9a3b9a7, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 4ea19d5:siverteh/shell-tools/tests/test_wallpaper_rotation.py; subsequent 5da1132, 28707f7, eea01b9, 9a3b9a7, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed."
       ]
     },
     "nacre/shell-tools/tests/test_workspace_ui.py": {
@@ -6637,7 +6484,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "5e81ad090f8c433def2495c362660695361fd38d7b812685aaebffb623e06d68",
+      "sha256": "12aaa729dd3d92e90f0d5afe453081ef8068b01d0260be25710fda7315e8039c",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6655,7 +6502,8 @@
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "docs/features/appearance.md": {
@@ -6773,11 +6621,12 @@
     },
     "docs/features/settings-lock.md": {
       "disposition": "non-implementation",
-      "sha256": "e9109ab8cb5faed32f62e8f3528279cf95a996aba160eddfbc3fc2c65355fa71",
+      "sha256": "8500571a2fa281b7d23f24bd5e9c8209cae2fa1abb2c122c392845fbcf2118f6",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained."
+        "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6841,7 +6690,7 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "0d4aa72bce9680914085c44ddda9a2798402900233596bb8ebbde1400c9d6066",
+      "sha256": "3638629c5250a8976a58c59523cfcee882fc5dc5e6bc950e06a91240635b576d",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6854,7 +6703,8 @@
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/login/README.md": {
@@ -7963,12 +7813,13 @@
     },
     "nacre/shell-tools/logo-widget.qml.in": {
       "disposition": "independent",
-      "sha256": "3a7fb9ad582a989c81bf53b0ab36a0831c01c50564a262b696fe80b2cd26dda3",
+      "sha256": "ea5aa42efdedcf69ffec52fc9611cf5eceb243311f6b319eb1b36eb4ac6a3c54",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/branding/nacre-compact.svg": {
@@ -8015,32 +7866,35 @@
     },
     "nacre/shell-tools/logo-data.js.in": {
       "disposition": "independent",
-      "sha256": "18c37982163a5423ba4622908a6f20534459762c28fc6c58ec86273b763a551c",
+      "sha256": "d61edfc12dc1ca888803ae5a06946ebdd01f272b0534d499c917b8b1c7e41b07",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/login/LogoData.js": {
       "disposition": "independent",
-      "sha256": "1edbde64b07588314b7fa1a988ff4fe63d79e1e65c995d0a07c99ef4046953ee",
+      "sha256": "7c8ca94421641dde28906a2e9494ca1ba8da86b4dc6645204aa4af390aaf0439",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/branding/LogoData.js": {
       "disposition": "independent",
-      "sha256": "1edbde64b07588314b7fa1a988ff4fe63d79e1e65c995d0a07c99ef4046953ee",
+      "sha256": "7c8ca94421641dde28906a2e9494ca1ba8da86b4dc6645204aa4af390aaf0439",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     },
     "nacre/shell/branding/nacre-symbolic.svg": {
@@ -8545,6 +8399,303 @@
       "evidence": [
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+      ]
+    },
+    "bin/nacre-settings": {
+      "disposition": "independent",
+      "sha256": "d2ef06af7cadd47ba13c2d0e21ac5a18c0cc05af461ea89a5032a893daa421ea",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "docs/features/settings-app.md": {
+      "disposition": "non-implementation",
+      "sha256": "e687bc417daf63e40c722a4e0d0d6257f780f63a6dd39a396b1109716b6329c6",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "docs/specs/settings-app.md": {
+      "disposition": "non-implementation",
+      "sha256": "d8d93bab55e99ba899cc64d41c15d09941ee57c86500ad799e4aa9e09c42c2a4",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/desktop/nacre-settings.desktop": {
+      "disposition": "independent",
+      "sha256": "570c4a7ed41cd4327e8229fa1e6a6b407dc2d4aedd9ebc42d70785bc323d8cfb",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell-tools/settings-label.svg.in": {
+      "disposition": "independent",
+      "sha256": "76e7e870aa2c9adaccbe369bba95d8e80ea62d63dc08631b699e417def33da54",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell-tools/tests/test_settings_launcher.py": {
+      "disposition": "non-implementation",
+      "sha256": "b073f26c6e1fa8b431066548bea33317818ebc84ce1058159dac852064114855",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/branding/nacre-settings-compact.svg": {
+      "disposition": "independent",
+      "sha256": "875c9a6a45fa38330c5efe66a0a8537c4246690d2f2d947db0689ef8a622116b",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/branding/nacre-settings-symbolic.svg": {
+      "disposition": "independent",
+      "sha256": "576522a21c3f035dcf65c4d6e0ddaf90481281ac5ecf0387ca41ac3ee95bf030",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/branding/nacre-settings.svg": {
+      "disposition": "independent",
+      "sha256": "6b26afbd1a1ae5cdd8256d350ea682c9ad7ba3b96d0ed54a91d3535bbc198e21",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/NacreSettingsHost.qml": {
+      "disposition": "independent",
+      "sha256": "10ed1622dbac53ae884adf6fae2dd8eafec836c8167602ace678a2561bef6803",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/NacreSettingsView.qml": {
+      "disposition": "independent",
+      "sha256": "5aff5a5cf63f5dedd32d696f20dbb679d96f8b396be780b8d28133591332c547",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 5da1132, 02b2bda, b770506, cbef0e4, c230d36. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ],
+      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+    },
+    "nacre/shell/modules/settings/NacreSettingsWindow.qml": {
+      "disposition": "independent",
+      "sha256": "2fb361272a5fa035e2b9d139adde996d55b37dc4089b4f2becf89bc83f423238",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/NacreWindowButton.qml": {
+      "disposition": "independent",
+      "sha256": "0e4544df5d492cd15e89d7f1a9dee433a7c7f0b00f55f8e8fabb765eba57f4a0",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreAiPage.qml": {
+      "disposition": "independent",
+      "sha256": "982c5e5e6888af9ad4b09fea3f4573a6e047510fecdb88fc13a606ba0d0b5396",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreAppearancePage.qml": {
+      "disposition": "independent",
+      "sha256": "f4978e4b7aa64a9b96ae074d2fab326663d19f5da6f59300a27a43ae83325e96",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreAudioNode.qml": {
+      "disposition": "independent",
+      "sha256": "7052d3ea8685109e5a5c4703a8822357f9f9971afe66c165cd9301de6e928220",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreBluetoothPage.qml": {
+      "disposition": "independent",
+      "sha256": "10f373bad239b4c87a27742d7627fa3d3675b68e8180501ef74e55dc4bad31df",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: d4a82bb. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreDesktopPage.qml": {
+      "disposition": "independent",
+      "sha256": "20cb8f13c7a0bf4a65d077de96617da75b82da091d953b4bf3ac850f0b32616c",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/frame-control-center.md",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/settings/pages/NacreDisplaysPage.qml": {
+      "disposition": "independent",
+      "sha256": "f5071befc98e10669b80ce51175c92cbcab272c07bdd8004b8a24b73ca44aace",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreLockPage.qml": {
+      "disposition": "independent",
+      "sha256": "ae3b96cd4f2cbf54d2960352c5dbf46ac559d4f8f434049779bc8e4353a40ca5",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: 28707f7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreMaintenancePage.qml": {
+      "disposition": "independent",
+      "sha256": "820e76c4426e41206090cc5c45964be1d1d06be32e69f6e3d5c14ac4309e131d",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreNetworkPage.qml": {
+      "disposition": "independent",
+      "sha256": "3de47daa83f9650db58e3203d7eae67c98d330defdf300c4ceecf36bc43bae41",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: f1ef99a, 977f628. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreNotificationPage.qml": {
+      "disposition": "independent",
+      "sha256": "61959d60df742786d3efab978b0bf413dcd412cf02a3ef09ae19f1af2bbaaf40",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreNumberField.qml": {
+      "disposition": "independent",
+      "sha256": "3093d13e9dec540fd44fe83ea9be5d4f22b0556156d1c39deed128e713ad6f1d",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacrePaletteTile.qml": {
+      "disposition": "independent",
+      "sha256": "c7614c0f9c9a0d1e218beb5dfd17a2a3656faabe79e2fd0f9ef818cae8f40918",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis c230d36: fresh appearance/palette/interval controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreSettingToggle.qml": {
+      "disposition": "independent",
+      "sha256": "89c889302c905871da3f955e4511b89a05e757a9ef41de2f215568f33ad0caca",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreSettingsPage.qml": {
+      "disposition": "independent",
+      "sha256": "a9edc6c728e179cbee4feff9c13c49aa501f595c4248763a1fa315818041b86f",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreSettingsSection.qml": {
+      "disposition": "independent",
+      "sha256": "6731423a090a75253f5fe7487972431c6e4450ebdae13806f5550ad6981e6b43",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreSoundPage.qml": {
+      "disposition": "independent",
+      "sha256": "d8732e870cc7dc15a9240dd8353d748690657ea51a9c9a935367438a9f855756",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreTimePage.qml": {
+      "disposition": "independent",
+      "sha256": "57458fce88c775a3ca4a04dde70754698af0c5b638c86f00ef8d3a0c97e4c35d",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis b770506: fresh device/notification/lock/time/AI settings controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/pages/NacreWorkflowsPage.qml": {
+      "disposition": "independent",
+      "sha256": "4e4a57b7b4195ac6c9e1c25ee42af7ce8350d03a2359cc2ede5366996487f616",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/modules/settings/settings-catalog.js": {
+      "disposition": "independent",
+      "sha256": "c3c25441dbec86c097cd483e9d6137c3c3eb88505ef7a389fd39028036b51b48",
+      "evidence": [
+        "docs/specs/application-panels-source-audit.md",
+        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
+        "Full current body individually reviewed. Basis 19083bd: fresh Settings navigation/search and shared controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell/services/NacreSettingsApp.qml": {
+      "disposition": "independent",
+      "sha256": "1cbae2a9a5f861e0e80d9af8bf3a025be9e28f741737dfd86a38eed81e75608b",
+      "evidence": [
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
       ]
     }
   }

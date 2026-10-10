@@ -107,19 +107,29 @@ def records(folder, clients):
     return sorted(result, key=lambda row: (row[0], row[1].name), reverse=True)
 
 
-def action(name, folder=None):
+def action(name, folder=None, window=None, quiet=False):
+    announce = (lambda message: None) if quiet else notify
+    if window is not None and not address(window):
+        raise ValueError("Invalid window address")
     folder = cache_directory() if folder is None else Path(folder)
     folder.mkdir(parents=True, exist_ok=True, mode=0o700)
     with (folder / ".lock").open("a") as guard:
         os.chmod(guard.name, 0o600)
         fcntl.flock(guard, fcntl.LOCK_EX)
         if name == "hide":
-            client = query("activewindow")
+            client = (
+                next(
+                    (row for row in query("clients") if row.get("address") == window),
+                    {},
+                )
+                if window
+                else query("activewindow")
+            )
             ident = client.get("address")
             workspace = client.get("workspace", {})
             number = workspace.get("id")
             if not address(ident) or type(number) is not int:
-                notify("No active window to hide")
+                announce("No active window to hide")
                 return
             if workspace.get("name") == HIDDEN:
                 return
@@ -132,9 +142,11 @@ def action(name, folder=None):
             except Exception:
                 path.unlink(missing_ok=True)
                 raise
-            notify("Window hidden")
+            announce("Window hidden")
             return
         candidates = records(folder, query("clients"))
+        if window:
+            candidates = [row for row in candidates if row[1].name == window]
         if name == "restore-current":
             current = query("activeworkspace").get("id")
             candidates = [row for row in candidates if row[2] == current]
@@ -148,13 +160,13 @@ def action(name, folder=None):
             if name == "restore-last":
                 dispatch("focus", path.name)
         if candidates:
-            notify(
+            announce(
                 "Window restored"
                 if name == "restore-last"
                 else "Window restored to current workspace"
             )
         else:
-            notify("No hidden windows to restore")
+            announce("No hidden windows to restore")
 
 
 def main():
@@ -165,7 +177,12 @@ def main():
         nargs="?",
         default="hide",
     )
-    action(parser.parse_args().action)
+    parser.add_argument("--window", help="Target only this compositor window address")
+    parser.add_argument(
+        "--quiet", action="store_true", help="Suppress transient action feedback"
+    )
+    args = parser.parse_args()
+    action(args.action, window=args.window, quiet=args.quiet)
 
 
 if __name__ == "__main__":

@@ -10,6 +10,8 @@ TestCase {
         WallpaperPlayback.sleeping = false;
         WallpaperPlayback.locked = false;
         NacrePanelState.screens = ({});
+        NacrePanelState.settingsVisible = false;
+        NacrePanelState.settingsPage = "appearance";
     }
 
     function test_shuffle_visits_each_scene_before_repeating() {
@@ -68,14 +70,14 @@ TestCase {
                 }
             });
         verify(!clock.running);
-        NacrePanelState.screens = ({
-                "test": {
-                    "dashboard": true,
-                    "dashboardTab": 4
-                }
-            });
-        verify(!clock.running);
         NacrePanelState.screens = ({});
+        NacrePanelState.settingsVisible = true;
+        verify(!clock.running);
+        NacrePanelState.settingsPage = "sound";
+        verify(clock.running);
+        NacrePanelState.settingsPage = "appearance";
+        verify(!clock.running);
+        NacrePanelState.settingsVisible = false;
         verify(clock.running);
         view.preferences = Object.assign({}, view.preferences, {
             "rotationMinutes": 60

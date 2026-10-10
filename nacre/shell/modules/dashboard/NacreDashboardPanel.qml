@@ -8,7 +8,7 @@ NacreSurface {
     required property PersistentProperties visibilities
     readonly property real viewportWidth: parent?.width ?? 1200
     readonly property real viewportHeight: parent?.height ?? 1000
-    readonly property int currentIndex: Math.max(0, Math.min(4, visibilities.dashboardTab || 0))
+    readonly property int currentIndex: [0, 1, 2, 3].includes(visibilities.dashboardTab) ? visibilities.dashboardTab : 0
     readonly property bool updating: visibilities.dashboard && visible
     readonly property real contentWidth: Math.min(viewportWidth - 48, Math.max(320, (page.item?.implicitWidth || 820) + 44))
     readonly property real contentHeight: Math.min(viewportHeight - 64, navigation.height + (page.item?.implicitHeight || 420) + 44)
@@ -21,20 +21,7 @@ NacreSurface {
     radius: 18
     function select(index) {
         visibilities.dashboardTab = index;
-        visibilities.dashboardPinned = index === 4;
-    }
-    function focusSettings() {
-        if (visibilities.dashboard && visibilities.dashboardPinned && visible)
-            forceActiveFocus(Qt.OtherFocusReason);
-    }
-    onUpdatingChanged: if (updating)
-        Qt.callLater(focusSettings)
-    Connections {
-        target: root.visibilities
-        function onDashboardPinnedChanged() {
-            if (root.visibilities.dashboardPinned)
-                Qt.callLater(root.focusSettings);
-        }
+        visibilities.dashboardPinned = false;
     }
     NacreDashboardNavigation {
         id: navigation
@@ -54,7 +41,7 @@ NacreSurface {
         width: Math.max(0, root.width - 44)
         height: Math.max(0, root.contentHeight - y - 18)
         focus: true
-        sourceComponent: [overview, media, performance, workspaces, settings][root.currentIndex]
+        sourceComponent: [overview, media, performance, workspaces][root.currentIndex]
     }
     Component {
         id: overview
@@ -79,12 +66,6 @@ NacreSurface {
         id: workspaces
         NacreWorkspacePage {
             visibilities: root.visibilities
-        }
-    }
-    Component {
-        id: settings
-        NacreSettings {
-            active: root.updating
         }
     }
     Behavior on presentedHeight {

@@ -32,15 +32,14 @@ TestCase {
         const marker = findChild(view, "dashboardSelection");
         compare(loader.item.pageName, "NacreOverview");
         compare(loader.item.shouldUpdate, true);
-        for (const [index, name] of ["NacreOverview", "NacreMediaPage", "NacrePerformancePage", "NacreWorkspacePage", "NacreSettings"].entries()) {
+        for (const [index, name] of ["NacreOverview", "NacreMediaPage", "NacrePerformancePage", "NacreWorkspacePage"].entries()) {
             mouseClick(findChild(view, "dashboardTab" + index), 35, 35);
             compare(view.visibilities.dashboardTab, index);
             compare(navigation.currentIndex, index);
-            compare(marker.x, index * navigation.width / 5 + 16);
-            compare(view.visibilities.dashboardPinned, index === 4);
+            compare(marker.x, index * navigation.width / 4 + 16);
+            compare(view.visibilities.dashboardPinned, false);
             compare(loader.item.pageName, name);
         }
-        verify(loader.item.active);
         mouseClick(findChild(view, "dashboardTab0"), 35, 35);
         compare(view.visibilities.dashboardPinned, false);
     }
@@ -63,19 +62,12 @@ TestCase {
         compare(loader.active, false);
         compare(loader.item, null);
     }
-    function test_settings_hidden_updates_and_escape() {
+    function test_legacy_settings_tab_is_not_a_dashboard_page() {
         const view = createTemporaryObject(panel, test);
-        wait(300);
-        view.select(4);
-        const loader = findChild(view, "dashboardPage");
-        verify(loader.item.active);
-        view.visibilities.dashboard = false;
-        compare(loader.item.active, false);
-        view.visibilities.dashboard = true;
-        tryCompare(view, "focus", true, 300);
-        keyClick(Qt.Key_Escape);
-        compare(view.visibilities.dashboard, false);
-        compare(view.visibilities.dashboardPinned, false);
+        view.visibilities.dashboardTab = 4;
+        wait(30);
+        compare(view.currentIndex, 0);
+        compare(findChild(view, "dashboardPage").item.pageName, "NacreOverview");
     }
     function test_viewport_and_reduced_motion() {
         DesktopSettings.data = {

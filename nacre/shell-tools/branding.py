@@ -59,7 +59,7 @@ def templates():
     )
     full = re.sub(r'viewBox="[^"]+"', f'viewBox="{VIEWBOX}"', original, count=1)
     values = {"full": full, "compact": compact, "symbolic": symbolic}
-    for application in ("ai", "brain"):
+    for application in ("ai", "brain", "settings"):
         label = (HERE / (application + "-label.svg.in")).read_text()
         for variant in ("full", "compact", "symbolic"):
             suffix = label
@@ -250,7 +250,7 @@ def publish(colors, home=None):
     # Kitty composites alpha over its own background, including opacity effects.
     # Baking a palette surface into the image produces a visible square.
     atomic(folder / "nacre.png", stream.getvalue())
-    for application in ("ai", "brain"):
+    for application in ("ai", "brain", "settings"):
         image = raster(svg(False, colors, application + "-full"))
         stream = io.BytesIO()
         image.save(stream, format="PNG")
@@ -265,6 +265,9 @@ def publish(colors, home=None):
         ("brain-full", "nacre-brain.svg"),
         ("brain-compact", "nacre-brain-compact.svg"),
         ("brain-symbolic", "nacre-brain-symbolic.svg"),
+        ("settings-full", "nacre-settings.svg"),
+        ("settings-compact", "nacre-settings-compact.svg"),
+        ("settings-symbolic", "nacre-settings-symbolic.svg"),
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo().encode())
@@ -277,6 +280,10 @@ def publish(colors, home=None):
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-brain.svg",
         svg(False, colors, "brain-full").encode(),
+    )
+    atomic(
+        home / ".local/share/icons/hicolor/scalable/apps/nacre-settings.svg",
+        svg(False, colors, "settings-full").encode(),
     )
     # Already-open old menus read the previous filename; it contains the new art.
     for legacy, current in [
@@ -314,6 +321,9 @@ def build():
         ("brain-full", "nacre-brain.svg"),
         ("brain-compact", "nacre-brain-compact.svg"),
         ("brain-symbolic", "nacre-brain-symbolic.svg"),
+        ("settings-full", "nacre-settings.svg"),
+        ("settings-compact", "nacre-settings-compact.svg"),
+        ("settings-symbolic", "nacre-settings-symbolic.svg"),
     ]:
         (root / "shell/branding" / name).write_text(values[variant])
     (root / "shell/branding/nacre-text.txt").write_text(text_logo())
@@ -334,6 +344,12 @@ def build():
         + ";\n"
         + "var brainCompactTemplate="
         + json.dumps(values["brain-compact"])
+        + ";\n"
+        + "var settingsFullTemplate="
+        + json.dumps(values["settings-full"])
+        + ";\n"
+        + "var settingsCompactTemplate="
+        + json.dumps(values["settings-compact"])
         + ";\n"
         + helper
     )

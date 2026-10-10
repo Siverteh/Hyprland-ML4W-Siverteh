@@ -57,7 +57,7 @@ class LauncherUITests(unittest.TestCase):
                 "import QtQuick\nText {property real fill:0}"
             )
             (target / "fixtures/BrandLogo.qml").write_text(
-                "import QtQuick\nItem {property bool ai:false;property bool brain:false}"
+                "import QtQuick\nItem {property bool ai:false;property bool brain:false;property bool settings:false}"
             )
             with (target / "fixtures/qmldir").open("a") as manifest:
                 for name in fixtures:

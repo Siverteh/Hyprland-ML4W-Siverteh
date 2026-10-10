@@ -23,31 +23,58 @@ class ShellStateTests(unittest.TestCase):
             fixtures = target / "fixtures"
             fixtures.mkdir()
             definitions = {
-                "NacreHyprland": 'property var focusedMonitor:({name:"one"});property int activeWsId:2;property var workspaces:({values:[{},{}]});property var calls:[];function dispatch(command){calls=[...calls,command]}',
+                "NacreHyprland": 'property var focusedMonitor:({name:"one"});property int activeWsId:2;property var clients:[];property var workspaces:({values:[{},{}]});property var calls:[];function dispatch(command){calls=[...calls,command]}',
                 "NacreHoverIntent": "property var dismissed:[];function dismiss(screen){dismissed=[...dismissed,screen.name]}",
                 "DesktopSettings": "property var data:({animations:false,clickEdgeMenus:false})",
                 "DisplayRecovery": "property var restores:[];function restoreSaved(value){restores=[...restores,value]}",
                 "Environment": 'property var screens:[{name:"one"},{name:"two"}]',
             }
+            (fixtures / "Process.qml").write_text(
+                "import QtQuick\nQtObject {property var command:[];property bool running:false;signal exited(int exitCode,int exitStatus)}"
+            )
             with (fixtures / "qmldir").open("w") as manifest:
+                manifest.write("Process 1.0 Process.qml\n")
                 for name, body in definitions.items():
                     (fixtures / (name + ".qml")).write_text(
                         "pragma Singleton\nimport QtQuick\nQtObject {" + body + "}\n"
                     )
                     manifest.write(f"singleton {name} 1.0 {name}.qml\n")
-                for name in ("NacrePanelState", "Visibilities"):
+                for name in ("NacrePanelState", "Visibilities", "NacreSettingsApp"):
                     source = (
                         (SHELL / "services" / (name + ".qml"))
                         .read_text()
+                        .replace("import Quickshell.Io", "")
                         .replace("import Quickshell", "")
-                        .replace("Singleton {", "Item {")
+                        .replace(
+                            "Singleton {",
+                            "QtObject { default property list<QtObject> objects;"
+                            if name == "NacreSettingsApp"
+                            else "Item {",
+                        )
                         .replace("Quickshell.screens", "Environment.screens")
+                        .replace("Quickshell.processId", "0")
+                        .replace('Quickshell.env("HOME")', '"/fixture"')
+                        .replace(
+                            'import "../modules/settings/settings-catalog.js" as Catalog',
+                            'import "settings-catalog.js" as Catalog',
+                        )
                     )
+                    source = remove_objects(source, r"\bIpcHandler\s*\{")
+                    if name == "NacreSettingsApp":
+                        source = source.replace(
+                            "    Timer {", "    property Timer focusTimer: Timer {"
+                        ).replace(
+                            "    Process {", "    property Process job: Process {"
+                        )
                     source = source.replace(
                         "import QtQuick", 'import QtQuick\nimport "."', 1
                     )
                     (fixtures / (name + ".qml")).write_text(source)
                     manifest.write(f"singleton {name} 1.0 {name}.qml\n")
+            shutil.copy2(
+                SHELL / "modules/settings/settings-catalog.js",
+                fixtures / "settings-catalog.js",
+            )
             for name in ("NacreShellIpc", "NacreShellShortcuts"):
                 source = (SHELL / "modules" / (name + ".qml")).read_text()
                 source = (
@@ -57,6 +84,12 @@ class ShellStateTests(unittest.TestCase):
                     .replace("import qs.services", 'import "fixtures"')
                     .replace("Scope {", "Item {")
                     .replace("Quickshell.screens", "Environment.screens")
+                    .replace("Quickshell.processId", "0")
+                    .replace('Quickshell.env("HOME")', '"/fixture"')
+                    .replace(
+                        'import "../modules/settings/settings-catalog.js" as Catalog',
+                        'import "settings-catalog.js" as Catalog',
+                    )
                 )
                 source = remove_objects(source, r"\b(IpcHandler|NacreShortcut)\s*\{")
                 (target / (name + ".qml")).write_text(source)

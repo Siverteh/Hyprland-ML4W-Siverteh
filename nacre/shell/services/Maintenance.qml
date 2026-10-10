@@ -53,9 +53,7 @@ Singleton {
     Timer {
         interval: 15000
         repeat: true
-        running: Object.values(NacrePanelState.screens).some(v => {
-            return v.dashboard && v.dashboardTab === 4 && NacrePanelState.settingsPage === "maintenance";
-        })
+        running: NacrePanelState.settingsVisible && NacrePanelState.settingsPage === "maintenance"
         onTriggered: root.refresh()
     }
 }

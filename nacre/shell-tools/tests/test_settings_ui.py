@@ -32,20 +32,24 @@ class SettingsUITests(unittest.TestCase):
                     .replace('Quickshell.env("XDG_STATE_HOME")', '"/fixture/state"')
                 )
 
-            source = adapted(ROOT.parent / "shell/modules/dashboard/NacreSettings.qml")
-            source = remove_objects(source, r"\bIpcHandler\s*\{")
+            source = adapted(
+                ROOT.parent / "shell/modules/settings/NacreSettingsView.qml"
+            )
+            source = source.replace('import "pages"', 'import "settings"')
             (target / "NacreSettings.qml").write_text(source)
             shutil.copy2(
-                ROOT.parent / "shell/modules/dashboard/settings-catalog.js",
+                ROOT.parent / "shell/modules/settings/settings-catalog.js",
                 target / "settings-catalog.js",
             )
             pages = target / "settings"
             pages.mkdir()
-            for path in (ROOT.parent / "shell/modules/dashboard/settings").glob(
-                "*.qml"
-            ):
-                source = adapted(path, "../fixtures").replace(
-                    'import "../../notifications"', 'import "../notifications"'
+            for path in (ROOT.parent / "shell/modules/settings/pages").glob("*.qml"):
+                source = (
+                    adapted(path, "../fixtures")
+                    .replace('import "../../dashboard/media"', 'import "../media"')
+                    .replace(
+                        'import "../../notifications"', 'import "../notifications"'
+                    )
                 )
                 if path.name == "NacreAppearancePage.qml":
                     source = remove_objects(source, r"\bFileView\s*\{")
@@ -127,7 +131,7 @@ class SettingsUITests(unittest.TestCase):
                 "import QtQuick\nQtObject {property var objects:[]}"
             )
             (target / "fixtures/BrandLogo.qml").write_text(
-                "import QtQuick\nItem {implicitWidth:26;implicitHeight:26}"
+                "import QtQuick\nItem {property bool settings:false;implicitWidth:26;implicitHeight:26}"
             )
             (target / "fixtures/NacreIcon.qml").write_text("import QtQuick\nText {}")
             with (target / "fixtures/qmldir").open("a") as manifest:

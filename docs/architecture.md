@@ -187,3 +187,14 @@ private vault, runtime, browser profile, state and sync paths are documented in
 aliases and Obsidian registration; notes/accounts are never release artifacts.
 The shared brand generator derives the Brain-specific glyph, web header and
 palette-bound launcher icon from the same approved shell master.
+
+## Settings application
+
+`NacreSettingsHost` lazily creates one `FloatingWindow` through the existing shell.
+`NacreSettingsApp` owns activation/visibility/page routing; the content and pages
+live under `modules/settings`. Settings uses existing singleton backends and the
+same atomic preferences rather than launching another settings/configuration
+owner. Dashboard and settings lifecycles are independent. Closed/minimized page
+refreshes pause, while display recovery timers retain their safety behavior.
+The `nacre-settings` command and desktop entry activate/focus this window, with
+a bounded cold-start path through the shell's existing user service.

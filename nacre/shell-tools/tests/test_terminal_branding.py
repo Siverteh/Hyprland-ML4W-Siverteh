@@ -91,6 +91,7 @@ class TerminalBrandingTests(unittest.TestCase):
                 "logo-widget.qml.in",
                 "ai-label.svg.in",
                 "brain-label.svg.in",
+                "settings-label.svg.in",
             ):
                 shutil.copyfile(Path(branding.__file__).with_name(name), tools / name)
             shutil.copyfile(

@@ -4,7 +4,7 @@
 
 ## Detailed settings and lock-screen widgets
 
-Settings remains inside the top-menu dashboard. Its navigation rail groups
+Settings now opens in the [Nacre Settings application](settings-app.md). Its navigation rail groups
 Appearance, Desktop, Displays, Sound, Network, Bluetooth, Notifications,
 Workflows, Lock screen, Nacre AI and Maintenance. Search matches page names
 and setting keywords. Only the active page is loaded while Settings is open.

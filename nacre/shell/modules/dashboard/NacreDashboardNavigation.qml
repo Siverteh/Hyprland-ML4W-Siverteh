@@ -22,10 +22,6 @@ Item {
         {
             label: "Workspaces",
             icon: "workspaces"
-        },
-        {
-            label: "Settings",
-            icon: "settings"
         }
     ]
     implicitHeight: 72

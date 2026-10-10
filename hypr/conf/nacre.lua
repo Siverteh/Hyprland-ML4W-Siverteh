@@ -61,3 +61,11 @@ hl.window_rule({
 })
 
 hl.config({ xwayland = { force_zero_scaling = true } })
+
+-- Settings is a normal resizable window on the current workspace.
+hl.window_rule({
+    name = "nacre-settings-app",
+    match = { class = "^org[.]quickshell$", title = "^Nacre Settings$" },
+    float = true,
+    center = true,
+})

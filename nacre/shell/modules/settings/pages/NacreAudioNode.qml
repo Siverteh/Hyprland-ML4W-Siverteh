@@ -2,7 +2,7 @@ import QtQuick
 import qs.widgets
 import qs.services
 import Quickshell.Services.Pipewire
-import "../media"
+import "../../dashboard/media"
 
 Column {
     id: root

@@ -4,6 +4,7 @@ import Quickshell
 
 Singleton {
     id: root
+    property bool settingsVisible: false
     property string settingsPage: "appearance"
     property bool hidden: false
     property real reveal: hidden ? 0 : 1
@@ -118,20 +119,7 @@ Singleton {
         return page ? openControls(icon) : false;
     }
     function openSettings(page) {
-        const view = getForActive();
-        if (!view)
-            return false;
-        if (page && pages.includes(page))
-            settingsPage = page;
-        clearPopouts();
-        closeTransient(view);
-        view.previewOnly = false;
-        view.left = false;
-        view.leftPinned = false;
-        view.dashboardTab = 4;
-        view.dashboard = true;
-        view.dashboardPinned = true;
-        hidden = false;
+        NacreSettingsApp.open(page || "");
         return true;
     }
     function toggleLeft() {

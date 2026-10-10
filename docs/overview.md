@@ -93,6 +93,7 @@ possible future extraction; it is not an implemented public installer.
 - [Dolphin](file-manager.md), [terminal branding](features/terminal-branding.md)
 - [Session environment](features/session.md), [travel timezone](features/travel-timezone.md)
 - [Runtime ownership](features/runtime.md), [Nacre name migration](features/nacre-rename.md)
+- [Nacre Settings](features/settings-app.md)
 - [Nacre Brain](features/nacre-brain.md)
 - [Health and recovery](features/health-and-recovery.md), [Brain authentication](features/brain-authentication.md)
 
@@ -112,3 +113,6 @@ Fastfetch startup hook prepares its registered image; see the
 [terminal guide](features/terminal-branding.md) for behavior and limits.
 
 Search for **Nacre AI** in the app launcher to open its terminal workspace menu.
+
+`nacre-settings` opens the normal Settings window; its pages and shared services
+are separate from the dashboard tabs. See [Settings](features/settings-app.md).

@@ -1,14 +1,28 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import qs.widgets
 import qs.services
-import "settings"
+import "pages"
 import "settings-catalog.js" as Catalog
 
 Item {
     id: root
+    signal closeRequested
+    focus: true
+    function focusContent() {
+        forceActiveFocus(Qt.OtherFocusReason);
+    }
+    function focusSearch() {
+        search.forceActiveFocus(Qt.ShortcutFocusReason);
+        search.selectAll();
+    }
+    Keys.onEscapePressed: {
+        if (query) {
+            query = "";
+        } else
+            closeRequested();
+    }
     property bool active: true
     property string page: NacrePanelState.settingsPage
     property string query: ""
@@ -44,28 +58,15 @@ Item {
         id: rail
         x: 0
         y: 0
-        width: root.narrow ? root.width : 190
-        height: root.narrow ? 160 : root.height
+        width: root.narrow ? root.width : 208
+        height: root.narrow ? 118 : root.height
         radius: 18
         color: NacreColours.palette.m3surfaceContainer
-        Row {
-            x: 14
-            y: 14
-            spacing: 8
-            BrandLogo {
-                width: 26
-                height: 26
-            }
-            NacreText {
-                text: "Settings"
-                font.pointSize: 16
-                color: NacreTokens.accent
-            }
-        }
         NacreTextField {
+            id: search
             objectName: "settingsSearch"
             x: 12
-            y: 52
+            y: 12
             width: parent.width - 24
             height: 40
             padding: 10
@@ -79,9 +80,9 @@ Item {
             id: categories
             objectName: "settingsCategories"
             x: 10
-            y: 100
+            y: 64
             width: parent.width - 20
-            height: parent.height - 110
+            height: parent.height - 74
             orientation: root.narrow ? ListView.Horizontal : ListView.Vertical
             model: root.pages
             spacing: 4
@@ -123,8 +124,8 @@ Item {
     Flickable {
         id: scroll
         objectName: "settingsScroll"
-        x: root.narrow ? 0 : 214
-        y: root.narrow ? 172 : 0
+        x: root.narrow ? 0 : 232
+        y: root.narrow ? 130 : 0
         width: Math.max(0, parent.width - x)
         height: Math.max(0, parent.height - y)
         contentWidth: width
@@ -262,19 +263,5 @@ Item {
     Component {
         id: maintenance
         NacreMaintenancePage {}
-    }
-    IpcHandler {
-        target: "settingsView"
-        function open(page: string): void {
-            root.open(page);
-        }
-        function state(): string {
-            return JSON.stringify({
-                page: root.page,
-                search: root.query,
-                width: root.width,
-                height: root.height
-            });
-        }
     }
 }

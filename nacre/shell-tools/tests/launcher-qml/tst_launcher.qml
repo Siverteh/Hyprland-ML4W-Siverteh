@@ -35,7 +35,7 @@ TestCase {
     function test_ai_app_uses_live_logo_only_for_its_own_tile() {
         const original = NacreApps.all;
         try {
-            for (const id of ["nacre-ai", "nacre-ai.desktop", "nacre-brain", "nacre-brain.desktop", "other-app"]) {
+            for (const id of ["nacre-ai", "nacre-ai.desktop", "nacre-brain", "nacre-brain.desktop", "nacre-settings", "nacre-settings.desktop", "other-app"]) {
                 NacreApps.all = [
                     {
                         id: id,
@@ -51,6 +51,7 @@ TestCase {
                 verify(logo !== null);
                 compare(logo.ai, id.startsWith("nacre-ai"));
                 compare(logo.brain, id.startsWith("nacre-brain"));
+                compare(logo.settings, id.startsWith("nacre-settings"));
                 compare(logo.visible, id !== "other-app");
                 view.destroy();
             }

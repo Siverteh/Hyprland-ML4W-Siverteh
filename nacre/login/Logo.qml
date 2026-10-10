@@ -8,6 +8,7 @@ Item {
     property bool compact: width <= 36
     property bool ai: false
     property bool brain: false
+    property bool settings: false
     property color primary: "#dda1ba"
     property color secondary: "#afa2df"
     property color tertiary: "#8cc9cd"
@@ -15,7 +16,7 @@ Item {
     property color background: "#151310"
     property color foreground: "#f4f1ef"
     property bool motionEnabled: false
-    Accessible.name: root.ai ? "Nacre AI" : root.brain ? "Nacre Brain" : "Nacre"
+    Accessible.name: root.ai ? "Nacre AI" : root.brain ? "Nacre Brain" : root.settings ? "Nacre Settings" : "Nacre"
     Accessible.role: Accessible.Graphic
     Image {
         id: image
@@ -25,7 +26,7 @@ Item {
         retainWhileLoading: true
         sourceSize.width: Math.max(32, Math.ceil(root.width * 3))
         sourceSize.height: Math.max(32, Math.ceil(root.height * 3))
-        source: "data:image/svg+xml;utf8," + encodeURIComponent(LogoData.colored(root.primary, root.secondary, root.tertiary, root.highlight, root.background, root.foreground, root.compact, root.ai, root.brain))
+        source: "data:image/svg+xml;utf8," + encodeURIComponent(LogoData.colored(root.primary, root.secondary, root.tertiary, root.highlight, root.background, root.foreground, root.compact, root.ai, root.brain, root.settings))
         property bool loadedOnce: false
         onStatusChanged: if (status === Image.Ready) {
             if (loadedOnce && root.motionEnabled)
