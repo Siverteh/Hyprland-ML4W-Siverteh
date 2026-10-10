@@ -1574,6 +1574,33 @@
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
         "Own raster privacy/geometry/concurrency/icon-path/cache-retention fixtures introduced 55fbe20. Actual Pillow owner with synthetic data/temp HOME, current independent palette roles and local code. Current test bodies reviewed and pass; no private wallpaper/notification fixture or upstream implementation body."
       ]
+    },
+    "nacre/shell-tools/font-setup.py": {
+      "disposition": "independent",
+      "sha256": "02b802d3efb311ec339ca1ac6eca931850e2bba6f49d8ebb4bc256fca2e37e01",
+      "evidence": [
+        "docs/specs/font-provenance.md",
+        "docs/nacre/PROVENANCE.md#font-asset-provenance-and-independent-provisioning",
+        "New independent per-user owner authored from docs/specs/font-provenance.md, public Python file/network/flock APIs and actual fontconfig commands. No predecessor/third-party provisioning implementation reused. Input staging/hash validation, exact migration/drift/rollback ownership, native cache refresh and immutable URLs; tests prove normal failure paths. Actual font binaries remain licensed third-party private assets, not code originals."
+      ]
+    },
+    "nacre/shell-tools/font-assets.json": {
+      "disposition": "independent",
+      "sha256": "cd97a99aecfb90817772b90ae71b732d429d8b69fb8708b9c20a59030e19907d",
+      "evidence": [
+        "docs/specs/font-provenance.md",
+        "docs/nacre/PROVENANCE.md#font-asset-provenance-and-independent-provisioning",
+        "New independently assembled asset provenance manifest from official GitHub metadata and fetched pinned upstream byte hashes. All six current private font/notice files match exactly, roles/families unchanged. Plex/Rubik OFL 1.1, Material Apache 2.0 retained; no binary/code vendored. Asset package identity separate from helper code authorship."
+      ]
+    },
+    "nacre/shell-tools/tests/test_font_setup.py": {
+      "disposition": "independent",
+      "sha256": "98d32a08bedf039ed983c99881a07738ae84fa292d87d6d7b41ac5ec29f048d5",
+      "evidence": [
+        "docs/specs/font-provenance.md",
+        "docs/nacre/PROVENANCE.md#font-asset-provenance-and-independent-provisioning",
+        "New own actual temp-HOME migration/install/drift/checksum/cache-failure/rollback fixtures, authored from spec and owner contracts. Small synthetic byte payloads only, no source/font blob/private state or upstream implementation fixture. Does not substitute for separate real-font/native-render acceptance."
+      ]
     }
   }
 }

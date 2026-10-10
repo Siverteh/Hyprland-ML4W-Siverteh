@@ -216,3 +216,8 @@ The palette publisher validates all required roles before applying them and
 serializes direct, prepared and CLI selections through the same commit guard.
 It keeps the current wallpaper deadline when only colors are re-published.
 See [appearance publication behavior](features/appearance.md#publishing-a-palette-safely).
+
+Fonts are independently provisioned from pinned official assets and retained
+notices. The font owner verifies checksums, protects edits and records rollback
+before moving recognized legacy files to the canonical Nacre user directory.
+See [font ownership](features/fonts.md).

@@ -306,3 +306,8 @@ installed licensed Papirus artwork and repair only recognized generated caches.
 Custom index/artwork files remain user-owned. Native Rofi theme dumping validates
 the fallback theme; the installed 2.0.0 standalone validator has a reproduced
 cleanup crash, including on a minimal theme.
+
+The font provisioner owns only manifest-listed user fonts/notices under
+~/.local/share/fonts/nacre, with an installed-hash registry and private rollback
+records. Official asset bytes are pinned outside Git; third-party fonts keep their
+licenses and source identity. Legacy files migrate only after exact verification.

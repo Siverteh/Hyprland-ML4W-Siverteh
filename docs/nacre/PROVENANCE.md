@@ -1621,3 +1621,26 @@ test reviews added; active font asset origin/ownership/migration remains explici
 next work, as do all other source/assets/tests/packaging/full comparison requirements.
 Physical authentication/sleep/cold-login/fresh-session curves remain unverified.
 Notices and complete originality goal retained.
+
+## Font asset provenance and independent provisioning
+
+[Spec](../specs/font-provenance.md): parsed actual TTF names/versions and Git blob
+identities, then fetched official pinned files/notices and compared SHA-256. All
+six existing files match exactly: Plex 3.201/Rubik 2.300 in google/fonts revision
+bd8f81ddb5c74d5c8897b36ad88b440266245103, Material Rounded 2.973 in Google icons
+revision 737e3324305806514d7909874fa1818ae1808232 (Oct 2), not latest changed Oct 9
+asset. Plex/Rubik OFL 1.1 and Material Apache 2.0 notices also exact. Directory label
+was legacy packaging, not evidence of font modifications or project authorship.
+No font blobs committed, no Caelestia/ML4W body consulted for new code.
+
+New own manifest/provisioner/tests authored from this spec and public fontconfig/
+file/network APIs. Check all bytes before promotion, exact ownership/drift guards,
+private backups and rollback, serialized setup, fc-cache refresh. Preserve unknown
+files/custom edits; Rubik optional on fresh install but existing asset retained.
+Tests cover recognized migration/no network/idempotence/custom file, drift refusal,
+bad download, cache failure rollback and later-edit rollback refusal. Installer
+caller invokes this owner before UI cutover; this edit is not a certificate for
+the whole installer. Font installation remains separate from code snapshot
+rollback; normal failures recover files, no filesystem crash-atomicity claim.
+Properly licensed third-party fonts remain dependencies, not Nacre-original art.
+Whole remaining sources/assets/tests/dependencies and notices/goal stay open.

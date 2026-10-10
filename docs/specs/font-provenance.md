@@ -39,3 +39,22 @@ reviewed plan/apply/source/IPC/private hashes/worker checks for maintained runti
 changes; migration recorded separately as user asset operation. Exact-main CI.
 No source-license cleanup or whole-tree completion claim from these fonts alone;
 remaining implementations/assets/tests/packaging/full comparison still required.
+
+## Verified asset records and implementation
+
+Existing IBM Plex Sans 3.201 and Rubik 2.300 font Git blobs match official
+google/fonts assets at pinned bd8f81ddb5c74d5c8897b36ad88b440266245103. Material
+Symbols Rounded 2.973 matches official google/material-design-icons asset at
+737e3324305806514d7909874fa1818ae1808232 (2026-10-02), not latest changed Oct 9
+blob. Retrieved pinned bytes/notices and compared SHA256: all six exact. Old
+directory name is packaging legacy, not modified Caelestia font source.
+
+New own font-assets.json pins URLs/revisions/size/hash/family/license; font-setup.py
+plans without mutation, stages all verified inputs, refuses edited known assets,
+migrates only recognized files and records private backups/ownership. Canonical
+lookup uses unchanged bytes/families. Rubik optional for fresh installation, but
+retained/migrated when already present as user compatibility data. Unknown extra
+legacy files remain. Private rollback checks later drift/backup integrity; cache
+failure restores old assets. This is normal failure rollback, not a filesystem-wide
+crash transaction. Full desktop installer invokes this owner before shell cutover.
+Do not certify entire install.py from this single caller integration edit.

@@ -120,6 +120,8 @@ def deploy(code_only=False):
         )
     # The release transaction snapshots the old runtime before this activation.
     subprocess.run(["python3", str(ROOT / "provision.py")], check=True)
+    # Fonts have their own hash/notice/rollback owner; loaded applications stay alive.
+    subprocess.run(["python3", str(ROOT / "font-setup.py"), "--apply"], check=True)
     pending = DEST / "source.next"
     if pending.exists():
         shutil.rmtree(pending)
