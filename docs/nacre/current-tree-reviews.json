@@ -4466,6 +4466,186 @@
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
         "Full current source body reviewed. Basis fd2c9ff: new own pure command boundary regression: old multibyte names failed; ASCII/two-byte/four-byte 32-byte edges and controls, no nmcli execution. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
       ]
+    },
+    "nacre/shell-tools/composer.py": {
+      "disposition": "independent",
+      "sha256": "897c0f901631c3d83a8ab47b592de47f08e8352ea92572b9f6ce3ac090876f6b",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 8bd5e65: local private per-thread drafts, explicit local attachment validation and opt-in clipboard/screenshot adapters. Later path changes: 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/desktop-extras.py": {
+      "disposition": "independent",
+      "sha256": "b4a4f3813e8f843748dd0f006d2eda3ca87c5f1adf522df28e620048f25de96f",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 007d020: local on-demand chat/vault/clipboard/shortcut adapters; later independent binding-contract capture9a435c3 traced. Later path changes: 9a435c3, 548f0b4, 83b3531, 7a05033. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/desktop-settings.py": {
+      "disposition": "independent",
+      "sha256": "feae32a100baef1094bac45b364284223539230cb3006c9b731cf7b9e926defb",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis a9a683d: local validated desktop state/Lua/public monitor contracts and rollback;2636534 preserves lock/weather choices across all presets. Later path changes: 2636534, 548f0b4, bcdbd69, bb46dd6, 9deeee7, 6fb4d5a, 83b3531, 146b068, 5100e73, a0090ce, 8bd5e65, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/display-recover.py": {
+      "disposition": "independent",
+      "sha256": "789018f0d86de36a674c3078792b1a93dbdc9c6ee07841432ec0af8beac748cd",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 407e5c7: local private geometry/view snapshot recovery and renderer-only fallback with source/IPC readiness. Later path changes: 548f0b4, b12961b, 80a23f2, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/fish_title.fish": {
+      "disposition": "independent",
+      "sha256": "5017dd6b53de318c84f587f73d2affedb7fd6acebe33ba4fed9e9efbbc223a3d",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 746fc96: locally authored standard Fish title function with folder/Home labels, no inherited theme/title algorithm. Later path changes: 548f0b4. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/launcher-preferences.py": {
+      "disposition": "independent",
+      "sha256": "0a17df6a0e7112d02ad6ac3e9702b9f71f1b97b91ce04a33150a31216f67f3ac",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis a3e2420: local locked atomic favorites/hidden state, malformed preference refusal and user-only mutations. Later path changes: 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/maintenance.py": {
+      "disposition": "independent",
+      "sha256": "69ba8701e9d25ce143a1eeb2916096181a6920adcf7141824b9985ee14db8b7c",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 8bd5e65: local read-only health/service facts plus explicit recovery actions, no vendor maintenance implementation. Later path changes: 548f0b4, 871e2e7, bfba6bb, a5c973c, 3d2b7cd, bb46dd6, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/notification-history.py": {
+      "disposition": "independent",
+      "sha256": "e9da349c8e76440932dcdcedff586f0e9f77a99ffe0524cd91d02abb767e84ed",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 789ee6f: local private display-only notification snapshots/filter policy, no native action serialization. Later path changes: 548f0b4, 3369d3d, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/notification-policy.json": {
+      "disposition": "independent",
+      "sha256": "ef9e4131aa7839fdca9804b0a98e405496535a0b598dc5461bd39474cb74a93e",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 3369d3d: local feedback app/summary/pattern lists implementing user requested retention behavior, not vendor data. Later path changes: 548f0b4. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/sidebar-chat.py": {
+      "disposition": "independent",
+      "sha256": "14738b3b88ae17d805ba5bb72d2baa80472094d31c30864a798d945e681a0da7",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis e3d0298: local persistent Codex/Claude transports, streaming/question/steer/history/thread handoff; full-access/skip-permissions and busy backend preserved. Later path changes: 548f0b4, 83b3531, 8bd5e65, 5c3cd84, a7495cb, ddb0066, d10c724. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/wallpaper-media.py": {
+      "disposition": "independent",
+      "sha256": "fcbf4117d519ec59e24d898ec973d502b278df86382751a51ce8208b89dfe2fc",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 06ffaf4: local media/poster/thumb/preferences/selection/import/rotation-cache integration; independent Orient5ecf556 and current Natural/Harmony9c9089f traced. Later path changes: 9c9089f, 372fe77, 5ecf556, 548f0b4, 8c92402, aee7ec3, e16d354, 4ea19d5, 83b3531, 81827c1, 09f9ceb. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/wallpaper-watch.py": {
+      "disposition": "independent",
+      "sha256": "7dad478841e757897bc432be98496a962d20f2c18139d245adb583e63813c686",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 8c92402: local event-driven inotify directory/config/engine watcher and debouncing; current role-cache invalidation changes traced. Later path changes: 9c9089f, 5ecf556, 548f0b4. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_composer.py": {
+      "disposition": "independent",
+      "sha256": "577b86793901b769414d0453395207e110cc178bde5d99a30287a87b3107a921",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 8bd5e65: own temp drafts/local attachments and fake model-input contract tests. Later path changes: 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_desktop_extras.py": {
+      "disposition": "independent",
+      "sha256": "2f4f874a4384f37f382c6b3ca2b136f1806b2f8da934c5bc54d848858cd866cb",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 007d020: own temp vault/clipboard/shortcut guide fixtures, later native bind capture regression9a435c3. Later path changes: 9a435c3, 548f0b4, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_desktop_settings.py": {
+      "disposition": "independent",
+      "sha256": "440fefa0df20ec0753073dbf212a136a37fb98c625b583750f490435d4e51d8c",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis a9a683d: own temp validated setting/display/preset/revert fixture;2636534 isolates HOME and proves all seven presets preserve current private lock/weather values. Later path changes: 2636534, 548f0b4, 83b3531, 5100e73, 007d020. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_launcher_preferences.py": {
+      "disposition": "independent",
+      "sha256": "ad3463f5313225bd23af5801501ae2b93b34395637e26756afcc433b3a332572",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis a3e2420: own temp private preference mutations/permissions/malformed-file preservation fixtures. Later path changes: 548f0b4, bb46dd6, 83b3531, e044859. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_notification_history.py": {
+      "disposition": "independent",
+      "sha256": "3f16c27912d6244f05592b742dc4fdb2f114f3d80891bb14d231429600546be8",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 789ee6f: own temp display-only history roundtrip/filter/invalid-input/no-overwrite fixtures. Later path changes: 548f0b4, 3369d3d, 83b3531. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_sidebar_chat.py": {
+      "disposition": "independent",
+      "sha256": "0d1071326d6ac098ebf3ba0b4261eb5b07ca1949636baa1fbb9a4de17ff6f028",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis e3d0298: own fake backend/private temp manager/thread/steer/questions/handoff/failure tests, no real inference or credentials. Later path changes: 548f0b4, bb46dd6, 83b3531, 5c3cd84, ddb0066, d10c724. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_wallpaper_media.py": {
+      "disposition": "independent",
+      "sha256": "9c4d05c36025a92ef8c6c9cc2dd8c564979b7e2d49850e99598f307818fdfcbb",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 06ffaf4: own synthetic images/temp commands and cache/preference/publication tests;428abbe isolates remaining default HOME/cache/library/state paths. Later path changes: 428abbe, 9c9089f, 372fe77, 5ecf556, 548f0b4, aee7ec3, 4ea19d5, 83b3531, 81827c1, 09f9ceb. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_wallpaper_watch.py": {
+      "disposition": "independent",
+      "sha256": "057926dd2c1f4bd45579d301d9ae1f512edc75280c21e0878ce840ebca1b4a1c",
+      "evidence": [
+        "docs/specs/persistence-helpers-source-audit.md",
+        "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
+        "Complete current source/data body reviewed. Basis 8c92402: own real native inotify fixture/temp directory changes with no user settings;428abbe isolates child HOME. Later path changes: 428abbe, 5ecf556, 548f0b4. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
+      ]
     }
   }
 }
