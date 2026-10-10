@@ -42,3 +42,8 @@ header drawn above frame chrome and included in the shared input mask. A second
 bar layer surface is forbidden: compositor focus can raise same-layer windows.
 Verify the actual tiled workspace through modal transitions, not only a separate
 floating validation window.
+
+For discoverability, tint only the protrusion from body at the join to primary
+at its outer tip. Keep geometry/masks and frame pixels unchanged. Hover/open may
+strengthen the accent with a finite reduced-motion-aware transition, never an
+idle animation or palette-publication delay.

@@ -38,3 +38,8 @@ headless tests alone cannot establish them.
 The top target widens to the dashboard's actual width while it is open. Moving
 across the header above that panel keeps it open; once closed, only the narrow
 lip column can open it again.
+
+Only the protruding curve blends from the body color at its join to the primary
+wallpaper accent at its tip. The base frame stays body-colored and unoutlined.
+Hover/open slightly strengthens that accent over120ms, with reduced motion
+settling immediately; palette changes remain immediate and there is no idle loop.

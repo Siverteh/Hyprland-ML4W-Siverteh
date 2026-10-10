@@ -226,7 +226,10 @@ TestCase {
             self.assertEqual(gallery.getpixel((500, 60)), (86, 125, 154))
             self.assertEqual(gallery.getpixel((300, 200)), (86, 125, 154))
 
-            self.assertEqual(closed.getpixel((300, 51)), (25, 26, 32))
-            self.assertEqual(closed.getpixel((11, 200)), (25, 26, 32))
-            self.assertEqual(closed.getpixel((588, 200)), (25, 26, 32))
+            # Only the protrusion receives the primary tint; the shared frame
+            # pixels checked above stay at the original body color.
+            for point in ((300, 51), (11, 200), (588, 200)):
+                red, green, blue = closed.getpixel(point)
+                self.assertGreater(blue, 80)
+                self.assertGreater(blue, red + 20)
             self.assertEqual(closed.getpixel((15, 100)), (86, 125, 154))
