@@ -88,7 +88,7 @@ def main():
             check=True,
         )
         (candidate / "orient-build.json").write_text(
-            json.dumps({"source": identity, "engine": "orient-2.0.0"}) + "\n"
+            json.dumps({"source": identity, "engine": "orient-3.0.0"}) + "\n"
         )
         activate_runtime(candidate, RUNTIME, builds)
     except BaseException:

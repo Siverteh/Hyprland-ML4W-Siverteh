@@ -10,6 +10,7 @@ Item {
     property bool ai: false
     property bool brain: false
     property bool settings: false
+    property bool colorsApp: false
     property color primary: NacreColours.palette.m3primary
     property color secondary: NacreColours.palette.m3secondary
     property color tertiary: NacreColours.palette.m3tertiary || secondary
@@ -17,7 +18,7 @@ Item {
     property color background: NacreColours.palette.m3frame || NacreColours.palette.m3surface
     property color foreground: NacreColours.palette.m3onSurface
     property bool motionEnabled: DesktopSettings.data.animations !== false
-    Accessible.name: root.ai ? "Nacre AI" : root.brain ? "Nacre Brain" : root.settings ? "Nacre Settings" : "Nacre"
+    Accessible.name: root.ai ? "Nacre AI" : root.brain ? "Nacre Brain" : root.settings ? "Nacre Settings" : root.colorsApp ? "Nacre Colors" : "Nacre"
     Accessible.role: Accessible.Graphic
     Image {
         id: image
@@ -27,7 +28,7 @@ Item {
         retainWhileLoading: true
         sourceSize.width: Math.max(32, Math.ceil(root.width * 3))
         sourceSize.height: Math.max(32, Math.ceil(root.height * 3))
-        source: "data:image/svg+xml;utf8," + encodeURIComponent(LogoData.colored(root.primary, root.secondary, root.tertiary, root.highlight, root.background, root.foreground, root.compact, root.ai, root.brain, root.settings))
+        source: "data:image/svg+xml;utf8," + encodeURIComponent(LogoData.colored(root.primary, root.secondary, root.tertiary, root.highlight, root.background, root.foreground, root.compact, root.ai, root.brain, root.settings, root.colorsApp))
         property bool loadedOnce: false
         onStatusChanged: if (status === Image.Ready) {
             if (loadedOnce && root.motionEnabled)

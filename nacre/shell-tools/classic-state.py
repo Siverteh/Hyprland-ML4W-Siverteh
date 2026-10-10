@@ -95,7 +95,9 @@ def atomic_symlink(path, target):
         Path(name).unlink(missing_ok=True)
 
 
-def commit_prepared(home, wallpaper, data, thumbnail, live=True):
+def commit_prepared(
+    home, wallpaper, data, thumbnail, live=True, allow_mode_change=False
+):
     """Use a validated read-only cache through this same palette publisher."""
     home = Path(home)
     state = home / ".local/state/nacre"
@@ -126,14 +128,27 @@ def commit_prepared(home, wallpaper, data, thumbnail, live=True):
     with publication_lock(home):
         try:
             current = json.loads((state / "scheme.json").read_text())
+        except FileNotFoundError:
+            if not allow_mode_change:
+                return False
+            current = {
+                "name": "dynamic",
+                "mode": data["mode"],
+                "flavour": data["flavour"],
+                "variant": data["variant"],
+            }
         except (OSError, ValueError):
             return False
         if (
             not isinstance(current, dict)
-            or current.get("name") != "dynamic"
-            or current.get("flavour") != data["flavour"]
-            or current.get("mode") != data["mode"]
-            or current.get("variant", "tonalspot") != data.get("variant", "tonalspot")
+            or (not allow_mode_change and current.get("name") != "dynamic")
+            or (not allow_mode_change and current.get("flavour") != data["flavour"])
+            or (not allow_mode_change and current.get("mode") != data["mode"])
+            or (
+                not allow_mode_change
+                and current.get("variant", "tonalspot")
+                != data.get("variant", "tonalspot")
+            )
         ):
             return False
         atomic_write(state / "scheme.json", json.dumps(data))
@@ -166,6 +181,27 @@ def readable(value, background, minimum=4.5):
     return "000000" if bg > 0.5 else "ffffff"
 
 
+def render_template(home, name, colors):
+    """Use Orient's pure renderer; publication remains owned by this module."""
+    import importlib.util
+
+    here = Path(__file__).parent
+    local = here.parent / "shell-cli/src/orient/template_engine.py"
+    candidates = [
+        local,
+        *(Path(home) / ".local/share/nacre/palette-runtime/venv/lib").glob(
+            "python*/site-packages/orient/template_engine.py"
+        ),
+    ]
+    source = next((p for p in candidates if p.is_file()), None)
+    if source is None:
+        raise RuntimeError("Orient template renderer is missing; run ./install.sh")
+    spec = importlib.util.spec_from_file_location("orient_templates", source)
+    renderer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(renderer)
+    return renderer.render_values(here.joinpath(name).read_text(), colors)
+
+
 def apply_palette(home, wallpaper=None, live=True):
     home = Path(home)
     with publication_lock(home):
@@ -183,6 +219,14 @@ def _apply_palette(home, wallpaper=None, live=True):
         presets = json.loads(
             Path(__file__).with_name("palette-presets.json").read_text()
         )
+        for favorite in (
+            json.loads((home / ".config/nacre/colors.json").read_text()).get(
+                "favorites", []
+            )
+            if (home / ".config/nacre/colors.json").exists()
+            else []
+        ):
+            presets.append(dict(favorite, id="favorite:" + favorite["id"]))
         chosen = next((item for item in presets if item["id"] == preset), None)
         mode = options.get("paletteMode", "dark")
         if chosen is None or mode not in ("dark", "light"):
@@ -237,7 +281,20 @@ def _apply_palette(home, wallpaper=None, live=True):
                     else data.get("source", {}).get("selected")
                     or data.get("input", {}).get("accent"),
                     "palettePreset": preset,
-                    "paletteHarmony": options.get("paletteHarmony", False),
+                    "paletteHarmony": data.get("input", {}).get(
+                        "harmony", options.get("paletteHarmony", False)
+                    ),
+                    "palettePersonality": data.get("input", {}).get(
+                        "personality", options.get("palettePersonality", "natural")
+                    ),
+                    "workspaceColors": json.loads(
+                        (home / ".config/nacre/colors.json").read_text()
+                    )
+                    .get("wallpapers", {})
+                    .get(selected, {})
+                    .get("workspaceColors", False)
+                    if (home / ".config/nacre/colors.json").exists()
+                    else False,
                 }
             ),
         )
@@ -255,67 +312,13 @@ def _apply_palette(home, wallpaper=None, live=True):
         state / "scheme/current.txt",
         "\n".join(k + " " + v for k, v in colors.items()) + "\n",
     )
-    lua = (
-        'hl.config({general={col={active_border={colors={"rgba('
-        + primary
-        + 'ff)","rgba('
-        + secondary
-        + 'ff)"},angle=45},inactive_border="rgba('
-        + inactive
-        + 'aa)"}},decoration={shadow={color="rgba('
-        + shadow
-        + '40)"}}})\n'
-    )
+    lua = render_template(home, "hypr-palette.lua.in", colors)
     atomic_write(home / ".config/nacre/palette.lua", lua)
-    template = Path(__file__).with_name("rofi.rasi").read_text()
-    roles = {
-        "bg": "surface",
-        "raised": "surfaceContainer",
-        "text": "onSurface",
-        "muted": "onSurfaceVariant",
-        "accent": "primary",
-        "border": "outlineVariant",
-    }
-    for token, role in roles.items():
-        template = re.sub(
-            r"\b" + token + r": #[0-9a-fA-F]{6};",
-            token + ": #" + colors[role] + ";",
-            template,
-        )
-    atomic_write(home / ".config/nacre/rofi.rasi", template)
-    # GTK and qtct use the same committed palette, rather than the old blue files.
-    gtk_roles = {
-        "accent_color": "primary",
-        "accent_bg_color": "primary",
-        "accent_fg_color": "onPrimary",
-        "window_bg_color": "surface",
-        "window_fg_color": "onSurface",
-        "headerbar_bg_color": "surfaceContainer",
-        "headerbar_fg_color": "onSurface",
-        "popover_bg_color": "surfaceContainer",
-        "popover_fg_color": "onSurface",
-        "view_bg_color": "surface",
-        "view_fg_color": "onSurface",
-        "sidebar_bg_color": "surfaceContainerLow",
-        "sidebar_fg_color": "onSurface",
-        "sidebar_backdrop_color": "surfaceContainerLow",
-        "secondary_sidebar_bg_color": "surfaceContainer",
-        "secondary_sidebar_fg_color": "onSurface",
-        "secondary_sidebar_backdrop_color": "surfaceContainer",
-        "headerbar_backdrop_color": "surfaceContainer",
-        "card_bg_color": "surfaceContainerLow",
-        "card_fg_color": "onSurface",
-        "theme_bg_color": "surface",
-        "theme_fg_color": "onSurface",
-        "theme_base_color": "surface",
-        "theme_text_color": "onSurface",
-        "theme_selected_bg_color": "primary",
-        "theme_selected_fg_color": "onPrimary",
-    }
-    gtk = "".join(
-        "@define-color " + name + " #" + colors[role] + ";\n"
-        for name, role in gtk_roles.items()
+    atomic_write(
+        home / ".config/nacre/rofi.rasi",
+        render_template(home, "rofi-colors.rasi.in", colors),
     )
+    # GTK and qtct use the same committed palette, rather than the old blue files.
     import importlib.util
 
     icon_spec = importlib.util.spec_from_file_location(
@@ -326,22 +329,7 @@ def _apply_palette(home, wallpaper=None, live=True):
     icon_theme = icon_module.theme(home, colors["primary"], data["mode"])
     for version in ("3.0", "4.0"):
         directory = home / (".config/gtk-" + version)
-        css = gtk
-        if version == "4.0":
-            # Libadwaita 1.6+ consumes CSS variables rather than the old names.
-            modern = {
-                name.replace("_", "-"): role
-                for name, role in gtk_roles.items()
-                if not name.startswith("theme_")
-            }
-            css += (
-                "\n:root {\n"
-                + "".join(
-                    "  --" + name + ": #" + colors[role] + ";\n"
-                    for name, role in modern.items()
-                )
-                + "}\n"
-            )
+        css = render_template(home, "gtk" + version[0] + "-colors.css.in", colors)
         atomic_write(directory / "gtk.css", css)
         settings = directory / "settings.ini"
         if settings.exists():
@@ -473,10 +461,6 @@ def _apply_palette(home, wallpaper=None, live=True):
         "inactive_tab_foreground": term_muted,
         "inactive_tab_background": term_bg,
     }
-    terminal = (
-        "".join(name + " #" + value + "\n" for name, value in terminal_roles.items())
-        + "background_opacity 0.92\n"
-    )
     ansi = [
         "onSurface",
         "error",
@@ -506,8 +490,12 @@ def _apply_palette(home, wallpaper=None, live=True):
             if i == 6
             else value
         )
-        terminal += f"color{i} #{value}\ncolor{i + 8} #{bright}\n"
-    atomic_write(home / ".config/nacre/kitty-colors.conf", terminal)
+        terminal_roles[f"color{i}"] = value
+        terminal_roles[f"color{i + 8}"] = bright
+    atomic_write(
+        home / ".config/nacre/kitty-colors.conf",
+        render_template(home, "kitty-colors.conf.in", terminal_roles),
+    )
     selected = (
         str(Path(wallpaper).expanduser().resolve())
         if wallpaper

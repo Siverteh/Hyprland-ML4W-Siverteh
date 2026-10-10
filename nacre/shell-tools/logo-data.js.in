@@ -3,7 +3,7 @@ function luminance(value) {
     channels = channels.map(function(v) { return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
     return channels[0] * .2126 + channels[1] * .7152 + channels[2] * .0722;
 }
-function colored(primary, secondary, tertiary, highlight, background, foreground, compact, ai, brain, settings) {
+function colored(primary, secondary, tertiary, highlight, background, foreground, compact, ai, brain, settings, colorsApp) {
     var bg = String(background);
     function ratio(value) { var a = luminance(value), b = luminance(bg); return (Math.max(a,b)+.05)/(Math.min(a,b)+.05); }
     function lift(value, minimum) {
@@ -25,6 +25,7 @@ function colored(primary, secondary, tertiary, highlight, background, foreground
     roles.AI_SECONDARY = lift(secondary, 4.5);
     var source = ai ? (compact ? aiCompactTemplate : aiFullTemplate) : (compact ? compactTemplate : fullTemplate);
     if (settings && !ai && !brain) source = compact ? settingsCompactTemplate : settingsFullTemplate;
+    if (colorsApp && !ai && !brain && !settings) source = compact ? colorsCompactTemplate : colorsFullTemplate;
     if (brain && !ai) source = compact ? brainCompactTemplate : brainFullTemplate;
     for (var role in roles) source = source.replace(new RegExp("@"+role+"@", "g"), roles[role]);
     return source;

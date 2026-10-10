@@ -1,119 +1,104 @@
-# Orient wallpaper colors
+# Orient and Nacre Colors
 
-[System overview](../overview.md) · [Implementation spec](../specs/orient.md)
+Open **Nacre Colors** in the launcher or run `nacre-colors [image]`. Settings →
+Appearance has an entry point. Opening, browsing, hovering, picking, pinning and
+comparing colors change only the preview. **Apply** changes the wallpaper and
+palette through the existing locked publisher. Ctrl+Enter applies, Ctrl+F searches,
+Ctrl+W/Escape closes. The normal window is resizable, and repeated launches focus
+one instance. Closing does not stop an already requested Apply/export action.
 
-Orient is Nacre's independently implemented wallpaper color engine. Its name
-refers to the iridescent play of colors in nacreous pearls:
-[GIA pearl quality factors](https://www.gia.edu/pearl-quality-factor).
+## Personalities
 
-## How colors are chosen
+| Mode | Intent |
+|---|---|
+| Natural (default) | Image pigments with their real sampled coverage; backgrounds use observed shadow/highlight families |
+| Harmony | Neighboring hues around the main family, with lightness separation |
+| Pop | A substantial, saturated minority becomes the accent; body stays calm |
+| Mist | Soft, nearly neutral accents and body |
+| Vivid | Stronger source chroma, bounded by gamut and readability |
+| Pearl | Nacre's consistent pink/lilac/mint signature on neutral surfaces |
+| Tide | Cooler daytime and warmer evening body tint; explicit preview hour, optional follow-time and light/dark |
 
-Images are orientation/profile normalized to sRGB and sampled at a maximum 128px
-edge. All color bins within that bounded sample are considered, so minority hues
-are not discarded by a popularity cutoff. Related lit/shadow shades form color families. Coverage, chroma, lightness
-and spatial spread rank those families; tiny saturated pixels cannot win purely
-by being bright. Up to five distinct source candidates are recorded in the palette
-JSON. Broad hue families get priority before close variations; subtle colors are
-kept separate rather than merged into one gray family. Transparent pixels are coverage-weighted; fully transparent input is rejected.
-Neutral photographs retain a restrained warm/cool tint rather than inventing color.
+Brightness/saturation and three pinned accent sources are remembered per wallpaper
+on Apply. Drag a sampled swatch onto a role or use Pin color. Click a point in the
+image to pick an accent. A highlight shows sampled source cells, not an AI object
+label. Animated sources combine four fixed frame samples; overlays show their
+combined spatial coverage. No extraction runs on every playback frame.
 
-The main decorative `overtone` retains the selected source color. Text/UI accents
-change lightness only as needed for readability, preserving hue with OKLCH gamut
-mapping. Very dark pigments retain relative color strength when lifted. Body
-surfaces have restrained tint, with a dedicated more visible wallpaper-colored
-frame role for palette previews and decoration. Exterior shell chrome uses the
-same darker body token as the top bar. Normal wallpaper button accents have a comfortable chroma ceiling;
-explicit Vivid presets retain their intensity. Subtle real image hues are gently
-strengthened so supporting accents stay distinct. ANSI/semantic colors keep their recognizable
-meaning. Normal role pairs meet 4.5:1; essential outlines target 3:1. Actual
-translucent surfaces still need a contrasting backdrop in their UI implementation.
+Favorites store dark and light versions and can be used with another wallpaper.
+History keeps the last20 applications. The color filter uses prepared library
+families; a cold library gradually gains families through the existing nice19
+worker. Private choices, staged previews and artwork stay outside Git.
 
-## Existing controls and optional overrides
+Tide's optional automatic mode uses local06:00–19:00 as daytime, not astronomical
+sunrise/sunset. Following time reacts to the existing clock's hour signal; it adds
+no polling process. Workspace colors are opt-in and color the numbered chips
+without changing the entire desktop on workspace switches.
 
-Appearance has a **From this wallpaper** row with up to five named color directions.
-Each tile previews its main/supporting accents and frame tint. Selection switches
-to wallpaper colors and remembers that accent for this image; Match wallpaper
-restores automatic selection. Moving to another image uses that image's saved
-choice or automatic selection. The fixed-palette section stays separate and its
-status explicitly says that colors remain fixed across scene changes.
+## Accessibility and fidelity
 
-Appearance's wallpaper/fixed palette choice and light/dark control remain available.
-The thirty Soft/Vivid presets are generated through Orient; IDs/preferences remain
-stable. Legacy variant names are accepted: neutral/content use a softer policy,
-monochrome desaturates the accent, and the other historical names share Orient's
-faithful policy. Their names preserve saved configurations, not Material algorithms.
-`hard` reduces surface tint; it does not use inherited scheme data.
+Studio previews a bar, window, terminal, notification and logo. Compare shows all
+personalities. Accessibility provides a contrast grid and approximate full-severity
+protanopia/deuteranopia/tritanopia simulations. The engine validates its documented
+opaque text pairs at4.5:1 and essential outlines at3:1. Simulations are estimates;
+labels and shapes remain necessary. Pinned/neutral colors may remain too close,
+in which case the report explains the limitation rather than inventing source
+colors or changing a pin. Transparency and arbitrary third-party app usage cannot
+be guaranteed by an opaque palette alone.
 
-Advanced optional commands:
+Clustering uses perceptual OKLab distance with a chroma-adaptive tolerance. Center,
+local detail and chroma affect bounded salience; true coverage is kept separate.
+This is a heuristic, not semantic image recognition. Cropping and scene changes
+can legitimately change a palette; a stable sampling policy/cache and regression
+fixtures reduce unwanted flips, without claiming absolute crop invariance.
 
-```sh
-nacre-shell wallpaper -p /path/to/image.png
-nacre-shell scheme set --accent ff3030
-nacre-shell scheme set --auto-accent
-```
+## Portable engine and format
 
-The print command reports colors and candidates without applying them. An explicit
-accent is saved per resolved poster/image path in private `cli.json` and survives
-mode changes; auto-accent removes that override. The same per-image choices are available in Appearance.
-Saved explicit light/dark mode wins over automatic image mode. Without a saved
-mode, automatic mode uses weighted sampled lightness (light at 0.68 or above).
-GIF/video colors come from the prepared poster and remain stable during playback.
+`orient palette IMAGE --personality natural --mode dark` prints schema-version1
+JSON. `orient analyze IMAGE`, `orient sample IMAGE X Y`, and
+`orient export PALETTE_JSON OUTPUT_DIR [--templates DIR]` are read-only commands.
+The library under `nacre/shell-cli/src/orient` imports no Nacre, Qt or Hyprland
+publisher. The legacy `nacre_shell` package is a desktop adapter. A later standalone
+repository/package can extract the core, templates, tests, chosen license and
+attribution; this task does not publish that new package or remove notices.
 
-## Caching, publication and recovery
+Palette JSON includes `formatVersion`, engine fingerprint, `input`, `colours`,
+source candidates/body populations, coverage/location/regions, per-role provenance
+and accessibility results. Existing compatibility role names/variant fields remain
+stable. Generated contrast colors explicitly have no sampled original; semantic
+terminal colors preserve their roles. Cache identities include source stat,
+normalization/engine policy and settings. Palette and analysis caches are separate.
 
-Versioned caches include image file identity, engine-code fingerprint, mode,
-variant/flavor and accent settings. Warm reads skip decoding/extraction. Prepared
-wallpaper cache keys also include these settings and the installed build identity;
-mode/variant/override changes trigger existing debounced preparation. There are
-no idle timers or independent wallpaper/theme processes.
+## Export and sharing
 
-The existing locked publisher updates matched image/palette presentation, GTK/Qt,
-terminal, borders and lock/login assets. Shell image/colors begin together when the
-new image is ready; other processes can refresh asynchronously. Query commands
-no longer invoke publication. Unsupported/invalid images leave the active theme
-untouched and report a useful error.
+Export writes a new folder under `~/Documents/Nacre Colors`. It includes palette
+JSON and original templates for VS Code, Firefox, Obsidian, Neovim, btop,
+Kitty/Foot/Alacritty, GTK, rofi, Hyprland and optional Spotify/Discord adapters.
+It never edits those applications or installs modifications. Firefox distribution
+requires signing; Spotify needs optional Spicetify and Discord a user-theme client.
+The generated README gives application instructions. Add `.in` templates under
+`~/.config/nacre/colors-templates`; `{{primary}}` and other role tokens substitute
+validated six-digit hex. Unknown tokens and replacing existing files are errors.
+Palette cards include the image thumbnail/colors and “Made with Nacre”; cards are
+private output files, with no automatic upload or publication.
 
-Provisioning selects a freshly tested, immutable environment under private
-`palette-engines/` through `palette-runtime`. Old environments are retained; release
-snapshots copy runtime bytes so rollback does not depend on an old symlink target.
-Do not delete historical environments until recovery references have been reviewed.
-Image assets and palette caches remain private, outside Git/release snapshots.
+Nacre's own GTK/Kitty/rofi/Hyprland outputs are templates too, rendered by Orient's
+pure substitution helper inside the one existing publisher.
 
-The palette and shared foundation implementations are replaced. Existing GPL/notices
-remain pending the final [whole-desktop comparison](../nacre/PROVENANCE.md).
-Panel, service and helper source reviews are recorded separately.
+## Gallery and checks
 
-## Validation measurements
+`nacre/shell-tools/tests/orient-gallery` contains six CC0 procedural images, a
+four-frame animation, its generator and all14personality/mode snapshots per image.
+Regenerate explicitly with `generate.py` and `snapshot.py`; changing snapshots is
+a reviewed palette change. The generator does not use private commercial artwork.
+Before/after rendered sheets and real-wallpaper screenshots stay in temporary QA
+paths, not shipped assets. Tests cover full contrast, source bodies/provenance,
+subtle families, small crops, frames, exports, read-only previews, stale rejection,
+favorites, fake-home Apply and the newline worker protocol/native view.
 
-For the initial Orient implementation (`5ecf556`), the 2026-10-08 private audit covered all twenty library
-wallpapers/posters. Across 240 repeated uncached extraction/generation operations
-(including decoding, warm OS file cache), median was 74.84 ms and nearest-rank p95
-92.98 ms. Across 240 cached reads, median was 0.30 ms and p95 0.34 ms. The audit
-process peaked at 122.4MiB including its inspection sheet on an ASUS UX3405CA
-with Intel Core Ultra 7 255H; these figures are not
-end-to-end desktop publication latency or a guarantee for larger inputs. Synthetic
-fixtures check hue distinction, transparency/profile handling, safety limits,
-cache invalidation, all required roles, contrast and read-only behavior.
-
-## Natural and Harmony
-
-Appearance → Desktop colors offers **Natural** (default) and **Harmony** for
-wallpaper-derived palettes. Natural retains the richer multi-hue accents. Harmony
-prefers related, well-represented supporting colors; tiny unrelated patches can
-still be chosen as a main palette in the picker without coloring all controls.
-A dark weak olive supporting color loses priority to a better candidate. An
-explicit olive choice stays available; brightness/readability adjustments retain
-its hue. Strong, sufficiently large contrasting regions can remain accents.
-
-Both modes keep more tint in dark button containers, preserve readable foregrounds
-and remember explicit per-wallpaper accents. Monochrome accent roles remain neutral.
-Fixed palettes ignore Harmony. Changing this setting uses the existing matched
-publisher; previews and prepared caches include it. There is no idle analysis or
-new polling. The private preference is `wallpaper-picker.json: paletteHarmony`.
-Read-only comparisons can use `nacre-shell wallpaper --print IMAGE --harmony` or
-`--no-harmony`; these flags do not change the saved setting or desktop.
-
-The [Harmony spec](../specs/orient-harmony.md) records the policy and tests. Four
-licensed illustration samples exercise supporting-color selection and contrast;
-[fixture attribution](../../nacre/shell-tools/tests/fixtures/README.md) gives the
-source revision. Images and rendered comparison sheets remain private QA artifacts.
+References: [OKLab definition](https://bottosson.github.io/posts/oklab/),
+[WCAG contrast](https://www.w3.org/TR/WCAG22/#contrast-minimum),
+[use of color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html),
+[Machado/Oliveira/Fernandes model](https://profs.ic.uff.br/~laffernandes/content/publications/journal/2009_tvcg_15%286%29/machado_oliveira_fernandes-tvcg-15%286%29-2009-corrected.pdf),
+[VS Code themes](https://code.visualstudio.com/api/extension-guides/color-theme),
+[Firefox theme format](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/theme).

@@ -49,6 +49,7 @@ def settings():
             "palettePreset": "wallpaper",
             "paletteMode": "dark",
             "paletteHarmony": False,
+            "palettePersonality": "natural",
         },
         **read(PREFS, {}),
     )
@@ -69,7 +70,22 @@ def media_state():
 
 
 def palette_presets():
-    return read(Path(__file__).with_name("palette-presets.json"), [])
+    presets = read(Path(__file__).with_name("palette-presets.json"), [])
+    for favorite in read(HOME / ".config/nacre/colors.json", {}).get("favorites", []):
+        if not re.fullmatch(r"[0-9a-f]{16}", favorite.get("id", "")):
+            continue
+        presets.append(
+            {
+                "id": "favorite:" + favorite["id"],
+                "name": favorite["name"],
+                "seed": favorite["palette"]["colours"]["overtone"],
+                "group": "saved",
+                "swatches": favorite["swatches"],
+                "surface": favorite["modes"]["dark"]["frame"],
+                "modes": favorite["modes"],
+            }
+        )
+    return presets
 
 
 def theme(value):
@@ -77,7 +93,13 @@ def theme(value):
         not isinstance(value, dict)
         or not value
         or set(value)
-        - {"palettePreset", "paletteMode", "paletteAccent", "paletteHarmony"}
+        - {
+            "palettePreset",
+            "paletteMode",
+            "paletteAccent",
+            "paletteHarmony",
+            "palettePersonality",
+        }
     ):
         raise ValueError("Unknown appearance preference")
     accent = value.get("paletteAccent")
@@ -87,6 +109,12 @@ def theme(value):
         raise ValueError("Choose a valid wallpaper accent")
     previous = settings()
     changes = {key: item for key, item in value.items() if key != "paletteAccent"}
+    if "paletteHarmony" in value:
+        changes["palettePersonality"] = (
+            "harmony" if value["paletteHarmony"] else "natural"
+        )
+    if "palettePersonality" in value:
+        changes["paletteHarmony"] = value["palettePersonality"] == "harmony"
     if accent is not None:
         changes["palettePreset"] = "wallpaper"
     poster = read(STATE / "media.json", {}).get("poster")
@@ -138,6 +166,15 @@ def preference(value):
         "layout": ("carousel", "spotlight", "hexagons"),
         "rotationKind": ("all", "static", "dynamic"),
         "paletteMode": ("dark", "light"),
+        "palettePersonality": (
+            "natural",
+            "harmony",
+            "pop",
+            "mist",
+            "vivid",
+            "pearl",
+            "tide",
+        ),
         "palettePreset": ("wallpaper", *[item["id"] for item in palette_presets()]),
     }
     boolean_keys = (
@@ -300,9 +337,15 @@ def catalog():
     )
 
 
-def palette_marker(poster, flavour, harmony=None):
+def palette_marker(poster, flavour, harmony=None, source=None):
     poster = Path(poster)
     stat = poster.stat()
+    active = media_state()
+    source = source or (
+        active.get("path") if active.get("poster") == str(poster) else str(poster)
+    )
+    original = Path(source) if source and Path(source).is_file() else poster
+    source_stat = original.stat()
     cli = HOME / ".local/share/nacre/palette-runtime/venv/bin/nacre_shell"
     marker = cli.parents[2] / "orient-build.json"
     engine = (
@@ -316,12 +359,24 @@ def palette_marker(poster, flavour, harmony=None):
     config = read(HOME / ".config/nacre/cli.json", {})
     generation = json.dumps(
         {
+            "original": [
+                str(original),
+                source_stat.st_size,
+                source_stat.st_mtime_ns,
+                source_stat.st_ctime_ns,
+            ],
             "mode": scheme.get("mode", "dark"),
             "variant": scheme.get("variant", "tonalspot"),
             "orient": config.get("orient", {}),
             "harmony": settings().get("paletteHarmony", False)
             if harmony is None
             else harmony,
+            "personality": settings().get("palettePersonality", "natural")
+            if harmony is None
+            else ("harmony" if harmony else "natural"),
+            "choices": read(HOME / ".config/nacre/colors.json", {})
+            .get("wallpapers", {})
+            .get(str(poster.resolve()), {}),
         },
         sort_keys=True,
     )
@@ -395,7 +450,8 @@ def warm():
         spec.loader.exec_module(login)
         # The selected wallpaper gets both supporting-color treatments first.
         # These query calls only fill private caches; no palette is published.
-        current_poster = media_state().get("poster")
+        current_media = media_state()
+        current_poster = current_media.get("poster")
         if current_poster and cli.exists() and Path(current_poster).is_file():
             brand_spec = importlib.util.spec_from_file_location(
                 "branding", Path(__file__).with_name("branding.py")
@@ -405,7 +461,15 @@ def warm():
             for treatment in ("--no-harmony", "--harmony"):
                 try:
                     result = subprocess.run(
-                        [str(cli), "wallpaper", "-p", current_poster, treatment],
+                        [
+                            str(cli),
+                            "wallpaper",
+                            "-p",
+                            current_poster,
+                            "--source",
+                            current_media.get("path", current_poster),
+                            treatment,
+                        ],
                         capture_output=True,
                         text=True,
                         check=True,
@@ -429,10 +493,17 @@ def warm():
         for item in catalog()["entries"]:
             try:
                 poster = Path(item["poster"])
-                marker = palette_marker(poster, flavour)
+                marker = palette_marker(poster, flavour, source=item["path"])
                 if cli.exists() and not marker.exists():
                     result = subprocess.run(
-                        [str(cli), "wallpaper", "-p", str(poster)],
+                        [
+                            str(cli),
+                            "wallpaper",
+                            "-p",
+                            str(poster),
+                            "--source",
+                            item["path"],
+                        ],
                         capture_output=True,
                         text=True,
                         check=True,
@@ -453,12 +524,18 @@ def select(path):
     # Missing/stale/invalid cache or custom CLI hooks use the normal CLI pipeline.
     prepared = False
     scheme = read(HOME / ".local/state/nacre/scheme.json", {})
-    marker = palette_marker(item["poster"], scheme.get("flavour", "default"))
+    marker = palette_marker(
+        item["poster"], scheme.get("flavour", "default"), source=item["path"]
+    )
     if marker.exists():
         try:
             data = read(marker, {})
             digest = hashlib.sha256(Path(item["poster"]).read_bytes()).hexdigest()
             thumbnail = HOME / ".cache/nacre/wallpapers" / digest / "thumbnail.jpg"
+            if not thumbnail.exists():
+                thumbnail.parent.mkdir(parents=True, exist_ok=True)
+                with Image.open(item["preview"]) as image:
+                    image.convert("RGB").save(thumbnail, quality=85)
             import importlib.util
 
             spec = importlib.util.spec_from_file_location(

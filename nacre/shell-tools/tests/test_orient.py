@@ -180,7 +180,7 @@ class OrientTests(unittest.TestCase):
     def test_corrupt_cache_recomputed(self):
         path = self.image("d01818")
         expected = from_image(path)
-        cache = next((self.home / ".cache/nacre/orient").glob("*.json"))
+        cache = next((self.home / ".cache/orient/palettes").glob("*.json"))
         for broken in ([], None, {"engine": "orient-2.0.0", "colours": None}):
             cache.write_text(json.dumps(broken))
             self.assertEqual(from_image(path), expected)

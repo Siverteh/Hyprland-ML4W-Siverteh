@@ -30,7 +30,8 @@ Singleton {
     readonly property var appearancePreferences: Object.assign({}, preferences, NacrePresentation.active.colours ? {
         palettePreset: NacrePresentation.active.palettePreset ?? preferences.palettePreset,
         paletteMode: NacrePresentation.active.mode ?? preferences.paletteMode,
-        paletteHarmony: NacrePresentation.active.paletteHarmony ?? preferences.paletteHarmony
+        paletteHarmony: NacrePresentation.active.paletteHarmony ?? preferences.paletteHarmony,
+        palettePersonality: NacrePresentation.active.palettePersonality ?? preferences.palettePersonality
     } : {})
     readonly property string selectedAccent: NacrePresentation.active.selectedAccent ?? ""
     property var media: ({})

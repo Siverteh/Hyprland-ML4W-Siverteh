@@ -1272,12 +1272,15 @@
   "reviews": {
     "nacre/shell-cli/src/nacre_shell/__init__.py": {
       "disposition": "independent",
-      "sha256": "5b5fdd5edbeaa189aa8b8edac66ae5476bbf39a9adbfde69b35ee06a5cd81907",
+      "sha256": "a7778bf94f91ab0f0bc861092fc60c5128537972b666d48b2221ec94c6c1a4dc",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/__main__.py": {
@@ -1292,52 +1295,67 @@
     },
     "nacre/shell-cli/src/nacre_shell/cli.py": {
       "disposition": "independent",
-      "sha256": "b0dde582f1c5e27d40efc3a1e4375ce4342fb438bf6a9e81029afb5c5561a7ca",
+      "sha256": "6e4f5d5999b3cac5075706b8f94532a95fca8a2be5ffeebe4195df7e0431203a",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/colour.py": {
       "disposition": "independent",
-      "sha256": "b8f058f5bf8e97bc1b237c4d79fc0e3c5c49155c2861abb2c6197fd1139bbc80",
+      "sha256": "c9a29618d9f233c8f33fd50ef22176704214fba55201f3b89a708c7c236c4c57",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/engine.py": {
       "disposition": "independent",
-      "sha256": "b60543a4d27b807217bf48141e480d9cb9d9908ee50f1e0e400a344de43172df",
+      "sha256": "454df1a984b274c66979cc1a1eadc903b714f4d994cf90dda1a9e070c068bc98",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/extract.py": {
       "disposition": "independent",
-      "sha256": "4c310b39b7e51098a08be64e902e3c511d683cfab5f2b98e515dee4a7d707903",
+      "sha256": "e8e1f75e92e859f9339263f7fd2f2985d858f83627978f8a8ac8a1488a90a15d",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/palette.py": {
       "disposition": "independent",
-      "sha256": "a20be3e0778a9196892513af11380123a89d8d9209b2b30d27a1dcf50bae13d4",
+      "sha256": "88651663acf56884576e7278e4f237f92c1d1d55c73c957c297432a6238e9efd",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-cli/src/nacre_shell/storage.py": {
@@ -1352,12 +1370,15 @@
     },
     "nacre/shell-cli/pyproject.toml": {
       "disposition": "independent",
-      "sha256": "9710c1abefba37a3107b20df44fe74d0504772f24f597c748ae5aca09556b4f9",
+      "sha256": "e187daaf912aae3876cbc35c18c0f397158b0fd2673e624dac843cc74ef51187",
       "evidence": [
         "docs/nacre/ORIENT-SOURCE-AUDIT.md",
         "docs/specs/orient.md",
         "docs/nacre/PROVENANCE.md#orient-replacement-record",
-        "replacement 5ecf556; local corrections/tuning traced through current source history"
+        "replacement 5ecf556; local corrections/tuning traced through current source history",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "hypr/conf/keyboard.lua": {
@@ -1675,13 +1696,16 @@
     },
     "hypr/conf/nacre.lua": {
       "disposition": "independent",
-      "sha256": "1c78f5c11b5230b17929994b1507389d9599e034b15d27fb7c6af463ccfd40e4",
+      "sha256": "73ce24026988b0649a9b2dd3c3a138c745f004ca2400333b2ab4f1a517ba7d79",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
         "Inherited body deleted before independently composed 3bf8870 scoped layer/window rules and XWayland scaling from public match/action contracts; unused ML4W tool rules retired, own names/current preview title. Current bytes unchanged since rewrite; called tools/branding/private dependencies separate.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "tools/tests/test_config_defaults.py": {
@@ -1696,15 +1720,17 @@
     },
     "nacre/shell-tools/classic-state.py": {
       "disposition": "independent",
-      "sha256": "e8fc8bdf317fc8fd6283cfd52695af1022ea25bfdd98d30968d17f1f76619e6d",
+      "sha256": "d53b02c07956c1539ec7a5c1eaa18585370743f7f57af5a7c99ec4404b142679",
       "evidence": [
         "docs/specs/palette-publication.md",
         "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
         "Local synchronization script introduced 4874385; structured atomic publication 8afd305, prepared validation 81827c1, contrast 2b16add and later local toolkit/rotation/branding/Orient integrations traced. Formatting 83b3531/rename 548f0b4 distinguished from authoring. Original+current bodies compared mechanically to original peers/predecessors: no five-line contiguous copies. Current own body reviewed; valid output manifests match baseline in dark/light/fixed fixtures. New independently authored shared lock/complete-validation corrections tested against real owners. Called templates/icons/branding/KDE/lock/login dependencies remain separate reviews, not certified by association.",
         "docs/specs/terminal-polish.md",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
-      ],
-      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/tests/test_palette.py": {
       "disposition": "independent",
@@ -1755,7 +1781,7 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "ad3a954176316c270d60da676df902c76023d08c303209784c147adb31cbc090",
+      "sha256": "1fc4b0e10bbf9c6ab3f5f4238caefecae75d4f166d244e20c7156d68c0c670c3",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1768,12 +1794,15 @@
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "ccbed7e0e9cba194f4b1d4efe6f43468e93e87e36074aa95815fdf433152821a",
+      "sha256": "76c5738653d74540fe23b462a56d24ad87e999543b238548ff15eb7c25cc055e",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1782,12 +1811,15 @@
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/login/Logo.qml": {
       "disposition": "independent",
-      "sha256": "e8a3c62cc5ca5cbbc838c4c51fbb9f824d95da0f766443fac7e04bfc654f43a6",
+      "sha256": "4381aa7103ca6db335d4465b36ec392aea13403b3a3418085d977863686ea26d",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1796,12 +1828,15 @@
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "f2e86edbe983f265cd5c2eac7650bd6b98c2555d6e7d6f00f3c4a4e9852dc4a8",
+      "sha256": "d2062f54e83f74223b90740b8de7f8a63aeb0d791fdf34e66d680276fbe0b293",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1816,9 +1851,11 @@
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
-      ],
-      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/lock-config.py": {
       "disposition": "independent",
@@ -2795,16 +2832,18 @@
     },
     "nacre/shell/services/NacreWallpapers.qml": {
       "disposition": "independent",
-      "sha256": "e68d0003764f3ec6d8f7a7d8472f7bbdfe12ab9e6936ee0ebab3d95f0412c498",
+      "sha256": "4dec4402bf04a287580bc979c8822adb760405368533ac83f85a23d7dc519d79",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
         "docs/specs/panel-integration.md",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
-      ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell/services/NacreWeather.qml": {
       "disposition": "independent",
@@ -3524,11 +3563,14 @@
     },
     "nacre/shell/modules/topbar/NacreWorkspaceRow.qml": {
       "disposition": "independent",
-      "sha256": "861ad3050d2ce7be1eb951e9b58049c6ba7fbe8e4c8bc47994a9bffe1dbb88fc",
+      "sha256": "4b369d8cc44de426f7e9d9f3d243e5cbfa76ab4207cf6da6f1551df38b928f39",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/modules/topbar/TopBar.qml": {
@@ -3551,16 +3593,18 @@
     },
     "nacre/shell/shell.qml": {
       "disposition": "independent",
-      "sha256": "7cb6a81ad6171e2fdb10713f12b66f133f59f2be1dbc3efdab5a7d9ad0a5d084",
+      "sha256": "b68eab51e28ec1447fa61974cd9628b82935933d5aed4fa692e000f3442ab7be",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: 36c35e0. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
-      ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/tests/test_quick_controls.py": {
       "disposition": "independent",
@@ -3833,14 +3877,17 @@
     },
     "nacre/shell/modules/launcher/NacreAppBrowser.qml": {
       "disposition": "independent",
-      "sha256": "4f3aa5ae87927dd6cf21e70ae4826686b432daa2591f50858e283281a9b0c4f0",
+      "sha256": "084d700ff8699d0c30a7eb5109c8183d8f02d4928a8a717d26e9346c94552f6a",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 02b2bda, 3d93b32. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
@@ -3990,13 +4037,16 @@
     },
     "nacre/shell-tools/provision.py": {
       "disposition": "independent",
-      "sha256": "b57f958edd00376f112f5f60c3b2963e3f7100f759bd9e8d7522c7b60865dce7",
+      "sha256": "04c2fc268073e6799e95e0f670d56b02f7261fa51e06bf57807ad526e315a635",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
         "Full current body reviewed; basis 5ecf556: local provisioning first4874385; private native extraction retired47b06d4; current own immutable Orient environment/promotion body authored5ecf556, cache identity corrected0573f6b. Later current-path changes: 0573f6b. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
         "docs/specs/nacre-logo.md",
-        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-tools/nacre-shell.service": {
@@ -4046,20 +4096,22 @@
     },
     "nacre/shell-tools/palette-presets.json": {
       "disposition": "independent",
-      "sha256": "143e74c4f73d4ef3910abdd5d483e47e42e13ff07cfd8a4be37038abec6b17aa",
+      "sha256": "6698f1c3940b9b742433ed3a3bc4c39242030175ad796cdca288af0024163b39",
       "evidence": [
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
-        "Complete current source/data reviewed. Basis 5ecf556: all30 own named seed entries and60 mode outputs regenerated exactly with current independent engine; every serialized color role reproduced, not merely sampled. Later path history: 9c9089f, 06632c9, bd17192, 372fe77, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+        "Complete current source/data reviewed. Basis 5ecf556: all30 own named seed entries and60 mode outputs regenerated exactly with current independent engine; every serialized color role reproduced, not merely sampled. Later path history: 9c9089f, 06632c9, bd17192, 372fe77, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped.",
+        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment."
       ]
     },
     "nacre/shell-tools/reference-style.json": {
       "disposition": "independent",
-      "sha256": "48b5e332e49c989b029abb88fc0090e5a59c153c1af2748bc230181dfbc5a5a3",
+      "sha256": "44469691ee901cc16d77b32d9b77294cb9d85d62942aacfe5f26f74f40fba526",
       "evidence": [
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
-        "Complete current source/data reviewed. Basis 5ecf556: vendor reference replaced by Orient output;790b508 freshly regenerates entire default data from current own engine after five stale containers and old engine identity were demonstrated. Later path history: 790b508, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
+        "Complete current source/data reviewed. Basis 5ecf556: vendor reference replaced by Orient output;790b508 freshly regenerates entire default data from current own engine after five stale containers and old engine identity were demonstrated. Later path history: 790b508, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped.",
+        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment."
       ]
     },
     "nacre/shell-tools/wallpaper-collection.json": {
@@ -4585,13 +4637,16 @@
     },
     "nacre/shell-tools/wallpaper-media.py": {
       "disposition": "independent",
-      "sha256": "05b3243f1c0e87ba9935aa172c7a3b6ceb9f55558be3b7b128f087a3cdff004a",
+      "sha256": "987587e5a87958dc0f140f7a36b044ade205bf902159272e8a313d150bf2fb8f",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
         "Complete current source/data body reviewed. Basis 06ffaf4: local media/poster/thumb/preferences/selection/import/rotation-cache integration; independent Orient5ecf556 and current Natural/Harmony9c9089f traced. Later path changes: 9c9089f, 372fe77, 5ecf556, 548f0b4, 8c92402, aee7ec3, e16d354, 4ea19d5, 83b3531, 81827c1, 09f9ceb. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
         "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
-        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used."
+        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-tools/wallpaper-watch.py": {
@@ -4872,7 +4927,7 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "b1c1c41e5ce4c420b96af3be2b0dca2f6a56c07ad37fbf22d672806038c581a4",
+      "sha256": "218d60bbd6eee12c9277f94dc6cf56d2005a7408e006b97719a4f192ccb9dad0",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
@@ -4882,7 +4937,10 @@
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -6234,14 +6292,16 @@
     },
     "nacre/shell-tools/tests/test_header_widgets.py": {
       "disposition": "independent",
-      "sha256": "e4d95fa4778dc7d326507a923b73309ebf064e0495fbacca24b6bb53ed98ea2d",
+      "sha256": "ab948e33b8c0af440d1865db0dca1a3cc36ff12d5aa2f4856df97f37aa18835c",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 966ae9e:nacre/shell-tools/tests/test_header_widgets.py; subsequent 5da1132. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/frame-control-center.md"
-      ],
-      "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
+        "docs/specs/frame-control-center.md",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/tests/test_launcher_panel.py": {
       "disposition": "independent",
@@ -6255,16 +6315,18 @@
     },
     "nacre/shell-tools/tests/test_launcher_ui.py": {
       "disposition": "independent",
-      "sha256": "0a804ecdec863ddd5a0364bfa8129e135f467d7789da39438a640030a56048ca",
+      "sha256": "42e551538fd4d4df9c7e64f9b76d9ad541644ae32ac71bb0c45d42a0706ef965",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
-      ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/tests/test_media_performance_ui.py": {
       "disposition": "independent",
@@ -6286,11 +6348,14 @@
     },
     "nacre/shell-tools/tests/test_orient.py": {
       "disposition": "independent",
-      "sha256": "aa7729bf6d3e5d8462e9d0c5720c00670820b07e939965c5a09e46f76cdfb5bf",
+      "sha256": "b7623d0bd5ff1033eec2569b3d886e7386668a0ce35f2c47da236ef05593e007",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 5ecf556:nacre/shell-tools/tests/test_orient.py; subsequent 9c9089f, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 5ecf556:nacre/shell-tools/tests/test_orient.py; subsequent 9c9089f, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell-tools/tests/test_orient_provision.py": {
@@ -6502,7 +6567,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "12aaa729dd3d92e90f0d5afe453081ef8068b01d0260be25710fda7315e8039c",
+      "sha256": "50a78bd1265c58662590570522b7a0832190a997c670cd9b9601dc6058b4d6cc",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6521,7 +6586,10 @@
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "docs/features/appearance.md": {
@@ -6615,12 +6683,14 @@
     },
     "docs/features/orient.md": {
       "disposition": "non-implementation",
-      "sha256": "663c28760a6c366a320c0a810c1aa7a86da8ccabd183e2fd62bc1e0858211e8a",
+      "sha256": "d290eee0ed571b012e1c9ee46eafd8a158ab8d1afb9b95a3d8a876a273bfb572",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
-      ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "docs/features/platform-services.md": {
       "disposition": "non-implementation",
@@ -6713,7 +6783,7 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "3638629c5250a8976a58c59523cfcee882fc5dc5e6bc950e06a91240635b576d",
+      "sha256": "e2ee00240976107cf7bb24c6dab77942ba757d4fab372ae99c67821f71a181ca",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6727,7 +6797,10 @@
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/login/README.md": {
@@ -6742,13 +6815,15 @@
     },
     "nacre/shell-cli/README.md": {
       "disposition": "non-implementation",
-      "sha256": "307dd6ec1e7a697e4dc5d5f91d47135a707f13927f456daada9d228fef6da74e",
+      "sha256": "ebad94680242ab2d3c547b10a40be7295c3b5a24c6aebe2d2195d3a877863d28",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/nacre/FINAL-COMPARISON.md"
-      ],
-      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
     },
     "nacre/shell-tools/README.md": {
       "disposition": "non-implementation",
@@ -7836,13 +7911,16 @@
     },
     "nacre/shell-tools/logo-widget.qml.in": {
       "disposition": "independent",
-      "sha256": "ea5aa42efdedcf69ffec52fc9611cf5eceb243311f6b319eb1b36eb4ac6a3c54",
+      "sha256": "ede687cea8c36766fccba074b6d81ef5b1e9cef9cf7cf297d929475b7725447c",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/branding/nacre-compact.svg": {
@@ -7889,37 +7967,46 @@
     },
     "nacre/shell-tools/logo-data.js.in": {
       "disposition": "independent",
-      "sha256": "d61edfc12dc1ca888803ae5a06946ebdd01f272b0534d499c917b8b1c7e41b07",
+      "sha256": "510c123ff1a9ccf6634cc12b6a71fe8571b8150adf6a86fc02c4b1704ab7fe42",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/login/LogoData.js": {
       "disposition": "independent",
-      "sha256": "71929e36c67188f9636d98b819ce667430a8c1133b5d50217af79782e5a97e9a",
+      "sha256": "33dc683c644ca20558e2f5a19a81881d2fe09370930fb60fc12114d43c709511",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/branding/LogoData.js": {
       "disposition": "independent",
-      "sha256": "71929e36c67188f9636d98b819ce667430a8c1133b5d50217af79782e5a97e9a",
+      "sha256": "33dc683c644ca20558e2f5a19a81881d2fe09370930fb60fc12114d43c709511",
       "evidence": [
         "docs/specs/nacre-logo.md",
         "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
         "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change.",
         "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/branding/nacre-symbolic.svg": {
@@ -8553,7 +8640,7 @@
     },
     "nacre/shell/modules/settings/pages/NacreAppearancePage.qml": {
       "disposition": "independent",
-      "sha256": "e175d54238ae7873d054b17c24dbb01541ffe22826eb8d508da9d85d6be26282",
+      "sha256": "db9f8eaa9bcd675cacf5222d67830d9462cd38cd39024d54d30408ca0bf0c752",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
@@ -8561,7 +8648,10 @@
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     },
     "nacre/shell/modules/settings/pages/NacreAudioNode.qml": {
@@ -8751,6 +8841,483 @@
       "evidence": [
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
+      ]
+    },
+    "bin/nacre-colors": {
+      "disposition": "independent",
+      "sha256": "060208d1cde8bed2e2597e5e588df6c08507aeaafad65027f43c7b61a9092ca5",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "bin/orient": {
+      "disposition": "independent",
+      "sha256": "7eb21d92d3455b513e9e19f7d23c18f698ebd68e49a1a35b71cad7815d1850ee",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "docs/specs/orient-colors.md": {
+      "disposition": "independent",
+      "sha256": "60c2e02e23c882ad1b9795c393ef417eac555b3b8fff6d2349d4d78dba4b6235",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/desktop/nacre-colors.desktop": {
+      "disposition": "independent",
+      "sha256": "c7b7fe3611cf870c7f6184a1350e6540d40cabe8f70dd89ef7227ed9c69e7c14",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/__init__.py": {
+      "disposition": "independent",
+      "sha256": "c64c1ce057570a9c59b3812ff9bc2dc84a10c64996894c17ea3d398d703daa3c",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/__main__.py": {
+      "disposition": "independent",
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/accessibility.py": {
+      "disposition": "independent",
+      "sha256": "4aed7da53aca0fb5b94ade47ad6f90ddc198bf214ce2461f8ce6dfa96dff6c06",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/cli.py": {
+      "disposition": "independent",
+      "sha256": "6880319e877263557a3a201bb859dbd967d72275cd5caa4f7d845e40df06f657",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/colour.py": {
+      "disposition": "independent",
+      "sha256": "b8f058f5bf8e97bc1b237c4d79fc0e3c5c49155c2861abb2c6197fd1139bbc80",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/engine.py": {
+      "disposition": "independent",
+      "sha256": "52450d1dc27203a1151c42ece2c930883b8e3a5cc091e7e30ebe59518b2dd14a",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/export.py": {
+      "disposition": "independent",
+      "sha256": "845190c58cd0ee269b5d4263de3e5fd6e68b6549222d10e384af039caba54c43",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/extract.py": {
+      "disposition": "independent",
+      "sha256": "8ba8ff5ea7d81ebe61f6fcaf8fb2eef39a4495649e3880db69cdc62661e03ba0",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/palette.py": {
+      "disposition": "independent",
+      "sha256": "b710ec6f7ea1a9ddb461eecc763766b5859d2b0cbfc63b057ecca2d93a6a3406",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/storage.py": {
+      "disposition": "independent",
+      "sha256": "9f70bb61ca15bb9d188039fef5ddc90d54948e334a2b9c210bda5a681995896a",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/template_engine.py": {
+      "disposition": "independent",
+      "sha256": "f4512378d5d43d7dd68922aad3519fed2333078588671f7724c3cb26fb15cbf7",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/alacritty.toml.in": {
+      "disposition": "independent",
+      "sha256": "0c94c413ffa9430ce5067566743988f0ef90adc6de842d0a1c94a7ff407f04f0",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/btop.theme.in": {
+      "disposition": "independent",
+      "sha256": "abcfb54120fb55bfd9e916fd6b6f12d475964ce370f479b82df001eb26b25074",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/discord.css.in": {
+      "disposition": "independent",
+      "sha256": "78c678b59fe1d3eb34a85dcd8661e4831bd27bbc479a61ed9e28e71278dcb2fc",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/firefox/manifest.json.in": {
+      "disposition": "independent",
+      "sha256": "e0d20b0315eefd63776095647ef4a1ccfd50ef7bd90ed4c06432593be4af5b36",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/foot.ini.in": {
+      "disposition": "independent",
+      "sha256": "025b4916561dfa124a16fec8dd7a0800950339403719be93cadf1927bf1e1510",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/gtk.css.in": {
+      "disposition": "independent",
+      "sha256": "6b3f106e605c3b12b0751db3ef75181c07276cea96d45d306aa7baf9bb6b8eaf",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/hyprland.lua.in": {
+      "disposition": "independent",
+      "sha256": "455c33a259bc96ef7b3155b40b4db38087129e25d73c5b6979b007c798d1daff",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/kitty.conf.in": {
+      "disposition": "independent",
+      "sha256": "e3ff03f7506abac35178f2f3df783f0c7e8f44d3097c34028dffe75c3b0f129f",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/neovim.lua.in": {
+      "disposition": "independent",
+      "sha256": "6a397802ff48a76bf27b0a49041f9b4d6580b50f52fcc1bb26e0453bdc08e77b",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/obsidian.css.in": {
+      "disposition": "independent",
+      "sha256": "65e416b62535611239b6f2bc76094f465b168770fe8e9d70526952a83db85514",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/rofi.rasi.in": {
+      "disposition": "independent",
+      "sha256": "d0cea014dcaaf88c056c61a5835cce9ca572a087584d536c34aeed89bb026cea",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/spotify/color.ini.in": {
+      "disposition": "independent",
+      "sha256": "d13a803e6a00af093c49be28c775cc3e7df368ee2f24e3edb15da5cd000f3ee3",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-cli/src/orient/templates/vscode-theme.json.in": {
+      "disposition": "independent",
+      "sha256": "0171998191fe15d376ab6dcaab7149f9c0f3ca96b05b3b43a4be30d8a4064c2c",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/colors-label.svg.in": {
+      "disposition": "independent",
+      "sha256": "4a5ec3495a3fbb3ff55753f8aa0010dbe1dc29a4e5909eb2917eac224a6ef414",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/colors.py": {
+      "disposition": "independent",
+      "sha256": "9d8b004317e5ccbda30bfba00a841cf391a5d256418392ac314611f7cf643a9d",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/gtk3-colors.css.in": {
+      "disposition": "independent",
+      "sha256": "ffa5857d245253e7efeb75974c517993a7ceaed07d60a69ae5acde71562b2722",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/gtk4-colors.css.in": {
+      "disposition": "independent",
+      "sha256": "f2ef8cbd9f6aee2f49796933034c0bc0ef63e00564b41b1a8c42f286987201a2",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/hypr-palette.lua.in": {
+      "disposition": "independent",
+      "sha256": "0675594ceb9ecd75eb7a1ede42ff18cbf95c8ea90f51255a6b1bb6039fc5a146",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/kitty-colors.conf.in": {
+      "disposition": "independent",
+      "sha256": "bbb06596ffd553680540ebfa1d6d7f67ee99474efe93c5b8d366c2aa66ce5f10",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/rofi-colors.rasi.in": {
+      "disposition": "independent",
+      "sha256": "c7a3d7b1b55760508b1bf4d94f0d92d1f3be3a838be2c75f32b952cce95a5450",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/README.md": {
+      "disposition": "independent",
+      "sha256": "2e17b577ad3510f515a707a4a8f94fda8f54e5ad18b7ccdf86d1dcb937e1209b",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/generate.py": {
+      "disposition": "independent",
+      "sha256": "b7d403c5208a444f4ab4650e03fd566ebd26385e1cca3ec27c7caecc422aedcd",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/moving-lantern.gif": {
+      "disposition": "independent",
+      "sha256": "72ca698debb90f53ee408a67245151ed2ca5c390ed9ff72874d5d92be5c9d68e",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/palettes.json": {
+      "disposition": "independent",
+      "sha256": "7314b9d69cd2855ba4f7dd724a0986d3da49eb8aae2ad6ea822f130d64c89f50",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/snapshot.py": {
+      "disposition": "independent",
+      "sha256": "8384e3fed6cc97ebbcfa2ebf7e4d58b9d1aa4c6b900e8a1e7b95b6511c2731c0",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/test_colors_backend.py": {
+      "disposition": "independent",
+      "sha256": "fec7625a2df45b13eee07db568b4b2b20c2d5d9d25ec51f859a12f4ad65f3de4",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/test_colors_ui.py": {
+      "disposition": "independent",
+      "sha256": "2811005abbc17727b1944311b154c808da0c700dd7bb99e008f82393f83ee00e",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/test_orient3.py": {
+      "disposition": "independent",
+      "sha256": "bcafe6c257e44ffb81b4a51494ecea672ecc83f095bb488213170d524dd86f64",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/branding/nacre-colors-compact.svg": {
+      "disposition": "independent",
+      "sha256": "0c0e89e6e8408c7fbfbaae296471932bac28c7871b9328d7264e247406aeff88",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/branding/nacre-colors-symbolic.svg": {
+      "disposition": "independent",
+      "sha256": "e35dd47aa8e7c4f4613be46249d0b11b03dc1489a427498d7988531fee5a2dc3",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/branding/nacre-colors.svg": {
+      "disposition": "independent",
+      "sha256": "26a2247a1312f24c965106fd08776a1ed4e056b0d397d08fce39a267e664cc45",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreAccentTarget.qml": {
+      "disposition": "independent",
+      "sha256": "24625d40228850c484e873a0d7bcf27b4d1b3ee9b0f15d9e47ed2e3c2a6a532e",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreColorSample.qml": {
+      "disposition": "independent",
+      "sha256": "68f88f86949fc20fbd93ab250e46afa6b4a67a26e8eb51780bdf9a84afac801f",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreColorsHost.qml": {
+      "disposition": "independent",
+      "sha256": "f7e33aee2dbae1f39eb25f28aeb565f2427d825380d83be9505c21726811e291",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreColorsView.qml": {
+      "disposition": "independent",
+      "sha256": "7a21f00880c210b6c0ee62fd1fafc9de9481c6a678c71845dd2a90820d680416",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreColorsWindow.qml": {
+      "disposition": "independent",
+      "sha256": "92fe46e2c1da6222f0e2bdfd9e0b1fff22c1854ebbed0b4be7d9d4bf6a8093f6",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/modules/colors/NacreThemePreview.qml": {
+      "disposition": "independent",
+      "sha256": "51ac7920c5df5aab1f14fff47e5f2c3342da5cf532ad327a7847dedfc226c207",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell/services/NacreColorsApp.qml": {
+      "disposition": "independent",
+      "sha256": "8b6a0094ce0f085e14ae7906bb6434c781d65fa332ce3c514e591898388e077e",
+      "evidence": [
+        "docs/specs/orient-colors.md",
+        "docs/features/orient.md",
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
       ]
     }
   }

@@ -50,6 +50,7 @@ def parser():
     wallpaper.add_argument("-t", "--threshold", type=float, default=0.5)
     wallpaper.add_argument("-N", "--no-smart", action="store_true")
     wallpaper.add_argument("--accent", type=clean)
+    wallpaper.add_argument("--source", help="optional animated analysis source for a prepared poster")
     wallpaper.add_argument("--mode", choices=("dark", "light"))
     wallpaper.add_argument(
         "--harmony",
@@ -57,6 +58,7 @@ def parser():
         default=None,
         help="prefer related, substantial supporting colors",
     )
+    wallpaper.add_argument("--personality", choices=("natural", "harmony", "pop", "mist", "vivid", "pearl", "tide"))
     return cli
 
 
@@ -81,18 +83,56 @@ def harmony_setting(args):
     return read(roots()[0] / "wallpaper-picker.json", {}).get("paletteHarmony") is True
 
 
+def personality_setting(args):
+    explicit = getattr(args, "personality", None)
+    if explicit:
+        return explicit
+    harmony = getattr(args, "harmony", None)
+    if harmony is not None:
+        return "harmony" if harmony else "natural"
+    preferences = read(roots()[0] / "wallpaper-picker.json", {})
+    return preferences.get("palettePersonality") or ("harmony" if preferences.get("paletteHarmony") else "natural")
+
+
+def image_settings(path, args):
+    preferences = read(roots()[0] / "colors.json", {})
+    choice = preferences.get("wallpapers", {}).get(str(Path(path).resolve()), {})
+    overrides = dict(choice.get("overrides", {}))
+    if getattr(args, "accent", None) or getattr(args, "auto_accent", False):
+        overrides.pop("primary", None)
+    return {
+        "personality": personality_setting(args),
+        "overrides": overrides,
+        "brightness": choice.get("brightness", 0.0),
+        "saturation": choice.get("saturation", 1.0),
+        "hour": __import__("datetime").datetime.now().hour if choice.get("tideAutomatic") else choice.get("hour", 12),
+    }
+
+
+def analysis_path(path, args):
+    explicit = getattr(args, "source", None)
+    if explicit:
+        return explicit
+    media = read(roots()[1] / "wallpaper/media.json", {})
+    if media.get("poster") == str(Path(path).resolve()) and Path(media.get("path", "")).is_file():
+        return media["path"]
+    return path
+
+
 def options(path, args, data):
     config = read(roots()[0] / "cli.json", {})
     overrides = config.get("orient", {}).get("accents", {})
     accent = getattr(args, "accent", None) or overrides.get(str(Path(path).resolve()))
+    choice = read(roots()[0] / "colors.json", {}).get("wallpapers", {}).get(str(Path(path).resolve()), {})
+    accent = getattr(args, "accent", None) or choice.get("accent") or accent
     return from_image(
-        path,
+        analysis_path(path, args),
         mode=getattr(args, "mode", None) or data["mode"],
         variant=data["variant"],
         flavour=data["flavour"],
         accent=accent,
         smart=False,
-        harmony=harmony_setting(args),
+        **image_settings(path, args),
     )
 
 
@@ -152,11 +192,24 @@ def scheme(args):
             # Generate before committing either preference or palette.
             accent = accents.get(str(Path(path).resolve()))
             generated = from_image(
-                path, data["mode"], data["variant"], data["flavour"], accent, harmony=harmony_setting(args)
+                path, data["mode"], data["variant"], data["flavour"], accent, **image_settings(path, args)
             )
             if args.accent or args.auto_accent:
                 config["orient"] = {**config.get("orient", {}), "accents": accents}
                 write_json(config_path, config)
+                choices_path = roots()[0] / "colors.json"
+                if choices_path.exists():
+                    saved = read(choices_path, {})
+                    for key, choice in saved.get("wallpapers", {}).items():
+                        if key == str(Path(path).resolve()) or choice.get("poster") == str(Path(path).resolve()):
+                            choice["overrides"] = {
+                                k: v for k, v in choice.get("overrides", {}).items() if k != "primary"
+                            }
+                            if args.auto_accent:
+                                choice.pop("accent", None)
+                            else:
+                                choice["accent"] = args.accent
+                    write_json(choices_path, saved)
         else:
             generated = default_palette(data["mode"], data["variant"], data["flavour"])
         save_scheme(generated)
@@ -216,13 +269,13 @@ def wallpaper(args):
         fixed_mode = read(roots()[0] / "wallpaper-picker.json", {}).get("paletteMode")
         if not args.no_smart and not args.mode and fixed_mode not in ("light", "dark"):
             generated = from_image(
-                path,
+                analysis_path(path, args),
                 data["mode"],
                 data["variant"],
                 data["flavour"],
                 generated.get("input", {}).get("accent"),
                 smart=True,
-                harmony=harmony_setting(args),
+                **image_settings(path, args),
             )
         if data["name"] == "default":
             generated = default_palette(generated["mode"], data["variant"], data["flavour"])

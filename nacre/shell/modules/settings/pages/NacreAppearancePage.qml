@@ -247,7 +247,7 @@ NacreSettingsPage {
             text: {
                 const fixed = root.prefs.palettePreset && root.prefs.palettePreset !== "wallpaper";
                 const name = fixed ? NacreWallpapers.palettePresets.find(p => p.id === root.prefs.palettePreset)?.name : NacreWallpapers.paletteOptions.find(p => p.accent === NacreWallpapers.selectedAccent)?.name;
-                return "In use: " + (name || (fixed ? "Fixed palette" : "Wallpaper colors")) + " · " + (root.prefs.paletteMode === "light" ? "Light" : "Dark") + (fixed ? "" : " · " + (root.prefs.paletteHarmony ? "Harmony" : "Natural"));
+                return "In use: " + (name || (fixed ? "Fixed palette" : "Wallpaper colors")) + " · " + (root.prefs.paletteMode === "light" ? "Light" : "Dark") + (fixed ? "" : " · " + ((root.prefs.palettePersonality || (root.prefs.paletteHarmony ? "harmony" : "natural")).replace(/^./, s => s.toUpperCase())));
             }
             wrapMode: Text.Wrap
             font.pointSize: 11
@@ -279,7 +279,7 @@ NacreSettingsPage {
             ActionButton {
                 objectName: "naturalPaletteButton"
                 text: "Natural"
-                selected: root.prefs.paletteHarmony !== true
+                selected: (root.prefs.palettePersonality || (root.prefs.paletteHarmony ? "harmony" : "natural")) === "natural"
                 enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
                 onClicked: NacreWallpapers.preference({
                     paletteHarmony: false
@@ -288,12 +288,17 @@ NacreSettingsPage {
             ActionButton {
                 objectName: "harmonyPaletteButton"
                 text: "Harmony"
-                selected: root.prefs.paletteHarmony === true
+                selected: (root.prefs.palettePersonality || (root.prefs.paletteHarmony ? "harmony" : "natural")) === "harmony"
                 enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
                 onClicked: NacreWallpapers.preference({
                     paletteHarmony: true
                 })
             }
+        }
+        ActionButton {
+            text: "Explore in Nacre Colors"
+            icon: "palette"
+            onClicked: AppLaunch.run([Quickshell.env("HOME") + "/.local/bin/nacre-colors"])
         }
         NacreText {
             width: parent.width

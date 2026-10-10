@@ -164,6 +164,7 @@ NacreSurface {
             required property int index
             readonly property bool aiApplication: !root.commands && (modelData.id === "nacre-ai" || modelData.id === "nacre-ai.desktop")
             readonly property bool brainApplication: !root.commands && (modelData.id === "nacre-brain" || modelData.id === "nacre-brain.desktop")
+            readonly property bool colorsApplication: !root.commands && (modelData.id === "nacre-colors" || modelData.id === "nacre-colors.desktop")
             readonly property bool settingsApplication: !root.commands && (modelData.id === "nacre-settings" || modelData.id === "nacre-settings.desktop")
             width: grid.cellWidth - 8
             height: 111
@@ -178,9 +179,9 @@ NacreSurface {
                 y: 12
                 width: 52
                 height: 52
-                source: !root.commands && !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication ? Quickshell.iconPath(tile.modelData.icon, true) : ""
+                source: !root.commands && !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication && !tile.colorsApplication ? Quickshell.iconPath(tile.modelData.icon, true) : ""
                 asynchronous: true
-                visible: !root.commands && !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication && status === Image.Ready
+                visible: !root.commands && !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication && !tile.colorsApplication && status === Image.Ready
                 sourceSize.width: 52
                 sourceSize.height: 52
             }
@@ -193,13 +194,14 @@ NacreSurface {
                 ai: tile.aiApplication
                 brain: tile.brainApplication
                 settings: tile.settingsApplication
-                visible: tile.aiApplication || tile.brainApplication || tile.settingsApplication
+                colorsApp: tile.colorsApplication
+                visible: tile.aiApplication || tile.brainApplication || tile.settingsApplication || tile.colorsApplication
             }
             NacreIcon {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 15
                 text: root.commands ? tile.modelData.icon || "apps" : "apps"
-                visible: !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication && (root.commands || appIcon.status === Image.Error || appIcon.status === Image.Null)
+                visible: !tile.aiApplication && !tile.brainApplication && !tile.settingsApplication && !tile.colorsApplication && (root.commands || appIcon.status === Image.Error || appIcon.status === Image.Null)
                 font.pointSize: 34
             }
             NacreText {

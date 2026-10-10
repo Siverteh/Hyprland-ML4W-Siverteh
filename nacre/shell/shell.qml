@@ -6,6 +6,7 @@ import qs.modules.drawers
 import qs.modules.background
 import qs.modules.extras
 import qs.modules.settings
+import qs.modules.colors
 
 ShellRoot {
     property var controlTools: NacreControlTools
@@ -17,5 +18,6 @@ ShellRoot {
     NacreShellShortcuts {}
     NacreShellIpc {}
     NacreSettingsHost {}
+    NacreColorsHost {}
     Component.onCompleted: ChatWindowTitle.scan()
 }

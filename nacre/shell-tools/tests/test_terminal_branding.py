@@ -112,6 +112,7 @@ class TerminalBrandingTests(unittest.TestCase):
                 "ai-label.svg.in",
                 "brain-label.svg.in",
                 "settings-label.svg.in",
+                "colors-label.svg.in",
             ):
                 shutil.copyfile(Path(branding.__file__).with_name(name), tools / name)
             shutil.copyfile(

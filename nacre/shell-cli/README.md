@@ -23,3 +23,12 @@ See [the engine spec](../../docs/specs/orient.md),
 [attribution](NOTICE). The [final comparison](../../docs/nacre/FINAL-COMPARISON.md) joins complete
 implementation/fixture, runtime and dependency evidence. Current project licensing
 and historical attribution remain distinct from third-party licenses.
+
+## Orient3 portable core
+
+`src/orient` is the reusable image/palette library; `python -m orient` or the
+`orient` entry point exposes analysis, palette, point-sampling and template export.
+It has no desktop publication dependency. `src/nacre_shell` is the Nacre command
+adapter retained for compatibility. Schema1 adds source bodies/regions/provenance
+and accessibility diagnostics. See ../../docs/features/orient.md. Notices/licenses
+remain retained; standalone extraction/publication is a later task.

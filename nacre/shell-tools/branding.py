@@ -60,7 +60,7 @@ def templates():
     )
     full = re.sub(r'viewBox="[^"]+"', f'viewBox="{VIEWBOX}"', original, count=1)
     values = {"full": full, "compact": compact, "symbolic": symbolic}
-    for application in ("ai", "brain", "settings"):
+    for application in ("ai", "brain", "settings", "colors"):
         label = (HERE / (application + "-label.svg.in")).read_text()
         for variant in ("full", "compact", "symbolic"):
             suffix = label
@@ -193,7 +193,7 @@ def cached_png(text, home, size=512):
 
 def prepare(colors, home):
     """Prepare art without publishing app icons or changing any live consumer."""
-    for variant in ("full", "ai-full", "brain-full", "settings-full"):
+    for variant in ("full", "ai-full", "brain-full", "settings-full", "colors-full"):
         cached_png(svg(False, colors, variant), home)
     for variant in ("symbolic", "ai-symbolic"):
         cached_png(templates()[variant].replace("currentColor", "#ffffff"), home, 96)
@@ -298,7 +298,7 @@ def publish(colors, home=None):
     # Kitty composites alpha over its own background, including opacity effects.
     # Baking a palette surface into the image produces a visible square.
     atomic(folder / "nacre.png", raw)
-    for application in ("ai", "brain", "settings"):
+    for application in ("ai", "brain", "settings", "colors"):
         raw = cached_png(svg(False, colors, application + "-full"), home)
         atomic(folder / ("nacre-" + application + ".png"), raw)
     for variant, name in [
@@ -314,6 +314,9 @@ def publish(colors, home=None):
         ("settings-full", "nacre-settings.svg"),
         ("settings-compact", "nacre-settings-compact.svg"),
         ("settings-symbolic", "nacre-settings-symbolic.svg"),
+        ("colors-full", "nacre-colors.svg"),
+        ("colors-compact", "nacre-colors-compact.svg"),
+        ("colors-symbolic", "nacre-colors-symbolic.svg"),
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo(home=home).encode())
@@ -326,6 +329,10 @@ def publish(colors, home=None):
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-brain.svg",
         svg(False, colors, "brain-full").encode(),
+    )
+    atomic(
+        home / ".local/share/icons/hicolor/scalable/apps/nacre-colors.svg",
+        svg(False, colors, "colors-full").encode(),
     )
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-settings.svg",
@@ -370,6 +377,9 @@ def build():
         ("settings-full", "nacre-settings.svg"),
         ("settings-compact", "nacre-settings-compact.svg"),
         ("settings-symbolic", "nacre-settings-symbolic.svg"),
+        ("colors-full", "nacre-colors.svg"),
+        ("colors-compact", "nacre-colors-compact.svg"),
+        ("colors-symbolic", "nacre-colors-symbolic.svg"),
     ]:
         (root / "shell/branding" / name).write_text(values[variant])
     (root / "shell/branding/nacre-text.txt").write_text(text_logo())
@@ -396,6 +406,12 @@ def build():
         + ";\n"
         + "var settingsCompactTemplate="
         + json.dumps(values["settings-compact"])
+        + ";\n"
+        + "var colorsFullTemplate="
+        + json.dumps(values["colors-full"])
+        + ";\n"
+        + "var colorsCompactTemplate="
+        + json.dumps(values["colors-compact"])
         + ";\n"
         + helper
     )

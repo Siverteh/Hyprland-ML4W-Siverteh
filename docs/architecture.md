@@ -198,3 +198,19 @@ owner. Dashboard and settings lifecycles are independent. Closed/minimized page
 refreshes pause, while display recovery timers retain their safety behavior.
 The `nacre-settings` command and desktop entry activate/focus this window, with
 a bounded cold-start path through the shell's existing user service.
+
+## Orient core and Colors studio
+
+The standalone `orient` library/CLI owns image analysis, palette generation,
+versioned JSON, accessibility audits and pure export rendering. `nacre_shell`
+retains desktop command/state compatibility. `NacreColorsHost` lazily creates one
+normal Colors window; `NacreColorsApp` serializes cancellable read-only preview
+jobs with generation checking and explicit non-cancelled application/export jobs.
+`colors.py` stages immutable private previews, detects changed sources, remembers
+choices/favorites/history and calls `classic-state.commit_prepared` for Apply.
+Its previews never write preferences or active presentation. The same publisher
+renders GTK/Kitty/Hyprland/rofi templates with Orient's dependency-free renderer.
+No second palette daemon/publication owner exists. Animated analysis is bounded
+and cached, while the existing low-priority library worker prepares records.
+Optional Tide uses the shared clock's hour signal; workspace chips read the shared
+presentation. See [behavior, formats and limits](features/orient.md).

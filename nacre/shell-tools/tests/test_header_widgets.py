@@ -55,6 +55,7 @@ Item {
  Column {Item{id:a;width:24;height:24}Item{id:n;width:24;height:24}Item{id:b;width:24;height:24}Item{id:c;width:24;height:36}Item{id:d;width:24;height:36}}
 }""")
             definitions = {
+                "NacrePresentation": "property var active:({workspaceColors:false})",
                 "NacreHyprland": 'property int activeWsId:2;property var clients:[];property var focusedMonitor:({name:"test"});property var activeClient:null;property var requests:[];function dispatch(value){requests=[...requests,value];return true}',
                 "NacreBar": 'property var workspaceNames:["Browse","Work","Chat","Music","Mail","Brain","Other"];property var workspaceIcons:["language","terminal","forum","music_note","mail","neurology","apps"]',
                 "NacreBrightness": "function getMonitorForScreen(screen){return null}",

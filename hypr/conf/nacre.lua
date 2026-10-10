@@ -69,3 +69,10 @@ hl.window_rule({
     float = true,
     center = true,
 })
+
+hl.window_rule({
+    name = "nacre-colors-app",
+    match = { class = "^org[.]quickshell$", title = "^Nacre Colors$" },
+    float = true,
+    center = true,
+})

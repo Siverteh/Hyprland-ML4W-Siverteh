@@ -116,3 +116,9 @@ Search for **Nacre AI** in the app launcher to open its terminal workspace menu.
 
 `nacre-settings` opens the normal Settings window; its pages and shared services
 are separate from the dashboard tabs. See [Settings](features/settings-app.md).
+
+[Nacre Colors and Orient](features/orient.md) provide a preview-first palette
+studio (`nacre-colors`) and a portable engine (`orient`). Colors keeps source
+coverage, role choices, favorites/history and export files private; Apply uses the
+existing publisher. Source: `nacre/shell-cli/src/orient`, `modules/colors`,
+`services/NacreColorsApp.qml`, `shell-tools/colors.py` and output `.in` templates.

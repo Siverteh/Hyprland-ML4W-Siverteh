@@ -51,6 +51,8 @@ def files(root=ROOT):
         "nacre-app",
         "nacre-ai",
         "nacre-settings",
+        "nacre-colors",
+        "orient",
         "nacre-terminal-logo",
         "nacre-brain",
         "nacre-brain-maintain",
@@ -67,6 +69,9 @@ def files(root=ROOT):
     )
     result[Path(".local/share/applications/nacre-ai.desktop")] = (
         root / "nacre/desktop/nacre-ai.desktop"
+    )
+    result[Path(".local/share/applications/nacre-colors.desktop")] = (
+        root / "nacre/desktop/nacre-colors.desktop"
     )
     result[Path(".local/share/applications/nacre-settings.desktop")] = (
         root / "nacre/desktop/nacre-settings.desktop"
