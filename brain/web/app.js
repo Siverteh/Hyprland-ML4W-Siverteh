@@ -1128,6 +1128,8 @@ for (const b of document.querySelectorAll("[data-action]"))
 let searchDelay;
 $("search").oninput = () => {
   state.query = $("search").value.trim();
+  state.view = "notes";
+  state.selected = null;
   state.limit = 60;
   state.focus = null;
   searchIds = null;
