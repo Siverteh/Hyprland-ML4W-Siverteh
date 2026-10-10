@@ -1898,3 +1898,48 @@ Registry: 660 artifacts, 397 change pointers, 311 reviews, 349 pending; audit
 counts only. Remaining helper/login/workflow/packaging/fixture/documentation/
 license/final comparison and physical cold-login limits remain open. Notices
 and complete originality goal retained.
+
+## Login and Files current-source review
+
+2026-10-10 UTC. [Spec](../specs/login-files-source-audit.md) and
+[individual table](LOGIN-FILES-SOURCE-AUDIT.md) cover nine maintained login/
+configuration/helper/Thunar bodies and six specific test sources. Local login
+authoring cb36d47 and Files integration 338417c traced through current changes.
+The earlier thunar-trial.py rename is explicitly followed. First-source peer
+matches in the trial installer are shared only with own earlier Yazi/Dolphin
+trial installers; current native replacement 47b06d4 retired extraction. Other
+peer comparisons found no copies. History/body/native API review supplements
+those metrics; no legal clean-room or final-license claim. Stock SDDM/GTK/Thunar,
+fonts and icon assets retain their separate dependency boundaries.
+
+Retired unused login/issue from ML4W import 989022d in source 7a524e7, without
+reading/copying its body to reproduce it. No active caller or installation entry
+exists; the actual system banner differs and stays unchanged. Added retired-path
+guard and ownership documentation. New actual Main/Logo Qt fixture uses fake
+SDDM models/proxy for submission/busy/model guards, retry/clearing and palette
+fallback. Existing image-publication fixture now uses temporary HOME for cache.
+Actual native GTK test parses CSS and recolors the same widget after replacement.
+
+All 412 tests pass (55 tools, 96 AI, 35 Brain, 226 shell), with native QML,
+formatting/registry/Hyprland and reviewed plan. Configuration plan has zero files/
+migrations. Deployed source 5c1dc59 in good release 20261010T034510937315Z;
+repeated checks and actual launcher/wallpaper Escape gates pass. Four installed
+root theme files and six helper copies exact; the compiled Thunar style is
+byte-identical to a fresh build of the current source. Root theme/banner, Thunar
+preferences, MIME association, private history/preferences, AI worker and displayed
+palette/poster/deadline unchanged. All 234 current/good shell files exact;
+native IPC/services healthy and configerrors empty. Six owned hover/dismiss/
+click/key-return cycles and both outside dismissals pass. No real auth, device,
+power, account or AI message action used for verification; no busy backend restart.
+
+The initial strict scheme-file byte assertion detected the CLI reapply's trailing
+newline. Original baseline retained: serializing the current JSON without that
+newline reproduces its exact captured SHA, proving the entire parsed data and
+metadata unchanged. The corrected probe accepts only that single byte difference,
+not arbitrary changes or a fresh unchecked baseline. No publisher behavior change.
+
+Registry: 663 artifacts, 397 change pointers, 326 reviews and 337 pending; audit
+counts, not an originality percentage. Current login and shell-source categories
+now fully reviewed. Other desktop helpers/configuration/workflow/packaging/
+fixtures/docs/notices and final whole-tree comparison remain open. Notices and
+full goal retained; synthetic tests do not establish a physical cold login.
