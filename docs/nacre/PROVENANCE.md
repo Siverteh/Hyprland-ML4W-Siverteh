@@ -1943,3 +1943,44 @@ counts, not an originality percentage. Current login and shell-source categories
 now fully reviewed. Other desktop helpers/configuration/workflow/packaging/
 fixtures/docs/notices and final whole-tree comparison remain open. Notices and
 full goal retained; synthetic tests do not establish a physical cold login.
+
+## Device and session helper source review
+
+2026-10-10 UTC. [Spec](../specs/device-session-source-audit.md) and
+[individual table](DEVICE-SESSION-SOURCE-AUDIT.md) cover 17 complete current
+helpers/units and 11 specific Python test sources. Independent light/network/
+resource replacements and local desktop/device/location/timezone/weather/power/
+idle/session/process/startup/title/workflow authoring traced. Renamed added
+service paths explicitly followed through the old local names. First-source
+peer comparisons share only standard native command/query sequences with own
+earlier helpers; actual history/body/interface review supplements those metrics.
+Prior exposure acknowledged; no legal clean-room or final-license claim.
+
+Source fd2c9ff corrects SSID validation from character count to UTF-8 byte count,
+matching the existing network producer and native protocol boundary. Pure command
+regression fails old oversized multibyte values, then passes exact 32-byte ASCII/
+two-byte/four-byte boundaries and existing control rejection. No connection,
+scan, location lookup or real device/power operation performed. Other 16 helper
+bodies and personal AI permission/skipreview behavior retained unchanged.
+
+All 414 tests pass (55 tools, 96 AI, 35 Brain, 228 shell), with native QML,
+formatting/registry/Hyprland and reviewed plan. Configuration plan has zero files/
+migrations. Deployed source 8a8c5e3 in good release 20261010T040526861019Z;
+repeated checks and real launcher/wallpaper Escape gates pass. All 17 installed
+helpers/units and two root timezone/location copies exact; installed pure command
+boundary test passes without nmcli execution. Power/session/idle/shell/AI services
+active, native IPC ready and configerrors empty. All 234 current/good shell files
+exact. Private/system policy hashes, Thunar state, worker and palette/scheme data
+preserved. No real account/auth/AI-send action or busy backend restart.
+
+Supplementary input probe initially stopped because its owned temporary window
+was fullscreen. Its finally block terminated that window and restored focus;
+no production desktop setting changed. Fixture setup now launches directly in
+an owned empty workspace; six hover/dismiss/click/key-return cycles and both
+outside dismissals pass. A one-output synthetic fixture does not establish every
+fullscreen/hardware/cold-login case.
+
+Registry now has 666 tracked artifacts, 354 explicit reviews and 312 pending;
+these are audit counts. Twelve desktop helpers/data remain, alongside other
+configuration/workflow/packaging/fixtures/documentation/notices and the final
+whole-tree comparison. Applicable notices and the complete goal remain open.

@@ -1200,6 +1200,15 @@
         "nacre/shell-tools/reference-style.json",
         "nacre/shell-tools/tests/test_generated_presets.py"
       ]
+    },
+    {
+      "area": "ssid-byte-boundary",
+      "commit": "fd2c9ff",
+      "spec": "docs/specs/device-session-source-audit.md",
+      "paths": [
+        "nacre/shell-tools/device-actions.py",
+        "nacre/shell-tools/tests/test_device_actions.py"
+      ]
     }
   ],
   "reviews": {
