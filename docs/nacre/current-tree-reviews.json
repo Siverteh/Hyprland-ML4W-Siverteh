@@ -4781,6 +4781,15 @@
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
         "Full current source/data body reviewed. Basis 2a977c4: new own deterministic rain and owned PTY key/signal cleanup fixtures, no actual user Matrix window. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
       ]
+    },
+    "tools/tests/test_configure_artifacts.py": {
+      "disposition": "independent",
+      "sha256": "e3b1540dca79ff8da7ee71f3ca227e649288d3135e3023e5a9f9c080ba89d16e",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "New own cbea2ea temp source/home/manifest fixture; generated-file enumeration fails baseline then passes, owned retirement/backup/unowned preservation and edited-data refusal tested. Full body reviewed; no vendor implementation or actual user config action. Whole configure.py ancestry remains in packaging audit, not certified from this narrow correction."
+      ]
     }
   }
 }

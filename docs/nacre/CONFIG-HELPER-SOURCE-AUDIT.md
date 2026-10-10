@@ -47,3 +47,7 @@ preserved; notices/full whole-tree comparison remain open.
 | `tools/tests/test_window_hide.py` | `6c8f06d` | unchanged | `f8db130461aa0b8a50a1c6aa6c93fc7946428eec950537180f170a6e10ed8274` |
 | `tools/tests/test_matrix_palette.py` | `6c8f06d` | unchanged | `c3c26c0078650e93d2791cb5b169a31138967170ca49774e0c67a51d7ea4821b` |
 | `tools/tests/test_matrix_rest.py` | `2a977c4` | unchanged | `a633b881e2a2438b39a507e4364dec3c18fd72e7073e1022634dc3bc2635eb5b` |
+
+Generated configuration artifact regression exposed files() deploying local pyc/pyo/cache files. cbea2ea excludes them and .qmlls.ini; existing owned-only removal/backup/drift contracts retained. New test body reviewed separately; the complete configure.py origin remains pending packaging audit.
+
+| `tools/tests/test_configure_artifacts.py` | `cbea2ea` | unchanged | `e3b1540dca79ff8da7ee71f3ca227e649288d3135e3023e5a9f9c080ba89d16e` |
