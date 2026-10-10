@@ -9,6 +9,7 @@ Scope {
         NacreScreen {
             required property ShellScreen modelData
             screen: modelData
+            outputName: modelData.name
         }
     }
     IpcHandler {

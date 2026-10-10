@@ -13,7 +13,7 @@ Variants {
         screen: modelData
         name: "topbar"
         WlrLayershell.layer: WlrLayer.Overlay
-        visible: DesktopSettings.data.topEdge !== false && (!NacreHoverIntent.fullscreenFor(surface.screen?.name) || NacrePanelState.panels[surface.screen?.name]?.input?.modal)
+        visible: DesktopSettings.data.topEdge !== false && (!NacreHoverIntent.fullscreenFor(modelData.name) || NacrePanelState.panels[modelData.name]?.input?.modal)
         anchors.top: true
         anchors.left: true
         anchors.right: true

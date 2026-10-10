@@ -7,13 +7,14 @@ import qs.services
 
 NacreWindow {
     id: root
+    required property string outputName
     name: "drawers"
     anchors.top: true
     anchors.bottom: true
     anchors.left: true
     anchors.right: true
     WlrLayershell.layer: WlrLayer.Overlay
-    visible: !NacreHoverIntent.fullscreenFor(screen.name) || inputController.modal
+    visible: !NacreHoverIntent.fullscreenFor(outputName) || inputController.modal
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
     WlrLayershell.keyboardFocus: inputController.modal ? WlrKeyboardFocus.Exclusive : (flags.left || flags.osd || flags.dashboard) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     property string registeredName: ""

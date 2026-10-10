@@ -3275,12 +3275,13 @@
     },
     "nacre/shell/modules/drawers/NacreDesktop.qml": {
       "disposition": "independent",
-      "sha256": "e74f1ff0049c8b471d4f71ddfefc8b1876196415c0732de450f187e36d352b00",
+      "sha256": "f0a5c314fdfed129c7efe035011589f37c80c4734cc2ead9d4af7f16a1737e7b",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e, ea5653e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed: fullscreen visibility uses the stable output model identity rather than reading the surface screen during its own map/unmap transition. Real Wayland fullscreen/open/Escape and log checks validate this integration. Independent local correction, no inherited upstream implementation used."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -3329,13 +3330,14 @@
     },
     "nacre/shell/modules/drawers/NacreScreen.qml": {
       "disposition": "independent",
-      "sha256": "77d56dc7071b8c3c98908af68633d5e03f27bc9e9cec2a86351a8b365c097e51",
+      "sha256": "f3b6641a16fefb99a440e2ea351bc7f46dab3726c6bceacbdbf4d340a444b753",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 216f23a, 8d96a29, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md",
-        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
+        "Current body reviewed: fullscreen visibility uses the stable output model identity rather than reading the surface screen during its own map/unmap transition. Real Wayland fullscreen/open/Escape and log checks validate this integration. Independent local correction, no inherited upstream implementation used."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -3479,13 +3481,14 @@
     },
     "nacre/shell/modules/topbar/NacreTopBar.qml": {
       "disposition": "independent",
-      "sha256": "713e3ec3cf2b963b44b98fb008bddf7a180df6267d9ffa0865cddea82cbbf694",
+      "sha256": "9d661a7c2ec44701c4ad3fea26cee8c89427ae31611f320cff418ebdacf8a4d3",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md",
-        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes."
+        "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
+        "Current body reviewed: fullscreen visibility uses the stable output model identity rather than reading the surface screen during its own map/unmap transition. Real Wayland fullscreen/open/Escape and log checks validate this integration. Independent local correction, no inherited upstream implementation used."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
