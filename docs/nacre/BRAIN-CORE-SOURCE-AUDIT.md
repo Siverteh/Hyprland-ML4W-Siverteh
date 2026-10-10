@@ -58,3 +58,14 @@ with native QML/Lua, Ruff, palette CLI and JavaScript checks. Native Hyprland
 verification passed; reviewed Brain component plan and config plan (zero files/
 migrations). Browser fixture passed separately against the current authenticated
 server/assets with disposable data/profile; no existing user's browser was used.
+
+Deployment: Brain component release 20261010T060928326683Z promoted good at
+source 0f235190fa6e9423adce4914176fc919a009be94. Transaction repeated all 434 tests,
+Brain readiness, real launcher/wallpaper Escape gates and native service checks.
+All eight Brain source/assets and the actual served JavaScript match candidate
+bytes. Only the Brain source target changed among release snapshots; managed
+config, UI and palette-runtime fingerprints stayed the same. Running sidebar
+backend PID/start time unchanged; current/good UI source exact, services and
+frame/palette IPC healthy, config errors empty. Browser data stays external;
+existing page refresh was not forced or used as a private-data test. The revised
+client is available on normal reload. Whole-tree comparison/licensing still open.
