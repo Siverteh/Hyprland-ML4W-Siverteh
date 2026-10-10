@@ -7,6 +7,9 @@ Region {
         bounds: controller.modal ? Qt.rect(0, 0, controller.width, controller.height) : Qt.rect(0, 0, 0, 0)
     }
     Box {
+        bounds: controller.headerRect
+    }
+    Box {
         bounds: controller.expand(controller.launcherRect)
     }
     Box {

@@ -25,6 +25,7 @@ Item {
     readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 144) / 2, NacreFrame.left + 3, 144)
     readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 3, (height - 144) / 2, NacreFrame.right + 3, 144)
     readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 208) / 2, NacreFrame.headerHeight - 1, 208, 4)
+    readonly property rect headerRect: !hidden && DesktopSettings.data.topEdge !== false ? Qt.rect(0, 0, width, NacreFrame.headerHeight) : Qt.rect(0, 0, 0, 0)
     readonly property rect launcherRect: box(panels.launcher, visibilities.launcher)
     readonly property rect dashboardRect: box(panels.dashboard, visibilities.dashboard)
     readonly property rect leftRect: box(panels.leftDrawer, visibilities.left)
@@ -32,7 +33,7 @@ Item {
     readonly property rect sessionRect: box(panels.session, visibilities.session)
     readonly property rect popoutRect: box(panels.popouts, panels.popouts.hasCurrent)
     readonly property rect notificationRect: box(panels.notifications, panels.notifications.visible)
-    readonly property var regions: hidden ? [] : modal ? [Qt.rect(0, 0, width, height)] : [launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect, leftEdgeAvailable ? leftEdgeRect : Qt.rect(0, 0, 0, 0), rightEdgeAvailable ? rightEdgeRect : Qt.rect(0, 0, 0, 0), topEdgeAvailable ? topEdgeRect : Qt.rect(0, 0, 0, 0)].filter(r => r.width > 0 && r.height > 0)
+    readonly property var regions: hidden ? [] : modal ? [Qt.rect(0, 0, width, height)] : [headerRect, launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect, leftEdgeAvailable ? leftEdgeRect : Qt.rect(0, 0, 0, 0), rightEdgeAvailable ? rightEdgeRect : Qt.rect(0, 0, 0, 0), topEdgeAvailable ? topEdgeRect : Qt.rect(0, 0, 0, 0)].filter(r => r.width > 0 && r.height > 0)
     readonly property bool hovered: hover.hovered
     readonly property point pointer: hover.point.position
     readonly property bool dashboardHovered: hovered && inside(expand(dashboardRect), pointer)

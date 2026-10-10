@@ -36,3 +36,9 @@ small/fractional viewports, input release during closing, masked lip hit targets
 held-button/fullscreen guards, device absence, scroll isolation and no writes on
 opening. Complete source checks, Hyprland verification, plan/apply and live
 compositor input/source gates precede publishing; preserve worker identity.
+
+The header and panels must be children of the same per-output surface, with the
+header drawn above frame chrome and included in the shared input mask. A second
+bar layer surface is forbidden: compositor focus can raise same-layer windows.
+Verify the actual tiled workspace through modal transitions, not only a separate
+floating validation window.

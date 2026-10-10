@@ -4,6 +4,8 @@ import Quickshell
 import Quickshell.Wayland
 import qs.widgets
 import qs.services
+import qs.config
+import qs.modules.topbar
 
 NacreWindow {
     id: root
@@ -86,6 +88,17 @@ NacreWindow {
             visibilities: flags
             input: inputController
             z: 1
+        }
+        NacreHeader {
+            id: header
+            objectName: "nacreIntegratedHeader"
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: NacreFrame.headerHeight
+            visible: DesktopSettings.data.topEdge !== false && !NacrePanelState.hidden
+            screen: root.screen
+            z: 4
         }
         NacreFrameLips {
             id: lips

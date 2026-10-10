@@ -130,6 +130,18 @@ ShellRoot {
                         throw new Error("capture failed");
                     console.log("FRAME_CAPTURE " + names[window.phase]);
                     if (window.phase === 0) {
+                        if (input.headerRect.width !== 600 || input.headerRect.height !== 50)
+                            throw new Error("header missing from shared input region");
+                        DesktopSettings.data = {
+                            animations: false,
+                            topEdge: false
+                        };
+                        if (input.headerRect.width !== 0)
+                            throw new Error("disabled header retained input");
+                        DesktopSettings.data = {
+                            animations: false,
+                            topEdge: true
+                        };
                         dash.width = 200;
                         dash.height = 100;
                         flags.dashboard = true;
@@ -138,7 +150,7 @@ ShellRoot {
                         launch.height = 90;
                     } else if (window.phase === 1) {
                         flags.launcher = false;
-                        if (input.launcherRect.width !== 0 || region.regions[1].width !== 0)
+                        if (input.launcherRect.width !== 0 || region.regions[2].width !== 0)
                             throw new Error("closing retained input region");
                         if (launch.width !== 300)
                             throw new Error("missing closing geometry");
