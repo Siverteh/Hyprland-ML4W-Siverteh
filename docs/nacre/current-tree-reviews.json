@@ -4205,6 +4205,258 @@
         "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
         "Full current body/data reviewed. Basis 7a524e7: new own SDDM model/proxy-contract fixture: defaults, missing/busy guards, failure retry and input clearing, palette fallback; native dependency APIs only. Later path changes: unchanged. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
       ]
+    },
+    "nacre/shell-tools/desktop-actions.py": {
+      "disposition": "independent",
+      "sha256": "ce3c17a7a34d4dc684c2225f76fc46625ba6e56b5d65ed00c7de8ceb9abcaf0f",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis ba5e48f: local desktop/AI launch dispatch separated from own Brain controller; bounded native command and UWSM interfaces reviewed. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/device-actions.py": {
+      "disposition": "independent",
+      "sha256": "d6271970ce161b5ccf045a775546da112a7418b1307d3b82b678b07e5382d22a",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis a0090ce: local bounded network/Bluetooth command builder; fd2c9ff corrects encoded SSID length after demonstrated producer/protocol mismatch. Later path changes: fd2c9ff, 548f0b4, 2c1d2ca, 51eb6e1, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/device-location.py": {
+      "disposition": "independent",
+      "sha256": "ce85154df6f9ab9ae26fc8710e6423acd6cc77eb44faf2109457643c35656f5b",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis b8be61e: local bounded GeoClue fix/offline GWeather mapping, ephemeral coordinates and uncertain-boundary rejection. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/light-devices.py": {
+      "disposition": "independent",
+      "sha256": "62c811ea4161816bbe465e8eb84e7a23ea367779b39dc83c03f9d5f7af31a5cf",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 02b2bda: independent guarded sysfs/DDC discovery and write boundaries, stale descriptor/EDID checks. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/network-state.py": {
+      "disposition": "independent",
+      "sha256": "1893bacddfc6a079fc8bc37a1cbd11d21e28d15a0d47f902902331987598af1a",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 977f628: independent bounded read-only nmcli snapshot and escaping/parser logic, no scan/secrets query. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/resource-state.py": {
+      "disposition": "independent",
+      "sha256": "1deb2ef06307ac4b97925ac2c46a2e4b2c43e46d97c9af817137674f702797c0",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 18d8aab: independent occasional native sensor/disk producer with missing/zero and KiB semantics. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/timezone.py": {
+      "disposition": "independent",
+      "sha256": "e8d2aa3c1c68979e888039db3d2583edad9fb8ed9069b25260a4c26a07a8d611",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 9dd732a: local root-owned travel-timezone policy; b8be61e replaces IP inference with trusted device/confirmed fallback; immutable auth/sandbox/service contracts reviewed. Later path changes: 548f0b4, b8be61e, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/weather.py": {
+      "disposition": "independent",
+      "sha256": "10eecde6b92f9eb653c88e928dcf134aaac2bd478e5983810652811b4473a7c1",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis a0090ce: local bounded HTTPS forecast/cached-stale producer; no vendor weather-service body. Later path changes: 548f0b4, 55fbe20, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/power-button-policy.py": {
+      "disposition": "independent",
+      "sha256": "b5ad8c604e5e174c7cdafffa3be31dd467479596eb2c35a16b90d11cb26e9b54",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 73092de: local recognized-only private binding migration/backups, manual wake preference preserved. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/idle-policy.py": {
+      "disposition": "independent",
+      "sha256": "ff605d417624074ab2f82f69134986508429fb70e9583f0e0c4faa3ef385f02d",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 5df2e69: local recognized private listener migration, managed sleep hooks and preserved timeout/backup. Later path changes: 548f0b4, 6f88e53. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/nacre-power-key.service": {
+      "disposition": "independent",
+      "sha256": "1e3949a116c2e17c75f5c0763b8408593850e05a00b3d87b5858718c102df96c",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 73092de: own native logind inhibitor unit, earlier siverteh-manual-power.service path explicitly traced; no shutdown/auth implementation in UI. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/nacre-session-watch.service": {
+      "disposition": "independent",
+      "sha256": "3fbabd619eb90087226d795d492eac5cc4a0ef5728f0a4a3ea6941d4ec5d5668",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 548f0b4: renamed added path explicitly followed to old local unit e3d0298/8bd5e65; public systemd service fields. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/session-watch.py": {
+      "disposition": "independent",
+      "sha256": "c29fc22793eae4491b67e9fc60fb1deabfe40690440fc557f420ff998d9b9ae9",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 8bd5e65: local event-driven session readiness/resume/hotplug observer and private labelled evidence, no simulated cold-login claim. Later path changes: 548f0b4, bb46dd6, 83b3531, 8a32ba0. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/isolate-apps.py": {
+      "disposition": "independent",
+      "sha256": "2dbb34fc8f1567355d58511e9982f1767ad98d52d949ba59b4e18367767e528f",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 007d020: local user-owned process/cgroup traversal and native transient-scope migration; keeps existing apps alive. Later path changes: 548f0b4, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/startup-apps.py": {
+      "disposition": "independent",
+      "sha256": "21b37b6e73426b016804bc2e0b3976addad481901304a7e0ac6cc4e1781e4c13",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis b0632b9: local idempotent requested six-app startup profile and acknowledged launches, existing windows preserved. Later path changes: 548f0b4, 83b3531, 8bd5e65, 2fa3a95. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/window-chat-title.py": {
+      "disposition": "independent",
+      "sha256": "82e9285ee732aa4675a954445453f59afaea70eb62308a9d4b0b686a1e5c81b0",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis be81bf0: local bounded same-user process descendant lookup and saved named-title reads, no auth/conversation-body read. Later path changes: 548f0b4, 83b3531, 007d020. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/workflow-profiles.py": {
+      "disposition": "independent",
+      "sha256": "742dbbc6ab552dab095487f190a44667e3fe285193a8aaa561093dfb06c2de73",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 8bd5e65: local explicit saved connected audio/display/startup intent, no implicit preference/worker actions. Later path changes: 548f0b4, 83b3531, 8a32ba0. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_desktop_actions.py": {
+      "disposition": "independent",
+      "sha256": "229b22ca0864ff2f422c5e0e1b165a3bbcda1ab794c09afd731d12fd4d09e759",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis ba5e48f: own fake launch/run routing, range and command-injection guards. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_device_location.py": {
+      "disposition": "independent",
+      "sha256": "0519b191bf014166f633b794abcb7be3034a65736300635f0d5c0140fb34c789",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis b8be61e: own synthetic fresh/coarse/stale/GeoIP/uncertainty-envelope cases with fake offline world. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_network_state.py": {
+      "disposition": "independent",
+      "sha256": "d73c5f2d091823f5bacfc224093160e80f3d61e71c20ee831ac43f5f31fde4e5",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 977f628: own escaped/unicode AP data, read-only deadlines and sensitive-error suppression fixtures. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_light_devices.py": {
+      "disposition": "independent",
+      "sha256": "e339456880d4aea64bda5fac76403a7a8d8edb6f6c9be8d8c4f04c8cc7319629",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 02b2bda: own fake sysfs/DDC command/range/stale/fingerprint/ambiguity fixtures, no hardware write. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_resource_state.py": {
+      "disposition": "independent",
+      "sha256": "d1f112514858d4b74a6632e3555f6880338548843f9b1c033f04a7e4fb3cd4dc",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 18d8aab: own fake sensor priorities, unknown/real-zero and large-disk units fixtures. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_timezone.py": {
+      "disposition": "independent",
+      "sha256": "9182a7fbe396f1c2bd504d2ccf60f864ca86d70cdd57f68335631a6d96d3058a",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 9dd732a: own temp root/fake commands for zone validation, trusted fix/confirmed fallback and disabled no-location cases. Later path changes: 548f0b4, b8be61e, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_session_workflows.py": {
+      "disposition": "independent",
+      "sha256": "b1e9e2fe0fa4749e4a424ec43a720b4b35cc4970c19643f8a77ab2c13fc17125",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 8bd5e65: own fake readiness/manual evidence and absent-device workflow cases. Later path changes: 548f0b4, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_power_button.py": {
+      "disposition": "independent",
+      "sha256": "c395dd28ca11441df6e2c250cdfef4a7acf749c8d909262804abb3df3efba8db",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 73092de: own temp private config recognized migration/backup and unfamiliar binding refusal. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_idle_policy.py": {
+      "disposition": "independent",
+      "sha256": "dde7b27cbbefa13a7bdb4eb32dbd7a51c2d15b7ec4b39f097d61b6ea5ba940da",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis 5df2e69: own missing-policy/temp listener preservation and backup fixtures. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_startup_apps.py": {
+      "disposition": "independent",
+      "sha256": "5e4d43999d060aae43eb0fe0612abb0cb12b1957e6cf734cef3d76d773262eb1",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis b0632b9: own pure startup plan/duplicates/Brain-browser distinction cases. Later path changes: 548f0b4, 83b3531. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_device_actions.py": {
+      "disposition": "independent",
+      "sha256": "d49053fc78e4eae7098e743888f8d57f5c8a05eb3d90621378bb188de3f094bd",
+      "evidence": [
+        "docs/specs/device-session-source-audit.md",
+        "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
+        "Full current source body reviewed. Basis fd2c9ff: new own pure command boundary regression: old multibyte names failed; ASCII/two-byte/four-byte 32-byte edges and controls, no nmcli execution. Later path changes: unchanged. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+      ]
     }
   }
 }
