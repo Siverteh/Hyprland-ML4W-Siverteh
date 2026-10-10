@@ -1608,14 +1608,15 @@
     },
     "kitty/kitty.conf": {
       "disposition": "independent",
-      "sha256": "5bce9dbdd291fea200155870f73fb71d48a36d8a2adfd384e92bc491abf23bd5",
+      "sha256": "5ecc79fb03068a61377f0225bcd84301e26cec2517e45ed9dfb8af3fa99b8cb5",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
         "Inherited body deleted then independently composed 3bf8870 from measured native/default contracts and Kitty public parser/options. Current bytes unchanged since replacement; private palette/custom include owners remain separate. Native parser confirms zero bad lines and retained font/padding/geometry/opacity/scrollback contracts.",
         "docs/specs/terminal-polish.md",
-        "docs/features/terminal-branding.md: user-requested readable 14pt font and 16-row/36-column live logo slot; palette and alpha behavior retained."
+        "docs/features/terminal-branding.md: user-requested readable 14pt font and 16-row/36-column live logo slot; palette and alpha behavior retained.",
+        "User steering: restore 12pt global font; retain only the larger 16-row/36-column startup logo without zooming working terminals."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -6657,7 +6658,7 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "994ce4b2ed9b22fcd29fade63b7487ee982252f89e57299ebf123ff1b0c93373",
+      "sha256": "a4695808f0f09d1040ec006e3b3374ea77d61009b7852c0f873428c563644220",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6667,7 +6668,8 @@
         "docs/specs/terminal-polish.md",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
-        "docs/features/terminal-branding.md: user-requested readable 14pt font and 16-row/36-column live logo slot; palette and alpha behavior retained."
+        "docs/features/terminal-branding.md: user-requested readable 14pt font and 16-row/36-column live logo slot; palette and alpha behavior retained.",
+        "User steering: restore 12pt global font; retain only the larger 16-row/36-column startup logo without zooming working terminals."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
