@@ -4819,6 +4819,231 @@
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
         "New own cbea2ea temp source/home/manifest fixture; generated-file enumeration fails baseline then passes, owned retirement/backup/unowned preservation and edited-data refusal tested. Full body reviewed; no vendor implementation or actual user config action. Whole configure.py ancestry remains in packaging audit, not certified from this narrow correction."
       ]
+    },
+    ".github/workflows/check.yml": {
+      "disposition": "independent",
+      "sha256": "073a3283e511ee1934c15da2d94a6b8543b81ec0c4c6713bc1c4f5d3719ea90a",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: locally authored target/CI orchestration; native Arch image/tools, candidate engine and current exact-checkout trust changes traced. Later path changes: c550bba, c8d3d69, 36de6d6, cb07776, 548f0b4, 1964e9d, 73e71c4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    ".gitignore": {
+      "disposition": "non-implementation",
+      "sha256": "877c54df5f89939c16a4695ae6514d6a3c5491c906804095ab5e752ea4c310da",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: current declarative build/cache/private data ignore patterns reviewed; no retained desktop algorithm or creative asset. Later path changes: 5d0028f. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "install.sh": {
+      "disposition": "independent",
+      "sha256": "fe183e5fe39864f0f2234bc1ccf15a8a01f3db95961a6cbacd6f78c31129e17b",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: entire current four-line wrapper authored for local component manager, replacing earlier installer body. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/check-overlays.py": {
+      "disposition": "independent",
+      "sha256": "14bc2b8c37d6c4588fd076a1b254e731d8474976471cfccf1d30d52ce1e89ec4",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis e83d56f: local opt-in native panel/Wayland Escape gate; preserves existing views and uses actual controls, not inherited checker. Later path changes: 548f0b4, 83b3531, 9bdad72. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/check.py": {
+      "disposition": "independent",
+      "sha256": "832336688a443ce60f2604e96a21fb02d62448ac144adb16a4b8ff75efce60c9",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source/format/retired/conflict/QML/fixture/candidate-engine validation owner and later independent checks traced. Later path changes: 7a524e7, 8ec9023, 9a435c3, 36c35e0, 76101df, 3544a59, 5eef4ae, 5ecf556, 548f0b4, 898df7d, 4886426, c0816b6, 85f31ab, 73e71c4, 83b3531, 85316eb, 9a9cebe. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/configure.py": {
+      "disposition": "independent",
+      "sha256": "d986f1ef36d4c3f7a208842eac13e28e5031d3ea3eee24f1e0156cc9e17884d3",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/defaults/hypridle.conf": {
+      "disposition": "independent",
+      "sha256": "4fd4f508a8db181a33b541f001d112c7d4822fb1fdd6c966904ee961787e5caa",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 0106a03: uncertain initial-import seed body discarded without viewing; fresh public native sleep-lock baseline/no default idle listener from current independent contracts. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/manage.py": {
+      "disposition": "independent",
+      "sha256": "68d0deb95b1cc308ecb1f9bee8bcb650313f50421e05dd740a207147bdaee5dc",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: local complete component plan/namespace preflight/release manager, no credential reinstall or arbitrary extra owner. Later path changes: 548f0b4, 5bf0bcd, 83b3531, 37df5a4, 8bd5e65. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/nacre_migration.py": {
+      "disposition": "independent",
+      "sha256": "c4ccbb0cc0a9b600986117c1ec6487794f5d3903310d288db583786a5bed5e30",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 548f0b4: local complete planned/compatible namespace merge/journal/rollback/service alias and inhibitor lease ownership. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/nacre_system_migration.py": {
+      "disposition": "independent",
+      "sha256": "f97634eb21f3198618fca619c12ca5ddf7a01945aab9e85175c8e05b40167c5e",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 548f0b4: local root-owned login/timezone name migration/backups/auth-preserving integration, tested fake-prefix only. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/provenance.py": {
+      "disposition": "independent",
+      "sha256": "3dc5f282e1e575e253746382b148d075d715bbb72e8f3b81b0053f0c8b105bf6",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 5eef4ae: own current Git index/hash/category/change-pointer/source-review inventory; pending/stale states explicit, not copied origin checker. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/quickshell-qt612.patch": {
+      "disposition": "third-party",
+      "sha256": "c7a03da8b12255f9a2a00f8b96196ede0f60646df199750697efc346b669c0c5",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 3d9149d: pinned Quickshell5d5d498 Cloud0310/outfoxxed native LGPL backport; all15source file additions/removals exactly upstream, changelog omitted; native dependency, not original Nacre. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/quickshell.PKGBUILD": {
+      "disposition": "independent",
+      "sha256": "9d6c1db86487a47d8671f3810740b5f81d1c0b77205f8c952235ec706428e2f0",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 5a54084: own local pinned native recovery packaging recipe using public cmake/pacman metadata/interfaces; fetched Quickshell code remains external LGPL dependency. Later path changes: 3d9149d. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/releases.py": {
+      "disposition": "independent",
+      "sha256": "f433b4617c6fb663c1b877f6dae102a53a2704c961d4fd7c041cc291a1031fb7",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 8bd5e65: complete local allowlist snapshot/owned restore/gates/promotion/retention/runtime/control owner;0106a03/4ac764e align candidate config map and carry mapping dependency. Later path changes: 4ac764e, 0106a03, 5ecf556, b2a540f, 548f0b4, 73092de, d5d7158, 871e2e7, 5a28cf1, f39c2d1, 805c7ef, 9397909, 3d2b7cd, bb46dd6, 47b06d4, a046f7b, 338417c, 30a52ae, 5bf0bcd, 86bebe6, 83b3531, 85316eb, 37df5a4, 9bdad72. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/window_rules.py": {
+      "disposition": "independent",
+      "sha256": "9d1fce48468a119f930f6a6440e0ecf7a563adab97591a190fdcbe9d459d46b7",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 9a9cebe: local restricted native Lua contracts and selector/bind conflict witness checking, current independent capture integration traced. Later path changes: e944518, 9a435c3, 85f31ab, 83b3531. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/NOTICE": {
+      "disposition": "non-implementation",
+      "sha256": "63e097d2798370a28030b28fa2e666755c1ab9e5a087d6cf9b7b7cb2f6d89028",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 0106a03: own explicit third-party Quickshell native author/source/pinned licence credit, no relicense claim. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/licenses/Quickshell-LGPL-3.0.txt": {
+      "disposition": "third-party",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 0106a03: verbatim LGPL v3 text from pinned native release1a4716 LICENSE, SHAe3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118; incorporates root retained GPL text. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_configure.py": {
+      "disposition": "independent",
+      "sha256": "cd20a18a78b61affc317abc82d66166ecf0fd00fb981e960447781b013774a9f",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 2fa3a95: own temp home/source/manifest drift, migration/private policy, routes/retirement ownership tests. Later path changes: 548f0b4, 871e2e7, 9397909, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_releases.py": {
+      "disposition": "independent",
+      "sha256": "fdd2b5d73f5403a30d0c58459f9fc44937695be8a30b3bd000a815fc2603a8a0",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 8bd5e65: own fake service/temp runtime restore/private account preservation/drift/retention/retired-native/optional service fixtures. Later path changes: 5ecf556, b2a540f, 548f0b4, d5d7158, f39c2d1, 805c7ef, bb46dd6, 83b3531. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_nacre_migration.py": {
+      "disposition": "independent",
+      "sha256": "8fca83df6e5738bdaa0b7ba08c187291d62c60ec8e907a2a73047cbf080c9be2",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 548f0b4: own temp namespace collisions/merge/data rollback/runtime/lease-protected service alias cases. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_nacre_system_migration.py": {
+      "disposition": "independent",
+      "sha256": "c5d139d90883d71d5fd1d4db659aa0a6096510b7a42f819a7cd064497bf7a332",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 548f0b4: own fake-prefix root theme/timezone migration preserving auth/preferences, no realroot action. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_provenance.py": {
+      "disposition": "independent",
+      "sha256": "a002bf68e6ca62fb9d87b963940c9c36d3303313b4ba6788c8fcd36defc5802b",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 5eef4ae: own temp Git/hash/review/stale/symlink/category cases and actual error diagnostics. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_window_rules.py": {
+      "disposition": "independent",
+      "sha256": "f8c13100f4694e58570452604400dfbe7e00c75af8a31331608b778939a64d7d",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 9a9cebe: own synthetic native Lua overlap/scoped exception/bind/submap fixtures. Later path changes: 9a435c3, 85f31ab, 83b3531. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_release_config_map.py": {
+      "disposition": "independent",
+      "sha256": "e40ac4babb8ff12a60da20ccd9caebec8c5f095462f2c41e7aed4810fdcda595",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 0106a03: new own temp candidate/manifest regression fails unownedbytecode baseline and sibling-only candidate mapping, then passes shared reviewed owner/retirement coverage. Later path changes: 4ac764e. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
+    },
+    "tools/tests/test_idle_seed.py": {
+      "disposition": "independent",
+      "sha256": "fcf70b2cc3ed88155171ad2818d9a43f8bb3ad46c367264a090ef035db059392",
+      "evidence": [
+        "docs/specs/packaging-source-audit.md",
+        "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
+        "Full current body/data/licence reviewed. Basis 0106a03: new own actual independent seed/temp historical wrapper fixture, baseline sleep hooks/no idle default/private existing data preserved. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+      ]
     }
   }
 }

@@ -11,6 +11,13 @@
 | Login appearance | `nacre/login/` | Optional root-owned SDDM theme; authentication remains SDDM/PAM-owned |
 | Terminal presentation | `kitty/`, `fastfetch/` | Installed static config plus private generated SH logo and terminal palette |
 
+Release snapshots use the reviewed candidate's configuration mapping, shared with
+the copy/deployment owner. Previously owned paths remain covered for retirement
+rollback; generated candidate bytecode is excluded. The installed release
+controller carries configure.py beside its release and overlay helpers.
+The optional native Quickshell recovery patch is separately credited upstream
+LGPL material in tools/NOTICE, not Nacre desktop implementation.
+
 NacreDashboardPanel and NacreDashboardNavigation own page selection and lazy
 loading. NacreOverview owns overview card composition; its calendar is independent
 of the retained CalendarGrid helper. Host cards use asynchronous FileView reads;
