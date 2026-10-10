@@ -378,7 +378,7 @@ def select(lines, prompt, header="", back=True, details=None):
         curses.init_pair(1, curses.COLOR_BLUE, -1)
         curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)
         curses.init_pair(3, curses.COLOR_WHITE, -1)
-        image_path = Path.home() / ".local/share/nacre/branding/sh.png"
+        image_path = Path.home() / ".local/share/nacre/branding/nacre.png"
         graphic = (
             os.environ.get("TERM") == "xterm-kitty"
             and sys.stdout.isatty()
@@ -412,7 +412,14 @@ def select(lines, prompt, header="", back=True, details=None):
             x = max(1, (width - box_width) // 2)
             y = max(1, min(5, height // 7))
             accent = curses.color_pair(1)
-            logo = ["  ┏━┓ ╻ ╻", "  ┗━┓ ┣━┫   Nacre AI", "  ┗━┛ ╹ ╹"]
+            text_logo = Path.home() / ".local/share/nacre/branding/nacre-text.txt"
+            logo = (
+                text_logo.read_text().splitlines()[:3]
+                if text_logo.is_file()
+                else ["", "Nacre", ""]
+            )
+            if len(logo) > 1:
+                logo[1] += "   Nacre AI"
             if graphic:
                 put(y + 1, x + 12, "Nacre AI", accent | curses.A_BOLD)
             else:

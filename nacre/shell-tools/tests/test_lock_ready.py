@@ -61,18 +61,18 @@ class LockReadyTests(unittest.TestCase):
             with patch.object(brand, "refresh_terminal_menus"):
                 brand.publish(colors, home)
             root = home / ".local/share/nacre/branding"
-            with Image.open(root / "sh-lock.png") as image:
+            with Image.open(root / "nacre-lock.png") as image:
                 self.assertEqual(image.mode, "RGBA")
                 self.assertEqual(image.getpixel((0, 0))[3], 0)
                 self.assertGreater(image.getchannel("A").getextrema()[1], 0)
-            with Image.open(root / "sh.png") as image:
+            with Image.open(root / "nacre.png") as image:
                 self.assertEqual(image.mode, "RGB")
 
     def test_ready_labels_separate_safe_notifications_and_preload_art(self):
         prepare = load("lock-prepare")
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
-            logo = home / ".local/share/nacre/branding/sh-lock.png"
+            logo = home / ".local/share/nacre/branding/nacre-lock.png"
             logo.parent.mkdir(parents=True)
             Image.new("RGBA", (20, 20), (0, 0, 0, 0)).save(logo)
             data = dict(

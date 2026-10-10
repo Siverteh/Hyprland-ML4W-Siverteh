@@ -392,14 +392,14 @@ def render(data, colors, wallpaper, artwork, home, monitor=None):
             center=True,
         )
 
-    # Avatar is always a private local account picture, with an SH fallback.
+    # Avatar is a private local account picture, with the shared Nacre fallback.
     avatar = next(
         (
             path
             for path in (
                 home / ".face",
                 home / ".face.icon",
-                home / ".local/share/nacre/branding/sh-lock.png",
+                home / ".local/share/nacre/branding/nacre-lock.png",
             )
             if path.is_file()
         ),

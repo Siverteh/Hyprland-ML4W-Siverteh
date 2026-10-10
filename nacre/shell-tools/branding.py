@@ -1,38 +1,174 @@
 #!/usr/bin/env python3
-"""One layered SH geometry for web, Qt and Kitty, with wallpaper palette roles."""
+"""One user-approved shell geometry for Nacre web, Qt, lock and terminal branding."""
 
-import json, io, os, tempfile, signal, subprocess, shutil
+import io
+import json
+import os
 from pathlib import Path
-from PIL import Image, ImageDraw
+import re
+import shutil
+import signal
+import subprocess
+import tempfile
+from xml.etree import ElementTree as ET
+
+from PIL import Image
 
 HERE = Path(__file__).resolve().parent
-GEOMETRY = next(
+MASTER = next(
     p
     for p in (
-        HERE.parent / "shell/branding/sh.json",
-        HERE.parent / "source/branding/sh.json",
+        HERE.parent / "shell/branding/nacre-master.svg",
+        HERE.parent / "source/branding/nacre-master.svg",
     )
-    if p.exists()
+    if p.is_file()
 )
+GEOMETRY = MASTER
+VIEWBOX = "2.8 3 58 58"
+NS = "{http://www.w3.org/2000/svg}"
 
 
-def svg(template=True, colors=None):
-    g = json.loads(GEOMETRY.read_text())
-    parts = []
-    for role, points in g["letters"].items():
-        color = "@" + role.upper() + "@" if template else "#" + colors[role].lstrip("#")
-        path = "M" + " L".join(f"{x} {y}" for x, y in points) + "Z"
-        for x, y in g["outlines"]:
-            parts.append(
-                f'<path class="outline-{role}" d="{path}" transform="translate({x} {y})" fill="none" stroke="{color}" stroke-width="{g["stroke"]}"/>'
-            )
-        parts.append(f'<path class="face-{role}" d="{path}" fill="{color}"/>')
-    return (
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '
-        + " ".join(map(str, g["size"]))
-        + '">'
-        + "".join(parts)
+def templates():
+    original = MASTER.read_text()
+    root = ET.fromstring(original)
+    chambers = [
+        node
+        for node in root
+        if node.tag == NS + "path" and node.get("fill", "").startswith("@")
+    ]
+    pearl = next(
+        node
+        for node in root.iter(NS + "circle")
+        if node.get("fill") == "url(#nacre-logo-pearl-body)"
+    )
+    opening = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{VIEWBOX}">'
+    compact = opening + "".join(
+        f'<path d="{node.get("d")}" fill="{node.get("fill")}" fill-rule="evenodd"/>'
+        for node in chambers
+    )
+    dot = f'<circle cx="{pearl.get("cx")}" cy="{pearl.get("cy")}" r="{pearl.get("r")}" fill="@HIGHLIGHT@"/>'
+    compact += dot + "</svg>"
+    symbolic = (
+        opening
+        + '<path fill="currentColor" fill-rule="evenodd" d="'
+        + " ".join(n.get("d") for n in chambers)
+        + '"/>'
+        + dot.replace("@HIGHLIGHT@", "currentColor")
         + "</svg>"
+    )
+    full = re.sub(r'viewBox="[^"]+"', f'viewBox="{VIEWBOX}"', original, count=1)
+    return {"full": full, "compact": compact, "symbolic": symbolic}
+
+
+def luminance(value):
+    values = [int(value.lstrip("#")[i : i + 2], 16) / 255 for i in (0, 2, 4)]
+    values = [
+        v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in values
+    ]
+    return sum(v * w for v, w in zip(values, (0.2126, 0.7152, 0.0722)))
+
+
+def role_colors(colors):
+    bg = colors.get("frame", colors.get("surface", "101014")).lstrip("#")
+
+    def clean(value):
+        value = str(value).lstrip("#")
+        if not re.fullmatch(r"[0-9a-fA-F]{6}", value):
+            raise ValueError("Invalid logo color")
+        return "#" + value
+
+    foreground = clean(
+        colors.get("onSurface", "ffffff" if luminance(bg) < 0.5 else "101014")
+    )
+
+    def ratio(a):
+        x, y = sorted((luminance(a), luminance(bg)))
+        return (y + 0.05) / (x + 0.05)
+
+    def lift(value):
+        value = clean(value)
+        if ratio(value) >= 3.4:
+            return value
+        a = [int(value[i : i + 2], 16) for i in (1, 3, 5)]
+        target = (
+            foreground
+            if ratio(foreground) >= 3.4
+            else ("#ffffff" if luminance(bg) < 0.5 else "#000000")
+        )
+        b = [int(target[i : i + 2], 16) for i in (1, 3, 5)]
+        for step in range(1, 21):
+            result = "#" + "".join(
+                f"{round(x + (y - x) * step / 20):02x}" for x, y in zip(a, b)
+            )
+            if ratio(result) >= 3.4:
+                return result
+        return target
+
+    primary = lift(colors.get("primary", "47a99a"))
+    return {
+        "PRIMARY": primary,
+        "SECONDARY": lift(colors.get("secondary", primary)),
+        "TERTIARY": lift(colors.get("tertiary", colors.get("secondary", primary))),
+        "HIGHLIGHT": primary
+        if luminance(bg) > 0.5
+        else clean(colors.get("primaryFixed", colors.get("onSurface", "f4f1ef"))),
+    }
+
+
+def svg(template=True, colors=None, variant="full"):
+    text = templates()[variant]
+    if template:
+        return text
+    roles = role_colors(colors)
+    for name, value in roles.items():
+        text = text.replace("@" + name + "@", value)
+    return text.replace("currentColor", roles["PRIMARY"])
+
+
+def raster(text, size=512):
+    binary = shutil.which("rsvg-convert")
+    if not binary:
+        raise RuntimeError("Nacre logo rasterization needs rsvg-convert from librsvg")
+    result = subprocess.run(
+        [binary, "--format=png", f"--width={size}", f"--height={size}"],
+        input=text.encode(),
+        capture_output=True,
+        check=True,
+        timeout=10,
+    )
+    return Image.open(io.BytesIO(result.stdout)).convert("RGBA")
+
+
+def text_logo():
+    image = raster(
+        templates()["symbolic"].replace("currentColor", "#ffffff"), 96
+    ).resize((24, 12), Image.Resampling.LANCZOS)
+    dots = [
+        (0, 0, 0),
+        (0, 1, 1),
+        (0, 2, 2),
+        (1, 0, 3),
+        (1, 1, 4),
+        (1, 2, 5),
+        (0, 3, 6),
+        (1, 3, 7),
+    ]
+    return (
+        "\n".join(
+            "".join(
+                chr(
+                    0x2800
+                    + sum(
+                        1 << bit
+                        for dx, dy, bit in dots
+                        if image.getpixel((x + dx, y + dy))[3] >= 100
+                    )
+                )
+                for x in range(0, 24, 2)
+            )
+            for y in range(0, 12, 4)
+        )
+        + "\n"
     )
 
 
@@ -88,30 +224,30 @@ def refresh_terminal_menus(home, proc=Path("/proc")):
 
 def publish(colors, home=None):
     home = Path.home() if home is None else Path(home)
-    g = json.loads(GEOMETRY.read_text())
-    scale = 16
-    image = Image.new(
-        "RGBA",
-        (g["size"][0] * scale, g["size"][1] * scale),
-        (0, 0, 0, 0),
-    )
-    draw = ImageDraw.Draw(image)
-    for role, points in g["letters"].items():
-        color = "#" + colors[role].lstrip("#")
-        for dx, dy in g["outlines"]:
-            p = [((x + dx) * scale, (y + dy) * scale) for x, y in points]
-            draw.line(p + [p[0]], fill=color, width=max(1, round(g["stroke"] * scale)))
-        draw.polygon([(x * scale, y * scale) for x, y in points], fill=color)
-    out = io.BytesIO()
-    image.save(out, format="PNG")
     folder = home / ".local/share/nacre/branding"
-    atomic(folder / "sh-lock.png", out.getvalue())
+    image = raster(svg(False, colors))
+    stream = io.BytesIO()
+    image.save(stream, format="PNG")
+    atomic(folder / "nacre-lock.png", stream.getvalue())
     terminal = Image.new("RGB", image.size, "#" + colors["surface"].lstrip("#"))
     terminal.paste(image, mask=image.getchannel("A"))
-    opaque = io.BytesIO()
-    terminal.save(opaque, format="PNG")
-    atomic(folder / "sh.png", opaque.getvalue())
-    atomic(folder / "sh.svg", svg(False, colors).encode())
+    stream = io.BytesIO()
+    terminal.save(stream, format="PNG")
+    atomic(folder / "nacre.png", stream.getvalue())
+    for variant, name in [
+        ("full", "nacre.svg"),
+        ("compact", "nacre-compact.svg"),
+        ("symbolic", "nacre-symbolic.svg"),
+    ]:
+        atomic(folder / name, svg(False, colors, variant).encode())
+    atomic(folder / "nacre-text.txt", text_logo().encode())
+    # Already-open old menus read the previous filename; it contains the new art.
+    for legacy, current in [
+        ("sh.png", "nacre.png"),
+        ("sh-lock.png", "nacre-lock.png"),
+        ("sh.svg", "nacre.svg"),
+    ]:
+        atomic(folder / legacy, (folder / current).read_bytes())
     refresh_terminal_menus(home)
 
 
@@ -124,68 +260,81 @@ def build():
     if not formatter:
         raise RuntimeError("Regenerating QML branding requires qmlformat")
     root = HERE.parent
-    template = svg()
-    (root / "shell/branding/sh.svg").write_text(template)
-    expression = json.dumps(template)
-    common = """Item {
- id:root
- implicitWidth:30;implicitHeight:30
- property color primary:DEFAULT_PRIMARY
- property color secondary:DEFAULT_SECONDARY
- Image {anchors.fill:parent;fillMode:Image.PreserveAspectFit;sourceSize.width:192;sourceSize.height:192;source:"data:image/svg+xml;utf8,"+encodeURIComponent(TEMPLATE.replace(/@PRIMARY@/g,String(root.primary)).replace(/@SECONDARY@/g,String(root.secondary)))}
-}
-""".replace("TEMPLATE", expression)
-    (root / "shell/widgets/BrandLogo.qml").write_text(
-        "import qs.services\nimport QtQuick\n"
+    values = templates()
+    for variant, name in [
+        ("full", "nacre.svg"),
+        ("compact", "nacre-compact.svg"),
+        ("symbolic", "nacre-symbolic.svg"),
+    ]:
+        (root / "shell/branding" / name).write_text(values[variant])
+    (root / "shell/branding/nacre-text.txt").write_text(text_logo())
+    helper = (HERE / "logo-data.js.in").read_text()
+    data = (
+        ".pragma library\nvar fullTemplate="
+        + json.dumps(values["full"])
+        + ";\nvar compactTemplate="
+        + json.dumps(values["compact"])
+        + ";\n"
+        + helper
+    )
+    for target in [root / "shell/branding/LogoData.js", root / "login/LogoData.js"]:
+        target.write_text(data)
+    common = (HERE / "logo-widget.qml.in").read_text()
+    widget = root / "shell/widgets/BrandLogo.qml"
+    widget.write_text(
+        'import QtQuick\nimport qs.services\nimport "../branding/LogoData.js" as LogoData\n'
         + common.replace("DEFAULT_PRIMARY", "NacreColours.palette.m3primary")
         .replace("DEFAULT_SECONDARY", "NacreColours.palette.m3secondary")
+        .replace("DEFAULT_TERTIARY", "NacreColours.palette.m3tertiary || secondary")
+        .replace("DEFAULT_HIGHLIGHT", "NacreColours.palette.m3primaryFixed || primary")
         .replace(
-            " implicitWidth:30;implicitHeight:30",
-            ' implicitWidth:30;implicitHeight:30\n Accessible.name:"Nacre apps";Accessible.role:Accessible.Button',
+            "DEFAULT_BACKGROUND",
+            "NacreColours.palette.m3frame || NacreColours.palette.m3surface",
         )
+        .replace("DEFAULT_FOREGROUND", "NacreColours.palette.m3onSurface")
+        .replace("DEFAULT_MOTION", "DesktopSettings.data.animations !== false")
     )
-    widget = root / "shell/widgets/BrandLogo.qml"
-    text = widget.read_text()
-    text = text.replace(
-        " property color primary:",
-        ' property bool compact:false\n function adjust(value){return compact?value.replace(/L24 2 L24 12/g,"L24.6 2 L24.6 12").replace(/L24 14 L24 24/g,"L24.6 14 L24.6 24"):value;}\n property color primary:',
+    login = root / "login/Logo.qml"
+    login.write_text(
+        'import QtQuick\nimport "LogoData.js" as LogoData\n'
+        + common.replace("DEFAULT_PRIMARY", '"#dda1ba"')
+        .replace("DEFAULT_SECONDARY", '"#afa2df"')
+        .replace("DEFAULT_TERTIARY", '"#8cc9cd"')
+        .replace("DEFAULT_HIGHLIGHT", '"#eee9f4"')
+        .replace("DEFAULT_BACKGROUND", '"#151310"')
+        .replace("DEFAULT_FOREGROUND", '"#f4f1ef"')
+        .replace("DEFAULT_MOTION", "false")
     )
-    text = text.replace(
-        "encodeURIComponent(", "encodeURIComponent(root.adjust("
-    ).replace("String(root.secondary)))}", "String(root.secondary))))}")
-    widget.write_text(text)
-
-    (root / "login/Logo.qml").write_text(
-        "import QtQuick\n"
-        + common.replace("DEFAULT_PRIMARY", '"#dbc492"').replace(
-            "DEFAULT_SECONDARY", '"#d2c5ad"'
-        )
-    )
-    for qml in (widget, root / "login/Logo.qml"):
+    for file in [widget, login]:
         for _ in range(3):
             formatted = subprocess.check_output(
-                [formatter, str(qml.resolve())], text=True
+                [formatter, str(file.resolve())], text=True
             )
-            if formatted == qml.read_text():
+            if formatted == file.read_text():
                 break
-            qml.write_text(formatted)
-
+            file.write_text(formatted)
     web = root.parent / "brain/web/index.html"
     text = web.read_text()
-    a = text.index('<symbol id="sh"')
-    b = text.index("</symbol>", a) + len("</symbol>")
-    inner = (
-        template.split(">", 1)[1]
-        .rsplit("</svg>", 1)[0]
-        .replace("@PRIMARY@", "currentColor")
-        .replace("@SECONDARY@", "currentColor")
-    )
+    symbol_match = re.search(r'<symbol id="(?:sh|nacre)".*?</symbol>', text, re.S)
+    if not symbol_match:
+        raise RuntimeError("Brain logo symbol missing")
+    inner = values["compact"].split(">", 1)[1].rsplit("</svg>", 1)[0]
+    for role, var in [
+        ("PRIMARY", "accent"),
+        ("SECONDARY", "secondary"),
+        ("TERTIARY", "tertiary"),
+        ("HIGHLIGHT", "logo-highlight"),
+    ]:
+        inner = inner.replace("@" + role + "@", "var(--" + var + ")")
     text = (
-        text[:a]
-        + '<symbol id="sh" viewBox="0 0 34 28">'
+        text[: symbol_match.start()]
+        + f'<symbol id="nacre" viewBox="{VIEWBOX}" stroke="none">'
         + inner
         + "</symbol>"
-        + text[b:]
+        + text[symbol_match.end() :]
+    )
+    text = text.replace('href="#sh"', 'href="#nacre"').replace(
+        "<span>Siverteh<small>Brain</small>", "<span>Nacre<small>Brain</small>"
     )
     web.write_text(text)
 

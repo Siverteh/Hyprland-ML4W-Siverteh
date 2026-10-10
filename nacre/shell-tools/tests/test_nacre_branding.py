@@ -1,0 +1,130 @@
+"""Approved artwork stays one source across small, colored and raster outputs."""
+
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+import unittest
+from xml.etree import ElementTree as ET
+
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location("nacre_brand", ROOT / "branding.py")
+brand = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(brand)
+
+
+class NacreBrandingTests(unittest.TestCase):
+    def test_master_is_the_exact_approved_archive_artwork(self):
+        self.assertEqual(
+            hashlib.sha256(brand.MASTER.read_bytes()).hexdigest(),
+            "679c5ef56949cb64dc13e266831cb588b0b6b9e23fffcca65dc3d4aa9d83b42f",
+        )
+        master = ET.fromstring(brand.MASTER.read_text())
+        symbolic = ET.fromstring(brand.templates()["symbolic"])
+        chambers = [
+            n
+            for n in master
+            if n.tag.endswith("path") and n.get("fill", "").startswith("@")
+        ]
+        self.assertEqual(len(chambers), 8)
+        self.assertEqual(symbolic[0].get("d"), " ".join(n.get("d") for n in chambers))
+        self.assertEqual(symbolic[1].get("r"), "3.14")
+        self.assertFalse(
+            any(n.tag.endswith(("script", "animate", "image")) for n in master.iter())
+        )
+
+    def test_compact_roles_clear_graphics_contrast_in_light_dark_and_neutral(self):
+        for bg, fg in [
+            ("101014", "f4f1ef"),
+            ("fff3df", "161310"),
+            ("777777", "ffffff"),
+        ]:
+            colors = dict(
+                surface=bg,
+                frame=bg,
+                onSurface=fg,
+                primary="818181",
+                secondary="fefeee",
+                tertiary="222233",
+                primaryFixed="ffffff",
+            )
+            roles = brand.role_colors(colors)
+            for role in ("PRIMARY", "SECONDARY", "TERTIARY"):
+                a, b = sorted((brand.luminance(roles[role]), brand.luminance(bg)))
+                self.assertGreaterEqual((b + 0.05) / (a + 0.05), 3.4)
+            self.assertNotIn("@", brand.svg(False, colors, "compact"))
+
+    @unittest.skipUnless(
+        shutil.which("rsvg-convert"), "Native SVG rasterizer unavailable"
+    )
+    def test_small_and_large_assets_keep_alpha_and_viewbox(self):
+        colors = dict(
+            primary="ce5483",
+            secondary="7ea4da",
+            tertiary="69babc",
+            primaryFixed="f3e1ea",
+            surface="12121a",
+            onSurface="eeeef4",
+        )
+        for variant in ("full", "compact", "symbolic"):
+            source = brand.svg(False, colors, variant)
+            self.assertEqual(ET.fromstring(source).get("viewBox"), brand.VIEWBOX)
+            for size in (16, 26, 30, 256, 512):
+                image = brand.raster(source, size)
+                self.assertEqual(image.size, (size, size))
+                self.assertIsNotNone(image.getbbox())
+                for corner in (
+                    (0, 0),
+                    (size - 1, 0),
+                    (0, size - 1),
+                    (size - 1, size - 1),
+                ):
+                    self.assertEqual(image.getpixel(corner)[3], 0)
+
+    def test_qt_javascript_color_binding_agrees_with_publisher(self):
+        node = shutil.which("node")
+        command = (
+            [node]
+            if node
+            else ["siverteh-ai-tools", "node"]
+            if shutil.which("siverteh-ai-tools")
+            else None
+        )
+        if command is None:
+            self.skipTest("JavaScript runtime unavailable")
+        source = (
+            (ROOT.parent / "shell/branding/LogoData.js")
+            .read_text()
+            .replace(".pragma library", "")
+        )
+        colors = dict(
+            primary="fefaf1",
+            secondary="918178",
+            tertiary="404077",
+            primaryFixed="fffafa",
+            surface="fff3df",
+            frame="fff3df",
+            onSurface="171310",
+        )
+        args = [
+            "#" + colors[k]
+            for k in (
+                "primary",
+                "secondary",
+                "tertiary",
+                "primaryFixed",
+                "frame",
+                "onSurface",
+            )
+        ] + [True]
+        with tempfile.TemporaryDirectory() as folder:
+            script = Path(folder) / "binding.js"
+            script.write_text(
+                source + "\nprocess.stdout.write(colored(..." + json.dumps(args) + "));"
+            )
+            result = subprocess.check_output([*command, str(script)], text=True)
+        self.assertEqual(result, brand.svg(False, colors, "compact"))

@@ -15,6 +15,8 @@ ROLES = {
     "raised": "surfaceContainer",
     "primary": "primary",
     "secondary": "secondary",
+    "tertiary": "tertiary",
+    "highlight": "primaryFixed",
     "text": "onSurface",
     "muted": "onSurfaceVariant",
     "error": "error",

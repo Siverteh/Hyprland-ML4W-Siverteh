@@ -28,6 +28,7 @@ class OverviewNativeTests(unittest.TestCase):
             wrapper = ["xvfb-run", "-a"]
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder)
+            shutil.copytree(SHELL / "branding", target / "branding")
             for name in ("widgets", "services", "dashboard"):
                 (target / name).mkdir()
             for name in (

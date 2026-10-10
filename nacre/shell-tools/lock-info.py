@@ -161,7 +161,7 @@ def label(kind, data, settings):
 
 
 def artwork(data):
-    fallback = HOME / ".local/share/nacre/branding/sh-lock.png"
+    fallback = HOME / ".local/share/nacre/branding/nacre-lock.png"
     url = (data.get("media") or {}).get("art", "")
     fingerprint = url
     if url.startswith("file:"):

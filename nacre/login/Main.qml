@@ -82,9 +82,13 @@ Rectangle {
         x: 36
         y: 30
         width: 48
-        height: 40
+        height: 48
         primary: root.primary
         secondary: root.secondary
+        tertiary: root.colour("tertiary", "#8cc9cd")
+        highlight: root.colour("highlight", "#eee9f4")
+        background: root.color
+        foreground: root.foreground
     }
     Column {
         anchors.horizontalCenter: parent.horizontalCenter

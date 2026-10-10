@@ -1,18 +1,15 @@
-import QtQuick
-import "LogoData.js" as LogoData
-
 Item {
     id: root
     implicitWidth: 30
     implicitHeight: 30
     property bool compact: width <= 36
-    property color primary: "#dda1ba"
-    property color secondary: "#afa2df"
-    property color tertiary: "#8cc9cd"
-    property color highlight: "#eee9f4"
-    property color background: "#151310"
-    property color foreground: "#f4f1ef"
-    property bool motionEnabled: false
+    property color primary: DEFAULT_PRIMARY
+    property color secondary: DEFAULT_SECONDARY
+    property color tertiary: DEFAULT_TERTIARY
+    property color highlight: DEFAULT_HIGHLIGHT
+    property color background: DEFAULT_BACKGROUND
+    property color foreground: DEFAULT_FOREGROUND
+    property bool motionEnabled: DEFAULT_MOTION
     Accessible.name: "Nacre"
     Accessible.role: Accessible.Graphic
     Image {

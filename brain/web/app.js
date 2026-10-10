@@ -123,6 +123,20 @@ function theme() {
         "#" + v.replace(/^#/, ""),
       );
   }
+  const surface = graph.theme?.surface || "151310";
+  const light =
+    parseInt(surface.replace("#", "").slice(0, 2), 16) +
+      parseInt(surface.replace("#", "").slice(2, 4), 16) +
+      parseInt(surface.replace("#", "").slice(4, 6), 16) >
+    420;
+  document.documentElement.style.setProperty(
+    "--logo-highlight",
+    "#" +
+      (graph.theme?.[light ? "primary" : "primaryFixed"] || "eee9f4").replace(
+        "#",
+        "",
+      ),
+  );
   const value = graph.theme?.surface;
   if (value) {
     const rgb = value.replace("#", "");

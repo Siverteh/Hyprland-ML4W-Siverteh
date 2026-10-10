@@ -141,3 +141,12 @@ these owners. Title paint bounds and the 2×2 level composition live in the exis
 bar/OSD components. Settings, quick menus and galleries share the event-driven
 FastScroll policy; picker travel/backdrop buffers remain local presentation state,
 not another wallpaper publisher or input owner.
+
+## Shared logo owner
+
+The approved `nacre/shell/branding/nacre-master.svg` owns the shell and pearl
+geometry. `branding.py` derives compact/symbolic forms, Qt/SDDM data modules, the
+Brain symbol and palette-generated PNG/text outputs. Native librsvg is the PNG
+rasterizer; Quickshell and SDDM use Qt SVG without private native libraries.
+Visible labels use Nacre AI/Brain; private compatibility commands stay intact.
+Login theme code is root-owned; only color/wallpaper appearance remains user-owned.

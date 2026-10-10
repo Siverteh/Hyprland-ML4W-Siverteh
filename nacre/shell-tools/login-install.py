@@ -4,7 +4,7 @@
 import argparse, datetime, json, os, pwd, shutil
 from pathlib import Path
 
-FILES = ("Main.qml", "Logo.qml", "theme.conf", "metadata.desktop")
+FILES = ("Main.qml", "Logo.qml", "LogoData.js", "theme.conf", "metadata.desktop")
 
 
 def install(source, user, prefix=Path("/"), uid=None, gid=None):

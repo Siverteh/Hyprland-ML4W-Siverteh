@@ -45,8 +45,8 @@ in its widget render path. Safe and detailed notification labels are separate;
 current lock preferences select the safe file by default. Actions remain the
 existing bounded Python media allowlist, with PAM authentication unchanged.
 
-A transparent `sh-lock.png` uses the maintained SH geometry. The terminal's opaque
-`sh.png` remains separate. The stable initial artwork file is updated atomically
+A transparent `nacre-lock.png` uses the approved Nacre shell geometry. The terminal's opaque
+`nacre.png` remains separate. The stable initial artwork file is updated atomically
 before lock startup; live image reloads use identity-keyed paths. Album artwork
 preserves its alpha channel, downloads are bounded, and the private artwork cache
 retains at most12 prepared covers. No background polling worker is introduced.

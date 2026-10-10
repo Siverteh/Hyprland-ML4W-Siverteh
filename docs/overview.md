@@ -97,3 +97,6 @@ The [provenance tracker](nacre/PROVENANCE.md) records rewrite and audit evidence
 Source review and passing tests do not prove that every physical device, cold
 login or preferred layout has passed acceptance. Visual cleanup is planned after
 the complete originality audit.
+
+The [shared logo specification](specs/nacre-logo.md) describes the approved shell
+master and its small/large, web, login, lock and terminal forms.

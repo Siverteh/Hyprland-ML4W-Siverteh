@@ -35,5 +35,10 @@ The logo generator and helpers have separate completed source reviews.
 and the shared web symbol only. It uses the current NacreColours provider and
 native formatter; running it twice should produce no diff. Live logo publication
 is a separate default invocation or the palette publisher's publish() call.
-The SH geometry remains explicit local polygons; this audit does not select a
-new Nacre logo. Lock PNG keeps alpha, terminal PNG uses the current background.
+The user-approved shell master lives in `nacre/shell/branding/nacre-master.svg`.
+Colored, compact, symbolic, QML/web, PNG and text outputs derive from that one
+source. Compact bar/sidebar marks retain the chamber colors without tiny gloss
+overlays; larger marks retain the pearl shading. Palette bindings and publication
+change colors only when needed. Lock PNG keeps alpha; terminal PNG uses its
+current background. Native librsvg rasterizes static PNGs during publication.
+Legacy private sh.* files contain the new shell only for already-open controllers.

@@ -1618,12 +1618,14 @@
     },
     "fastfetch/config.jsonc": {
       "disposition": "independent",
-      "sha256": "a550e900fe9eb56bea783f0f22046f15a5c0802f858e39aed4ef99fa4a1e7208",
+      "sha256": "74cc51c4994701ea3e8597f292f48ecc9ada3e6a159e7691cd469891f0a3d713",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
-        "Inherited body deleted then independently composed 3bf8870; own compact layout correction 00fbe78. Current audit removes redundant DE detector after current+baseline both return No DE found under Hyprland. Nacre identity/compositor remain. Native 13-module data parse succeeds except render-only Colors JSON representation. Logo assets/publisher remain separate."
+        "Inherited body deleted then independently composed 3bf8870; own compact layout correction 00fbe78. Current audit removes redundant DE detector after current+baseline both return No DE found under Hyprland. Nacre identity/compositor remain. Native 13-module data parse succeeds except render-only Colors JSON representation. Logo assets/publisher remain separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "fastfetch/system-age.sh": {
@@ -1732,92 +1734,90 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "9305b1db5b05c6a9bc447f499b53066ba9ea603b1c9f600ca0b46e9e88929362",
+      "sha256": "c04d8f94029780efb5e5f7ac6b266af31c47e94aa8fc07c14d38d9c6487882b7",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Locally introduced generator b0632b9 for explicit SH polygons, compact/runtime/control refresh changes 772e23b/8ad6532/8ff30bc and import/format/home corrections 14a55db/dfecaf0/bb46dd6 traced. Current own body reviewed and no five-line peer/predecessor copies found as supporting evidence. Corrected source emitter to NacreColours and build-only CLI side effects; actual reproduction and native rendering tests pass. No upstream body copied while implementing corrections."
-      ]
-    },
-    "nacre/shell/branding/sh.json": {
-      "disposition": "independent",
-      "sha256": "859e04079542090d40565f6e11408c464f0b147f3bca8d603851f9ad50cf9204",
-      "evidence": [
-        "docs/specs/branding-source-audit.md",
-        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Explicit local SH polygon/stroke/viewbox/outline coordinates introduced b0632b9 and unchanged through namespace migration. Own vector geometry, no font-outline extraction or imported asset in generator/data. Generated SVG/native Qt output checked. Distinct from later new Nacre identity design."
-      ]
-    },
-    "nacre/shell/branding/sh.svg": {
-      "disposition": "independent",
-      "sha256": "bcb75e3a4ee1cc46dab5cb74cc9791ff4a1161a07ae41edebb3e040b95e141f9",
-      "evidence": [
-        "docs/specs/branding-source-audit.md",
-        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Deterministic generated SVG from reviewed local sh.json/branding.svg() b0632b9. Rebuild twice matches current tracked bytes; output paths exactly reflect own geometry/layers. No third-party logo/font outline embedded, native SVG renderer passes."
+        "Locally introduced generator b0632b9 for explicit SH polygons, compact/runtime/control refresh changes 772e23b/8ad6532/8ff30bc and import/format/home corrections 14a55db/dfecaf0/bb46dd6 traced. Current own body reviewed and no five-line peer/predecessor copies found as supporting evidence. Corrected source emitter to NacreColours and build-only CLI side effects; actual reproduction and native rendering tests pass. No upstream body copied while implementing corrections.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "18937fb29c67ae2f480e569282adae722de4e83bf1c26f4e815b49de78e12358",
+      "sha256": "2c85c67f58bc00d5601fed4f775ff437ac0b89119b369eb0d6665c95adfab8e0",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Current own generated component from b0632b9/772e23b emitter, qs imports/formatting 14a55db/dfecaf0 and independent native palette owner 02b2bda. Historical pre-generator widget path is not current body origin. New corrected emitter reproduces current bytes, transparent SVG/public Qt Image provider binding only, no inherited Caelestia body."
+        "Current own generated component from b0632b9/772e23b emitter, qs imports/formatting 14a55db/dfecaf0 and independent native palette owner 02b2bda. Historical pre-generator widget path is not current body origin. New corrected emitter reproduces current bytes, transparent SVG/public Qt Image provider binding only, no inherited Caelestia body.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/login/Logo.qml": {
       "disposition": "independent",
-      "sha256": "7792981308fc135f609f658dd2098df7d2c45dcd655b990579dfa7de09cb06c0",
+      "sha256": "c4c1304114fd0f04b3034db5a768bd97c845045ce5857ff0aa1a096231e7f10e",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Current generated login component introduced b0632b9 from same own geometry and public Qt Image API. Current imports/formatter corrections 14a55db/dfecaf0, namespace 548f0b4. Regeneration exact; color defaults are public scalar fallback preferences, not inherited algorithm. Whole login theme remains separate audit."
+        "Current generated login component introduced b0632b9 from same own geometry and public Qt Image API. Current imports/formatter corrections 14a55db/dfecaf0, namespace 548f0b4. Regeneration exact; color defaults are public scalar fallback preferences, not inherited algorithm. Whole login theme remains separate audit.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "edc8f874cf259548141d1d60d6584f305c69828588db58448d19eef495e255b9",
+      "sha256": "323101a07aac07d7e4220043d96a8790543f69bb175f4e6005f5bc1202b082f0",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
-        "Own tests introduced 8ad6532 for pidfd exact-controller/real idle curses PTY refresh, later call-time-home and namespace corrections. New empty-home actual generator/reproduction and PNG alpha/role tests authored from current spec. No upstream implementation fixture or user state; only owned process actors."
+        "Own tests introduced 8ad6532 for pidfd exact-controller/real idle curses PTY refresh, later call-time-home and namespace corrections. New empty-home actual generator/reproduction and PNG alpha/role tests authored from current spec. No upstream implementation fixture or user state; only owned process actors.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/lock-config.py": {
       "disposition": "independent",
-      "sha256": "d05a020481aec2508642dfa31233078c1d2a5a026bb054db42f05018bcd9cbfa",
+      "sha256": "5d4af1728ae7d2ff88e6d71bf04c7f1e7c21d55bebfc114b9b9c046d0c671d2a",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "Local generated native config helper introduced a0090ce, layout corrections 80a23f2/8ff30bc, single-panel integration 55fbe20 and home/namespace corrections traced. Own current body reviewed, public geometry/native roles and controls preserved. First-source comparison no upstream peer body identified; called template replaced separately after uncertain ancestor finding. No auth backend or session-hook implementation claim."
+        "Local generated native config helper introduced a0090ce, layout corrections 80a23f2/8ff30bc, single-panel integration 55fbe20 and home/namespace corrections traced. Own current body reviewed, public geometry/native roles and controls preserved. First-source comparison no upstream peer body identified; called template replaced separately after uncertain ancestor finding. No auth backend or session-hook implementation claim.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/lock-info.py": {
       "disposition": "independent",
-      "sha256": "6012908b4561b0f7ae23509262ecdea1c382e6514e21beb94180073c69589292",
+      "sha256": "6b9fc049f6128f1e1d8ed1d46f757c5812bd57b24cf5eeed24567d9f06bfc6ec",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "Own local read-only IPC/label/art helper a0090ce with layout/plain-text/weather/fallback updates traced. Current implementation inspected, public libraries only; new actual baseline failures demonstrate future cache reuse and unbounded local read. Fixed freshness range and bounded read, actions allowlist unchanged. Font/artwork/IPC dependencies separately scoped."
+        "Own local read-only IPC/label/art helper a0090ce with layout/plain-text/weather/fallback updates traced. Current implementation inspected, public libraries only; new actual baseline failures demonstrate future cache reuse and unbounded local read. Fixed freshness range and bounded read, actions allowlist unchanged. Font/artwork/IPC dependencies separately scoped.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/lock-dashboard.py": {
       "disposition": "independent",
-      "sha256": "8d704bf1b3422676bff7b1ca4425f823ffb2cd60aa0ec7803a1b2413a4700576",
+      "sha256": "f80777da28dc9762c3fd956f48016b5d25edb3c475ff57dd03dbfa753b399f02",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "New local Pillow dashboard 55fbe20 from visual reference, using local layout helper and own polygon/image/text rendering. Mechanical first peer match only local config scale block; no upstream code reused. Current full body inspected; cosmetic label Nacre and synthetic render/geometry/privacy tests pass. Visual inspiration and own implementation distinguished; fonts/artwork not certified by this review."
+        "New local Pillow dashboard 55fbe20 from visual reference, using local layout helper and own polygon/image/text rendering. Mechanical first peer match only local config scale block; no upstream code reused. Current full body inspected; cosmetic label Nacre and synthetic render/geometry/privacy tests pass. Visual inspiration and own implementation distinguished; fonts/artwork not certified by this review.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/lock-prepare.py": {
       "disposition": "independent",
-      "sha256": "2b9d02a550c3212e9810a9dcf09708450662a9647a48d31a0a6bf671470a8c06",
+      "sha256": "5ab7ef840d1e12d9f2e358446f842ae72572c209715ade224701f794400a65ec",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "Locally introduced pre-render/cache helper 8ff30bc, single-panel 55fbe20, home bb46dd6 and namespace 548f0b4. Current own bounded preparation/permissions/label/art/display output reviewed and tested with fake HOME/IPC; no inherited body found. Shared cache/asset/font dependencies remain separate."
+        "Locally introduced pre-render/cache helper 8ff30bc, single-panel 55fbe20, home bb46dd6 and namespace 548f0b4. Current own bounded preparation/permissions/label/art/display output reviewed and tested with fake HOME/IPC; no inherited body found. Shared cache/asset/font dependencies remain separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/hyprlock.conf.in": {
@@ -1831,20 +1831,24 @@
     },
     "nacre/shell-tools/tests/test_lock_widgets.py": {
       "disposition": "independent",
-      "sha256": "ddce2a114675560374cfba269fdfcf323d0e4e11d34e32ff28113e57054eec07",
+      "sha256": "c4cd0396f877ddcd5d67ce6ae3842e64449287323271f4e7d8a1f172d585f571",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "Own mixed lock/device/weather fixtures introduced a0090ce, layout and dashboard corrections 80a23f2/55fbe20/namespace 548f0b4. Current full test body reviewed; new future-cache/bounded-local-read regressions from observed implementation gaps, fail baseline and pass fix. Stubbed weather/device/IPC actors; actual other helper implementation audits remain separate."
+        "Own mixed lock/device/weather fixtures introduced a0090ce, layout and dashboard corrections 80a23f2/55fbe20/namespace 548f0b4. Current full test body reviewed; new future-cache/bounded-local-read regressions from observed implementation gaps, fail baseline and pass fix. Stubbed weather/device/IPC actors; actual other helper implementation audits remain separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/tests/test_lock_ready.py": {
       "disposition": "independent",
-      "sha256": "fc0a2b8422428defc744d6407bd41a7e85738d1d7e3523cd8b0de015ce8d0815",
+      "sha256": "d09ee71b157717f9316a439b5ddb2d09a11bc2ad8d2ac7693d40752742f52a97",
       "evidence": [
         "docs/specs/lock-appearance-pipeline.md",
         "docs/nacre/PROVENANCE.md#lock-appearance-pipeline-source-review",
-        "Own actual cached-geometry/transparent-logo/preloaded-safe-label tests introduced 8ff30bc and adapted 55fbe20/namespace 548f0b4. Current body reviewed; private inputs synthetic/temporary and process owners fake, no copied upstream implementation fixture."
+        "Own actual cached-geometry/transparent-logo/preloaded-safe-label tests introduced 8ff30bc and adapted 55fbe20/namespace 548f0b4. Current body reviewed; private inputs synthetic/temporary and process owners fake, no copied upstream implementation fixture.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/tests/test_lock_dashboard.py": {
@@ -4074,11 +4078,13 @@
     },
     "nacre/shell-tools/provision.py": {
       "disposition": "independent",
-      "sha256": "8fc59f2013962056a53dc89a3197ecd13b298112cb68f5a7e63dbfbf3304c0fc",
+      "sha256": "b57f958edd00376f112f5f60c3b2963e3f7100f759bd9e8d7522c7b60865dce7",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
-        "Full current body reviewed; basis 5ecf556: local provisioning first4874385; private native extraction retired47b06d4; current own immutable Orient environment/promotion body authored5ecf556, cache identity corrected0573f6b. Later current-path changes: 0573f6b. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
+        "Full current body reviewed; basis 5ecf556: local provisioning first4874385; private native extraction retired47b06d4; current own immutable Orient environment/promotion body authored5ecf556, cache identity corrected0573f6b. Later current-path changes: 0573f6b. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/nacre-shell.service": {
@@ -4173,11 +4179,13 @@
     },
     "nacre/login/Main.qml": {
       "disposition": "independent",
-      "sha256": "1af709dc68f280500c305c5f35d0cd3c05830d8200f9045353123f227b45f389",
+      "sha256": "0e35d68068327745570923e6d95599a613384a9ec0951ee8d6b0bd4c4300bd93",
       "evidence": [
         "docs/specs/login-files-source-audit.md",
         "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
-        "Full current body/data reviewed. Basis cb36d47: own QtQuick greeter presentation from native SDDM context/models/proxy contracts; later logical screen sizing and own logo integration traced. Later path changes: 548f0b4, 83b3531, b0632b9, b57c06a. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+        "Full current body/data reviewed. Basis cb36d47: own QtQuick greeter presentation from native SDDM context/models/proxy contracts; later logical screen sizing and own logo integration traced. Later path changes: 548f0b4, 83b3531, b0632b9, b57c06a. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/login/metadata.desktop": {
@@ -4200,20 +4208,24 @@
     },
     "nacre/shell-tools/login-appearance.py": {
       "disposition": "independent",
-      "sha256": "c68339fe4dac3d78932047745d588a442d1f9cbbc5fcbc84215747162b1754e6",
+      "sha256": "d6190a1fe556717652244d616ff212a4a03ee63fcec97619e1590eb8923def1a",
       "evidence": [
         "docs/specs/login-files-source-audit.md",
         "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
-        "Full current body/data reviewed. Basis cb36d47: local data-only cached blur/palette publisher with strict color validation and user-owned public appearance directory;09f9ceb cache integration traced. Later path changes: 548f0b4, bb46dd6, 83b3531, 09f9ceb. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+        "Full current body/data reviewed. Basis cb36d47: local data-only cached blur/palette publisher with strict color validation and user-owned public appearance directory;09f9ceb cache integration traced. Later path changes: 548f0b4, bb46dd6, 83b3531, 09f9ceb. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/login-install.py": {
       "disposition": "independent",
-      "sha256": "156fd1a5f4539bb858340d86f11db4dc33469b82954ca29a44be614062b011fc",
+      "sha256": "54d4590ad19306286a77d03bb31bd1925599a7f2a8701275c9aca28f5cac923b",
       "evidence": [
         "docs/specs/login-files-source-audit.md",
         "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
-        "Full current body/data reviewed. Basis cb36d47: local root theme-only installer and backups; never installs repository issue or changes PAM/autologin/session startup. Later path changes: 548f0b4, bb46dd6, 83b3531, b0632b9. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+        "Full current body/data reviewed. Basis cb36d47: local root theme-only installer and backups; never installs repository issue or changes PAM/autologin/session startup. Later path changes: 548f0b4, bb46dd6, 83b3531, b0632b9. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/thunar-files.py": {
@@ -4290,11 +4302,13 @@
     },
     "nacre/shell-tools/tests/test_login_ui.py": {
       "disposition": "independent",
-      "sha256": "39ba8dacb88bb236979001516f8a9d6de9dfe1ebc268a5176edcaa79db641388",
+      "sha256": "db2a25285ead5425d706f8afa9437c9065c90187d5afdbd055e047181ff2c4be",
       "evidence": [
         "docs/specs/login-files-source-audit.md",
         "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
-        "Full current body/data reviewed. Basis 7a524e7: new own actual Main/Logo native Qt Quick test runner with synthetic models/fake authentication backend, no real credentials or SDDM proxy. Later path changes: unchanged. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+        "Full current body/data reviewed. Basis 7a524e7: new own actual Main/Logo native Qt Quick test runner with synthetic models/fake authentication backend, no real credentials or SDDM proxy. Later path changes: unchanged. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "nacre/shell-tools/tests/login-qml/tst_login.qml": {
@@ -4740,11 +4754,13 @@
     },
     "fastfetch/logo.sh": {
       "disposition": "independent",
-      "sha256": "eb3625b360822899dcd57a8a9ac18fdbb93f51a1aa754ced8ffa99b07ce87a32",
+      "sha256": "3a28c672ea3eaba20ba9a4b7cad3f3751fb9aac0450403301b36301697af9bfb",
       "evidence": [
         "docs/specs/config-helper-source-audit.md",
         "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
-        "Full current source/data body reviewed. Basis 98b724d: local ANSI S/H letter geometry and Kitty palette indexes, active Fish compatibility hook;6c8f06d updates stale Matugen wording without artistic changes. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+        "Full current source/data body reviewed. Basis 98b724d: local ANSI S/H letter geometry and Kitty palette indexes, active Fish compatibility hook;6c8f06d updates stale Matugen wording without artistic changes. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "fastfetch/render-logo.sh": {
@@ -5389,11 +5405,13 @@
     },
     "bin/siverteh-ai": {
       "disposition": "independent",
-      "sha256": "60c59938858b77b8222d701676bbbad27af9c91db1b601a61597dd828f0df7f0",
+      "sha256": "f1646c62a743b48e2a38f04542eb9325b0b3c42600f20dfe3a2033e5d3fb80f6",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
-        "Full current body/local authoring and caller contracts reviewed. Basis bcce02f; subsequent 548f0b4, 7bdf0e7, 83b3531, 2fa3a95, b0632b9, 3121dad, be81bf0, 1bcce9d, e42b701, 4c2ae49. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+        "Full current body/local authoring and caller contracts reviewed. Basis bcce02f; subsequent 548f0b4, 7bdf0e7, 83b3531, 2fa3a95, b0632b9, 3121dad, be81bf0, 1bcce9d, e42b701, 4c2ae49. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "bin/siverteh-ai-chat": {
@@ -5497,11 +5515,13 @@
     },
     "brain/web/index.html": {
       "disposition": "independent",
-      "sha256": "da288579ddd9516c6ffc6205061412494573e2b548b0a7004b78cc077eb152f3",
+      "sha256": "3fcb744eda39ae8442681b4b370e5ce88c40b2bbff0a08206f584ccda4b5e6fc",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis b0632b9; later 548f0b4, 2fa3a95, 543ee68. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis b0632b9; later 548f0b4, 2fa3a95, 543ee68. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "brain/tests/test_auth.py": {
@@ -5533,20 +5553,24 @@
     },
     "brain/web/app.js": {
       "disposition": "independent",
-      "sha256": "af2a9f6b54cee50cfc612224b1b919ed59ead1b4f8d794274b5b8c9a8c682453",
+      "sha256": "ca5d140899aabe9ad10ebcc6134ed8c305928e34044752cc0280e0efca194859",
       "evidence": [
         "docs/specs/brain-core-source-audit.md",
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
-        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, d5d8dbd, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, d5d8dbd, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "brain/web/style.css": {
       "disposition": "independent",
-      "sha256": "77b942a8a89cf982a4f259d7d2264512d01f12182751d15c4d4a34c8c4e03411",
+      "sha256": "587ae57dc4911e3098d08d90b9405a0aee2dedab4c9a5f956423c9d3aed63faa",
       "evidence": [
         "docs/specs/brain-core-source-audit.md",
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
-        "Complete current body/local history/native contracts reviewed. Basis e42b701; later d5d8dbd, 2fa3a95, 543ee68, b0632b9, a8b816f. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later d5d8dbd, 2fa3a95, 543ee68, b0632b9, a8b816f. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open.",
+        "docs/specs/nacre-logo.md",
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
       ]
     },
     "brain/tests/test_index.py": {
@@ -6438,12 +6462,13 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "0f7570b26aa5fec5b317ec5ae9b03c2961ab4e6752b2f147b363a3c68bd57c6b",
+      "sha256": "d3b7545ca34e5014dc31d860b1eb7c29cfb1c47f153a4bdd97947cda835086c6",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/nacre/FINAL-COMPARISON.md",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6605,10 +6630,11 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "477b0511a2e1814ec401fee9869702c0b15ad64a72d2c67f28f7c79fb275afd2",
+      "sha256": "d0583a94985a3f8b9860c174b7056ac16bc975574b6f99e379e6f7e0fddb04e9",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -7721,6 +7747,86 @@
         "docs/specs/visual-cleanup.md"
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+    },
+    "nacre/shell-tools/logo-widget.qml.in": {
+      "disposition": "independent",
+      "sha256": "38e953811f73bc63a1e732eed2682b7191d077b7306b214b649d83a0a344daed",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/nacre-compact.svg": {
+      "disposition": "independent",
+      "sha256": "308c8953df45b3ceb98474f7f5583bbad6d48b431d2512c6420108db62127ce5",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/nacre.svg": {
+      "disposition": "independent",
+      "sha256": "21eb4537f66ca767e8148a63d307ee4e1de263e5ac1b856b3bdefce5480b6f7a",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell-tools/tests/test_nacre_branding.py": {
+      "disposition": "independent",
+      "sha256": "865dc90ea4775fcdea350ddcfba74b81df9cf3a51ad997935d125b946204482f",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/nacre-master.svg": {
+      "disposition": "third-party",
+      "sha256": "679c5ef56949cb64dc13e266831cb588b0b6b9e23fffcca65dc3d4aa9d83b42f",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/nacre-text.txt": {
+      "disposition": "independent",
+      "sha256": "5db8903fe52c41851dcb8f6175c951b0486a34eb3821ec875f8e3aa704ea57b5",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell-tools/logo-data.js.in": {
+      "disposition": "independent",
+      "sha256": "91dd19914cd1d6de6c93163e3ab8bd8f3459fc4ee8dee7fbd4ef735778ec8b1d",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/login/LogoData.js": {
+      "disposition": "independent",
+      "sha256": "192eaf28cb19cf6d360f88b4e7ecb392cf9252e08a7c1fc4534ce24a2dba079a",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/LogoData.js": {
+      "disposition": "independent",
+      "sha256": "192eaf28cb19cf6d360f88b4e7ecb392cf9252e08a7c1fc4534ce24a2dba079a",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
+    },
+    "nacre/shell/branding/nacre-symbolic.svg": {
+      "disposition": "independent",
+      "sha256": "587528954011d3a7929e350f6b1a37606ecbea3303d8777b6506d666b2e3967d",
+      "evidence": [
+        "docs/specs/nacre-logo.md",
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+      ]
     }
   }
 }

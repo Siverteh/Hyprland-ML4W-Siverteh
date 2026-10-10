@@ -68,7 +68,8 @@ def render(
             str(initial)
             if initial.is_file()
             else (
-                artwork or str(Path.home() / ".local/share/nacre/branding/sh-lock.png")
+                artwork
+                or str(Path.home() / ".local/share/nacre/branding/nacre-lock.png")
             )
         )
 
@@ -231,7 +232,7 @@ def prepare_config(colors, wallpaper, preferences, helper, home=None):
     ready = home / ".cache/nacre/lock-ready"
     artwork = str(ready / "initial-art.png")
     if not Path(artwork).is_file():
-        artwork = str(home / ".local/share/nacre/branding/sh-lock.png")
+        artwork = str(home / ".local/share/nacre/branding/nacre-lock.png")
     monitors = monitor_layout(home)
     # Generate presentation now if deployment/geometry changed. Lock startup only
     # reads ready files; no network, font lookup or rendering runs in Hyprlock.

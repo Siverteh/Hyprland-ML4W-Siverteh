@@ -13,6 +13,7 @@ HOME = Path.home()
 ROOT = Path(__file__).resolve().parent
 RUNTIME = HOME / ".local/share/nacre/palette-runtime"
 PACKAGES = (
+    "librsvg",
     "quickshell",
     "qt6-imageformats",
     "qt6-multimedia",

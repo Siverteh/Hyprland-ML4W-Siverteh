@@ -39,7 +39,7 @@ def prepare(data, home=None):
         preferences = dict(settings, lockNotificationContents=private)
         name = "notifications-private" if private else "notifications-safe"
         atomic(ready / (name + ".txt"), info.label("notifications", data, preferences))
-    fallback = home / ".local/share/nacre/branding/sh-lock.png"
+    fallback = home / ".local/share/nacre/branding/nacre-lock.png"
     # A valid path is ready before bounded network/art decoding begins.
     if not (ready / "art-path.txt").exists():
         atomic(ready / "art-path.txt", str(fallback))

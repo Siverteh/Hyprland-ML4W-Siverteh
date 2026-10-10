@@ -69,7 +69,7 @@ class LockAndDeviceTests(unittest.TestCase):
             self.assertEqual(stream.observed, [4000001])
             decoder.assert_not_called()
             self.assertEqual(
-                result, str(home / ".local/share/nacre/branding/sh-lock.png")
+                result, str(home / ".local/share/nacre/branding/nacre-lock.png")
             )
 
     def test_notification_privacy_is_enforced_again_after_cache_read(self):

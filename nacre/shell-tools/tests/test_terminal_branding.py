@@ -46,13 +46,17 @@ class TerminalBrandingTests(unittest.TestCase):
                 folder.mkdir(parents=True, exist_ok=True)
             script = tools / "branding.py"
             shutil.copyfile(branding.__file__, script)
-            shutil.copyfile(branding.GEOMETRY, root / "nacre/shell/branding/sh.json")
+            for name in ("logo-data.js.in", "logo-widget.qml.in"):
+                shutil.copyfile(Path(branding.__file__).with_name(name), tools / name)
+            shutil.copyfile(
+                branding.GEOMETRY, root / "nacre/shell/branding/nacre-master.svg"
+            )
             (root / "brain/web/index.html").write_text(
                 '<svg><symbol id="sh" viewBox="0 0 34 28"></symbol></svg>'
             )
             env = {**os.environ, "HOME": str(home)}
             paths = [
-                root / "nacre/shell/branding/sh.svg",
+                root / "nacre/shell/branding/nacre.svg",
                 root / "nacre/shell/widgets/BrandLogo.qml",
                 root / "nacre/login/Logo.qml",
                 root / "brain/web/index.html",
@@ -89,13 +93,19 @@ class TerminalBrandingTests(unittest.TestCase):
                     home,
                 )
             folder = home / ".local/share/nacre/branding"
-            image = Image.open(folder / "sh-lock.png")
+            image = Image.open(folder / "nacre-lock.png")
             self.assertEqual(image.mode, "RGBA")
             self.assertEqual(image.getpixel((0, 0))[3], 0)
-            self.assertEqual(image.getpixel((48, 48)), (255, 0, 0, 255))
-            self.assertEqual(image.getpixel((368, 48)), (0, 0, 255, 255))
+            self.assertEqual(image.size, (512, 512))
+            pixels = (
+                list(image.get_flattened_data())
+                if hasattr(image, "get_flattened_data")
+                else list(image.getdata())
+            )
+            self.assertTrue(any(r > b + 60 and a > 240 for r, g, b, a in pixels))
+            self.assertTrue(any(b > r + 40 and a > 240 for r, g, b, a in pixels))
             self.assertEqual(
-                Image.open(folder / "sh.png").getpixel((0, 0)), (18, 18, 18)
+                Image.open(folder / "nacre.png").getpixel((0, 0)), (18, 18, 18)
             )
 
     def test_notification_targets_only_exact_menu_controller(self):
@@ -126,7 +136,7 @@ class TerminalBrandingTests(unittest.TestCase):
     def test_real_idle_curses_menu_reloads_png_after_redraw_signal(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)
-            logo = home / ".local/share/nacre/branding/sh.png"
+            logo = home / ".local/share/nacre/branding/nacre.png"
             logo.parent.mkdir(parents=True)
             # The PTY captures Kitty's graphics packets; no terminal decoder or
             # authentication/session state is used in this isolated test.
