@@ -174,7 +174,6 @@ class MatugenTemplateTests(unittest.TestCase):
             "<* for n, v in colors *>missing end",
             "<* for n, v in base16 *>{{n}}<* endfor *>",
             "<* for n, n in colors *><* endfor *>",
-            "<* if {{is_dark_mode}} *>x<* endif *>",
             "{{primary | set_alpha: .5}}",
             "{{primary | saturate: 20, rgb}}",
             "{{primary | lighten: nan}}",
@@ -226,6 +225,126 @@ class MatugenTemplateTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 export(palette, target, templates)
             self.assertFalse(target.exists())
+
+    def test_last_first_checks_generate_valid_json(self):
+        template = '<* if {{is_dark_mode}} *>[<* for name, value in colors *>"{{name}}"<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]<* else *>"light"<* endif *>'
+        self.assertEqual(
+            json.loads(
+                render_values(
+                    template,
+                    {"primary": "336699", "onSurface": "eeeeee", "mode": "dark"},
+                )
+            ),
+            ["on_surface", "primary"],
+        )
+        self.assertEqual(
+            json.loads(render_values(template, {"primary": "336699", "mode": "light"})),
+            "light",
+        )
+        self.assertEqual(
+            render_values(
+                "<* for n,v in colors *><* if {{loop.first}} *>first<* else *>next<* endif *><* endfor *>",
+                {"primary": "336699", "mode": "dark"},
+            ),
+            "first",
+        )
+        self.assertEqual(
+            render_values("<* for n,v in colors *>x<* endfor *>", {"mode": "dark"}), ""
+        )
+
+    def test_nested_map_loops_restore_outer_last_state(self):
+        data = {
+            "palettes": {
+                "first": {"_0": "000000", "_100": "ffffff"},
+                "second": {"_0": "112233"},
+            }
+        }
+        template = '[<* for family, shades in palettes *>[<* for tone, pigment in shades *>"{{family}}{{tone}}={{pigment.hex}}"<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]'
+        result = json.loads(render_values(template, {"mode": "dark"}, data=data))
+        self.assertEqual(
+            result, [["first_0=#000000", "first_100=#ffffff"], ["second_0=#112233"]]
+        )
+        with self.assertRaisesRegex(ValueError, "context"):
+            render_values(template, {"mode": "dark"})
+
+    def test_export_contexts_have_complete_tones_and_base16_modes(self):
+        dark = default_palette("dark")
+        light = default_palette("light")
+        before = json.dumps(dark, sort_keys=True)
+        template = '{"tones":[<* for family, shades in palettes *><* for tone, pigment in shades *><* if {{loop.first}} *><* else *>,<* endif *>"{{pigment.hex}}"<* endfor *><* if {{loop.last}} *><* else *>,<* endif *><* endfor *>],"base":[<* for name, color in base16 *>"{{color.light.hex}}"<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]}'
+        result = json.loads(render(template, dark, schemes={"light": light["colours"]}))
+        self.assertEqual(len(result["tones"]), 606)
+        self.assertEqual(len(result["base"]), 16)
+        self.assertEqual(result["tones"][0], "#000000")
+        self.assertEqual(result["tones"][100], "#ffffff")
+        self.assertEqual(result["base"][0], "#" + light["colours"]["surface"])
+        self.assertEqual(before, json.dumps(dark, sort_keys=True))
+        self.assertEqual(
+            render("{{base16.base05.dark.hex}}", dark),
+            "#" + dark["colours"]["onSurface"],
+        )
+        with self.assertRaisesRegex(ValueError, "companion"):
+            render("{{base16.base05.light.hex}}", dark)
+        from orient.colour import lch
+
+        self.assertGreater(
+            lch(render("{{base16.base07.default.hex_stripped}}", dark))[0],
+            lch(dark["colours"]["onSurface"])[0],
+        )
+        self.assertLess(
+            lch(render("{{base16.base07.default.hex_stripped}}", light))[0],
+            lch(light["colours"]["onSurface"])[0],
+        )
+
+    def test_malformed_conditions_and_untrusted_maps_fail(self):
+        values = {"primary": "336699", "mode": "dark"}
+        for template in (
+            "<* else *>",
+            "<* endif *>",
+            "<* if {{is_dark_mode}} *>missing",
+            "<* if {{mode}} *>x<* endif *>",
+            "<* if {{loop.last}} *>x<* endif *>",
+            "<* if {{is_dark_mode}} *><* else *><* else *><* endif *>",
+            "<* for n,v in custom *>x<* endfor *>",
+        ):
+            with self.subTest(template=template), self.assertRaises(ValueError):
+                render_values(template, values)
+        with self.assertRaises(ValueError):
+            render_values("text", values, data={"custom": {}})
+
+    def test_extra_contexts_are_lazy_and_cli_exports_valid_json(self):
+        from orient.template_engine import requested_contexts
+
+        self.assertEqual(requested_contexts('"base16 palettes" {{primary}}'), set())
+        self.assertEqual(requested_contexts(r"\{{palettes.primary._99.hex}}"), set())
+        self.assertEqual(
+            requested_contexts("<* for n,v in palettes *>{{v._99.hex}}<* endfor *>"),
+            {"palettes"},
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            palette = root / "palette.json"
+            palette.write_text(json.dumps(default_palette("light")))
+            template = root / "studio.json"
+            template.write_text(
+                '{"base":[<* for n,v in base16 *>"{{v.default.hex}}"<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]}'
+            )
+            before = palette.read_bytes()
+            result = subprocess.run(
+                [sys.executable, "-m", "orient", "render", str(palette), str(template)],
+                env={
+                    **os.environ,
+                    "PYTHONPATH": str(SRC),
+                    "HOME": str(root),
+                    "XDG_CACHE_HOME": str(root / "cache"),
+                },
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            self.assertEqual(len(json.loads(result.stdout)["base"]), 16)
+            self.assertEqual(before, palette.read_bytes())
+            self.assertFalse((root / ".local/state/nacre").exists())
 
     def test_all_builtin_templates_and_imported_matugen_css_export(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -222,6 +222,22 @@ def requested_modes(template):
     return modes
 
 
+def requested_contexts(template):
+    result = set()
+    for match in TOKEN.finditer(template):
+        if not match[1]:
+            base = split_quoted(match[2].strip(), "|")[0]
+            name = re.split(r"\s*\.\s*", base)[0]
+            if name in ("palettes", "base16"):
+                result.add(name)
+    for match in PIECE.finditer(template):
+        if match[3] is not None:
+            loop = re.fullmatch(r"for\s+\w+\s*,\s*\w+\s+in\s+(palettes|base16)(?:\.\w+)*", match[3].strip())
+            if loop:
+                result.add(loop[1])
+    return result
+
+
 def parse_template(template):
     if len(template) > MAX_TEMPLATE:
         raise ValueError("Template exceeds the 1 MiB input limit")
@@ -241,9 +257,9 @@ def parse_template(template):
         raise ValueError("Malformed or unsupported template expression/block")
     pieces.append(("text", tail))
 
-    def group(index, depth):
-        if depth > 4:
-            raise ValueError("Template loop nesting exceeds four levels")
+    def group(index, depth=0, loop_depth=0, stops=()):
+        if depth > 16 or loop_depth > 4:
+            raise ValueError("Template block/loop nesting exceeds its limit")
         nodes = []
         while index < len(pieces):
             kind, value = pieces[index]
@@ -251,36 +267,74 @@ def parse_template(template):
             if kind != "block":
                 nodes.append((kind, value))
                 continue
-            if value == "endfor":
-                if not depth:
-                    raise ValueError("Unexpected endfor block")
-                return nodes, index
-            loop = re.fullmatch(r"for\s+([A-Za-z_]\w*)\s*,\s*([A-Za-z_]\w*)\s+in\s+colors", value)
+            if value in ("endfor", "else", "endif"):
+                if value not in stops:
+                    raise ValueError("Unexpected " + value + " block")
+                return nodes, index, value
+            condition = re.fullmatch(r"if\s+\{\{\s*([^{}]+?)\s*\}\}", value)
+            if condition:
+                yes, index, ending = group(index, depth + 1, loop_depth, ("else", "endif"))
+                no = []
+                if ending == "else":
+                    no, index, ending = group(index, depth + 1, loop_depth, ("endif",))
+                nodes.append(("if", (condition[1].strip(), yes, no)))
+                continue
+            loop = re.fullmatch(
+                r"for\s+([A-Za-z_]\w*)\s*,\s*([A-Za-z_]\w*)\s+in\s+([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)", value
+            )
             if not loop:
                 raise ValueError("Unsupported Matugen block: " + value)
-            names = loop.groups()
+            names = loop.group(1, 2)
             if names[0] == names[1] or any(
-                name in ("colors", "custom", "mode", "image", "is_dark_mode") for name in names
+                name in ("colors", "palettes", "base16", "custom", "mode", "image", "is_dark_mode", "loop")
+                for name in names
             ):
                 raise ValueError("Loop bindings must be distinct non-reserved names")
-            child, index = group(index, depth + 1)
-            nodes.append(("loop", (names, child)))
-        if depth:
-            raise ValueError("Missing endfor block")
-        return nodes, index
+            child, index, _ = group(index, depth + 1, loop_depth + 1, ("endfor",))
+            nodes.append(("loop", (names, loop[3], child)))
+        if stops:
+            raise ValueError("Missing " + "/".join(stops) + " block")
+        return nodes, index, None
 
-    return group(0, 0)[0]
+    return group(0)[0]
 
 
-def render_values(template, values, schemes=None, image=None, custom=None):
+def render_values(template, values, schemes=None, image=None, custom=None, data=None):
     """Finite color loops and filters; no evaluation, hooks or filesystem access."""
     mode = values.get("mode")
     contexts = dict(schemes or {})
     if mode in ("dark", "light"):
         contexts[mode] = values
     contexts["default"] = values
-    roles = public_colors(values)
+    roots = {
+        "colors": {
+            name: {mode: context[role] for mode, context in contexts.items() if role in context}
+            for name, role in public_colors(values)
+        }
+    }
+    for namespace, mapping in (data or {}).items():
+        if namespace not in ("palettes", "base16") or not isinstance(mapping, dict):
+            raise ValueError("Unsupported template map context: " + namespace)
+        roots[namespace] = mapping
     nodes = parse_template(template)
+
+    def lookup(expression, scope):
+        parts = [part.strip() for part in expression.split(".")]
+        value = scope.get(parts[0], roots.get(parts[0]))
+        if value is None:
+            raise ValueError("Missing template map context: " + parts[0])
+        for part in parts[1:]:
+            if isinstance(value, dict):
+                if part not in value:
+                    if part in ("dark", "light"):
+                        raise ValueError("Template requires the " + part + " palette; supply a companion palette")
+                    raise ValueError("Missing template map value: " + expression)
+                value = value[part]
+            elif isinstance(value, str) and COLOR.fullmatch(value):
+                value = format_color(value, part)
+            else:
+                raise ValueError("Invalid template map expression: " + expression)
+        return value
 
     def color(role, scheme, fmt):
         if scheme not in ("default", "dark", "light"):
@@ -308,13 +362,13 @@ def render_values(template, values, schemes=None, image=None, custom=None):
                 raise ValueError("Missing or unsupported custom keyword: " + name)
             return str(value).lower() if isinstance(value, bool) else str(value)
         parts = [part.strip() for part in expression.split(".")]
-        if parts[0] in scope:
-            binding = scope[parts[0]]
-            if len(parts) == 1 and binding[0] == "name":
-                return binding[1]
-            if binding[0] == "value" and len(parts) == 3:
-                return color(binding[1], parts[1], parts[2])
-            raise ValueError("Expected loop value.default|dark|light.FORMAT")
+        if parts[0] in scope or parts[0] in ("palettes", "base16"):
+            value = lookup(expression, scope)
+            if isinstance(value, bool):
+                return "true" if value else "false"
+            if isinstance(value, (str, int)):
+                return str(value)
+            raise ValueError("Template expression must produce a scalar: " + expression)
         if parts[0] == "colors":
             if len(parts) == 3:
                 parts.insert(2, "default")
@@ -354,10 +408,22 @@ def render_values(template, values, schemes=None, image=None, custom=None):
                 emit(value)
             elif kind == "token":
                 emit(evaluate(value, scope))
+            elif kind == "if":
+                expression, yes, no = value
+                if expression == "is_dark_mode" and mode not in ("dark", "light"):
+                    raise ValueError("Template condition requires a light/dark mode")
+                result = mode == "dark" if expression == "is_dark_mode" else lookup(expression, scope)
+                if not isinstance(result, bool):
+                    raise ValueError("Template condition must be a boolean: " + expression)
+                visit(yes if result else no, scope)
             else:
-                names, child = value
-                for name, role in roles:
-                    visit(child, dict(scope, **{names[0]: ("name", name), names[1]: ("value", role)}))
+                names, expression, child = value
+                mapping = lookup(expression, scope)
+                if not isinstance(mapping, dict):
+                    raise ValueError("Template loop requires a map: " + expression)
+                for index, (name, item) in enumerate(mapping.items()):
+                    metadata = {"last": index == len(mapping) - 1, "first": index == 0}
+                    visit(child, dict(scope, **{names[0]: name, names[1]: item, "loop": metadata}))
 
     visit(nodes, {})
     return "".join(output)

@@ -43,5 +43,7 @@ Matugen color expressions are supported alongside Orient tokens. Render existing
 files with `orient render palette.json template.css > theme.css`, optionally
 `--companion light.json` and `--variables variables.json`. Roles, standard color
 formats, color-map loops and chained set_alpha/lighten/auto_lightness/saturate/replace
-filters are supported, plus hex_alpha and set_lightness. Includes, general scripting
-and HCT/base16 synthesis are not. See the feature guide for the exact contract.
+filters are supported, plus hex_alpha and set_lightness. Boolean last-item checks,
+nested tonal maps and base16 role exports cover the complete official Quickshell
+JSON and Neovim templates. Extra shades come from Orient, not Matugen HCT. Includes
+and arbitrary scripting are not supported. See the feature guide for the contract.

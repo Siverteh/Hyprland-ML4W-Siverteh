@@ -5,7 +5,7 @@ import json
 import hashlib
 from .palette import validate
 
-from .template_engine import render_values, requested_modes
+from .template_engine import render_values, requested_modes, requested_contexts
 
 
 def render(template, palette, schemes=None, custom=None):
@@ -32,12 +32,24 @@ def render(template, palette, schemes=None, custom=None):
             contexts[mode] = from_image(source, **options)["colours"]
     for values in contexts.values():
         validate(values)
+    data = {}
+    requested = requested_contexts(template)
+    if requested:
+        from .template_data import tonal_contexts, base16_contexts
+
+        if "palettes" in requested:
+            data["palettes"] = tonal_contexts(palette["colours"])
+        if "base16" in requested:
+            data["base16"] = base16_contexts(
+                dict(contexts, **{"default": palette["colours"], palette["mode"]: palette["colours"]}), palette["mode"]
+            )
     return render_values(
         template,
         dict(palette["colours"], mode=palette["mode"]),
         contexts,
         palette.get("source", {}).get("path"),
         custom,
+        data,
     )
 
 

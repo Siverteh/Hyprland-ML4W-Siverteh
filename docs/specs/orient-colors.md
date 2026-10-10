@@ -119,3 +119,25 @@ Keep previews read-only, old Orient bare-hex tokens and ordinary JSON braces.
 Test actual official CSS/Hyprland inputs privately and retain original minimal
 regressions rather than importing upstream template artwork/code into the repo.
 The extraction engine and dark/light palette data must remain unchanged.
+
+## Final map contexts and comma checks,2026-10-10
+
+The actual official Quickshell JSON template needs scoped loop.last/loop.first
+booleans, if/else/endif blocks, nested maps of tonal shades, and base16 alongside
+colors. Add finite map traversal for these named contexts and loop-bound maps,
+with strict boolean conditions and existing expansion/depth limits. Inner loop
+metadata must not overwrite the outer loop's metadata. No arbitrary evaluation.
+
+Keep the renderer standalone for the desktop publisher. Build optional export
+contexts in a separate portable helper imported only by the normal export module.
+Tonal palettes contain six Orient families with _0.._100 shades, produced by the
+existing independent OKLCH gamut mapper; these are not HCT/Material You tones.
+Base16 maps the supplied UI/semantic terminal colors to public Base16 role names;
+readable comments/main text retained, extra foreground levels interpolate locally.
+Explicit light/dark references still require genuine companion contexts. Generate
+only contexts requested by the template. No source analysis/cache/desktop palette
+changes, no idle work, no upstream implementation consulted or copied.
+
+Verify the unmodified public Quickshell JSON and Neovim template, parse the JSON
+and check full map lengths, isolated dark/light source contexts, scoped last-item
+checks, malformed blocks, unsupported expressions and unchanged engine colors.

@@ -153,21 +153,40 @@ sets absolute HSL lightness (0–100), following the current public Matugen cont
 `hex_alpha` uses eight hex digits including opacity. String literals and quoted
 commas/pipes in filter arguments are supported without evaluating code.
 
-This is the common color-template subset, not the full Matugen script runtime.
-Includes, conditions, numeric range/other-object loops, arithmetic, custom color
-objects and synthesized HCT/base16 palettes still fail clearly. Input is bounded
-to 1 MiB, output to 8 MiB and expansion to 100000 operations/four nested color loops.
-No hooks, external commands or Matugen configuration output paths run. Unsupported
-templates fail before export creates files. An isolated comparison on 2026-10-10
-matched 77 color/filter expressions byte-for-byte against Matugen 4.2.0. The official
-[theme collection](https://github.com/InioX/matugen-themes) at 707c7b7d3550c9c21c0a8d72186748b1d205b88b
-rendered 66 of 68 files containing expressions, including colors.css and Hyprland's
-.conf/.lua templates; quickshell.json and nvim-colors.vim require unsupported
-palette/base16 scripting. This measures rendering, not application reload support.
-Upstream templates/binary were private test inputs, not copied into Orient source.
+Comma-safe JSON loops use `loop.last` or `loop.first` boolean conditions:
+
+```text
+[<* for name, value in colors *>"{{value.default.hex}}"<* if {{loop.last}} *><* else *>,<* endif *><* endfor *>]
+```
+
+`if`/`else`/`endif` accept boolean loop metadata or `is_dark_mode`; nested loops
+restore the outer loop's metadata. Map loops also work over `palettes`, `base16`
+and maps bound by an outer loop. `palettes` exports six Orient hue/chroma families
+(primary, secondary, tertiary, neutral, neutral_variant, error), each with `_0`
+through `_100` shades from Orient's existing OKLCH gamut mapper. These shades are
+Orient lightness steps, not Matugen HCT tones. `base16.base00` through `base0f`
+map existing surfaces/foreground and semantic red/orange/yellow/green/cyan/blue/
+purple roles to the public Base16 meanings, with small foreground interpolations.
+Each base16 value has genuine default/dark/light context just like UI colors.
+The desktop palette and extraction engine do not change. Extra maps generate
+only when a template requests them, without idle processing or publication.
+
+This is template-format compatibility, not the full Matugen script runtime.
+Includes, numeric ranges, arithmetic, custom color objects and arbitrary
+expressions still fail clearly. Input is bounded to 1 MiB, output to 8 MiB and
+expansion to 100000 operations/four nested loops/sixteen block levels. No hooks,
+external commands or Matugen configuration output paths run. Unsupported templates
+fail before export creates files. Isolated filter comparisons on2026-10-10 matched
+77 expressions byte-for-byte against Matugen4.2.0. All68 template files containing
+expressions in the [official collection](https://github.com/InioX/matugen-themes)
+at707c7b7d3550c9c21c0a8d72186748b1d205b88b now render, including the complete
+Quickshell JSON (validated) and Neovim base16 template. This measures rendering,
+not application reload support or bit-identical color generation. Upstream
+templates/binary were private test inputs, not copied into Orient source.
 References: [tokens](https://github.com/InioX/matugen/wiki/Configuration),
-[grammar](https://github.com/InioX/matugen/wiki/Templates) and
-[current filter reference](https://iniox.github.io/?page=matugen/filters).
+[grammar](https://github.com/InioX/matugen/wiki/Templates),
+[filter reference](https://github.com/InioX/matugen/wiki/Filters) and
+[Base16 roles](https://github.com/chriskempson/base16/blob/main/styling.md).
 
 ## Export and sharing
 
