@@ -5271,6 +5271,78 @@
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
         "Full current body and local creation/change history reviewed. Basis 2fa3a95; subsequent changes: 548f0b4. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
       ]
+    },
+    "bin/siverteh-ai-context": {
+      "disposition": "independent",
+      "sha256": "3a586e1772001266686b55104e92c798c8ace32e6639921e159bef96a4ef8870",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis 1bcce9d; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-ai-memory": {
+      "disposition": "independent",
+      "sha256": "18dbabbf797025ab27d86f1e693a7a341fd3bf6c137bb3c8f9cf570d182499e1",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-ai-usage": {
+      "disposition": "independent",
+      "sha256": "852148a8762a3a1644c373f5bdfe65d5087d0cd63858d63c22a389637c06f165",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis 1bcce9d; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-brain": {
+      "disposition": "independent",
+      "sha256": "991ffd72ae11ffadc612c2f764b59659cedc9fc3ed5e4e0e618abe0fcd63742c",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis bcce02f; later 548f0b4, 83b3531, adc96cc. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-brain-maintain": {
+      "disposition": "independent",
+      "sha256": "623af7b76a2db344c3947db733a0bd0a7b57cbe29e104ae4befe069151e7d4ce",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis adc96cc; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-brain-sync": {
+      "disposition": "independent",
+      "sha256": "09c671149917de5fb10b7ff778c8000179e8580bdc9e71e89269de1bd114a785",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis adc96cc; later 548f0b4, a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "ai/tests/test_conversation.py": {
+      "disposition": "independent",
+      "sha256": "53a0af0f886ffcd95940b67873b1aca17c63cc9ccc5ab288aa352399ba841038",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis 1bcce9d; later bb46dd6, 83b3531, 543ee68. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "ai/tests/test_brain_sync.py": {
+      "disposition": "independent",
+      "sha256": "e2851afbfae859307f2f276e84beb04b5a719086761af9008c481752b3d304d7",
+      "evidence": [
+        "docs/specs/knowledge-helper-source-audit.md",
+        "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
+        "Complete current body and local history reviewed: basis adc96cc; later a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
     }
   }
 }

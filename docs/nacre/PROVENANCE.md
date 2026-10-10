@@ -2141,3 +2141,13 @@ Obsidian/KDE and downloaded skill sources remain licensed external dependencies.
 No live AI installer, login, wallet change, remote worker or credential copy.
 Large AI/vault commands, Brain, remaining fixtures/docs and final full-source
 comparison remain required. All applicable notices retained.
+
+## Knowledge helper source review
+
+2026-10-10 UTC. [Spec](../specs/knowledge-helper-source-audit.md) and
+[eight-file source table](KNOWLEDGE-HELPER-SOURCE-AUDIT.md) cover six locally
+authored context/memory/usage/vault/maintenance/sync helpers and two own fixture
+sources. Full current bodies, local authoring and normalized change diffs reviewed.
+No runtime source/state changes or real remote/credential actions for QA. Remaining
+chat controllers, Brain, fixtures/docs and whole-tree comparison/licensing stay
+open; notices and complete originality goal remain active.
