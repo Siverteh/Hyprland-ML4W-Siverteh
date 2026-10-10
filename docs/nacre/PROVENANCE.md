@@ -1505,3 +1505,25 @@ Rofi issue 2320 is closed with an upstream fix; this does not change the measure
 installed 2.0.0 failure. Native dump/render/Escape checks are separate positive
 evidence, not a fabricated standalone-validator pass. Four SHA-bound companion
 reviews complete this bounded area, not remaining generators/packaging/whole tree.
+
+Companion acceptance (2026-10-10 UTC): software fa202f0, good shell release
+20261010T005925365321Z. All 399 tests (55 tools, 96 AI, 35 Brain, 213 shell),
+formatting/QML/native Hyprland and reviewed shell source/live menu gates pass.
+Installed helper/template and all 235 shell files exact. Native KDE scheme is
+Nacre, color roles match, 243 generated icon links resolve; private legacy scheme
+retained. Owned Rofi fallback view opens and cancels with Escape without action.
+Standalone validator still fails on minimal theme as documented; native dump/view
+checks are positive evidence rather than suppression of that failure.
+
+Initial unchanged-palette live comparison correctly failed: enabled 30-minute
+rotation fired 428ms after its deadline, before the release transaction snapshot.
+Legacy scheme was recolored by the old publisher at the same pre-deploy event,
+verified by generated-file mtime and matching new palette roles. Source-copy mtimes
+are preserved and unsuitable to infer install order; used transaction timestamps
+instead. Retained original baseline/event evidence and refreshed only expected
+post-rotation palette/legacy hash after verification. New comparison passes with
+rotated poster/palette/deadline unchanged, nine private preference/history hashes
+and AI worker PID/start unchanged, native palette coherent/configerrors empty.
+No rotation disabling, new wallpaper preference or manual selection for QA.
+Four current source reviews added; third-party art credit retained and all other
+source/assets/tests/generator/dependency/full comparison requirements stay open.
