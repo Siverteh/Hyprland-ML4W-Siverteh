@@ -6,6 +6,7 @@ Item {
     id: root
     implicitWidth: 30
     implicitHeight: 30
+    readonly property bool ready: image.status === Image.Ready || (image.loadedOnce && image.status === Image.Loading)
     property bool compact: width <= 36
     property bool ai: false
     property bool brain: false

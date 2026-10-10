@@ -4,15 +4,32 @@ Open **Nacre Welcome** from the app launcher or run `nacre-welcome`.
 It is a single normal app window hosted by the existing Quickshell service,
 with the standard Nacre shell logo and current Orient colors.
 
-- **Start here** explains Nacre/mother-of-pearl and opens wallpaper/Colors,
-  Settings, shortcuts or Maintenance.
-- **Shortcuts** is a readable guide to the maintained default bindings. Host
-  overrides may differ. Super+Q puts a window away; Super+Shift+Q restores it;
-  Super+Ctrl+Q closes it. Files is Super+Shift+F; Super+F is fullscreen.
-- **Nacre apps** opens Settings, Colors and available optional AI/Brain tools.
-  Accounts, models, notes and optional packages are not set up by Welcome.
-- **Help** keeps practical guidance offline, with explicit links to the public
-  Nacre project and Hyprland, Quickshell and CachyOS documentation.
+- **Start here** keeps four cached library samples visible. Click a scene to
+  change the desktop and the Welcome logo together. Dark/Light and Natural/Pop/
+  Pearl apply through the same existing wallpaper/theme publisher. Opening
+  Welcome does not apply changes; the controls explicitly say changes are live.
+  Open Colors for preview-only exploration and more choices. Empty libraries
+  offer the existing wallpaper import path. Automatic rotation pauses while the
+  active Welcome demo is visible; sample positions stay stable during choices.
+- **Shortcuts** reads `hyprctl binds -j` for this live session. Named actions,
+  modifier masks, aliases and complete workspace ranges generate the displayed
+  keys; no static key list remains. Related restore/close/save combinations also
+  come from the live data. Missing/unbound actions disappear rather than guessing
+  their old keys. It refreshes on open, entry to Shortcuts, visible config-reload
+  events or Refresh bindings, without polling. Lua registrations carry
+  `description="Nacre:files"` and similar action IDs. Reuse that metadata on private
+  remapped binds to keep them discoverable; undescribed Lua callbacks cannot be
+  inferred from their opaque compositor IDs. Outside Hyprland an unavailable
+  message replaces the list. See [public flags](https://wiki.hypr.land/configuring/core/binds/flags/).
+- **Nacre apps** always includes AI and Brain. Installed tools open normally;
+  absent tools have muted branding and an enabled Setup guide that explains
+  requirements and the component documentation inside Welcome. Public optional
+  packages are not yet released, so the guide does not invent install commands.
+  AI and Brain use distinct chat/brain fallback glyphs while their shared logos
+  are unavailable; ready artwork stays visible during palette reloads.
+- **Help** keeps practical guidance offline, with explicit project/Hyprland/
+  Quickshell/CachyOS links. The intro says “a desktop for Hyprland”; Quickshell
+  implementation context belongs here.
 
 The **Show at login** switch saves immediately. Turn it off to stop automatic
 activation; Welcome remains available from the launcher. `nacre-welcome --enable`
@@ -49,3 +66,6 @@ appearance setup and accessible controls; [DMS setup](https://danklinux.com/docs
 and [keybind discovery](https://danklinux.com/blog/v1-2-release) emphasize clear
 entry points into a coherent desktop. These are behavior references; Nacre's
 layout, content and implementation are authored locally. See [specification](../specs/welcome.md).
+
+The [live-demo specification](../specs/welcome-live-demo.md) records publication,
+binding metadata, performance and optional-component boundaries.

@@ -229,3 +229,10 @@ file lock and atomic replacement. The compositor session-start hook runs
 CLI uses existing-service IPC with bounded cold retries, and preference changes
 never restart workers or publish themes. The standard logo/icon remains owned by
 `branding.py`, with no separate Welcome artwork or identity. See [Welcome](features/welcome.md).
+
+Welcome's live scene/personality/mode controls are consumers of `NacreWallpapers`,
+not a second publisher. Cached sample metadata is held stable, and its active
+home page participates in rotation pause policy. `welcome.py` reads described
+live compositor bindings on user/config events; Lua binds remain owned by the
+existing files, with action descriptions attached there. Optional AI/Brain
+guide content never installs accounts/components. No idle observer is added.

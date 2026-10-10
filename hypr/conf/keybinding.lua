@@ -10,9 +10,36 @@ local function construct(row)
     return factory(row[3])
 end
 
+-- Public action metadata is attached to the actual registrations for discovery.
+local descriptions = {
+    ["~/.local/bin/nacre-shell launcher"] = "launcher",
+    ["~/.local/bin/nacre-shell wallpaper"] = "wallpaper",
+    ["~/.local/bin/nacre-settings"] = "settings",
+    ["~/.local/bin/nacre-app files"] = "files",
+    ["uwsm app -- kitty"] = "terminal",
+    ["~/.config/hypr/scripts/window-trash.sh trash"] = "put-away",
+    ["~/.config/hypr/scripts/window-trash.sh restore-last"] = "restore",
+    ["~/.config/hypr/scripts/window-close.sh"] = "close",
+    ["~/.local/bin/nacre-shell clipboard"] = "clipboard",
+    ["loginctl lock-session"] = "lock",
+}
 local function install(rows)
     for _, row in ipairs(rows) do
-        hl.bind(row[1], construct(row), row[4])
+        local options = {}
+        for key, value in pairs(row[4] or {}) do options[key] = value end
+        local label = row[2] == "exec_cmd" and descriptions[row[3]] or nil
+        if row[2] == "focus" and type(row[3]) == "table" then
+            if type(row[3].workspace) == "number" then label = "workspace" end
+            if row[3].direction then label = "focus" end
+        elseif row[2] == "window.move" and type(row[3]) == "table" and type(row[3].workspace) == "number" then
+            label = "move-workspace"
+        elseif row[2] == "exec_cmd" and row[3]:match("^grim %-g") then
+            label = "screenshot"
+        elseif row[2] == "exec_cmd" and row[3]:match("^grim ~/") then
+            label = "save-screenshot"
+        end
+        if label and not options.description then options.description = "Nacre:" .. label end
+        hl.bind(row[1], construct(row), options)
     end
 end
 

@@ -124,5 +124,5 @@ existing publisher. Source: `nacre/shell-cli/src/orient`, `modules/colors`,
 `services/NacreColorsApp.qml`, `shell-tools/colors.py` and output `.in` templates.
 
 [Nacre Welcome](features/welcome.md) is a launcher app (`nacre-welcome`) for
-getting started, shortcuts, the app suite and help. Its Show at login switch is
+a live wallpaper/color demo, current shortcuts, the app suite and help. Its Show at login switch is
 independent of manual activation and persists across desktop updates.

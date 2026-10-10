@@ -7,6 +7,8 @@ TestCase {
     id: test
 
     function cleanup() {
+        NacreWelcomeApp.active = false;
+        NacreWelcomeApp.page = "home";
         WallpaperPlayback.sleeping = false;
         WallpaperPlayback.locked = false;
         NacrePanelState.screens = ({});
@@ -43,6 +45,20 @@ TestCase {
         compare(Rotation.pool(entries, "dynamic").join(","), "b");
         compare(Rotation.pool(entries, "static").join(","), "a");
         compare(Rotation.next(["a", "b", "c"], "c", false, [], 0.5).path, "a");
+    }
+
+    function test_welcome_demo_pauses_without_resetting_deadline() {
+        const w = createTemporaryObject(walls, test);
+        const due = w.rotationDueMs;
+        NacreWelcomeApp.active = true;
+        NacreWelcomeApp.page = "home";
+        verify(!w.canRotate);
+        compare(w.rotationDueMs, due);
+        NacreWelcomeApp.page = "shortcuts";
+        verify(!w.welcomeDemoOpen);
+        NacreWelcomeApp.active = false;
+        NacreWelcomeApp.page = "home";
+        compare(w.rotationDueMs, due);
     }
 
     function test_disabled_timer_and_lifecycle_pause() {

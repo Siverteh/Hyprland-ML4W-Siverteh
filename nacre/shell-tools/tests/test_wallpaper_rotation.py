@@ -55,6 +55,7 @@ class RotationTests(unittest.TestCase):
             for name in ["wallpaper-rotation.js"]:
                 shutil.copy2(ROOT.parent / "shell/utils/scripts" / name, target / name)
             services = {
+                "NacreWelcomeApp": 'property bool active:false;property string page:"home"',
                 "NacrePaths": 'property string state:"/tmp";property string pictures:"/tmp"',
                 "NacrePresentation": "property var pending:({});property var active:({})",
                 "WallpaperPlayback": "property bool sleeping:false;property bool locked:false",

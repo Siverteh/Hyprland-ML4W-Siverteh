@@ -1478,13 +1478,14 @@
     },
     "hypr/conf/keybinding.lua": {
       "disposition": "independent",
-      "sha256": "16ea32c0afa3ef3c3aaf39e3cfc78dfbd07400863a4ebefa31f35e2673bf1e87",
+      "sha256": "f31ccc863f9e83db77305b7b9c6b1f73a8bb998fd58c34351e89ebdd9497ee40",
       "evidence": [
         "docs/specs/keybindings.md",
         "docs/nacre/PROVENANCE.md#compositor-shortcut-composition-replacement",
         "new source 9a435c3: deleted inherited target then own declarative composition from95 fake/native public contracts and Hyprland APIs; restricted helper implemented independently; actual full/live contracts/source guide checks; no upstream body reused; external caller/helper audits remain",
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "nacre/shell-tools/binding-contracts.lua": {
@@ -1549,11 +1550,12 @@
     },
     "nacre/shell-tools/shortcuts.lua": {
       "disposition": "independent",
-      "sha256": "97f23bd22316bce5104771c55722b2862f1b6acfecb933146a9b4c519b14bf3b",
+      "sha256": "0603b3c0df287d47d8ea4c441b9ded80d99c8d092fc487e19bfd77e60c49e97e",
       "evidence": [
         "docs/specs/compositor-entrypoint.md",
         "docs/nacre/PROVENANCE.md#compositor-entry-point-and-local-extension-review",
-        "Local native-tool extension introduced 007d020 under siverteh/shell-tools/shortcuts.lua; passive dismissal added 63162dc; Thunar rule removed to managed rule owner85f31ab; namespace changed548f0b4. Current four bindings are own feature declarations, not a rename-based certificate."
+        "Local native-tool extension introduced 007d020 under siverteh/shell-tools/shortcuts.lua; passive dismissal added 63162dc; Thunar rule removed to managed rule owner85f31ab; namespace changed548f0b4. Current four bindings are own feature declarations, not a rename-based certificate.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "nacre/shell/services/Updates.qml": {
@@ -1809,7 +1811,7 @@
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "76c5738653d74540fe23b462a56d24ad87e999543b238548ff15eb7c25cc055e",
+      "sha256": "ff9abb758939c888f57ec8e7a89978e7896bc0c94271c166840297dd9867500f",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1821,7 +1823,8 @@
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "nacre/login/Logo.qml": {
@@ -2839,7 +2842,7 @@
     },
     "nacre/shell/services/NacreWallpapers.qml": {
       "disposition": "independent",
-      "sha256": "dff7f4a2e94367f434be2e3906fb01936bdc8af790b222ec347f57fe9cc74943",
+      "sha256": "23aac33049515fcb50dde123d95adb156c3445ba67efb0fd26d89ae88cb8821b",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
@@ -2850,7 +2853,8 @@
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "nacre/shell/services/NacreWeather.qml": {
@@ -6094,12 +6098,13 @@
     },
     "nacre/shell-tools/tests/qml/tst_wallpaper_rotation.qml": {
       "disposition": "independent",
-      "sha256": "2bb457e37741048838fd6baca41c16ae92cf54721232f631345238f4d634fde3",
+      "sha256": "3e5cb8acefb2368167519869a09d8346437ea51c01ccf0cd909c39e8747ddf32",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 4ea19d5 siverteh/shell-tools/tests/qml/tst_wallpaper_rotation.qml; subsequent 5da1132, eea01b9, 548f0b4, 2c1d2ca, aee7ec3. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed."
+        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed.",
+        "Final cold-start and rotation integration review: demo fills on catalogue/window-ready events after media metadata assignment, without polling; no stable samples replaced during interactions. Native wallpaper/provider fixtures add explicit inactive Welcome dependency and a real deadline-preserving pause/resume case. Existing assertions keep warnings/errors fatal. docs/specs/welcome-live-demo.md."
       ]
     },
     "nacre/shell-tools/tests/state-qml/tst_state.qml": {
@@ -6151,13 +6156,14 @@
     },
     "tools/tests/fixtures/keybindings-contract.json": {
       "disposition": "non-implementation",
-      "sha256": "3694a5f6fcad9f9fe2a4ce409b11e30be2ab246cf21d634d2d2dd4be96c7757d",
+      "sha256": "9265600858af46880e8a68510b7bb76a9cc3b50003d4b8a929aa161f0debe6a0",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 9a435c3 tools/tests/fixtures/keybindings-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "Settings application task deliberately retains both existing hotkeys and routes them to nacre-settings; all other captured key actions/flags remain unchanged.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "Final Welcome-demo regression review: all96 existing key/action/control-flag contracts compared unchanged before adding only description fields to fixture. Live metadata naming/removal/aliases and Lua registration tests retained. Native actual-logo demo/optional UI fixture matches light-mode selection, no-change-on-open and event calls. Config-reload refresh limited to active Shortcuts; standalone helper and shared publication boundaries preserved. docs/specs/welcome-live-demo.md."
       ]
     },
     "tools/tests/fixtures/window-routing-contract.json": {
@@ -6278,13 +6284,14 @@
     },
     "nacre/shell-tools/tests/test_device_services.py": {
       "disposition": "independent",
-      "sha256": "ee49274f78423f358d25160b9cdda833744e3a337e3268f27128f628b2721515",
+      "sha256": "b338e40d938c25c1129d39bca72c62c229fc9993ad58bb04f6be60c78e5c3a20",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 2f9300f:nacre/shell-tools/tests/test_device_services.py; subsequent 5da1132, 28707f7, eea01b9, 02b2bda, ea5653e, a492dc6, 3d93b32, 22a4ad1, e4d2474, 18d8aab, 13701fc, 977f628, d4a82bb. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/frame-control-center.md",
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "Final cold-start and rotation integration review: demo fills on catalogue/window-ready events after media metadata assignment, without polling; no stable samples replaced during interactions. Native wallpaper/provider fixtures add explicit inactive Welcome dependency and a real deadline-preserving pause/resume case. Existing assertions keep warnings/errors fatal. docs/specs/welcome-live-demo.md."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6477,12 +6484,13 @@
     },
     "nacre/shell-tools/tests/test_wallpaper_rotation.py": {
       "disposition": "independent",
-      "sha256": "98691b05546f1fe741bd3f7e134331904133cef90807eb224590ea17d89f2e0e",
+      "sha256": "fe63acb76ceab898b4062fba44ce4d4bbdb62e0b619e4f5f994cd6ce50abe32e",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 4ea19d5:siverteh/shell-tools/tests/test_wallpaper_rotation.py; subsequent 5da1132, 28707f7, eea01b9, 9a3b9a7, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed."
+        "docs/specs/settings-app.md: fixture now exercises standalone Appearance visibility, pause on Appearance, resume on another settings page or close; native production rotation test passed.",
+        "Final cold-start and rotation integration review: demo fills on catalogue/window-ready events after media metadata assignment, without polling; no stable samples replaced during interactions. Native wallpaper/provider fixtures add explicit inactive Welcome dependency and a real deadline-preserving pause/resume case. Existing assertions keep warnings/errors fatal. docs/specs/welcome-live-demo.md."
       ]
     },
     "nacre/shell-tools/tests/test_workspace_ui.py": {
@@ -6592,7 +6600,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "6ca7818335d6bca031a65a9ef39e1a14fe1b87801a286c6b37c4f5a75030323e",
+      "sha256": "f559c9d5a87f40c2bedfb8096f52bd56d93f07b11d48989038874fb5a19dcc39",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6615,7 +6623,8 @@
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "docs/features/appearance.md": {
@@ -6817,7 +6826,7 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "c7897c2da14858118ffb8664884f92f50e26d3b0f65ae821d5f7e8e1be2f4e7f",
+      "sha256": "cc4a862726a563bd34891ef12237c8a637b4bf1c1d7ed4b906675dbda4391614",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6835,7 +6844,8 @@
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ]
     },
     "nacre/login/README.md": {
@@ -9489,9 +9499,10 @@
     "docs/features/welcome.md": {
       "disposition": "non-implementation",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ],
-      "sha256": "49f48d0911fec3d53d517a3f35a5f9e7d476da3e64962c430feb5f0bb7ad4bc8"
+      "sha256": "ec703db3e3c6dd166a886f5df03f2d6114ebfe51653dab7ffba3abac4bb665b5"
     },
     "docs/specs/welcome.md": {
       "disposition": "non-implementation",
@@ -9511,24 +9522,29 @@
       "disposition": "independent",
       "evidence": [
         "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
-        "Welcome final regression review: startup Lua still executes only on the genuine session callback; expected fifth UWSM command explicitly covered, including literal quoted HOME paths. Atomic concurrent claims, disabled CLI suppression and failed-activation release tested. Native actual-logo/dark-light fixture captures and responsive actions/footer/keyboard checks reviewed. docs/specs/welcome.md."
+        "Welcome final regression review: startup Lua still executes only on the genuine session callback; expected fifth UWSM command explicitly covered, including literal quoted HOME paths. Atomic concurrent claims, disabled CLI suppression and failed-activation release tested. Native actual-logo/dark-light fixture captures and responsive actions/footer/keyboard checks reviewed. docs/specs/welcome.md.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md.",
+        "Final Welcome-demo regression review: all96 existing key/action/control-flag contracts compared unchanged before adding only description fields to fixture. Live metadata naming/removal/aliases and Lua registration tests retained. Native actual-logo demo/optional UI fixture matches light-mode selection, no-change-on-open and event calls. Config-reload refresh limited to active Shortcuts; standalone helper and shared publication boundaries preserved. docs/specs/welcome-live-demo.md."
       ],
-      "sha256": "9eb7a97c6b86935f0f96cc4754a8c81abbeaf8e91d9bda7e7325a41e0de342ea"
+      "sha256": "be769a0b39d94e7a3184855021b8340ed3b0e1d5071437f609b016874fef66e0"
     },
     "nacre/shell-tools/tests/test_welcome_ui.py": {
       "disposition": "independent",
       "evidence": [
         "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
-        "Welcome final regression review: startup Lua still executes only on the genuine session callback; expected fifth UWSM command explicitly covered, including literal quoted HOME paths. Atomic concurrent claims, disabled CLI suppression and failed-activation release tested. Native actual-logo/dark-light fixture captures and responsive actions/footer/keyboard checks reviewed. docs/specs/welcome.md."
+        "Welcome final regression review: startup Lua still executes only on the genuine session callback; expected fifth UWSM command explicitly covered, including literal quoted HOME paths. Atomic concurrent claims, disabled CLI suppression and failed-activation release tested. Native actual-logo/dark-light fixture captures and responsive actions/footer/keyboard checks reviewed. docs/specs/welcome.md.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md.",
+        "Final Welcome-demo regression review: all96 existing key/action/control-flag contracts compared unchanged before adding only description fields to fixture. Live metadata naming/removal/aliases and Lua registration tests retained. Native actual-logo demo/optional UI fixture matches light-mode selection, no-change-on-open and event calls. Config-reload refresh limited to active Shortcuts; standalone helper and shared publication boundaries preserved. docs/specs/welcome-live-demo.md."
       ],
-      "sha256": "3c08e8069564e817ed06516835ef7ad854459522696e8a5f257a697b5245e1b2"
+      "sha256": "6dc3b77a82491439389d72267c9b4bb929e5c91193594bca87b7eba4562bf4d4"
     },
     "nacre/shell-tools/welcome.py": {
       "disposition": "independent",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ],
-      "sha256": "32bf4e855bcaa0a3c148e9e9a23b6e2b47b3bd5385d95e1b20f5614316ecc1dd"
+      "sha256": "a579b01eaaa90a140effba5146ef92d8f5b1d902ae57b67596b2c16310ea6edf"
     },
     "nacre/shell/modules/welcome/NacreWelcomeHost.qml": {
       "disposition": "independent",
@@ -9540,16 +9556,18 @@
     "nacre/shell/modules/welcome/NacreWelcomeRow.qml": {
       "disposition": "independent",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ],
-      "sha256": "19d2de6808f6db53716696eab9e2499df194d84698ae3a27fa86437089c39bec"
+      "sha256": "87781054fb6f5a42d1cd6e2e327bdcd56f8bd8df405b7d458af1414a35e9fda0"
     },
     "nacre/shell/modules/welcome/NacreWelcomeView.qml": {
       "disposition": "independent",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ],
-      "sha256": "fc83410d640d0f361f0b927659ae2f5514d008355a9a264dac7d4a438078a9bd"
+      "sha256": "4b6a81c63b69f2cf9902498ede87305fea1edede9b65dfb268370c8748c541fa"
     },
     "nacre/shell/modules/welcome/NacreWelcomeWindow.qml": {
       "disposition": "independent",
@@ -9561,16 +9579,34 @@
     "nacre/shell/modules/welcome/welcome-catalog.js": {
       "disposition": "independent",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
       ],
-      "sha256": "7d8a8b479f5b5f369a7568a291383d8bcd6619036afd69ef4ea7ec7209b6a286"
+      "sha256": "d4933ac199f2db7c03ccf8b76b87579da4ff6dbd0ec3f88386bdb80897e8b686"
     },
     "nacre/shell/services/NacreWelcomeApp.qml": {
       "disposition": "independent",
       "evidence": [
-        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required."
+        "2026-10-10 Nacre Welcome implementation reviewed against docs/specs/welcome.md: independently authored lazy native app and content, existing owner routes, shared standard logo, serialized atomic private startup preferences, per-Hyprland-instance deduplication/retry and bounded service IPC. No external welcome/shell implementation consulted/copied; primary public behavior docs only. Existing app/helper/deployment/branding/startup edits reviewed in full relevant boundaries. Native wide/narrow, dark/light and actual-vector-logo preflight inspected; ownership/login/native tests cover malformed configuration, disabled/manual behavior and controls. Busy AI backend/credentials and palette publication untouched; managed full/live deployment still required.",
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md.",
+        "Final Welcome-demo regression review: all96 existing key/action/control-flag contracts compared unchanged before adding only description fields to fixture. Live metadata naming/removal/aliases and Lua registration tests retained. Native actual-logo demo/optional UI fixture matches light-mode selection, no-change-on-open and event calls. Config-reload refresh limited to active Shortcuts; standalone helper and shared publication boundaries preserved. docs/specs/welcome-live-demo.md.",
+        "Final cold-start and rotation integration review: demo fills on catalogue/window-ready events after media metadata assignment, without polling; no stable samples replaced during interactions. Native wallpaper/provider fixtures add explicit inactive Welcome dependency and a real deadline-preserving pause/resume case. Existing assertions keep warnings/errors fatal. docs/specs/welcome-live-demo.md."
       ],
-      "sha256": "373a21f08326767f9c0749d7e52eaca066f57c60a10ff60fbce9c69923a9a9d3"
+      "sha256": "1af732e4ff2a8a6a2dbf81cc8b36aa7f82a003c17cff563284e21079a357e5d1"
+    },
+    "docs/specs/welcome-live-demo.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
+      ],
+      "sha256": "f79e5049e15a5d6a6b56f947cbc7ca1b9a664186d832942da8b07ca68b851604"
+    },
+    "nacre/shell/modules/welcome/NacreWelcomeDemo.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "2026-10-10 Welcome live-demo refinements reviewed: independent cached four-scene component, existing NacreWallpapers publication/queue and rotation pause integration, active binding descriptions/introspection without static keys or raw commands, missing optional-component guide and distinct fallback readiness, compact plain-language intro. No other shell implementation consulted/copied. Own actual-logo/light-dark/native controls fixtures and live-remap/Lua-registration tests reviewed; normal full/live deployment still required. No new palette algorithm/account/installation owner or idle polling. docs/specs/welcome-live-demo.md; docs/features/welcome.md."
+      ],
+      "sha256": "ae416146acb574552e8ba608f0117be5083804bdd68225586d7414af612eb299"
     }
   }
 }

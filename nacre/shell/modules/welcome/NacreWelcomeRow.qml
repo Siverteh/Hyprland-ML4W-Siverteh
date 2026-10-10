@@ -10,18 +10,21 @@ NacreSurface {
     property real leadingSpace: root.icon ? 56 : 18
     property string buttonText: "Open"
     property bool available: true
+    property bool optional: false
+    property bool showGlyph: true
     signal clicked
     implicitHeight: Math.max(76, description.y + description.implicitHeight + 18)
     color: NacreTokens.raised
     radius: 12
     NacreIcon {
         id: glyph
+        objectName: "welcomeRowGlyph"
         x: 18
         y: 20
         text: root.icon
         font.pointSize: 19
         color: NacreTokens.accent
-        visible: root.icon.length > 0
+        visible: root.icon.length > 0 && root.showGlyph
     }
     NacreText {
         id: title
@@ -29,6 +32,7 @@ NacreSurface {
         y: 16
         width: root.width - x - button.width - 40
         text: root.heading
+        color: root.optional ? NacreTokens.mutedInk : NacreTokens.ink
         font.pointSize: 13
         wrapMode: Text.Wrap
     }

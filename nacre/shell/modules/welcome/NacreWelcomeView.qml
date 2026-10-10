@@ -82,87 +82,74 @@ Item {
                 visible: NacreWelcomeApp.page === "home"
                 Item {
                     width: parent.width
-                    height: root.narrow ? 164 : 176
+                    height: root.narrow ? 132 : 120
                     BrandLogo {
                         id: heroLogo
                         x: root.narrow ? 8 : 16
                         anchors.verticalCenter: parent.verticalCenter
-                        width: root.narrow ? 140 : 164
+                        width: root.narrow ? 100 : 112
                         height: width
                         compact: false
                         motionEnabled: NacreTokens.motionEnabled
                     }
                     Column {
-                        x: root.narrow ? 184 : 236
+                        x: root.narrow ? 132 : 164
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width - x - 16
                         spacing: 10
                         NacreText {
                             text: "Nacre"
-                            font.pointSize: root.narrow ? 34 : 42
+                            font.pointSize: root.narrow ? 28 : 32
                             font.weight: Font.Medium
                         }
                         NacreText {
                             width: parent.width
                             text: "Mother-of-pearl. Colors shaped by your wallpaper."
-                            font.pointSize: root.narrow ? 12 : 15
+                            font.pointSize: root.narrow ? 11 : 13
                             wrapMode: Text.Wrap
                         }
                         NacreText {
                             width: parent.width
-                            text: "Nacre is the iridescent lining inside a shell. Here, your wallpaper brings those colors to a Quickshell desktop for Hyprland."
+                            text: "Nacre is the iridescent lining inside a shell. Here, your wallpaper brings those colors to a desktop for Hyprland."
                             color: NacreTokens.mutedInk
                             font.pointSize: 11
                             wrapMode: Text.Wrap
                         }
                     }
                 }
+                NacreWelcomeDemo {
+                    width: parent.width
+                }
                 Flow {
                     width: parent.width
-                    spacing: 10
+                    spacing: 8
                     ActionButton {
                         objectName: "welcomeColors"
-                        text: "Explore wallpaper colors"
+                        text: "Open Colors"
                         icon: "palette"
-                        selected: true
                         onClicked: NacreWelcomeApp.route("colors")
                     }
                     ActionButton {
                         objectName: "welcomeWallpaper"
-                        text: "Choose a wallpaper"
+                        text: "More wallpapers"
                         icon: "wallpaper"
                         onClicked: NacreWelcomeApp.route("wallpaper")
                     }
-                }
-                NacreText {
-                    text: "Make yourself at home"
-                    font.pointSize: 17
-                }
-                NacreWelcomeRow {
-                    width: parent.width
-                    heading: "Set up your desktop"
-                    detail: "Displays, keyboard layout, sound, connections and the way your desktop behaves."
-                    icon: "settings"
-                    buttonText: "Settings"
-                    onClicked: NacreWelcomeApp.route("settings:desktop")
-                }
-                NacreWelcomeRow {
-                    width: parent.width
-                    heading: "Learn the controls"
-                    detail: "Find apps, change workspaces and put windows away without losing your place."
-                    icon: "keyboard"
-                    buttonText: "Shortcuts"
-                    onClicked: root.page("shortcuts")
-                }
-                NacreWelcomeRow {
-                    width: parent.width
-                    heading: "Keep things running well"
-                    detail: "Health checks, package updates and desktop recovery are together in Maintenance."
-                    icon: "build"
-                    buttonText: "Maintenance"
-                    onClicked: NacreWelcomeApp.route("settings:maintenance")
+                    ActionButton {
+                        text: "Settings"
+                        onClicked: NacreWelcomeApp.route("settings:desktop")
+                    }
+                    ActionButton {
+                        text: "Shortcuts"
+                        onClicked: root.page("shortcuts")
+                    }
+                    ActionButton {
+                        text: "Maintenance"
+                        onClicked: NacreWelcomeApp.route("settings:maintenance")
+                    }
                 }
             }
+
             Column {
                 width: parent.width
                 spacing: 12
@@ -173,19 +160,32 @@ Item {
                 }
                 NacreText {
                     width: parent.width
-                    text: "Super is usually the Windows key. These are Nacre's default bindings; host overrides can change them."
+                    text: "Super is usually the Windows key. These are the bindings registered in your current Hyprland session."
                     color: NacreTokens.mutedInk
                     wrapMode: Text.Wrap
                 }
+                NacreText {
+                    width: parent.width
+                    visible: !!NacreWelcomeApp.data.shortcutError
+                    text: NacreWelcomeApp.data.shortcutError || ""
+                    wrapMode: Text.Wrap
+                    color: NacreTokens.mutedInk
+                }
+                ActionButton {
+                    text: "Refresh bindings"
+                    enabled: !NacreWelcomeApp.busy
+                    onClicked: NacreWelcomeApp.refresh()
+                }
                 Repeater {
-                    model: Catalog.shortcuts
+                    model: NacreWelcomeApp.data.shortcuts || []
                     NacreSurface {
                         required property var modelData
                         width: body.width
-                        height: Math.max(76, info.implicitHeight + 24)
+                        height: Math.max(76, info.implicitHeight + 24, keyLabel.implicitHeight + 32)
                         radius: 10
                         color: NacreTokens.raised
                         NacreText {
+                            id: keyLabel
                             x: 16
                             y: 16
                             width: root.narrow ? 172 : 220
@@ -232,6 +232,50 @@ Item {
                     color: NacreTokens.mutedInk
                     wrapMode: Text.Wrap
                 }
+                NacreSurface {
+                    id: setupGuide
+                    width: parent.width
+                    visible: !!NacreWelcomeApp.optionalApp
+                    implicitHeight: setupText.implicitHeight + 32
+                    radius: 12
+                    color: NacreTokens.raised
+                    readonly property var guide: Catalog.optional[NacreWelcomeApp.optionalApp] || {}
+                    Column {
+                        id: setupText
+                        x: 16
+                        y: 16
+                        width: parent.width - 32
+                        spacing: 10
+                        NacreText {
+                            width: parent.width
+                            text: setupGuide.guide.title || ""
+                            font.pointSize: 16
+                            wrapMode: Text.Wrap
+                        }
+                        NacreText {
+                            width: parent.width
+                            text: setupGuide.guide.detail || ""
+                            wrapMode: Text.Wrap
+                        }
+                        NacreText {
+                            width: parent.width
+                            text: setupGuide.guide.setup || ""
+                            wrapMode: Text.Wrap
+                            color: NacreTokens.mutedInk
+                        }
+                        NacreText {
+                            width: parent.width
+                            text: setupGuide.guide.status || ""
+                            wrapMode: Text.Wrap
+                            color: NacreTokens.mutedInk
+                            font.pointSize: 10.5
+                        }
+                        ActionButton {
+                            text: "Back to apps"
+                            onClicked: NacreWelcomeApp.optionalApp = ""
+                        }
+                    }
+                }
                 Repeater {
                     model: Catalog.apps
                     Item {
@@ -249,17 +293,28 @@ Item {
                             settings: modelData.logo === "settings"
                             colorsApp: modelData.logo === "colors"
                             motionEnabled: NacreTokens.motionEnabled
+                            opacity: ready ? (appRow.optional ? .4 : 1) : 0
                             z: 1
                         }
                         NacreWelcomeRow {
                             id: appRow
+                            objectName: "welcomeAppRow_" + modelData.logo
                             width: parent.width
                             heading: modelData.title
-                            detail: modelData.detail
                             leadingSpace: 76
-                            buttonText: "Open"
-                            available: !modelData.availability || NacreWelcomeApp.data.available?.[modelData.availability] === true
-                            onClicked: NacreWelcomeApp.route(modelData.action)
+                            icon: modelData.icon
+                            showGlyph: !appLogo.ready
+                            optional: !!modelData.availability && NacreWelcomeApp.data.available?.[modelData.availability] !== true
+                            buttonText: optional ? "Setup guide" : "Open"
+                            available: true
+                            detail: (optional ? "Optional. " : "") + modelData.detail
+                            onClicked: {
+                                if (optional) {
+                                    NacreWelcomeApp.setup(modelData.availability);
+                                    Qt.callLater(() => canvas.contentY = 0);
+                                } else
+                                    NacreWelcomeApp.route(modelData.action);
+                            }
                         }
                     }
                 }
@@ -344,7 +399,7 @@ Item {
                 }
                 NacreText {
                     width: parent.width
-                    text: "Nacre is a desktop built on your Linux system. System packages stay with your distribution; personal configuration stays on this computer."
+                    text: "Nacre is a desktop for Hyprland, built with Quickshell. System packages stay with your distribution; personal configuration stays on this computer."
                     color: NacreTokens.mutedInk
                     font.pointSize: 10.5
                     wrapMode: Text.Wrap

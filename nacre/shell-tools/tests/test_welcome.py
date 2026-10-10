@@ -11,6 +11,7 @@ from unittest.mock import Mock, patch
 from concurrent.futures import ThreadPoolExecutor
 import contextlib
 import io
+import shutil
 
 ROOT = Path(__file__).parents[3]
 
@@ -127,6 +128,83 @@ class WelcomeTests(unittest.TestCase):
         ):
             self.assertEqual(launcher.main(), 1)
             self.assertEqual(helper.call_args.args, ("release-login", "ours"))
+
+    def test_live_shortcuts_follow_remaps_and_omit_removed_actions(self):
+        bindings = [
+            {"key": "E", "modmask": 68, "description": "Nacre:files", "submap": ""},
+            {"key": "F", "modmask": 64, "description": "", "arg": "private command"},
+            {
+                "key": "R",
+                "modmask": 64,
+                "description": "Nacre:files",
+                "submap": "resize",
+            },
+        ]
+        rows = welcome.shortcut_rows(bindings)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["key"], "Super + Ctrl + E")
+        self.assertNotIn("private", json.dumps(rows))
+        self.assertEqual(welcome.shortcut_rows([]), [])
+
+    def test_live_shortcut_ranges_aliases_and_related_keys(self):
+        binds = [
+            {"key": str(n), "modmask": 64, "description": "Nacre:workspace"}
+            for n in range(2, 6)
+        ]
+        binds += [
+            {"key": str(n), "modmask": 65, "description": "Nacre:move-workspace"}
+            for n in range(2, 6)
+        ]
+        binds += [
+            {"key": key, "modmask": 64, "description": "Nacre:focus"}
+            for key in ["left", "right", "up", "down"]
+        ]
+        binds += [
+            {"key": "Q", "modmask": 64, "description": "Nacre:put-away"},
+            {"key": "X", "modmask": 65, "description": "Nacre:restore"},
+            {"key": "C", "modmask": 68, "description": "Nacre:close"},
+        ]
+        rows = {row["id"]: row for row in welcome.shortcut_rows(binds)}
+        self.assertEqual(rows["workspace"]["key"], "Super + 2–5")
+        self.assertIn("Super + Shift + 2–5", rows["workspace"]["detail"])
+        self.assertEqual(rows["focus"]["key"], "Super + arrows")
+        self.assertIn("Super + Shift + X", rows["put-away"]["detail"])
+        self.assertNotIn("Shift + Q", rows["put-away"]["detail"])
+        binds.pop(0)
+        self.assertEqual(welcome.binding_labels(binds)["workspace"], "Super + 3–5")
+        with self.assertRaises(ValueError):
+            welcome.shortcut_rows({})
+
+    def test_no_compositor_has_an_explicit_unavailable_state(self):
+        with patch.object(welcome.subprocess, "run", side_effect=FileNotFoundError()):
+            rows, error = welcome.live_shortcuts()
+        self.assertEqual(rows, [])
+        self.assertIn("Hyprland", error)
+
+    @unittest.skipUnless(shutil.which("lua"), "Lua unavailable")
+    def test_actual_lua_bind_registrations_have_descriptions(self):
+        script = """local function proxy(path)
+return setmetatable({}, {__index=function(t,k) local p=proxy(path..'.'..k);rawset(t,k,p);return p end,__call=function(t,...) return {} end}) end
+hl={dsp=proxy('hl'),bind=function(keys,action,options) if options and options.description then io.write(keys..'\\t'..options.description..'\\n') end end,define_submap=function(name,fn) fn() end}
+dofile(arg[1]);dofile(arg[2])
+"""
+        result = subprocess.run(
+            [
+                "lua",
+                "-",
+                str(ROOT / "hypr/conf/keybinding.lua"),
+                str(ROOT / "nacre/shell-tools/shortcuts.lua"),
+            ],
+            input=script,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        rows = dict(line.split("\t") for line in result.stdout.splitlines())
+        self.assertEqual(rows["SUPER + A"], "Nacre:launcher")
+        self.assertEqual(rows["SUPER + SHIFT + F"], "Nacre:files")
+        self.assertEqual(rows["SUPER + CTRL + B"], "Nacre:ai-sidebar")
+        self.assertEqual(rows["SUPER + 7"], "Nacre:workspace")
 
     def test_deployment_and_login_owner_are_declared(self):
         mapping = configure.files(ROOT)

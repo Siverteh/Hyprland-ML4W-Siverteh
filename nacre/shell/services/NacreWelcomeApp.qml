@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland as Native
 
 Singleton {
     id: root
@@ -16,11 +17,87 @@ Singleton {
             available: {}
         })
     property string error: ""
+    property string optionalApp: ""
+    property var demoEntries: []
+    readonly property bool demoBusy: NacreWallpapers.themeBusy || !!NacreWallpapers.selectedPath || !!NacreWallpapers.queuedPath
+    readonly property var appearance: NacreWallpapers.appearancePreferences
+    readonly property string demoError: NacreWallpapers.error || ""
     property var queue: []
     property int focusAttempts: 0
     readonly property bool busy: worker.running
     readonly property var client: (NacreHyprland.clients || []).find(c => c.pid === Quickshell.processId && c.title === "Nacre Welcome" && c.wmClass === "org.quickshell") || null
     readonly property bool active: visible && !!window && !window.minimized && (client?.workspace?.id ?? 1) > 0
+    function prepareDemo() {
+        const list = NacreWallpapers.list || [];
+        if (!list.length)
+            return;
+        const sample = [];
+        function add(item) {
+            if (item && !sample.some(value => value.path === item.path))
+                sample.push(item);
+        }
+        add(list.find(item => item.path === NacreWallpapers.actualCurrent));
+        for (const ratio of [0, .33, .66, .99])
+            add(list[Math.min(list.length - 1, Math.floor(list.length * ratio))]);
+        for (const item of list) {
+            if (sample.length >= 4)
+                break;
+            add(item);
+        }
+        demoEntries = sample.slice(0, 4);
+    }
+    function selectDemo(path) {
+        if (demoBusy || !demoEntries.some(item => item.path === path))
+            return;
+        if (appearance.palettePreset !== "wallpaper")
+            NacreWallpapers.preference({
+                palettePreset: "wallpaper"
+            });
+        NacreWallpapers.setWallpaper(path);
+    }
+    function themeDemo(mode, personality) {
+        if (demoBusy || !NacreWallpapers.actualCurrent)
+            return;
+        const value = {
+            palettePreset: "wallpaper"
+        };
+        if (["dark", "light"].includes(mode))
+            value.paletteMode = mode;
+        if (["natural", "pop", "pearl"].includes(personality))
+            value.palettePersonality = personality;
+        if (Object.keys(value).length > 1)
+            NacreWallpapers.preference(value);
+    }
+    function setup(name) {
+        if (["ai", "brain"].includes(name)) {
+            optionalApp = name;
+            page = "apps";
+        }
+    }
+    Connections {
+        target: NacreWallpapers
+        function onListChanged() {
+            if (root.active && !root.demoEntries.length)
+                Qt.callLater(() => {
+                    if (root.active && !root.demoEntries.length)
+                        root.prepareDemo();
+                });
+        }
+    }
+    onActiveChanged: if (active && !demoEntries.length)
+        Qt.callLater(() => {
+            if (root.active && !root.demoEntries.length)
+                root.prepareDemo();
+        })
+    Connections {
+        target: Native.Hyprland
+        function onRawEvent(event) {
+            if (event.name === "configreloaded" && root.active && root.page === "shortcuts")
+                root.refresh();
+        }
+    }
+    onPageChanged: if (visible && page === "shortcuts")
+        refresh()
     function request(args) {
         queue = [...queue, args];
         next();
@@ -34,7 +111,9 @@ Singleton {
         }
     }
     function refresh() {
-        if (created && !busy && queue.length === 0)
+        if (!created)
+            return;
+        if (!queue.some(args => args[0] === "state"))
             request(["state"]);
     }
     function setStartup(value) {
@@ -49,6 +128,9 @@ Singleton {
             NacrePanelState.closeTransient(view);
         created = true;
         visible = true;
+        optionalApp = "";
+        demoEntries = [];
+        prepareDemo();
         refresh();
         focusAttempts = 0;
         if (window)
@@ -149,6 +231,12 @@ Singleton {
         function route(name: string): void {
             root.route(name);
         }
+        function selectDemo(path: string): void {
+            root.selectDemo(path);
+        }
+        function themeDemo(mode: string, personality: string): void {
+            root.themeDemo(mode, personality);
+        }
         function state(): string {
             return JSON.stringify({
                 created: root.created,
@@ -158,6 +246,13 @@ Singleton {
                 busy: root.busy,
                 error: root.error,
                 data: root.data,
+                demoEntries: root.demoEntries.map(item => ({
+                            path: item.path,
+                            name: item.name
+                        })),
+                demoBusy: root.demoBusy,
+                appearance: root.appearance,
+                optionalApp: root.optionalApp,
                 width: root.window?.width || 0,
                 height: root.window?.height || 0
             });

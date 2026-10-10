@@ -74,14 +74,15 @@ Singleton {
     readonly property bool pickerOpen: Object.values(NacrePanelState.screens).some(view => view.launcher && view.launcherMode === "wallpaper")
     readonly property bool appearanceOpen: NacrePanelState.settingsVisible && NacrePanelState.settingsPage === "appearance"
     readonly property bool rotationReady: rotationPool.length > 1 && !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !commit.running && !themeBusy && !catalog.running && !selectedPath && !queuedPath
-    readonly property bool canRotate: rotationReady && !pickerOpen && !appearanceOpen
+    readonly property bool welcomeDemoOpen: NacreWelcomeApp.active && NacreWelcomeApp.page === "home"
+    readonly property bool canRotate: rotationReady && !pickerOpen && !appearanceOpen && !welcomeDemoOpen
     readonly property bool rotationAllowed: preferences.rotationEnabled === true && canRotate
     readonly property real rotationIntervalMs: Math.max(5, Math.min(1440, Number(preferences.rotationMinutes) || 30)) * 60000
     property real rotationStartupMs: Date.now()
     property real rotationRetryMs: 0
     readonly property real rotationAnchorMs: Math.max(media.appliedAtMs || 0, NacrePresentation.active.changedAtMs || 0, preferences.rotationAnchorMs || 0) || rotationStartupMs
     readonly property real rotationDueMs: Math.max(rotationAnchorMs + rotationIntervalMs, rotationRetryMs)
-    readonly property string rotationPauseReason: WallpaperPlayback.sleeping ? "asleep" : WallpaperPlayback.locked ? "locked" : pickerOpen ? "wallpaper picker open" : appearanceOpen ? "Settings open" : rotationPool.length < 2 ? "fewer than two wallpapers" : !rotationReady ? "applying changes" : ""
+    readonly property string rotationPauseReason: WallpaperPlayback.sleeping ? "asleep" : WallpaperPlayback.locked ? "locked" : pickerOpen ? "wallpaper picker open" : appearanceOpen ? "Settings open" : welcomeDemoOpen ? "Welcome demo open" : rotationPool.length < 2 ? "fewer than two wallpapers" : !rotationReady ? "applying changes" : ""
     readonly property string rotationStatus: !preferences.rotationEnabled ? "Rotation is off" : rotationPauseReason ? "Paused: " + rotationPauseReason + ". The scheduled change is preserved." : "Next wallpaper at " + Qt.formatTime(new Date(rotationDueMs), "hh:mm")
 
     function localPath(value) {
