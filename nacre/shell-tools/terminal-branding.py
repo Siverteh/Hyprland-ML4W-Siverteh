@@ -65,7 +65,7 @@ def register(home, proc=Path("/proc")):
 
 def packet(image, path, edit=False):
     # Editing root frame 1 preserves placements and never moves the text cursor.
-    fields = f"a=f,r=1,X=1" if edit else "a=T,r=12"
+    fields = f"a=f,r=1,X=1" if edit else "a=T,r=16"
     source = base64.b64encode(os.fsencode(path)).decode()
     return f"\x1b_G{fields},t=f,f=100,i={image},q=2;{source}\x1b\\".encode()
 

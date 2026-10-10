@@ -74,3 +74,6 @@ rerun after the update; new normal Kitty sessions register automatically.
 Nacre AI is also installed as an application: search its name in the launcher.
 Its desktop entry uses `nacre-ai`, the existing AI window class and a generated
 transparent shell icon; it does not launch an assistant worker until requested.
+
+Terminal sizing uses a 14-point default font and a 16-row Fastfetch logo with a
+36-column slot. Live palette edits preserve that placement and size.

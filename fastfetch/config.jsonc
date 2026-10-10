@@ -3,8 +3,8 @@
   "logo": {
     "type": "raw",
     "source": "~/.cache/nacre/terminal-logos/$KITTY_PID-$KITTY_WINDOW_ID.raw",
-    "width": 26,
-    "height": 12,
+    "width": 36,
+    "height": 16,
     "padding": {
       "right": 2
     }

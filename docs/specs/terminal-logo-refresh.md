@@ -8,7 +8,7 @@ never notify AI workers or terminal servers.
 For Fastfetch, reuse the managed render-logo.sh startup hook. Prepare a raw Kitty
 packet with a unique image id and register the outer persistent terminal shell,
 its Linux start time and its PTY's device/inode. Fastfetch loads that per-Kitty
-window raw file with a bounded 26-column/12-row slot, preserving its information
+window raw file with a bounded 36-column/16-row slot, preserving its information
 layout. The normal palette publisher recolors the existing root frame only with
 Kitty's frame-edit API, without creating a placement, moving the cursor, rerunning
 Fastfetch, sending keyboard input or enabling animation. Closed/reused shells and
