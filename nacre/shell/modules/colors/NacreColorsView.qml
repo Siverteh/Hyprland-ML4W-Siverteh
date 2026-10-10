@@ -49,6 +49,7 @@ Item {
     }
     Flow {
         id: toolbar
+        objectName: "colorStyleControls"
         width: parent.width
         spacing: 7
         Repeater {
@@ -63,7 +64,22 @@ Item {
                 })
             }
         }
+    }
+    Rectangle {
+        y: toolbar.height + 8
+        width: parent.width
+        height: 1
+        color: NacreTokens.outline
+        opacity: 0.3
+    }
+    Flow {
+        id: appearanceControls
+        objectName: "appearanceControls"
+        y: toolbar.height + 18
+        width: parent.width
+        spacing: 7
         ActionButton {
+            objectName: "darkModeButton"
             text: "Dark"
             selected: NacreColorsApp.options.mode === "dark"
             onClicked: NacreColorsApp.change({
@@ -72,6 +88,7 @@ Item {
             })
         }
         ActionButton {
+            objectName: "lightModeButton"
             text: "Light"
             selected: NacreColorsApp.options.mode === "light"
             onClicked: NacreColorsApp.change({
@@ -87,7 +104,7 @@ Item {
     }
     Row {
         id: navigation
-        y: toolbar.height + 8
+        y: appearanceControls.y + appearanceControls.height + 8
         spacing: 8
         Repeater {
             model: ["studio", "compare", "accessibility"]

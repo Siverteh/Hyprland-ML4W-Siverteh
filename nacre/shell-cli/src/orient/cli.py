@@ -8,7 +8,7 @@ from . import ENGINE_ID
 from .engine import from_image
 from .extract import analyze, sample_color
 from .palette import PERSONALITIES
-from .export import export
+from .export import export, render
 
 
 def main(argv=None):
@@ -36,12 +36,30 @@ def main(argv=None):
     exports.add_argument("palette", type=Path)
     exports.add_argument("directory", type=Path)
     exports.add_argument("--templates", type=Path)
+    rendering = commands.add_parser("render", help="render an Orient or Matugen color template to stdout")
+    rendering.add_argument("palette", type=Path)
+    rendering.add_argument("template", type=Path)
+    rendering.add_argument("--companion", type=Path, help="opposite-mode palette JSON")
+    rendering.add_argument("--variables", type=Path, help="JSON object for custom.KEYWORD tokens")
     args = parser.parse_args(argv)
     try:
         if args.command == "analyze":
             result = analyze(args.image)
         elif args.command == "sample":
             result = {"hex": sample_color(args.image, args.x, args.y)}
+        elif args.command == "render":
+            palette_data = json.loads(args.palette.read_text())
+            schemes = {}
+            if args.companion:
+                companion = json.loads(args.companion.read_text())
+                if companion.get("mode") not in ("dark", "light") or companion["mode"] == palette_data["mode"]:
+                    raise ValueError("Companion palette must use the opposite mode")
+                schemes[companion["mode"]] = companion["colours"]
+            custom = json.loads(args.variables.read_text()) if args.variables else None
+            if custom is not None and not isinstance(custom, dict):
+                raise ValueError("Custom variables must be a JSON object")
+            sys.stdout.write(render(args.template.read_text(), palette_data, schemes=schemes, custom=custom))
+            return 0
         elif args.command == "export":
             result = {"files": export(json.loads(args.palette.read_text()), args.directory, args.templates)}
         else:

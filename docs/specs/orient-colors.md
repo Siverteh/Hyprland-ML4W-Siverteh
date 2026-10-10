@@ -86,3 +86,14 @@ light body colors and all dark-mode role outputs. Neutral wallpapers need three
 spaced gray UI accents. Do not use the dark-mode color-vision lightness offsets
 to drive light accents back toward black. Retain full contrast checks, report
 chromatic simulation limits, and review real-image before/after comparisons.
+
+## Matugen expressions and final polish, 2026-10-10
+
+Implement original color-expression compatibility from Matugen public grammar,
+without importing its parser or generator. Support standard color roles/formats,
+active/explicit dark/light schemes, image/mode/custom keywords and escaped tokens.
+Reject unsupported template logic clearly; do not execute config hooks or silently
+substitute modes. Plain-file rendering and exports must remain read-only toward
+installed themes, with exact source identity for automatic companion generation.
+Pale warm light accents may receive bounded chroma compensation with hue and
+contrast preserved. Separate color personalities from Light/Dark controls visually.

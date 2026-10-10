@@ -4101,19 +4101,20 @@
     },
     "nacre/shell-tools/palette-presets.json": {
       "disposition": "independent",
-      "sha256": "a27fd4c43cd1a9fb62dd2cd36e809639772473970b55d8de6c4f8f3934fe588d",
+      "sha256": "04d93507fea6a906779a1ba684fc5e4e813096ec22da9e156f5459ee2c993557",
       "evidence": [
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
         "Complete current source/data reviewed. Basis 5ecf556: all30 own named seed entries and60 mode outputs regenerated exactly with current independent engine; every serialized color role reproduced, not merely sampled. Later path history: 9c9089f, 06632c9, bd17192, 372fe77, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped.",
         "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment.",
         "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source.",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/reference-style.json": {
       "disposition": "independent",
-      "sha256": "85ede09d1afe603fe5fae26d1c1a88deecfa34972472541b851eeac54fad4f94",
+      "sha256": "c6313273158abbb5b214842b8a5de6f610bb24cc87bc52738d47e9ccadad3c20",
       "evidence": [
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
@@ -4122,7 +4123,8 @@
         "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/wallpaper-collection.json": {
@@ -6700,7 +6702,7 @@
     },
     "docs/features/orient.md": {
       "disposition": "non-implementation",
-      "sha256": "e582e61c5cb24ca78fd795e4053871053ede05e87aeda1c006a9ee08738887b0",
+      "sha256": "ef14d745e6650a6115202f99d17c8240a750bb9580d91ea984650eb331c5388c",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6711,7 +6713,8 @@
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
         "2026-10-10 final live video check exposed poster-only scheme refresh. Route that refresh through existing animation-source resolution, with an actual four-frame GIF CLI refresh regression. Colors and wallpaper publication owner unchanged; no upstream code used.",
         "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
-        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required."
+        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required.",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "docs/features/platform-services.md": {
@@ -6837,7 +6840,7 @@
     },
     "nacre/shell-cli/README.md": {
       "disposition": "non-implementation",
-      "sha256": "dd6aa8adde344dadc937230fbed8a89763e6cc2b84af7b4d3809636a60b321bb",
+      "sha256": "7506ed8bf80739d63872c28484b889718fca44d9e706fb009bac99420c214ce8",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6845,7 +6848,8 @@
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/README.md": {
@@ -8888,14 +8892,15 @@
     },
     "docs/specs/orient-colors.md": {
       "disposition": "independent",
-      "sha256": "2a5b7f893a56ed01d1125f27b9bf97530539f3d8142ab74b3bdebc0c423d5509",
+      "sha256": "b0b2cc7b6fc1728e7a3491aae0c72fd359059cbcd62905269a7de99540d8c8ed",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/desktop/nacre-colors.desktop": {
@@ -8936,12 +8941,13 @@
     },
     "nacre/shell-cli/src/orient/cli.py": {
       "disposition": "independent",
-      "sha256": "1aadfc2569c70901f642c4c3e51e8f8c274f049c164d6ea2946162a450c901b8",
+      "sha256": "2e5c11a36a585a484b86a1bddf4152874f69e6ca052f9c87f6a5b7c84ac3893c",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-cli/src/orient/colour.py": {
@@ -8966,12 +8972,13 @@
     },
     "nacre/shell-cli/src/orient/export.py": {
       "disposition": "independent",
-      "sha256": "fa82520ad43cc9ddb2fd2c7be6174046e260ff902fbe02198d2fab9369f66077",
+      "sha256": "9353dd42f3eff29733d4d8846bc947d1f5e3ae133d527e2a4212cee674c54238",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed."
+        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed.",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-cli/src/orient/extract.py": {
@@ -8987,14 +8994,15 @@
     },
     "nacre/shell-cli/src/orient/palette.py": {
       "disposition": "independent",
-      "sha256": "e35e1c1d196fc14426c39d2b89f6c65aeece73fa1d7cf945930a132b598528e6",
+      "sha256": "8b8456e72b15168d474e8e667cfff65bc612a3120b2053e25fb7fd78eb2b5e75",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-cli/src/orient/storage.py": {
@@ -9008,11 +9016,12 @@
     },
     "nacre/shell-cli/src/orient/template_engine.py": {
       "disposition": "independent",
-      "sha256": "f4512378d5d43d7dd68922aad3519fed2333078588671f7724c3cb26fb15cbf7",
+      "sha256": "566fedb2b8f80a5f3969d74331f308edae8f88db8ff8854bae096c857ed8a6b2",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-cli/src/orient/templates/alacritty.toml.in": {
@@ -9143,12 +9152,13 @@
     },
     "nacre/shell-tools/colors.py": {
       "disposition": "independent",
-      "sha256": "088899b9398329d10407b43b71afb1d05353b18afb584473af7633d921ecd156",
+      "sha256": "33e647119fae4a5da3bbdaf033ee89664219cdc5ff08f97def68bc26a9a067b0",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/gtk3-colors.css.in": {
@@ -9225,14 +9235,15 @@
     },
     "nacre/shell-tools/tests/orient-gallery/palettes.json": {
       "disposition": "independent",
-      "sha256": "6387b1dc406775ce0df35fe77160199b0a5ad0bf51c758e1e9da1f5ce355d8ba",
+      "sha256": "0762a6689c7ed97ccb95f1faf87980647004f982b17298d49b08f94a67e4e0d2",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/tests/orient-gallery/snapshot.py": {
@@ -9258,18 +9269,19 @@
     },
     "nacre/shell-tools/tests/test_colors_ui.py": {
       "disposition": "independent",
-      "sha256": "b53e716c450844f7535ac69d17c7fcdd29281ad8ce644712398dc30c97433a44",
+      "sha256": "961c98dbc25537ad41ffe15ec7ccd4a02cd46cc0cfa91e121142ad833bb50c63",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell-tools/tests/test_orient3.py": {
       "disposition": "independent",
-      "sha256": "dd4edd63863c91d157a0c5d158a81f6138994d4ab58cd0479c5aa4c271c405ff",
+      "sha256": "4d92ccf06ca066f9632be741e1356f62c1aa518fb7efda062338ae77cd881ff7",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
@@ -9279,7 +9291,8 @@
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
         "2026-10-10 final live video check exposed poster-only scheme refresh. Route that refresh through existing animation-source resolution, with an actual four-frame GIF CLI refresh regression. Colors and wallpaper publication owner unchanged; no upstream code used.",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell/branding/nacre-colors-compact.svg": {
@@ -9338,13 +9351,14 @@
     },
     "nacre/shell/modules/colors/NacreColorsView.qml": {
       "disposition": "independent",
-      "sha256": "7771f44dace0ec74b0fb047496ff37b72ba777318bf1743bcb0a40fa4030aa63",
+      "sha256": "22d0af55124bbf64897f9769dc74955ca416e3d731fb23965a378c773466dfdf",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
-        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md"
+        "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
       ]
     },
     "nacre/shell/modules/colors/NacreColorsWindow.qml": {
@@ -9429,6 +9443,13 @@
         "nacre/shell-tools/tests/orient-gallery/README.md",
         "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
       ]
+    },
+    "nacre/shell-tools/tests/test_matugen_templates.py": {
+      "disposition": "independent",
+      "evidence": [
+        "2026-10-10 final Orient polish reviewed: own standard Matugen color-expression renderer authored from public syntax specifications, not parser/generator source; legacy tokens, explicit mode companions/source identity, formats/escapes and plain-file read-only CLI tested. Unsupported logic fails clearly. Pale warm light UI chroma compensation retains source hue/contrast; personalities and light/dark split by divider/rows. Own regressions/gallery and native row-placement checks reviewed; no upstream shell code used. docs/specs/orient-colors.md"
+      ],
+      "sha256": "89d2cc4b8f83029441dd7a4a161be59ed4b342a02d47b402d53cea1b9a932d0f"
     }
   }
 }

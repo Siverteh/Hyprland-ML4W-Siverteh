@@ -38,3 +38,9 @@ source accents. Background policy is independent: `--background-from-wallpaper`
 uses sampled shadow/highlight families and `--no-background-from-wallpaper` uses
 restrained accent tint. The retired Source personality is accepted by the legacy
 adapter/library as Natural with sampled backgrounds; new CLI mode lists show seven.
+
+Matugen color expressions are supported alongside Orient tokens. Render existing
+files with `orient render palette.json template.css > theme.css`, optionally
+`--companion light.json` and `--variables variables.json`. Roles, standard color
+formats and mode/image/custom keywords are supported; filters/loops/includes and
+HCT palette expressions are not. See the feature guide for the exact contract.

@@ -2,17 +2,50 @@
 
 from pathlib import Path
 import json
+import re
+import hashlib
 from .palette import validate
 
-from .template_engine import render_values
+from .template_engine import render_values, TOKEN
 
 
-def render(template, palette):
+def render(template, palette, schemes=None, custom=None):
     validate(palette["colours"])
-    return render_values(template, dict(palette["colours"], mode=palette["mode"]))
+    contexts = dict(schemes or {})
+    # Only a template requesting the opposite mode needs its companion query.
+    expressions = [match[2].strip() for match in TOKEN.finditer(template) if not match[1]]
+    needed = {
+        m for m in ("dark", "light") if any(re.match(r"colors\.[A-Za-z_]+\." + m + r"\.", text) for text in expressions)
+    }
+    for mode in needed - {palette["mode"]} - set(contexts):
+        source = palette.get("source", {}).get("path")
+        if source and Path(source).is_file() and palette.get("name") == "dynamic":
+            from . import ENGINE_ID
+
+            if palette.get("engine") != ENGINE_ID:
+                raise ValueError("Palette engine changed; supply an explicit companion palette")
+            digest = hashlib.sha256()
+            with Path(source).open("rb") as stream:
+                for block in iter(lambda: stream.read(1024 * 1024), b""):
+                    digest.update(block)
+            if digest.hexdigest() != palette.get("source", {}).get("digest"):
+                raise ValueError("Source image changed; supply an explicit companion palette")
+            from .engine import from_image
+
+            options = dict(palette.get("input", {}), mode=mode, smart=False)
+            contexts[mode] = from_image(source, **options)["colours"]
+    for values in contexts.values():
+        validate(values)
+    return render_values(
+        template,
+        dict(palette["colours"], mode=palette["mode"]),
+        contexts,
+        palette.get("source", {}).get("path"),
+        custom,
+    )
 
 
-def export(palette, directory, templates=None):
+def export(palette, directory, templates=None, schemes=None, custom=None):
     root = (Path(templates) if templates else Path(__file__).with_name("templates")).resolve()
     directory = Path(directory).expanduser().resolve()
     pending = []
@@ -23,7 +56,7 @@ def export(palette, directory, templates=None):
         target = directory / relative
         if target.exists():
             raise ValueError("Export would replace an existing file: " + str(target))
-        text = render(path.read_text(), palette)
+        text = render(path.read_text(), palette, schemes=schemes, custom=custom)
         if target.suffix == ".json":
             json.loads(text)
         pending.append((target, text))

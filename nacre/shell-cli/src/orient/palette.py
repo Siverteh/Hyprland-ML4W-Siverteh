@@ -224,6 +224,11 @@ def generate(
             # Keep source hue/chroma; contrast may make a small final adjustment.
             lifted = max(0.52, min(0.58, light))
             lifted_chroma = c
+            # Pale warm pigments lose their warmth at text-safe middle tones.
+            # Give just their UI accents extra chroma; source hue stays intact.
+            if light >= 0.65 and 45 <= h <= 110 and 0.012 <= c <= 0.12:
+                lifted = 0.62
+                lifted_chroma = min(0.14, c * 1.28 + 0.01)
             if c < 0.012 or variant == "monochrome":
                 lifted = {"primary": 0.50, "secondary": 0.41, "tertiary": 0.35}[role]
         accent = readable(color(lifted, lifted_chroma, h), backgrounds)

@@ -140,6 +140,25 @@ class Orient3Tests(unittest.TestCase):
                 self.assertTrue(data["accessibility"]["textPasses"])
                 self.assertGreater(lch(data["colours"]["surface"])[0], 0.94)
 
+    def test_pale_warm_light_accents_keep_color_and_contrast(self):
+        from orient.palette import generate
+
+        for seed in ("dbc5b9", "dbcf79", "eebd9a"):
+            colors = generate(seed, "light")
+            source_light, source_chroma, source_hue = lch(seed)
+            light, chroma, hue = lch(colors["primary"])
+            self.assertGreater(
+                chroma, source_chroma * 0.85
+            )  # sRGB gamut can cap saturated yellow.
+            self.assertLess(hue_distance(hue, source_hue), 5)
+            self.assertGreater(light, 0.43)
+            self.assertEqual(colors["overtone"], seed)
+            self.assertTrue(
+                __import__("orient.accessibility", fromlist=["audit"]).audit(colors)[
+                    "textPasses"
+                ]
+            )
+
     def test_light_neutral_accents_are_distinct_grays_not_black(self):
         for seed in ("070707", "808080", "eeeeee"):
             p = self.scene(seed, seed)

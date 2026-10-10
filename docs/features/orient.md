@@ -58,13 +58,16 @@ without changing the entire desktop on workspace switches.
 ## Accessibility and fidelity
 
 Light-mode UI accents start in a middle-lightness band (OKLab L0.52–0.58),
-retaining source hue/chroma before gamut and contrast correction. Shadow pigments
+retaining source hue/chroma before gamut and contrast correction. Pale yellow,
+peach and cream accents receive a bounded chroma boost so their middle tones keep
+more warmth; source colors remain untouched. Shadow pigments
 no longer stay near black. Neutral accents use three spaced gray levels. The
 source colors/provenance remain original; audited colored text still meets4.5:1,
 so especially luminous hues can require a darker final tone. Light backgrounds
 and dark-mode role colors are unchanged by this correction. Light-mode color-vision
 diagnostics report close chromatic pairs instead of progressively darkening them.
 
+Color personalities and Light/Dark appear on separate toolbar rows with a divider.
 Studio previews a bar, window, terminal, notification and logo. Compare shows all
 personalities. Accessibility provides a contrast grid and approximate full-severity
 protanopia/deuteranopia/tritanopia simulations. The engine validates its documented
@@ -105,6 +108,35 @@ stable. Generated contrast colors explicitly have no sampled original; semantic
 terminal colors preserve their roles. Cache identities include source stat,
 normalization/engine policy and settings. Palette and analysis caches are separate.
 
+## Matugen color-template compatibility
+
+Orient reads its own `{{primary}}` tokens and Matugen expressions such as
+`{{ colors.primary.default.hex }}` and `{{ colors.on_surface.light.rgb }}`.
+Snake-case role names map to Orient roles; `source_color` maps to the source accent.
+Supported formats: hex, hex_stripped, rgb, rgba, hsl, hsla, red, green, blue, alpha,
+hue, saturation and lightness. CSS rgba/hsla uses opaque alpha1.0, numeric alpha255.
+`mode`, `is_dark_mode`, `image` and flat `custom.NAME` keywords are available.
+An escaped `\{{ token }}` stays literal. Older `colors.ROLE.FORMAT` uses the active
+scheme. Explicit light/dark tokens use the requested scheme, never the active one
+as a silent substitute. For image palettes from the current engine, an unchanged source can prepare the
+opposite mode on demand; supplied companions and captured favorite modes take
+precedence. No additional extraction runs while idle.
+
+```sh
+orient render palette.json existing-template.css > theme.css
+orient render palette.json existing-template.conf --companion light.json --variables variables.json
+```
+
+The render command accepts ordinary template filenames without renaming to `.in`.
+Colors custom export templates still live in `~/.config/nacre/colors-templates`
+with `.in` suffix. Built-in Orient tokens and exports retain their existing behavior.
+This is color-expression compatibility, not the full Matugen runtime: filters,
+blocks, loops, includes, arithmetic, custom color objects and generated HCT tonal
+palettes are rejected with a clear error. No hooks, external commands or Matugen
+configuration output paths are executed. Unsupported templates fail before an
+export writes files. References: [Matugen tokens](https://github.com/InioX/matugen/wiki/Configuration)
+and [template grammar](https://github.com/InioX/matugen/wiki/Templates).
+
 ## Export and sharing
 
 Export writes a new folder under `~/Documents/Nacre Colors`. It includes palette
@@ -114,7 +146,8 @@ It never edits those applications or installs modifications. Firefox distributio
 requires signing; Spotify needs optional Spicetify and Discord a user-theme client.
 The generated README gives application instructions. Add `.in` templates under
 `~/.config/nacre/colors-templates`; `{{primary}}` and other role tokens substitute
-validated six-digit hex. Unknown tokens and replacing existing files are errors.
+validated six-digit hex. Unknown tokens and replacing existing files are errors. Matugen color expressions
+work in these templates too.
 Palette cards include the image thumbnail/colors and “Made with Nacre”; cards are
 private output files, with no automatic upload or publication.
 

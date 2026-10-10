@@ -76,6 +76,11 @@ TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;visible:true;when:w
   const view=createTemporaryObject(studio,test);wait(30);
   const initial=NacreColorsApp.actions.length;
   compare(findChild(view,"sourcePersonality"),null);
+  const styles=findChild(view,"colorStyleControls");
+  const appearance=findChild(view,"appearanceControls");
+  verify(appearance.y>=styles.y+styles.height+12);
+  compare(findChild(view,"darkModeButton").parent,appearance);
+  compare(findChild(view,"lightModeButton").parent,appearance);
   const background=findChild(view,"wallpaperBackgroundSwitch");
   mouseClick(background,20,background.height/2);
   compare(NacreColorsApp.options.backgroundFromWallpaper,true);
