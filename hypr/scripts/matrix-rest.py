@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+"""Nacre's terminal-only quiet rain view; canonical colors and reversible modes."""
 
+from collections import deque
+from dataclasses import dataclass
 import os
+from pathlib import Path
 import random
 import re
 import select
@@ -10,232 +14,168 @@ import sys
 import termios
 import time
 import tty
-from pathlib import Path
+
+GLYPHS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>[]{}+-/\\|#@"
+PERIOD = 0.1
+ENTER = "\x1b[?1049h\x1b[?25l\x1b[?1000h\x1b[?1006h"
+LEAVE = "\x1b[0m\x1b[?1006l\x1b[?1000l\x1b[?25h\x1b[?1049l"
 
 
-SYMBOLS = (
-    "01<>[]{}()/\\|+-=*&#@!?%$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-)
-FRAME_DELAY = 0.1
-
-
-def normalize_color(value, fallback):
-    value = value.strip()
-
-    if re.fullmatch(r"#[0-9a-fA-F]{6}", value):
-        return value
-
-    match = re.fullmatch(
-        r"rgba\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*[0-9.]+\s*\)",
-        value,
-    )
-    if match:
-        return "#{:02x}{:02x}{:02x}".format(
-            max(0, min(255, int(match.group(1)))),
-            max(0, min(255, int(match.group(2)))),
-            max(0, min(255, int(match.group(3)))),
-        )
-
-    return fallback
-
-
-def read_color_file(name, fallback):
-    path = Path.home() / ".config" / "nacre" / "colors" / name
-    if not path.exists():
-        return fallback
-
+def read_rgb(role, fallback):
     try:
-        value = path.read_text().strip()
+        value = (Path.home() / ".config/nacre/colors" / role).read_text().strip()
+        if not re.fullmatch(r"#?[0-9a-fA-F]{6}", value):
+            return fallback
+        value = value.removeprefix("#")
+        return tuple(int(value[offset : offset + 2], 16) for offset in (0, 2, 4))
     except OSError:
         return fallback
 
-    return normalize_color(value, fallback) if value else fallback
+
+def blend(first, second, weight):
+    return tuple(round(a * (1 - weight) + b * weight) for a, b in zip(first, second))
 
 
-def hex_to_rgb(value):
-    value = value.strip().lstrip("#")
-    if len(value) != 6:
-        return 255, 255, 255
-
-    return tuple(int(value[index : index + 2], 16) for index in (0, 2, 4))
-
-
-def luminance(rgb):
-    r, g, b = [channel / 255.0 for channel in rgb]
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b
-
-
-def mix_rgb(left, right, balance):
-    inverse = 1.0 - balance
-    return tuple(
-        max(0, min(255, round(left[index] * inverse + right[index] * balance)))
-        for index in range(3)
-    )
-
-
-def darken_rgb(rgb, factor):
-    return tuple(max(0, min(255, round(channel * factor))) for channel in rgb)
-
-
-def ansi_fg(rgb):
-    return f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
-
-
-def ansi_bg(rgb):
-    return f"\033[48;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
+def dim(color, multiplier):
+    return tuple(round(channel * multiplier) for channel in color)
 
 
 def load_palette():
-    primary = hex_to_rgb(read_color_file("primary", "#6effa0"))
-    secondary = hex_to_rgb(read_color_file("secondary", "#b0ffd2"))
-    on_surface = hex_to_rgb(read_color_file("onsurface", "#e8f3ec"))
-    surface = hex_to_rgb(read_color_file("surface", "#08110c"))
-    background = surface
-
-    base = background if luminance(background) <= luminance(surface) else surface
-    bg = darken_rgb(mix_rgb(base, primary, 0.06), 0.22)
-    primary = mix_rgb(darken_rgb(primary, 0.72), on_surface, 0.12)
-    secondary = mix_rgb(darken_rgb(secondary, 0.58), bg, 0.18)
-    highlight = mix_rgb(on_surface, primary, 0.22)
-
+    accent = read_rgb("primary", (110, 255, 160))
+    support = read_rgb("secondary", (176, 255, 210))
+    ink = read_rgb("onsurface", (232, 243, 236))
+    body = read_rgb("surface", (8, 17, 12))
+    backdrop = dim(blend(body, accent, 0.06), 0.22)
+    trail = blend(dim(accent, 0.72), ink, 0.12)
     return {
-        "background": bg,
-        "primary": primary,
-        "secondary": secondary,
-        "highlight": highlight,
+        "background": backdrop,
+        "primary": trail,
+        "secondary": blend(dim(support, 0.58), backdrop, 0.18),
+        "highlight": blend(ink, trail, 0.22),
     }
 
 
-class MatrixRain:
-    def __init__(self):
-        self.columns = []
-        self.size = (0, 0)
+def color_escape(color, background=False):
+    return (
+        "\x1b["
+        + ("48" if background else "38")
+        + ";2;"
+        + ";".join(map(str, color))
+        + "m"
+    )
 
-    def configure(self, rows, cols):
-        if self.size == (rows, cols) and self.columns:
+
+@dataclass
+class Column:
+    x: int
+    head: float
+    speed: float
+    length: int
+    cells: deque
+
+
+class Rain:
+    def __init__(self, rng=None):
+        self.rng = random.Random() if rng is None else rng
+        self.geometry = (0, 0)
+        self.columns = []
+
+    def resize(self, width, height):
+        geometry = (max(1, width), max(1, height))
+        if geometry == self.geometry:
             return
-
-        self.size = (rows, cols)
+        self.geometry = geometry
+        width, height = geometry
+        spacing = 2 if width >= 100 else 1
         self.columns = []
-        spacing = 2 if cols >= 100 else 1
-        symbol_count = rows + 48
-
-        for x in range(0, cols, spacing):
+        for x in range(0, width, spacing):
+            length = self.rng.randint(max(6, height // 7), max(12, height // 3))
+            cells = deque(
+                (self.rng.choice(GLYPHS) for _ in range(length)), maxlen=length
+            )
             self.columns.append(
-                {
-                    "x": x,
-                    "head": random.uniform(-rows * 0.25, rows * 1.2),
-                    "speed": random.uniform(0.65, 1.8),
-                    "trail": random.randint(max(6, rows // 7), max(12, rows // 3)),
-                    "symbols": [random.choice(SYMBOLS) for _ in range(symbol_count)],
-                }
+                Column(
+                    x,
+                    self.rng.uniform(-height, height),
+                    self.rng.uniform(0.65, 1.8),
+                    length,
+                    cells,
+                )
             )
 
-    def reset_stream(self, stream, rows):
-        stream["head"] = random.uniform(-rows * 0.5, 0)
-        stream["speed"] = random.uniform(0.65, 1.8)
-        stream["trail"] = random.randint(max(6, rows // 7), max(12, rows // 3))
-
-    def tick(self):
-        rows, _cols = self.size
-        if rows <= 0:
-            return
-
-        for stream in self.columns:
-            stream["head"] += stream["speed"]
-
-            if random.random() < 0.12:
-                stream["symbols"][random.randrange(len(stream["symbols"]))] = (
-                    random.choice(SYMBOLS)
-                )
-
-            if random.random() < 0.018:
-                stream["speed"] = max(
-                    0.45, min(2.1, stream["speed"] + random.uniform(-0.12, 0.12))
-                )
-
-            if stream["head"] - stream["trail"] > rows:
-                self.reset_stream(stream, rows)
-
-    def draw(self, palette):
-        rows, cols = (
-            shutil.get_terminal_size((120, 40))[1],
-            shutil.get_terminal_size((120, 40))[0],
-        )
-        rows = max(rows, 1)
-        cols = max(cols, 1)
-        self.configure(rows, cols)
-
-        bg = palette["background"]
-        output = [ansi_bg(bg), "\033[2J"]
-
-        for stream in self.columns:
-            head = int(stream["head"])
-            trail = stream["trail"]
-            x = stream["x"]
-
-            if x >= cols:
-                continue
-
-            for offset in range(trail):
-                y = head - offset
-                if y < 0 or y >= rows:
+    def frame(self, colors):
+        width, height = self.geometry
+        parts = [color_escape(colors["background"], True), "\x1b[2J"]
+        for column in self.columns:
+            previous = int(column.head)
+            column.head += column.speed
+            for _ in range(max(0, int(column.head) - previous)):
+                column.cells.appendleft(self.rng.choice(GLYPHS))
+            if column.head - column.length >= height:
+                column.head = self.rng.uniform(-height, 0)
+                column.speed = self.rng.uniform(0.65, 1.8)
+            for offset, glyph in enumerate(column.cells):
+                row = int(column.head) - offset
+                if not 0 <= row < height or not 0 <= column.x < width:
                     continue
-
-                if offset == 0:
-                    color = palette["highlight"]
-                elif offset < 3:
-                    color = palette["primary"]
-                else:
-                    fade = max(0.0, 1.0 - (offset / max(trail, 1)))
-                    color = mix_rgb(
-                        palette["background"], palette["secondary"], 0.25 + fade * 0.55
+                color = (
+                    colors["highlight"]
+                    if offset == 0
+                    else colors["primary"]
+                    if offset < 3
+                    else blend(
+                        colors["background"],
+                        colors["secondary"],
+                        0.25 + 0.55 * (1 - offset / column.length),
                     )
-
-                symbol = stream["symbols"][(y + offset) % len(stream["symbols"])]
-                output.append(f"\033[{y + 1};{x + 1}H{ansi_fg(color)}{symbol}")
-
-        sys.stdout.write("".join(output))
-        sys.stdout.flush()
+                )
+                parts.extend(
+                    (f"\x1b[{row + 1};{column.x + 1}H", color_escape(color), glyph)
+                )
+        return "".join(parts)
 
 
 def run():
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        raise RuntimeError("The rest view requires a terminal")
+    original = termios.tcgetattr(sys.stdin.fileno())
+    stopped = False
+
+    def stop(_signum, _frame):
+        nonlocal stopped
+        stopped = True
+
+    handlers = {
+        number: signal.signal(number, stop)
+        for number in (signal.SIGINT, signal.SIGTERM)
+    }
+    rain = Rain()
     palette = load_palette()
-    rain = MatrixRain()
-    original_termios = termios.tcgetattr(sys.stdin)
-    stop = False
-
-    def stop_now(_signum=None, _frame=None):
-        nonlocal stop
-        stop = True
-
-    signal.signal(signal.SIGTERM, stop_now)
-    signal.signal(signal.SIGINT, stop_now)
-
+    started = time.monotonic()
     try:
         tty.setcbreak(sys.stdin.fileno())
-        sys.stdout.write("\033[?25l\033[?1000h\033[?1006h\033[2J")
+        sys.stdout.write(ENTER)
         sys.stdout.flush()
-        close_after = time.monotonic() + 0.35
-
-        while not stop:
+        while not stopped:
+            tick = time.monotonic()
             ready, _, _ = select.select([sys.stdin], [], [], 0)
             if ready:
-                try:
-                    data = os.read(sys.stdin.fileno(), 128)
-                except (BlockingIOError, OSError):
-                    data = b""
-
-                if data and time.monotonic() >= close_after:
+                data = os.read(sys.stdin.fileno(), 128)
+                if tick - started >= 0.35 and data:
                     break
-
-            rain.tick()
-            rain.draw(palette)
-            time.sleep(FRAME_DELAY)
+            size = shutil.get_terminal_size((120, 40))
+            rain.resize(size.columns, size.lines)
+            sys.stdout.write(rain.frame(palette))
+            sys.stdout.flush()
+            time.sleep(max(0, PERIOD - (time.monotonic() - tick)))
     finally:
-        sys.stdout.write("\033[0m\033[2J\033[H\033[?1006l\033[?1000l\033[?25h")
-        sys.stdout.flush()
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, original_termios)
+        try:
+            sys.stdout.write(LEAVE)
+            sys.stdout.flush()
+        finally:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, original)
+            for number, handler in handlers.items():
+                signal.signal(number, handler)
 
 
 if __name__ == "__main__":
