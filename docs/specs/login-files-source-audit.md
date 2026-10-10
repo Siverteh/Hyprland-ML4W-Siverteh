@@ -8,12 +8,14 @@ Thunar/GTK and stock licensed Papirus/fonts remain dependencies.
 
 Trace current authoring histories and active installed/caller contracts before
 reading uncertain bodies. Login Main/config/helpers trace to local cb36d47;
-Files/theme/helper integration to local338417c. Those first additions are not
-sole proof of origin. The console issue file traces to ML4W import989022d and
+Files/theme/helper integration to local 338417c. Those first additions are not
+sole proof of origin. The console issue file traces to ML4W import 989022d and
 later rebranding. Treat that uncertain asset as a replacement target: capture
 public native console/banner and deployment contracts, discard the old body,
 author fresh Nacre text/geometry without consulting old/upstream artwork while
-writing. Record prior exposure honestly; retain notices pending final comparison.
+writing if it has an active consumer. If unused, retire it instead of adding a
+new console-banner owner. Record prior exposure honestly; retain notices pending
+final comparison.
 
 Preserve preferred desktop/file-manager styling, palette synchronization, input
 and cursor behavior. Login authentication stays SDDM/PAM-owned; theme is only
@@ -31,3 +33,12 @@ no real auth/device/power action. Full checks/native Hyprland, reviewed plan/app
 where source changes, exact installed/source/IPC checks and exact-main CI.
 Document root-owned deployment requirements and physical cold-login limits.
 Other helpers/fixtures/workflow/packaging/final comparison and full goal stay open.
+
+Verified consumer boundary: login-install.py installs only Main.qml, Logo.qml,
+theme.conf and metadata.desktop, all four matching the installed root-owned
+theme. No maintained source references login/issue or /etc/issue; the actual
+system console banner differs from the repository artifact. Retire the unused
+uncertain repository issue file and add its retired-path guard, without reading
+its body to reproduce it or changing /etc/issue. That retirement requires shell/
+repository checks but no root theme/banner mutation. The remaining nine target
+bodies still need complete origin reviews; called assets/tests remain separate.
