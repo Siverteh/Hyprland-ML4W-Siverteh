@@ -37,3 +37,21 @@ audit-only records retain proven installed bytes instead of pointless cutover.
 Use owned temporary previews, not user windows/accounts/vault or new wallpaper
 choices. Exact-main CI. Branding/lock/login/Thunar module and other generators
 remain separately scoped; whole originality goal/notices remain until complete.
+
+## Verified follow-up behavior
+
+Locally authored bodies retained after traced histories and mechanical predecessor/
+peer comparison (no five-line blocks copied; supplemental, not sole evidence).
+Two regression checks fail on baseline: stale generated folder link reused and
+new KDE scheme still branded Siverteh. Recognized generated index is identified
+by exact previous canonical content, then current source links repaired atomically.
+Regular artwork and custom indexes remain untouched; valid caches keep index mtime.
+KDE active scheme/file is Nacre; existing private Siverteh.colors is left intact
+rather than deleting unproven user content. Color roles and unrelated settings stay.
+
+Rofi 2.0.0 -rasi-validate crashes even for a minimal valid one-property theme
+(exit 139); native -no-config -theme FILE -dump-theme succeeds (exit 0). Record
+this validator limitation, do not claim it passed. Verify actual fallback input/
+Escape with owned safe data, not real window/network actions. Rofi issue 2320
+reports matching NULL display cleanup failure; no system package patch in scope.
+Papirus GPL3 source/license remains a separate installed-artwork dependency.

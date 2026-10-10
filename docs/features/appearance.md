@@ -49,3 +49,13 @@ prevents readers from seeing half-written files or simultaneous publishers from
 interleaving. It does not make the whole collection of application settings a
 single filesystem crash transaction. Private sidebar/history writes keep their
 existing lightweight atomic primitive; no new polling or per-keystroke disk sync.
+
+The active KDE color scheme is named Nacre. Existing private schemes are
+preserved, including the earlier Siverteh.colors file. Palette-matched folder
+overlays repair recognized stale source links; custom index files and regular
+artwork overrides stay untouched. Valid cache indexes are reused without writes.
+
+Folder artwork is supplied by the installed [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme),
+under its retained [GPL-3.0 license](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE).
+The overlay links to that package artwork; it does not make the icons original
+Nacre art or copy them into this repository.

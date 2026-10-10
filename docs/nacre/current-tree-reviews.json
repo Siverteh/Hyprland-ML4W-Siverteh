@@ -1373,6 +1373,42 @@
         "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
         "Local fixtures introduced 8afd305 and extended with own sync/rotation/GTK/fixed-palette/prepared/contrast changes. Current fixture uses separately replaced own Orient reference/preset data rather than old Caelestia output. New actual process/flock/missing-role/prepared-reentry tests authored from current publication spec, two failures observed on baseline then pass. No private source/wallpaper or upstream implementation body in fixture."
       ]
+    },
+    "nacre/shell-tools/rofi.rasi": {
+      "disposition": "independent",
+      "sha256": "164b8fa890b7aadfde8f8d02e3821124bff965758d400845979810f5aeac62c0",
+      "evidence": [
+        "docs/specs/toolkit-palette-companions.md",
+        "docs/nacre/PROVENANCE.md#toolkit-palette-companion-source-review",
+        "Local fallback theme introduced e42b701 before Caelestia shell integration, own style update 3c1b16d and namespace 548f0b4. Current body/callers reviewed; predecessor/peer mechanical comparison supports local origin with no five-line copies. Actual native theme dump and owned menu/Escape pass; standalone 2.0 validator crash separately reproduced on minimal theme, not falsely passing."
+      ]
+    },
+    "nacre/shell-tools/file-icons.py": {
+      "disposition": "independent",
+      "sha256": "27f930957909b20db9878f90fac7c4c74d5f6a623df739c4ef31cd0bcab58821",
+      "evidence": [
+        "docs/specs/toolkit-palette-companions.md",
+        "docs/nacre/PROVENANCE.md#toolkit-palette-companion-source-review",
+        "Local palette folder-overlay helper introduced 5611be5, KDE integration 86bebe6 and system-source/version fixes 47b06d4/79916a3; namespace 548f0b4. Own current logic reviewed, no inherited body identified. New actual stale-cache regression proves baseline problem; recognized canonical indexes/link repair independent additions preserve custom indexes/regular SVGs/cache reuse. Artwork remains installed Papirus GPL3 dependency, not own copied assets."
+      ]
+    },
+    "nacre/shell-tools/kde-palette.py": {
+      "disposition": "independent",
+      "sha256": "820e12f97eceaa3932f62b2ae80b5dc295d79301821b37e58485706d7cbb4dfa",
+      "evidence": [
+        "docs/specs/toolkit-palette-companions.md",
+        "docs/nacre/PROVENANCE.md#toolkit-palette-companion-source-review",
+        "New local KDE role writer 86bebe6; namespace 548f0b4. Current own role/write code reviewed and provenance compared; Nacre scheme identity/file correction preserves all color roles, unrelated user fields and private legacy scheme. No upstream body reused; native apps/artwork dependencies separately scoped."
+      ]
+    },
+    "nacre/shell-tools/tests/test_file_manager_style.py": {
+      "disposition": "independent",
+      "sha256": "45d6e71738dad1db8ce2a78d7f0aa144bffaa50c03e467b1402112cf92948d7c",
+      "evidence": [
+        "docs/specs/toolkit-palette-companions.md",
+        "docs/nacre/PROVENANCE.md#toolkit-palette-companion-source-review",
+        "Own helper fixtures first 5611be5 and KDE 86bebe6, local cleanup/default-Thunar/foundation adjustments traced. New isolated stale-link/regular-art/custom-index/legacy-scheme regressions from current spec; two baseline failures observed before fixes. No private assets or upstream implementation fixture bodies included."
+      ]
     }
   }
 }

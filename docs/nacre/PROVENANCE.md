@@ -1462,3 +1462,46 @@ restart. Two current source reviews added; templates/branding/icons/KDE/lock/log
 remaining helpers/assets/tests/dependencies and full comparison remain open.
 Cold-login/hardware/all-file crash behavior not established. Notices and full
 originality goal retained.
+
+## Toolkit palette companion source review
+
+[Spec](../specs/toolkit-palette-companions.md): Rofi template locally introduced
+e42b701 before the Caelestia integration, later own styling 3c1b16d; icon helper
+introduced 5611be5, own KDE/Dolphin integration 86bebe6 and system source/version
+corrections 47b06d4/79916a3; KDE writer first 86bebe6. Current companion bodies
+and own file-manager tests reviewed after origin investigation. Initial bodies
+compared mechanically to predecessor/peer files, no five-line contiguous matches;
+this supplements history/feature evidence rather than certifying by similarity.
+Rename 548f0b4 and formatting/test cleanup are not new authorship. Prior own body
+exposure acknowledged, no upstream implementation reused or legal clean-room
+claim. Confirmed active Rofi fallback callers in clipboard/window/Wi-Fi helpers;
+retained template rather than retiring it based on lack of open windows.
+
+Two baseline regressions reproduced: cached generated index bypasses stale link
+repair; KDE still emits Siverteh scheme identity. Helper now compares known index
+content before touching generated cache, repairs links atomically against current
+source, preserves regular SVG/custom indexes and keeps valid index timestamps.
+KDE active identity/file now Nacre, with role values/unrelated settings retained.
+Unknown/private legacy scheme files are not deleted. Four actual isolated helper
+tests pass, including stale cache/custom artwork and private legacy scheme cases;
+publisher's thirteen process/role/rotation tests pass too.
+
+Rofi standalone validator is not passing: installed 2.0.0 crashes with exit 139
+even on a minimal valid theme; actual native -no-config -theme FILE -dump-theme
+succeeds and parses our 25-line theme. Upstream issue
+[2320](https://github.com/davatorium/rofi/issues/2320) describes matching cleanup
+failure. First piped validator probe obscured exit status; corrected by direct
+status checks and minimal comparison, not suppressing the failure. No package
+patch or false validator-pass claim.
+
+Papirus source artwork remains third-party, installed package 20260801-1 reports
+GPL-3.0 and upstream [LICENSE](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE)
+retains GPL3. No artwork committed; overlays link to source package. Absence of
+local common-license directory is not a claim of absent upstream license. Source
+code/template reviews do not certify icon art or other publisher dependencies.
+Whole remaining source/assets/tests/dependency comparison/notices/goal stay open.
+
+Rofi issue 2320 is closed with an upstream fix; this does not change the measured
+installed 2.0.0 failure. Native dump/render/Escape checks are separate positive
+evidence, not a fabricated standalone-validator pass. Four SHA-bound companion
+reviews complete this bounded area, not remaining generators/packaging/whole tree.

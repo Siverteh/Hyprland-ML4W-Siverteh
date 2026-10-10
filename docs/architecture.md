@@ -299,3 +299,10 @@ CLI-owned calls. Complete role/mode validation precedes consumer writes; the
 CLI's inherited descriptor is verified and its parent lock remains owned. This
 serializes normal publication while retaining per-file replacement semantics.
 Toolkit/branding/lock/login generators remain separate dependency audit areas.
+
+Toolkit companions are locally authored helpers/templates with separately tracked
+source histories. KDE output uses Nacre scheme identity; icon overlays link to
+installed licensed Papirus artwork and repair only recognized generated caches.
+Custom index/artwork files remain user-owned. Native Rofi theme dumping validates
+the fallback theme; the installed 2.0.0 standalone validator has a reproduced
+cleanup crash, including on a minimal theme.

@@ -68,7 +68,7 @@ def publish(home, colors, icon_theme):
     for section in ["General", "Icons"]:
         if not config.has_section(section):
             config.add_section(section)
-    config["General"]["ColorScheme"] = "Siverteh"
+    config["General"]["ColorScheme"] = "Nacre"
     config["General"]["ColorSchemeHash"] = ""
     if icon_theme:
         config["Icons"]["Theme"] = icon_theme
@@ -80,7 +80,7 @@ def publish(home, colors, icon_theme):
     for section in config.sections():
         if section.startswith("Colors:"):
             scheme[section] = dict(config[section])
-    scheme["General"] = {"Name": "Siverteh", "ColorScheme": "Siverteh"}
+    scheme["General"] = {"Name": "Nacre", "ColorScheme": "Nacre"}
     stream = io.StringIO()
     scheme.write(stream, space_around_delimiters=False)
-    save(home / ".local/share/color-schemes/Siverteh.colors", stream.getvalue())
+    save(home / ".local/share/color-schemes/Nacre.colors", stream.getvalue())

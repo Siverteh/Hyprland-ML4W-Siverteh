@@ -1,6 +1,7 @@
 import importlib.util
 from pathlib import Path
 import tempfile
+from unittest.mock import patch
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,6 +40,67 @@ class FileManagerTests(unittest.TestCase):
                 (target / "index.theme").read_text(),
             )
 
+    def test_owned_overlay_retargets_stale_links_and_preserves_regular_overrides(self):
+        icons = load("file-icons")
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            base = home / ".local/share/icons"
+            for name in ["Papirus", "Papirus-Dark"]:
+                (base / name).mkdir(parents=True)
+                (base / name / "index.theme").write_text("[Icon Theme]\n")
+            source = base / "Papirus/64x64/places"
+            source.mkdir(parents=True)
+            (source / "folder-red.svg").write_text("<svg/>")
+            (source / "folder-red-documents.svg").write_text("<svg/>")
+            (source / "folder-red-download.svg").write_text("<svg/>")
+            with patch.object(
+                icons, "SYSTEM_ICONS", home / "absent-system-icons", create=True
+            ):
+                chosen = icons.theme(home, "ff0000", "dark")
+                target = base / chosen / "64x64/places"
+                folder = target / "folder.svg"
+                folder.unlink()
+                folder.symlink_to(home / "retired-runtime/folder.svg")
+                custom = target / "folder-download.svg"
+                custom.unlink()
+                custom.write_text("custom artwork")
+                icons.theme(home, "ff0000", "dark")
+                self.assertEqual(folder.resolve(strict=True), source / "folder-red.svg")
+                self.assertEqual(custom.read_text(), "custom artwork")
+                self.assertFalse(custom.is_symlink())
+
+    def test_custom_index_and_legacy_scheme_are_preserved(self):
+        icons = load("file-icons")
+        kde = load("kde-palette")
+        import json
+
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            base = home / ".local/share/icons"
+            for name in ["Papirus", "Papirus-Dark"]:
+                (base / name).mkdir(parents=True)
+                (base / name / "index.theme").write_text("[Icon Theme]\n")
+            source = base / "Papirus/64x64/places"
+            source.mkdir(parents=True)
+            (source / "folder-red.svg").write_text("<svg/>")
+            with patch.object(icons, "SYSTEM_ICONS", home / "absent-system-icons"):
+                name = icons.theme(home, "ff0000", "dark")
+                index = base / name / "index.theme"
+                index.write_text("[Icon Theme]\nName=Custom user theme\n")
+                icons.theme(home, "ff0000", "dark")
+                self.assertEqual(
+                    index.read_text(), "[Icon Theme]\nName=Custom user theme\n"
+                )
+            old = home / ".local/share/color-schemes/Siverteh.colors"
+            old.parent.mkdir(parents=True)
+            old.write_text("private custom scheme")
+            colors = json.loads((ROOT / "palette-presets.json").read_text())[0][
+                "modes"
+            ]["dark"]
+            kde.publish(home, colors, name)
+            self.assertEqual(old.read_text(), "private custom scheme")
+            self.assertTrue((old.parent / "Nacre.colors").is_file())
+
     def test_kde_roles_preserve_user_settings_and_selection_contrast(self):
         import configparser
         import json
@@ -54,8 +116,12 @@ class FileManagerTests(unittest.TestCase):
             presets = json.loads((ROOT / "palette-presets.json").read_text())
             colors = next(p for p in presets if p["id"] == "ocean")["modes"]["dark"]
             kde.publish(home, colors, "ExampleNacreIcons")
+            self.assertFalse(
+                (home / ".local/share/color-schemes/Siverteh.colors").exists()
+            )
             parsed = configparser.ConfigParser(interpolation=None)
             parsed.read(config)
+            self.assertEqual(parsed["General"]["ColorScheme"], "Nacre")
             self.assertEqual(parsed["General"]["TerminalApplication"], "kitty")
             self.assertEqual(parsed["UserSection"]["Setting"], "preserve")
             self.assertEqual(
@@ -69,6 +135,4 @@ class FileManagerTests(unittest.TestCase):
                 parsed["Colors:Selection"]["BackgroundAlternate"],
                 "#" + colors["primary"],
             )
-            self.assertTrue(
-                (home / ".local/share/color-schemes/Siverteh.colors").exists()
-            )
+            self.assertTrue((home / ".local/share/color-schemes/Nacre.colors").exists())
