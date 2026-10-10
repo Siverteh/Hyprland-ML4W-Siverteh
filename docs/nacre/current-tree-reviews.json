@@ -4655,6 +4655,132 @@
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
         "Complete current source/data body reviewed. Basis 8c92402: own real native inotify fixture/temp directory changes with no user settings;428abbe isolates child HOME. Later path changes: 428abbe, 5ecf556, 548f0b4. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate."
       ]
+    },
+    "fastfetch/logo.sh": {
+      "disposition": "independent",
+      "sha256": "eb3625b360822899dcd57a8a9ac18fdbb93f51a1aa754ced8ffa99b07ce87a32",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 98b724d: local ANSI S/H letter geometry and Kitty palette indexes, active Fish compatibility hook;6c8f06d updates stale Matugen wording without artistic changes. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "fastfetch/render-logo.sh": {
+      "disposition": "independent",
+      "sha256": "0ba9fe84e7d7f58835204dac17774b15ad0964cd49c020cb5cd72da6ade3b7f2",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 98b724d: local active compatibility cache producer;6c8f06d cache name nowNacre, hook path retained. Later current-path changes: 6c8f06d. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/hypridle.conf": {
+      "disposition": "independent",
+      "sha256": "68e6e4706efb13804755d5b4a35ac089ada9916976287df2c9328752bcba9040",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 5df2e69: current full managed baseline authored after private override separation, public native lock/before/after hooks and source declaration; no inherited policy body retained. Later current-path changes: 548f0b4. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/hyprctl-lua.sh": {
+      "disposition": "independent",
+      "sha256": "071939475a5ad374e870632cd376eedd9526ffa9562aa06badccfcdc316207b1",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis f3290a5: local native Lua command adapter from public dispatcher contracts; full body/current consumers reviewed. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/matrix-rest.py": {
+      "disposition": "independent",
+      "sha256": "81d6c0cb8c99da311bca4791c4daa221dbac060a1f79c46cab9f672a391d0df8",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 2a977c4: entire uncertain helper body deleted and fresh terminal renderer authored from spec after prior exposure; canonical role/math interface, native terminal cleanup and no legacy Rofi/vendor dependency. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/matrix-rest.sh": {
+      "disposition": "independent",
+      "sha256": "8a75294ee1d97efb4e0014e7c2cd94d6bf48266c50c0c937935367ed305b196a",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 98b724d: local owned Matrix window toggle/Kitty launch and explicit class/title targeting, current native Lua bridge integration traced. Later current-path changes: 2fa3a95, f3290a5, db43bb6. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/startup-apps.sh": {
+      "disposition": "independent",
+      "sha256": "0d78e13b72e3e4d30b4d43a9384ca59cfb6b5298721aa139c1db2e00b80eb323",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis b0632b9: current full three-line wrapper authored when old48line body replaced, calls independent idempotent startup helper; legacy path rename traced. Later current-path changes: 548f0b4, 7a05033. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/window-close.sh": {
+      "disposition": "independent",
+      "sha256": "28da282bf446fc5f0501a32eff2c885ef91a51797e49ca6c4be71cebe8ed382e",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis db43bb6: locally authored normal/explicit force close, current native Lua dispatcher integration; no broad user PID kill. Later current-path changes: f3290a5. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/window-trash.sh": {
+      "disposition": "independent",
+      "sha256": "cac7012c330116987b43e0c973a3d3146beb0643f06cd6a8f68a34d237619df0",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 8d877ef: locally authored undoable30second window trash ledger/timer/restore controller, later native Lua integration traced. Later current-path changes: f3290a5, 60d7244. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/window-minimize.sh": {
+      "disposition": "independent",
+      "sha256": "d957887c331bf5696ff963f803cfd3fd0c739078964ea9c5f62689323062d768",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 6c8f06d: uncertain imported96line body deleted without viewing/copying; fresh entry shim to own hide implementation from sandbox behavior/caller contract. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "hypr/scripts/window-hide.py": {
+      "disposition": "independent",
+      "sha256": "f231b88928d55f2139fde3bac2d1991f5f1439626da81bc019bc2a5b9c76b34e",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 6c8f06d: new own bounded JSON/native Lua hide/restore with compatible old numeric ledger, private locked atomic state and no source/eval of records. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "tools/tests/test_window_hide.py": {
+      "disposition": "independent",
+      "sha256": "f8db130461aa0b8a50a1c6aa6c93fc7946428eec950537180f170a6e10ed8274",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 6c8f06d: new own fake compositor/temp old-ledger cases: active/newest/current restore, malformed/symlink/stale/failed actions and native target escaping. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "tools/tests/test_matrix_palette.py": {
+      "disposition": "independent",
+      "sha256": "c3c26c0078650e93d2791cb5b169a31138967170ca49774e0c67a51d7ea4821b",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 6c8f06d: new own temp canonical color dependency regression fails old legacy-driven background then passes, no full rest window. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
+    },
+    "tools/tests/test_matrix_rest.py": {
+      "disposition": "independent",
+      "sha256": "a633b881e2a2438b39a507e4364dec3c18fd72e7073e1022634dc3bc2635eb5b",
+      "evidence": [
+        "docs/specs/config-helper-source-audit.md",
+        "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md",
+        "Full current source/data body reviewed. Basis 2a977c4: new own deterministic rain and owned PTY key/signal cleanup fixtures, no actual user Matrix window. Later current-path changes: unchanged. Own code retained only after current body/history/public contract review; uncertain minimize/Matrix boundaries specified, discarded, freshly implemented and tested. Prior source exposure acknowledged; no old/upstream body consulted while writing those replacements, legal clean-room/final-license claim. Native dependencies/other fixtures/packaging remain separately scoped."
+      ]
     }
   }
 }

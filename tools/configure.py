@@ -40,7 +40,12 @@ def files(root=ROOT):
     result = {}
     for folder in ("hypr", "kitty", "fastfetch", "fish", "uwsm"):
         for source in (root / folder).rglob("*"):
-            if source.is_file():
+            if (
+                source.is_file()
+                and "__pycache__" not in source.relative_to(root).parts
+                and source.suffix not in (".pyc", ".pyo")
+                and source.name != ".qmlls.ini"
+            ):
                 result[Path(".config") / source.relative_to(root)] = source
     for name in ("nacre-app", "siverteh-os-app", "xdg-open"):
         result[Path(".local/bin") / name] = root / "bin" / name

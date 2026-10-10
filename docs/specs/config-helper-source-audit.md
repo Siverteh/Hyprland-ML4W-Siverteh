@@ -39,3 +39,10 @@ published primary/secondary/onsurface/surface files with fixed safe fallback val
 Do not launch the actual rest view or alter user palette for this verification.
 The own ANSI letter-art helper remains an active Fish compatibility hook; retain
 its image/Kitty-index behavior, update stale Matugen wording and cache branding.
+
+Actual deployment gap: files() enumerates generated __pycache__/pyc/pyo files
+from native tests as configuration. Add an artifact exclusion and a source-map
+regression that fails before correction. Existing plan/apply retirement already
+backs up owned removed paths and refuses differing bytes; retain and test that
+contract for old owned caches, preserving unowned or edited data. Machine-specific
+.qmlls.ini is also excluded. No cache cleanup outside recognized deployment state.
