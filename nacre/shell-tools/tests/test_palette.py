@@ -201,6 +201,40 @@ class PaletteCommitTest(unittest.TestCase):
             )
             self.assertGreaterEqual((b + 0.05) / (a + 0.05), 4.5)
 
+    def test_terminal_accents_follow_palette_in_dark_and_light_modes(self):
+        reference = json.loads(
+            (Path(__file__).resolve().parents[1] / "reference-style.json").read_text()
+        )["colours"]
+        for mode in ("dark", "light"):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as folder:
+                home = Path(folder)
+                state = home / ".local/state/nacre"
+                state.mkdir(parents=True)
+                previous = None
+                for accent, support in (("dd6644", "daa853"), ("668add", "b186cc")):
+                    colors = {**reference, "primary": accent, "secondary": support}
+                    (state / "scheme.json").write_text(
+                        json.dumps({"mode": mode, "colours": colors})
+                    )
+                    palette.apply_palette(home, live=False)
+                    values = dict(
+                        line.split(maxsplit=1)
+                        for line in (home / ".config/nacre/kitty-colors.conf")
+                        .read_text()
+                        .splitlines()
+                    )
+                    background = colors[
+                        "inverseSurface" if mode == "light" else "surfaceContainerLow"
+                    ].lstrip("#")
+                    self.assertEqual(values["background"], "#" + background)
+                    secondary = "#" + palette.readable(support, background)
+                    self.assertEqual(values["color5"], secondary)
+                    self.assertEqual(values["color13"], secondary)
+                    self.assertEqual(values["background_opacity"], "0.92")
+                    if previous is not None:
+                        self.assertNotEqual(previous, secondary)
+                    previous = secondary
+
     def test_presets_have_all_roles_and_readable_foreground_pairs(self):
         presets = json.loads(
             Path(palette.__file__).with_name("palette-presets.json").read_text()

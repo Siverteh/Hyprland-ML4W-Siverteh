@@ -45,6 +45,27 @@ class TerminalBrandingTests(unittest.TestCase):
         self.assertIsInstance(json.loads(result.stdout), list)
         self.assertNotIn("JsonConfig Error", result.stderr)
 
+    @unittest.skipUnless(shutil.which("fastfetch"), "Fastfetch unavailable")
+    def test_fastfetch_labels_use_the_wallpaper_accent_slot(self):
+        result = subprocess.run(
+            [
+                "fastfetch",
+                "--config",
+                str(ROOT / "fastfetch/config.jsonc"),
+                "--logo",
+                "none",
+                "--pipe",
+                "false",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=True,
+        )
+        self.assertIn("\033[34mDesktop", result.stdout)
+        self.assertIn("\033[34mTerminal", result.stdout)
+        self.assertNotIn("JsonConfig Error", result.stderr)
+
     @unittest.skipUnless(
         Path("/usr/lib/qt6/bin/qmlformat").exists() or shutil.which("qmlformat"),
         "QML formatter unavailable",

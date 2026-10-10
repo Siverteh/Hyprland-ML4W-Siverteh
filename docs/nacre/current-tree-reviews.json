@@ -1608,17 +1608,19 @@
     },
     "kitty/kitty.conf": {
       "disposition": "independent",
-      "sha256": "60a0628920ba1baffb2b9f85dff15d94da31080a83e4594cf429226f7fbe0fcd",
+      "sha256": "5ecc79fb03068a61377f0225bcd84301e26cec2517e45ed9dfb8af3fa99b8cb5",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
         "docs/nacre/PROVENANCE.md#base-defaults-current-source-review",
-        "Inherited body deleted then independently composed 3bf8870 from measured native/default contracts and Kitty public parser/options. Current bytes unchanged since replacement; private palette/custom include owners remain separate. Native parser confirms zero bad lines and retained font/padding/geometry/opacity/scrollback contracts."
-      ]
+        "Inherited body deleted then independently composed 3bf8870 from measured native/default contracts and Kitty public parser/options. Current bytes unchanged since replacement; private palette/custom include owners remain separate. Native parser confirms zero bad lines and retained font/padding/geometry/opacity/scrollback contracts.",
+        "docs/specs/terminal-polish.md"
+      ],
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "fastfetch/config.jsonc": {
       "disposition": "independent",
-      "sha256": "66679503bcc0c9e9d498bd286fae245938ea9450d142471b16911c6a2917fd3a",
+      "sha256": "0ff8d06799f6eb2cfa25890f6d14d21fd2b2c22f29b7c3c06b2d6895b4a13e77",
       "evidence": [
         "docs/specs/config-defaults.md",
         "docs/specs/base-config-source-audit.md",
@@ -1626,8 +1628,10 @@
         "Inherited body deleted then independently composed 3bf8870; own compact layout correction 00fbe78. Current audit removes redundant DE detector after current+baseline both return No DE found under Hyprland. Nacre identity/compositor remain. Native 13-module data parse succeeds except render-only Colors JSON representation. Logo assets/publisher remain separate.",
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
-        "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing."
-      ]
+        "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing.",
+        "docs/specs/terminal-polish.md"
+      ],
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "fastfetch/system-age.sh": {
       "disposition": "independent",
@@ -1681,21 +1685,25 @@
     },
     "nacre/shell-tools/classic-state.py": {
       "disposition": "independent",
-      "sha256": "bebc7b8cc47281a7a703978fc3692360913203b82303e1043b15818fbbf95a64",
+      "sha256": "0a1b094240db9ba81da25a1858e2f1db1d6f5c3169487180e7e8637b9d307dea",
       "evidence": [
         "docs/specs/palette-publication.md",
         "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
-        "Local synchronization script introduced 4874385; structured atomic publication 8afd305, prepared validation 81827c1, contrast 2b16add and later local toolkit/rotation/branding/Orient integrations traced. Formatting 83b3531/rename 548f0b4 distinguished from authoring. Original+current bodies compared mechanically to original peers/predecessors: no five-line contiguous copies. Current own body reviewed; valid output manifests match baseline in dark/light/fixed fixtures. New independently authored shared lock/complete-validation corrections tested against real owners. Called templates/icons/branding/KDE/lock/login dependencies remain separate reviews, not certified by association."
-      ]
+        "Local synchronization script introduced 4874385; structured atomic publication 8afd305, prepared validation 81827c1, contrast 2b16add and later local toolkit/rotation/branding/Orient integrations traced. Formatting 83b3531/rename 548f0b4 distinguished from authoring. Original+current bodies compared mechanically to original peers/predecessors: no five-line contiguous copies. Current own body reviewed; valid output manifests match baseline in dark/light/fixed fixtures. New independently authored shared lock/complete-validation corrections tested against real owners. Called templates/icons/branding/KDE/lock/login dependencies remain separate reviews, not certified by association.",
+        "docs/specs/terminal-polish.md"
+      ],
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "nacre/shell-tools/tests/test_palette.py": {
       "disposition": "independent",
-      "sha256": "ee0fb80326115751f3b8683c2dc4ed683360e1cbc52d2884acafcc19af41b5ba",
+      "sha256": "cb187c82b727eda65ac7061fac7c36cc156ee7023f7cf009b818240fcab152e6",
       "evidence": [
         "docs/specs/palette-publication.md",
         "docs/nacre/PROVENANCE.md#palette-publication-source-and-boundary-review",
-        "Local fixtures introduced 8afd305 and extended with own sync/rotation/GTK/fixed-palette/prepared/contrast changes. Current fixture uses separately replaced own Orient reference/preset data rather than old Caelestia output. New actual process/flock/missing-role/prepared-reentry tests authored from current publication spec, two failures observed on baseline then pass. No private source/wallpaper or upstream implementation body in fixture."
-      ]
+        "Local fixtures introduced 8afd305 and extended with own sync/rotation/GTK/fixed-palette/prepared/contrast changes. Current fixture uses separately replaced own Orient reference/preset data rather than old Caelestia output. New actual process/flock/missing-role/prepared-reentry tests authored from current publication spec, two failures observed on baseline then pass. No private source/wallpaper or upstream implementation body in fixture.",
+        "docs/specs/terminal-polish.md"
+      ],
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "nacre/shell-tools/rofi.rasi": {
       "disposition": "independent",
@@ -1769,7 +1777,7 @@
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "0a672257ae377c6896f4c30e87edf331da751339096d093c9772f60d5d3c88d3",
+      "sha256": "085a43be013e7b82178b282d5293aea94876b4ef1b0d6914dbbedaedff95742f",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1777,8 +1785,10 @@
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: actual Kitty inspection found explicit zero width rejected by Fastfetch; omit width for intrinsic aspect ratio and test actual shipped config with native Fastfetch JSON parsing.",
-        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles."
-      ]
+        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
+        "docs/specs/terminal-polish.md"
+      ],
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "nacre/shell-tools/lock-config.py": {
       "disposition": "independent",
@@ -6632,15 +6642,16 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "663c3c1158062bb43b451e823e649e851d22df0151cf9c4f7346566b14cab18b",
+      "sha256": "cbb283856c4218488f9729fef1bbcb30b14553a335a8c5e4a03ef332ba02fc8e",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/terminal-polish.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
     "docs/features/travel-timezone.md": {
       "disposition": "non-implementation",
@@ -7897,6 +7908,14 @@
         "docs/features/terminal-branding.md: independently authored exec wrapper; no upstream desktop code or private account data; regression checks exact argument forwarding and exit status.",
         "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status."
       ]
+    },
+    "docs/specs/terminal-polish.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/terminal-polish.md"
+      ],
+      "sha256": "f75116928d4b3b3cf5d93e2c5c668bbea0bf16f08ec8d47e5c33b6ea21d252b2",
+      "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     }
   }
 }

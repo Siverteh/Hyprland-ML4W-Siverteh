@@ -46,3 +46,17 @@ Legacy private sh.* files contain the new shell only for already-open controller
 Open the AI menu with `nacre-ai`. Desktop actions use that public entry point; it
 executes the existing controller so scoped logo refresh and ongoing sessions keep
 working. The legacy command is still accepted.
+
+## Wallpaper-matched terminal accents
+
+Fastfetch's labels use Kitty's wallpaper-derived primary slot rather than its
+fixed cyan slot. The existing prompt's blue path and magenta marker use primary
+and secondary respectively; secondary is now published into normal/bright magenta
+instead of using a fixed violet. Semantic red, green and yellow retain their
+existing roles. Text colors are checked against the terminal background.
+
+Dark terminals use the palette's low raised surface, with 92% background opacity
+for subtle desktop texture. Light-mode terminal TUIs retain the existing dark
+inverse surface. Font, logo geometry and prompt layout are unchanged. The existing
+publisher reloads Kitty in place; it does not restart terminal sessions or workers.
+A private kitty/custom.conf still has final precedence.

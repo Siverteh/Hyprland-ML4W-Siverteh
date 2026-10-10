@@ -440,7 +440,11 @@ def _apply_palette(home, wallpaper=None, live=True):
         atomic_write(home / (".config/nacre/colors/" + name), "#" + colors[role])
     # Terminal TUIs often paint dark input panels regardless of the desktop mode.
     # Use the same palette's inverse roles on light wallpapers, preserving its hue.
-    term_bg = colors["inverseSurface"] if data["mode"] == "light" else colors["surface"]
+    term_bg = (
+        colors["inverseSurface"]
+        if data["mode"] == "light"
+        else colors["surfaceContainerLow"]
+    )
     term_fg = (
         colors["inverseOnSurface"] if data["mode"] == "light" else colors["onSurface"]
     )
@@ -466,7 +470,7 @@ def _apply_palette(home, wallpaper=None, live=True):
     }
     terminal = (
         "".join(name + " #" + value + "\n" for name, value in terminal_roles.items())
-        + "background_opacity 0.98\n"
+        + "background_opacity 0.92\n"
     )
     ansi = [
         "onSurface",
@@ -486,6 +490,8 @@ def _apply_palette(home, wallpaper=None, live=True):
             if i == 7
             else term_accent
             if i == 4
+            else readable(colors["secondary"], term_bg)
+            if i == 5
             else readable(colors.get(role, colors["primary"]), term_bg)
         )
         bright = (
