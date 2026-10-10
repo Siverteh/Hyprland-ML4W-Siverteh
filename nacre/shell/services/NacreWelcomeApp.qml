@@ -19,44 +19,43 @@ Singleton {
     property string error: ""
     property string optionalApp: ""
     property var demoEntries: []
-    readonly property bool demoBusy: NacreWallpapers.themeBusy || !!NacreWallpapers.selectedPath || !!NacreWallpapers.queuedPath
+    property string demoSnapshot: ""
+    property int demoGeneration: 0
+    property bool demoChanged: false
+    property bool demoRestored: false
+    property bool demoStarting: false
+    readonly property bool demoBusy: demoStarting || NacreWallpapers.demoRestoring || NacreWallpapers.themeBusy || !!NacreWallpapers.selectedPath || !!NacreWallpapers.queuedPath
     readonly property var appearance: NacreWallpapers.appearancePreferences
-    readonly property string demoError: NacreWallpapers.error || ""
+    readonly property string demoError: error || NacreWallpapers.error || ""
     property var queue: []
     property int focusAttempts: 0
     readonly property bool busy: worker.running
     readonly property var client: (NacreHyprland.clients || []).find(c => c.pid === Quickshell.processId && c.title === "Nacre Welcome" && c.wmClass === "org.quickshell") || null
     readonly property bool active: visible && !!window && !window.minimized && (client?.workspace?.id ?? 1) > 0
     function prepareDemo() {
-        const list = NacreWallpapers.list || [];
-        if (!list.length)
+        if (demoStarting || demoSnapshot || NacreWallpapers.themeBusy || NacreWallpapers.selectedPath || NacreWallpapers.queuedPath)
             return;
-        const sample = [];
-        function add(item) {
-            if (item && !sample.some(value => value.path === item.path))
-                sample.push(item);
-        }
-        add(list.find(item => item.path === NacreWallpapers.actualCurrent));
-        for (const ratio of [0, .33, .66, .99])
-            add(list[Math.min(list.length - 1, Math.floor(list.length * ratio))]);
-        for (const item of list) {
-            if (sample.length >= 4)
-                break;
-            add(item);
-        }
-        demoEntries = sample.slice(0, 4);
+        demoStarting = true;
+        request(["demo-start", String(demoGeneration)]);
+    }
+    function restoreDemo() {
+        if (demoBusy || !demoSnapshot || !demoChanged)
+            return;
+        NacreWallpapers.restoreDemo(demoSnapshot);
     }
     function selectDemo(path) {
-        if (demoBusy || !demoEntries.some(item => item.path === path))
+        if (demoBusy || !demoSnapshot || !demoEntries.some(item => item.path === path))
             return;
         if (appearance.palettePreset !== "wallpaper")
             NacreWallpapers.preference({
                 palettePreset: "wallpaper"
             });
+        demoChanged = true;
+        demoRestored = false;
         NacreWallpapers.setWallpaper(path);
     }
     function themeDemo(mode, personality) {
-        if (demoBusy || !NacreWallpapers.actualCurrent)
+        if (demoBusy || !demoSnapshot || !NacreWallpapers.actualCurrent)
             return;
         const value = {
             palettePreset: "wallpaper"
@@ -65,8 +64,11 @@ Singleton {
             value.paletteMode = mode;
         if (["natural", "pop", "pearl"].includes(personality))
             value.palettePersonality = personality;
-        if (Object.keys(value).length > 1)
+        if (Object.keys(value).length > 1) {
+            demoChanged = true;
+            demoRestored = false;
             NacreWallpapers.preference(value);
+        }
     }
     function setup(name) {
         if (["ai", "brain"].includes(name)) {
@@ -76,19 +78,21 @@ Singleton {
     }
     Connections {
         target: NacreWallpapers
-        function onListChanged() {
-            if (root.active && !root.demoEntries.length)
-                Qt.callLater(() => {
-                    if (root.active && !root.demoEntries.length)
-                        root.prepareDemo();
-                });
+        function onThemeBusyChanged() {
+            root.captureWhenReady();
+        }
+        function onSelectedPathChanged() {
+            root.captureWhenReady();
+        }
+        function onDemoRestored() {
+            root.demoChanged = false;
+            root.demoRestored = true;
         }
     }
-    onActiveChanged: if (active && !demoEntries.length)
-        Qt.callLater(() => {
-            if (root.active && !root.demoEntries.length)
-                root.prepareDemo();
-        })
+    function captureWhenReady() {
+        if (visible && !demoSnapshot && !demoStarting)
+            Qt.callLater(root.prepareDemo);
+    }
     Connections {
         target: Native.Hyprland
         function onRawEvent(event) {
@@ -106,7 +110,8 @@ Singleton {
         if (!worker.running && queue.length) {
             const args = queue[0];
             queue = queue.slice(1);
-            worker.command = ["python3", Quickshell.env("HOME") + "/.local/share/nacre/shell/tools/welcome.py", ...args];
+            worker.job = args;
+            worker.command = args[0] === "demo-start" ? ["python3", NacreWallpapers.tool, "demo-start"] : ["python3", Quickshell.env("HOME") + "/.local/share/nacre/shell/tools/welcome.py", ...args];
             worker.running = true;
         }
     }
@@ -126,10 +131,19 @@ Singleton {
         const view = NacrePanelState.getForActive();
         if (view)
             NacrePanelState.closeTransient(view);
+        const newSession = !visible;
         created = true;
         visible = true;
         optionalApp = "";
-        demoEntries = [];
+        if (newSession) {
+            demoGeneration++;
+            demoEntries = [];
+            demoSnapshot = "";
+            demoChanged = false;
+            demoRestored = false;
+            demoStarting = false;
+            error = "";
+        }
         prepareDemo();
         refresh();
         focusAttempts = 0;
@@ -192,6 +206,7 @@ Singleton {
     }
     Process {
         id: worker
+        property var job: []
         stdout: SplitParser {
             splitMarker: ""
             onRead: line => {
@@ -199,7 +214,13 @@ Singleton {
                     const value = JSON.parse(line);
                     if (value.error)
                         root.error = value.error;
-                    else {
+                    else if (worker.job[0] === "demo-start") {
+                        if (Number(worker.job[1]) === root.demoGeneration) {
+                            root.demoEntries = value.demoEntries;
+                            root.demoSnapshot = value.snapshot;
+                            root.error = "";
+                        }
+                    } else {
                         root.data = value;
                         root.error = "";
                     }
@@ -209,6 +230,8 @@ Singleton {
             }
         }
         onExited: exitCode => {
+            if (worker.job[0] === "demo-start" && Number(worker.job[1]) === root.demoGeneration)
+                root.demoStarting = false;
             if (exitCode !== 0 && !root.error)
                 root.error = "Welcome could not save its preference. Try reopening the app.";
             root.next();
@@ -234,6 +257,9 @@ Singleton {
         function selectDemo(path: string): void {
             root.selectDemo(path);
         }
+        function restoreDemo(): void {
+            root.restoreDemo();
+        }
         function themeDemo(mode: string, personality: string): void {
             root.themeDemo(mode, personality);
         }
@@ -251,6 +277,9 @@ Singleton {
                             name: item.name
                         })),
                 demoBusy: root.demoBusy,
+                demoSnapshotReady: !!root.demoSnapshot,
+                demoChanged: root.demoChanged,
+                demoRestored: root.demoRestored,
                 appearance: root.appearance,
                 optionalApp: root.optionalApp,
                 width: root.window?.width || 0,

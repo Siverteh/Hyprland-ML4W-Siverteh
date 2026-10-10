@@ -1,13 +1,21 @@
 # Welcome live demo and current shortcuts
 
 The first page demonstrates actual wallpaper-driven desktop colors. Hold four
-cached library samples stable while the app is open, including the current scene
-and spaced alternatives. Selecting uses NacreWallpapers' existing serialized
+original procedural 4K pearl scenes stable while the app is open, independent of
+the personal library. Dominant families and minority contrasting details must
+yield clearly different Natural and Pop accents in dark and light modes. Selecting uses NacreWallpapers' existing serialized
 wallpaper/palette publisher; modes Dark/Light and Natural/Pop/Pearl use the same
 appearance preference path. Do not publish while merely opening Welcome. Preserve
 ready thumbnails while loading, show selected/busy/error feedback, pause automatic
 rotation while the active Welcome demo is on screen, and add no idle polling.
-Empty libraries offer the existing import/picker path. Private wallpapers are
+Empty libraries still have the full demo. Generated artwork is CC0-1.0; its
+geometry/light field source and license ship, and the installer renders an
+idempotent generator-hashed cache. Capture the opening wallpaper/palette before
+enabling choices. A Back to how it was button republishes the captured baseline
+through the same publisher, restoring original dynamic source and palette
+preferences while preserving unrelated settings. Validate missing source files
+before writes. Capture a new baseline only after closing/reopening; no-change-on-
+open holds even on a pristine flat desktop. Bound transient private snapshots. Private wallpapers are
 never copied into Git. The hero is compact enough that samples/controls are the
 main first-run focus. Keep the standard logo, body colors and fixed footer.
 

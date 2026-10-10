@@ -12,6 +12,8 @@ Singleton {
     readonly property string path: NacrePaths.pictures.slice(7) + "/Wallpapers"
     readonly property string tool: Quickshell.env("HOME") + "/.local/share/nacre/shell/tools/wallpaper-media.py"
     property var list: []
+    readonly property bool demoRestoring: demoRestore.running
+    signal demoRestored
     property var preferences: ({
             kind: "static",
             layout: "carousel",
@@ -52,7 +54,7 @@ Singleton {
     property var preferenceQueue: []
     property int watchRetrySeconds: 2
     readonly property bool loading: catalog.running
-    readonly property bool themeBusy: prefWorker.running || preferenceQueue.length > 0
+    readonly property bool themeBusy: demoRestore.running || prefWorker.running || preferenceQueue.length > 0
     readonly property string actualCurrent: media.path && media.poster === lastImage ? media.path : lastImage
     readonly property string current: selectedPath || actualCurrent
     readonly property var currentEntry: (media.path === current && media.preview ? media : list.find(entry => entry.path === current)) || (media.path === current ? media : null)
@@ -158,6 +160,14 @@ Singleton {
             startCommit();
         }
     }
+    function restoreDemo(token) {
+        if (themeBusy || commit.running || selectedPath || queuedPath || !/^[0-9a-f]{32}$/.test(token))
+            return;
+        demoRestore.token = token;
+        demoRestore.received = false;
+        actionError = "";
+        demoRestore.running = true;
+    }
     function setWallpaper(value) {
         if (!localPath(value)) {
             actionError = "Choose a local wallpaper file.";
@@ -168,7 +178,7 @@ Singleton {
         selectionDelay.restart();
     }
     function startCommit() {
-        if (commit.running || prefWorker.running || !queuedPath)
+        if (demoRestore.running || commit.running || prefWorker.running || !queuedPath)
             return;
         commit.requestPath = queuedPath;
         queuedPath = "";
@@ -199,7 +209,7 @@ Singleton {
         nextPreference();
     }
     function nextPreference() {
-        if (prefWorker.running || commit.running || !preferenceQueue.length)
+        if (demoRestore.running || prefWorker.running || commit.running || !preferenceQueue.length)
             return;
         prefWorker.value = preferenceQueue[0];
         preferenceQueue = preferenceQueue.slice(1);
@@ -320,6 +330,34 @@ Singleton {
         id: catalogDelay
         interval: 100
         onTriggered: root.refresh()
+    }
+    Process {
+        id: demoRestore
+        property string token: ""
+        property bool received: false
+        command: ["python3", root.tool, "demo-restore", token]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const data = root.result(text);
+                    if (!root.validEntry(data.media) || typeof data.preferences?.kind !== "string")
+                        throw new Error("Invalid demo restore response");
+                    root.media = data.media;
+                    root.lastImage = data.media.poster;
+                    root.preferences = data.preferences;
+                    demoRestore.received = true;
+                } catch (failure) {
+                    root.actionError = String(failure.message).slice(0, 240);
+                }
+            }
+        }
+        onExited: code => {
+            if (code === 0 && received)
+                root.demoRestored();
+            else if (!root.error)
+                root.actionError = "Could not restore the starting desktop. Try again.";
+            followup.start();
+        }
     }
     Process {
         id: commit

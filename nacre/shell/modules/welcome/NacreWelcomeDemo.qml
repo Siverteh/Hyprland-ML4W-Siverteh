@@ -80,12 +80,12 @@ Column {
         visible: !root.entries.length
         NacreText {
             width: parent.width
-            text: "Add a few wallpapers to try live colors here."
+            text: NacreWelcomeApp.demoStarting ? "Preparing your starting point and four original pearl scenes…" : "The demo could not be prepared. Reopen Welcome to try again."
             color: NacreTokens.mutedInk
             wrapMode: Text.Wrap
         }
         ActionButton {
-            text: "Add wallpapers"
+            text: "More wallpapers"
             onClicked: NacreWallpapers.pickFiles()
         }
     }
@@ -131,9 +131,17 @@ Column {
             }
         }
     }
+    ActionButton {
+        objectName: "welcomeRestoreDemo"
+        text: "Back to how it was"
+        icon: "history"
+        compact: true
+        enabled: !NacreWelcomeApp.demoBusy && NacreWelcomeApp.demoChanged
+        onClicked: NacreWelcomeApp.restoreDemo()
+    }
     NacreText {
         width: parent.width
-        text: NacreWelcomeApp.demoError || (NacreWelcomeApp.demoBusy ? "Applying to your desktop…" : "Changes apply live. Colors offers previews and more choices.")
+        text: NacreWelcomeApp.demoError || (NacreWelcomeApp.demoBusy ? (NacreWelcomeApp.demoStarting ? "Preparing the demo…" : "Applying to your desktop…") : NacreWelcomeApp.demoRestored ? "Your starting wallpaper and colors are restored." : "Changes apply live. Colors offers previews and more choices.")
         color: NacreWelcomeApp.demoError ? NacreColours.palette.m3error : NacreTokens.mutedInk
         font.pointSize: 10
         wrapMode: Text.Wrap

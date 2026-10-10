@@ -159,6 +159,98 @@ def commit_prepared(
     return True
 
 
+DEMO_PREFERENCES = (
+    "palettePreset",
+    "paletteMode",
+    "paletteHarmony",
+    "palettePersonality",
+    "paletteBackgroundFromWallpaper",
+)
+
+
+def restore_demo(home, snapshot, live=True):
+    """Publish a captured demo baseline through the ordinary palette owner.
+
+    Restore only the palette preferences touched by Welcome; preserve unrelated
+    changes (rotation, motion, layout, unknown preference fields). All inputs are
+    validated before writes and publication uses the same cross-process lock.
+    """
+    home = Path(home)
+    state = home / ".local/state/nacre"
+    data = snapshot["scheme"]
+    validated_colors(data)
+    poster = Path(snapshot["poster"])
+    media = snapshot["media"]
+    if not poster.is_absolute() or not poster.is_file():
+        raise ValueError(
+            "The starting wallpaper is unavailable. Restore its file and try again."
+        )
+    if media.get("poster") != str(poster) or not Path(media.get("path", "")).is_file():
+        raise ValueError(
+            "The starting wallpaper source is unavailable. Restore its file and try again."
+        )
+    if set(snapshot["preferences"]) - set(DEMO_PREFERENCES):
+        raise ValueError("Invalid demo preference snapshot")
+    pref_path = home / ".config/nacre/wallpaper-picker.json"
+    with publication_lock(home):
+        files = [
+            pref_path,
+            state / "scheme.json",
+            state / "wallpaper/media.json",
+            state / "wallpaper/last.txt",
+            state / "wallpaper/path.txt",
+        ]
+        links = {}
+        for path in (state / "wallpaper/current", state / "wallpaper/thumbnail.jpg"):
+            links[path] = (
+                ("link", os.readlink(path))
+                if path.is_symlink()
+                else ("file", path.read_bytes())
+                if path.is_file()
+                else ("absent", None)
+            )
+        previous = {path: path.read_text() if path.exists() else None for path in files}
+        options = json.loads(previous[pref_path] or "{}")
+        for key in DEMO_PREFERENCES:
+            options.pop(key, None)
+        options.update(snapshot["preferences"])
+        try:
+            atomic_write(pref_path, json.dumps(options))
+            atomic_write(state / "scheme.json", json.dumps(data))
+            atomic_write(state / "wallpaper/media.json", json.dumps(media))
+            atomic_write(state / "wallpaper/path.txt", str(poster))
+            atomic_symlink(state / "wallpaper/current", poster)
+            thumbnail = Path(media.get("thumbnail", ""))
+            if thumbnail.is_file():
+                atomic_symlink(state / "wallpaper/thumbnail.jpg", thumbnail)
+            apply_palette(home, str(poster), live=live)
+        except Exception:
+            for path, text in previous.items():
+                if text is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    atomic_write(path, text)
+            for path, (kind, value) in links.items():
+                if kind == "link":
+                    atomic_symlink(path, value)
+                elif kind == "file":
+                    fd, name = tempfile.mkstemp(dir=path.parent)
+                    with os.fdopen(fd, "wb") as stream:
+                        stream.write(value)
+                    os.replace(name, path)
+                else:
+                    path.unlink(missing_ok=True)
+            old_poster = previous[state / "wallpaper/last.txt"]
+            if old_poster and Path(old_poster.strip()).is_file():
+                atomic_symlink(state / "wallpaper/current", old_poster.strip())
+            if previous[state / "scheme.json"]:
+                apply_palette(
+                    home, old_poster.strip() if old_poster else None, live=live
+                )
+            raise
+    return media
+
+
 def luminance(value):
     rgb = [int(value.lstrip("#")[i : i + 2], 16) / 255 for i in (0, 2, 4)]
     rgb = [v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in rgb]

@@ -616,12 +616,101 @@ def import_files(paths):
     return copied
 
 
+def demo_module(name):
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        name.replace("-", "_"), Path(__file__).with_name(name + ".py")
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def demo_start():
+    """Capture before any choices; preparing images never publishes a palette."""
+    import uuid
+
+    palette = demo_module("classic-state")
+    folder = HOME / ".local/state/nacre/welcome/demo"
+    folder.mkdir(parents=True, exist_ok=True)
+    with palette.publication_lock(HOME):
+        scheme = read(HOME / ".local/state/nacre/scheme.json", None)
+        if scheme is None:
+            scheme = read(Path(__file__).with_name("reference-style.json"), {})
+        palette.validated_colors(scheme)
+        original = media_state()
+        last = STATE / "last.txt"
+        poster = original.get("poster") or (
+            last.read_text().strip() if last.exists() else ""
+        )
+        if not poster:
+            # A pristine desktop can have only the reference surface. Preserve
+            # that flat starting scene as an image understood by the same publisher.
+            blank = (
+                HOME
+                / ".cache/nacre/demo-wallpapers"
+                / ("starting-" + scheme["colours"]["background"] + ".png")
+            )
+            blank.parent.mkdir(parents=True, exist_ok=True)
+            if not blank.exists():
+                Image.new("RGB", (16, 16), "#" + scheme["colours"]["background"]).save(
+                    blank
+                )
+            poster = str(blank)
+        if not Path(poster).is_file():
+            raise ValueError(
+                "Your starting wallpaper is unavailable. Restore its file before trying the demo."
+            )
+        if not original:
+            original = describe(poster)
+        pref = read(PREFS, {})
+        snapshot = {
+            "version": 1,
+            "scheme": scheme,
+            "poster": poster,
+            "media": original,
+            "preferences": {
+                key: pref[key] for key in palette.DEMO_PREFERENCES if key in pref
+            },
+        }
+        token = uuid.uuid4().hex
+        atomic(folder / (token + ".json"), snapshot)
+        # Transient private baselines: bound retained history, never release trees.
+        for old in sorted(
+            folder.glob("*.json"),
+            key=lambda path: path.stat().st_mtime_ns,
+            reverse=True,
+        )[10:]:
+            old.unlink()
+        scenes = demo_module("demo-wallpapers").ensure(HOME)
+    entries = [
+        dict(describe(item["path"]), name=item["name"], license=item["license"])
+        for item in scenes
+    ]
+    return {"demoEntries": entries, "snapshot": token}
+
+
+def demo_restore(token):
+    if not isinstance(token, str) or not re.fullmatch(r"[0-9a-f]{32}", token):
+        raise ValueError("Reopen Welcome to capture a starting point.")
+    snapshot = read(HOME / ".local/state/nacre/welcome/demo" / (token + ".json"), {})
+    if snapshot.get("version") != 1:
+        raise ValueError(
+            "The demo starting point expired. Reopen Welcome to try again."
+        )
+    item = demo_module("classic-state").restore_demo(HOME, snapshot)
+    return {"media": item, "preferences": settings()}
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument(
         "action",
         choices=[
             "catalog",
+            "demo-start",
+            "demo-restore",
             "select",
             "preferences",
             "theme",
@@ -679,6 +768,10 @@ def main():
                     timeout=3,
                 ).strip()
                 result = {"locked": locked, "path": raw.split(" ", 1)[1].strip('"')}
+        elif a.action == "demo-start":
+            result = demo_start()
+        elif a.action == "demo-restore":
+            result = demo_restore(a.path)
         elif a.action == "catalog":
             result = catalog()
         elif a.action == "warm":

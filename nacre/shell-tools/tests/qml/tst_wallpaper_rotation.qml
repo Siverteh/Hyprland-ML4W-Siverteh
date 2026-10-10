@@ -47,6 +47,20 @@ TestCase {
         compare(Rotation.next(["a", "b", "c"], "c", false, [], 0.5).path, "a");
     }
 
+    function test_restore_pauses_rotation_without_resetting_deadline() {
+        const view = createTemporaryObject(walls, test);
+        view.preferences = Object.assign({}, view.preferences, {
+            rotationEnabled: true
+        });
+        const deadline = view.rotationDueMs;
+        view.demoRestore.running = true;
+        verify(view.themeBusy);
+        verify(!view.canRotate);
+        compare(view.rotationDueMs, deadline);
+        view.demoRestore.running = false;
+        verify(view.canRotate);
+        compare(view.rotationDueMs, deadline);
+    }
     function test_welcome_demo_pauses_without_resetting_deadline() {
         const w = createTemporaryObject(walls, test);
         const due = w.rotationDueMs;

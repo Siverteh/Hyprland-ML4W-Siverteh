@@ -143,6 +143,13 @@ def deploy(code_only=False):
     shutil.copyfile(
         ROOT.parents[1] / "tools/nacre_migration.py", DEST / "tools/nacre_migration.py"
     )
+    # Original shareable demo scenes are ready on fresh installs. Render once per
+    # generator revision into cache; never import into/overwrite the private library.
+    subprocess.run(
+        [str(runtime / "venv/bin/python"), str(DEST / "tools/demo-wallpapers.py")],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
     # Keep ordinary terminal titles aligned with the desktop labels.
     title = HOME / ".config/fish/functions/fish_title.fish"
     title.parent.mkdir(parents=True, exist_ok=True)

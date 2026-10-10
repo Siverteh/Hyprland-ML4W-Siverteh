@@ -4,13 +4,20 @@ Open **Nacre Welcome** from the app launcher or run `nacre-welcome`.
 It is a single normal app window hosted by the existing Quickshell service,
 with the standard Nacre shell logo and current Orient colors.
 
-- **Start here** keeps four cached library samples visible. Click a scene to
-  change the desktop and the Welcome logo together. Dark/Light and Natural/Pop/
-  Pearl apply through the same existing wallpaper/theme publisher. Opening
-  Welcome does not apply changes; the controls explicitly say changes are live.
-  Open Colors for preview-only exploration and more choices. Empty libraries
-  offer the existing wallpaper import path. Automatic rotation pauses while the
-  active Welcome demo is visible; sample positions stay stable during choices.
+- **Start here** offers four original procedural 4K scenes: Opal Tide, Rose
+  Current, Amber Fold and Violet Lagoon. These are available even with an empty
+  personal library. Each has a dominant family and a contrasting smaller inset,
+  so Natural and Pop make visibly different choices; Pearl demonstrates Nacre's
+  signature tones. Dark/Light and personality controls use the existing publisher.
+  Opening Welcome captures a private starting point and does not apply changes.
+  **Back to how it was** restores the opening wallpaper (including its original
+  animated source), exact captured palette and palette preferences, while keeping
+  unrelated rotation/layout/motion settings. It remains available after multiple
+  demo choices and shows confirmation on success. Reopening an already visible
+  window preserves the baseline; closing and reopening captures a new one.
+  Automatic rotation pauses while the active home page is visible. More wallpapers
+  still opens the personal picker. Busy/error states prevent overlapping commits.
+  Missing/deleted starting artwork produces an error before any restore writes.
 - **Shortcuts** reads `hyprctl binds -j` for this live session. Named actions,
   modifier masks, aliases and complete workspace ranges generate the displayed
   keys; no static key list remains. Related restore/close/save combinations also
@@ -69,3 +76,25 @@ layout, content and implementation are authored locally. See [specification](../
 
 The [live-demo specification](../specs/welcome-live-demo.md) records publication,
 binding metadata, performance and optional-component boundaries.
+
+## Bundled artwork and demo recovery
+
+`demo-wallpapers.py` authors curves, growth edges, an analytic light field and a
+contrasting inset directly in code. No external or generated-by-AI artwork is
+used. Generated images are **CC0-1.0**, freely shareable; the software retains the
+repository license. See `nacre/shell-tools/demo-wallpapers.LICENSE`. Install renders
+3840×2160 PNGs once per generator hash into `~/.cache/nacre/demo-wallpapers/`;
+Welcome can regenerate missing cache files. Existing private artwork is never
+copied, replaced or committed. Warm opens reuse images and cached thumbnails.
+
+`wallpaper-media.py demo-start` captures before enabling choices. The serialized
+QML restore action calls `demo-restore`, which validates and republishes through
+`classic-state.py` and its existing publication lock. It never copies generated
+GTK/terminal/lock outputs as a shortcut. An initially flat desktop gets a cached
+solid image matching its starting background, so it can also be restored without
+requiring an existing wallpaper. Private 0600 snapshots live under
+`~/.local/state/nacre/welcome/demo/`, retain at most ten entries, and contain no
+accounts or credentials. Cache preparation does not publish or add idle polling.
+Tests cover deterministic 4K/cache reuse, visibly separated Natural/Pop accents in
+both modes, palette validation, empty-library capture, exact restoration with
+animated source and unrelated preferences preserved, and unavailable-file refusal.

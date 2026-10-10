@@ -105,9 +105,10 @@ class WelcomeUITests(unittest.TestCase):
 import QtQuick
 QtObject { property string page:"home";property string error:"";property bool busy:false;
  property var data:({preferences:{showAtLogin:true},available:{ai:false,brain:false},shortcuts:SHORTCUTS});
- property var actions:[];property string optionalApp:"";property var demoEntries:SAMPLES;property bool demoBusy:false;property string demoError:"";
+ property var actions:[];property string optionalApp:"";property var demoEntries:SAMPLES;property bool demoBusy:false;property string demoError:"";property bool demoStarting:false;property bool demoChanged:true;property bool demoRestored:false;
  property var appearance:({palettePreset:"wallpaper",paletteMode:"CURRENT_MODE",palettePersonality:"natural"});
  function refresh(){}function setup(name){optionalApp=name}function selectDemo(path){actions=[...actions,"scene:"+path]}
+ function restoreDemo(){actions=[...actions,"restore-demo"];demoChanged=false;demoRestored=true}
  function themeDemo(mode,name){actions=[...actions,"theme:"+mode+":"+name]}
  function route(name){actions=[...actions,name]} function link(name){actions=[...actions,"link:"+name]}
  function setStartup(value){data=Object.assign({},data,{preferences:{showAtLogin:value}})}
@@ -167,7 +168,8 @@ TestCase {id:test;name:"Welcome";width:1200;height:900;visible:true;when:windowS
   findChild(view,"welcomePersonality_pop").clicked();compare(NacreWelcomeApp.actions[2],"theme::pop");
   findChild(view,"welcomePersonality_pearl").clicked();compare(NacreWelcomeApp.actions[3],"theme::pearl");
   NacreWelcomeApp.demoBusy=true;verify(!findChild(view,"welcomeMode_dark").enabled);NacreWelcomeApp.demoBusy=false;
-  findChild(view,"welcomeColors").clicked();compare(NacreWelcomeApp.actions[4],"colors");
+  findChild(view,"welcomeRestoreDemo").clicked();compare(NacreWelcomeApp.actions[4],"restore-demo");verify(!findChild(view,"welcomeRestoreDemo").enabled);
+  findChild(view,"welcomeColors").clicked();compare(NacreWelcomeApp.actions[5],"colors");
   findChild(view,"welcomePage_shortcuts").clicked();compare(NacreWelcomeApp.page,"shortcuts");wait(20);
   verify(canvas.contentHeight>canvas.height);
   findChild(view,"welcomePage_apps").clicked();compare(NacreWelcomeApp.page,"apps");wait(30);

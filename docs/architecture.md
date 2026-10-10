@@ -231,7 +231,11 @@ never restart workers or publish themes. The standard logo/icon remains owned by
 `branding.py`, with no separate Welcome artwork or identity. See [Welcome](features/welcome.md).
 
 Welcome's live scene/personality/mode controls are consumers of `NacreWallpapers`,
-not a second publisher. Cached sample metadata is held stable, and its active
+not a second publisher. Original procedural demo artwork is rendered into a versioned cache during
+installation, with CC0 generated images and no private-library dependency.
+`wallpaper-media.py` captures bounded private baselines and delegates restore to
+`classic-state.py` under its existing publication lock; only the demo's palette
+preferences are reverted. Cached sample metadata is held stable, and its active
 home page participates in rotation pause policy. `welcome.py` reads described
 live compositor bindings on user/config events; Lua binds remain owned by the
 existing files, with action descriptions attached there. Optional AI/Brain
