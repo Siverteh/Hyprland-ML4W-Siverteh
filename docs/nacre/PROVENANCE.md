@@ -2130,3 +2130,14 @@ packaging and maintained desktop source categories now reviewed, with native
 dependency exceptions/credits explicit. AI/Brain workflow, remaining tests/docs/
 notices and full whole-tree comparison/licensing conclusion still required.
 Applicable notices and the entire originality goal remain active.
+
+## AI bootstrap and support source review
+
+2026-10-10 UTC. [Spec](../specs/ai-bootstrap-source-audit.md) and
+[23-file source table](AI-BOOTSTRAP-SOURCE-AUDIT.md) record complete current-body
+and local authoring/change-history review. Retained independent integrations and
+native declarative data; no account/runtime implementation changes. Codex/Claude/
+Obsidian/KDE and downloaded skill sources remain licensed external dependencies.
+No live AI installer, login, wallet change, remote worker or credential copy.
+Large AI/vault commands, Brain, remaining fixtures/docs and final full-source
+comparison remain required. All applicable notices retained.

@@ -5064,6 +5064,213 @@
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 0106a03: new own actual independent seed/temp historical wrapper fixture, baseline sleep hooks/no idle default/private existing data preserved. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
       ]
+    },
+    "ai/configure-remote-shell.py": {
+      "disposition": "independent",
+      "sha256": "c379af5d9d78b912fc9042bf73aa305e3f4b69373142db487bf723adc5ed6b95",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/dbus/org.freedesktop.secrets.service": {
+      "disposition": "non-implementation",
+      "sha256": "cb5122d2aadb8fc7e1360f7bad83a941579c637083a3c7d9502526d11ac1ef69",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/fix-fish-presentation.py": {
+      "disposition": "independent",
+      "sha256": "743c4424091f9aced111aae271fa3fb803892166d07fec222dde389be20c961b",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis b4f2ddb; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/install-claude.py": {
+      "disposition": "independent",
+      "sha256": "80817c502e4639ddaec7484f69604860f5181414a87b79f19c968272405bc8ed",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis 4c2ae49; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/install-codex.py": {
+      "disposition": "independent",
+      "sha256": "b6ce9d94bf5d4e2fa2bd329857489ecf6e09bb08b29e5ef856588ecb7141822e",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/install-obsidian.py": {
+      "disposition": "independent",
+      "sha256": "52357e8d8b1dfe25b654ad79142eaba71104eb0ef7a7fb8bbf66a9b3bd4e4305",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/install.py": {
+      "disposition": "independent",
+      "sha256": "5f14c1d6b9732389b449ef8b2f0b2ccbdd6219eeb01e229c21cebcb2dc598a74",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 548f0b4, 7bdf0e7, 83b3531, 1bcce9d, adc96cc, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/projects.example.json": {
+      "disposition": "non-implementation",
+      "sha256": "83219fa3585b49e192670a5e85c315444bd944e6220f657bcd2e177478f7f562",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/remote-codex-wrapper.sh": {
+      "disposition": "independent",
+      "sha256": "37d1811c4a76d1faa1f6e4a97e2bb37e80961067b4c90d7dd81b4142be9378c8",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/skill-sources.json": {
+      "disposition": "non-implementation",
+      "sha256": "66f050d15d93ace9cd7c6b38da2ce090bfb4f8e6c8768a7393d455ddf4212148",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis fc33e68; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/systemd/siverteh-brain-check.service": {
+      "disposition": "non-implementation",
+      "sha256": "31d1db659b061d6ddb580e96f88c8d385e9b68d981bdd58b96bd7f65c2d9dda7",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/systemd/siverteh-brain-check.timer": {
+      "disposition": "non-implementation",
+      "sha256": "85a35eb517e74f65c4c7539d33c35d3041a1cd2d4aded407d84a9b86436569dd",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis adc96cc; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/systemd/siverteh-brain-sync.service": {
+      "disposition": "non-implementation",
+      "sha256": "faab8451427a98f54200eee51e0cbbdee5d649fdfd55a9edaa9a8f1dd10de22c",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: a5c973c, adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "ai/systemd/siverteh-brain-sync.timer": {
+      "disposition": "non-implementation",
+      "sha256": "0d8ecf151410671daf7b68b6fab756cf7f665712da656cffb1dfec0143e30950",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: adc96cc. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/codex": {
+      "disposition": "independent",
+      "sha256": "7f4d9ad01e8fe43f7bfdc70debffcd7367abd7d0ab5cc752e10b1dde23066f5e",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/nacre-app": {
+      "disposition": "independent",
+      "sha256": "630c7ca01630f4e043e1ee601fc0c31bcbf8f98eafbe964e77d652ee0794a857",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis 2fa3a95; subsequent changes: 548f0b4, a046f7b, 86bebe6, 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/obsidian": {
+      "disposition": "independent",
+      "sha256": "149e0565d292f49b458af0cd4d233efde85be8ed2985cb0b0be11b8c57f0a0f7",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/siverteh-ai-account": {
+      "disposition": "independent",
+      "sha256": "04456392e1ee2ee185ce68452c13535f2486a7466ac8d1ba10290eb5ca9a6f68",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 83b3531, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/siverteh-ai-remote": {
+      "disposition": "independent",
+      "sha256": "e7218e1a7053f8556ea12d27540f15bc7317262f8efe6f564da5479c0df83f8c",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/siverteh-ai-skills": {
+      "disposition": "independent",
+      "sha256": "d9bbd8c53123afaf24f318a1260c7e6a8f8c5ed0d17187233c808b7e240f7884",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis fc33e68; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/siverteh-ai-tools": {
+      "disposition": "independent",
+      "sha256": "f35bd6e1c3fe9912f0a7ede14db00db10ad142387dd39aea08349c3ba3cd6eca",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis fc33e68; subsequent changes: 83b3531. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/siverteh-os-app": {
+      "disposition": "independent",
+      "sha256": "a2be8b075584b17b5fe0bcfb16dce4a5cf81d81cd94d976b4d7f7bdcbdeb674f",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis 548f0b4; subsequent changes: none. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
+    },
+    "bin/xdg-open": {
+      "disposition": "independent",
+      "sha256": "69be5a8d2dbc1acaac43447d47155a4773b37c2f14420693a5b5ad9e3a5d9c78",
+      "evidence": [
+        "docs/specs/ai-bootstrap-source-audit.md",
+        "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
+        "Full current body and local creation/change history reviewed. Basis 2fa3a95; subsequent changes: 548f0b4. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+      ]
     }
   }
 }
