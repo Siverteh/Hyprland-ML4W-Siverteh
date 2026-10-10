@@ -1779,3 +1779,34 @@ cycles plus launcher/wallpaper outside dismissal pass. No physical auth/device/
 power/account/message action or AI restart. Remaining application panels/extras/
 helpers/assets/fixtures/tests/packaging/AI+Brain/full comparison and cold-login/
 fresh-session curve limits separately open; notices/full goal retained.
+
+## Application panels current-source review
+
+2026-10-10 UTC. [Spec](../specs/application-panels-source-audit.md) and
+[per-file source table](APPLICATION-PANELS-SOURCE-AUDIT.md) cover 58 individually
+read current bodies: dashboard/Settings/media/overview 39, launcher 8,
+notifications 2, extras 8 and lock preview 1. Explicit independent replacement
+boundaries and subsequent history traced; mixed locally authored extras/preview
+received a separate first-source peer/predecessor comparison. Only shared
+five-line block was public per-screen Quickshell Variants/Scope scaffolding.
+Caelestia-inspired lock appearance and previous exposure are acknowledged, without
+a legal clean-room/final-license claim. Retain current independent implementations;
+this batch changes audit records only, not runtime behavior or private preferences.
+
+All 409 tests pass (55 tools, 96 AI, 35 Brain, 223 shell), including native Qt
+panels and actual Quickshell overview rendering. The synthetic overview capture
+was visually inspected: bounded cards, calendar, circular art and readable text.
+QML parsing/formatting, registry integrity and native Hyprland verification pass.
+Shell plan reviewed; configuration plan reports zero files and zero migrations.
+All 58 reviewed files and the complete 235-file installed shell match source;
+native palette/frame IPC ready, services active and configerrors empty. Private
+state, busy worker and palette/poster/deadline unchanged during the read-only
+live check. No code cutover is needed for documentation/source-review changes;
+the previous good deployed release remains active. No real notification, device,
+power, account, AI message or user preference action performed for this audit.
+
+Registry now has 656 tracked artifacts, 397 rewrite-change pointers, 295 explicit
+reviews and 361 pending. These are audit counts, not an originality percentage.
+Only run.fish remains pending in the shell-source category; separate desktop
+helpers, login, workflow, packaging, fixtures and final comparison remain open.
+Applicable notices and the complete originality goal remain in place.
