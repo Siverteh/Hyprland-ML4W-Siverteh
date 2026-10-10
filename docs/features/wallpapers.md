@@ -156,3 +156,8 @@ groups on narrow outputs. Browsing publishes the selected wallpaper while the
 picker stays open through the existing 150ms coalesced, serialized queue; closing
 never repeats an already-running selection. Diagnostic preview mode remains
 read-only. See the [integration specification](../specs/panel-integration.md).
+
+Picker opening centers the active wallpaper immediately. Initial selection and
+catalogue refresh do not use the travel animation; deliberate browsing retains
+smooth motion. Reopening completes an old transition before selecting the current
+wallpaper, and late current-path data cannot override an active browsing gesture.

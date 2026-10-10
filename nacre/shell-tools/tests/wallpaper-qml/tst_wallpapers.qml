@@ -255,6 +255,68 @@ TestCase {
             NacreWallpapers.list = original;
         }
     }
+    function test_open_and_reopen_start_centered_without_initial_travel() {
+        const original = NacreWallpapers.list;
+        try {
+            NacreWallpapers.list = Array.from({
+                length: 9
+            }, (_, i) => ({
+                        path: "wall" + i,
+                        name: "Wallpaper " + i,
+                        poster: original[0].poster,
+                        dynamic: false
+                    }));
+            for (const layout of ["carousel", "spotlight"]) {
+                NacreWallpapers.preference({
+                    layout: layout
+                });
+                NacreWallpapers.current = "wall6";
+                const view = createTemporaryObject(picker, test);
+                compare(view.currentIndex, 6);
+                compare(view.travel, 6);
+                wait(50);
+                compare(view.travel, 6);
+                view.visibilities.previewOnly = true;
+                view.move(1);
+                wait(50);
+                verify(view.travel > 6 && view.travel < 7);
+                view.visibilities.launcher = false;
+                NacreWallpapers.current = "wall3";
+                view.visibilities.launcher = true;
+                compare(view.currentIndex, 3);
+                compare(view.travel, 3);
+                view.destroy();
+            }
+        } finally {
+            NacreWallpapers.list = original;
+        }
+    }
+    function test_late_current_path_snaps_but_does_not_override_user_browsing() {
+        const view = createTemporaryObject(picker, test);
+        NacreWallpapers.current = "two";
+        compare(view.currentIndex, 1);
+        compare(view.travel, 1);
+        view.visibilities.previewOnly = true;
+        view.move(1);
+        compare(view.currentIndex, 0);
+        NacreWallpapers.current = "two";
+        compare(view.currentIndex, 0);
+    }
+    function test_late_catalogue_reconciles_without_animating_from_zero() {
+        const original = NacreWallpapers.list;
+        try {
+            NacreWallpapers.current = "two";
+            NacreWallpapers.list = [];
+            const view = createTemporaryObject(picker, test);
+            NacreWallpapers.list = original;
+            compare(view.currentIndex, 1);
+            compare(view.travel, 1);
+            wait(40);
+            compare(view.travel, 1);
+        } finally {
+            NacreWallpapers.list = original;
+        }
+    }
     function test_carousel_slides_through_intermediate_position() {
         const original = NacreWallpapers.list;
         try {

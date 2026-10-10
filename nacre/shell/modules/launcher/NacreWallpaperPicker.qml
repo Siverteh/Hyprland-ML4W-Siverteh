@@ -17,6 +17,8 @@ Item {
     property int currentIndex: 0
     readonly property var currentEntry: entries[currentIndex] || null
     property string selectionPath: ""
+    property bool userNavigated: false
+    property bool animateTravel: false
     property real travelTarget: 0
     property real travel: travelTarget
     property real wheelDelta: 0
@@ -25,6 +27,8 @@ Item {
     implicitWidth: Math.max(320, Math.min(1360, viewportWidth - 96))
     implicitHeight: fullScreen ? Math.max(360, viewportHeight - 100) : 320
     function reconcile() {
+        animateTravel = false;
+        travelAnimation.complete();
         const found = entries.findIndex(entry => entry.path === selectionPath);
         currentIndex = found >= 0 ? found : Math.max(0, Math.min(currentIndex, entries.length - 1));
         travelTarget = currentIndex;
@@ -34,6 +38,8 @@ Item {
             return;
         const next = (index % count + count) % count;
         const distance = ((next - currentIndex + count + Math.floor(count / 2)) % count) - Math.floor(count / 2);
+        userNavigated = true;
+        animateTravel = true;
         travelTarget += distance;
         currentIndex = next;
         selectionPath = currentEntry.path;
@@ -75,12 +81,27 @@ Item {
     Connections {
         target: root.visibilities
         function onLauncherChanged() {
-            if (!root.visibilities.launcher && !root.visibilities.previewOnly)
+            if (root.visibilities.launcher) {
+                root.userNavigated = false;
+                root.selectionPath = NacreWallpapers.current;
+                root.reconcile();
+            } else if (!root.visibilities.previewOnly)
                 NacreWallpapers.commitSelection();
         }
     }
+    Connections {
+        target: NacreWallpapers
+        function onCurrentChanged() {
+            if (!root.userNavigated) {
+                root.selectionPath = NacreWallpapers.current;
+                root.reconcile();
+            }
+        }
+    }
     Behavior on travel {
+        enabled: root.animateTravel && root.visibilities.launcher && NacreTokens.motionEnabled
         NumberAnimation {
+            id: travelAnimation
             duration: NacreTokens.motionEnabled ? 300 : 0
             easing.type: Easing.OutCubic
         }

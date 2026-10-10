@@ -4022,13 +4022,14 @@
     },
     "nacre/shell/modules/launcher/NacreWallpaperPicker.qml": {
       "disposition": "independent",
-      "sha256": "5722b074f5bf88f7da48a9966ec5de7d0c148868b44f1e011e707f5f7eb7b2b0",
+      "sha256": "9ed2f172b1a0455b3c325f27cbe0bf5a02a8fed66245e9b151b548f6d19b68f5",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/wallpaper-picker-opening.md: reviewed initial/reopen/late-data snapshot selection versus smooth explicit browsing; native tests assert immediate travel and preserve intermediate navigation positions."
       ],
       "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
@@ -6083,13 +6084,14 @@
     },
     "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
       "disposition": "independent",
-      "sha256": "44847592b5fa02804b2954cf90e5dabefec56fbfdbbfb503c0c54849f8c81ba1",
+      "sha256": "2c0e0f562009b0129425817aaa352b4a922d1467ce0b63eb82883973c41b704e",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 06ffaf4 siverteh/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml; subsequent 28707f7, eea01b9, bc7c7e2, 548f0b4, 1bee816, 83b3531, 4b142ae, 81827c1, 09f9ceb, 0eda691, ee6eeae, e336713. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/wallpaper-picker-opening.md: reviewed initial/reopen/late-data snapshot selection versus smooth explicit browsing; native tests assert immediate travel and preserve intermediate navigation positions."
       ],
       "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
@@ -6680,12 +6682,13 @@
     },
     "docs/features/wallpapers.md": {
       "disposition": "non-implementation",
-      "sha256": "f2950d842953a8c4a18aa041a1ac21b4d0c0b183e5edaf995568c494e1e5fc6a",
+      "sha256": "a1173f6429cfe2f8a887100c75085d56a59ea629eba658a815395bba08f34f8d",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/wallpaper-picker-opening.md: reviewed initial/reopen/late-data snapshot selection versus smooth explicit browsing; native tests assert immediate travel and preserve intermediate navigation positions."
       ],
       "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
@@ -7971,6 +7974,13 @@
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
       ],
       "sha256": "6ab5a16b10b6084ad6a8b46e743b0d10b6d2f15e94ffbb0afe569ba14c643295"
+    },
+    "docs/specs/wallpaper-picker-opening.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/wallpaper-picker-opening.md: reviewed initial/reopen/late-data snapshot selection versus smooth explicit browsing; native tests assert immediate travel and preserve intermediate navigation positions."
+      ],
+      "sha256": "5127a7377874bfa4c2beb0e986251e7af07a0a9f23e26eb95cdc7b38f9472019"
     }
   }
 }
