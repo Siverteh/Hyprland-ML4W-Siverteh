@@ -1683,3 +1683,19 @@ added; other fixture/test/dependency scopes remain explicit, not certified by
 association. No panel/typography/palette/motion/input redesign, new polling or
 user preference reset. Third-party native APIs/fonts retain their proper source
 and notices. Full remaining tree/comparison requirements and goal remain open.
+
+Foundation audit acceptance (2026-10-10 UTC): source d3751e8, good shell release
+20261010T020551162650Z. All 407 tests (55 tools, 96 AI, 35 Brain, 221 shell),
+formatting/QML/native Hyprland and reviewed source/live transaction gates passed.
+Actual native controls/rounded clipping/edge/rotation/Wi-Fi/state fixtures retained;
+read-only serialization/binding regression fails baseline and passes correction.
+Only state utility runtime changed; 51 source hashes individually reviewed, plus
+one native fixture origin. Draft table count/history labels corrected against
+actual path inventory and post-replacement commits, not guessed percentages.
+All 51 reviewed installed files and 235 shell files exact; private preference/
+history hashes and AI worker PID/start unchanged, palette/poster/deadline equal
+baseline, native palette ready/configerrors empty. Six owned app hover/dismiss/
+click/key-return cycles plus launcher/wallpaper outside dismissal pass. No real
+DPI/display change, account/power action, user preference reset or AI restart.
+Other fixtures/dependencies/source areas/full comparison remain separately scoped;
+notices and complete originality goal retained.
