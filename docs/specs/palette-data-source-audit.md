@@ -29,3 +29,14 @@ Any implementation retirement/correction uses plan/apply/strict release/source
 gates and reassesses changed existing source reviews. No busy AI restart, actual
 account/device/power/auth/AI-send or user wallpaper/palette preference action.
 Exact-main CI and private state/worker checks precede finishing the batch.
+
+Verified gap: all 30 fixed presets/60 modes reproduce, but the boot seed's five
+container roles and engine identity predate the current Orient policy. Extend
+the existing own generator to emit both fixed presets and the independent engine's
+default boot seed, then regenerate. Test the checked-in seed directly against
+current default_palette/ENGINE_ID; the old seed must fail before correction.
+Keep seed/mode/variant/flavour and all role/schema contracts. Existing user palette
+and preferences must remain unchanged; only unconfigured/fallback output changes.
+cli.json is an empty default object with actual Orient preference consumers, so
+retain it. Catalogue entries/URLs are locally curated metadata, not bundled art
+or an artwork-license claim; do not fetch images for this source review.

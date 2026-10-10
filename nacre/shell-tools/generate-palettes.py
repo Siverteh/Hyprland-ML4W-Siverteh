@@ -3,6 +3,7 @@
 
 import json
 from pathlib import Path
+from nacre_shell.engine import default_palette
 from nacre_shell.palette import generate
 
 SOFT = [
@@ -58,4 +59,7 @@ def build():
 if __name__ == "__main__":
     Path(__file__).with_name("palette-presets.json").write_text(
         json.dumps(build(), indent=2) + "\n"
+    )
+    Path(__file__).with_name("reference-style.json").write_text(
+        json.dumps(default_palette(), indent=2) + "\n"
     )
