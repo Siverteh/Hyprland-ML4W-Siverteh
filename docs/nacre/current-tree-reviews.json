@@ -4891,11 +4891,14 @@
     },
     ".gitignore": {
       "disposition": "non-implementation",
-      "sha256": "877c54df5f89939c16a4695ae6514d6a3c5491c906804095ab5e752ea4c310da",
+      "sha256": "05b6139e462b33cfe8a091bdab521bc9d5f5abe86c39817d789dd69ee88b5690",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 2fa3a95: current declarative build/cache/private data ignore patterns reviewed; no retained desktop algorithm or creative asset. Later path changes: 5d0028f. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+        "Full current body/data/licence reviewed. Basis 2fa3a95: current declarative build/cache/private data ignore patterns reviewed; no retained desktop algorithm or creative asset. Later path changes: 5d0028f. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
       ]
     },
     "install.sh": {
@@ -9318,6 +9321,60 @@
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/warm-room.png": {
+      "disposition": "independent",
+      "sha256": "afe00b65dfb44f21b05a22308a2590037aab30a7345bdeb3ba73293e50b02ec8",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/night-city.png": {
+      "disposition": "independent",
+      "sha256": "218b334e2d438e79fba9e2d395f3dab369c96415dfbcedb45d573d85a90eb8d1",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/coast-day.png": {
+      "disposition": "independent",
+      "sha256": "b8e7e886a0f9a36ea4a50300b4366d097427d96aefda4d4984bd309cec042e26",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/mist-forest.png": {
+      "disposition": "independent",
+      "sha256": "a3341ae2c5c0ec01b44bb18d9bb5929769ae545ead02d61157623e6817567cf6",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/neon-scene.png": {
+      "disposition": "independent",
+      "sha256": "c3f77675f8e0c3b840fb3362a01be6989c6b771658705e23383aacf199a7e12a",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-gallery/images/monochrome.png": {
+      "disposition": "independent",
+      "sha256": "c1a546147de4b59a3725a0f095d1927bab8dc9a9875818af970b309c95f33059",
+      "evidence": [
+        "docs/features/orient.md",
+        "nacre/shell-tools/tests/orient-gallery/README.md",
+        "Explicit narrow source-controlled gallery exception. Six original procedural CC0 fixtures generated from reviewed generate.py; no private/user/commercial artwork added. PNG pixel content matches the already tested local gallery; runtime source is unchanged."
       ]
     }
   }
