@@ -1395,3 +1395,16 @@ parser reports no bad lines, size 12/padding 10/opacity 0.98/scrollback 2000; al
 sampled compositor options match original live replacement baseline. Current
 source/history evidence plus behavior tests support these bounded SHA reviews,
 not a whole-tree certification. Notices remain and complete goal stays active.
+
+Base audit acceptance (2026-10-10 UTC): software 7809e2c, good config release
+20261010T001641735017Z. All 393 tests (55 tools, 96 AI, 35 Brain, 207 shell),
+formatting/QML/native Hyprland, reviewed one-file config deployment and actual
+launcher/wallpaper Escape gates passed. Six installed base files exact source.
+Native Kitty parser has zero bad lines and 19 effective fields match installed
+config; 20 native compositor options equal the replacement baseline. Installed
+Fastfetch now yields 13 modules, no data errors, only render-only Colors unavailable
+in JSON. Prior live private hashes/worker identity, 101 bindings/nine sampled
+options unchanged; all 235 shell files exact, live IPC healthy/configerrors empty.
+No other preferences, logo assets, packages or user terminals changed. Seven
+SHA reviews added; separate publisher/generator/helper/assets/tests and whole-tree
+comparison remain. Notices retained and full goal active.

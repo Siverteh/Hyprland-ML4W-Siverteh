@@ -924,6 +924,20 @@
         "tools/tests/test_shell_session.py",
         ".github/workflows/check.yml"
       ]
+    },
+    {
+      "area": "base-config-source-audit",
+      "commit": "7809e2c",
+      "spec": "docs/specs/base-config-source-audit.md",
+      "paths": [
+        "kitty/kitty.conf",
+        "fastfetch/config.jsonc",
+        "fastfetch/system-age.sh",
+        "hypr/conf/misc.lua",
+        "hypr/conf/decoration.lua",
+        "hypr/conf/nacre.lua",
+        "tools/tests/test_config_defaults.py"
+      ]
     }
   ],
   "reviews": {
