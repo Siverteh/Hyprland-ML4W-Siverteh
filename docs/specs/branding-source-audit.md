@@ -5,7 +5,7 @@ shell/branding/{sh.json,sh.svg}, shell/widgets/BrandLogo.qml and relevant
 shell-tools/tests/test_terminal_branding.py. Trace local geometry/generator
 introduction b0632b9 and compact stem correction 772e23b, terminal refresh 8ad6532,
 transparency 8ff30bc, current imports/native formatting 14a55db/dfecaf0, call-time
-home correction bb46dd6, namespace548f0b4 and later independent foundation changes.
+home correction bb46dd6, namespace 548f0b4 and later independent foundation changes.
 Follow copies/renames, distinguish generated data from implementation and do not
 certify by filename/low similarity alone.
 
@@ -39,3 +39,18 @@ checks for production changes. Audit-only records keep proven installed bytes
 without pointless cutover. Do not terminate user terminals/log out/alter wallpaper
 or persist new preferences for QA. Exact-main CI, dependency/asset limits explicit,
 whole-tree notices and complete goal remain until full completion is evidenced.
+
+Verified local geometry b0632b9 is explicit polygon coordinates, not font outline
+or imported logo asset; generated SVG follows those coordinates. Login Logo.qml
+is another generated output, included in this review; Brain HTML's generated
+symbol checked for no regeneration diff, not a certificate for entire Brain HTML.
+Current own generator/component bodies read after origin tracing, exposure recorded.
+
+Baseline build-only test fails because CLI regenerates source then attempts live
+home publication. Generator also emits stale Colours alias while current widget
+uses independently owned NacreColours. Correct emitter and separate --build from
+live publication; default publication API unchanged. Empty-home actual subprocess
+build twice must succeed without home writes/signals, generated output identical
+to current tracked assets. Actual lock/terminal PNG transparency and role pixels,
+existing pidfd exact-controller and real idle-PTY refresh tests remain acceptance.
+Native Qt SVG renderer inspected at 30/96/300px; no logo redesign/font dependency.

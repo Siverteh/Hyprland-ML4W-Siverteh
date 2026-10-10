@@ -137,8 +137,8 @@ def build():
 """.replace("TEMPLATE", expression)
     (root / "shell/widgets/BrandLogo.qml").write_text(
         "import qs.services\nimport QtQuick\n"
-        + common.replace("DEFAULT_PRIMARY", "Colours.palette.m3primary")
-        .replace("DEFAULT_SECONDARY", "Colours.palette.m3secondary")
+        + common.replace("DEFAULT_PRIMARY", "NacreColours.palette.m3primary")
+        .replace("DEFAULT_SECONDARY", "NacreColours.palette.m3secondary")
         .replace(
             " implicitWidth:30;implicitHeight:30",
             ' implicitWidth:30;implicitHeight:30\n Accessible.name:"Nacre apps";Accessible.role:Accessible.Button',
@@ -195,7 +195,8 @@ if __name__ == "__main__":
 
     if "--build" in sys.argv:
         build()
-    colors = json.loads((Path.home() / ".local/state/nacre/scheme.json").read_text())[
-        "colours"
-    ]
-    publish(colors)
+    else:
+        colors = json.loads(
+            (Path.home() / ".local/state/nacre/scheme.json").read_text()
+        )["colours"]
+        publish(colors)

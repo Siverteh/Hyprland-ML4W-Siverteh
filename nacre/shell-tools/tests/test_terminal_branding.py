@@ -8,6 +8,7 @@ from pathlib import Path
 import pty
 import select
 import signal
+import shutil
 import struct
 import subprocess
 import sys
@@ -25,6 +26,78 @@ spec.loader.exec_module(branding)
 
 
 class TerminalBrandingTests(unittest.TestCase):
+    @unittest.skipUnless(
+        Path("/usr/lib/qt6/bin/qmlformat").exists() or shutil.which("qmlformat"),
+        "QML formatter unavailable",
+    )
+    def test_build_only_is_reproducible_and_does_not_publish_into_home(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "project"
+            home = Path(directory) / "home"
+            tools = root / "nacre/shell-tools"
+            for folder in [
+                tools,
+                root / "nacre/shell/branding",
+                root / "nacre/shell/widgets",
+                root / "nacre/login",
+                root / "brain/web",
+                home,
+            ]:
+                folder.mkdir(parents=True, exist_ok=True)
+            script = tools / "branding.py"
+            shutil.copyfile(branding.__file__, script)
+            shutil.copyfile(branding.GEOMETRY, root / "nacre/shell/branding/sh.json")
+            (root / "brain/web/index.html").write_text(
+                '<svg><symbol id="sh" viewBox="0 0 34 28"></symbol></svg>'
+            )
+            env = {**os.environ, "HOME": str(home)}
+            paths = [
+                root / "nacre/shell/branding/sh.svg",
+                root / "nacre/shell/widgets/BrandLogo.qml",
+                root / "nacre/login/Logo.qml",
+                root / "brain/web/index.html",
+            ]
+            subprocess.run(
+                [sys.executable, str(script), "--build"],
+                env=env,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            first = {p: p.read_bytes() for p in paths}
+            subprocess.run(
+                [sys.executable, str(script), "--build"],
+                env=env,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual({p: p.read_bytes() for p in paths}, first)
+            self.assertEqual(list(home.rglob("*")), [])
+            widget = paths[1].read_text()
+            self.assertIn("NacreColours.palette", widget)
+            self.assertNotIn("root:/", widget)
+
+    def test_published_lock_logo_is_transparent_and_roles_remain_distinct(self):
+        from PIL import Image
+
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            with patch.object(branding, "refresh_terminal_menus"):
+                branding.publish(
+                    {"primary": "ff0000", "secondary": "0000ff", "surface": "121212"},
+                    home,
+                )
+            folder = home / ".local/share/nacre/branding"
+            image = Image.open(folder / "sh-lock.png")
+            self.assertEqual(image.mode, "RGBA")
+            self.assertEqual(image.getpixel((0, 0))[3], 0)
+            self.assertEqual(image.getpixel((48, 48)), (255, 0, 0, 255))
+            self.assertEqual(image.getpixel((368, 48)), (0, 0, 255, 255))
+            self.assertEqual(
+                Image.open(folder / "sh.png").getpixel((0, 0)), (18, 18, 18)
+            )
+
     def test_notification_targets_only_exact_menu_controller(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder) / "home"

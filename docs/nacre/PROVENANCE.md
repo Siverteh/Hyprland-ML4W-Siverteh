@@ -1527,3 +1527,33 @@ and AI worker PID/start unchanged, native palette coherent/configerrors empty.
 No rotation disabling, new wallpaper preference or manual selection for QA.
 Four current source reviews added; third-party art credit retained and all other
 source/assets/tests/generator/dependency/full comparison requirements stay open.
+
+## Branding source and asset review
+
+[Spec](../specs/branding-source-audit.md): local generator/geometry/SVG introduced
+b0632b9, compact correction 772e23b, idle terminal refresh 8ad6532, transparency
+8ff30bc, qs import/native formatter 14a55db/dfecaf0, call-time home bb46dd6 and
+namespace 548f0b4 traced. Current generated BrandLogo body supersedes earlier
+pre-generator widget, with independent NacreColours owner integration 02b2bda.
+Own current source reviewed; first-source peer/predecessor comparison shows no
+five-line copies, supplementing local history rather than sole certification.
+Prior body exposure acknowledged; no upstream code consulted/reused or legal
+clean-room claim. JSON contains explicit letter polygons/outlines/stroke/viewbox;
+SVG and generated components derive from these coordinates, not a font outline
+or imported logo asset. Existing look kept, new Nacre identity design later.
+
+Actual regression fails on baseline: --build proceeds to private home publication
+after generation. Emitter also writes stale Colours alias rather than current
+NacreColours. Fixed provider emission and build-only CLI branch; default live
+publish unchanged. Empty-home actual subprocess build/rebuild passes without
+home writes and produces stable output; real worktree regeneration produces no
+tracked SVG/BrandLogo/login/Brain-symbol diff. Login Logo.qml included in review,
+whole login/Brain HTML excluded from certification by association.
+
+Own PNG tests verify transparent lock corners, separate red/blue role pixels and
+opaque terminal background; existing exact-controller pidfd and actual idle PTY
+image-refresh tests pass. Native Qt 6.12 SVG rendering inspected at 30/96/300px
+with layered silhouettes/colors unchanged. Six SHA reviews cover generator,
+geometry, SVG, bar/login components and own tests; Pillow/Qt public dependencies
+remain allowed. Other assets/helpers/generators/tests/whole comparison and full
+notices/goal remain open.

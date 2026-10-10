@@ -1420,6 +1420,60 @@
         "docs/nacre/PROVENANCE.md#toolkit-palette-companion-source-review",
         "Own helper fixtures first 5611be5 and KDE 86bebe6, local cleanup/default-Thunar/foundation adjustments traced. New isolated stale-link/regular-art/custom-index/legacy-scheme regressions from current spec; two baseline failures observed before fixes. No private assets or upstream implementation fixture bodies included."
       ]
+    },
+    "nacre/shell-tools/branding.py": {
+      "disposition": "independent",
+      "sha256": "9305b1db5b05c6a9bc447f499b53066ba9ea603b1c9f600ca0b46e9e88929362",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Locally introduced generator b0632b9 for explicit SH polygons, compact/runtime/control refresh changes 772e23b/8ad6532/8ff30bc and import/format/home corrections 14a55db/dfecaf0/bb46dd6 traced. Current own body reviewed and no five-line peer/predecessor copies found as supporting evidence. Corrected source emitter to NacreColours and build-only CLI side effects; actual reproduction and native rendering tests pass. No upstream body copied while implementing corrections."
+      ]
+    },
+    "nacre/shell/branding/sh.json": {
+      "disposition": "independent",
+      "sha256": "859e04079542090d40565f6e11408c464f0b147f3bca8d603851f9ad50cf9204",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Explicit local SH polygon/stroke/viewbox/outline coordinates introduced b0632b9 and unchanged through namespace migration. Own vector geometry, no font-outline extraction or imported asset in generator/data. Generated SVG/native Qt output checked. Distinct from later new Nacre identity design."
+      ]
+    },
+    "nacre/shell/branding/sh.svg": {
+      "disposition": "independent",
+      "sha256": "bcb75e3a4ee1cc46dab5cb74cc9791ff4a1161a07ae41edebb3e040b95e141f9",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Deterministic generated SVG from reviewed local sh.json/branding.svg() b0632b9. Rebuild twice matches current tracked bytes; output paths exactly reflect own geometry/layers. No third-party logo/font outline embedded, native SVG renderer passes."
+      ]
+    },
+    "nacre/shell/widgets/BrandLogo.qml": {
+      "disposition": "independent",
+      "sha256": "18937fb29c67ae2f480e569282adae722de4e83bf1c26f4e815b49de78e12358",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Current own generated component from b0632b9/772e23b emitter, qs imports/formatting 14a55db/dfecaf0 and independent native palette owner 02b2bda. Historical pre-generator widget path is not current body origin. New corrected emitter reproduces current bytes, transparent SVG/public Qt Image provider binding only, no inherited Caelestia body."
+      ]
+    },
+    "nacre/login/Logo.qml": {
+      "disposition": "independent",
+      "sha256": "7792981308fc135f609f658dd2098df7d2c45dcd655b990579dfa7de09cb06c0",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Current generated login component introduced b0632b9 from same own geometry and public Qt Image API. Current imports/formatter corrections 14a55db/dfecaf0, namespace 548f0b4. Regeneration exact; color defaults are public scalar fallback preferences, not inherited algorithm. Whole login theme remains separate audit."
+      ]
+    },
+    "nacre/shell-tools/tests/test_terminal_branding.py": {
+      "disposition": "independent",
+      "sha256": "edc8f874cf259548141d1d60d6584f305c69828588db58448d19eef495e255b9",
+      "evidence": [
+        "docs/specs/branding-source-audit.md",
+        "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
+        "Own tests introduced 8ad6532 for pidfd exact-controller/real idle curses PTY refresh, later call-time-home and namespace corrections. New empty-home actual generator/reproduction and PNG alpha/role tests authored from current spec. No upstream implementation fixture or user state; only owned process actors."
+      ]
     }
   }
 }
