@@ -37,8 +37,10 @@ journal remains outside either moved root at `~/.local/state/nacre-name-migratio
 
 The ordinary install plan reports these operations. Installation migrates the
 namespace before the existing release transaction snapshots/cuts over source.
-The renamed palette package is installed alongside the legacy package so older
-validated releases remain importable. Legacy desktop commands forward to the new
+During the initial name migration, the renamed palette package was installed
+alongside its legacy package for old releases. The independent Orient replacement
+now uses a fresh environment; historical packages remain only in recovery data.
+Legacy desktop commands forward to the new
 commands; the renderer/observer services have backward aliases. Power-key service
 retirement requires a confirmed replacement logind inhibitor lease first.
 

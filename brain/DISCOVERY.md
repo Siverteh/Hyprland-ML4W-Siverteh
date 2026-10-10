@@ -36,9 +36,12 @@ Canonical labels/aliases and member overlap preserve IDs across rebuilds. Promot
 
 BAAI/bge-small-en-v1.5 is a 384-dimensional CPU model listed at approximately 67MB in [FastEmbed's model inventory](https://qdrant.github.io/fastembed/examples/Supported_Models/). Dependencies are isolated under ~/.local/share/siverteh-ai/brain-model; weights are downloaded once. Normal inference uses local_files_only and HF_HUB_OFFLINE. No note text is uploaded. Documents enter the worker over stdin, never command arguments or logs.
 
-Private derived state lives under the vault's hidden .brain-state/discovery directory: revision-keyed vectors, stable discovered identities and grouping overrides. Files use0600. Public Git contains code and synthetic tests only. Original Markdown remains append-only unless the user explicitly edits it through the existing maintenance workflow.
+Private derived state lives under the vault's hidden .brain-state/discovery directory: revision-keyed vectors, stable discovered identities and grouping overrides. Files use 0600. Public Git contains code and synthetic tests only. Original Markdown remains append-only unless the user explicitly edits it through the existing maintenance workflow.
 
-Initial inference on the current collection took about38seconds; a warm model build measured about0.6seconds, with subsequent in-process graph requests cached. Embeddings run in batches and only changed revisions are re-encoded. If unavailable, explicit/lexical grouping remains functional and reports the fallback.
+At the initial subject-discovery rollout (`543ee68`), inference on that collection
+took about 38 seconds; a warm model build measured about 0.6 seconds. These are
+historical measurements, not current-host latency guarantees. Subsequent
+in-process graph requests are cached. Embeddings run in batches and only changed revisions are re-encoded. If unavailable, explicit/lexical grouping remains functional and reports the fallback.
 
 ## Evaluation and limits
 
@@ -46,4 +49,4 @@ Regression fixtures cover unseen subjects with no registry, overlapping annotati
 
 This does not claim perfect automatic categorization. Labels are drawn from evidence rather than generated claims; some can still be awkward. English and mixed-language prose, unusual aliases and sparse subjects can need correction. Notes → Change grouping provides the feedback path. Use automatic grouping removes that override.
 
-The brain launches as a normal tiled app on workspace6. Initial fullscreen/maximize requests are suppressed for its specific app; startup explicitly clears restored fullscreen state. Other browsers and the user's manual fullscreen shortcuts are unaffected.
+The brain launches as a normal tiled app on workspace 6. Initial fullscreen/maximize requests are suppressed for its specific app; startup explicitly clears restored fullscreen state. Other browsers and the user's manual fullscreen shortcuts are unaffected.

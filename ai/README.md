@@ -137,9 +137,10 @@ command -v git ssh bash kitty rg jq flock secret-tool
 command -v git bash tmux
 ```
 
-The wallpaper repair separately requires Waypaper with native awww support and
-the awww renderer. The install helpers do not install general system packages;
-the existing CachyOS desktop was validated separately.
+Desktop wallpaper presentation is owned by Nacre’s Quickshell scene and local
+wallpaper helpers. Retired Waypaper/awww tools are not AI prerequisites. The AI
+install helpers do not install general system packages; desktop prerequisites
+are documented in [maintenance](../docs/maintenance.md).
 
 ## Installation
 

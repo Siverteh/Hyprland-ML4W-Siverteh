@@ -53,8 +53,10 @@ your shell. This changes the native Codex name shown in Resume. Save durable fin
 to the brain at milestones and before final handoff without asking the user to
 remind you. Obsidian need not be open.
 
-Claude Code shares the project registry and brain guidance but has its own login
-and native permissions. Use siverteh-ai login --agent claude to authenticate.
+Claude Code shares the project registry and brain guidance but has its own login.
+Personal sidebar and worker sessions explicitly use --dangerously-skip-permissions,
+matching the Codex full-access/never-approval policy.
+Use siverteh-ai login --agent claude to authenticate.
 Named Claude profiles use separate CLAUDE_CONFIG_DIR homes, never Codex auth.
 The launcher appends guidance to read repository AGENTS.md alongside CLAUDE.md.
 For Claude titles, use native session names or /rename; do not call the Codex

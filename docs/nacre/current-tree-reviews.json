@@ -4977,12 +4977,14 @@
     },
     "tools/NOTICE": {
       "disposition": "non-implementation",
-      "sha256": "63e097d2798370a28030b28fa2e666755c1ab9e5a087d6cf9b7b7cb2f6d89028",
+      "sha256": "a7d19171c56ce974565e69fa783405e5b1f06479cc3ab28cd6bf0415023bd10a",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 0106a03: own explicit third-party Quickshell native author/source/pinned licence credit, no relicense claim. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
-      ]
+        "Full current body/data/licence reviewed. Basis 0106a03: own explicit third-party Quickshell native author/source/pinned licence credit, no relicense claim. Later path changes: unchanged. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md"
+      ],
+      "notes": "Full changed notice re-reviewed: original native author/release/scope/LGPL credits retained; nonexistent root LICENSE reference corrected to canonical tools/quickshell-LICENSE-GPL. Not Nacre-native-source ownership."
     },
     "tools/licenses/Quickshell-LGPL-3.0.txt": {
       "disposition": "third-party",
@@ -6605,6 +6607,258 @@
         "docs/specs/documentation-source-audit.md"
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "AGENTS.md": {
+      "disposition": "non-implementation",
+      "sha256": "100f0abf5a7b678f8a90fbaa507c2c7c1d40bdd7d47c3dca67da05b31e3d9f5a",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 2fa3a95 Consolidate Siverteh OS around the maintained desktop and guarded deployment"
+    },
+    "ai/AGENTS.md": {
+      "disposition": "non-implementation",
+      "sha256": "400deff43a1924569bc337ad957030d58fae34131ebd61a8faca0ecb5957a31b",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
+    },
+    "ai/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "73776b368870a0bb181977996d05e3b37757bd19f60bf26e49e9831db149c19f",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
+    },
+    "ai/SSH-PRESENTATION.md": {
+      "disposition": "non-implementation",
+      "sha256": "c57427928cbbf0e0c5b3cb4f175ced9d1e258d4437f9b4ce6c5e2ee9f0f955a9",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: b4f2ddb shell: Keep desktop presentation out of SSH stdout"
+    },
+    "ai/brain/AGENTS.md": {
+      "disposition": "non-implementation",
+      "sha256": "8e52d1b613255637892f4bbc66c9271e50f5107d005e777b787e42bd3f876b96",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "ai/brain/CLAUDE.md": {
+      "disposition": "non-implementation",
+      "sha256": "cb6b7a49bf7636655128a991fcf9b8c5b34e69c13d80b179773e27c34ec8540f",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "ai/brain/INDEX.md": {
+      "disposition": "non-implementation",
+      "sha256": "da55d2aa22c72a8fdd1e27f1adf365e8f28b0ee3b06c4509e16358be588ada15",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "ai/skills/siverteh-brain/SKILL.md": {
+      "disposition": "non-implementation",
+      "sha256": "b11457a4c143d8fdb7b7c7d9a30c0994acbeb95bd144b6a7770d3dad4dc5d680",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
+    },
+    "ai/skills/siverteh-brain/references/maintenance.md": {
+      "disposition": "non-implementation",
+      "sha256": "6375475c023a087edb4a0daa5b111a5e0a64f85a5e9a7e02a186a5dfdc05d845",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "ai/skills/siverteh-project-work/SKILL.md": {
+      "disposition": "non-implementation",
+      "sha256": "c3eb35a371cba930f4f17b871874435fdbf69c364ed9f53ad346dc12de847704",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
+    },
+    "ai/skills/siverteh-project-work/references/handoff.md": {
+      "disposition": "non-implementation",
+      "sha256": "38e00ddf0228f175c84d7626136ce8570fdc7a4ba3eb5b7ad7db158992a1c676",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: adc96cc ai: Maintain versioned private knowledge"
+    },
+    "brain/DISCOVERY.md": {
+      "disposition": "non-implementation",
+      "sha256": "902674f7e169f9c4d31f6ccc2438d514cfbc79a0a479109b3c53fc107580f332",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 543ee68 Discover brain subjects from evidence with private local semantics"
+    },
+    "docs/features/brain-authentication.md": {
+      "disposition": "non-implementation",
+      "sha256": "1248b0c4588ddd1c596c2753ed84ebb953db2c2104d9ec8d8da9da39c958ecd0",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: a0a44da Document event-driven presentation health ownership and automatic Brain authentication"
+    },
+    "docs/features/fonts.md": {
+      "disposition": "non-implementation",
+      "sha256": "1dd863aa268b09e440518d42700ea30cabc78d537288789612637167d31725b3",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 59c7202 Provision verified upstream fonts with independent ownership and rollback"
+    },
+    "docs/features/health-and-recovery.md": {
+      "disposition": "non-implementation",
+      "sha256": "ab64194854c15ca9d2f2d343adb3f119ce568c66e26a2079e0a37d9865464d36",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: a0a44da Document event-driven presentation health ownership and automatic Brain authentication"
+    },
+    "docs/features/nacre-rename.md": {
+      "disposition": "non-implementation",
+      "sha256": "aad2e8d6e323a2b0be83224aba484b322bf11553e6a66a4f0616721be515378e",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 548f0b4 Rename the desktop to Nacre with compatible namespace migration"
+    },
+    "docs/features/session.md": {
+      "disposition": "non-implementation",
+      "sha256": "012b5ccb7486a75491f38695a29cefdc0dad60bb1ea253080cc96f58f55ad06e",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 9b0d88f Separate feature guides from deployment and document component ownership"
+    },
+    "docs/file-manager.md": {
+      "disposition": "non-implementation",
+      "sha256": "ac6412c050b09be023ec312d56ee316bab185ddf8e05c1e93aa9c56db899957d",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 86bebe6 Use comfortably sized Dolphin with live wallpaper palette updates"
+    },
+    "docs/repository-boundaries.md": {
+      "disposition": "non-implementation",
+      "sha256": "075ed2d27dd5fa1801d7775f3924ff45c6df890956d1484dddf0a969f57e7ecb",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: ac96607 Document system ownership startup editing paths and optional repository boundaries"
+    },
+    "nacre/shell-tools/tests/fixtures/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "5795bcc0ece6ba975533615501ff188e07345c60c05a76d20330e4271409feb6",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 9c9089f Add optional Orient harmony and clearer wallpaper-colored controls"
+    },
+    "nacre/shell-cli/LICENSE": {
+      "disposition": "third-party",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Canonical GNU license text compared in full bytes with publisher; native/historical licensing retained. Initial history: 4874385 Integrate reference-era desktop shell with horizontal bar and full frame"
+    },
+    "nacre/shell/LICENSE": {
+      "disposition": "third-party",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Canonical GNU license text compared in full bytes with publisher; native/historical licensing retained. Initial history: 4874385 Integrate reference-era desktop shell with horizontal bar and full frame"
+    },
+    "tools/quickshell-LICENSE": {
+      "disposition": "third-party",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Canonical GNU license text compared in full bytes with publisher; native/historical licensing retained. Initial history: 3d9149d Backport the upstream Qt 6.12 compatibility fix to the recovery package"
+    },
+    "tools/quickshell-LICENSE-GPL": {
+      "disposition": "third-party",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Canonical GNU license text compared in full bytes with publisher; native/historical licensing retained. Initial history: 4874385 Integrate reference-era desktop shell with horizontal bar and full frame"
+    },
+    "nacre/shell-cli/NOTICE": {
+      "disposition": "non-implementation",
+      "sha256": "1a5eb150c66fdf7677df2b5bc1359ef8381dd14719e961a4499bf5b550a5daab",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: ef71f98 Retain explicit attribution for the adapted palette engine"
+    },
+    "nacre/shell/NOTICE": {
+      "disposition": "non-implementation",
+      "sha256": "441dbd64d7c9b20c33abb9412161cda086db28fdf8ecf82d34725f7b6c73f585",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 4874385 Integrate reference-era desktop shell with horizontal bar and full frame"
+    },
+    "tools/quickshell-NOTICE": {
+      "disposition": "non-implementation",
+      "sha256": "a0fa8029907a73528e47569c33adc1267af3d8e1eb9e35187c53a142a97fecc2",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 3d9149d Backport the upstream Qt 6.12 compatibility fix to the recovery package"
+    },
+    "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "acfa3f2202292ed04f63cd73615eb231c3d067c10f133555365f7fee74dcfdfa",
+      "evidence": [
+        "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: New review report."
     }
   }
 }
