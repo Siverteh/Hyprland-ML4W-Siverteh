@@ -76,3 +76,11 @@ hl.window_rule({
     float = true,
     center = true,
 })
+
+-- Welcome is a normal single-instance app, sized by its responsive Qt window.
+hl.window_rule({
+    name = "nacre-welcome",
+    match = { class = "^org[.]quickshell$", title = "^Nacre Welcome$" },
+    float = true,
+    center = true,
+})

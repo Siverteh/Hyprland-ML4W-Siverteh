@@ -10,6 +10,7 @@ hl.on("hyprland.start", function()
         { args = { "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" } },
         { args = { "wl-paste", "--watch", "cliphist", "store" } },
         { args = { scripts .. "startup-apps.sh" } },
+        { args = { os.getenv("HOME") .. "/.local/bin/nacre-welcome", "--login" } },
     }
     for _, task in ipairs(tasks) do
         local command = task.scope and "uwsm app -t scope --" or "uwsm app --"

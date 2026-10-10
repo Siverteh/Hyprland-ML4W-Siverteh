@@ -214,3 +214,18 @@ No second palette daemon/publication owner exists. Animated analysis is bounded
 and cached, while the existing low-priority library worker prepares records.
 Optional Tide uses the shared clock's hour signal; workspace chips read the shared
 presentation. See [behavior, formats and limits](features/orient.md).
+
+## Welcome application
+
+`NacreWelcomeHost` lazily creates one normal window and `NacreWelcomeApp` owns
+activation/routing with the same Hyprland focus/hidden-workspace semantics as the
+other Nacre apps. Setup/maintenance actions open existing Settings, Colors and
+picker owners. Offline content and default shortcut guidance are local; public
+links open only on explicit clicks. Optional AI/Brain routes use existing tools.
+
+`welcome.py` alone writes private `welcome.json` and per-session claims with a
+file lock and atomic replacement. The compositor session-start hook runs
+`nacre-welcome --login` through UWSM; shell restarts do not trigger Welcome. The
+CLI uses existing-service IPC with bounded cold retries, and preference changes
+never restart workers or publish themes. The standard logo/icon remains owned by
+`branding.py`, with no separate Welcome artwork or identity. See [Welcome](features/welcome.md).

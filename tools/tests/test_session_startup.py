@@ -57,14 +57,24 @@ callback()
                     "--",
                     "/home/example/.config/hypr/scripts/startup-apps.sh",
                 ],
+                [
+                    "uwsm",
+                    "app",
+                    "--",
+                    "/home/example/.local/bin/nacre-welcome",
+                    "--login",
+                ],
             ],
         )
 
     def test_home_path_is_one_literal_argument(self):
         for home in ("/home/space name", "/home/quote'home", "/home/$(not-executed)"):
             commands = self.commands(home)
-            self.assertEqual(len(commands), 4)
+            self.assertEqual(len(commands), 5)
             self.assertEqual(
-                commands[-1][-1], home + "/.config/hypr/scripts/startup-apps.sh"
+                commands[-2][-1], home + "/.config/hypr/scripts/startup-apps.sh"
             )
-            self.assertEqual(len(commands[-1]), 4)
+            self.assertEqual(len(commands[-2]), 4)
+            self.assertEqual(
+                commands[-1][-2:], [home + "/.local/bin/nacre-welcome", "--login"]
+            )

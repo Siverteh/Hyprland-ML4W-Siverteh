@@ -323,6 +323,10 @@ def publish(colors, home=None):
     atomic(folder / "nacre-ai-text.txt", text_logo("ai-symbolic", home).encode())
 
     atomic(
+        home / ".local/share/icons/hicolor/scalable/apps/nacre.svg",
+        svg(False, colors, "full").encode(),
+    )
+    atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg",
         svg(False, colors, "ai-full").encode(),
     )

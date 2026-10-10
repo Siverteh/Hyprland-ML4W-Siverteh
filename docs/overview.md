@@ -54,7 +54,7 @@ video playback follows lock, sleep, battery and visibility policy. See
    reported without preventing later files from loading.
 3. Enabled services own the shell, Brain, Hypridle and power-key handling.
    Hyprland's startup hook submits wallet initialization, polkit, clipboard
-   watching and selected startup apps through UWSM.
+   watching, selected startup apps and optional Welcome activation through UWSM.
 4. Startup reuses existing windows: browser 1, AI 2, Discord 3, Spotify 4, mail 5,
    Brain 6. Editors route to 7; plain terminals are unrestricted.
 
@@ -93,7 +93,7 @@ possible future extraction; it is not an implemented public installer.
 - [Dolphin](file-manager.md), [terminal branding](features/terminal-branding.md)
 - [Session environment](features/session.md), [travel timezone](features/travel-timezone.md)
 - [Runtime ownership](features/runtime.md), [Nacre name migration](features/nacre-rename.md)
-- [Nacre Settings](features/settings-app.md)
+- [Nacre Welcome](features/welcome.md), [Nacre Settings](features/settings-app.md)
 - [Nacre Brain](features/nacre-brain.md)
 - [Health and recovery](features/health-and-recovery.md), [Brain authentication](features/brain-authentication.md)
 
@@ -122,3 +122,7 @@ studio (`nacre-colors`) and a portable engine (`orient`). Colors keeps source
 coverage, role choices, favorites/history and export files private; Apply uses the
 existing publisher. Source: `nacre/shell-cli/src/orient`, `modules/colors`,
 `services/NacreColorsApp.qml`, `shell-tools/colors.py` and output `.in` templates.
+
+[Nacre Welcome](features/welcome.md) is a launcher app (`nacre-welcome`) for
+getting started, shortcuts, the app suite and help. Its Show at login switch is
+independent of manual activation and persists across desktop updates.
