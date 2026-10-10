@@ -2163,3 +2163,13 @@ restores the already authorized policy for new/resumed terminal workers. Code-on
 helper update preserves existing accounts, peers and private state, with backup.
 No whole-upstream/legal clean-room/final-license claim; Brain and remaining
 fixtures/docs/notices/comparison remain required.
+
+## Brain authentication and native integration review
+
+2026-10-10 UTC. [Spec](../specs/brain-integration-source-audit.md) and
+[nine-file table](BRAIN-INTEGRATION-SOURCE-AUDIT.md) record full current body and
+local history review for eight integrations/HTML and the own auth fixture. Native
+model libraries/weights remain external; no download/inference/private token
+inspection or live browser/service restart. No runtime implementation changed.
+Larger control/discovery/web application/style bodies, remaining fixtures/docs/
+notices and final source/dependency/licensing comparison remain required.
