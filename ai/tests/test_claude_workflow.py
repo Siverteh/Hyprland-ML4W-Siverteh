@@ -315,3 +315,42 @@ class PartialHistoryTests(unittest.TestCase):
                 ai.project_chats({"id": "p"}, None, errors), [{"id": "local"}]
             )
             self.assertEqual(errors, ["unavailable"])
+
+
+class ClaudeAccessPolicyTests(unittest.TestCase):
+    def test_new_and_resumed_workers_keep_full_access_and_account_identity(self):
+        c = module("siverteh-ai-claude")
+        for command in ("new", "resume"):
+            with self.subTest(command=command), tempfile.TemporaryDirectory() as temp:
+                directory = Path(temp) / "chat"
+                directory.mkdir()
+                args = SimpleNamespace(
+                    account="work",
+                    command=command,
+                    tmux=False,
+                    path=str(directory),
+                    project="general-chat",
+                    chat_directory=True,
+                    thread_id="7b7db928-7582-4a1e-91b2-e6b601ca8a2d",
+                )
+                with (
+                    patch.dict(os.environ, {"HOME": temp}),
+                    patch.object(c.subprocess, "run"),
+                    patch.object(c, "executable", return_value="/fake/claude"),
+                    patch.object(c, "prepare_directory", return_value=directory),
+                    patch.object(c.os, "chdir"),
+                    patch.object(
+                        c.os, "execvpe", side_effect=RuntimeError("intercept")
+                    ) as launch,
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "intercept"):
+                        c.run(args)
+                executable, argv, env = launch.call_args.args
+                self.assertEqual(executable, "/fake/claude")
+                self.assertIn("--dangerously-skip-permissions", argv)
+                self.assertEqual(
+                    env["CLAUDE_CONFIG_DIR"],
+                    str(Path(temp) / ".local/share/siverteh-ai/claude-accounts/work"),
+                )
+                if command == "resume":
+                    self.assertEqual(argv[argv.index("--resume") + 1], args.thread_id)

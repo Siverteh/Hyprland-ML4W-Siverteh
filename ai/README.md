@@ -75,7 +75,8 @@ Project tasks get separate `claude/…` worktrees; general chats use independent
 scratch folders. Remote tasks run in tmux. The adapter passes shared brain and
 project instructions through Claude's supported appended system prompt, including
 reading repository AGENTS.md and respecting remote build-host settings. Native
-Claude configuration and permission modes remain in effect.
+Claude configuration remains in effect; worker sessions explicitly use
+`--dangerously-skip-permissions`, matching the sidebar and your full-access policy.
 
 The combined history uses Codex's supported thread API and Anthropic's
 `list_sessions()` metadata API, with millisecond timestamps normalized before
@@ -376,3 +377,20 @@ statusLine input is captured per account for sessions launched here; missing or
 stale data is labelled. Session cost estimates are not subscription charges.
 Existing custom Claude status lines are delegated their original input. No private
 usage APIs, authentication exports or transcript scraping are used.
+
+## Update controller code without account setup
+
+For an existing recognized private conversation runtime, review and apply only
+the controller that changed:
+
+```sh
+python3 ai/install.py --helper-only siverteh-ai-claude
+python3 ai/install.py --helper-only siverteh-ai-claude --apply
+```
+
+The code-only path accepts the launcher, Codex chat transport or Claude adapter.
+It backs up the prior file, preserves its mode and symlink, and refuses unknown
+locations or concurrent changes. It does not run account/skill/vault setup or
+restart existing workers. `--launcher-only` remains the launcher compatibility
+option. Apply new-session behavior by opening a new session normally; current
+workers continue with their original process state.

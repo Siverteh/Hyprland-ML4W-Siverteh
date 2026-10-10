@@ -12,27 +12,29 @@ import subprocess
 import tempfile
 
 
-def install_launcher(repo, home, apply=False):
-    """Update the known private launcher copy without reinstalling AI setup."""
-    target = (home / ".local/bin/siverteh-ai").resolve()
+def install_launcher(repo, home, apply=False, name="siverteh-ai"):
+    """Update one recognized controller copy without reinstalling AI setup."""
+    if name not in ("siverteh-ai", "siverteh-ai-chat", "siverteh-ai-claude"):
+        raise RuntimeError("Unrecognized AI controller; existing files left unchanged")
+    target = (home / ".local/bin" / name).resolve()
     runtime = home / ".local/share/siverteh-ai/conversation-runtime"
     if (
         not target.is_relative_to(runtime)
-        or target.name != "siverteh-ai"
+        or target.name != name
         or not target.is_file()
     ):
         raise RuntimeError(
-            "Launcher-only deployment requires a recognized private runtime copy; existing files were left unchanged"
+            "Controller-only deployment requires a recognized private runtime copy; existing files were left unchanged"
         )
-    source = repo / "bin/siverteh-ai"
-    print("Launcher-only plan:", source, "→", target)
+    source = repo / "bin" / name
+    print("Controller-only plan:", source, "→", target)
     if not apply:
-        print("Plan only; add --apply to replace the launcher and save its prior copy.")
+        print("Plan only; add --apply to replace the controller and save its prior copy.")
         return
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = home / ".local/state/siverteh-ai/backups" / stamp
     backup.mkdir(parents=True, mode=0o700)
-    shutil.copy2(target, backup / "siverteh-ai")
+    shutil.copy2(target, backup / name)
     old = target.read_bytes()
     with tempfile.NamedTemporaryFile(dir=target.parent, delete=False) as out:
         out.write(source.read_bytes())
@@ -41,10 +43,10 @@ def install_launcher(repo, home, apply=False):
     if target.read_bytes() != old:
         pending.unlink()
         raise RuntimeError(
-            "Installed launcher changed during deployment; retry after review"
+            "Installed controller changed during deployment; retry after review"
         )
     pending.replace(target)
-    print("Launcher updated; previous copy:", backup / "siverteh-ai")
+    print("Controller updated; previous copy:", backup / name)
 
 
 def main():
@@ -68,16 +70,23 @@ def main():
         help="Plan a code-only update of the recognized private launcher copy",
     )
     parser.add_argument(
-        "--apply", action="store_true", help="Apply the launcher-only update"
+        "--helper-only",
+        choices=("siverteh-ai", "siverteh-ai-chat", "siverteh-ai-claude"),
+        help="Plan a code-only update of one recognized private controller",
+    )
+    parser.add_argument(
+        "--apply", action="store_true", help="Apply the selected code-only update"
     )
     args = parser.parse_args()
     repo = args.repo.resolve()
     home = Path.home()
-    if args.launcher_only:
-        install_launcher(repo, home, args.apply)
+    if args.launcher_only and args.helper_only:
+        parser.error("Choose either --launcher-only or --helper-only")
+    if args.launcher_only or args.helper_only:
+        install_launcher(repo, home, args.apply, args.helper_only or "siverteh-ai")
         return
     if args.apply:
-        parser.error("--apply is only used with --launcher-only")
+        parser.error("--apply requires --launcher-only or --helper-only")
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     backup = home / ".local/state/siverteh-ai/backups" / stamp
 

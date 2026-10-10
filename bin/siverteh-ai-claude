@@ -226,7 +226,14 @@ def run(args):
         os.environ.get("SIVERTEH_BRAIN", str(Path.home() / "Documents/Siverteh-Brain"))
     )
     vault.mkdir(parents=True, exist_ok=True, mode=0o700)
-    argv = [binary, "--append-system-prompt", guidance(), "--add-dir", str(vault)]
+    argv = [
+        binary,
+        "--dangerously-skip-permissions",
+        "--append-system-prompt",
+        guidance(),
+        "--add-dir",
+        str(vault),
+    ]
     # Per-session overlay keeps subscription metrics private and preserves a custom status line.
     status = {}
     for settings in (

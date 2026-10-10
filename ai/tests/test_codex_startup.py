@@ -126,3 +126,50 @@ class LauncherDeploymentTests(unittest.TestCase):
             self.assertEqual(auth.read_text(), "existing private data")
             with self.assertRaisesRegex(RuntimeError, "recognized"):
                 installer.install_launcher(ROOT, home / "unknown", True)
+
+
+class ControllerDeploymentTests(unittest.TestCase):
+    def test_claude_only_update_preserves_other_controller_and_private_state(self):
+        import importlib.util
+        from pathlib import Path
+        import tempfile
+        from test_workflow import ROOT
+
+        spec = importlib.util.spec_from_file_location(
+            "controller_install", ROOT / "ai/install.py"
+        )
+        installer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(installer)
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            runtime = home / ".local/share/siverteh-ai/conversation-runtime/test/bin"
+            runtime.mkdir(parents=True)
+            target = runtime / "siverteh-ai-claude"
+            target.write_text("prior controller")
+            target.chmod(0o755)
+            other = runtime / "siverteh-ai"
+            other.write_text("running peer")
+            link = home / ".local/bin/siverteh-ai-claude"
+            link.parent.mkdir(parents=True)
+            link.symlink_to(target)
+            private = home / ".claude/private-fixture"
+            private.parent.mkdir()
+            private.write_text("preserve")
+            installer.install_launcher(ROOT, home, name="siverteh-ai-claude")
+            self.assertEqual(target.read_text(), "prior controller")
+            self.assertFalse((home / ".local/state").exists())
+            installer.install_launcher(ROOT, home, True, "siverteh-ai-claude")
+            self.assertEqual(
+                target.read_bytes(), (ROOT / "bin/siverteh-ai-claude").read_bytes()
+            )
+            self.assertEqual(target.stat().st_mode & 0o777, 0o755)
+            self.assertEqual(other.read_text(), "running peer")
+            self.assertEqual(private.read_text(), "preserve")
+            self.assertTrue(link.is_symlink())
+            backup = list(
+                (home / ".local/state/siverteh-ai/backups").glob("*/siverteh-ai-claude")
+            )
+            self.assertEqual(len(backup), 1)
+            self.assertEqual(backup[0].read_text(), "prior controller")
+            with self.assertRaisesRegex(RuntimeError, "Unrecognized"):
+                installer.install_launcher(ROOT, home, True, "auth.json")
