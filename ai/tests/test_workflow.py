@@ -26,7 +26,33 @@ def module(name):
     return loaded
 
 
-class BrainTests(unittest.TestCase):
+class IsolatedWorkflowTest(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory(prefix="nacre-workflow-test-")
+        self.addCleanup(temporary.cleanup)
+        home = Path(temporary.name)
+        environment = dict(os.environ)
+        for key in (
+            "CODEX_HOME",
+            "CLAUDE_CONFIG_DIR",
+            "SIVERTEH_BRAIN",
+            "SIVERTEH_BRAIN_DIR",
+            "SIVERTEH_AI_PROJECTS",
+            "SIVERTEH_AI_SETTINGS",
+        ):
+            environment.pop(key, None)
+        environment.update(
+            HOME=str(home),
+            XDG_CONFIG_HOME=str(home / ".config"),
+            XDG_STATE_HOME=str(home / ".local/state"),
+            XDG_CACHE_HOME=str(home / ".cache"),
+        )
+        isolated = patch.dict(os.environ, environment, clear=True)
+        isolated.start()
+        self.addCleanup(isolated.stop)
+
+
+class BrainTests(IsolatedWorkflowTest):
     def test_note_metadata_cannot_bypass_common_secret_checks(self):
         with tempfile.TemporaryDirectory() as tmp:
             for field in ("--title", "--source"):
@@ -125,7 +151,7 @@ class BrainTests(unittest.TestCase):
             self.assertEqual(list((Path(tmp) / "inbox").glob("*.md")), [])
 
 
-class WorkflowTests(unittest.TestCase):
+class WorkflowTests(IsolatedWorkflowTest):
     def test_dashboard_forwards_selected_account_to_worker(self):
         ai = module("siverteh-ai")
         with (
@@ -529,7 +555,7 @@ if __name__ == "__main__":
     unittest.main()
 
 
-class LatestTaskTests(unittest.TestCase):
+class LatestTaskTests(IsolatedWorkflowTest):
     def test_latest_uses_most_recent_across_projects_without_picker(self):
         ai = module("siverteh-ai")
         projects = [
@@ -612,7 +638,7 @@ class LatestTaskTests(unittest.TestCase):
             execute.assert_not_called()
 
 
-class NewProjectTests(unittest.TestCase):
+class NewProjectTests(IsolatedWorkflowTest):
     def test_new_project_registered_without_overwriting_other_projects(self):
         ai = module("siverteh-ai")
         with (
@@ -680,7 +706,7 @@ class NewProjectTests(unittest.TestCase):
             create.assert_not_called()
 
 
-class ProjectBuildHostTests(unittest.TestCase):
+class ProjectBuildHostTests(IsolatedWorkflowTest):
     def test_build_host_does_not_move_local_tasks_to_ssh(self):
         ai = module("siverteh-ai")
         p = {
@@ -724,7 +750,7 @@ class ProjectBuildHostTests(unittest.TestCase):
             self.assertEqual(rows[1]["project"]["host"], "dev")
 
 
-class GeneralChatTests(unittest.TestCase):
+class GeneralChatTests(IsolatedWorkflowTest):
     def test_general_chat_launch_is_not_a_git_task_and_has_separate_folders(self):
         ai = module("siverteh-ai")
         with (
@@ -798,3 +824,35 @@ class GeneralChatTests(unittest.TestCase):
         ai = module("siverteh-ai")
         with self.assertRaises(ValueError):
             ai.create_project("General chat")
+
+
+class WorkflowIsolationTests(unittest.TestCase):
+    def test_mocked_workflow_leaves_caller_home_and_account_settings_untouched(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            settings = home / ".config/siverteh-ai/settings.json"
+            settings.parent.mkdir(parents=True)
+            settings.write_text('{"accounts":{"codex":"host-account"}}')
+            original = settings.read_bytes()
+            before = sorted(str(p.relative_to(home)) for p in home.rglob("*"))
+            with patch.dict(
+                os.environ,
+                {
+                    "HOME": directory,
+                    "SIVERTEH_AI_SETTINGS": str(settings),
+                    "CODEX_HOME": str(home / "existing-codex"),
+                },
+            ):
+                for method in (
+                    "test_dashboard_forwards_selected_account_to_worker",
+                    "test_local_worker_has_writable_worktree_and_brain",
+                ):
+                    result = unittest.TestResult()
+                    WorkflowTests(method).run(result)
+                    self.assertTrue(
+                        result.wasSuccessful(), result.errors + result.failures
+                    )
+            self.assertEqual(settings.read_bytes(), original)
+            self.assertEqual(
+                sorted(str(p.relative_to(home)) for p in home.rglob("*")), before
+            )
