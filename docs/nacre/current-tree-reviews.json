@@ -5579,12 +5579,13 @@
     },
     "brain/install.py": {
       "disposition": "independent",
-      "sha256": "ba660c159e3125cfd8887b63bcb9d14cd0e5b28dd32f02dfdc81dcdbea517bd6",
+      "sha256": "ee0fead3b8b23bbe0ccf9d624d78a9c4e99b1fda3ee33920d2ce74245e7a1266",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
         "Complete current body and local history/native contracts reviewed. Basis 2fa3a95; later 3f4132d, 83b3531. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Verified managed-copy maintenance setup reads installed static policy templates, seeds missing files and preserves later personal edits; own path fallback, installer copy and isolated HOME regression."
       ]
     },
     "brain/launch.sh": {
@@ -5599,30 +5600,33 @@
     },
     "brain/provision-semantic.py": {
       "disposition": "independent",
-      "sha256": "91863f991fb097c4ba2d6d00450cbf53db8ff939dcb3f8187258682cf961f560",
+      "sha256": "856322703ae1cbc3963097ef757c58414f52152af4d599fc8025c6f750118b3e",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ]
     },
     "brain/semantic-client.py": {
       "disposition": "independent",
-      "sha256": "2e2bfa2412d27ab23e526e602e8a0289f3f90844d5226178f186a75e77a27d1b",
+      "sha256": "8459d80035fbcc3ca71bd3d663c0325dd5b7f500bbbe9c99c1042edde49806b8",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
         "Complete current body and local history/native contracts reviewed. Basis 543ee68; later bb46dd6, 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ]
     },
     "brain/semantic.py": {
       "disposition": "independent",
-      "sha256": "f013f397b01dc447e2321101af59cbe7cc1537305e5108e5422401db254a78e3",
+      "sha256": "abeca0fd4f587792db94589873d95fa992971bb10e1d26a8b940ca1c815b654b",
       "evidence": [
         "docs/specs/brain-integration-source-audit.md",
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
-        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
+        "Complete current body and local history/native contracts reviewed. Basis 543ee68; later 83b3531, 2fa3a95. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open.",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ]
     },
     "brain/web/index.html": {
@@ -6981,10 +6985,11 @@
     },
     "brain/DISCOVERY.md": {
       "disposition": "non-implementation",
-      "sha256": "902674f7e169f9c4d31f6ccc2438d514cfbc79a0a479109b3c53fc107580f332",
+      "sha256": "c0e2f7f39d34e16995f395d24f86bdbee6ca60bebb01b4f83adddab7073831c2",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 543ee68 Discover brain subjects from evidence with private local semantics"
     },
@@ -8404,12 +8409,13 @@
     },
     "bin/nacre-brain-maintain": {
       "disposition": "independent",
-      "sha256": "abff45e3c93f58d07ce26ad620afec3b9e332fde2375a92bafcf1a416a1f41d5",
+      "sha256": "e41e75378cb8bd0dceeb9173f2937beaf2294f563b395c7b3dc6973d686decce",
       "evidence": [
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
         "Complete current body and local history reviewed: basis adc96cc; later 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open.",
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Verified managed-copy maintenance setup reads installed static policy templates, seeds missing files and preserves later personal edits; own path fallback, installer copy and isolated HOME regression."
       ]
     },
     "bin/nacre-brain-sync": {
@@ -8424,23 +8430,26 @@
     },
     "brain/migrate.py": {
       "disposition": "independent",
-      "sha256": "7462832bcd5b48ac7f2505b5451cb4f7a57058b4f8917fd99fc4dd4bdc8d0f6a",
+      "sha256": "696ee0f39adc776ceed06b8102dfa4e46420fe494c1e85e188d0426a69059e14",
       "evidence": [
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ]
     },
     "brain/tests/test_migration.py": {
       "disposition": "independent",
-      "sha256": "ac3031d6774070f79852f4f19aeaa62dac62cc895191487bdadc69a268d5bc18",
+      "sha256": "3cb904057e4af5ee0790af176cf4cdb9cf30a9200ab1ebdc1d53bc3734801c1f",
       "evidence": [
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Verified managed-copy maintenance setup reads installed static policy templates, seeds missing files and preserves later personal edits; own path fallback, installer copy and isolated HOME regression."
       ]
     },
     "docs/features/nacre-brain.md": {
       "disposition": "independent",
-      "sha256": "c7fc7fadcfd4a3cfad0d636f6c499e89ae31cce3cf43e3f09ab3c336e3b4a94c",
+      "sha256": "627734344a3ba07ea568a3559b4db583e701b93867ed958c7535ccce24afbae0",
       "evidence": [
-        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified."
+        "docs/specs/nacre-brain.md: current naming/path migration, compatibility aliases, Brain-specific own glyph and shared brand integration explicitly reviewed. Existing independently authored behavior preserved; no upstream source copied. Migration/collision/rollback/profile guard, CLI, publisher/native launcher tests cover the changes. User-supplied shell artwork provenance remains qualified.",
+        "Nacre Brain complete runtime naming includes the optional existing CPU model environment; journaled same-filesystem move with old-path alias preserves absolute environment references. No model/dependency/algorithm changes."
       ]
     },
     "docs/specs/nacre-brain.md": {

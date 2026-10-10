@@ -34,7 +34,7 @@ Canonical labels/aliases and member overlap preserve IDs across rebuilds. Promot
 
 ## Runtime and privacy
 
-BAAI/bge-small-en-v1.5 is a 384-dimensional CPU model listed at approximately 67MB in [FastEmbed's model inventory](https://qdrant.github.io/fastembed/examples/Supported_Models/). Dependencies are isolated under ~/.local/share/siverteh-ai/brain-model; weights are downloaded once. Normal inference uses local_files_only and HF_HUB_OFFLINE. No note text is uploaded. Documents enter the worker over stdin, never command arguments or logs.
+BAAI/bge-small-en-v1.5 is a 384-dimensional CPU model listed at approximately 67MB in [FastEmbed's model inventory](https://qdrant.github.io/fastembed/examples/Supported_Models/). Dependencies are isolated under ~/.local/share/nacre/brain-model; weights are downloaded once. Normal inference uses local_files_only and HF_HUB_OFFLINE. No note text is uploaded. Documents enter the worker over stdin, never command arguments or logs.
 
 Private derived state lives under the vault's hidden .brain-state/discovery directory: revision-keyed vectors, stable discovered identities and grouping overrides. Files use 0600. Public Git contains code and synthetic tests only. Original Markdown remains append-only unless the user explicitly edits it through the existing maintenance workflow.
 

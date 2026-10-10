@@ -106,6 +106,8 @@ def main():
     with sync.locked(root):
         if args.command == "setup":
             templates = Path(__file__).resolve().parents[1] / "ai/brain"
+            if not templates.is_dir():
+                templates = Path.home() / ".local/share/nacre/brain/templates"
             for name in ("AGENTS.md", "CLAUDE.md", "INDEX.md"):
                 path = root / name
                 if not path.exists():

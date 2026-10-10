@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-root = Path.home() / ".local/share/siverteh-ai/brain-model"
+root = Path.home() / ".local/share/nacre/brain-model"
 python = root / "bin/python"
 if not python.exists():
     subprocess.run([sys.executable, "-m", "venv", str(root)], check=True)

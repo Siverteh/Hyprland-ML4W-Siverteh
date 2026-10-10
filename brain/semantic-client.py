@@ -19,7 +19,7 @@ class SemanticClient:
             == "0"
         ):
             return {}
-        python = Path.home() / ".local/share/siverteh-ai/brain-model/bin/python"
+        python = Path.home() / ".local/share/nacre/brain-model/bin/python"
         if not python.exists():
             return {}
         with self.lock:

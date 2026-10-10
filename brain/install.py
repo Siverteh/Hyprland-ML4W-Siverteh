@@ -111,6 +111,7 @@ def main():
     ):
         shutil.copy2(ROOT / name, DEST / name)
     shutil.copytree(ROOT / "web", DEST / "web", dirs_exist_ok=True)
+    shutil.copytree(ROOT.parent / "ai/brain", DEST / "templates", dirs_exist_ok=True)
     for name in ("nacre-brain-ui", "siverteh-brain-ui", "siverteh-observatory"):
         wrapper = HOME / ".local/bin" / name
         wrapper.parent.mkdir(parents=True, exist_ok=True)

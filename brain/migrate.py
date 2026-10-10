@@ -18,6 +18,7 @@ DIRECTORIES = (
         ".local/share/nacre/brain-browser",
     ),
     (".config/siverteh-ai/brain-sync.json", ".config/nacre/brain-sync.json"),
+    (".local/share/siverteh-ai/brain-model", ".local/share/nacre/brain-model"),
 )
 UNITS = {
     "siverteh-observatory-brain.service": (

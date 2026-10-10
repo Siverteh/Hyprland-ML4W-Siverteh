@@ -16,6 +16,7 @@ Canonical paths:
 - Runtime code: `~/.local/share/nacre/brain`
 - Private state and browser authentication: `~/.local/state/nacre/brain`
 - Dedicated browser profile: `~/.local/share/nacre/brain-browser`
+- Optional local semantic model: `~/.local/share/nacre/brain-model`
 - Sync configuration: `~/.config/nacre/brain-sync.json`
 
 Deployment reviews the namespace plan before writing. The existing migration

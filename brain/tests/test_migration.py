@@ -142,3 +142,37 @@ class BrainMigrationTests(unittest.TestCase):
                         b"\0".join([*args, b"--type=renderer"])
                     )
                     self.assertFalse(control.brain_browser_running())
+
+    def test_installed_maintenance_setup_uses_runtime_templates(self):
+        import shutil
+
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            binaries = home / ".local/bin"
+            binaries.mkdir(parents=True)
+            for name in ("nacre-brain", "nacre-brain-sync", "nacre-brain-maintain"):
+                shutil.copy2(ROOT / "bin" / name, binaries / name)
+            templates = home / ".local/share/nacre/brain/templates"
+            shutil.copytree(ROOT / "ai/brain", templates)
+            env = {**os.environ, "HOME": str(home)}
+            env.pop("NACRE_BRAIN", None)
+            env.pop("SIVERTEH_BRAIN", None)
+            subprocess.run(
+                [sys.executable, str(binaries / "nacre-brain-maintain"), "setup"],
+                env=env,
+                check=True,
+                capture_output=True,
+            )
+            vault = home / "Documents/Nacre-Brain"
+            for name in ("AGENTS.md", "CLAUDE.md", "INDEX.md"):
+                self.assertEqual(
+                    (vault / name).read_bytes(), (templates / name).read_bytes()
+                )
+            (vault / "AGENTS.md").write_text("Personal instructions")
+            subprocess.run(
+                [sys.executable, str(binaries / "nacre-brain-maintain"), "setup"],
+                env=env,
+                check=True,
+                capture_output=True,
+            )
+            self.assertEqual((vault / "AGENTS.md").read_text(), "Personal instructions")

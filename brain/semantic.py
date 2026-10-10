@@ -5,7 +5,7 @@ import json, os, sys
 from pathlib import Path
 
 MODEL = "BAAI/bge-small-en-v1.5"
-CACHE = Path.home() / ".local/share/siverteh-ai/brain-model/models"
+CACHE = Path.home() / ".local/share/nacre/brain-model/models"
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 if "--download" not in sys.argv:
     os.environ["HF_HUB_OFFLINE"] = "1"
