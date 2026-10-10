@@ -41,6 +41,7 @@ Item {
     readonly property var popupPosition: Layout.popout(x, width, popouts.currentCenter, popouts.width, popouts.targetWidth, NacreFrame.rounding)
     Extras.LeftDrawer {
         id: left
+        enabled: root.visibilities.left
         screen: root.screen
         visibilities: root.visibilities
         x: root.leftPosition.x
@@ -49,6 +50,7 @@ Item {
     }
     Osd.NacreOsdPanel {
         id: osd
+        enabled: visibility
         section: root.visibilities.controlSection || "home"
         keyboardActive: root.visibilities.edgeMenu === "osd" && !root.visibilities.previewOnly
         onSectionRequested: section => root.visibilities.controlSection = section
@@ -60,6 +62,7 @@ Item {
     }
     Session.NacreSessionPanel {
         id: session
+        enabled: root.visibilities.session
         visibilities: root.visibilities
         x: root.sessionPosition.x
         y: root.sessionPosition.y
@@ -67,6 +70,7 @@ Item {
     }
     Dashboard.NacreDashboardPanel {
         id: dashboard
+        enabled: root.visibilities.dashboard
         visibilities: root.visibilities
         x: root.dashboardPosition.x
         y: root.dashboardPosition.y
@@ -74,6 +78,7 @@ Item {
     }
     Popouts.NacrePopupPanel {
         id: popouts
+        enabled: hasCurrent
         screen: root.screen
         readonly property bool joinsRight: root.popupPosition.joinsRight
         x: root.popupPosition.x
@@ -82,12 +87,14 @@ Item {
     }
     Notifications.NacreNotificationStack {
         id: notifications
+        enabled: !suppressed
         suppressed: popouts.height > 0.1 || session.width > 0.1 || dashboard.height > 0.1 || root.visibilities.osd
         anchors.right: parent.right
         anchors.top: parent.top
     }
     Launcher.NacreLauncherPanel {
         id: launcher
+        enabled: root.visibilities.launcher
         visibilities: root.visibilities
         x: root.launcherPosition.x
         y: root.launcherPosition.y

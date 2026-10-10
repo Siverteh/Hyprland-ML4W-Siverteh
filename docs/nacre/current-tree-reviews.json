@@ -3314,14 +3314,15 @@
     },
     "nacre/shell/modules/drawers/NacrePanelHost.qml": {
       "disposition": "independent",
-      "sha256": "326cec594a2090fdffd3f4ee67f675f6bc45ffda1d9b6f48eae9521785fd713e",
+      "sha256": "bd1a92997dd1fd62cbe4038394c655741b183ca5b2ff34b1edb5f1aff28a8435",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 216f23a, 28db63f, 1cd6ab7, e869927, 7b53c65, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
-      ],
-      "notes": "Live focus repair: a control center opened deliberately gains an explicit focus scope after visibility/keyboard mode changes; hover previews remain passive. Existing frame Escape ownership retained. Native focus test asserts the distinction without writes; own source, no inherited implementation copied."
+        "docs/specs/frame-control-center.md",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
+      ]
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
@@ -6339,7 +6340,7 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "5d74a21d9ef13023e245144c262b55d7ef7cdf2b5f28e6c4e4808742e7f7f3bb",
+      "sha256": "1588834dfd8181f9a3ba017557c208b76fc2ded1218b589c1aefb07c2e9bde09",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
@@ -6348,7 +6349,9 @@
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     },
     "nacre/shell-tools/tests/test_wallpaper_native.py": {
@@ -6537,7 +6540,7 @@
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "463b7ecd100254dacde4d52d3858fdc7d678f5e71dcdbb2363bbb5cc3f4e30fd",
+      "sha256": "f37b736afb60b0de51fd5973cc960f7bd53893084426774def3b4fdb48c1e0f0",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6546,7 +6549,9 @@
         "Current body reviewed: only the protruding curve blends body at the join to the existing primary accent at its tip. Finite120ms hover-strength transition respects reduced motion and palette roles update immediately. Native frame pixels verify tinted tips with unchanged body/frame and input geometry. Independent local visual refinement; no inherited implementation consulted.",
         "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     },
     "docs/features/foundation.md": {
@@ -6560,7 +6565,7 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "e57ae90005089d49a702bf28a0686a92ff8ec827ff18c4706e1bac8be3c7a1a8",
+      "sha256": "5afb54566f0ec158a32e75fde929419d43a1ed48f38ff7fca56a0588665b3fe1",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6569,7 +6574,9 @@
         "docs/specs/frame-control-center.md",
         "Current guide reviewed and reconciled with single-surface header ownership and consuming modal click dismissal; documentation only, verified against implemented owners and native tests.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     },
     "docs/features/image-presentation.md": {
@@ -8058,13 +8065,15 @@
     },
     "nacre/shell/modules/drawers/NacreFrameLips.qml": {
       "disposition": "independent",
-      "sha256": "e0bdd44bdfc00dd9a8b9c31d12834340ef5c050ba831b05914fa22b19b034570",
+      "sha256": "f2b45bee196a7f6807515a77df7321a049fcfdeab7f4bedd5c010012755f0570",
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current body reviewed: user-approved visible lip depth5px sides/6px top, unchanged lengths. Side cubic controls now reach the full declared depth; top retains1px join overlap. Primary gradient and masks match actual geometry. Native rendered outer-tip pixels distinguish the deeper shape and base/input/moving-edge fixtures pass. Independent local correction without inherited upstream implementation.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     },
     "nacre/shell/modules/osd/NacreLevelNotice.qml": {
@@ -8371,10 +8380,12 @@
     },
     "docs/specs/iridescent-frame.md": {
       "disposition": "non-implementation",
-      "sha256": "dfe769dd6fd872b303a65a5b8e9399270eaaeb0360aaf44f85b1e83242b0e857",
+      "sha256": "6c462c360f774344cb4896e7299553d1b9686b59a1bef4d914beab7fdaff3c88",
       "evidence": [
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim."
+        "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     },
     "nacre/shell-tools/tests/test_frame_contour.py": {
@@ -8696,6 +8707,14 @@
       "sha256": "1cbae2a9a5f861e0e80d9af8bf3a025be9e28f741737dfd86a38eed81e75608b",
       "evidence": [
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+      ]
+    },
+    "nacre/shell-tools/tests/test_panel_host_input.py": {
+      "disposition": "independent",
+      "sha256": "d1247e93c98a02eeb072596a37bc31a6b4c9bd5608d3b9b8b936c3c21aa84e07",
+      "evidence": [
+        "docs/specs/iridescent-frame.md",
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
       ]
     }
   }

@@ -48,6 +48,9 @@ immediately with reduced motion. Palette changes remain immediate.
 A faint1px iridescent rim follows the same exposed contour as the frame and open
 panels. It does not outline their hidden joins. Appearance → Desktop frame →
 Frame sheen switches the rim off for a quieter look, retaining the handles.
-Full-screen wallpaper galleries hide the rim and handles. Reserved window space,
+The handles stay visible during wallpaper galleries, launchers, settings and
+other modal panels. Passive hover is blocked while a modal view is open; a
+deliberate click can switch panels. Disabled edges and the master shell hide
+still remove their handles. Wallpaper galleries suppress only the faint rim. Reserved window space,
 shared surface ownership and logical input-release behavior remain unchanged.
 See [iridescent frame specification](../specs/iridescent-frame.md).

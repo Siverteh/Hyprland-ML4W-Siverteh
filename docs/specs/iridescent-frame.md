@@ -25,8 +25,10 @@ boundary and traces only the exposed desktop-facing contour.
 Use native Qt Shapes with a1px primary/highlight/secondary gradient stroke.
 Qt6.12 introduces strokeGradient and is required for this visual slice. Keep one
 per-output Wayland surface; the header stays above chrome and panels. The rim
-is passive and carries no input mask. Fullscreen-gallery presentation suppresses
-rim/handles, preserving its clean backdrop. No extra exclusive window space.
+is passive and carries no input mask. Fullscreen-gallery presentation suppresses only the faint rim. Handles remain
+visible in galleries, launchers and modal settings; visibility is independent of
+passive hover eligibility. A deliberate handle click can switch the active panel.
+Disabled edges and the master hide still hide their handles. No extra exclusive window space.
 
 ## State and motion
 

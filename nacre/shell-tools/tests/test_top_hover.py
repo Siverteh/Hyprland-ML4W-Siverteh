@@ -74,7 +74,7 @@ TestCase {
   NacreFrameLips {id:lips;anchors.fill:parent;screen:parent.screen;visibilities:flags;controller:controller}
   Component.onCompleted: {NacrePanelState.screens={test:flags};NacrePanelState.panels={test:{popouts:{hasCurrent:false,pinned:false}}}}
  }}
- function init(){DesktopSettings.data={animations:false,clickEdgeMenus:false};NacreHyprland.activeClient=null;NacreHoverIntent.blocked=({});NacreHoverIntent.lipRegions=({});}
+ function init(){NacrePanelState.hidden=false;DesktopSettings.data={animations:false,clickEdgeMenus:false};NacreHyprland.activeClient=null;NacreHoverIntent.blocked=({});NacreHoverIntent.lipRegions=({});}
  function test_only_marked_regions_open_and_explicit_dismissal_rearms(){
   const view=createTemporaryObject(scene,this);wait(30);
   mouseMove(view,100,25);verify(!view.flags.dashboard);
@@ -112,6 +112,30 @@ TestCase {
   verify(top.visible);verify(left.visible);verify(right.visible);
   view.flags.dashboard=false;view.flags.left=false;view.flags.osd=false;
   verify(top.visible);verify(left.visible);verify(right.visible);
+ }
+ function test_modal_and_gallery_keep_all_handles_without_hover_switching(){
+  mouseMove(this,800,500);
+  const view=createTemporaryObject(scene,this);wait(30);
+  const top=findChild(view,"frameTopLip"),left=findChild(view,"frameLeftLip"),right=findChild(view,"frameRightLip");
+  view.controller.modal=true;
+  view.controller.panels={dashboard:{height:0},leftDrawer:{width:0},osd:{width:0},launcher:{fullScreenGallery:true}};
+  view.flags.launcher=true;
+  verify(top.visible);verify(left.visible);verify(right.visible);
+  compare(view.lips.rimHandles.length,3);
+  mouseMove(view,8,350);verify(view.flags.launcher);verify(!view.flags.left);
+  mouseMove(view,990,350);verify(view.flags.launcher);verify(!view.flags.osd);
+  mouseMove(view,500,53);verify(view.flags.launcher);verify(!view.flags.dashboard);
+  view.flags.launcher=false;view.flags.dashboard=true;view.flags.dashboardPinned=true;
+  verify(top.visible);verify(left.visible);verify(right.visible);
+  view.flags.dashboard=false;view.flags.dashboardPinned=false;view.flags.session=true;
+  verify(top.visible);verify(left.visible);verify(right.visible);
+  view.flags.session=false;view.flags.launcher=true;
+  mouseClick(view,990,350);verify(view.flags.osd);verify(!view.flags.launcher);
+  DesktopSettings.data={animations:false,leftDrawer:false,rightEdge:false};
+  verify(top.visible);verify(!left.visible);verify(!right.visible);
+  NacrePanelState.hidden=true;
+  verify(!top.visible);verify(!left.visible);verify(!right.visible);
+  NacrePanelState.hidden=false;
  }
  function test_sheen_is_finite_and_reduce_motion_stops_it(){
   mouseMove(this,800,500);

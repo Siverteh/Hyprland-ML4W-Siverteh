@@ -8,10 +8,9 @@ Item {
     required property var screen
     required property var visibilities
     required property var controller
-    readonly property bool gallery: visibilities.launcher && controller.panels?.launcher?.fullScreenGallery === true
     readonly property var rimHandles: [handle(top, topRect), handle(left, leftRect), handle(right, rightRect)].filter(Boolean)
     function handle(lip, region) {
-        if (!lip.visible || gallery)
+        if (!lip.visible)
             return null;
         const rect = lip.ridgeRect;
         return {
@@ -65,7 +64,7 @@ Item {
         y: root.topRect.y
         width: root.topRect.width
         height: root.topRect.height
-        visible: !root.gallery && (root.available || root.visibilities.dashboard || (root.controller.panels?.dashboard?.height || 0) > 0) && width > 0
+        visible: !NacrePanelState.hidden && width > 0
         onEntered: buttons => root.approach("dashboard", this, buttons)
         onMoved: buttons => root.approach("dashboard", this, buttons)
         onExited: root.leave("dashboard")
@@ -81,7 +80,7 @@ Item {
         y: root.leftRect.y
         width: root.leftRect.width
         height: root.leftRect.height
-        visible: !root.gallery && (root.available || root.visibilities.left || (root.controller.panels?.leftDrawer?.width || 0) > 0) && width > 0 && DesktopSettings.data.leftDrawer !== false
+        visible: !NacrePanelState.hidden && width > 0 && DesktopSettings.data.leftDrawer !== false
         onEntered: buttons => root.approach("left", this, buttons)
         onMoved: buttons => root.approach("left", this, buttons)
         onExited: root.leave("left")
@@ -97,7 +96,7 @@ Item {
         y: root.rightRect.y
         width: root.rightRect.width
         height: root.rightRect.height
-        visible: !root.gallery && (root.available || root.visibilities.osd || (root.controller.panels?.osd?.width || 0) > 0) && width > 0 && DesktopSettings.data.rightEdge !== false
+        visible: !NacrePanelState.hidden && width > 0 && DesktopSettings.data.rightEdge !== false
         onEntered: buttons => root.approach("osd", this, buttons)
         onMoved: buttons => root.approach("osd", this, buttons)
         onExited: root.leave("osd")

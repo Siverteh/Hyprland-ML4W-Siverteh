@@ -13,11 +13,13 @@ The body and iridescent rim share one union contour of reserved edges, painted
 panels and flat handles. Overlaps contribute only exposed boundaries, so panel
 attachments have no internal outline. Native Qt Shapes draw the rounded opening
 and gradient stroke; full-screen wallpaper galleries retain their own backdrop
-and suppress the rim/handles. Appearance can switch off Frame sheen. Clipping follows each
+and suppress the faint rim; the three handles remain visible. Appearance can switch off Frame sheen. Clipping follows each
 panel's current dimensions. No new process or idle animation draws the frame.
 
 Input geometry follows logical visibility. A closing panel immediately stops
-catching clicks while its visual dimensions animate to zero. A passive HoverHandler
+catching clicks while its visual dimensions animate to zero. The host also
+disables its input subtree immediately, so a closing picker cannot intercept
+clicks intended for a newly opened panel on the same surface. A passive HoverHandler
 observes movement without taking child clicks. The host exposes dashboardHovered
 and popoutHovered explicitly, so callers no longer inspect a particular parent.
 
