@@ -4891,12 +4891,14 @@
     },
     ".github/workflows/check.yml": {
       "disposition": "independent",
-      "sha256": "27d0db8f268560be717d0b27690a061d4f9fbd956cf1015dfa6421e520125ed0",
+      "sha256": "761ea4df55074fd9edee137fec47f7a6e537bf62b4635842057cdd6804679217",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
         "Full current body/data/licence reviewed. Basis 2fa3a95: locally authored target/CI orchestration; native Arch image/tools, candidate engine and current exact-checkout trust changes traced. Later path changes: c550bba, c8d3d69, 36de6d6, cb07776, 548f0b4, 1964e9d, 73e71c4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
-        "docs/nacre/FINAL-COMPARISON.md"
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/nacre-logo.md",
+        "Current workflow explicitly reassessed: added native librsvg package so the approved logo PNG/geometry tests run in CI. Other container/test/pinning behavior preserved."
       ],
       "notes": "Changed full source re-reviewed: independently authored immutable-registry completion gate, isolated actual-Git/JSON-output regression, or explicit CI invocation, from final verification spec and public Git/Python interfaces. No upstream Caelestia/ML4W body used for this implementation. Existing own base remains; no active user/provider state touched."
     },
