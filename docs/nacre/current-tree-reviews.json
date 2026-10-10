@@ -958,6 +958,19 @@
         "nacre/shell-tools/kde-palette.py",
         "nacre/shell-tools/tests/test_file_manager_style.py"
       ]
+    },
+    {
+      "area": "branding-source-audit",
+      "commit": "d2aad25",
+      "spec": "docs/specs/branding-source-audit.md",
+      "paths": [
+        "nacre/shell-tools/branding.py",
+        "nacre/shell/branding/sh.json",
+        "nacre/shell/branding/sh.svg",
+        "nacre/shell/widgets/BrandLogo.qml",
+        "nacre/login/Logo.qml",
+        "nacre/shell-tools/tests/test_terminal_branding.py"
+      ]
     }
   ],
   "reviews": {

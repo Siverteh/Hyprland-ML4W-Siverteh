@@ -1557,3 +1557,17 @@ with layered silhouettes/colors unchanged. Six SHA reviews cover generator,
 geometry, SVG, bar/login components and own tests; Pillow/Qt public dependencies
 remain allowed. Other assets/helpers/generators/tests/whole comparison and full
 notices/goal remain open.
+
+Branding acceptance (2026-10-10 UTC): software d2aad25, good shell release
+20261010T011551231922Z. All 401 tests (55 tools, 96 AI, 35 Brain, 215 shell),
+formatting/QML/native Hyprland and reviewed shell transaction/live menu gates pass.
+Four branding tests include real idle PTY redraw, exact controller signals,
+empty-home build/rebuild and PNG alpha/role checks. Tracked SVG/BrandLogo/login/
+web symbol unchanged after regeneration; no Brain or AI workflow edit. Native
+Qt SVG render inspected at three sizes. Actual live logo PNG/lock PNG/SVG hashes
+unchanged, palette/poster/deadline equal baseline; nine private files and AI
+worker PID/start unchanged. Installed helper and all 235 shell files exact,
+native palette ready/configerrors empty. No terminal/worker restart or wallpaper
+choice for QA. Six current source/asset reviews added; remaining helpers/login/
+lock/Thunar/data/assets/tests/packaging/AI+Brain/full comparison and cold-login
+checks remain. Notices and complete originality goal retained.
