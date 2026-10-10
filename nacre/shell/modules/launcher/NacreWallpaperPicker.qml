@@ -85,6 +85,12 @@ Item {
             easing.type: Easing.OutCubic
         }
     }
+    NacreWallpaperBackdrop {
+        objectName: "galleryBackdrop"
+        anchors.fill: parent
+        visible: root.fullScreen
+        path: root.fullScreen ? root.currentEntry?.preview || root.currentEntry?.poster || "" : ""
+    }
     Rectangle {
         objectName: "galleryScrim"
         anchors.fill: parent

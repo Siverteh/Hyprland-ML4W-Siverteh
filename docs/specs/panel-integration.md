@@ -10,8 +10,9 @@ Nacre components. This is a behavior specification, not a vendor-source rewrite.
   the lower row. Keep the columns close, remove unused upper-row mute space, and
   contain labels and mute controls. Opening controls never writes device values.
 - Spotlight and hexagon galleries are overlays across the available desktop,
-  without an enclosing application rectangle or a second boxed wallpaper copy.
-  Use the actual desktop behind a subtle scrim. Preserve outside-click, Escape,
+  without an enclosing application rectangle or inset wallpaper copy.
+  Use a cached wallpaper backdrop across the entire viewport with a subtle scrim
+  to conceal applications underneath. Keep the old image opaque during fades. Preserve outside-click, Escape,
   reduced motion, bounded image decoding and one selected video preview.
 - Separate media-kind choices from gallery-layout choices with a visible divider;
   wrap these groups on small outputs.

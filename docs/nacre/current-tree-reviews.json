@@ -4005,7 +4005,7 @@
     },
     "nacre/shell/modules/launcher/NacreWallpaperPicker.qml": {
       "disposition": "independent",
-      "sha256": "d8be9121fdde6169452d7220bd7bd59fa9be2c1ef36101e4aca22886b9e8bd28",
+      "sha256": "5722b074f5bf88f7da48a9966ec5de7d0c148868b44f1e011e707f5f7eb7b2b0",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
@@ -4013,7 +4013,7 @@
         "docs/specs/visual-cleanup.md",
         "docs/specs/panel-integration.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
     "nacre/shell/modules/launcher/app-browser.js": {
       "disposition": "independent",
@@ -6062,7 +6062,7 @@
     },
     "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
       "disposition": "independent",
-      "sha256": "7995cb7a58315638a54f7d58d20e8585d8f9d011115e4b91fa62c942372df502",
+      "sha256": "44847592b5fa02804b2954cf90e5dabefec56fbfdbbfb503c0c54849f8c81ba1",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
@@ -6070,7 +6070,7 @@
         "docs/specs/visual-cleanup.md",
         "docs/specs/panel-integration.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
     "nacre/shell-tools/tests/workspace-qml/tst_workspace.qml": {
       "disposition": "independent",
@@ -6653,14 +6653,14 @@
     },
     "docs/features/wallpapers.md": {
       "disposition": "non-implementation",
-      "sha256": "65dc5979a43db57cdae0b69821b196790930aa5938b57462ae9f1fbe682fa1fc",
+      "sha256": "f2950d842953a8c4a18aa041a1ac21b4d0c0b183e5edaf995568c494e1e5fc6a",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/visual-cleanup.md",
         "docs/specs/panel-integration.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
     "docs/maintenance.md": {
       "disposition": "non-implementation",
@@ -7887,8 +7887,8 @@
       "evidence": [
         "docs/specs/panel-integration.md"
       ],
-      "sha256": "bcfbbadddbd3a970e5f1004d0a76c957ad35ec614b4051c10d73c2872634211c",
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "sha256": "c844d8c5892cea7033b27a829ee8a5809f5427d513e609042b674c898ca88e0e",
+      "notes": "Live compositor screenshot review requires an opaque full-viewport cached wallpaper backdrop to conceal underlying applications, without the former inset rectangle. Own existing double-buffered backdrop reused with full viewport geometry; no inherited source consulted. Native viewport/backdrop readiness and prior opaque fade tests retained."
     },
     "bin/nacre-ai": {
       "sha256": "01cf75638cc2f6546e4a0a3ccee3cf798ab3603de659e6e556406abb803adb58",

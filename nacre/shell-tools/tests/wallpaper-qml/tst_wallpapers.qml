@@ -53,7 +53,7 @@ TestCase {
             height: 180
         }
     }
-    function test_gallery_uses_desktop_backdrop_and_separates_modes() {
+    function test_gallery_backdrop_fills_viewport_and_separates_modes() {
         const view = createTemporaryObject(picker, test);
         const divider = findChild(view, "wallpaperModeDivider");
         verify(!!divider);
@@ -68,6 +68,10 @@ TestCase {
         });
         tryCompare(findChild(view, "galleryScrim"), "visible", true);
         compare(findChild(view, "galleryScrim").width, view.width);
+        const background = findChild(view, "galleryBackdrop");
+        compare(background.width, view.width);
+        compare(background.height, view.height);
+        tryCompare(background, "hasImage", true);
         view.move(1);
         compare(NacreWallpapers.browsed, "two");
         verify(view.visibilities.launcher);
