@@ -2151,3 +2151,15 @@ sources. Full current bodies, local authoring and normalized change diffs review
 No runtime source/state changes or real remote/credential actions for QA. Remaining
 chat controllers, Brain, fixtures/docs and whole-tree comparison/licensing stay
 open; notices and complete originality goal remain active.
+
+## AI controller source review and policy correction
+
+2026-10-10 UTC. [Spec](../specs/ai-controller-source-audit.md) and
+[source table](AI-CONTROLLER-SOURCE-AUDIT.md) cover complete current launcher,
+Codex transport and Claude adapter plus installer correction and two own fixtures.
+Local workflow authoring retained; provider/native libraries remain external.
+Fake-launcher regression fails missing terminal Claude full-access flag; 0f31dd9
+restores the already authorized policy for new/resumed terminal workers. Code-only
+helper update preserves existing accounts, peers and private state, with backup.
+No whole-upstream/legal clean-room/final-license claim; Brain and remaining
+fixtures/docs/notices/comparison remain required.

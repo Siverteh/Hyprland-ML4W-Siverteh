@@ -5121,11 +5121,13 @@
     },
     "ai/install.py": {
       "disposition": "independent",
-      "sha256": "5f14c1d6b9732389b449ef8b2f0b2ccbdd6219eeb01e229c21cebcb2dc598a74",
+      "sha256": "956986b66bfdc288fed4c49433b65c4a79e05df287bccea847fb290ec9743a06",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
-        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 548f0b4, 7bdf0e7, 83b3531, 1bcce9d, adc96cc, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open."
+        "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 548f0b4, 7bdf0e7, 83b3531, 1bcce9d, adc96cc, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
+        "Current installer reassessed in 0f31dd9: recognized three-controller code-only branch, full current body and new diff reviewed; previous SHA 5f14c1d6b9732389b449ef8b2f0b2ccbdd6219eeb01e229c21cebcb2dc598a74. See docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md and private-runtime regression.",
+        "Plan-message formatting correction after full Ruff gate; parsed syntax tree identical to 0f31dd9. No behavior change."
       ]
     },
     "ai/projects.example.json": {
@@ -5342,6 +5344,51 @@
         "docs/specs/knowledge-helper-source-audit.md",
         "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md",
         "Complete current body and local history reviewed: basis adc96cc; later a5c973c, 83b3531. Locally authored private workflow/temporary fixture contracts using native APIs. Whole upstream comparison and remaining controllers/Brain/licensing remain open."
+      ]
+    },
+    "bin/siverteh-ai": {
+      "disposition": "independent",
+      "sha256": "60c59938858b77b8222d701676bbbad27af9c91db1b601a61597dd828f0df7f0",
+      "evidence": [
+        "docs/specs/ai-controller-source-audit.md",
+        "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
+        "Full current body/local authoring and caller contracts reviewed. Basis bcce02f; subsequent 548f0b4, 7bdf0e7, 83b3531, 2fa3a95, b0632b9, 3121dad, be81bf0, 1bcce9d, e42b701, 4c2ae49. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+      ]
+    },
+    "bin/siverteh-ai-chat": {
+      "disposition": "independent",
+      "sha256": "70f51b3d5a23b3dbb6f19ba93798ac8c9965d6ef87c067a52237dce7c4eb996e",
+      "evidence": [
+        "docs/specs/ai-controller-source-audit.md",
+        "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
+        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 548f0b4, 83b3531, be81bf0, 1bcce9d. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+      ]
+    },
+    "bin/siverteh-ai-claude": {
+      "disposition": "independent",
+      "sha256": "a1395acac130f04a79bd22bde0de98d5f280efbb6bdd8d20c92a6d8f9f9b8086",
+      "evidence": [
+        "docs/specs/ai-controller-source-audit.md",
+        "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
+        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 0f31dd9, 548f0b4, 83b3531, 1bcce9d, fc33e68. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+      ]
+    },
+    "ai/tests/test_claude_workflow.py": {
+      "disposition": "independent",
+      "sha256": "f9e66af6449296a81ee8ad5d5f387ae26cd307223ea5f12d76b12a6235e7b56a",
+      "evidence": [
+        "docs/specs/ai-controller-source-audit.md",
+        "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
+        "Full current body/local authoring and caller contracts reviewed. Basis 4c2ae49; subsequent 0f31dd9, bb46dd6, 83b3531, 1bcce9d. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
+      ]
+    },
+    "ai/tests/test_codex_startup.py": {
+      "disposition": "independent",
+      "sha256": "80357cbe34b2ee2df6ba7c6ec1795977dabcbec34376d53d7d3866ad52f1bb5b",
+      "evidence": [
+        "docs/specs/ai-controller-source-audit.md",
+        "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
+        "Full current body/local authoring and caller contracts reviewed. Basis 7bdf0e7; subsequent 0f31dd9. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open."
       ]
     }
   }
