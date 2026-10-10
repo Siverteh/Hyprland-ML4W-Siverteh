@@ -166,7 +166,7 @@ Singleton {
             return;
         const screen = Quickshell.screens.find(item => item.name === name);
         if (screen)
-            NacreHoverIntent.dismiss(screen);
+            NacreHoverIntent.dismiss(screen, panels[name]?.input?.hovered === true);
         closeTransient(view);
         view.left = false;
         view.leftPinned = false;

@@ -73,14 +73,14 @@ Singleton {
         const point = positions[name], box = popupRegions[name];
         return !!point && !!box && point.x >= box.x && point.y >= box.y && point.x < box.x + box.width && point.y < box.y + box.height;
     }
-    function dismiss(screen) {
+    function dismiss(screen, pointerPresent = true) {
         if (!validScreen(screen))
             return;
         const point = positions[screen.name];
         blocked[screen.name] = {
-            dashboard: titleContains(point),
-            left: markedContains("left", point),
-            osd: markedContains("osd", point),
+            dashboard: pointerPresent && titleContains(point),
+            left: pointerPresent && markedContains("left", point),
+            osd: pointerPresent && markedContains("osd", point),
             popouts: popupHovered[screen.name] === true || popupAtPointer(screen.name)
         };
     }

@@ -85,6 +85,9 @@ TestCase {
   mouseMove(view,8,350);verify(view.flags.left);verify(!view.flags.leftPinned);
   mouseMove(view,995,620);verify(!view.flags.osd);
   mouseMove(view,990,350);verify(view.flags.osd);compare(view.flags.edgeMenu,"");
+  NacreHoverIntent.observe(view.screen,500,53);
+  NacreHoverIntent.dismiss(view.screen,false);
+  verify(!NacreHoverIntent.blocked.test.dashboard);
   compare(view.width,1000);compare(view.height,700);
  }
  function test_click_only_and_fullscreen_held_button_guards(){

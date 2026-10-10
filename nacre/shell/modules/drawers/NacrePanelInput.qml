@@ -54,7 +54,7 @@ Item {
         return [launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect].some(rect => inside(rect, point));
     }
     function dismiss() {
-        NacreHoverIntent.dismiss(screen);
+        NacreHoverIntent.dismiss(screen, hovered);
         visibilities.launcher = false;
         visibilities.session = false;
         visibilities.dashboard = false;

@@ -2650,14 +2650,14 @@
     },
     "nacre/shell/services/NacreHoverIntent.qml": {
       "disposition": "independent",
-      "sha256": "346374fef0e9a0e5f1b9a557cc8ead38e22f7ecc9984e4786fe095214aa115a1",
+      "sha256": "dfe7234647e49e6c95a907f0c0d5b4994fc647f12aec326b13d3412af23def1c",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
         "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+      "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
     "nacre/shell/services/NacreHyprland.qml": {
       "disposition": "independent",
@@ -2717,14 +2717,14 @@
     },
     "nacre/shell/services/NacrePanelState.qml": {
       "disposition": "independent",
-      "sha256": "b6399f671842aac1362543248771b7803e819731138c6887f6c6179f092643af",
+      "sha256": "b30267a4e36fe6bf1b9b6944c1189249b50198a267c6e735d224ef5cd68caadd",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
         "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+      "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
     "nacre/shell/services/NacrePlayers.qml": {
       "disposition": "independent",
@@ -3294,14 +3294,14 @@
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
-      "sha256": "4408148364195f0f3b7f331f7f4877cf12401aa188ca731094679d4b3fea9c13",
+      "sha256": "a7f7bf462517aedce0e1fd41d3d32c2b72c0ee4eac4b98e8d9a6c8793e627cd2",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+      "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
     "nacre/shell/modules/drawers/NacrePanelMask.qml": {
       "disposition": "independent",
@@ -3454,14 +3454,14 @@
     },
     "nacre/shell/modules/topbar/NacreHeader.qml": {
       "disposition": "independent",
-      "sha256": "85b60b6919d64a05137cf4236eb642225101dcef09ee563bbab5ab6a1b142f4b",
+      "sha256": "1d61e0c1c5ad606221aed28a41d1bcd63d24aa9108e505b999a224382a3abe4b",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132, 7c8f3a6. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+      "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
     "nacre/shell/modules/topbar/NacreHeaderForwarder.qml": {
       "disposition": "independent",
@@ -6403,14 +6403,14 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "cbc1d97ec1a1adb3ad2cb07a19340ba57d169878bf4e41885e501514d2305152",
+      "sha256": "70f875a6dfe6f4b463afd5e4816f6a492a6574484650ee1959cd8dec09e17a9f",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
         "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+      "notes": "Live compositor follow-up: dismissal blocks a marked target only when the pointer is actually on the frame; a passive header observer records departure/reentry without opening panels. Own native input-state repair uses existing owner/intent, with no polling or inherited code."
     },
     "nacre/shell-tools/tests/test_wallpaper_native.py": {
       "disposition": "independent",

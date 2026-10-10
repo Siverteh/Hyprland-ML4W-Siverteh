@@ -28,6 +28,11 @@ Item {
     onScreenChanged: registerOutput()
     Component.onCompleted: registerOutput()
     Component.onDestruction: NacreHoverIntent.release(registeredName, root)
+    HoverHandler {
+        id: headerPointer
+        blocking: false
+        onPointChanged: NacreHoverIntent.observe(root.screen, point.position.x, point.position.y)
+    }
     Rectangle {
         anchors.fill: parent
         color: NacreTokens.body
