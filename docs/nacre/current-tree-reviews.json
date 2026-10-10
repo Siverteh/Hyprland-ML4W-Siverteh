@@ -1247,6 +1247,26 @@
         "tools/configure.py",
         "tools/tests/test_configure_artifacts.py"
       ]
+    },
+    {
+      "area": "snapshot-config-owner",
+      "commit": "0106a03",
+      "spec": "docs/specs/packaging-source-audit.md",
+      "paths": [
+        "tools/releases.py",
+        "tools/defaults/hypridle.conf",
+        "tools/tests/test_release_config_map.py",
+        "tools/tests/test_idle_seed.py"
+      ]
+    },
+    {
+      "area": "candidate-snapshot-config-map",
+      "commit": "4ac764e",
+      "spec": "docs/specs/packaging-source-audit.md",
+      "paths": [
+        "tools/releases.py",
+        "tools/tests/test_release_config_map.py"
+      ]
     }
   ],
   "reviews": {
