@@ -42,3 +42,10 @@ uncertain repository issue file and add its retired-path guard, without reading
 its body to reproduce it or changing /etc/issue. That retirement requires shell/
 repository checks but no root theme/banner mutation. The remaining nine target
 bodies still need complete origin reviews; called assets/tests remain separate.
+
+Native greeter fixture uses the actual Main/Logo with fake SDDM models/proxy;
+verify initial selections, user/session/password/backend/busy guards, explicit
+retry and failure/success clearing, and invalid palette fallback. No real login
+or power proxy exists in the fixture. Existing appearance publication tests now
+scope the prepared-image cache to their temporary HOME, avoiding user-cache writes.
+Reference: [SDDM's theme model/proxy contract](https://github.com/sddm/sddm/wiki/Theming).

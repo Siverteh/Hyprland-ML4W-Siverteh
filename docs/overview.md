@@ -37,6 +37,9 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
   dashboard supplies weather, media, palette, resource gauges and notifications;
   Hyprlock owns its password field. SDDM handles the initial login. Wallpaper code
   supplies appearance only.
+  The login theme installs four presentation files; the unused console banner
+  imported with the old dotfiles is retired. The system console banner stays
+  owned by the distribution.
 - **Nacre AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
   conversations and the Markdown vault are private data outside this repository.

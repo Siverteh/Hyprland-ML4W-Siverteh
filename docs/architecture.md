@@ -63,6 +63,10 @@ was not used to infer that a component was running.
 
 ## Dependency and presentation boundaries
 
+The login installer owns Main.qml, Logo.qml, theme.conf and metadata.desktop in
+the optional SDDM theme. It does not own `/etc/issue`; the unused old repository
+console-banner artifact is retired. SDDM/PAM remains the authentication owner.
+
 The shell service enters through `nacre-shell start` (`control.sh`), then
 `shell-supervisor.py` and the installed `bin/qs` generated from `launch.sh`.
 That wrapper checks the native Qt/Quickshell match. The unused inherited

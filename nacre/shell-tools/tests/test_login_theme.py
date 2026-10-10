@@ -27,7 +27,9 @@ class LoginTests(unittest.TestCase):
             public = base / "public"
             public.mkdir()
             colors = {v: "aabbcc" for v in appearance.ROLES.values()}
-            appearance.publish(colors, image, preview, public)
+            with patch.object(appearance, "HOME", base):
+                appearance.publish(colors, image, preview, public)
+            self.assertTrue((base / ".cache/nacre/login-images").is_dir())
             self.assertEqual(preview.stat().st_mode & 0o777, 0o700)
             self.assertEqual((public / "theme.conf").stat().st_mode & 0o777, 0o644)
             conf = configparser.ConfigParser()
@@ -38,7 +40,7 @@ class LoginTests(unittest.TestCase):
             )
             before = (public / "theme.conf").read_bytes()
             colors["primary"] = "bad\n[Autologin]"
-            with self.assertRaises(ValueError):
+            with patch.object(appearance, "HOME", base), self.assertRaises(ValueError):
                 appearance.publish(colors, image, preview, public)
             self.assertEqual((public / "theme.conf").read_bytes(), before)
 
