@@ -2197,3 +2197,14 @@ and no artwork bundle. No runtime implementation change or final upstream/legal
 clean-room/licensing claim. Python drivers, docs/notices and whole-source/runtime/
 dependency comparison remain required. Visual coverage gaps are explicitly queued
 for the separate cleanup goal, not misrepresented as passed visual acceptance.
+
+## Remaining Python fixture source review
+
+2026-10-10 UTC. [Spec](../specs/python-fixture-source-audit.md) and
+[forty-file table](PYTHON-FIXTURE-SOURCE-AUDIT.md) record complete bodies, embedded
+fixtures, individual creation/change history and native/producer contracts. Own
+tests/harnesses retained. Disposable-host probe demonstrated mocked launcher still
+creating caller log state; temporary-home/provider-override isolation and regression
+now protect caller settings/account state. No production policy/runtime changes.
+Remaining docs/notices and complete source/runtime/assets/dependency comparison
+remain required; no final upstream/legal clean-room/licensing claim.
