@@ -2990,14 +2990,14 @@
     },
     "nacre/shell/modules/bar/components/NacreActiveTitle.qml": {
       "disposition": "independent",
-      "sha256": "7fcf3f5ec4bc8c985b76f2441c78d7c3ca0905e53609a0e6e99357494d5ea72e",
+      "sha256": "d90e9f9f0f9dabf0aedeea8fd74eb2ed9cc74a64ff652a6fe7c92a6a65856ee5",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Own visual cleanup follow-up after CI missing-font failure: title natural group uses actual fixed glyph.width rather than font-dependent implicitWidth; native regression deliberately removes the icon font and checks painted center/bounds. Own native Qt APIs, no inherited source or preference/font change."
+      "notes": "Own title cleanup follow-up: explicit bounded 24px glyph slot, actual slot width in centered group, and settled missing-font geometry with detailed diagnostic. Native ordinary and isolated DejaVu-only tests pass; CI still required. Existing Nacre source/public Qt interfaces, no inherited implementation or user-font/preferences change."
     },
     "nacre/shell/modules/bar/components/NacrePowerButton.qml": {
       "disposition": "independent",
@@ -5587,14 +5587,14 @@
     },
     "nacre/shell-tools/tests/bar-qml/tst_bar.qml": {
       "disposition": "independent",
-      "sha256": "1b8a2fe5253ba0ee7280319652678e684d3d25a8fb1385b8cad147dfabaa8e38",
+      "sha256": "d9332b4b1f6b8c8b590c0e3f7c09e580e01ac96fd8ddbc554829cfc1d7dd676e",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation ce69bc0 nacre/shell-tools/tests/bar-qml/tst_bar.qml; subsequent 5da1132, dc01bf9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Own visual cleanup follow-up after CI missing-font failure: title natural group uses actual fixed glyph.width rather than font-dependent implicitWidth; native regression deliberately removes the icon font and checks painted center/bounds. Own native Qt APIs, no inherited source or preference/font change."
+      "notes": "Own title cleanup follow-up: explicit bounded 24px glyph slot, actual slot width in centered group, and settled missing-font geometry with detailed diagnostic. Native ordinary and isolated DejaVu-only tests pass; CI still required. Existing Nacre source/public Qt interfaces, no inherited implementation or user-font/preferences change."
     },
     "nacre/shell-tools/tests/battery-qml/tst_battery.qml": {
       "disposition": "independent",

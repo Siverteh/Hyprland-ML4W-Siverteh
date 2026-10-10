@@ -23,6 +23,11 @@ Item {
         width: Math.min(root.width, root.implicitWidth)
         NacreIcon {
             id: glyph
+            width: 24
+            height: 24
+            clip: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             text: root.client ? NacreIcons.getAppCategoryIcon(root.client.wmClass, "desktop_windows") : "desktop_windows"
             color: root.colour
             anchors.verticalCenter: parent.verticalCenter

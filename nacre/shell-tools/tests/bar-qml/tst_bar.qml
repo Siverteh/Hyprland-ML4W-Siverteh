@@ -112,10 +112,21 @@ TestCase {
             const row = caption.parent;
             const glyph = row.children[0];
             glyph.font.family = "Nacre deliberately absent icon font";
-            wait(0);
+            wait(40);
             const left = glyph.mapToItem(view, 0, 0).x;
             const right = caption.mapToItem(view, 0, 0).x + caption.contentWidth;
-            verify(Math.abs((left + right) / 2 - view.width / 2) < 1, "painted icon/title group must be centered, not only its full-width container");
+            verify(Math.abs((left + right) / 2 - view.width / 2) < 1, "painted group center: " + JSON.stringify({
+                text: text,
+                left: left,
+                right: right,
+                center: view.width / 2,
+                iconWidth: glyph.width,
+                iconImplicit: glyph.implicitWidth,
+                captionWidth: caption.width,
+                captionContent: caption.contentWidth,
+                captionImplicit: caption.implicitWidth,
+                rowWidth: row.width
+            }));
             view.width = 260;
             wait(0);
             verify(row.x >= 0 && row.x + row.width <= view.width + 1);
