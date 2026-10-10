@@ -1866,3 +1866,35 @@ Registry: 658 artifacts, 397 change pointers, 303 explicit reviews and 355 pendi
 Counts describe audit coverage, not originality percentages. Remaining helper/
 data/login/workflow/packaging/test/documentation/license and final comparison
 requirements remain open; notices and the complete goal are retained.
+
+## Palette data and fallback generation review
+
+2026-10-10 UTC. [Spec](../specs/palette-data-source-audit.md) and
+[source/data table](PALETTE-DATA-SOURCE-AUDIT.md) cover seven helper/data artifacts
+and the actual generated-palette test. Bridge/generator/test histories traced;
+all 30 own fixed palettes and 60 modes reproduce exactly from the independent
+Orient engine. The empty cli.json has real preference consumers and is retained
+as non-implementation data. Locally curated catalogue/downloader refer to pinned
+third-party artwork URLs; no art is bundled/fetched here or licensed by this audit.
+Prior exposure/public output vocabulary acknowledged; no vendor body consulted
+for the correction, legal clean-room or final-license claim.
+
+Actual drift: reference-style had five earlier container roles and engine ID.
+The new boot-policy test fails that artifact. Source 790b508 makes the own
+generator emit both fixed presets and complete current default palette; two
+new tests cover boot policy and real isolated generator/no HOME writes. Fixed
+presets unchanged; five container/text pairs now measure 8.95–9.45:1 contrast.
+All 411 tests pass (55 tools, 96 AI, 35 Brain, 225 shell), with native QML,
+formatting/registry/Hyprland and reviewed plan checks. Configuration plan has
+zero files/migrations. Deployed source b2dd526 in good release
+20261010T032245545200Z; repeated checks and launcher/wallpaper Escape gates pass.
+
+Seven installed data/helpers and public bridge exact; all 234 current/good shell
+files match. Private hashes, worker, active scheme bytes and palette/poster/
+deadline unchanged. Native IPC/services healthy/configerrors empty; six owned
+app hover/dismiss/click/key-return cycles and both outside dismissals pass.
+No real account/device/power/auth/AI-send or user palette selection action.
+Registry: 660 artifacts, 397 change pointers, 311 reviews, 349 pending; audit
+counts only. Remaining helper/login/workflow/packaging/fixture/documentation/
+license/final comparison and physical cold-login limits remain open. Notices
+and complete originality goal retained.

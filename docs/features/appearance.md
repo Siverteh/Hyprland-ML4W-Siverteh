@@ -23,7 +23,10 @@ original six. The page filters Vivid, Soft or All colors. Vivid accents preserve
 saturation while ensuring header and button contrast; light mode uses deeper
 accents for readable text. Regenerate the precomputed file with the maintained
 runtime's Python and `nacre/shell-tools/generate-palettes.py`; output lives in
-`nacre/shell-tools/palette-presets.json`. Match wallpaper restores image-derived
+`nacre/shell-tools/palette-presets.json`. The same generator also writes
+`reference-style.json`, the unconfigured/fallback palette, so its container colors
+and engine identity stay consistent with Orient. Regeneration does not change
+private wallpaper or palette selections. Match wallpaper restores image-derived
 colors. Private picker preferences also hold rotation options, the fixed preset
 and its chosen mode. `classic-state.py` resolves fixed colors inside the existing
 publisher before updating shell presentation, frame, GTK, Qt, terminal, lock and

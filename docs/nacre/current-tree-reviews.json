@@ -1190,6 +1190,16 @@
         "nacre/shell-tools/tests/test_quick_controls.py",
         "nacre/shell-tools/tests/test_lock_snapshot.py"
       ]
+    },
+    {
+      "area": "current-boot-palette",
+      "commit": "790b508",
+      "spec": "docs/specs/palette-data-source-audit.md",
+      "paths": [
+        "nacre/shell-tools/generate-palettes.py",
+        "nacre/shell-tools/reference-style.json",
+        "nacre/shell-tools/tests/test_generated_presets.py"
+      ]
     }
   ],
   "reviews": {
