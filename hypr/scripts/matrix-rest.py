@@ -39,23 +39,6 @@ def normalize_color(value, fallback):
     return fallback
 
 
-def read_color_from_rasi(name, fallback):
-    colors_file = Path.home() / ".config" / "rofi" / "colors.rasi"
-    if not colors_file.exists():
-        return fallback
-
-    try:
-        content = colors_file.read_text()
-    except OSError:
-        return fallback
-
-    match = re.search(rf"{re.escape(name)}:\s*([^;]+);", content)
-    if not match:
-        return fallback
-
-    return normalize_color(match.group(1), fallback)
-
-
 def read_color_file(name, fallback):
     path = Path.home() / ".config" / "nacre" / "colors" / name
     if not path.exists():
@@ -103,17 +86,11 @@ def ansi_bg(rgb):
 
 
 def load_palette():
-    primary = hex_to_rgb(
-        read_color_file("primary", read_color_from_rasi("primary", "#6effa0"))
-    )
-    secondary = hex_to_rgb(
-        read_color_file("secondary", read_color_from_rasi("secondary", "#b0ffd2"))
-    )
-    on_surface = hex_to_rgb(
-        read_color_file("onsurface", read_color_from_rasi("on-surface", "#e8f3ec"))
-    )
-    surface = hex_to_rgb(read_color_from_rasi("surface", "#08110c"))
-    background = hex_to_rgb(read_color_from_rasi("background", "#050705"))
+    primary = hex_to_rgb(read_color_file("primary", "#6effa0"))
+    secondary = hex_to_rgb(read_color_file("secondary", "#b0ffd2"))
+    on_surface = hex_to_rgb(read_color_file("onsurface", "#e8f3ec"))
+    surface = hex_to_rgb(read_color_file("surface", "#08110c"))
+    background = surface
 
     base = background if luminance(background) <= luminance(surface) else surface
     bg = darken_rgb(mix_rgb(base, primary, 0.06), 0.22)

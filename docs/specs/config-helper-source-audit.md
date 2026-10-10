@@ -30,3 +30,12 @@ busy AI worker, private palette/wallpaper/history/host state, full-access AI and
 skipreview. Earlier unattributed wallpaper probe change remains separately open;
 do not repeat normal gallery probes blindly or reset current selection. Keep the
 full remaining AI+Brain/packaging/fixture/docs/notices/dependency/comparison goal.
+
+Current Matrix helper is locally authored, but still uses the retired Rofi
+colors.rasi for background/surface. A pure temporary-home palette regression
+must show canonical Nacre colors control the result and legacy Rofi edits do not.
+Remove that old reader/fallback, retain the same rain/darken/mix behavior and use
+published primary/secondary/onsurface/surface files with fixed safe fallback values.
+Do not launch the actual rest view or alter user palette for this verification.
+The own ANSI letter-art helper remains an active Fish compatibility hook; retain
+its image/Kitty-index behavior, update stale Matugen wording and cache branding.

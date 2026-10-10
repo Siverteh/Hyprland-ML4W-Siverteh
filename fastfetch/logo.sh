@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Use Kitty palette indexes so already-open terminals can follow Matugen color
+# Use Kitty palette indexes so already-open terminals can follow Nacre color
 # updates when Kitty reloads its palette.
 primary_ansi=$'\033[38;5;4m'
 secondary_ansi=$'\033[38;5;14m'
