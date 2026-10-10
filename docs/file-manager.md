@@ -10,7 +10,7 @@ Dolphin/KIO archive navigation; it does not extract every file into the parent
 folder. Copy items out when needed. The native setting is
 `General/BrowseThroughArchives` in dolphinrc.
 
-The default layout uses a centered floating window at 80% screen width and 75%
+The default layout uses a centered floating window at 60% screen width and 75%
 height, 80px file icons, 96px previews,
 22px Places icons and the shared Noto Sans font. Breadcrumb navigation, a quiet
 menu toolbar and Nacre's dark/light surfaces, text, accents and Papirus folder
