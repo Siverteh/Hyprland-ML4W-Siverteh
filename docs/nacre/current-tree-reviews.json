@@ -6700,7 +6700,7 @@
     },
     "docs/features/orient.md": {
       "disposition": "non-implementation",
-      "sha256": "0f4abc36578bf19b7fcfcf6bee53767f234fbf9bd74157caf3806409c3857d43",
+      "sha256": "e582e61c5cb24ca78fd795e4053871053ede05e87aeda1c006a9ee08738887b0",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6710,7 +6710,8 @@
         "2026-10-10 Natural preference restoration reviewed: original accent-tinted surfaces retained under Natural, observed bodies separated into Source; complete-link chromatic family aggregation preserves true shade coverage/spatial provenance and different supporting pigments. Own canyon/jungle regression scenes, gray/muted/crop/pin/readability tests and 96 gallery snapshots reviewed; no upstream shell source used. docs/specs/orient-colors.md",
         "2026-10-10 Pop/background follow-up reviewed: original minority-family ranking requires 48-degree hue contrast and bounded 0.4-15% area; pins and neutral/single-family fallback preserved. Seven accent modes with independent remembered background policy replace Source; legacy read-only migration and boolean/cache/publication/CLI paths reviewed. Own gallery/synthetic fixtures, real jungle/underwater/canyon/Colorado comparisons and visible native mouse-switch test verified. No upstream shell code consulted. docs/specs/orient-colors.md",
         "2026-10-10 final live video check exposed poster-only scheme refresh. Route that refresh through existing animation-source resolution, with an actual four-frame GIF CLI refresh regression. Colors and wallpaper publication owner unchanged; no upstream code used.",
-        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md"
+        "2026-10-10 light accent policy reviewed: original medium-lightness normalization preserves source hue/chroma, with neutral gray spacing and final contrast checks. Dark-only accessibility offsets do not muddy light accents. Own shadow/neutral regressions and licensed real-image renders inspected; 48 dark gallery outputs and all light body roles unchanged. No upstream shell implementation consulted. docs/specs/orient-colors.md",
+        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required."
       ]
     },
     "docs/features/platform-services.md": {
@@ -8557,11 +8558,12 @@
     },
     "docs/features/settings-app.md": {
       "disposition": "non-implementation",
-      "sha256": "085ce2a03a7a66da2083f9a7ceb10f85d9e136790b7b3e0c4694ed077f14624a",
+      "sha256": "6e6354009deaeb40cef3aa419954a925116671f1e4aac8a057daae6f95a9f6b0",
       "evidence": [
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
         "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
-        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used."
+        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used.",
+        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required."
       ]
     },
     "docs/specs/settings-app.md": {
@@ -8638,9 +8640,10 @@
     },
     "nacre/shell/modules/settings/NacreSettingsWindow.qml": {
       "disposition": "independent",
-      "sha256": "2fb361272a5fa035e2b9d139adde996d55b37dc4089b4f2becf89bc83f423238",
+      "sha256": "0cf1e9b38531278687a2694236bc0c6b16caf92edff662c47c0de24e6d566614",
       "evidence": [
-        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained."
+        "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
+        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required."
       ]
     },
     "nacre/shell/modules/settings/NacreWindowButton.qml": {
@@ -9346,11 +9349,12 @@
     },
     "nacre/shell/modules/colors/NacreColorsWindow.qml": {
       "disposition": "independent",
-      "sha256": "92fe46e2c1da6222f0e2bdfd9e0b1fff22c1854ebbed0b4be7d9d4bf6a8093f6",
+      "sha256": "a65af744a256ecf783a13e968637256bd6e0a43010206ffc887d63d060f1c5fb",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "2026-10-10 app header simplification reviewed: remove own caption-button rows, use full-width drag area, retain compositor and existing keyboard controls. Live Brain header already has no such buttons; no browser profile modifications. Existing native parse/lifecycle and live visual/keyboard gates remain required."
       ]
     },
     "nacre/shell/modules/colors/NacreThemePreview.qml": {

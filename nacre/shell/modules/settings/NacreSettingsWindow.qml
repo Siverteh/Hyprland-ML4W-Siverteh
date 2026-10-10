@@ -37,7 +37,7 @@ FloatingWindow {
         width: parent.width
         height: 64
         MouseArea {
-            width: parent.width - 136
+            width: parent.width
             height: parent.height
             onPressed: root.contentItem.Window.window.startSystemMove()
             onDoubleClicked: root.maximized = !root.maximized
@@ -54,26 +54,6 @@ FloatingWindow {
             anchors.verticalCenter: parent.verticalCenter
             text: "Nacre Settings"
             font.pointSize: 15
-        }
-        Row {
-            x: parent.width - width - 14
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 4
-            NacreWindowButton {
-                icon: "remove"
-                label: "Minimize"
-                onClicked: NacreSettingsApp.minimize()
-            }
-            NacreWindowButton {
-                icon: root.maximized ? "filter_none" : "crop_square"
-                label: root.maximized ? "Restore window" : "Maximize"
-                onClicked: root.maximized = !root.maximized
-            }
-            NacreWindowButton {
-                icon: "close"
-                label: "Close Settings"
-                onClicked: NacreSettingsApp.close()
-            }
         }
         Rectangle {
             anchors.bottom: parent.bottom

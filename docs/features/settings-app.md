@@ -19,8 +19,10 @@ Closing or minimizing stops settings-only refreshes; display rollback deadlines
 continue independently. Wallpaper previews use the existing shared caches.
 
 The window and its three-slider shell logo follow the live palette. Window movement
-and resizing belong to the compositor; titlebar controls provide minimize,
-maximize/restore and close. Opening Settings dismisses competing temporary shell
+and resizing belong to the compositor. Settings and Colors have a title/logo
+header with no minimize, maximize or close buttons; the full header can be dragged.
+Super+Q uses the desktop window action (with Super+Shift+Q to restore a hidden
+window), while Ctrl+W/Escape still close these views. Opening Settings dismisses competing temporary shell
 menus while preserving manually pinned AI content.
 
 `nacre-settings` uses Settings IPC; if the shell is absent, it starts

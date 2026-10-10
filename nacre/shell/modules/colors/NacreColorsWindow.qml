@@ -3,7 +3,6 @@ import QtQuick.Window
 import Quickshell
 import qs.widgets
 import qs.services
-import qs.modules.settings
 
 FloatingWindow {
     id: root
@@ -34,7 +33,7 @@ FloatingWindow {
         width: parent.width
         height: 64
         MouseArea {
-            width: parent.width - 136
+            width: parent.width
             height: 64
             onPressed: root.contentItem.Window.window.startSystemMove()
             onDoubleClicked: root.maximized = !root.maximized
@@ -51,26 +50,6 @@ FloatingWindow {
             anchors.verticalCenter: parent.verticalCenter
             text: "Nacre Colors"
             font.pointSize: 15
-        }
-        Row {
-            x: parent.width - width - 14
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 4
-            NacreWindowButton {
-                icon: "remove"
-                label: "Minimize"
-                onClicked: NacreColorsApp.minimize()
-            }
-            NacreWindowButton {
-                icon: root.maximized ? "filter_none" : "crop_square"
-                label: "Maximize or restore"
-                onClicked: root.maximized = !root.maximized
-            }
-            NacreWindowButton {
-                icon: "close"
-                label: "Close Colors"
-                onClicked: NacreColorsApp.close()
-            }
         }
         Rectangle {
             anchors.bottom: parent.bottom

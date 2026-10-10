@@ -5,7 +5,9 @@ Appearance has an entry point. Opening, browsing, hovering, picking, pinning and
 comparing colors change only the preview. **Apply** changes the wallpaper and
 palette through the existing locked publisher. Ctrl+Enter applies, Ctrl+F searches,
 Ctrl+W/Escape closes. The normal window is resizable, and repeated launches focus
-one instance. Closing does not stop an already requested Apply/export action.
+one instance. Its header has no window-control buttons; use Super+Q for the desktop
+window action or Ctrl+W/Escape to close. Closing does not stop an already requested
+Apply/export action.
 
 ## Personalities
 
