@@ -28,7 +28,7 @@ def command(action, value=""):
     if (
         action == "wifi-connect"
         and value
-        and len(value) <= 32
+        and len(value.encode("utf-8")) <= 32
         and not any(ord(c) < 32 for c in value)
     ):
         return ["nmcli", "--ask", "device", "wifi", "connect", value]

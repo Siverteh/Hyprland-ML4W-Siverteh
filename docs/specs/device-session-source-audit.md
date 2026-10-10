@@ -34,3 +34,11 @@ reviewed plan/apply/strict source/IPC/private-state gates and exact-main CI.
 Audit-only records retain the validated runtime with exact installed byte proof.
 Keep all other goal requirements open; no hardware/cold-login or final-license
 claim follows from mocked fixtures.
+
+Demonstrated contract gap: network-state.py limits SSIDs to 32 UTF-8 bytes, while
+device-actions.py counts characters. Correct the action builder to the same byte
+boundary; accepted ASCII and international SSIDs remain unchanged. A pure command
+regression must fail on an oversized multibyte SSID before correction, cover exact
+32-byte ASCII/two-byte/four-byte boundaries and reject control characters. Never
+invoke nmcli connection/rescan for this test. NetworkManager's wireless SSID byte
+array and native validator are the protocol contract, not a copied implementation.
