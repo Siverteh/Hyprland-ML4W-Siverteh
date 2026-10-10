@@ -149,5 +149,10 @@ Continuous circular travel drives both position and width, including wraparound.
 Wheel packets accumulate before changing selection; empty packets do not move it.
 The current output's viewport is supplied by the launcher, avoiding first-output
 sizing on other displays. The hexagon grid keeps its existing masked tiles and
-uses the shared faster scrolling. Backdrop fades keep the prior image opaque
-under the incoming image; reduced motion settles the final buffer immediately.
+uses the shared faster scrolling. Full-screen galleries use the actual desktop
+behind a screen-wide scrim, without an inset duplicate wallpaper or enclosing
+panel. Static/Dynamic and layout controls are separated visually and wrap as
+groups on narrow outputs. Browsing publishes the selected wallpaper while the
+picker stays open through the existing 150ms coalesced, serialized queue; closing
+never repeats an already-running selection. Diagnostic preview mode remains
+read-only. See the [integration specification](../specs/panel-integration.md).

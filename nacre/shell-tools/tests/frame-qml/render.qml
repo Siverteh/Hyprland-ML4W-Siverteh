@@ -48,6 +48,7 @@ ShellRoot {
                 }
                 Item {
                     id: launch
+                    property bool fullScreenGallery: false
                     x: 100
                     y: 250
                     width: 0
@@ -82,7 +83,9 @@ ShellRoot {
                 }
                 Item {
                     id: notice
-                    visible: false
+                    x: host.width - width
+                    width: 0
+                    height: 0
                 }
             }
             QtObject {
@@ -116,7 +119,7 @@ ShellRoot {
             running: true
             onTriggered: {
                 sheet.grabToImage(result => {
-                    const names = ["closed", "joined", "recoloured", "no-edges"];
+                    const names = ["closed", "joined", "recoloured", "no-edges", "notice-joined", "gallery-clear"];
                     if (!result.saveToFile(names[window.phase] + ".png"))
                         throw new Error("capture failed");
                     console.log("FRAME_CAPTURE " + names[window.phase]);
@@ -146,6 +149,21 @@ ShellRoot {
                         NacreFrame.right = 0;
                         NacreFrame.bottom = 0;
                         NacreFrame.headerHeight = 0;
+                    } else if (window.phase === 3) {
+                        NacreFrame.left = 10;
+                        NacreFrame.right = 10;
+                        NacreFrame.bottom = 10;
+                        NacreFrame.headerHeight = 50;
+                        notice.width = 200;
+                        notice.height = 100;
+                    } else if (window.phase === 4) {
+                        notice.width = 0;
+                        notice.height = 0;
+                        launch.x = 0;
+                        launch.y = 0;
+                        launch.width = host.width;
+                        launch.height = host.height;
+                        launch.fullScreenGallery = true;
                     } else {
                         console.log("FRAME_NATIVE_OK");
                         Qt.quit();

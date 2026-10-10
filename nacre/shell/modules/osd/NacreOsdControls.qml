@@ -5,14 +5,14 @@ import qs.services
 Item {
     id: root
     required property var monitor
-    implicitWidth: 196
-    implicitHeight: 392
+    implicitWidth: 170
+    implicitHeight: 328 + (errorLabel.visible ? 18 : 0)
     Grid {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 12
         columns: 2
-        columnSpacing: 20
-        rowSpacing: 16
+        columnSpacing: 8
+        rowSpacing: 8
         Level {
             label: "Screen"
             icon: "brightness_6"
@@ -47,8 +47,9 @@ Item {
         }
     }
     NacreText {
+        id: errorLabel
         x: 12
-        y: 374
+        y: 328
         width: root.width - 24
         text: root.monitor?.error || NacreKeyboardLight.error || ""
         visible: text !== ""
@@ -66,8 +67,8 @@ Item {
         property bool canMute: false
         signal adjusted(real value)
         signal mute
-        width: 76
-        height: 172
+        width: 72
+        height: canMute ? 166 : 130
         NacreText {
             width: parent.width
             height: 24
@@ -78,8 +79,8 @@ Item {
         }
         NacreSlider {
             objectName: "osd" + parent.label
-            y: 28
-            height: 108
+            y: 22
+            height: 104
             width: 32
             anchors.horizontalCenter: parent.horizontalCenter
             icon: parent.canMute ? "" : parent.icon
@@ -90,7 +91,7 @@ Item {
                 parent.adjusted(value)
         }
         NacreSurface {
-            y: 140
+            y: 130
             width: 32
             height: 32
             anchors.horizontalCenter: parent.horizontalCenter

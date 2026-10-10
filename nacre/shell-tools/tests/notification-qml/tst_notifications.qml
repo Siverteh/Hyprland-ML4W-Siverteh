@@ -154,7 +154,6 @@ TestCase {
         wait(30);
         verify(view.visible);
         NacreNotifs.popups = [];
-        wait(30);
-        compare(view.visible, false);
+        tryCompare(view, "visible", false, 500);
     }
 }

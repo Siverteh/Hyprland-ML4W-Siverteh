@@ -2745,12 +2745,14 @@
     },
     "nacre/shell/services/NacreWallpapers.qml": {
       "disposition": "independent",
-      "sha256": "21dead05cf34118cce707e2b4e1383d18da08ff5232ced03f207257f6f5f2e27",
+      "sha256": "330e7006c5d5e55ae8359eedb0d230bb2363a035c3ddfe8307948ccbdd71ef22",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
-      ]
+        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/services/NacreWeather.qml": {
       "disposition": "independent",
@@ -3235,12 +3237,14 @@
     },
     "nacre/shell/modules/drawers/NacreChrome.qml": {
       "disposition": "independent",
-      "sha256": "63e1fd15f9397058527527782b1dc7c4c720c8027b8c7c1524e8ecc4d5ad616f",
+      "sha256": "5ff4631743ea026a569e9bff8a2e33185075ecc11fd861918b2c099fbb4d2c15",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/modules/drawers/NacreDesktop.qml": {
       "disposition": "independent",
@@ -3334,14 +3338,15 @@
     },
     "nacre/shell/modules/osd/NacreOsdControls.qml": {
       "disposition": "independent",
-      "sha256": "6c53294c516eb557aa89f9bf9a20389e1b2f15a6aca80730850b5b704b0bdcc9",
+      "sha256": "1cded4f6ddb1ec14704b03719087b2820c8dea410ebb71ffde227f4cade65626",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/modules/osd/NacreOsdEvents.qml": {
       "disposition": "independent",
@@ -3354,14 +3359,15 @@
     },
     "nacre/shell/modules/osd/NacreOsdPanel.qml": {
       "disposition": "independent",
-      "sha256": "884f17fdc6f407d004b6a6d23f14a9ae71b4ff0781b468e3d979dbedebbac4df",
+      "sha256": "0ba693b4716c651c64b75fd0e662ffe73df32728a4f7f75850b4163f01c20610",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/modules/osd/Wrapper.qml": {
       "disposition": "independent",
@@ -3946,14 +3952,15 @@
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
       "disposition": "independent",
-      "sha256": "0ea4056a68c8d1454156ae5baea873f36359a293510a2d59dac213b62b2b5af5",
+      "sha256": "66807a6717f1f3919cf1f03860b2724c2cc04fe74801aa94e1a37496ffc1bf09",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis 7b53c65: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, bc7c7e2. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/modules/launcher/NacreSearchPanel.qml": {
       "disposition": "independent",
@@ -3995,14 +4002,15 @@
     },
     "nacre/shell/modules/launcher/NacreWallpaperPicker.qml": {
       "disposition": "independent",
-      "sha256": "a6613a72921c92d0b46ffd6aa6db9e81775c0b168117ce144f8a271c45098293",
+      "sha256": "d8be9121fdde6169452d7220bd7bd59fa9be2c1ef36101e4aca22886b9e8bd28",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 28707f7, 02b2bda. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell/modules/launcher/app-browser.js": {
       "disposition": "independent",
@@ -4026,12 +4034,14 @@
     },
     "nacre/shell/modules/notifications/NacreNotificationStack.qml": {
       "disposition": "independent",
-      "sha256": "00a4825a6fa9d2d4201488083a48a34da3e0e9961cb0989b0ff15f96ac6ac1bf",
+      "sha256": "0ef5dbabdca69b44df0e1faaec36951c1df279c0064b73a17d1f140e4125108b",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis e869927: fresh notification presentation after inherited card/content/wrapper deletion. Later current-file changes: e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis e869927: fresh notification presentation after inherited card/content/wrapper deletion. Later current-file changes: e4d2474. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/control.sh": {
       "disposition": "independent",
@@ -5780,12 +5790,14 @@
     },
     "nacre/shell-tools/tests/device-qml/tst_NacreWallpapers.qml": {
       "disposition": "independent",
-      "sha256": "9cd8d87c3a9e79e2b1ff4656f09a39041dac3d24014a3ecfa5b4cd26385528e4",
+      "sha256": "725935da09e352174950afa0039630dd87a8029bc20c6bfa0d953519cf2c6db2",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 28707f7 nacre/shell-tools/tests/device-qml/tst_NacreWallpapers.qml; subsequent 5da1132. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 28707f7 nacre/shell-tools/tests/device-qml/tst_NacreWallpapers.qml; subsequent 5da1132. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/tests/device-qml/tst_NacreWeather.qml": {
       "disposition": "independent",
@@ -5825,12 +5837,14 @@
     },
     "nacre/shell-tools/tests/frame-qml/render.qml": {
       "disposition": "independent",
-      "sha256": "d6958d313d99bfcf6fc087ed7478915f563dcc9e184e7834bd9d4c27a35d1c54",
+      "sha256": "b870ccbf1b5de33613e30e30e371395560b4c1900f66b1a12bc111c2a118b760",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/render.qml; subsequent 02b2bda. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/render.qml; subsequent 02b2bda. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/tests/frame-qml/tst_registry.qml": {
       "disposition": "independent",
@@ -5861,11 +5875,12 @@
     },
     "nacre/shell-tools/tests/launcher-qml/tst_panel.qml": {
       "disposition": "independent",
-      "sha256": "7b3025b212b1bdeb32f0414e2e2217480b704750c11c4690bd365a8872a3bc5d",
+      "sha256": "a50a0c2662b7eab6abaa7e25f70bb038f026a44eb5cccf0a65519f4e1b361cd0",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 7b53c65 nacre/shell-tools/tests/launcher-qml/tst_panel.qml; subsequent 28707f7, 3d93b32. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation 7b53c65 nacre/shell-tools/tests/launcher-qml/tst_panel.qml; subsequent 28707f7, 3d93b32. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/panel-integration.md"
       ]
     },
     "nacre/shell-tools/tests/media-performance-qml/tst_pages.qml": {
@@ -5879,12 +5894,14 @@
     },
     "nacre/shell-tools/tests/notification-qml/tst_notifications.qml": {
       "disposition": "independent",
-      "sha256": "111d6f597215a6582f573ed84720a90136b290b7296794ededba2a61814f4526",
+      "sha256": "0795795821225b5ffe2236157fcbac7750c88c2ebde6ceba708ef90a38ea2fe3",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation e869927 nacre/shell-tools/tests/notification-qml/tst_notifications.qml; subsequent e4d2474. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation e869927 nacre/shell-tools/tests/notification-qml/tst_notifications.qml; subsequent e4d2474. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/tests/orient-roles.json": {
       "disposition": "non-implementation",
@@ -6036,14 +6053,15 @@
     },
     "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
       "disposition": "independent",
-      "sha256": "b619a5f0f08c0b0b8a326d54e9a756ae95e9811485bf8194222d8dc302c3fa71",
+      "sha256": "7995cb7a58315638a54f7d58d20e8585d8f9d011115e4b91fa62c942372df502",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 06ffaf4 siverteh/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml; subsequent 28707f7, eea01b9, bc7c7e2, 548f0b4, 1bee816, 83b3531, 4b142ae, 81827c1, 09f9ceb, 0eda691, ee6eeae, e336713. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/tests/workspace-qml/tst_workspace.qml": {
       "disposition": "independent",
@@ -6056,14 +6074,15 @@
     },
     "nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml": {
       "disposition": "independent",
-      "sha256": "969b274a454822aeab33d1b4eeb8ebb13e05bd64ce50127293259ce2e71177d4",
+      "sha256": "60f19dc737a8fa2b4ea7510268f7b5e4bc21dbbf2847c3b41a5dec06ed995a53",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 216f23a nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml; subsequent 5da1132, d1d9a1e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "tools/tests/fixtures/keybindings-contract.json": {
       "disposition": "non-implementation",
@@ -6211,12 +6230,14 @@
     },
     "nacre/shell-tools/tests/test_frame.py": {
       "disposition": "independent",
-      "sha256": "fc12b62b10f3e9faac154e74209d2d476d4ccc4957e2ddfbeae6a356b0c7886c",
+      "sha256": "94926e727a42a89687a3af2b0dc22d1a360166665cba9fa25b6169991e023cae",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 609a1e4:nacre/shell-tools/tests/test_frame.py; subsequent 5da1132, 966ae9e, 02b2bda, 98108af, bc7c7e2, 2b21f0d, 8d96a29, 239af3a. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 609a1e4:nacre/shell-tools/tests/test_frame.py; subsequent 5da1132, 966ae9e, 02b2bda, 98108af, bc7c7e2, 2b21f0d, 8d96a29, 239af3a. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/panel-integration.md"
+      ],
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "nacre/shell-tools/tests/test_header_widgets.py": {
       "disposition": "independent",
@@ -6526,13 +6547,14 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "4e5dddd986ff23a1395c2008e46634d348a3d20b6b587b3cca3323fd1a479f9e",
+      "sha256": "a5b7478702eee67c5af152c80cf679195e5a3af3b9cf08e98b6242802fba34a9",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "docs/features/image-presentation.md": {
       "disposition": "non-implementation",
@@ -6619,13 +6641,14 @@
     },
     "docs/features/wallpapers.md": {
       "disposition": "non-implementation",
-      "sha256": "9cbc9ebf1bad35e5720f99a013f588f266ff6d284e6e4596965948f2d13e881f",
+      "sha256": "65dc5979a43db57cdae0b69821b196790930aa5938b57462ae9f1fbe682fa1fc",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/panel-integration.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     },
     "docs/maintenance.md": {
       "disposition": "non-implementation",
@@ -7843,6 +7866,14 @@
       "evidence": [
         "User-approved logo integration specification authored for this task; records geometry, palette, deployment and provenance requirements."
       ]
+    },
+    "docs/specs/panel-integration.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/panel-integration.md"
+      ],
+      "sha256": "bcfbbadddbd3a970e5f1004d0a76c957ad35ec614b4051c10d73c2872634211c",
+      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
     }
   }
 }

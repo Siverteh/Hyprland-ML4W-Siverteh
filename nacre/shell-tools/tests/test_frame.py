@@ -198,3 +198,11 @@ TestCase {
             removed = pixels("no-edges")
             self.assertEqual(removed.getpixel((5, 200)), (86, 125, 154))
             self.assertEqual(removed.getpixel((300, 20)), (86, 125, 154))
+
+            notice = pixels("notice-joined")
+            self.assertEqual(notice.getpixel((500, 60)), (12, 46, 34))
+            self.assertEqual(notice.getpixel((595, 80)), (12, 46, 34))
+            self.assertEqual(notice.getpixel((380, 100)), (86, 125, 154))
+            gallery = pixels("gallery-clear")
+            self.assertEqual(gallery.getpixel((500, 60)), (86, 125, 154))
+            self.assertEqual(gallery.getpixel((300, 200)), (86, 125, 154))

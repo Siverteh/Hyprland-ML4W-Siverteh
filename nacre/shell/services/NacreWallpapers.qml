@@ -139,13 +139,16 @@ Singleton {
         warmer.running = true;
     }
     function browse(value) {
-        if (value && !localPath(value))
+        if (!localPath(value))
             return;
-        selectedPath = value === actualCurrent ? "" : value;
+        setWallpaper(value);
     }
     function commitSelection() {
-        if (selectedPath)
-            setWallpaper(selectedPath);
+        if (selectedPath && (!commit.running || commit.requestPath !== selectedPath)) {
+            queuedPath = selectedPath;
+            selectionDelay.stop();
+            startCommit();
+        }
     }
     function setWallpaper(value) {
         if (!localPath(value)) {

@@ -12,12 +12,12 @@ Item {
     readonly property bool fullScreenGallery: mode === "wallpaper" && (NacreWallpapers.preferences.layout || "carousel") !== "carousel"
     readonly property real viewportWidth: Math.max(0, parent?.width ?? 0)
     readonly property real viewportHeight: Math.max(0, parent?.height ?? 0)
-    readonly property real contentHeight: fullScreenGallery ? Math.max(0, viewportHeight - 24) : page.item?.implicitHeight ?? 300
+    readonly property real contentHeight: fullScreenGallery ? Math.max(0, viewportHeight) : page.item?.implicitHeight ?? 300
     readonly property int galleryCount: mode === "wallpaper" ? page.item?.count ?? 0 : 0
     readonly property int galleryIndex: mode === "wallpaper" ? page.item?.currentIndex ?? -1 : -1
     property real presentedHeight: visibilities.launcher ? contentHeight : 0
     implicitHeight: presentedHeight
-    implicitWidth: fullScreenGallery ? Math.max(0, viewportWidth - 48) : page.item?.implicitWidth ?? 800
+    implicitWidth: fullScreenGallery ? Math.max(0, viewportWidth) : page.item?.implicitWidth ?? 800
     visible: height > 0
     clip: true
 

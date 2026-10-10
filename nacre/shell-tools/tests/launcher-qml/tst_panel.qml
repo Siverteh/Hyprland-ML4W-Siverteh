@@ -70,8 +70,8 @@ TestCase {
             layout: "spotlight"
         };
         compare(panel.fullScreenGallery, true);
-        compare(panel.contentHeight, 976);
-        compare(panel.implicitWidth, 1052);
+        compare(panel.contentHeight, view.height);
+        compare(panel.implicitWidth, view.width);
         NacreWallpapers.preferences = {
             layout: "carousel"
         };

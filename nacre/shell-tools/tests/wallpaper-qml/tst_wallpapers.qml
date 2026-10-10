@@ -53,6 +53,25 @@ TestCase {
             height: 180
         }
     }
+    function test_gallery_uses_desktop_backdrop_and_separates_modes() {
+        const view = createTemporaryObject(picker, test);
+        const divider = findChild(view, "wallpaperModeDivider");
+        verify(!!divider);
+        const media = findChild(view, "wallpaperMediaChoices");
+        const layouts = findChild(view, "wallpaperLayoutChoices");
+        wait(40);
+        const a = media.mapToItem(view, media.width, 0);
+        const b = layouts.mapToItem(view, 0, 0);
+        verify(b.x > a.x);
+        NacreWallpapers.preference({
+            layout: "spotlight"
+        });
+        tryCompare(findChild(view, "galleryScrim"), "visible", true);
+        compare(findChild(view, "galleryScrim").width, view.width);
+        view.move(1);
+        compare(NacreWallpapers.browsed, "two");
+        verify(view.visibilities.launcher);
+    }
     function test_preview_navigation_does_not_apply_wallpaper() {
         const view = createTemporaryObject(picker, test);
         view.visibilities.previewOnly = true;

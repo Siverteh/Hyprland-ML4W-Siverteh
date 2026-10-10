@@ -8,8 +8,8 @@ Item {
     required property bool visibility
     property real presentedWidth: 0
     implicitWidth: Math.max(0, presentedWidth)
-    readonly property real contentWidth: controls.item?.implicitWidth ?? 196
-    implicitHeight: controls.item?.implicitHeight ?? 392
+    readonly property real contentWidth: controls.item?.implicitWidth ?? 170
+    implicitHeight: controls.item?.implicitHeight ?? 328
     visible: width > 0
     enabled: visibility
     clip: true

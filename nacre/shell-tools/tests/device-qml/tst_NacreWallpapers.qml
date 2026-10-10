@@ -72,6 +72,34 @@ TestCase {
         verify(view.publishCatalog(JSON.stringify(data)));
         compare(view.list.length, 1);
     }
+    function test_browsing_applies_before_close_and_coalesces_latest() {
+        const view = setup(), commit = findChild(view, "wallpaperCommit");
+        NacrePanelState.screens = {
+            test: {
+                launcher: true,
+                launcherMode: "wallpaper"
+            }
+        };
+        view.browse("/fixture/one");
+        view.browse("/fixture/two");
+        tryCompare(commit, "running", true, 400);
+        compare(commit.requestPath, "/fixture/two");
+        compare(commit.starts, 1);
+        verify(view.pickerOpen);
+        view.browse("/fixture/three");
+        view.browse("/fixture/one");
+        wait(170);
+        compare(commit.starts, 1);
+        finish(commit, JSON.stringify(entry("/fixture/two", true)));
+        tryCompare(commit, "requestPath", "/fixture/one", 400);
+        finish(commit, JSON.stringify(entry("/fixture/one")));
+        compare(view.actualCurrent, "/fixture/one");
+        verify(view.pickerOpen);
+        compare(commit.starts, 2);
+        view.commitSelection();
+        wait(170);
+        compare(commit.starts, 2);
+    }
     function test_latest_selection_queue_and_failed_retry() {
         const view = setup(), commit = findChild(view, "wallpaperCommit");
         view.setWallpaper("/fixture/one");

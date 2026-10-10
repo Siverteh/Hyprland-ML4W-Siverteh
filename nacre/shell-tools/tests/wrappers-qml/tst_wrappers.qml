@@ -148,7 +148,11 @@ TestCase {
         compare(positions[0].y, positions[1].y);
         compare(positions[2].y, positions[3].y);
         verify(positions[0].x < positions[1].x && positions[2].x < positions[3].x);
-        verify(positions[2].y >= positions[0].y + controls[0].height + 20);
+        const verticalGap = positions[2].y - positions[0].y - controls[0].height;
+        const horizontalGap = positions[1].x - positions[0].x - controls[0].width;
+        verify(verticalGap >= 24 && verticalGap <= 40);
+        verify(horizontalGap >= 36 && horizontalGap <= 52);
+        verify(panel.height <= 350);
         for (let i = 0; i < controls.length; i++) {
             verify(positions[i].x >= 0 && positions[i].x + controls[i].width <= panel.width);
             verify(positions[i].y >= 0 && positions[i].y + controls[i].height <= panel.height);

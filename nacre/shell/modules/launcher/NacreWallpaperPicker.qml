@@ -85,14 +85,11 @@ Item {
             easing.type: Easing.OutCubic
         }
     }
-    NacreWallpaperBackdrop {
-        anchors.fill: parent
-        visible: root.fullScreen
-        path: root.fullScreen ? root.currentEntry?.preview || root.currentEntry?.poster || "" : ""
-    }
     Rectangle {
+        objectName: "galleryScrim"
         anchors.fill: parent
-        color: root.fullScreen ? "#66000000" : "transparent"
+        color: "#70000000"
+        visible: root.fullScreen
     }
     MouseArea {
         anchors.fill: parent
@@ -106,48 +103,72 @@ Item {
         spacing: 8
         GridLayout {
             anchors.horizontalCenter: parent.horizontalCenter
-            columns: root.width < 400 ? 2 : root.width < 720 ? 3 : 6
-            columnSpacing: 8
+            columns: root.width < 720 ? 1 : 5
+            columnSpacing: 12
             rowSpacing: 8
-            ActionButton {
-                text: "Static"
-                compact: true
-                selected: root.kind === "static"
-                onClicked: NacreWallpapers.preference({
-                    kind: "static"
-                })
+            Row {
+                objectName: "wallpaperMediaChoices"
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 8
+                ActionButton {
+                    text: "Static"
+                    compact: true
+                    selected: root.kind === "static"
+                    onClicked: NacreWallpapers.preference({
+                        kind: "static"
+                    })
+                }
+                ActionButton {
+                    text: "Dynamic"
+                    compact: true
+                    selected: root.kind === "dynamic"
+                    onClicked: NacreWallpapers.preference({
+                        kind: "dynamic"
+                    })
+                }
             }
-            ActionButton {
-                text: "Dynamic"
-                compact: true
-                selected: root.kind === "dynamic"
-                onClicked: NacreWallpapers.preference({
-                    kind: "dynamic"
-                })
+            Rectangle {
+                objectName: "wallpaperModeDivider"
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: root.width < 720 ? 160 : 1
+                Layout.preferredHeight: root.width < 720 ? 1 : 24
+                color: NacreTokens.outline
             }
-            ActionButton {
-                text: "Carousel"
-                compact: true
-                selected: root.layout === "carousel"
-                onClicked: NacreWallpapers.preference({
-                    layout: "carousel"
-                })
+            Row {
+                objectName: "wallpaperLayoutChoices"
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 8
+                ActionButton {
+                    text: "Carousel"
+                    compact: true
+                    selected: root.layout === "carousel"
+                    onClicked: NacreWallpapers.preference({
+                        layout: "carousel"
+                    })
+                }
+                ActionButton {
+                    text: "Spotlight"
+                    compact: true
+                    selected: root.layout === "spotlight"
+                    onClicked: NacreWallpapers.preference({
+                        layout: "spotlight"
+                    })
+                }
+                ActionButton {
+                    text: "Hexagons"
+                    compact: true
+                    selected: root.layout === "hexagons"
+                    onClicked: NacreWallpapers.preference({
+                        layout: "hexagons"
+                    })
+                }
             }
-            ActionButton {
-                text: "Spotlight"
-                compact: true
-                selected: root.layout === "spotlight"
-                onClicked: NacreWallpapers.preference({
-                    layout: "spotlight"
-                })
-            }
-            ActionButton {
-                text: "Hexagons"
-                compact: true
-                selected: root.layout === "hexagons"
-                onClicked: NacreWallpapers.preference({
-                    layout: "hexagons"
-                })
+            Rectangle {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 24
+                visible: root.width >= 720
+                color: NacreTokens.outline
             }
             ActionButton {
                 text: "Add"

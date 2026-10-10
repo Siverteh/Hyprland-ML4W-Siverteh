@@ -76,3 +76,10 @@ and keyboard above output/microphone, with separate mute controls below. Fixed
 content geometry remains clipped while the panel closes; device owners and user-only
 writes are unchanged. Dashboard geometry eases over 360ms without delaying its
 hover trigger. Quick popup geometry uses a finite 230ms transition.
+
+Live notification popups share the header/right-frame background and downward
+reveal rather than floating as detached cards. The right-edge grid omits unused
+mute space below brightness controls, with closer columns and rows; audio mute
+buttons stay contained. Full-screen wallpaper galleries cover the available
+viewport without the launcher panel's enclosing background. Native pixel checks
+cover both the notification join and transparent gallery chrome.

@@ -71,6 +71,10 @@ Item {
                 edge: root.host.popouts.joinsRight ? "top-right" : "top"
             },
             {
+                item: root.host.notifications,
+                edge: "top-right"
+            },
+            {
                 item: root.host.launcher,
                 edge: "bottom"
             }
