@@ -2990,14 +2990,14 @@
     },
     "nacre/shell/modules/bar/components/NacreActiveTitle.qml": {
       "disposition": "independent",
-      "sha256": "dd137abdbf9ad37549b2c227d9e1c638a573eb1dcde569f2df17419497a3cc53",
+      "sha256": "7fcf3f5ec4bc8c985b76f2441c78d7c3ca0905e53609a0e6e99357494d5ea72e",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own visual cleanup follow-up after CI missing-font failure: title natural group uses actual fixed glyph.width rather than font-dependent implicitWidth; native regression deliberately removes the icon font and checks painted center/bounds. Own native Qt APIs, no inherited source or preference/font change."
     },
     "nacre/shell/modules/bar/components/NacrePowerButton.qml": {
       "disposition": "independent",
@@ -5587,14 +5587,14 @@
     },
     "nacre/shell-tools/tests/bar-qml/tst_bar.qml": {
       "disposition": "independent",
-      "sha256": "4cc965cd5aa04da4e1aae195fbc5fcd7611ea44515a885226cd6c7a386fa3ee7",
+      "sha256": "1b8a2fe5253ba0ee7280319652678e684d3d25a8fb1385b8cad147dfabaa8e38",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation ce69bc0 nacre/shell-tools/tests/bar-qml/tst_bar.qml; subsequent 5da1132, dc01bf9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/visual-cleanup.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own visual cleanup follow-up after CI missing-font failure: title natural group uses actual fixed glyph.width rather than font-dependent implicitWidth; native regression deliberately removes the icon font and checks painted center/bounds. Own native Qt APIs, no inherited source or preference/font change."
     },
     "nacre/shell-tools/tests/battery-qml/tst_battery.qml": {
       "disposition": "independent",

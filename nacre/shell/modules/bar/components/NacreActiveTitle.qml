@@ -12,7 +12,7 @@ Item {
     readonly property Item child: caption
     readonly property var client: NacreHyprland.activeClient
     readonly property string displayTitle: String(client?.title || client?.wmClass || "Desktop")
-    implicitWidth: glyph.implicitWidth + caption.implicitWidth + row.spacing
+    implicitWidth: glyph.width + caption.implicitWidth + row.spacing
     implicitHeight: 30
     Accessible.role: Accessible.StaticText
     Accessible.name: displayTitle

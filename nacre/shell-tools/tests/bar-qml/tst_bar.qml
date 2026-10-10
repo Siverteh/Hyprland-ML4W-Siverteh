@@ -111,6 +111,8 @@ TestCase {
             const caption = findChild(view, "nacreActiveTitle");
             const row = caption.parent;
             const glyph = row.children[0];
+            glyph.font.family = "Nacre deliberately absent icon font";
+            wait(0);
             const left = glyph.mapToItem(view, 0, 0).x;
             const right = caption.mapToItem(view, 0, 0).x + caption.contentWidth;
             verify(Math.abs((left + right) / 2 - view.width / 2) < 1, "painted icon/title group must be centered, not only its full-width container");
