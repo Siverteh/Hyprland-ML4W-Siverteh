@@ -1209,6 +1209,15 @@
         "nacre/shell-tools/device-actions.py",
         "nacre/shell-tools/tests/test_device_actions.py"
       ]
+    },
+    {
+      "area": "preset-private-preferences",
+      "commit": "2636534",
+      "spec": "docs/specs/persistence-helpers-source-audit.md",
+      "paths": [
+        "nacre/shell-tools/desktop-settings.py",
+        "nacre/shell-tools/tests/test_desktop_settings.py"
+      ]
     }
   ],
   "reviews": {

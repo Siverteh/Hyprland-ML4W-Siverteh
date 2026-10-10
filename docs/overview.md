@@ -43,6 +43,8 @@ The [maintenance guide](maintenance.md) explains checks, deployment and rollback
 - **Nacre AI** manages Codex/Claude conversations and project work. **Brain**
   browses saved knowledge in a separate local server and browser window. Accounts,
   conversations and the Markdown vault are private data outside this repository.
+- **Desktop presets** change desktop behavior and recall explicitly saved workflows.
+  They preserve current lock-screen privacy and weather preferences, including Docked.
 
 ## From wallpaper to desktop colors
 

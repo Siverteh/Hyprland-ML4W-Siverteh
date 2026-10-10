@@ -1997,3 +1997,40 @@ semantics, so it is not treated as a substitute for the earlier normal tests.
 Current source/installed copies, system policies, preferences, worker and palette
 coherence still pass. This follow-up limits any broader claim that every input
 probe preserves wallpaper choices; it does not alter or close the full goal.
+
+## Remaining desktop persistence helper source review
+
+2026-10-10 UTC. [Spec](../specs/persistence-helpers-source-audit.md) and
+[individual table](PERSISTENCE-SOURCE-AUDIT.md) cover twelve complete helper/data
+bodies and eight specific Python test sources. Local composer/extras/settings/
+recovery/preferences/maintenance/history/sidebar/media/watcher authoring and
+current independent engine/native owner integration traced. First-source peer
+comparison found no implementation copies; history/body/interface review
+supplements those metrics, not a legal clean-room/final-license claim. Public
+native schemas/flags and private compatibility names remain contracts. Callee/
+workflow/packaging/other fixture/dependency origins stay separately scoped.
+
+Actual defect: Docked reset lock/privacy and weather fields despite their exclusion
+from preset snapshots. New temp-home actual main() regression fails Docked and
+subsequent Normal on the old body. Source 2636534 removes those overrides, retaining
+Docked's desktop DND setting and current private choices. Existing preset fixtures
+now isolate HOME before nested workflow lookup. Source 428abbe isolates media test
+default paths and native watcher child HOME, avoiding user caches/config observation.
+No real preset, message, clipboard/history clearing or device/power/auth action used.
+Busy AI backend source and full-access/skip-permissions/skipreview policy unchanged.
+
+All 415 tests pass (55 tools, 96 AI, 35 Brain, 229 shell), with native QML,
+formatting/registry/Hyprland and reviewed shell plan. Configuration plan reports
+zero files/migrations. Deployed source 731b923 in good release
+20261010T043451241210Z; repeated checks and normal launcher/wallpaper Escape gates
+pass. All twelve helper copies/Fish title and 234 current/good shell files exact.
+Current task baseline's private/system/Thunar hashes, worker, palette/scheme,
+wallpaper selection and deadline preserved; IPC/services healthy/configerrors empty.
+The earlier unattributed wallpaper event remains separate/open, not overwritten
+with this new task baseline. No supplementary normal live gallery probe repeated.
+
+Registry: 668 artifacts, 374 reviews and 294 pending; audit counts only. All 68
+desktop helper/data, 231 shell-source and four login-theme artifacts now have
+explicit reviews. Other configuration/workflow/packaging/fixtures/docs/notices and
+final whole-tree comparison remain. Applicable notices and full goal retained;
+synthetic tests do not prove physical cold-login/auth or every device path.
