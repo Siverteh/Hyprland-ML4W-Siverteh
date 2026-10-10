@@ -13,7 +13,8 @@ Primary/secondary/tertiary fill the chambers, highlight uses the existing bright
 Orient role in dark mode and a readable accent in light mode. Small symbolic
 output can be palette-primary; colored compact output keeps the chamber roles
 without tiny gloss overlays. Larger outputs retain the supplied shading and pearl.
-Keep transparent lock/logo corners; terminal PNG alone includes its background.
+Keep transparent lock/logo corners. Updated after actual user screenshots: terminal
+PNG also retains alpha; a baked surface color leaves a rectangle over translucent Kitty.
 Square geometry gets square layout bounds without optical H hacks/stretching.
 
 Extend the current branding.py owner, not a separate publisher. Canonical

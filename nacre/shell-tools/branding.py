@@ -229,10 +229,8 @@ def publish(colors, home=None):
     stream = io.BytesIO()
     image.save(stream, format="PNG")
     atomic(folder / "nacre-lock.png", stream.getvalue())
-    terminal = Image.new("RGB", image.size, "#" + colors["surface"].lstrip("#"))
-    terminal.paste(image, mask=image.getchannel("A"))
-    stream = io.BytesIO()
-    terminal.save(stream, format="PNG")
+    # Kitty composites alpha over its own background, including opacity effects.
+    # Baking a palette surface into the image produces a visible square.
     atomic(folder / "nacre.png", stream.getvalue())
     for variant, name in [
         ("full", "nacre.svg"),

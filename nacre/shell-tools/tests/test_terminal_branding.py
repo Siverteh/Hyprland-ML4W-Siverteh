@@ -123,9 +123,10 @@ class TerminalBrandingTests(unittest.TestCase):
             )
             self.assertTrue(any(r > b + 60 and a > 240 for r, g, b, a in pixels))
             self.assertTrue(any(b > r + 40 and a > 240 for r, g, b, a in pixels))
-            self.assertEqual(
-                Image.open(folder / "nacre.png").getpixel((0, 0)), (18, 18, 18)
-            )
+            with Image.open(folder / "nacre.png") as terminal:
+                self.assertEqual(terminal.mode, "RGBA")
+                self.assertEqual(terminal.getpixel((0, 0))[3], 0)
+                self.assertEqual(terminal.tobytes(), image.tobytes())
 
     def test_notification_targets_only_exact_menu_controller(self):
         with tempfile.TemporaryDirectory() as folder:

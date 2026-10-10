@@ -53,7 +53,7 @@ class LockReadyTests(unittest.TestCase):
                     text,
                 )
 
-    def test_logo_has_alpha_without_changing_terminal_background(self):
+    def test_lock_and_terminal_logos_preserve_alpha(self):
         brand = load("branding")
         colors = json.loads((ROOT / "reference-style.json").read_text())["colours"]
         with tempfile.TemporaryDirectory() as folder:
@@ -66,7 +66,8 @@ class LockReadyTests(unittest.TestCase):
                 self.assertEqual(image.getpixel((0, 0))[3], 0)
                 self.assertGreater(image.getchannel("A").getextrema()[1], 0)
             with Image.open(root / "nacre.png") as image:
-                self.assertEqual(image.mode, "RGB")
+                self.assertEqual(image.mode, "RGBA")
+                self.assertEqual(image.getpixel((0, 0))[3], 0)
 
     def test_ready_labels_separate_safe_notifications_and_preload_art(self):
         prepare = load("lock-prepare")

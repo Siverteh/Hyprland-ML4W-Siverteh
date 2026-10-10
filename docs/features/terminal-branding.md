@@ -39,6 +39,6 @@ The user-approved shell master lives in `nacre/shell/branding/nacre-master.svg`.
 Colored, compact, symbolic, QML/web, PNG and text outputs derive from that one
 source. Compact bar/sidebar marks retain the chamber colors without tiny gloss
 overlays; larger marks retain the pearl shading. Palette bindings and publication
-change colors only when needed. Lock PNG keeps alpha; terminal PNG uses its
-current background. Native librsvg rasterizes static PNGs during publication.
+change colors only when needed. Lock and terminal PNGs both keep alpha so Kitty can supply its own
+background and transparency. Native librsvg rasterizes static PNGs during publication.
 Legacy private sh.* files contain the new shell only for already-open controllers.
