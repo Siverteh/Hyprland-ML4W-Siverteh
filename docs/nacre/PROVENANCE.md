@@ -1605,3 +1605,19 @@ is Apache 2.0. Exact font binary/version provenance and independent installation
 notice ownership remain pending, not certified from family names or directory
 labels. No font assets committed or silently replaced here. Other font/art/
 helpers/assets/dependency/whole-tree comparison and notices/goal stay open.
+
+Lock appearance acceptance (2026-10-10 UTC): software 70de26f, good shell release
+20261010T013242678025Z. All 403 tests (55 tools, 96 AI, 35 Brain, 217 shell),
+formatting/QML/native Hyprland and reviewed shell transaction/live menu gates pass.
+Nineteen lock cases include demonstrated future-cache/local-read failures, privacy,
+ready-file/geometry/concurrency checks. Synthetic image and four generated monitor
+configs inspected; no actual locker/authentication/session/power invocation.
+Live ready panel and stable initial images decode, private panel mode 0600, native
+password field/tokens valid, no unlock action. Five installed helpers/template and
+all 235 shell files exact, palette/poster/deadline equal baseline, nine private
+preference/history hashes and worker PID/start unchanged. Sleep-hook file hash
+unchanged, native palette ready/configerrors empty. Eight current source/template/
+test reviews added; active font asset origin/ownership/migration remains explicit
+next work, as do all other source/assets/tests/packaging/full comparison requirements.
+Physical authentication/sleep/cold-login/fresh-session curves remain unverified.
+Notices and complete originality goal retained.

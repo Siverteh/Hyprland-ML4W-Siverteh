@@ -971,6 +971,21 @@
         "nacre/login/Logo.qml",
         "nacre/shell-tools/tests/test_terminal_branding.py"
       ]
+    },
+    {
+      "area": "lock-appearance-pipeline",
+      "commit": "70de26f",
+      "spec": "docs/specs/lock-appearance-pipeline.md",
+      "paths": [
+        "nacre/shell-tools/lock-config.py",
+        "nacre/shell-tools/lock-info.py",
+        "nacre/shell-tools/lock-dashboard.py",
+        "nacre/shell-tools/lock-prepare.py",
+        "nacre/shell-tools/hyprlock.conf.in",
+        "nacre/shell-tools/tests/test_lock_widgets.py",
+        "nacre/shell-tools/tests/test_lock_ready.py",
+        "nacre/shell-tools/tests/test_lock_dashboard.py"
+      ]
     }
   ],
   "reviews": {
