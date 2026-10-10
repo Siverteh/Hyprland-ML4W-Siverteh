@@ -1218,6 +1218,35 @@
         "nacre/shell-tools/desktop-settings.py",
         "nacre/shell-tools/tests/test_desktop_settings.py"
       ]
+    },
+    {
+      "area": "window-hide-independent",
+      "commit": "6c8f06d",
+      "spec": "docs/specs/window-hide.md",
+      "paths": [
+        "hypr/scripts/window-minimize.sh",
+        "hypr/scripts/window-hide.py",
+        "tools/tests/test_window_hide.py"
+      ]
+    },
+    {
+      "area": "matrix-rest-independent",
+      "commit": "2a977c4",
+      "spec": "docs/specs/matrix-rest.md",
+      "paths": [
+        "hypr/scripts/matrix-rest.py",
+        "tools/tests/test_matrix_palette.py",
+        "tools/tests/test_matrix_rest.py"
+      ]
+    },
+    {
+      "area": "configuration-generated-artifacts",
+      "commit": "cbea2ea",
+      "spec": "docs/specs/config-helper-source-audit.md",
+      "paths": [
+        "tools/configure.py",
+        "tools/tests/test_configure_artifacts.py"
+      ]
     }
   ],
   "reviews": {

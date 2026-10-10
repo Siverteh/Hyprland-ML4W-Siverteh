@@ -82,6 +82,7 @@ on lock and on sleep; the picker temporarily allows a live preview.
 |---|---|
 | Workspaces and app placement | `hypr/conf/windowrule.lua`; Brain exceptions in `brain.lua` |
 | Keys and window appearance | `hypr/conf/keybinding.lua`, `nacre/shell-tools/shortcuts.lua`, `window.lua`, `decoration.lua` |
+| Hide and restore windows without closing | `hypr/scripts/window-hide.py`; compatible `window-minimize.sh` entry point |
 | Environment and cursor defaults | `uwsm/env`, `uwsm/env-hyprland`, `hypr/conf/cursor.lua` |
 | Idle locking | Private listeners in `~/.config/nacre/hypridle.local.conf`; sleep hooks in `hypr/hypridle.conf` |
 | Bar, menus and picker layouts | `nacre/shell/modules/` |

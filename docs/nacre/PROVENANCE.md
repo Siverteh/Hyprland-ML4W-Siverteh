@@ -2034,3 +2034,50 @@ desktop helper/data, 231 shell-source and four login-theme artifacts now have
 explicit reviews. Other configuration/workflow/packaging/fixtures/docs/notices and
 final whole-tree comparison remain. Applicable notices and full goal retained;
 synthetic tests do not prove physical cold-login/auth or every device path.
+
+## Remaining terminal and compositor helper review
+
+2026-10-10 UTC. [Spec](../specs/config-helper-source-audit.md),
+[hide contract](../specs/window-hide.md), [Matrix contract](../specs/matrix-rest.md)
+and [source table](CONFIG-HELPER-SOURCE-AUDIT.md) cover ten targets, new hide helper
+and four own test sources. Verified local ANSI art/cache, Lua bridge, Matrix wrapper,
+close/trash and complete native Hypridle/startup authoring boundaries retained.
+Earlier exposure/metrics supplement body/history/public API review; no legal
+clean-room/final-license claim. Other dependencies/fixtures/packaging remain scoped.
+
+Uncertain imported minimize body was not opened/copied. Isolated namespace/fake
+compositor capture established ledger/restore semantics, then body deleted and
+fresh helper/shim authored in 6c8f06d. Old positive numeric records remain compatible;
+private locked atomic records, validation and failed-restore preservation tested.
+Actual native owned-window test passes hide/both restores with isolated ledger;
+no user window target or real notification. Older history/state untouched.
+
+Earlier Matrix peer matches included old calendar/imported ML4W helper fragments.
+Whole Python body discarded and independently replaced in 2a977c4 after recording
+prior exposure, retaining effect/palette/10fps/exit behavior from spec. Canonical
+colors now control all roles, with no legacy Rofi/Matugen dependency. Deterministic
+bounds/resize and owned PTY key/signal exit restore termios/cursor/colors/screen.
+Active own Fish ANSI compatibility hook retained; cache branding uses Nacre.
+
+Deployment source enumeration wrongly included test-generated pyc/cache files.
+New source-map regression failed baseline. cbea2ea excludes bytecode/cache/QML
+metadata while existing owned-only backup/removal and drift refusal remain tested.
+Plan reduced from seven to five intended files; no owned old caches existed on
+this host, no arbitrary cache deletion. Complete configure.py origin remains in
+packaging audit, not certified from this narrow edit.
+
+All 428 tests pass (68 tools, 96 AI, 35 Brain, 229 shell), native QML,
+formatting/registry/Hyprland and reviewed configs+shell plan/apply. Source fbf9f6b
+deployed in good release 20261010T050335224627Z, repeated checks and normal overlay
+Escape gates pass. All desired config copies and 234 current/good shell files
+exact; generated artifacts excluded, ledgers/private policy/history/Thunar/worker
+preserved, IPC/services healthy/configerrors empty. Installed owned hide test passes.
+Follow-up plan zero files/migrations. Scheduled rotation at 05:02:07.152 UTC
+published at 05:02:07.548 (396ms late), before transaction creation; original
+baseline retained and current scheme/poster/timer coherence validated. No palette
+rollback or silent rebaseline. Earlier unrelated probe attribution remains open.
+
+Registry: 677 artifacts, 389 reviews, 288 pending; current desktop configuration/
+helper, desktop helper/data, shell/login/engine source categories fully reviewed.
+Packaging, AI/Brain workflow, remaining fixtures/docs/notices and final whole-tree
+comparison remain. Applicable notices and the complete goal stay active.
