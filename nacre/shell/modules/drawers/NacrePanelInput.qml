@@ -141,6 +141,7 @@ Item {
         enabled: root.modal
         acceptedButtons: Qt.AllButtons
         onPressed: event => root.outsideClick(Qt.point(event.x, event.y))
+        onDoubleClicked: event => root.outsideClick(Qt.point(event.x, event.y))
     }
     Timer {
         id: leftExit

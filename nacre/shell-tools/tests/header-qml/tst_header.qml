@@ -91,6 +91,58 @@ TestCase {
         NacrePanelState.screens.test.session = false;
         NacrePanelState.panels = ({});
     }
+    function test_open_dashboard_keeps_its_full_header_width_without_widening_initial_target() {
+        NacrePanelState.screens = {
+            test: {
+                dashboard: false,
+                session: false,
+                launcher: false
+            }
+        };
+        NacrePanelState.panels = {
+            test: {
+                dashboard: {
+                    width: 1000
+                },
+                input: {
+                    modal: false,
+                    settleHover: function () {}
+                }
+            }
+        };
+        const view = createTemporaryObject(header, test);
+        wait(20);
+        const target = findChild(view, "nacreHeaderCenterBand");
+        compare(target.width, 208);
+        mouseMove(view, 600, 25);
+        verify(!NacreHoverIntent.headers.test);
+        NacrePanelState.screens = {
+            test: {
+                dashboard: true,
+                session: false,
+                launcher: false
+            }
+        };
+        wait(20);
+        compare(target.width, 1000);
+        mouseMove(view, 600, 25);
+        tryCompare(view, "openHeaderHovered", true);
+        verify(NacreHoverIntent.headers.test);
+        mouseMove(view, 1300, 25);
+        verify(NacreHoverIntent.headers.test);
+        mouseMove(view, 1550, 25);
+        tryCompare(view, "openHeaderHovered", false);
+        verify(!NacreHoverIntent.headers.test);
+        NacrePanelState.screens = {
+            test: {
+                dashboard: false,
+                session: false,
+                launcher: false
+            }
+        };
+        compare(target.width, 208);
+        NacrePanelState.panels = ({});
+    }
     function test_header_registration_follows_replaced_screen_and_safe_teardown() {
         const view = createTemporaryObject(header, test);
         compare(NacreHoverIntent.owners.test, view);

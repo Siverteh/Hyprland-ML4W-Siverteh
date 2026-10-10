@@ -17,18 +17,20 @@ Item {
         const origin = item.mapToItem(root, 0, 0);
         return point.x >= origin.x && point.y >= origin.y && point.x < origin.x + item.width && point.y < origin.y + item.height;
     }
+    function press(event) {
+        const position = Qt.point(event.x, event.y);
+        if (root.panel?.popouts?.pinned && (root.inside(root.statusItem, position) || root.inside(root.calendarItem, position))) {
+            event.accepted = false;
+            return;
+        }
+        if (root.panel?.input?.modal)
+            root.panel.input.outsideClick(position);
+    }
     MouseArea {
         id: observer
         anchors.fill: parent
         acceptedButtons: Qt.AllButtons
-        onPressed: event => {
-            const position = Qt.point(event.x, event.y);
-            if (root.panel?.popouts?.pinned && (root.inside(root.statusItem, position) || root.inside(root.calendarItem, position))) {
-                event.accepted = false;
-                return;
-            }
-            if (root.panel?.input?.modal)
-                root.panel.input.outsideClick(position);
-        }
+        onPressed: event => root.press(event)
+        onDoubleClicked: event => root.press(event)
     }
 }

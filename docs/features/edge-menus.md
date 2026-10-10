@@ -34,3 +34,7 @@ Frame/input tests cover marked geometry, held-button/fullscreen guards, explicit
 rearming, output replacement and native curved/iridescent pixels. Actual compositor
 focus, repeated hover/close/application-click behavior and scaling need live gates;
 headless tests alone cannot establish them.
+
+The top target widens to the dashboard's actual width while it is open. Moving
+across the header above that panel keeps it open; once closed, only the narrow
+lip column can open it again.

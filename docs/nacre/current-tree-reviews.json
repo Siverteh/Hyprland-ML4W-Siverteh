@@ -3298,14 +3298,15 @@
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
-      "sha256": "2f514ea31a7a523a0397f350d78c1982a7984e07d37f51a1a46af37b2542246f",
+      "sha256": "15f493caa499184c128713d89a17d26b3e56304d965a0e51cf91c7c423d8c802",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
-        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used."
+        "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -3464,23 +3465,25 @@
     },
     "nacre/shell/modules/topbar/NacreHeader.qml": {
       "disposition": "independent",
-      "sha256": "79a673afcda2daf83237dd35461cae07d54831d399789f74b7a16fc88597769c",
+      "sha256": "c8ad3b69f971187225990f544c2406200dd77fe28266cc8c61b538a91909ddb0",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132, 7c8f3a6. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
     "nacre/shell/modules/topbar/NacreHeaderForwarder.qml": {
       "disposition": "independent",
-      "sha256": "36c3e704eb668d1e1ce1087e9f847af14d4456448abbb8086d392b7a60de3bbe",
+      "sha256": "95bb59bb115fe15b766927bd8a5a88401c23fa19eed49bf6879913c1d35f8789",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used."
+        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ]
     },
     "nacre/shell/modules/topbar/NacreWorkspaceRow.qml": {
@@ -5910,11 +5913,12 @@
     },
     "nacre/shell-tools/tests/header-qml/tst_header.qml": {
       "disposition": "independent",
-      "sha256": "e42e076bdfdde1dfd033dc633296fb5855d35d044f7e94b537ddd07791abe9e9",
+      "sha256": "63a83cc0862fc658c4aae3a7faa2783d0c882897b58cc54403e05dadb77e5a1b",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 966ae9e nacre/shell-tools/tests/header-qml/tst_header.qml; subsequent 5da1132, 7c8f3a6. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation 966ae9e nacre/shell-tools/tests/header-qml/tst_header.qml; subsequent 5da1132, 7c8f3a6. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ]
     },
     "nacre/shell-tools/tests/launcher-qml/tst_launcher.qml": {
@@ -6606,11 +6610,12 @@
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "03be6af2d6fa0d8d308a8b369450dd80420780b5ea5f179bcf720222afcd509e",
+      "sha256": "a7aadf76ea3decf7a8d8b41bdc65fa1cd6149e5cd3b83a20a45141e4a48f62a2",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -8042,9 +8047,10 @@
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used."
+        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
+        "Current body reviewed: the open dashboard holds across its actual header width; closed target stays208px. Shared dismissal handles both press and Qt double-click delivery. Native header fixtures verify left/right hold and closed narrowing; real rapid input and tiled-workspace checks cover integration. Independent local changes, no inherited source consulted."
       ],
-      "sha256": "c1f9ca93b2dcf6584a15cd97faa624478d8716637aab04dd887d485baef1169d",
+      "sha256": "977f52f8aa3e6faf51555dda2394d381df55a1d7a18490e5eaae991599effbbd",
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/specs/frame-control-center.md": {

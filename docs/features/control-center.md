@@ -43,3 +43,7 @@ limited to visible controls/indicators, with no periodic DDC monitor reads.
 `nacre-shell controls [home|audio|network|bluetooth|battery|notifications]` opens the
 same view. The existing right-menu `osd` state name is a compatibility identifier;
 the former OSD types only forward to the new control components.
+
+While the dashboard is open, its full horizontal span in the header keeps it
+open. The initial hover target remains the narrow lip column. Modal dismissal
+also handles a fast press delivered by Qt as a double-click.

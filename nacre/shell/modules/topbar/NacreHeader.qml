@@ -15,6 +15,12 @@ Item {
     property string hoverHint: ""
     property real hoverHintCenter: 0
     property string registeredName: ""
+    readonly property real dashboardHoverWidth: root.visibility?.dashboard ? Math.min(root.width, Math.max(208, root.panel?.dashboard?.width || 208)) : Math.min(208, root.width)
+    readonly property bool openHeaderHovered: !!root.visibility?.dashboard && headerPointer.hovered && Math.abs(headerPointer.point.position.x - width / 2) <= dashboardHoverWidth / 2
+    onOpenHeaderHoveredChanged: {
+        NacreHoverIntent.setHeaderHover(screen.name, "open-bar", openHeaderHovered);
+        root.panel?.input?.settleHover();
+    }
     function registerOutput() {
         const name = screen?.name || "";
         if (name === registeredName)
@@ -37,7 +43,7 @@ Item {
         id: centerBand
         objectName: "nacreHeaderCenterBand"
         anchors.horizontalCenter: parent.horizontalCenter
-        width: Math.min(208, root.width)
+        width: root.dashboardHoverWidth
         height: parent.height
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton
