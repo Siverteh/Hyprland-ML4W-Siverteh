@@ -1,0 +1,32 @@
+# Remaining terminal and compositor helper source audit
+
+2026-10-10 UTC. Scope: fastfetch/logo.sh, fastfetch/render-logo.sh,
+hypr/hypridle.conf, hypr/scripts/hyprctl-lua.sh, matrix-rest.py, matrix-rest.sh,
+startup-apps.sh, window-close.sh, window-minimize.sh and window-trash.sh. Other
+compositor/terminal defaults already have individual reviews. Count current paths;
+prior caller changes do not certify these full wrapper/action/data bodies.
+
+Trace first authoring, inherited/uncertain boundaries and current producer/caller
+contracts before opening an uncertain inherited implementation for replacement.
+Retain proven own code with per-file SHA/history/evidence. Required inherited
+bodies must be specified from observed behavior/public APIs, deleted, then authored
+fresh without consulting old/upstream bodies while writing. Unused imported
+components may retire after dependency tracing, preserving user private state.
+Record earlier exposure honestly; notices and final full comparison remain open.
+
+Preserve terminal branding/palette and native Fish/Kitty/Fastfetch interfaces,
+compositor Lua syntax, managed before-sleep lock and private idle listeners,
+startup reuse, window close/minimize/trash/restore semantics and private ledgers.
+Do not move/kill real user windows, suspend/lock/power the machine, rewrite
+profiles or change actual idle policy solely for QA. Matrix/rest helper actions
+must be traced before executing; do not launch unknown real workflow/timer tasks.
+Native standard commands/public configuration keys remain dependency contracts.
+
+Use existing meaningful own-window/temp-state/fake-native fixtures and readonly
+installed-source/IPC evidence. Corrections need demonstrated regression, full
+formatting/checks/native Hyprland, reviewed plan/apply/strict source gates and
+exact-main CI. Audit-only records retain the current validated runtime. Preserve
+busy AI worker, private palette/wallpaper/history/host state, full-access AI and
+skipreview. Earlier unattributed wallpaper probe change remains separately open;
+do not repeat normal gallery probes blindly or reset current selection. Keep the
+full remaining AI+Brain/packaging/fixture/docs/notices/dependency/comparison goal.
