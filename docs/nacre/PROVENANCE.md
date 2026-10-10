@@ -1984,3 +1984,16 @@ Registry now has 666 tracked artifacts, 354 explicit reviews and 312 pending;
 these are audit counts. Twelve desktop helpers/data remain, alongside other
 configuration/workflow/packaging/fixtures/documentation/notices and the final
 whole-tree comparison. Applicable notices and the complete goal remain open.
+
+Follow-up observation after that initial post-deploy preservation check: one
+notification arrived from Kitty. Reconstructing the current history's first 44
+entries reproduces the original captured SHA, proving the earlier history exact;
+the new entry is retained normally. No message contents were exposed for QA.
+The wallpaper also changed while the supplementary normal input probe was active,
+before the scheduled rotation deadline. Attribution is unresolved; the current
+selection was left intact and user clarification requested. A separate preview
+probe preserved the new palette/scheme but did not provide normal outside-dismissal
+semantics, so it is not treated as a substitute for the earlier normal tests.
+Current source/installed copies, system policies, preferences, worker and palette
+coherence still pass. This follow-up limits any broader claim that every input
+probe preserves wallpaper choices; it does not alter or close the full goal.
