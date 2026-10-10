@@ -27,6 +27,26 @@ spec.loader.exec_module(branding)
 
 
 class TerminalBrandingTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("rsvg-convert"), "SVG renderer unavailable")
+    def test_prepared_branding_reuses_pixels_and_invalidates_changed_geometry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            text = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="red"/></svg>'
+            with patch.object(branding, "raster", wraps=branding.raster) as render:
+                first = branding.cached_png(text, home, 16)
+                self.assertEqual(branding.cached_png(text, home, 16), first)
+                self.assertEqual(render.call_count, 1)
+                second = branding.cached_png(text.replace("red", "blue"), home, 16)
+                self.assertNotEqual(second, first)
+                self.assertEqual(render.call_count, 2)
+            self.assertFalse((home / ".local/share/nacre/branding").exists())
+            self.assertTrue(
+                all(
+                    (p.stat().st_mode & 0o777) == 0o600
+                    for p in (home / ".cache/nacre/branding").glob("*.png")
+                )
+            )
+
     @unittest.skipUnless(shutil.which("fastfetch"), "Fastfetch unavailable")
     def test_real_fastfetch_accepts_shipped_config(self):
         result = subprocess.run(

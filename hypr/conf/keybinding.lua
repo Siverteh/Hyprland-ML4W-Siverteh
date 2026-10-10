@@ -113,6 +113,7 @@ install({
     { "SUPER + W", "exec_cmd", "~/.local/bin/nacre-shell wallpaper" },
     { "SUPER + Z", "exec_cmd", "~/.local/bin/nacre-shell hide" },
     { "SUPER + O", "exec_cmd", "~/.local/bin/nacre-shell toggle" },
+    { "SUPER + S", "exec_cmd", "~/.local/bin/nacre-settings" },
     { "SUPER + SHIFT + O", "exec_cmd", "~/.local/bin/nacre-settings" },
     { "SUPER + ALT + K", "exec_cmd", "~/.local/bin/nacre-settings" },
     { "SUPER + X", "exec_cmd", "~/.local/bin/nacre-shell session" },

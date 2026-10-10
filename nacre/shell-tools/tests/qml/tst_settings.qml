@@ -186,6 +186,35 @@ TestCase {
         DesktopSettings.pending = false;
     }
 
+    function test_palette_tile_selection_and_labels_fit_small_tiles() {
+        const tile = createTemporaryObject(paletteTile, test);
+        const label = findChild(tile, "paletteName");
+        const inUse = findChild(tile, "paletteInUse");
+        for (const width of [130, 160, 220]) {
+            tile.width = width;
+            verify(label.x + label.width <= tile.width);
+            verify(label.y + label.height < inUse.y);
+            verify(inUse.y + inUse.height <= tile.height);
+        }
+        verify(!inUse.visible);
+        tile.selected = true;
+        verify(inUse.visible);
+        compare(tile.border.width, 2);
+        tile.selected = false;
+        compare(tile.border.width, 1);
+    }
+    Component {
+        id: paletteTile
+        NacrePaletteTile {
+            width: 160
+            entry: ({
+                    name: "Olive supporting color",
+                    surface: "232315",
+                    swatches: ["929365", "5ca19a", "839a79"]
+                })
+        }
+    }
+
     function test_palette_rows_fit_the_available_width() {
         const prior = NacreWallpapers.palettePresets;
         NacreWallpapers.palettePresets = Array.from({
@@ -211,7 +240,7 @@ TestCase {
         compare(tiles.length, 12);
         for (const tile of tiles)
             verify(tile.x + tile.width <= flow.width + 0.01);
-        const columns = flow.width >= 840 ? 6 : 3;
+        const columns = Math.max(1, Math.min(4, Math.floor((flow.width + 10) / 170)));
         compare(tiles.filter(tile => {
             return tile.y === tiles[0].y;
         }).length, columns);

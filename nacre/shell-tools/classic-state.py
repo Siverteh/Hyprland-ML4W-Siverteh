@@ -232,7 +232,12 @@ def _apply_palette(home, wallpaper=None, live=True):
                     "colours": colors,
                     "poster": selected,
                     "paletteOptions": data.get("source", {}).get("options", []),
-                    "selectedAccent": data.get("input", {}).get("accent"),
+                    "selectedAccent": None
+                    if fixed
+                    else data.get("source", {}).get("selected")
+                    or data.get("input", {}).get("accent"),
+                    "palettePreset": preset,
+                    "paletteHarmony": options.get("paletteHarmony", False),
                 }
             ),
         )

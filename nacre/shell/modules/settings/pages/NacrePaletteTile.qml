@@ -9,11 +9,11 @@ NacreSurface {
     function choose() {
         chosen();
     }
-    implicitHeight: 82
+    implicitHeight: 110
     radius: 14
     color: entry.surface ? "#" + entry.surface : NacreTokens.raised
     border.width: selected ? 2 : 1
-    border.color: selected ? NacreTokens.accent : NacreTokens.outline
+    border.color: selected ? NacreTokens.focusInk(color) : Qt.alpha(NacreTokens.outline, .45)
     Row {
         x: 10
         y: 10
@@ -32,8 +32,10 @@ NacreSurface {
     }
     NacreText {
         x: 10
-        y: 43
+        objectName: "paletteName"
+        y: 44
         width: parent.width - 20
+        height: 36
         text: root.entry.name || "Color"
         font.pointSize: 10
         wrapMode: Text.Wrap
@@ -41,8 +43,25 @@ NacreSurface {
         elide: Text.ElideRight
         color: NacreTokens.focusInk(root.color)
     }
+    Row {
+        objectName: "paletteInUse"
+        x: 10
+        y: 82
+        spacing: 5
+        visible: root.selected
+        NacreIcon {
+            text: "check"
+            font.pointSize: 10
+            color: NacreTokens.focusInk(root.color)
+        }
+        NacreText {
+            text: "In use"
+            font.pointSize: 9
+            color: NacreTokens.focusInk(root.color)
+        }
+    }
     NacreInteraction {
-        accessibleName: root.entry.name || "Color palette"
+        accessibleName: (root.entry.name || "Color palette") + (root.selected ? ", in use" : "")
         function onClicked() {
             root.choose();
         }

@@ -2,6 +2,7 @@
 """One user-approved shell geometry for Nacre web, Qt, lock and terminal branding."""
 
 import io
+import hashlib
 import importlib.util
 import json
 import os
@@ -153,10 +154,59 @@ def raster(text, size=512):
     return Image.open(io.BytesIO(result.stdout)).convert("RGBA")
 
 
-def text_logo(variant="symbolic"):
-    image = raster(templates()[variant].replace("currentColor", "#ffffff"), 96).resize(
-        (24, 12), Image.Resampling.LANCZOS
+def cached_png(text, home, size=512):
+    """Cache immutable raster art by geometry, palette, size and renderer build."""
+    binary = shutil.which("rsvg-convert")
+    if not binary:
+        raise RuntimeError("Nacre logo rasterization needs rsvg-convert from librsvg")
+    stat = Path(binary).stat()
+    key = hashlib.sha256(
+        (text + str(size) + str(stat.st_size) + str(stat.st_mtime_ns)).encode()
+    ).hexdigest()
+    folder = Path(home) / ".cache/nacre/branding"
+    path = folder / (key + ".png")
+    try:
+        raw = path.read_bytes()
+        with Image.open(io.BytesIO(raw)) as image:
+            if image.size != (size, size) or image.mode != "RGBA":
+                raise ValueError("Invalid branding cache")
+            image.verify()
+        return raw
+    except (OSError, ValueError):
+        pass
+    image = raster(text, size)
+    stream = io.BytesIO()
+    image.save(stream, format="PNG")
+    raw = stream.getvalue()
+    try:
+        atomic(path, raw)
+        path.chmod(0o600)
+        # Bound disk use; cache misses only prune, never a recurring idle job.
+        for stale in sorted(
+            folder.glob("*.png"), key=lambda p: p.stat().st_mtime, reverse=True
+        )[64:]:
+            stale.unlink(missing_ok=True)
+    except OSError:
+        pass
+    return raw
+
+
+def prepare(colors, home):
+    """Prepare art without publishing app icons or changing any live consumer."""
+    for variant in ("full", "ai-full", "brain-full", "settings-full"):
+        cached_png(svg(False, colors, variant), home)
+    for variant in ("symbolic", "ai-symbolic"):
+        cached_png(templates()[variant].replace("currentColor", "#ffffff"), home, 96)
+
+
+def text_logo(variant="symbolic", home=None):
+    text = templates()[variant].replace("currentColor", "#ffffff")
+    image = (
+        raster(text, 96)
+        if home is None
+        else Image.open(io.BytesIO(cached_png(text, home, 96)))
     )
+    image = image.resize((24, 12), Image.Resampling.LANCZOS)
     dots = [
         (0, 0, 0),
         (0, 1, 1),
@@ -243,18 +293,14 @@ def refresh_terminal_menus(home, proc=Path("/proc")):
 def publish(colors, home=None):
     home = Path.home() if home is None else Path(home)
     folder = home / ".local/share/nacre/branding"
-    image = raster(svg(False, colors))
-    stream = io.BytesIO()
-    image.save(stream, format="PNG")
-    atomic(folder / "nacre-lock.png", stream.getvalue())
+    raw = cached_png(svg(False, colors), home)
+    atomic(folder / "nacre-lock.png", raw)
     # Kitty composites alpha over its own background, including opacity effects.
     # Baking a palette surface into the image produces a visible square.
-    atomic(folder / "nacre.png", stream.getvalue())
+    atomic(folder / "nacre.png", raw)
     for application in ("ai", "brain", "settings"):
-        image = raster(svg(False, colors, application + "-full"))
-        stream = io.BytesIO()
-        image.save(stream, format="PNG")
-        atomic(folder / ("nacre-" + application + ".png"), stream.getvalue())
+        raw = cached_png(svg(False, colors, application + "-full"), home)
+        atomic(folder / ("nacre-" + application + ".png"), raw)
     for variant, name in [
         ("full", "nacre.svg"),
         ("compact", "nacre-compact.svg"),
@@ -270,8 +316,8 @@ def publish(colors, home=None):
         ("settings-symbolic", "nacre-settings-symbolic.svg"),
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
-    atomic(folder / "nacre-text.txt", text_logo().encode())
-    atomic(folder / "nacre-ai-text.txt", text_logo("ai-symbolic").encode())
+    atomic(folder / "nacre-text.txt", text_logo(home=home).encode())
+    atomic(folder / "nacre-ai-text.txt", text_logo("ai-symbolic", home).encode())
 
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg",

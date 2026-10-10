@@ -19,7 +19,7 @@ keep dashboard's four overview/media/performance/workspace tabs. Settings entry
 points open/focus the app, with page targets for device/settings controls. Legacy
 settingsView IPC and the former fifth-tab action forward to the same app.
 
-Provide nacre-settings and its .desktop entry, page actions and own radial cog
+Provide nacre-settings and its .desktop entry, page actions and own three-slider glyph
 under the approved shell lip. All variants share the existing branding owner.
 Cold CLI launch starts the existing user shell unit and retries within a bound;
 failures are visible. No credentials, privilege prompt or assistant restart needed.
@@ -38,3 +38,12 @@ routes, one-instance lifecycle, hidden/minimized polling guards, legacy callers,
 launcher registration, native runtime/render/resize/keyboard checks, actual
 backend operations and palette updates; full checks/Hyprland/plan/apply/live
 source/IPC and unchanged worker checks before publishing. Retain licenses/notices.
+
+Refinement: app glyphs share centre (49,44.5) in the unchanged shell viewBox,
+with approximately 18×14 units of ink beneath the right lip. Settings uses three
+adjustment tracks; AI and Brain retain their own shapes. Palette labels have
+reserved two-line space, selected tiles have an explicit check/label, and the
+responsive grid targets 160px tiles with at most four columns. Active selection
+comes from the committed presentation metadata, not a pending preference.
+Warm Natural/Harmony raster/engine caches are prepared read-only for the current
+wallpaper, with no palette publication or wallpaper reselection in the warmer.

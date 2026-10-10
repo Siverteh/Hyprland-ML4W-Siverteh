@@ -25,7 +25,7 @@ NacreSettingsPage {
             } catch (error) {}
         }
     }
-    readonly property var prefs: NacreWallpapers.preferences
+    readonly property var prefs: NacreWallpapers.appearancePreferences ?? NacreWallpapers.preferences
     NacreSettingsSection {
         title: "Wallpaper"
         description: "Choose a scene from your personal collection."
@@ -241,12 +241,23 @@ NacreSettingsPage {
                 })
             }
         }
+        NacreText {
+            objectName: "activePaletteSummary"
+            width: parent.width
+            text: {
+                const fixed = root.prefs.palettePreset && root.prefs.palettePreset !== "wallpaper";
+                const name = fixed ? NacreWallpapers.palettePresets.find(p => p.id === root.prefs.palettePreset)?.name : NacreWallpapers.paletteOptions.find(p => p.accent === NacreWallpapers.selectedAccent)?.name;
+                return "In use: " + (name || (fixed ? "Fixed palette" : "Wallpaper colors")) + " · " + (root.prefs.paletteMode === "light" ? "Light" : "Dark") + (fixed ? "" : " · " + (root.prefs.paletteHarmony ? "Harmony" : "Natural"));
+            }
+            wrapMode: Text.Wrap
+            font.pointSize: 11
+        }
         Flow {
             id: wallColors
             objectName: "wallpaperPaletteOptions"
             width: parent.width
             spacing: 10
-            readonly property int columns: width >= 840 ? 6 : width >= 480 ? 3 : 2
+            readonly property int columns: Math.max(1, Math.min(4, Math.floor((width + 10) / 170)))
             Repeater {
                 model: NacreWallpapers.paletteOptions
                 NacrePaletteTile {
@@ -254,7 +265,7 @@ NacreSettingsPage {
                     objectName: "wallpaperPaletteTile"
                     entry: modelData
                     width: Math.floor((wallColors.width - (wallColors.columns - 1) * 10) / wallColors.columns)
-                    selected: NacreWallpapers.selectedAccent === modelData.accent
+                    selected: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && NacreWallpapers.selectedAccent === modelData.accent
                     enabled: !NacreWallpapers.themeBusy
                     onChosen: NacreWallpapers.preference({
                         paletteAccent: modelData.accent
@@ -310,7 +321,7 @@ NacreSettingsPage {
             objectName: "paletteOptions"
             width: parent.width
             spacing: 10
-            readonly property int columns: width >= 840 ? 6 : width >= 480 ? 3 : 2
+            readonly property int columns: Math.max(1, Math.min(4, Math.floor((width + 10) / 170)))
             Repeater {
                 model: NacreWallpapers.palettePresets.filter(p => p.group === root.paletteGroup)
                 NacrePaletteTile {

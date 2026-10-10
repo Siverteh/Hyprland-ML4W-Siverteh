@@ -1,3 +1,4 @@
+import shutil
 import importlib.util, json, os, tempfile, unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -222,6 +223,45 @@ class WallpaperMediaTests(unittest.TestCase):
 
 
 class OrientPreparedCacheTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("rsvg-convert"), "SVG renderer unavailable")
+    def test_current_treatments_prepare_only_cache_without_publishing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (32, 24), "red").save(poster)
+            cli = home / ".local/share/nacre/palette-runtime/venv/bin/nacre_shell"
+            cli.parent.mkdir(parents=True)
+            colors = json.loads(
+                Path(media.__file__).with_name("reference-style.json").read_text()
+            )["colours"]
+            cli.write_text(
+                "#!/usr/bin/python3\nprint("
+                + repr(json.dumps({"colours": colors}))
+                + ")\n"
+            )
+            cli.chmod(0o700)
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "CACHE", home / ".cache/nacre/wallpaper-media"),
+                patch.object(
+                    media, "media_state", return_value={"poster": str(poster)}
+                ),
+                patch.object(media, "catalog", return_value={"entries": []}),
+                patch.object(
+                    media.subprocess, "run", wraps=media.subprocess.run
+                ) as run,
+            ):
+                media.warm()
+            queries = [
+                call.args[0]
+                for call in run.call_args_list
+                if call.args[0][0] == str(cli)
+            ]
+            self.assertEqual([q[-1] for q in queries], ["--no-harmony", "--harmony"])
+            self.assertTrue(list((home / ".cache/nacre/branding").glob("*.png")))
+            self.assertFalse((home / ".local/state/nacre/presentation.json").exists())
+            self.assertFalse((home / ".local/share/icons").exists())
+
     def test_mode_variant_accent_and_engine_change_invalidate_prepared_cache(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)

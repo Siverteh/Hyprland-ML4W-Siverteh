@@ -21,7 +21,7 @@ class BindingContractTests(unittest.TestCase):
         actual = capture(TOOLS.parent / "hypr/conf/keybinding.lua")
         normalize = lambda rows: sorted(json.dumps(row, sort_keys=True) for row in rows)
         self.assertEqual(normalize(actual), normalize(expected))
-        self.assertEqual(len(actual), 95)
+        self.assertEqual(len(actual), 96)
 
     def test_generated_rows_conflict_with_literal_private_shortcut(self):
         with tempfile.TemporaryDirectory() as directory:

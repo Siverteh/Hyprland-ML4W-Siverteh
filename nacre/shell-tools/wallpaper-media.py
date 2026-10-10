@@ -104,14 +104,15 @@ def theme(value):
                 args += ["-m", value["paletteMode"]]
             args += ["--auto-accent"] if accent == "auto" else ["--accent", accent]
             subprocess.run(args, check=True, capture_output=True, timeout=60)
+        elif "paletteMode" in value:
+            # A mode change generates and publishes once, with the saved harmony.
+            subprocess.run(
+                [str(cli), "scheme", "set", "-m", value["paletteMode"]],
+                check=True,
+                capture_output=True,
+                timeout=60,
+            )
         else:
-            if "paletteMode" in value:
-                subprocess.run(
-                    [str(cli), "scheme", "set", "-m", value["paletteMode"]],
-                    check=True,
-                    capture_output=True,
-                    timeout=60,
-                )
             subprocess.run(
                 [str(cli), "wallpaper", "-f", poster, "--no-smart"],
                 check=True,
@@ -350,6 +351,27 @@ def warm():
         )
         login = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(login)
+        # The selected wallpaper gets both supporting-color treatments first.
+        # These query calls only fill private caches; no palette is published.
+        current_poster = media_state().get("poster")
+        if current_poster and cli.exists() and Path(current_poster).is_file():
+            brand_spec = importlib.util.spec_from_file_location(
+                "branding", Path(__file__).with_name("branding.py")
+            )
+            brand = importlib.util.module_from_spec(brand_spec)
+            brand_spec.loader.exec_module(brand)
+            for treatment in ("--no-harmony", "--harmony"):
+                try:
+                    result = subprocess.run(
+                        [str(cli), "wallpaper", "-p", current_poster, treatment],
+                        capture_output=True,
+                        text=True,
+                        check=True,
+                        timeout=30,
+                    )
+                    brand.prepare(json.loads(result.stdout)["colours"], HOME)
+                except (OSError, ValueError, KeyError, subprocess.SubprocessError):
+                    continue
         prepared = 0
         computed = 0
         flavour = read(HOME / ".local/state/nacre/scheme.json", {}).get(

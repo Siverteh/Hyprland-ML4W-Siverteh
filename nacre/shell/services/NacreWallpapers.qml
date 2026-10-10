@@ -27,6 +27,11 @@ Singleton {
         })
     property var palettePresets: []
     readonly property var paletteOptions: NacrePresentation.active.paletteOptions ?? []
+    readonly property var appearancePreferences: Object.assign({}, preferences, NacrePresentation.active.colours ? {
+        palettePreset: NacrePresentation.active.palettePreset ?? preferences.palettePreset,
+        paletteMode: NacrePresentation.active.mode ?? preferences.paletteMode,
+        paletteHarmony: NacrePresentation.active.paletteHarmony ?? preferences.paletteHarmony
+    } : {})
     readonly property string selectedAccent: NacrePresentation.active.selectedAccent ?? ""
     property var media: ({})
     property string lastImage: ""
