@@ -66,6 +66,8 @@ on lock and on sleep; the picker temporarily allows a live preview.
 3. Enabled user services start the desktop shell, authenticated Brain server and Hypridle. Hyprland's
    small startup hook launches wallet initialization, the authentication agent,
    clipboard watcher and selected apps through UWSM.
+   The shell service uses `nacre-shell start`, its supervisor and the Qt-checked
+   `launch.sh` wrapper. The unused reference-era `run.fish` launcher is retired.
 4. Startup apps reuse existing windows: browser 1, AI 2, Discord 3, Spotify 4,
    mail 5 and Brain 6. Editors route to 7; ordinary terminals are unrestricted.
 

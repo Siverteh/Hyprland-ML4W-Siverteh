@@ -63,6 +63,12 @@ was not used to infer that a component was running.
 
 ## Dependency and presentation boundaries
 
+The shell service enters through `nacre-shell start` (`control.sh`), then
+`shell-supervisor.py` and the installed `bin/qs` generated from `launch.sh`.
+That wrapper checks the native Qt/Quickshell match. The unused inherited
+`nacre/shell/run.fish` is removed; its warning-filtering pipeline is not a
+supported startup path. Historical releases remain available for rollback.
+
 Pacman owns Quickshell, Qt multimedia/image plugins, Thunar/Xfconf and Papirus.
 Shell launchers use the system binaries without private library or Qt import path
 injection. `shell-runtime/venv` contains only the isolated palette Python engine;
