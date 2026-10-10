@@ -1763,3 +1763,19 @@ fixture reproduces fraction conversion error. Convert valid native fraction to
 with explicit correction evidence. No actual preference/battery/power change.
 Two native test source reviews added; all remaining source/assets/tests/dependency/
 packaging/full comparison and notices/goal remain open.
+
+Core presentation acceptance (2026-10-10 UTC): source fca10e6, good shell release
+20261010T024332978047Z. All 409 tests (55 tools, 96 AI, 35 Brain, 223 shell),
+formatting/QML/native Hyprland and reviewed source/live transaction gates passed.
+DND actual native fixture now mirrors producer API, demonstrates old handler
+failure then success; no real DND preference toggled. Battery actual snapshot
+fraction/percent failure corrected, live bar/lock payload agree. 62 current
+presentation sources individually reviewed/hash-bound, one existing service
+review reassessed, two test-source reviews added. All 62 installed files and
+235 shell files exact, palette/provider/frame ready/configerrors empty. Nine
+private preference/history hashes and AI worker PID/start unchanged; palette/
+poster/deadline equal baseline. Six owned application hover/dismiss/click/key-return
+cycles plus launcher/wallpaper outside dismissal pass. No physical auth/device/
+power/account/message action or AI restart. Remaining application panels/extras/
+helpers/assets/fixtures/tests/packaging/AI+Brain/full comparison and cold-login/
+fresh-session curve limits separately open; notices/full goal retained.
