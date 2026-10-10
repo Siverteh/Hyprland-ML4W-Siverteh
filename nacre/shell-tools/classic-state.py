@@ -287,6 +287,10 @@ def _apply_palette(home, wallpaper=None, live=True):
                     "palettePersonality": data.get("input", {}).get(
                         "personality", options.get("palettePersonality", "natural")
                     ),
+                    "paletteBackgroundFromWallpaper": data.get("input", {}).get(
+                        "background_from_wallpaper",
+                        options.get("paletteBackgroundFromWallpaper", False),
+                    ),
                     "workspaceColors": json.loads(
                         (home / ".config/nacre/colors.json").read_text()
                     )

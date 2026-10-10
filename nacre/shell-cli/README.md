@@ -32,3 +32,9 @@ It has no desktop publication dependency. `src/nacre_shell` is the Nacre command
 adapter retained for compatibility. Schema1 adds source bodies/regions/provenance
 and accessibility diagnostics. See ../../docs/features/orient.md. Notices/licenses
 remain retained; standalone extraction/publication is a later task.
+
+Pop chooses a contrasting minority pigment family, while Natural keeps its varied
+source accents. Background policy is independent: `--background-from-wallpaper`
+uses sampled shadow/highlight families and `--no-background-from-wallpaper` uses
+restrained accent tint. The retired Source personality is accepted by the legacy
+adapter/library as Natural with sampled backgrounds; new CLI mode lists show seven.

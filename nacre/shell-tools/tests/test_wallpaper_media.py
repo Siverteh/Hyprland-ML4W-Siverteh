@@ -27,6 +27,21 @@ class WallpaperMediaTests(unittest.TestCase):
         isolated.start()
         self.addCleanup(isolated.stop)
 
+    def test_source_preference_migrates_without_changing_file_on_read(self):
+        media.PREFS.parent.mkdir(parents=True)
+        media.PREFS.write_text(json.dumps({"palettePersonality": "source"}))
+        before = media.PREFS.read_bytes()
+        current = media.settings()
+        self.assertEqual(current["palettePersonality"], "natural")
+        self.assertTrue(current["paletteBackgroundFromWallpaper"])
+        self.assertEqual(media.PREFS.read_bytes(), before)
+        media.preference({"palettePersonality": "source"})
+        saved = json.loads(media.PREFS.read_text())
+        self.assertEqual(saved["palettePersonality"], "natural")
+        self.assertTrue(saved["paletteBackgroundFromWallpaper"])
+        media.preference({"paletteBackgroundFromWallpaper": False})
+        self.assertFalse(media.settings()["paletteBackgroundFromWallpaper"])
+
     def test_static_and_animated_gif_have_distinct_identity_and_posters(self):
         with (
             tempfile.TemporaryDirectory() as folder,

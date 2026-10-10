@@ -13,6 +13,7 @@ Singleton {
     property var options: ({
             mode: "dark",
             personality: "natural",
+            backgroundFromWallpaper: false,
             overrides: {},
             brightness: 0,
             saturation: 1,
@@ -59,10 +60,15 @@ Singleton {
     function choose(image) {
         if (!image)
             return;
-        const choice = saved.wallpapers?.[image] || {};
+        const choice = Object.assign({}, saved.wallpapers?.[image] || {});
+        if (choice.backgroundFromWallpaper === undefined && choice.personality)
+            choice.backgroundFromWallpaper = choice.personality !== "natural";
+        if (choice.personality === "source")
+            choice.personality = "natural";
         options = Object.assign({
             mode: NacreWallpapers.preferences.paletteMode || "dark",
             personality: "natural",
+            backgroundFromWallpaper: NacreWallpapers.appearancePreferences.paletteBackgroundFromWallpaper ?? false,
             overrides: {},
             brightness: 0,
             saturation: 1,
@@ -83,7 +89,7 @@ Singleton {
     }
     function change(values) {
         const next = Object.assign({}, options, values);
-        if (Object.keys(values).some(key => ["personality", "overrides", "brightness", "saturation", "accent", "pick"].includes(key)))
+        if (Object.keys(values).some(key => ["personality", "backgroundFromWallpaper", "overrides", "brightness", "saturation", "accent", "pick"].includes(key)))
             delete next.favoriteId;
         options = next;
         changed();
@@ -315,6 +321,7 @@ Singleton {
                 busy: root.previewBusy || root.actionBusy,
                 image: root.options.image || "",
                 personality: root.options.personality,
+                backgroundFromWallpaper: root.options.backgroundFromWallpaper === true,
                 previewId: root.preview.id || "",
                 ready: root.ready,
                 width: root.window?.width || 0,

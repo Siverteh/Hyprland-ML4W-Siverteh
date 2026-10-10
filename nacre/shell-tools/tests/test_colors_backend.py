@@ -69,16 +69,37 @@ class ColorsBackendTests(unittest.TestCase):
         self.assertFalse(colors.STORE.exists())
         self.assertFalse(colors.media.PREFS.exists())
         self.assertFalse((self.home / ".local/state/nacre/scheme.json").exists())
-        self.assertEqual(len(data["comparisons"]), 8)
+        self.assertEqual(len(data["comparisons"]), 7)
         self.assertTrue(data["palette"]["accessibility"]["textPasses"])
         self.assertEqual(colors.record(data["id"])["request"]["personality"], "pop")
         Image.new("RGB", (64, 40), "#ee8844").save(self.image)
         with self.assertRaisesRegex(ValueError, "changed"):
             colors.record(data["id"])
 
+    def test_source_migrates_to_read_only_background_switch(self):
+        old = self.preview(personality="source")
+        current = self.preview(personality="natural", backgroundFromWallpaper=True)
+        self.assertEqual(old["id"], current["id"])
+        self.assertEqual(current["request"]["personality"], "natural")
+        self.assertTrue(current["request"]["backgroundFromWallpaper"])
+        self.assertNotEqual(
+            self.preview(backgroundFromWallpaper=False)["palette"]["colours"][
+                "surface"
+            ],
+            current["palette"]["colours"]["surface"],
+        )
+        self.assertEqual(
+            old["palette"]["colours"]["primary"],
+            current["palette"]["colours"]["primary"],
+        )
+        self.assertFalse(colors.STORE.exists())
+        self.assertFalse(colors.media.PREFS.exists())
+        with self.assertRaises(ValueError):
+            self.preview(backgroundFromWallpaper="yes")
+
     @unittest.skipUnless(shutil.which("rsvg-convert"), "SVG renderer unavailable")
     def test_favorite_both_modes_apply_history_and_new_home(self):
-        data = self.preview(personality="harmony")
+        data = self.preview(personality="harmony", backgroundFromWallpaper=True)
         result = colors.favorite(data["id"], "Evening")
         self.assertEqual(result["saved"], "Evening")
         saved = colors.stored()["favorites"][0]
@@ -89,6 +110,10 @@ class ColorsBackendTests(unittest.TestCase):
             (self.home / ".local/state/nacre/presentation.json").read_text()
         )
         self.assertEqual(published["palettePersonality"], "harmony")
+        self.assertTrue(published["paletteBackgroundFromWallpaper"])
+        self.assertTrue(
+            colors.stored()["wallpapers"][str(self.image)]["backgroundFromWallpaper"]
+        )
         self.assertEqual(len(colors.stored()["history"]), 1)
         self.assertEqual(colors.stored()["lastApplied"], data["id"])
         item = self.preview(favoriteId=saved["id"], mode="light")

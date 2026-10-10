@@ -15,15 +15,24 @@ def snapshot():
         for path in sorted(Path(__file__).with_name("images").glob("*.png")):
             result[path.stem] = {}
             for mode in ("dark", "light"):
-                for personality in PERSONALITIES:
+                policies = [(name, None) for name in PERSONALITIES] + [
+                    ("natural", True)
+                ]
+                for personality, background in policies:
                     p = from_image(
                         path,
                         mode=mode,
                         personality=personality,
                         hour=18,
                         cache_dir=cache,
+                        background_from_wallpaper=background,
                     )
-                    result[path.stem][mode + "-" + personality] = {
+                    result[path.stem][
+                        mode
+                        + "-"
+                        + personality
+                        + ("-wallpaper-background" if background else "")
+                    ] = {
                         "colours": p["colours"],
                         "minimumContrast": p["accessibility"]["minimumTextContrast"],
                         "bodySources": {

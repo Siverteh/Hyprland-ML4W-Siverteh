@@ -52,7 +52,7 @@ Item {
         width: parent.width
         spacing: 7
         Repeater {
-            model: ["natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide"]
+            model: ["natural", "harmony", "pop", "mist", "vivid", "pearl", "tide"]
             ActionButton {
                 required property string modelData
                 objectName: modelData + "Personality"
@@ -102,9 +102,57 @@ Item {
             }
         }
     }
+    Flow {
+        id: backgroundControls
+        y: navigation.y + navigation.height + 8
+        width: parent.width
+        spacing: 12
+        Switch {
+            id: backgroundSwitch
+            objectName: "wallpaperBackgroundSwitch"
+            text: "Background from wallpaper"
+            checked: NacreColorsApp.options.backgroundFromWallpaper === true
+            enabled: NacreColorsApp.options.personality !== "pearl"
+            onToggled: NacreColorsApp.change({
+                backgroundFromWallpaper: checked
+            })
+            indicator: NacreSurface {
+                implicitWidth: 42
+                implicitHeight: 24
+                x: 0
+                y: (backgroundSwitch.height - height) / 2
+                radius: 12
+                color: backgroundSwitch.checked ? NacreTokens.accent : NacreTokens.raised
+                border.width: 1
+                border.color: NacreTokens.outline
+                NacreSurface {
+                    x: backgroundSwitch.checked ? 22 : 4
+                    y: 4
+                    width: 16
+                    height: 16
+                    radius: 8
+                    color: NacreTokens.focusInk(parent.color)
+                }
+            }
+            contentItem: NacreText {
+                text: backgroundSwitch.text
+                leftPadding: 52
+                verticalAlignment: Text.AlignVCenter
+                font.pointSize: 11
+                color: backgroundSwitch.enabled ? NacreTokens.ink : NacreTokens.mutedInk
+            }
+        }
+        NacreText {
+            height: backgroundSwitch.height
+            verticalAlignment: Text.AlignVCenter
+            text: NacreColorsApp.options.personality === "pearl" ? "Pearl uses neutral signature surfaces" : backgroundSwitch.checked ? "Sampled shadow and highlight tones" : "Subtle accent tint"
+            color: NacreTokens.mutedInk
+            font.pointSize: 10
+        }
+    }
     NacreSurface {
         id: rail
-        y: navigation.y + navigation.height + 12
+        y: backgroundControls.y + backgroundControls.height + 12
         width: root.railWidth
         height: Math.max(0, footer.y - y - 12)
         radius: 18

@@ -54,7 +54,7 @@ class ColorsUITests(unittest.TestCase):
             colors = json.loads(
                 (ROOT / "tests/orient-gallery/palettes.json").read_text()
             )["night-city"]["dark-natural"]["colours"]
-            body = """property var options:({mode:"dark",personality:"natural",overrides:{},brightness:0,saturation:1,hour:12,workspaceColors:false});property var preview:({id:"preview",name:"Night city",thumbnail:"",palette:{colours:COLORS,source:{candidates:[]},roleSources:{},accessibility:{textPasses:true,minimumTextContrast:4.52,warnings:[],text:[]}},comparisons:[]});property var library:[];property var favorites:[];property var history:[];property bool ready:true;property bool previewBusy:false;property bool actionBusy:false;property bool applied:false;property string error:"";property string status:"";property string exportDirectory:"";property var actions:[];function change(v){options=Object.assign({},options,v)}function choose(path){}function useFavorite(id){}function useHistory(item){}function setRole(role,value){let n=Object.assign({},options.overrides);if(value)n[role]=value;else delete n[role];change({overrides:n})}function action(name){if(ready && !previewBusy && !actionBusy)actions=[...actions,name]}function close(){actions=[...actions,"close"]}""".replace(
+            body = """property var options:({mode:"dark",personality:"natural",backgroundFromWallpaper:false,overrides:{},brightness:0,saturation:1,hour:12,workspaceColors:false});property var preview:({id:"preview",name:"Night city",thumbnail:"",palette:{colours:COLORS,source:{candidates:[]},roleSources:{},accessibility:{textPasses:true,minimumTextContrast:4.52,warnings:[],text:[]}},comparisons:[]});property var library:[];property var favorites:[];property var history:[];property bool ready:true;property bool previewBusy:false;property bool actionBusy:false;property bool applied:false;property string error:"";property string status:"";property string exportDirectory:"";property var actions:[];function change(v){options=Object.assign({},options,v)}function choose(path){}function useFavorite(id){}function useHistory(item){}function setRole(role,value){let n=Object.assign({},options.overrides);if(value)n[role]=value;else delete n[role];change({overrides:n})}function action(name){if(ready && !previewBusy && !actionBusy)actions=[...actions,name]}function close(){actions=[...actions,"close"]}""".replace(
                 "COLORS", json.dumps(colors)
             )
             (fixtures / "NacreColorsApp.qml").write_text(
@@ -70,12 +70,16 @@ class ColorsUITests(unittest.TestCase):
             (target / "tst_colors.qml").write_text("""import QtQuick
 import QtTest
 import "fixtures"
-TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;when:windowShown
+TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;visible:true;when:windowShown
  Component{id:studio;NacreColorsView{width:1180;height:780}}
  function test_resize_and_preview_controls_are_read_only(){
   const view=createTemporaryObject(studio,test);wait(30);
   const initial=NacreColorsApp.actions.length;
-  findChild(view,"sourcePersonality").clicked();compare(NacreColorsApp.options.personality,"source");
+  compare(findChild(view,"sourcePersonality"),null);
+  const background=findChild(view,"wallpaperBackgroundSwitch");
+  mouseClick(background,20,background.height/2);
+  compare(NacreColorsApp.options.backgroundFromWallpaper,true);
+  compare(NacreColorsApp.options.personality,"natural");compare(NacreColorsApp.actions.length,initial);
   findChild(view,"popPersonality").clicked();compare(NacreColorsApp.options.personality,"pop");compare(NacreColorsApp.actions.length,initial);
   for(const w of [740,960,1180]){view.width=w;wait(10);const canvas=findChild(view,"colorsCanvas");verify(canvas.width>400);verify(canvas.x+canvas.width<=view.width+.1);}
  }

@@ -31,7 +31,8 @@ Singleton {
         palettePreset: NacrePresentation.active.palettePreset ?? preferences.palettePreset,
         paletteMode: NacrePresentation.active.mode ?? preferences.paletteMode,
         paletteHarmony: NacrePresentation.active.paletteHarmony ?? preferences.paletteHarmony,
-        palettePersonality: NacrePresentation.active.palettePersonality ?? preferences.palettePersonality
+        palettePersonality: NacrePresentation.active.palettePersonality ?? preferences.palettePersonality,
+        paletteBackgroundFromWallpaper: NacrePresentation.active.paletteBackgroundFromWallpaper ?? preferences.paletteBackgroundFromWallpaper
     } : {})
     readonly property string selectedAccent: NacrePresentation.active.selectedAccent ?? ""
     property var media: ({})

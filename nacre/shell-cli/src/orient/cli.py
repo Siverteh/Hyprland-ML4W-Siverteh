@@ -25,6 +25,7 @@ def main(argv=None):
     palette.add_argument("image")
     palette.add_argument("--mode", choices=("dark", "light"), default="dark")
     palette.add_argument("--personality", choices=PERSONALITIES, default="natural")
+    palette.add_argument("--background-from-wallpaper", action=argparse.BooleanOptionalAction, default=None)
     palette.add_argument("--accent")
     for role in ("primary", "secondary", "tertiary"):
         palette.add_argument("--" + role)
@@ -48,6 +49,7 @@ def main(argv=None):
                 args.image,
                 mode=args.mode,
                 personality=args.personality,
+                background_from_wallpaper=args.background_from_wallpaper,
                 accent=args.accent,
                 overrides={
                     role: getattr(args, role) for role in ("primary", "secondary", "tertiary") if getattr(args, role)

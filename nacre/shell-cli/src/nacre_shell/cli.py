@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 from . import ENGINE_ID
 from .colour import clean
 from .engine import default_palette, from_image
-from .palette import VARIANTS, validate
+from .palette import VARIANTS, PERSONALITIES, background_policy, validate
 from .storage import atomic, commit_lock, link, read, roots, write_json
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff"}
@@ -58,9 +58,8 @@ def parser():
         default=None,
         help="prefer related, substantial supporting colors",
     )
-    wallpaper.add_argument(
-        "--personality", choices=("natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide")
-    )
+    wallpaper.add_argument("--personality", choices=(*PERSONALITIES, "source"))
+    wallpaper.add_argument("--background-from-wallpaper", action=argparse.BooleanOptionalAction, default=None)
     return cli
 
 
@@ -102,8 +101,17 @@ def image_settings(path, args):
     overrides = dict(choice.get("overrides", {}))
     if getattr(args, "accent", None) or getattr(args, "auto_accent", False):
         overrides.pop("primary", None)
+    desktop = read(roots()[0] / "wallpaper-picker.json", {})
+    background = getattr(args, "background_from_wallpaper", None)
+    if background is None:
+        background = choice.get(
+            "backgroundFromWallpaper",
+            True if choice.get("personality") == "source" else desktop.get("paletteBackgroundFromWallpaper"),
+        )
+    personality, background = background_policy(personality_setting(args), background)
     return {
-        "personality": personality_setting(args),
+        "personality": personality,
+        "background_from_wallpaper": background,
         "overrides": overrides,
         "brightness": choice.get("brightness", 0.0),
         "saturation": choice.get("saturation", 1.0),

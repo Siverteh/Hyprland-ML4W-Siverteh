@@ -54,6 +54,12 @@ def settings():
         **read(PREFS, {}),
     )
 
+    original_personality = result["palettePersonality"]
+    result.setdefault(
+        "paletteBackgroundFromWallpaper", original_personality != "natural"
+    )
+    if original_personality == "source":
+        result["palettePersonality"] = "natural"
     if result["rotationEnabled"] and not result.get("rotationAnchorMs"):
         result["rotationAnchorMs"] = (
             int(PREFS.stat().st_mtime * 1000) if PREFS.exists() else 0
@@ -99,6 +105,7 @@ def theme(value):
             "paletteAccent",
             "paletteHarmony",
             "palettePersonality",
+            "paletteBackgroundFromWallpaper",
         }
     ):
         raise ValueError("Unknown appearance preference")
@@ -160,6 +167,14 @@ def theme(value):
 
 
 def preference(value):
+    if isinstance(value, dict) and value.get("palettePersonality") == "source":
+        value = dict(
+            value,
+            palettePersonality="natural",
+            paletteBackgroundFromWallpaper=value.get(
+                "paletteBackgroundFromWallpaper", True
+            ),
+        )
     allowed = {
         "kind": ("static", "dynamic"),
         "motionMode": ("full", "battery", "still"),
@@ -168,7 +183,6 @@ def preference(value):
         "paletteMode": ("dark", "light"),
         "palettePersonality": (
             "natural",
-            "source",
             "harmony",
             "pop",
             "mist",
@@ -184,6 +198,7 @@ def preference(value):
         "rotationEnabled",
         "rotationShuffle",
         "paletteHarmony",
+        "paletteBackgroundFromWallpaper",
     )
     if not isinstance(value, dict) or any(
         k not in (*allowed, *boolean_keys, "rotationMinutes") for k in value
@@ -375,6 +390,9 @@ def palette_marker(poster, flavour, harmony=None, source=None):
             "personality": settings().get("palettePersonality", "natural")
             if harmony is None
             else ("harmony" if harmony else "natural"),
+            "backgroundFromWallpaper": settings().get(
+                "paletteBackgroundFromWallpaper", False
+            ),
             "choices": read(HOME / ".config/nacre/colors.json", {})
             .get("wallpapers", {})
             .get(str(poster.resolve()), {}),

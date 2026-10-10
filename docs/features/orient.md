@@ -12,13 +12,28 @@ one instance. Closing does not stop an already requested Apply/export action.
 | Mode | Intent |
 |---|---|
 | Natural (default) | Distinct real image families; restrained backgrounds tinted toward the chosen accent, as in the original Natural |
-| Source | The same diverse image accents, with backgrounds taken from observed shadow/highlight families |
 | Harmony | Neighboring hues around the main family, with lightness separation |
-| Pop | A substantial, saturated minority becomes the accent; body stays calm |
+| Pop | A small, contrasting pigment family becomes the main accent: the striking detail |
 | Mist | Soft, nearly neutral accents and body |
 | Vivid | Stronger source chroma, bounded by gamut and readability |
 | Pearl | Nacre's consistent pink/lilac/mint signature on neutral surfaces |
 | Tide | Cooler daytime and warmer evening body tint; explicit preview hour, optional follow-time and light/dark |
+
+**Background from wallpaper** is a separate preview switch. On uses sampled shadow
+and highlight tones; off uses a restrained accent tint. It does not choose new
+accent sources. Pearl always keeps neutral signature surfaces; Tide keeps its
+time-based body tint. The switch is remembered per wallpaper on Apply and included
+in cache identities, saved choices, history and published metadata. Old Source
+choices normalize to Natural with the switch on; old snapshots/favorites keep
+their captured colors. Natural defaults off; older other-mode choices retain their
+previous sampled-background policy unless explicitly changed.
+
+Pop selects from aggregated families, with at least48° hue separation from the
+Natural main pigment, 0.4–15% coverage, and at most65% of the main family’s coverage.
+Bounded salience, chroma and hue contrast rank eligible details. A broad desert
+background cannot beat a small sign merely by its area. Pinned accents win; if no
+suitable contrasting detail exists, Pop retains the main source rather than
+inventing a new hue.
 
 Brightness/saturation and three pinned accent sources are remembered per wallpaper
 on Apply. Drag a sampled swatch onto a role or use Pin color. Click a point in the
@@ -63,7 +78,8 @@ fixtures reduce unwanted flips, without claiming absolute crop invariance.
 ## Portable engine and format
 
 `orient palette IMAGE --personality natural --mode dark` prints schema-version1
-JSON. `orient analyze IMAGE`, `orient sample IMAGE X Y`, and
+JSON. Add `--background-from-wallpaper` or `--no-background-from-wallpaper` to
+choose body policy independently. `orient analyze IMAGE`, `orient sample IMAGE X Y`, and
 `orient export PALETTE_JSON OUTPUT_DIR [--templates DIR]` are read-only commands.
 The library under `nacre/shell-cli/src/orient` imports no Nacre, Qt or Hyprland
 publisher. The legacy `nacre_shell` package is a desktop adapter. A later standalone
@@ -96,7 +112,8 @@ pure substitution helper inside the one existing publisher.
 ## Gallery and checks
 
 `nacre/shell-tools/tests/orient-gallery` contains six CC0 procedural images, a
-four-frame animation, its generator and all16personality/mode snapshots per image.
+four-frame animation, its generator and all14personality/mode snapshots plus both Natural sampled-background snapshots
+per image.
 Regenerate explicitly with `generate.py` and `snapshot.py`; changing snapshots is
 a reviewed palette change. The generator does not use private commercial artwork.
 Before/after rendered sheets and real-wallpaper screenshots stay in temporary QA

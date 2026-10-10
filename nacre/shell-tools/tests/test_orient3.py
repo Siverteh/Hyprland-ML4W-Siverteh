@@ -46,11 +46,19 @@ class Orient3Tests(unittest.TestCase):
         image.save(p)
         return p
 
-    def test_natural_restores_accent_tint_and_source_remains_separate(self):
+    def test_natural_body_switch_preserves_accents_and_source_compatibility(self):
         p = self.scene("28160f", "2870db")
         for mode in ("dark", "light"):
             natural = from_image(p, mode, accent="2870db")
-            source = from_image(p, mode, accent="2870db", personality="source")
+            source = from_image(
+                p, mode, accent="2870db", background_from_wallpaper=True
+            )
+            legacy = from_image(p, mode, accent="2870db", personality="source")
+            self.assertEqual(source["colours"], legacy["colours"])
+            self.assertEqual(source["input"], legacy["input"])
+            self.assertEqual(
+                source["colours"]["overtone"], natural["colours"]["overtone"]
+            )
             self.assertEqual(natural["input"]["personality"], "natural")
             self.assertLess(
                 hue_distance(lch(natural["colours"]["surface"])[2], lch("2870db")[2]),
@@ -80,6 +88,8 @@ class Orient3Tests(unittest.TestCase):
             main["coverage"],
             delta=0.0001,
         )
+        pop = from_image(path, personality="pop")
+        self.assertLess(hue_distance(lch(pop["source"]["selected"])[2], 245), 8)
         # Explicit sky choice stays honored even though the rock is recommended.
         picked = from_image(path, accent=color(0.63, 0.10, 245))
         self.assertLess(hue_distance(lch(picked["colours"]["overtone"])[2], 245), 3)
@@ -103,18 +113,111 @@ class Orient3Tests(unittest.TestCase):
             )
             self.assertTrue(result["accessibility"]["textPasses"])
 
+    def test_pop_uses_a_contrasting_minority_not_a_bright_main_shade(self):
+        path = self.home / "pop-scene.png"
+        image = Image.new("RGB", (128, 80), "#87373c")
+        image.paste("#ed3041", (30, 24, 62, 56))
+        image.paste("#dbcf79", (90, 18, 110, 38))
+        image.save(path)
+        for mode in ("dark", "light"):
+            natural = from_image(path, mode)
+            pop = from_image(path, mode, personality="pop")
+            self.assertLess(
+                hue_distance(lch(pop["source"]["selected"])[2], lch("dbcf79")[2]), 8
+            )
+            self.assertGreater(
+                hue_distance(
+                    lch(pop["source"]["selected"])[2],
+                    lch(natural["source"]["selected"])[2],
+                ),
+                48,
+            )
+            self.assertEqual(pop["roleSources"]["primary"]["type"], "observed")
+            self.assertLess(pop["roleSources"]["primary"]["coverage"], 0.15)
+            self.assertTrue(pop["accessibility"]["textPasses"])
+        # A pinned main accent is never replaced by the Pop heuristic.
+        self.assertEqual(
+            from_image(path, personality="pop", accent="4473af")["source"]["selected"],
+            "4473af",
+        )
+        self.assertEqual(
+            from_image(path, personality="pop", overrides={"primary": "4473af"})[
+                "source"
+            ]["selected"],
+            "4473af",
+        )
+
+    def test_pop_prefers_small_sign_over_broad_contrasting_desert(self):
+        p = self.home / "colorado-sign.png"
+        image = Image.new("RGB", (128, 80), "#5b9dc1")
+        image.paste("#cca07d", (0, 60, 128, 80))
+        image.paste("#5f302b", (56, 35, 72, 55))
+        image.save(p)
+        palette = from_image(p, personality="pop")
+        self.assertLess(
+            hue_distance(lch(palette["source"]["selected"])[2], lch("5f302b")[2]), 8
+        )
+        self.assertLess(palette["roleSources"]["primary"]["coverage"], 0.05)
+
+    def test_background_cli_flag_and_per_wallpaper_choice_round_trip(self):
+        from nacre_shell.cli import image_settings, parser
+
+        p = self.scene("28160f", "2870db")
+        config = self.home / ".config/nacre"
+        config.mkdir(parents=True)
+        (config / "wallpaper-picker.json").write_text(
+            json.dumps({"paletteBackgroundFromWallpaper": False})
+        )
+        (config / "colors.json").write_text(
+            json.dumps({"wallpapers": {str(p): {"backgroundFromWallpaper": True}}})
+        )
+        args = parser().parse_args(["wallpaper", "-p", str(p)])
+        self.assertTrue(image_settings(p, args)["background_from_wallpaper"])
+        (config / "colors.json").write_text(
+            json.dumps({"wallpapers": {str(p): {"personality": "source"}}})
+        )
+        self.assertTrue(image_settings(p, args)["background_from_wallpaper"])
+        args = parser().parse_args(
+            ["wallpaper", "-p", str(p), "--no-background-from-wallpaper"]
+        )
+        self.assertFalse(image_settings(p, args)["background_from_wallpaper"])
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "orient",
+                "palette",
+                str(p),
+                "--background-from-wallpaper",
+            ],
+            capture_output=True,
+            text=True,
+            env={**os.environ, "PYTHONPATH": str(ROOT.parent / "shell-cli/src")},
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(json.loads(result.stdout)["input"]["background_from_wallpaper"])
+
+    def test_pop_fallback_does_not_invent_detail_in_single_family_or_gray_images(self):
+        for base, detail in (("87373c", "ed3041"), ("303030", "909090")):
+            p = self.scene(base, detail)
+            natural = from_image(p)
+            pop = from_image(p, personality="pop")
+            self.assertEqual(pop["source"]["selected"], natural["source"]["selected"])
+        with self.assertRaises(ValueError):
+            from_image(p, background_from_wallpaper="yes")
+
     def test_source_body_comes_from_shadow_not_accent(self):
         p = self.scene("28160f", "2870db")
-        data = from_image(p, personality="source")
+        data = from_image(p, background_from_wallpaper=True)
         self.assertLess(
             hue_distance(lch(data["colours"]["surface"])[2], lch("28160f")[2]), 15
         )
         self.assertLess(
             hue_distance(
                 lch(
-                    from_image(p, accent="df2020", personality="source")["colours"][
-                        "surface"
-                    ]
+                    from_image(p, accent="df2020", background_from_wallpaper=True)[
+                        "colours"
+                    ]["surface"]
                 )[2],
                 lch("28160f")[2],
             ),
@@ -123,7 +226,9 @@ class Orient3Tests(unittest.TestCase):
         q = self.scene("07152b", "ed566e", "navy.png")
         self.assertLess(
             hue_distance(
-                lch(from_image(q, personality="source")["colours"]["surface"])[2],
+                lch(
+                    from_image(q, background_from_wallpaper=True)["colours"]["surface"]
+                )[2],
                 lch("07152b")[2],
             ),
             15,
@@ -131,7 +236,7 @@ class Orient3Tests(unittest.TestCase):
 
     def test_light_body_from_bright_population_and_every_role_has_provenance(self):
         p = self.scene("eee3ce", "276ba0")
-        data = from_image(p, "light", personality="source")
+        data = from_image(p, "light", background_from_wallpaper=True)
         self.assertGreater(lch(data["colours"]["surface"])[0], 0.94)
         self.assertLess(
             hue_distance(lch(data["colours"]["surface"])[2], lch("eee3ce")[2]), 20

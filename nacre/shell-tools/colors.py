@@ -24,7 +24,7 @@ from orient.engine import from_image
 from orient.accessibility import audit
 from orient.extract import sample_color
 from orient.export import export as export_templates
-from orient.palette import PERSONALITIES, validate
+from orient.palette import PERSONALITIES, background_policy, validate
 from PIL import Image, ImageDraw, ImageFont
 
 HOME = Path.home()
@@ -100,6 +100,9 @@ def validate_request(request):
         "workspaceColors": False,
         **request,
     }
+    result["personality"], result["backgroundFromWallpaper"] = background_policy(
+        result["personality"], result.get("backgroundFromWallpaper")
+    )
     if (
         result["mode"] not in ("dark", "light")
         or result["personality"] not in PERSONALITIES
@@ -134,7 +137,10 @@ def palette_args(request):
             "saturation",
             "hour",
         )
-    } | {"accent": request.get("accent")}
+    } | {
+        "accent": request.get("accent"),
+        "background_from_wallpaper": request["backgroundFromWallpaper"],
+    }
 
 
 def stage(request):
@@ -156,6 +162,12 @@ def stage(request):
             favorite["palette"],
             mode=request["mode"],
             colours=favorite["modes"][request["mode"]],
+            input={
+                **favorite["palette"].get("input", {}),
+                "mode": request["mode"],
+                "personality": request["personality"],
+                "background_from_wallpaper": request["backgroundFromWallpaper"],
+            },
         )
         validate(data["colours"])
         data["accessibility"] = audit(data["colours"])
@@ -324,6 +336,7 @@ def apply(identity, live=True):
             key: request[key]
             for key in (
                 "personality",
+                "backgroundFromWallpaper",
                 "overrides",
                 "brightness",
                 "saturation",
@@ -349,6 +362,7 @@ def apply(identity, live=True):
             "paletteMode": palette["mode"],
             "paletteHarmony": request["personality"] == "harmony",
             "palettePersonality": request["personality"],
+            "paletteBackgroundFromWallpaper": request["backgroundFromWallpaper"],
         }
         try:
             media.preference(patch)

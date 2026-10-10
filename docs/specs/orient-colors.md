@@ -21,13 +21,15 @@ absolutely. Animated inputs aggregate a small fixed frame sample; no frame-time
 worker. Unsupported video decoding returns a useful error.
 
 2026-10-10 preference correction: Natural keeps the original diverse observed
-accents and restrained accent-tinted surfaces. Source preserves the newer observed
-shadow/highlight body policy as a separate explicit choice. Rank aggregated pigment
+accents and restrained accent-tinted surfaces. The Background from wallpaper switch preserves the newer observed
+shadow/highlight body policy independently of the seven accent personalities.
+This 2026-10-10 follow-up supersedes Source as a separate mode; read old Source
+choices as Natural with sampled backgrounds enabled. Rank aggregated pigment
 families, retaining fine clusters and their summed provenance, so brightness shades
 do not split one pigment into competing populations. Supporting accents reserve
 different real families; pins remain authoritative and neutral scenes invent no hues.
 
-Personalities: Natural default, Source (observed bodies), Harmony (neighboring hues), Pop (salient minority),
+Personalities: Natural default, Harmony (neighboring hues), Pop (a small pigment family at least48° away from Natural, not a bright shade of it),
 Mist, Vivid, Pearl (fixed signature hues), Tide (explicit hour input, optional
 mode inference). Overrides and brightness/chroma nudges go through the same
 contrast/gamut policy. Format version 1 records engine fingerprint, settings,

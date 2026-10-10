@@ -3,14 +3,14 @@
 import hashlib
 from pathlib import Path
 from . import ENGINE_ID, FORMAT_VERSION
-from .colour import clean, lch
+from .colour import clean, lch, hue_distance
 from .extract import analyze
-from .palette import DEFAULT_SEED, PERSONALITIES, SEMANTIC_SEEDS, generate, validate
+from .palette import DEFAULT_SEED, SEMANTIC_SEEDS, background_policy, generate, validate
 from .accessibility import audit
 from .storage import cache_key, read, roots, write_json
 
 
-def palette_options(analysis, mode, variant, flavour, harmony=False, personality=None):
+def palette_options(analysis, mode, variant, flavour, harmony=False, personality=None, background_from_wallpaper=None):
     result = []
     for index, candidate in enumerate(analysis["candidates"]):
         seed = candidate["hex"]
@@ -23,6 +23,7 @@ def palette_options(analysis, mode, variant, flavour, harmony=False, personality
             harmony=harmony,
             body=analysis.get("body"),
             personality=personality,
+            background_from_wallpaper=background_from_wallpaper,
         )
         _, chroma, hue = lch(seed)
         names = (
@@ -69,11 +70,11 @@ def from_image(
     saturation=1.0,
     hour=12,
     cache_dir=None,
+    background_from_wallpaper=None,
 ):
     path = Path(path).expanduser().resolve(strict=True)
     personality = personality or ("harmony" if harmony else "natural")
-    if personality not in PERSONALITIES:
-        raise ValueError("Unknown palette personality")
+    personality, background_from_wallpaper = background_policy(personality, background_from_wallpaper)
     overrides = {role: clean(value) for role, value in (overrides or {}).items()}
     settings = {
         "mode": mode,
@@ -83,6 +84,7 @@ def from_image(
         "smart": bool(smart),
         "harmony": personality == "harmony",
         "personality": personality,
+        "background_from_wallpaper": background_from_wallpaper,
         "overrides": overrides,
         "brightness": brightness,
         "saturation": saturation,
@@ -141,13 +143,29 @@ def from_image(
         mode = "light" if analysis["meanLightness"] >= 0.68 else "dark"
     seed = overrides.get("primary") or settings["accent"] or analysis["seed"]
     if personality == "pop" and not accent and "primary" not in overrides:
+        # Choose a contrasting minority pigment, never a brighter shade of main.
+        main_hue = lch(analysis["seed"])[2]
+        dominant = next((c for c in analysis["families"] if c["hex"] == analysis["seed"]), None)
+        main_coverage = dominant["coverage"] if dominant else 1.0
         minorities = [
             c
-            for c in analysis["clusters"]
-            if 0.004 <= c["coverage"] <= 0.20 and c["chroma"] >= 0.035 and 0.2 <= c["lightness"] <= 0.9
+            for c in analysis["families"]
+            if 0.004 <= c["coverage"] <= min(0.15, main_coverage * 0.65)
+            and c["chroma"] >= 0.025
+            and 0.2 <= c["lightness"] <= 0.9
+            and hue_distance(main_hue, lch(c["hex"])[2]) >= 48
         ]
         if minorities:
-            seed = max(minorities, key=lambda c: c["salience"] * c["chroma"] * c["coverage"] ** 0.15)["hex"]
+            seed = max(
+                minorities,
+                key=lambda c: (
+                    c["salience"]
+                    * min(c["chroma"] / 0.12, 1.5) ** 0.8
+                    * c["coverage"] ** 0.25
+                    * (0.5 + 0.5 * min(hue_distance(main_hue, lch(c["hex"])[2]) / 120, 1)),
+                    c["hex"],
+                ),
+            )["hex"]
     effective_variant = (
         "neutral"
         if analysis["neutral"]
@@ -169,6 +187,7 @@ def from_image(
         brightness=brightness,
         saturation=saturation,
         hour=hour,
+        background_from_wallpaper=background_from_wallpaper,
     )
     if cache_key(path, settings) != identity:
         raise ValueError("Wallpaper changed during extraction; select it again")
@@ -179,7 +198,10 @@ def from_image(
         )
         if personality == "pearl" and role == "primary":
             actual = colors["overtone"]
-        match = next((c for c in [*analysis["candidates"], *analysis["clusters"]] if c["hex"] == actual), None)
+        match = next(
+            (c for c in [*analysis["candidates"], *analysis["families"], *analysis["clusters"]] if c["hex"] == actual),
+            None,
+        )
         sources[role] = {
             "sourceColor": actual,
             "type": "signature"
@@ -194,7 +216,7 @@ def from_image(
             "regions": match.get("regions") if match else None,
         }
     provenance = {}
-    body_source = seed if personality == "natural" else analysis["body"]["dark" if mode == "dark" else "light"]["hex"]
+    body_source = analysis["body"]["dark" if mode == "dark" else "light"]["hex"] if background_from_wallpaper else seed
     semantic_sources = dict(SEMANTIC_SEEDS, error=SEMANTIC_SEEDS["red"], success=SEMANTIC_SEEDS["green"])
     ansi_sources = ("surface", "red", "green", "yellow", "blue", "mauve", "teal", "onSurface")
     for role, value in colors.items():
@@ -244,7 +266,14 @@ def from_image(
         "source": {
             **analysis,
             "selected": seed,
-            "options": palette_options(analysis, mode, effective_variant, flavour, personality=personality),
+            "options": palette_options(
+                analysis,
+                mode,
+                effective_variant,
+                flavour,
+                personality=personality,
+                background_from_wallpaper=background_from_wallpaper,
+            ),
         },
         "roleSources": sources,
         "provenance": provenance,

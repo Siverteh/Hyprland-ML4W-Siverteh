@@ -79,7 +79,22 @@ def supporting_sources(seed, candidates, harmony=False):
     return chosen
 
 
-PERSONALITIES = ("natural", "source", "harmony", "pop", "mist", "vivid", "pearl", "tide")
+PERSONALITIES = ("natural", "harmony", "pop", "mist", "vivid", "pearl", "tide")
+
+
+def background_policy(personality, background_from_wallpaper=None):
+    """Normalize retired Source choices without losing their background policy."""
+    if personality == "source":
+        personality = "natural"
+        if background_from_wallpaper is None:
+            background_from_wallpaper = True
+    if personality not in PERSONALITIES:
+        raise ValueError("Unknown palette personality")
+    if background_from_wallpaper is None:
+        background_from_wallpaper = personality != "natural"
+    if type(background_from_wallpaper) is not bool:
+        raise ValueError("Background from wallpaper must be a boolean")
+    return personality, background_from_wallpaper
 
 
 def generate(
@@ -95,10 +110,10 @@ def generate(
     brightness=0.0,
     saturation=1.0,
     hour=12,
+    background_from_wallpaper=None,
 ):
     personality = personality or ("harmony" if harmony else "natural")
-    if personality not in PERSONALITIES:
-        raise ValueError("Unknown palette personality")
+    personality, background_from_wallpaper = background_policy(personality, background_from_wallpaper)
     if not -0.15 <= brightness <= 0.15 or not 0 <= saturation <= 1.6 or not 0 <= hour <= 23:
         raise ValueError("Color adjustment is outside its safe bounds")
     overrides = overrides or {}
@@ -113,8 +128,8 @@ def generate(
         variant = "vibrant"
     if mode not in ("light", "dark") or variant not in VARIANTS or flavour not in ("default", "hard"):
         raise ValueError("Unsupported palette mode, variant or flavour")
-    # Natural retains the original restrained accent tint; Source uses sampled tones.
-    body = None if personality == "natural" else body
+    # Background policy is independent of the accent personality.
+    body = body if background_from_wallpaper else None
     dark = mode == "dark"
     _, chroma, hue = lch(seed)
     chroma *= saturation * (1.35 if personality == "vivid" else 1.0)
