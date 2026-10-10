@@ -4337,11 +4337,12 @@
     },
     "nacre/shell-tools/desktop-actions.py": {
       "disposition": "independent",
-      "sha256": "ce3c17a7a34d4dc684c2225f76fc46625ba6e56b5d65ed00c7de8ceb9abcaf0f",
+      "sha256": "c45ad3cdaa4e14d0a8a12fb46c56cd1467f6f3a947ca380c294e8496946261e1",
       "evidence": [
         "docs/specs/device-session-source-audit.md",
         "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md",
-        "Full current source body reviewed. Basis ba5e48f: local desktop/AI launch dispatch separated from own Brain controller; bounded native command and UWSM interfaces reviewed. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate."
+        "Full current source body reviewed. Basis ba5e48f: local desktop/AI launch dispatch separated from own Brain controller; bounded native command and UWSM interfaces reviewed. Later path changes: 548f0b4. Current native producer/caller interfaces, local source history and first-source peer comparison support origin; generic native query sequences/shared own helpers are not vendor algorithm inheritance. Prior exposure acknowledged; no old/upstream Caelestia/ML4W body consulted for current correction or legal clean-room/final-license claim. Native libraries and other callee/helper/fixture origins remain separate.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ]
     },
     "nacre/shell-tools/device-actions.py": {
@@ -4955,11 +4956,12 @@
     },
     "tools/configure.py": {
       "disposition": "independent",
-      "sha256": "d986f1ef36d4c3f7a208842eac13e28e5031d3ea3eee24f1e0156cc9e17884d3",
+      "sha256": "fe60894de08218724b9a7a6bbb356e9c50d3021e4f2167597f7c2bbe3db7c36f",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+        "Full current body/data/licence reviewed. Basis 2fa3a95: local complete source-copy/manifest/drift/backup/owned symlink/private override owner; generated-artifact cbea2ea correction separately tested. Later path changes: cbea2ea, 548f0b4, 73092de, 871e2e7, a5c973c, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ]
     },
     "tools/defaults/hypridle.conf": {
@@ -5067,11 +5069,13 @@
     },
     "tools/tests/test_configure.py": {
       "disposition": "independent",
-      "sha256": "cd20a18a78b61affc317abc82d66166ecf0fd00fb981e960447781b013774a9f",
+      "sha256": "3fb6a9787f548360834167cca7710aadb5442a91f646da09b20b3ca28d80f9f5",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 2fa3a95: own temp home/source/manifest drift, migration/private policy, routes/retirement ownership tests. Later path changes: 548f0b4, 871e2e7, 9397909, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
+        "Full current body/data/licence reviewed. Basis 2fa3a95: own temp home/source/manifest drift, migration/private policy, routes/retirement ownership tests. Later path changes: 548f0b4, 871e2e7, 9397909, 18a3dce, 5bf0bcd, 83b3531, 85316eb, 37df5a4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status."
       ]
     },
     "tools/tests/test_releases.py": {
@@ -5195,13 +5199,14 @@
     },
     "ai/install.py": {
       "disposition": "independent",
-      "sha256": "956986b66bfdc288fed4c49433b65c4a79e05df287bccea847fb290ec9743a06",
+      "sha256": "c3489ee056f2671e968307cb7613d7fefaed13042cec29aac0957c24a29f6db9",
       "evidence": [
         "docs/specs/ai-bootstrap-source-audit.md",
         "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md",
         "Full current body and local creation/change history reviewed. Basis bcce02f; subsequent changes: 548f0b4, 7bdf0e7, 83b3531, 1bcce9d, adc96cc, fc33e68, 4c2ae49. Native/provider public interfaces and custom account/project/backup contracts; no claim to external dependency implementation. Whole-tree comparison/licensing remains open.",
         "Current installer reassessed in 0f31dd9: recognized three-controller code-only branch, full current body and new diff reviewed; previous SHA 5f14c1d6b9732389b449ef8b2f0b2ccbdd6219eeb01e229c21cebcb2dc598a74. See docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md and private-runtime regression.",
-        "Plan-message formatting correction after full Ruff gate; parsed syntax tree identical to 0f31dd9. No behavior change."
+        "Plan-message formatting correction after full Ruff gate; parsed syntax tree identical to 0f31dd9. No behavior change.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ]
     },
     "ai/projects.example.json": {
@@ -5422,13 +5427,14 @@
     },
     "bin/siverteh-ai": {
       "disposition": "independent",
-      "sha256": "f1646c62a743b48e2a38f04542eb9325b0b3c42600f20dfe3a2033e5d3fb80f6",
+      "sha256": "82d23966580b467b20d2f631b366e9b82c67fb93acfb51cc401ee940484f8984",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
         "Full current body/local authoring and caller contracts reviewed. Basis bcce02f; subsequent 548f0b4, 7bdf0e7, 83b3531, 2fa3a95, b0632b9, 3121dad, be81bf0, 1bcce9d, e42b701, 4c2ae49. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open.",
         "docs/specs/nacre-logo.md",
-        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ]
     },
     "bin/siverteh-ai-chat": {
@@ -6492,13 +6498,14 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "d3b7545ca34e5014dc31d860b1eb7c29cfb1c47f153a4bdd97947cda835086c6",
+      "sha256": "a921aa005a9f59cefd24d5bc6fb432e8291d30147097e52f8744e44bd7c16539",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/nacre/FINAL-COMPARISON.md",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map."
+        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6625,12 +6632,13 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "21b5c1b6ff44d370ac528b559c8af1fd73c54abce7c99a312bcd31d22f30a483",
+      "sha256": "663c3c1158062bb43b451e823e649e851d22df0151cf9c4f7346566b14cab18b",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: reviewed merged guide delta replaces old SH paths and documents shared master; existing ownership/security guidance retained.",
-        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles."
+        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6665,11 +6673,12 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "d0583a94985a3f8b9860c174b7056ac16bc975574b6f99e379e6f7e0fddb04e9",
+      "sha256": "4fece3f7e5d1e85c7cfb97dc02bb9ae65ad590aad187b3b81bde66b50fed4b65",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map."
+        "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ],
       "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     },
@@ -6750,10 +6759,11 @@
     },
     "ai/README.md": {
       "disposition": "non-implementation",
-      "sha256": "73776b368870a0bb181977996d05e3b37757bd19f60bf26e49e9831db149c19f",
+      "sha256": "62a2540f697fad6cb4ba3657a3f9976e45a03358ee07ec7cfa3f52f8dbe3ff4d",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: bcce02f ai: Add a private multi-account desktop workspace"
     },
@@ -7879,6 +7889,14 @@
       ],
       "sha256": "bcfbbadddbd3a970e5f1004d0a76c957ad35ec614b4051c10d73c2872634211c",
       "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+    },
+    "bin/nacre-ai": {
+      "sha256": "01cf75638cc2f6546e4a0a3ccee3cf798ab3603de659e6e556406abb803adb58",
+      "disposition": "independent",
+      "evidence": [
+        "docs/features/terminal-branding.md: independently authored exec wrapper; no upstream desktop code or private account data; regression checks exact argument forwarding and exit status.",
+        "No-argument entry normalizes to explicit dashboard so existing exact scoped palette-refresh detection also works for nacre-ai without arguments; regression verifies default menu and controller status."
+      ]
     }
   }
 }

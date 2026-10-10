@@ -1,6 +1,9 @@
 import importlib.util
 from pathlib import Path
 import json
+import os
+import shutil
+import subprocess
 import tempfile
 import unittest
 
@@ -12,6 +15,39 @@ spec.loader.exec_module(module)
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_nacre_ai_entry_preserves_arguments_and_controller_exit_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, home = Path(directory) / "repo", Path(directory) / "home"
+            (root / "bin").mkdir(parents=True)
+            shutil.copy2(module.ROOT / "bin/nacre-ai", root / "bin/nacre-ai")
+            module.apply(home, root)
+            controller = home / ".local/bin/siverteh-ai"
+            controller.write_text(
+                "#!/usr/bin/env python3\nimport json, sys\n"
+                "print(json.dumps(sys.argv[1:]))\nsys.exit(37)\n"
+            )
+            controller.chmod(0o755)
+            args = ["new", "--project", "space and $literal", "--account", "test"]
+            result = subprocess.run(
+                [str(home / ".local/bin/nacre-ai"), *args],
+                env={**os.environ, "HOME": str(home)},
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            self.assertEqual(result.returncode, 37)
+            self.assertEqual(json.loads(result.stdout), args)
+            default = subprocess.run(
+                [str(home / ".local/bin/nacre-ai")],
+                env={**os.environ, "HOME": str(home)},
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            self.assertEqual(default.returncode, 37)
+            self.assertEqual(json.loads(default.stdout), ["dashboard"])
+            self.assertEqual(module.plan(home, root)[0], [])
+
     def test_copy_install_is_repeatable_and_refuses_later_local_edits(self):
         with tempfile.TemporaryDirectory() as directory:
             root, home = Path(directory) / "repo", Path(directory) / "home"

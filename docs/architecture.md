@@ -150,3 +150,7 @@ Brain symbol and palette-generated PNG/text outputs. Native librsvg is the PNG
 rasterizer; Quickshell and SDDM use Qt SVG without private native libraries.
 Visible labels use Nacre AI/Brain; private compatibility commands stay intact.
 Login theme code is root-owned; only color/wallpaper appearance remains user-owned.
+
+The public `nacre-ai` command is a managed entry point to the existing private AI
+controller. It forwards arguments and exit status without migrating accounts,
+conversations or worker state; legacy `siverteh-ai` callers remain compatible.

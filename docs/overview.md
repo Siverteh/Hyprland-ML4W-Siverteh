@@ -100,3 +100,6 @@ the complete originality audit.
 
 The [shared logo specification](specs/nacre-logo.md) describes the approved shell
 master and its small/large, web, login, lock and terminal forms.
+
+`nacre-ai` opens the AI workspace menu. `siverteh-ai` remains a compatibility
+command for existing sessions and private workflow helpers.

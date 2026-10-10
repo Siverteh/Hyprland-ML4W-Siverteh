@@ -42,3 +42,7 @@ overlays; larger marks retain the pearl shading. Palette bindings and publicatio
 change colors only when needed. Lock and terminal PNGs both keep alpha so Kitty can supply its own
 background and transparency. Native librsvg rasterizes static PNGs during publication.
 Legacy private sh.* files contain the new shell only for already-open controllers.
+
+Open the AI menu with `nacre-ai`. Desktop actions use that public entry point; it
+executes the existing controller so scoped logo refresh and ongoing sessions keep
+working. The legacy command is still accepted.

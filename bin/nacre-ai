@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Public Nacre entry point; the existing controller preserves private account state.
+set -euo pipefail
+if (( $# == 0 )); then
+    set -- dashboard
+fi
+exec "$HOME/.local/bin/siverteh-ai" "$@"

@@ -117,7 +117,13 @@ def main():
     binaries = (
         ["siverteh-brain", "siverteh-ai-remote"]
         if args.remote
-        else ["codex", "siverteh-ai", "siverteh-brain", "siverteh-ai-remote"]
+        else [
+            "codex",
+            "nacre-ai",
+            "siverteh-ai",
+            "siverteh-brain",
+            "siverteh-ai-remote",
+        ]
     )
     binaries.extend(
         [

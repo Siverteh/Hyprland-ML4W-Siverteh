@@ -66,11 +66,11 @@ shared knowledge is the private Markdown vault, not a unified chat history.
 Install the native Claude Code CLI using [Anthropic's setup instructions](https://code.claude.com/docs/en/setup).
 Run `python3 ai/install-claude.py` for the isolated, pinned Python session-history
 SDK, and `python3 ai/install.py` to link the adapter. Install these on each host
-where Claude tasks run. Sign in with `siverteh-ai login --agent claude` (or
+where Claude tasks run. Sign in with `nacre-ai login --agent claude` (or
 `claude auth login`). Claude authentication is independent of Codex.
 
 `Settings → Assistant → Claude Code`, then `New chat` starts a native interactive Claude
-session. CLI callers use `siverteh-ai new --project PROJECT --agent claude`.
+session. CLI callers use `nacre-ai new --project PROJECT --agent claude`.
 Project tasks get separate `claude/…` worktrees; general chats use independent
 scratch folders. Remote tasks run in tmux. The adapter passes shared brain and
 project instructions through Claude's supported appended system prompt, including
@@ -155,15 +155,15 @@ Configure projects in `~/.config/siverteh-ai/projects.json` using
 details, and project registries outside this public repository.
 
 ```sh
-siverteh-ai                         # controller menu
-siverteh-ai new --project PROJECT   # isolated writing task
-siverteh-ai sessions --project PROJECT
-siverteh-ai shell --project PROJECT
-siverteh-ai brain
-siverteh-ai login --account second  # authenticate independently
-siverteh-ai new --project PROJECT --account second
-siverteh-ai login --project REMOTE_PROJECT --account second
-siverteh-ai new --project REMOTE_PROJECT --account second
+nacre-ai                         # controller menu
+nacre-ai new --project PROJECT   # isolated writing task
+nacre-ai sessions --project PROJECT
+nacre-ai shell --project PROJECT
+nacre-ai brain
+nacre-ai login --account second  # authenticate independently
+nacre-ai new --project PROJECT --account second
+nacre-ai login --project REMOTE_PROJECT --account second
+nacre-ai new --project REMOTE_PROJECT --account second
 ```
 
 Local sessions use `codex agents` and `codex --worktree`. Remote workers use SSH,
@@ -395,3 +395,6 @@ locations or concurrent changes. It does not run account/skill/vault setup or
 restart existing workers. `--launcher-only` remains the launcher compatibility
 option. Apply new-session behavior by opening a new session normally; current
 workers continue with their original process state.
+
+The public workspace command is `nacre-ai`; `siverteh-ai` remains a compatibility
+entry point. Private account directories and worker identifiers are unchanged.
