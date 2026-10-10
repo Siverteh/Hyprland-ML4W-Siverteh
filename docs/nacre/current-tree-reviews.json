@@ -5534,6 +5534,474 @@
         "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
         "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
       ]
+    },
+    "nacre/login/tests/tst_login.qml": {
+      "disposition": "independent",
+      "sha256": "4b1d13649e2a1171c99d9423d2350cb3a853c0859654ffa81b4c97c85dd45692",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation cb36d47 siverteh/login/tests/tst_login.qml; subsequent 548f0b4, 2c1d2ca, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/bar-qml/tst_bar.qml": {
+      "disposition": "independent",
+      "sha256": "ff5ccd4f1d15640af4f5c83e81a95de9fd5925e0ac3f8fe3d7051aa1f1ad93e5",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ce69bc0 nacre/shell-tools/tests/bar-qml/tst_bar.qml; subsequent 5da1132, dc01bf9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/battery-qml/tst_battery.qml": {
+      "disposition": "independent",
+      "sha256": "19717eef27b0324c0fbd32d5578153e71756c136d2aed8b89d8627389e302060",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 36c35e0 nacre/shell-tools/tests/battery-qml/tst_battery.qml; subsequent ba39132. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/click-away-qml/tst_click_away.qml": {
+      "disposition": "independent",
+      "sha256": "90185aa9b152203d1d79dc1d9c6ac589b00a950ca44370637639c3b7f4da40a0",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 6e91ab0 siverteh/shell-tools/tests/click-away-qml/tst_click_away.qml; subsequent 966ae9e, 7bca77d, ea5653e, 609a1e4, 548f0b4, 2c1d2ca, d47f151, 63162dc, 6fb4d5a, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml": {
+      "disposition": "independent",
+      "sha256": "073c4dec7aceb5ef992a83df7a74aceb04808a4f3617bfd39403f2680294f849",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 1cd6ab7 nacre/shell-tools/tests/dashboard-qml/tst_dashboard.qml; subsequent 96c83f4, 19083bd, ed8f1e1, e82a4e6, 0a2b8a2. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreApps.qml": {
+      "disposition": "independent",
+      "sha256": "ef3632f8f19a718a3604f2d6f3448d39c54a7068f6c4d02210acba67fcf68f58",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 3d93b32 nacre/shell-tools/tests/device-qml/tst_NacreApps.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreAudio.qml": {
+      "disposition": "independent",
+      "sha256": "c44f6fb84fdc751bbf4b72ea5ba259a854f9c8e178648da9c0fa7b87f59c7b0b",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 2f9300f nacre/shell-tools/tests/device-qml/tst_NacreAudio.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreBluetooth.qml": {
+      "disposition": "independent",
+      "sha256": "6e59ebfa5232fa5b4079aaad866566906b4d847fe8283d12b0210926c817569d",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation d4a82bb nacre/shell-tools/tests/device-qml/tst_NacreBluetooth.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreBrightness.qml": {
+      "disposition": "independent",
+      "sha256": "186eaa9bca12f585f5ea310a86cf9774a1e8e21bcdb5c7dac4c68121ec7120c2",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 02b2bda nacre/shell-tools/tests/device-qml/tst_NacreBrightness.qml; subsequent 5da1132, 4f8e178. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreColours.qml": {
+      "disposition": "independent",
+      "sha256": "b4b891105efbe6b602c27752d438dc6968c3c5981c3bf03f6d702cf98c657d22",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 02b2bda nacre/shell-tools/tests/device-qml/tst_NacreColours.qml; subsequent eea01b9. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreHyprland.qml": {
+      "disposition": "independent",
+      "sha256": "49b52081afe71e6f79e19484ddf06c67b2eb55cd54f2eb11b5ed5fb9234627d6",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ea5653e nacre/shell-tools/tests/device-qml/tst_NacreHyprland.qml; subsequent 98108af. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreKeyboardLight.qml": {
+      "disposition": "independent",
+      "sha256": "613e9a844744468dc1d0767031d716fb237effab64c69ebc235ed212dc846b0b",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 02b2bda nacre/shell-tools/tests/device-qml/tst_NacreKeyboardLight.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreLightChannel.qml": {
+      "disposition": "independent",
+      "sha256": "16cd5ab4edcf0122d2817558f17b5dae62ccbc22007e905d70651c36975142fc",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 02b2bda nacre/shell-tools/tests/device-qml/tst_NacreLightChannel.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreNetwork.qml": {
+      "disposition": "independent",
+      "sha256": "ea2c760b097f53a6599a8f94c0781305bcd4179c1818846245f2511a1e9c692a",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 977f628 nacre/shell-tools/tests/device-qml/tst_NacreNetwork.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreNotifs.qml": {
+      "disposition": "independent",
+      "sha256": "a35bc5b53e52d00894ce71efcbb10445c059d268c8d26c5f33f3e477de8253e9",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation e4d2474 nacre/shell-tools/tests/device-qml/tst_NacreNotifs.qml; subsequent 5da1132, 22a4ad1. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacrePlayers.qml": {
+      "disposition": "independent",
+      "sha256": "946593cc928b9e9ef55e235c698d41e2f1326e0e63a9b867b5892f66f3b9a1a0",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 13701fc nacre/shell-tools/tests/device-qml/tst_NacrePlayers.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacrePresentation.qml": {
+      "disposition": "independent",
+      "sha256": "b32352228d4821e83f3d61ffefe61bff8cd9895bee0e428b452c054a51e2811a",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation eea01b9 nacre/shell-tools/tests/device-qml/tst_NacrePresentation.qml; subsequent 08641a8. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreSystemUsage.qml": {
+      "disposition": "independent",
+      "sha256": "c528d6f129265007b4c2028476d097c79647d5a89e3433186901cb596df26f49",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 18d8aab nacre/shell-tools/tests/device-qml/tst_NacreSystemUsage.qml; subsequent 5da1132. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreTime.qml": {
+      "disposition": "independent",
+      "sha256": "1671aaa8697fdbafe233b853537186b8a7dbaef343c18fbc6fb941d8b7db7105",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation a492dc6 nacre/shell-tools/tests/device-qml/tst_NacreTime.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreWallpapers.qml": {
+      "disposition": "independent",
+      "sha256": "9cd8d87c3a9e79e2b1ff4656f09a39041dac3d24014a3ecfa5b4cd26385528e4",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 28707f7 nacre/shell-tools/tests/device-qml/tst_NacreWallpapers.qml; subsequent 5da1132. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreWeather.qml": {
+      "disposition": "independent",
+      "sha256": "3409a0b70f74256a5bc81ce6236bbb321187411eda948831e03ac6e504657ce3",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 28707f7 nacre/shell-tools/tests/device-qml/tst_NacreWeather.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/fixtures/orient-scenes.json": {
+      "disposition": "non-implementation",
+      "sha256": "4fbc5cd186c86977ac014049b610740fc172c84eed6ec8d43598dfd861afb895",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 9c9089f nacre/shell-tools/tests/fixtures/orient-scenes.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/foundation-qml/render.qml": {
+      "disposition": "independent",
+      "sha256": "9d1a3bfb004e3dcd2bba525a867ec204b035b40c5d66e81f9895b1241757b1be",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation cb07776 nacre/shell-tools/tests/foundation-qml/render.qml; subsequent 9a3b9a7. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/foundation-qml/tst_foundation.qml": {
+      "disposition": "independent",
+      "sha256": "c2237eedb13b0aedd16c67185efe99a430f8b8169cdfaeba422387c1de89e579",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation cb07776 nacre/shell-tools/tests/foundation-qml/tst_foundation.qml; subsequent eea01b9, 02b2bda, 9a3b9a7. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/frame-qml/render.qml": {
+      "disposition": "independent",
+      "sha256": "d6958d313d99bfcf6fc087ed7478915f563dcc9e184e7834bd9d4c27a35d1c54",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/render.qml; subsequent 02b2bda. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/frame-qml/tst_registry.qml": {
+      "disposition": "independent",
+      "sha256": "0908b5884819796b455370398e5fa2d2d2a7b6ac18fda274e949288b6475b468",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/tst_registry.qml; subsequent 239af3a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/header-qml/tst_header.qml": {
+      "disposition": "independent",
+      "sha256": "e42e076bdfdde1dfd033dc633296fb5855d35d044f7e94b537ddd07791abe9e9",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 966ae9e nacre/shell-tools/tests/header-qml/tst_header.qml; subsequent 5da1132, 7c8f3a6. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/launcher-qml/tst_launcher.qml": {
+      "disposition": "independent",
+      "sha256": "2e5ca31bdf4485f0b1478b7498f2ff597a04073e441cc116d83211443bbdf447",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation a3e2420 siverteh/shell-tools/tests/launcher-qml/tst_launcher.qml; subsequent bc7c7e2, 548f0b4, 2c1d2ca, 83b3531, 0c00c16, a8fe3ca, fedfa0c, 7ed920d. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/launcher-qml/tst_panel.qml": {
+      "disposition": "independent",
+      "sha256": "7b3025b212b1bdeb32f0414e2e2217480b704750c11c4690bd365a8872a3bc5d",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 7b53c65 nacre/shell-tools/tests/launcher-qml/tst_panel.qml; subsequent 28707f7, 3d93b32. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/media-performance-qml/tst_pages.qml": {
+      "disposition": "independent",
+      "sha256": "d475b439cd3aca16c168630bef8b2a4e9d31f83fb072683ac020524722f5e0f8",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation e82a4e6 nacre/shell-tools/tests/media-performance-qml/tst_pages.qml; subsequent 13701fc, 3a8f60a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/notification-qml/tst_notifications.qml": {
+      "disposition": "independent",
+      "sha256": "111d6f597215a6582f573ed84720a90136b290b7296794ededba2a61814f4526",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation e869927 nacre/shell-tools/tests/notification-qml/tst_notifications.qml; subsequent e4d2474. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/orient-roles.json": {
+      "disposition": "non-implementation",
+      "sha256": "97850a5d1300d3cc3685acb7136d30a8bba57de8daed0c2a3f0549b0b6eb894f",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 5ecf556 nacre/shell-tools/tests/orient-roles.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/overview-qml/tst_overview.qml": {
+      "disposition": "independent",
+      "sha256": "6c282bedbc3da359e38e415f11e19eb723104a15e84b996ee68710fbaeb92354",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 0a2b8a2 nacre/shell-tools/tests/overview-qml/tst_overview.qml; subsequent 28707f7, a492dc6, 18d8aab. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/ActionButton.qml": {
+      "disposition": "independent",
+      "sha256": "96020cb36cba79ca49ab40daea5bd3119e15aa374227b75a59eeba20b33e2a63",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/ActionButton.qml; subsequent 548f0b4, 2c1d2ca, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/FastScroll.qml": {
+      "disposition": "independent",
+      "sha256": "520c81336eeee94af18397cfbf7a956b2c7a1256bc38bd26cd07457635becffe",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/FastScroll.qml; subsequent 548f0b4, 2c1d2ca, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/NacreAppearance.qml": {
+      "disposition": "independent",
+      "sha256": "0551c20670f420e615e49ab4f5dfcd828138e5000fcf67b0f3a1a3f783fe3bf5",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 5c3cd84 siverteh/shell-tools/tests/qml/fixtures/Appearance.qml; subsequent 9a3b9a7, 548f0b4, 2c1d2ca, 287d527, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/NacreColours.qml": {
+      "disposition": "independent",
+      "sha256": "f7863a9456521871787714207cebdb7804bf0b7dd225a05bdb5478dd2da78cb0",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/Colours.qml; subsequent 02b2bda, cb07776, 548f0b4, 2c1d2ca, 83b3531, a0090ce, 36dc0ba. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/NacreSurface.qml": {
+      "disposition": "independent",
+      "sha256": "3a4f7426d2c38dd4bd70fb178ad599c1791980a7d2ab9a430358b1ea33da55f2",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/StyledRect.qml; subsequent 9a3b9a7, 548f0b4, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/NacreText.qml": {
+      "disposition": "independent",
+      "sha256": "e511b8e23ab3e2e3e5f0e35070a01b2b6c7e862a98492c34d44fbc7f87e93e4f",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/StyledText.qml; subsequent 9a3b9a7, 548f0b4, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/NacreTextField.qml": {
+      "disposition": "independent",
+      "sha256": "675a927c1aaf333ccbc9424ba89b74caadd4c2ada1a8640c79668932581fea34",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/StyledTextField.qml; subsequent 9a3b9a7, 548f0b4, 83b3531. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/SidebarChat.qml": {
+      "disposition": "independent",
+      "sha256": "8b0dff1e6e66b2912cdb835e0f1ce256e0be4c52223fcf5eb82f247b44b887c7",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/SidebarChat.qml; subsequent 548f0b4, 2c1d2ca, 83b3531, a0090ce, 8bd5e65, 973e0a4, 5c3cd84. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/fixtures/qmldir": {
+      "disposition": "non-implementation",
+      "sha256": "f26810e351f34bb57bdf11afb4dfb79a2978a9cf06e1577afc6dca810730324d",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/fixtures/qmldir; subsequent 02b2bda, 9a3b9a7, 548f0b4, 5c3cd84. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/tst_chatpane.qml": {
+      "disposition": "independent",
+      "sha256": "bb30fae1a3772a762a1605613b03cd22bcf07c597d18384309a379175bd72e04",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ddb0066 siverteh/shell-tools/tests/qml/tst_chatpane.qml; subsequent 9a3b9a7, 548f0b4, 2c1d2ca, 83b3531, 36dc0ba, e83d56f, 973e0a4, 5c3cd84, a7495cb. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/tst_quick_controls.qml": {
+      "disposition": "independent",
+      "sha256": "e5a05954d0e99f85f0aa6f4a96a7fedeac5ea94a74db71f85a46fdf39da9125c",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 51eb6e1 siverteh/shell-tools/tests/qml/tst_quick_controls.qml; subsequent 5da1132, 490d457, 6e09600, 28db63f, 2f9300f, 548f0b4, 2c1d2ca, d2e2e40, c2bb50a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/tst_settings.qml": {
+      "disposition": "independent",
+      "sha256": "5b904019fd1b3f582ae43b573b534b197a71a2fec7d15ba39a523cebee99d8e0",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 36dc0ba siverteh/shell-tools/tests/qml/tst_settings.qml; subsequent 5da1132, 28707f7, e4d2474, 977f628, d4a82bb, b770506, cbef0e4, c230d36, 19083bd, 9c9089f, 372fe77, 548f0b4, 807f257, 2c1d2ca, 5f22a11, 4ea19d5, 83b3531, 9dd732a, 4e411a5, a0090ce. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/qml/tst_wallpaper_rotation.qml": {
+      "disposition": "independent",
+      "sha256": "0c8aba925a244eabb9f4fa797c5700b34a0f0626e2b213106b622319134af9cf",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 4ea19d5 siverteh/shell-tools/tests/qml/tst_wallpaper_rotation.qml; subsequent 5da1132, eea01b9, 548f0b4, 2c1d2ca, aee7ec3. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/state-qml/tst_state.qml": {
+      "disposition": "independent",
+      "sha256": "19644475f8b3dc78042431672d4ed794c9d30ec436e62fb73ca8810aa44f09e1",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 5da1132 nacre/shell-tools/tests/state-qml/tst_state.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
+      "disposition": "independent",
+      "sha256": "ac6fd73b32a96012768824515a5ea8845f1ec2cba651c057fa9b027b998c58e7",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 06ffaf4 siverteh/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml; subsequent 28707f7, eea01b9, bc7c7e2, 548f0b4, 1bee816, 83b3531, 4b142ae, 81827c1, 09f9ceb, 0eda691, ee6eeae, e336713. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/workspace-qml/tst_workspace.qml": {
+      "disposition": "independent",
+      "sha256": "a3b091c247c342faf0d77b70f5c95fc6606f62ec633f5884689bbadae66db46c",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation ed8f1e1 nacre/shell-tools/tests/workspace-qml/tst_workspace.qml; subsequent ea5653e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml": {
+      "disposition": "independent",
+      "sha256": "695c3a507c1e94f68f5c02e19733d345e4383c52f153dc0706c98a4f6504ad1b",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 216f23a nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml; subsequent 5da1132, d1d9a1e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "tools/tests/fixtures/keybindings-contract.json": {
+      "disposition": "non-implementation",
+      "sha256": "58ef6e31683b1764ee3487cd80be7b40b441fb70aa088530a72cc2f88412fbe3",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation 9a435c3 tools/tests/fixtures/keybindings-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
+    },
+    "tools/tests/fixtures/window-routing-contract.json": {
+      "disposition": "non-implementation",
+      "sha256": "c0f5936fbfc111ac849efde236198de39ad0b5254569410e730559e730729d70",
+      "evidence": [
+        "docs/specs/native-fixture-source-audit.md",
+        "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
+        "Complete current body/data reviewed. Local creation e944518 tools/tests/fixtures/window-routing-contract.json; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+      ]
     }
   }
 }

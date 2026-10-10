@@ -2185,3 +2185,15 @@ seven matches, zero visible result rows, read mode retained. ad0ec60 corrects th
 transition and tightens the browser gate; full isolated sequence/screenshots pass.
 No final whole-upstream/legal clean-room/licensing claim. Remaining fixtures/docs/
 notices/dependency comparison stay required; all applicable notices retained.
+
+## Native QML and functional fixture source review
+
+2026-10-10 UTC. [Spec](../specs/native-fixture-source-audit.md) and
+[52-file table](NATIVE-FIXTURE-SOURCE-AUDIT.md) record full current-body/data and
+individual local creation/change review. Retained own QtTest/native render scenes,
+minimal consumer/native doubles and captured API/bind/routing/numeric scene data.
+Illustrations themselves remain external CC BY-SA material, with pinned attribution
+and no artwork bundle. No runtime implementation change or final upstream/legal
+clean-room/licensing claim. Python drivers, docs/notices and whole-source/runtime/
+dependency comparison remain required. Visual coverage gaps are explicitly queued
+for the separate cleanup goal, not misrepresented as passed visual acceptance.
