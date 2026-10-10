@@ -4101,17 +4101,19 @@
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
         "Complete current source/data reviewed. Basis 5ecf556: all30 own named seed entries and60 mode outputs regenerated exactly with current independent engine; every serialized color role reproduced, not merely sampled. Later path history: 9c9089f, 06632c9, bd17192, 372fe77, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped.",
-        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment."
+        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment.",
+        "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source."
       ]
     },
     "nacre/shell-tools/reference-style.json": {
       "disposition": "independent",
-      "sha256": "44469691ee901cc16d77b32d9b77294cb9d85d62942aacfe5f26f74f40fba526",
+      "sha256": "ef51b75c9da52f19c9dfa30064825ffbfd9ccaa2aad7123ab5a05cfce3a417c2",
       "evidence": [
         "docs/specs/palette-data-source-audit.md",
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
         "Complete current source/data reviewed. Basis 5ecf556: vendor reference replaced by Orient output;790b508 freshly regenerates entire default data from current own engine after five stale containers and old engine identity were demonstrated. Later path history: 790b508, 06632c9, bd17192, 372fe77, 401f63a, 1488f68. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped.",
-        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment."
+        "Regenerated explicitly with PYTHONPATH to Orient 3 source; all three pinned-engine reproducibility checks pass. Prior installed-engine generation superseded before deployment.",
+        "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source."
       ]
     },
     "nacre/shell-tools/wallpaper-collection.json": {
@@ -8948,11 +8950,12 @@
     },
     "nacre/shell-cli/src/orient/extract.py": {
       "disposition": "independent",
-      "sha256": "8ba8ff5ea7d81ebe61f6fcaf8fb2eef39a4495649e3880db69cdc62661e03ba0",
+      "sha256": "3ac8342565c503352561d99f4fb1f9f1322768d3b7c63a0cb85ddabd7c0f8910",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
-        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required."
+        "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
+        "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source."
       ]
     },
     "nacre/shell-cli/src/orient/palette.py": {
@@ -9227,12 +9230,13 @@
     },
     "nacre/shell-tools/tests/test_orient3.py": {
       "disposition": "independent",
-      "sha256": "504ff21417fddf498675a56d409360ada947c2993bb76215c66a4744a7c0d9e7",
+      "sha256": "1de442c66ecdc38783f6d08c9571fb0ba8585830aefa4aecb17b2dcb7b12aa48",
       "evidence": [
         "docs/specs/orient-colors.md",
         "docs/features/orient.md",
         "Current full body/data reviewed: independent Orient 3 portable core, its desktop compatibility adapters, original read-only studio, source attribution/audits/export templates and explicit single-publisher integration. Existing audited own engine moved with module aliases; no Caelestia/ML4W source consulted. Scientific OKLab/CVD coefficients credited to their published definitions, not claimed novel. Gallery artwork generated locally and CC0; private artwork remains outside Git. Current mode/contrast/backend/native checks and visual gallery inspection recorded; full/live release gate still required.",
-        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed."
+        "Installed-runtime export probe caught unresolved package-root/symlink comparison. Root now resolves before containment checks; regression test uses the same active-runtime symlink pattern. No overwrite/escape validation removed.",
+        "Actual short MP4 probe exposed an end-of-clip seek beyond the last frame. Samples capped using reported frame rate; missing output has a useful decoder error. Regression creates the same short clip and checks four readable samples. Preset fingerprints regenerated with this exact engine source."
       ]
     },
     "nacre/shell/branding/nacre-colors-compact.svg": {

@@ -82,7 +82,7 @@ def frames(path):
                         "-v",
                         "error",
                         "-show_entries",
-                        "format=duration:stream=codec_type,width,height",
+                        "format=duration:stream=codec_type,width,height,avg_frame_rate",
                         "-of",
                         "json",
                         str(path),
@@ -98,6 +98,11 @@ def frames(path):
             duration = float(metadata["format"]["duration"])
             if not math.isfinite(duration) or duration <= 0:
                 raise ValueError("Video has no usable duration")
+            rate_text = videos[0].get("avg_frame_rate", "30/1")
+            numerator, denominator = rate_text.split("/")
+            rate = float(numerator) / float(denominator) if float(denominator) else 30.0
+            rate = rate if math.isfinite(rate) and rate > 0 else 30.0
+            last_sample = max(0.0, duration - 1.5 / rate)
             result = []
             with tempfile.TemporaryDirectory(prefix="orient-frames-") as folder:
                 for i, fraction in enumerate((0.12, 0.38, 0.62, 0.87)):
@@ -108,7 +113,7 @@ def frames(path):
                             "-v",
                             "error",
                             "-ss",
-                            str(duration * fraction),
+                            str(min(duration * fraction, last_sample)),
                             "-i",
                             str(path),
                             "-frames:v",
@@ -120,6 +125,8 @@ def frames(path):
                         ],
                         timeout=20,
                     )
+                    if not target.is_file():
+                        raise ValueError("Video decoder produced no sample; convert this clip to a supported format")
                     result.append(normalize(target))
             return result
         except FileNotFoundError as error:

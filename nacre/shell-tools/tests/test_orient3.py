@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path
 import sys
+import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -119,6 +121,31 @@ class Orient3Tests(unittest.TestCase):
             c = from_image(fixture, mode)["colours"]
             self.assertLess(hue_distance(lch(c["red"])[2], lch("df303e")[2]), 8)
             self.assertLess(hue_distance(lch(c["green"])[2], lch("289563")[2]), 8)
+
+    @unittest.skipUnless(
+        shutil.which("ffmpeg") and shutil.which("ffprobe"), "Video decoder unavailable"
+    )
+    def test_short_video_samples_stay_inside_last_decodable_frame(self):
+        target = self.home / "short.mp4"
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-v",
+                "error",
+                "-i",
+                str(ROOT / "tests/orient-gallery/images/moving-lantern.gif"),
+                "-pix_fmt",
+                "yuv420p",
+                "-y",
+                str(target),
+            ],
+            check=True,
+            capture_output=True,
+            timeout=10,
+        )
+        data = from_image(target)
+        self.assertEqual(data["source"]["sample"]["frames"], 4)
+        self.assertTrue(data["accessibility"]["textPasses"])
 
     def test_export_json_toml_templates_no_overwrite_and_no_publication(self):
         import tomllib
