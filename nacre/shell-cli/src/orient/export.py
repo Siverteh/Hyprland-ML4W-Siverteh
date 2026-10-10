@@ -2,21 +2,17 @@
 
 from pathlib import Path
 import json
-import re
 import hashlib
 from .palette import validate
 
-from .template_engine import render_values, TOKEN
+from .template_engine import render_values, requested_modes
 
 
 def render(template, palette, schemes=None, custom=None):
     validate(palette["colours"])
     contexts = dict(schemes or {})
     # Only a template requesting the opposite mode needs its companion query.
-    expressions = [match[2].strip() for match in TOKEN.finditer(template) if not match[1]]
-    needed = {
-        m for m in ("dark", "light") if any(re.match(r"colors\.[A-Za-z_]+\." + m + r"\.", text) for text in expressions)
-    }
+    needed = requested_modes(template)
     for mode in needed - {palette["mode"]} - set(contexts):
         source = palette.get("source", {}).get("path")
         if source and Path(source).is_file() and palette.get("name") == "dynamic":

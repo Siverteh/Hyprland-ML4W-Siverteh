@@ -113,7 +113,7 @@ normalization/engine policy and settings. Palette and analysis caches are separa
 Orient reads its own `{{primary}}` tokens and Matugen expressions such as
 `{{ colors.primary.default.hex }}` and `{{ colors.on_surface.light.rgb }}`.
 Snake-case role names map to Orient roles; `source_color` maps to the source accent.
-Supported formats: hex, hex_stripped, rgb, rgba, hsl, hsla, red, green, blue, alpha,
+Supported formats: hex, hex_stripped, hex_alpha, rgb, rgba, hsl, hsla, red, green, blue, alpha,
 hue, saturation and lightness. CSS rgba/hsla uses opaque alpha1.0, numeric alpha255.
 `mode`, `is_dark_mode`, `image` and flat `custom.NAME` keywords are available.
 An escaped `\{{ token }}` stays literal. Older `colors.ROLE.FORMAT` uses the active
@@ -130,12 +130,44 @@ orient render palette.json existing-template.conf --companion light.json --varia
 The render command accepts ordinary template filenames without renaming to `.in`.
 Colors custom export templates still live in `~/.config/nacre/colors-templates`
 with `.in` suffix. Built-in Orient tokens and exports retain their existing behavior.
-This is color-expression compatibility, not the full Matugen runtime: filters,
-blocks, loops, includes, arithmetic, custom color objects and generated HCT tonal
-palettes are rejected with a clear error. No hooks, external commands or Matugen
-configuration output paths are executed. Unsupported templates fail before an
-export writes files. References: [Matugen tokens](https://github.com/InioX/matugen/wiki/Configuration)
-and [template grammar](https://github.com/InioX/matugen/wiki/Templates).
+Map loops and chained filters work with existing templates:
+
+```text
+<* for name, value in colors *>
+--{{name | replace: "_", "-"}}: {{value.default.hex}};
+<* endfor *>
+{{colors.primary.default.rgba | set_alpha: 0.2}}
+{{colors.secondary.default.hex | lighten: 10 | saturate: 15, "hsl"}}
+```
+
+The loop emits the supplied UI roles in stable snake-case order, including
+`source_color`, excluding Orient's terminal/toolkit aliases. Loop variable names
+are freely chosen, scoped, and can request explicit dark/light companion colors.
+Filters: `set_alpha` sets opacity (0–1) for rgba/hsla/hex_alpha; `lighten` adds HSL
+lightness percentage points (negative darkens); `auto_lightness` adds on dark
+colors and subtracts on light ones. `saturate` adds saturation percentage points
+in HSL (default) or HSV; quoted and bare hsl/hsv selectors work. `replace` replaces
+all literal matches with a quoted string. Filter chains retain alpha and output
+format; channels clamp to their legal range. `set_lightness` is also accepted and
+sets absolute HSL lightness (0–100), following the current public Matugen contract.
+`hex_alpha` uses eight hex digits including opacity. String literals and quoted
+commas/pipes in filter arguments are supported without evaluating code.
+
+This is the common color-template subset, not the full Matugen script runtime.
+Includes, conditions, numeric range/other-object loops, arithmetic, custom color
+objects and synthesized HCT/base16 palettes still fail clearly. Input is bounded
+to 1 MiB, output to 8 MiB and expansion to 100000 operations/four nested color loops.
+No hooks, external commands or Matugen configuration output paths run. Unsupported
+templates fail before export creates files. An isolated comparison on 2026-10-10
+matched 77 color/filter expressions byte-for-byte against Matugen 4.2.0. The official
+[theme collection](https://github.com/InioX/matugen-themes) at 707c7b7d3550c9c21c0a8d72186748b1d205b88b
+rendered 66 of 68 files containing expressions, including colors.css and Hyprland's
+.conf/.lua templates; quickshell.json and nvim-colors.vim require unsupported
+palette/base16 scripting. This measures rendering, not application reload support.
+Upstream templates/binary were private test inputs, not copied into Orient source.
+References: [tokens](https://github.com/InioX/matugen/wiki/Configuration),
+[grammar](https://github.com/InioX/matugen/wiki/Templates) and
+[current filter reference](https://iniox.github.io/?page=matugen/filters).
 
 ## Export and sharing
 

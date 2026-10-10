@@ -42,5 +42,6 @@ adapter/library as Natural with sampled backgrounds; new CLI mode lists show sev
 Matugen color expressions are supported alongside Orient tokens. Render existing
 files with `orient render palette.json template.css > theme.css`, optionally
 `--companion light.json` and `--variables variables.json`. Roles, standard color
-formats and mode/image/custom keywords are supported; filters/loops/includes and
-HCT palette expressions are not. See the feature guide for the exact contract.
+formats, color-map loops and chained set_alpha/lighten/auto_lightness/saturate/replace
+filters are supported, plus hex_alpha and set_lightness. Includes, general scripting
+and HCT/base16 synthesis are not. See the feature guide for the exact contract.

@@ -97,3 +97,25 @@ substitute modes. Plain-file rendering and exports must remain read-only toward
 installed themes, with exact source identity for automatic companion generation.
 Pale warm light accents may receive bounded chroma compensation with hue and
 contrast preserved. Separate color personalities from Light/Dark controls visually.
+
+## Matugen loops and filters, 2026-10-10
+
+Extend the independent renderer from public Matugen grammar and black-box output
+checks, without reading/copying its implementation or importing it. Support map
+loops `<* for name, value in colors *> ... <* endfor *>`, active/explicit schemes
+in loop values, snake-case names, and chained set_alpha, lighten, auto_lightness,
+saturate and replace. Filter arguments use quoted strings/numbers; accept bare
+hsl/hsv selectors used by public templates. Lighten changes HSL lightness in
+percentage points; auto_lightness selects the direction from current lightness.
+Saturate supports HSL/HSV percentage points, clamped channels; opacity stays
+through chained filters and preserves the requested output format. Include
+hex_alpha and the legacy set_lightness spelling used by actual templates.
+
+Loops are finite over the supplied color-role map, deterministic and bounded;
+unknown/malformed blocks, filters, arguments, absent mode contexts and oversized
+expansion fail before export creates files. No includes, arbitrary evaluation,
+filesystem access, hooks, base16 synthesis or general-purpose script runtime.
+Keep previews read-only, old Orient bare-hex tokens and ordinary JSON braces.
+Test actual official CSS/Hyprland inputs privately and retain original minimal
+regressions rather than importing upstream template artwork/code into the repo.
+The extraction engine and dark/light palette data must remain unchanged.

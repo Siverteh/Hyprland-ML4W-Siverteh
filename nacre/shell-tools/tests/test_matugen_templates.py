@@ -94,6 +94,139 @@ class MatugenTemplateTests(unittest.TestCase):
             with self.subTest(text=text), self.assertRaises(ValueError):
                 render_values(text, values)
 
+    def test_color_map_loops_and_chained_name_filters(self):
+        values = {
+            "primary": "336699",
+            "onSurface": "abcdef",
+            "overtone": "112233",
+            "term0": "445566",
+            "mode": "dark",
+        }
+        template = '<* for label, pigment in colors *>${{label | replace: "_", "-"}}=rgba({{pigment.default.hex_stripped}}ff);<* endfor *>'
+        self.assertEqual(
+            render_values(template, values),
+            "$on-surface=rgba(abcdefff);$primary=rgba(336699ff);$source-color=rgba(112233ff);",
+        )
+        self.assertNotIn("term0", render_values(template, values))
+        self.assertEqual(
+            render_values(
+                '{{ "a|b,c" | replace: "|", "," | replace: ",", ":" }}', values
+            ),
+            "a:b:c",
+        )
+        self.assertEqual(
+            render_values(
+                "<* for n, v in colors *>{{n}}<* endfor *><* for n, v in colors *>{{v.dark.hex}}<* endfor *>",
+                values,
+            ),
+            "on_surfaceprimarysource_color#abcdef#336699#112233",
+        )
+
+    def test_five_filters_match_public_black_box_examples(self):
+        values = {"primary": "336699", "secondary": "ffdad4", "mode": "dark"}
+        cases = {
+            "hex | lighten: 20": "#6699cc",
+            "hex | lighten: -20": "#1a334d",
+            "hex | auto_lightness: 20": "#6699cc",
+            'hex | saturate: 20, "hsl"': "#1f66ad",
+            "hex | saturate: -20, hsl": "#476685",
+            'hex | saturate: 20, "hsv"': "#145799",
+            "rgba | set_alpha: 0.2": "rgba(51, 102, 153, 0.2)",
+            "hex_alpha | set_alpha: 0.2": "#33669933",
+            "rgba | set_alpha: 0.2 | lighten: 20": "rgba(102, 153, 204, 0.2)",
+            "rgba | set_lightness: 60": "rgba(102, 153, 204, 1)",
+            "hsla | set_alpha: 0.5": "hsla(210, 50%, 40%, 0.5)",
+        }
+        for expression, expected in cases.items():
+            with self.subTest(expression=expression):
+                self.assertEqual(
+                    render_values(
+                        "{{colors.primary.default." + expression + "}}", values
+                    ),
+                    expected,
+                )
+        self.assertEqual(
+            render_values(
+                "{{colors.secondary.default.hex | auto_lightness:20}}", values
+            ),
+            "#ff826e",
+        )
+        self.assertEqual(
+            render_values("{{colors.primary.default.hex|lighten:500}}", values),
+            "#ffffff",
+        )
+        self.assertEqual(
+            render_values("{{colors.primary.default.hex|lighten:-500}}", values),
+            "#000000",
+        )
+
+    def test_loop_modes_and_filter_errors_are_explicit(self):
+        values = {"primary": "336699", "mode": "dark"}
+        template = "<* for name, value in colors *>{{value . light . hex | lighten: 5}}<* endfor *>"
+        with self.assertRaisesRegex(ValueError, "companion"):
+            render_values(template, values)
+        self.assertEqual(
+            render_values(template, values, schemes={"light": {"primary": "6699cc"}}),
+            "#79a6d2",
+        )
+        for text in (
+            "<* endfor *>",
+            "<* for n, v in colors *>missing end",
+            "<* for n, v in base16 *>{{n}}<* endfor *>",
+            "<* for n, n in colors *><* endfor *>",
+            "<* if {{is_dark_mode}} *>x<* endif *>",
+            "{{primary | set_alpha: .5}}",
+            "{{primary | saturate: 20, rgb}}",
+            "{{primary | lighten: nan}}",
+            "{{primary | lighten: 1e999}}",
+            '{{primary | replace: "x"}}',
+            '{{primary | replace: "unclosed}}',
+            "{{primary | exec: 'touch /tmp/file'}}",
+            "{{primary | lighten: 20 + 10}}",
+        ):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                render_values(text, values)
+        with self.assertRaisesRegex(ValueError, "input limit"):
+            render_values("x" * (1024 * 1024 + 1), values)
+        nested = "<* for n,v in colors *>" * 5 + "x" + "<* endfor *>" * 5
+        with self.assertRaisesRegex(ValueError, "nesting"):
+            render_values(nested, values)
+
+    def test_expansion_and_replacement_are_bounded(self):
+        values = {"primary" + str(i): "336699" for i in range(20)}
+        values["mode"] = "dark"
+        nested = "<* for n,v in colors *>" * 4 + "x" + "<* endfor *>" * 4
+        with self.assertRaisesRegex(ValueError, "operation"):
+            render_values(nested, values)
+        with self.assertRaisesRegex(ValueError, "output limit"):
+            render_values(
+                '{{custom.label | replace:"x","xxxx"}}',
+                values,
+                custom={"label": "x" * (3 * 1024 * 1024)},
+            )
+
+    def test_loop_companion_query_and_failed_export_are_read_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            image = root / "scene.png"
+            Image.new("RGB", (32, 32), "#336699").save(image)
+            palette = from_image(image, cache_dir=root / "cache")
+            template = "<* for name, pigment in colors *>{{pigment.light.hex | lighten:10}}<* endfor *>"
+            actual = render(template, palette)
+            companion = from_image(image, "light", cache_dir=root / "cache")
+            self.assertEqual(
+                actual,
+                render(template, palette, schemes={"light": companion["colours"]}),
+            )
+            templates = root / "templates"
+            templates.mkdir()
+            (templates / "first.css.in").write_text(template)
+            (templates / "last.css.in").write_text("{{primary | unsupported}}")
+            target = root / "export"
+            with self.assertRaises(ValueError):
+                export(palette, target, templates)
+            self.assertFalse(target.exists())
+
     def test_all_builtin_templates_and_imported_matugen_css_export(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
