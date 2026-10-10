@@ -162,6 +162,7 @@ NacreSurface {
             id: tile
             required property var modelData
             required property int index
+            readonly property bool aiApplication: !root.commands && (modelData.id === "nacre-ai" || modelData.id === "nacre-ai.desktop")
             width: grid.cellWidth - 8
             height: 111
             radius: 15
@@ -175,17 +176,26 @@ NacreSurface {
                 y: 12
                 width: 52
                 height: 52
-                source: !root.commands ? Quickshell.iconPath(tile.modelData.icon, true) : ""
+                source: !root.commands && !tile.aiApplication ? Quickshell.iconPath(tile.modelData.icon, true) : ""
                 asynchronous: true
-                visible: !root.commands && status === Image.Ready
+                visible: !root.commands && !tile.aiApplication && status === Image.Ready
                 sourceSize.width: 52
                 sourceSize.height: 52
+            }
+            BrandLogo {
+                objectName: "nacreAiAppLogo"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 12
+                width: 52
+                height: 52
+                ai: true
+                visible: tile.aiApplication
             }
             NacreIcon {
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 15
                 text: root.commands ? tile.modelData.icon || "apps" : "apps"
-                visible: root.commands || appIcon.status === Image.Error || appIcon.status === Image.Null
+                visible: !tile.aiApplication && (root.commands || appIcon.status === Image.Error || appIcon.status === Image.Null)
                 font.pointSize: 34
             }
             NacreText {

@@ -1750,7 +1750,7 @@
     },
     "nacre/shell-tools/branding.py": {
       "disposition": "independent",
-      "sha256": "58f4ab21a49f5cf0b18497e63ec37a92d209add5231b79708792a293ffddc7be",
+      "sha256": "ec7d3587c6b5aa19e050a259ce9d04ca07f7fc6c0ae797fe8a56038082cbdf70",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1759,34 +1759,37 @@
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/widgets/BrandLogo.qml": {
       "disposition": "independent",
-      "sha256": "2c85c67f58bc00d5601fed4f775ff437ac0b89119b369eb0d6665c95adfab8e0",
+      "sha256": "6e8a4d2d4dedc056587253a811d6acf8388559be88bddf0f0faf2c1360460343",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Current own generated component from b0632b9/772e23b emitter, qs imports/formatting 14a55db/dfecaf0 and independent native palette owner 02b2bda. Historical pre-generator widget path is not current body origin. New corrected emitter reproduces current bytes, transparent SVG/public Qt Image provider binding only, no inherited Caelestia body.",
         "docs/specs/nacre-logo.md",
-        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/login/Logo.qml": {
       "disposition": "independent",
-      "sha256": "c4c1304114fd0f04b3034db5a768bd97c845045ce5857ff0aa1a096231e7f10e",
+      "sha256": "4bbb0c476513c634e0e526683d278b79ca8d26bebaa8694facf386703bda24ec",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
         "Current generated login component introduced b0632b9 from same own geometry and public Qt Image API. Current imports/formatter corrections 14a55db/dfecaf0, namespace 548f0b4. Regeneration exact; color defaults are public scalar fallback preferences, not inherited algorithm. Whole login theme remains separate audit.",
         "docs/specs/nacre-logo.md",
-        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork."
+        "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell-tools/tests/test_terminal_branding.py": {
       "disposition": "independent",
-      "sha256": "c62a10200fedd53bbeb34755fc7070613c1261c98d6b1ee680ac5267f5e950df",
+      "sha256": "075ac86c2da6919b37d0fe81f7367903368057149df951b0c028497837d3bfcf",
       "evidence": [
         "docs/specs/branding-source-audit.md",
         "docs/nacre/PROVENANCE.md#branding-source-and-asset-review",
@@ -1797,7 +1800,8 @@
         "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
         "docs/specs/terminal-polish.md",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -3940,11 +3944,12 @@
     },
     "nacre/shell/modules/extras/LeftDrawer.qml": {
       "disposition": "independent",
-      "sha256": "c16f300b5ee4e41bcac52dd5398a85ec3a83dd6640a289a56ba0c6d704be7491",
+      "sha256": "2caa237ceac881bf84ca2c499afa41210e692f61db62ca5fa27bb9e01b87ddb2",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 007d020: locally authored extra view; current native provider/foundation/routing migrations traced. Later current-file changes: 02b2bda, ea5653e, 9a3b9a7, 548f0b4, 22e240b, 83b3531, 5d0028f, e83d56f, d10c724, e3d0298, 3121dad. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
+        "Full current body individually reviewed. Basis 007d020: locally authored extra view; current native provider/foundation/routing migrations traced. Later current-file changes: 02b2bda, ea5653e, 9a3b9a7, 548f0b4, 22e240b, 83b3531, 5d0028f, e83d56f, d10c724, e3d0298, 3121dad. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/modules/extras/Overview.qml": {
@@ -3976,11 +3981,12 @@
     },
     "nacre/shell/modules/launcher/NacreAppBrowser.qml": {
       "disposition": "independent",
-      "sha256": "c688dfd41714aeaf5c67c62aa59f9b2e63ce8430ab02fd35befe3fb01e737fb8",
+      "sha256": "71596a6c93430700a7546e8957b448537254af767d7ecb776906c9a61857e2e0",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 02b2bda, 3d93b32. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
+        "Full current body individually reviewed. Basis bc7c7e2: fresh launcher/app/wallpaper presentation from behavior specification. Later current-file changes: 02b2bda, 3d93b32. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/modules/launcher/NacreLauncherPanel.qml": {
@@ -5470,14 +5476,15 @@
     },
     "bin/siverteh-ai": {
       "disposition": "independent",
-      "sha256": "82d23966580b467b20d2f631b366e9b82c67fb93acfb51cc401ee940484f8984",
+      "sha256": "916b5a1d8836ccf89ac3212b17076ed7542d639a7055c73acb33aa64acdc7f62",
       "evidence": [
         "docs/specs/ai-controller-source-audit.md",
         "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md",
         "Full current body/local authoring and caller contracts reviewed. Basis bcce02f; subsequent 548f0b4, 7bdf0e7, 83b3531, 2fa3a95, b0632b9, 3121dad, be81bf0, 1bcce9d, e42b701, 4c2ae49. External native/provider libraries retain their own licensing. Final inherited-source comparison remains open.",
         "docs/specs/nacre-logo.md",
         "Current source explicitly reassessed for approved shell identity: geometry-derived paths/names, shared color/contrast/rendering/build changes, or logo fixture/publisher dependencies only. Existing owner behavior retained and actual native/publisher tests run; no blanket origin claim for user artwork.",
-        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged."
+        "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "bin/siverteh-ai-chat": {
@@ -5923,11 +5930,12 @@
     },
     "nacre/shell-tools/tests/launcher-qml/tst_launcher.qml": {
       "disposition": "independent",
-      "sha256": "2e5ca31bdf4485f0b1478b7498f2ff597a04073e441cc116d83211443bbdf447",
+      "sha256": "d45c39ef6e07a9f65cd18a03ea6790b6d09b0065b67bd438467d3c3b69a795f9",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation a3e2420 siverteh/shell-tools/tests/launcher-qml/tst_launcher.qml; subsequent bc7c7e2, 548f0b4, 2c1d2ca, 83b3531, 0c00c16, a8fe3ca, fedfa0c, 7ed920d. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
+        "Complete current body/data reviewed. Local creation a3e2420 siverteh/shell-tools/tests/launcher-qml/tst_launcher.qml; subsequent bc7c7e2, 548f0b4, 2c1d2ca, 83b3531, 0c00c16, a8fe3ca, fedfa0c, 7ed920d. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell-tools/tests/launcher-qml/tst_panel.qml": {
@@ -6327,11 +6335,12 @@
     },
     "nacre/shell-tools/tests/test_launcher_ui.py": {
       "disposition": "independent",
-      "sha256": "860a2ac97bdd82d61b1649203bc0cdceee0f2ed61fd83168b177a83390f845ee",
+      "sha256": "351c73f672c5d662ec15975edb490fd0b5b34fc077c4d03143d1be604ee31bcb",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation a3e2420:siverteh/shell-tools/tests/test_launcher_ui.py; subsequent 02b2bda, 3d93b32, bc7c7e2, 9a3b9a7, 548f0b4, 83b3531, 5d0028f, 7ed920d. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ],
       "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
     },
@@ -6561,7 +6570,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "a57ce4c1f385778ccee30764a7444b3e364da8d1aab7b93826f1279c76b04dc3",
+      "sha256": "bafb285cb7bcc305b9c87e6a879d71116abdd3f5a9205566e2ca49dcfb7de470",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6575,7 +6584,8 @@
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified.",
         "docs/specs/dolphin-files.md: explicit Dolphin popup adds a twelfth route/popup contract; existing eleven remain preserved. Scoped adapter ownership wording reviewed.",
         "Current full body reviewed: header now composes above frame and panels within the same per-output Wayland surface, preventing compositor focus raises from covering it. Shared mask retains enabled header input and releases disabled header input; native fixture updated accordingly. Retired separate bar surface. Independently authored local integration from frame-control-center spec, no inherited sources used.",
-        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used."
+        "Current full body reviewed: a modal header click is consumed after dismissal, avoiding a second underlying launcher/status action in the shared surface. Pinned popup anchor exemptions and normal child clicks/hover remain verified in native Qt tests. Local independently authored correction; no inherited implementation used.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ],
       "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
@@ -6708,7 +6718,7 @@
     },
     "docs/features/terminal-branding.md": {
       "disposition": "non-implementation",
-      "sha256": "a4695808f0f09d1040ec006e3b3374ea77d61009b7852c0f873428c563644220",
+      "sha256": "8c71db19eac3c79605ea4a10fb9790d31f4d2352e924cb3a05b22ec97d3a3a33",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6719,7 +6729,8 @@
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
         "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
         "docs/features/terminal-branding.md: user-requested readable 14pt font and 16-row/36-column live logo slot; palette and alpha behavior retained.",
-        "User steering: restore 12pt global font; retain only the larger 16-row/36-column startup logo without zooming working terminals."
+        "User steering: restore 12pt global font; retain only the larger 16-row/36-column startup logo without zooming working terminals.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ],
       "notes": "Own wallpaper-matched terminal refinement: independent existing publisher maps supporting accent to magenta, uses low raised dark background and subtle opacity; own Fastfetch config chooses the published primary ANSI slot. Real native program color output and distinct dark/light palette tests reviewed; existing prompt/third-party tools are used unchanged, not copied or reimplemented. No inherited Caelestia/ML4W source consulted."
     },
@@ -7887,10 +7898,11 @@
     },
     "nacre/shell-tools/logo-widget.qml.in": {
       "disposition": "independent",
-      "sha256": "38e953811f73bc63a1e732eed2682b7191d077b7306b214b649d83a0a344daed",
+      "sha256": "d35d0626e9759f91a66732bb0453211c47789924a42317e1b9e531715c33ee2e",
       "evidence": [
         "docs/specs/nacre-logo.md",
-        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/branding/nacre-compact.svg": {
@@ -7911,10 +7923,11 @@
     },
     "nacre/shell-tools/tests/test_nacre_branding.py": {
       "disposition": "independent",
-      "sha256": "865dc90ea4775fcdea350ddcfba74b81df9cf3a51ad997935d125b946204482f",
+      "sha256": "883822e412b7e2c0cc58197f7238c2cb0e4be2e38dc8e64759eff3573e8a1097",
       "evidence": [
         "docs/specs/nacre-logo.md",
-        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/branding/nacre-master.svg": {
@@ -7935,26 +7948,29 @@
     },
     "nacre/shell-tools/logo-data.js.in": {
       "disposition": "independent",
-      "sha256": "91dd19914cd1d6de6c93163e3ab8bd8f3459fc4ee8dee7fbd4ef735778ec8b1d",
+      "sha256": "b07abcfc8f1282f83497bfb510fc20a7886d9e1d6e6a28e7073ff3dfa5856f19",
       "evidence": [
         "docs/specs/nacre-logo.md",
-        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/login/LogoData.js": {
       "disposition": "independent",
-      "sha256": "192eaf28cb19cf6d360f88b4e7ecb392cf9252e08a7c1fc4534ce24a2dba079a",
+      "sha256": "ad2e2b95a9ad56042e059d808726bfd826c48d94ce97cc974395b0a0ecb01357",
       "evidence": [
         "docs/specs/nacre-logo.md",
-        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/branding/LogoData.js": {
       "disposition": "independent",
-      "sha256": "192eaf28cb19cf6d360f88b4e7ecb392cf9252e08a7c1fc4534ce24a2dba079a",
+      "sha256": "ad2e2b95a9ad56042e059d808726bfd826c48d94ce97cc974395b0a0ecb01357",
       "evidence": [
         "docs/specs/nacre-logo.md",
-        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry."
+        "User supplied and authorized the master artwork for Nacre; exact archive bytes retained, no independent source-creation/licensing certification. Derived assets use that master geometry, public SVG/native APIs and own palette/raster/widget integration. Symbolic geometry exactly matches the supplied rendition. Generated source is audited as own generation around the user-provided asset, not a claim to author its geometry.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "nacre/shell/branding/nacre-symbolic.svg": {
@@ -7966,11 +7982,12 @@
       ]
     },
     "docs/specs/nacre-logo.md": {
-      "sha256": "a4246d9a28bb2f397ff5afd3afddae83830a199c42a671b85fed64c05353c217",
+      "sha256": "8fe54fff207e7df635a85bd1a63484463cb8f026ad9a0c80dabaec96eb701b1f",
       "disposition": "non-implementation",
       "evidence": [
         "User-approved logo integration specification authored for this task; records geometry, palette, deployment and provenance requirements.",
-        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles."
+        "docs/specs/nacre-logo.md: reviewed transparent terminal publication correction from actual user screenshot; removes baked rectangle and verifies alpha without changing geometry or palette roles.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
       ]
     },
     "docs/specs/panel-integration.md": {
@@ -8223,6 +8240,37 @@
         "docs/specs/dolphin-files.md: independently authored Dolphin route/setup and public-Qt/KDE style adapter; retains shared publisher/native Breeze, no upstream implementation copied; native palette, scope and archive behavior verified."
       ],
       "sha256": "d4f7729f561e65fa425a7c519c7785d20c4667c7894804aaae4df7a33d946a08"
+    },
+    "nacre/shell-tools/ai-label.svg.in": {
+      "disposition": "independent",
+      "sha256": "d1ead94aa1dfe2de030ab9a9745f170b5318607e3951b0e93de0e5c9d5a62487",
+      "evidence": [
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+      ]
+    },
+    "nacre/shell/branding/nacre-ai-compact.svg": {
+      "disposition": "independent",
+      "sha256": "a0f7e8ed2efcb21a29f997681beb90e2ac8573fd09941e34f45e15c2e96f6a92",
+      "evidence": [
+        "Derived from the unchanged user-provided Nacre master plus own A/I paths. No independent source-creation/licensing certification for supplied shell artwork; existing attribution retained.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+      ]
+    },
+    "nacre/shell/branding/nacre-ai-symbolic.svg": {
+      "disposition": "independent",
+      "sha256": "93150333e9b42fbf0dc0bd9532e6edd206d9ae455fb5e670ee32bd5a80b2e5de",
+      "evidence": [
+        "Derived from the unchanged user-provided Nacre master plus own A/I paths. No independent source-creation/licensing certification for supplied shell artwork; existing attribution retained.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+      ]
+    },
+    "nacre/shell/branding/nacre-ai.svg": {
+      "disposition": "independent",
+      "sha256": "c8d0df31547fb2346be93c21cc08c8f4bd5ea79425e26dd6000b011a83b4b495",
+      "evidence": [
+        "Derived from the unchanged user-provided Nacre master plus own A/I paths. No independent source-creation/licensing certification for supplied shell artwork; existing attribution retained.",
+        "docs/specs/nacre-logo.md: additive AI-specific lettering under the right lip, primary A/secondary I with text contrast protection; shared SVG/publisher/live QML binding and terminal consumer reviewed. Own paths/integration; no upstream implementation copied. Native raster, role, launcher and menu tests cover the change."
+      ]
     }
   }
 }

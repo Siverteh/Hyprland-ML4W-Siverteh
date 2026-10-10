@@ -49,6 +49,7 @@ Item {
         height: 34
         BrandLogo {
             id: logo
+            ai: true
             implicitWidth: 30
             implicitHeight: 30
             anchors.verticalCenter: parent.verticalCenter

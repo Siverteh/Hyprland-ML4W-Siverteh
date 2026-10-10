@@ -58,7 +58,16 @@ def templates():
         + "</svg>"
     )
     full = re.sub(r'viewBox="[^"]+"', f'viewBox="{VIEWBOX}"', original, count=1)
-    return {"full": full, "compact": compact, "symbolic": symbolic}
+    values = {"full": full, "compact": compact, "symbolic": symbolic}
+    label = (HERE / "ai-label.svg.in").read_text()
+    for variant, source in list(values.items()):
+        suffix = label
+        if variant == "symbolic":
+            suffix = suffix.replace("@AI_PRIMARY@", "currentColor").replace(
+                "@AI_SECONDARY@", "currentColor"
+            )
+        values["ai-" + variant] = source.replace("</svg>", suffix + "</svg>")
+    return values
 
 
 def luminance(value):
@@ -86,22 +95,22 @@ def role_colors(colors):
         x, y = sorted((luminance(a), luminance(bg)))
         return (y + 0.05) / (x + 0.05)
 
-    def lift(value):
+    def lift(value, minimum=3.4):
         value = clean(value)
-        if ratio(value) >= 3.4:
+        if ratio(value) >= minimum:
             return value
         a = [int(value[i : i + 2], 16) for i in (1, 3, 5)]
         target = (
             foreground
-            if ratio(foreground) >= 3.4
-            else ("#ffffff" if luminance(bg) < 0.5 else "#000000")
+            if ratio(foreground) >= minimum
+            else ("#ffffff" if ratio("#ffffff") >= ratio("#000000") else "#000000")
         )
         b = [int(target[i : i + 2], 16) for i in (1, 3, 5)]
         for step in range(1, 21):
             result = "#" + "".join(
                 f"{round(x + (y - x) * step / 20):02x}" for x, y in zip(a, b)
             )
-            if ratio(result) >= 3.4:
+            if ratio(result) >= minimum:
                 return result
         return target
 
@@ -109,6 +118,8 @@ def role_colors(colors):
     return {
         "PRIMARY": primary,
         "SECONDARY": lift(colors.get("secondary", primary)),
+        "AI_PRIMARY": lift(colors.get("primary", primary), 4.5),
+        "AI_SECONDARY": lift(colors.get("secondary", primary), 4.5),
         "TERTIARY": lift(colors.get("tertiary", colors.get("secondary", primary))),
         "HIGHLIGHT": primary
         if luminance(bg) > 0.5
@@ -140,10 +151,10 @@ def raster(text, size=512):
     return Image.open(io.BytesIO(result.stdout)).convert("RGBA")
 
 
-def text_logo():
-    image = raster(
-        templates()["symbolic"].replace("currentColor", "#ffffff"), 96
-    ).resize((24, 12), Image.Resampling.LANCZOS)
+def text_logo(variant="symbolic"):
+    image = raster(templates()[variant].replace("currentColor", "#ffffff"), 96).resize(
+        (24, 12), Image.Resampling.LANCZOS
+    )
     dots = [
         (0, 0, 0),
         (0, 1, 1),
@@ -237,17 +248,25 @@ def publish(colors, home=None):
     # Kitty composites alpha over its own background, including opacity effects.
     # Baking a palette surface into the image produces a visible square.
     atomic(folder / "nacre.png", stream.getvalue())
+    ai_image = raster(svg(False, colors, "ai-full"))
+    ai_stream = io.BytesIO()
+    ai_image.save(ai_stream, format="PNG")
+    atomic(folder / "nacre-ai.png", ai_stream.getvalue())
     for variant, name in [
         ("full", "nacre.svg"),
         ("compact", "nacre-compact.svg"),
         ("symbolic", "nacre-symbolic.svg"),
+        ("ai-full", "nacre-ai.svg"),
+        ("ai-compact", "nacre-ai-compact.svg"),
+        ("ai-symbolic", "nacre-ai-symbolic.svg"),
     ]:
         atomic(folder / name, svg(False, colors, variant).encode())
     atomic(folder / "nacre-text.txt", text_logo().encode())
+    atomic(folder / "nacre-ai-text.txt", text_logo("ai-symbolic").encode())
 
     atomic(
         home / ".local/share/icons/hicolor/scalable/apps/nacre-ai.svg",
-        svg(False, colors).encode(),
+        svg(False, colors, "ai-full").encode(),
     )
     # Already-open old menus read the previous filename; it contains the new art.
     for legacy, current in [
@@ -279,6 +298,9 @@ def build():
         ("full", "nacre.svg"),
         ("compact", "nacre-compact.svg"),
         ("symbolic", "nacre-symbolic.svg"),
+        ("ai-full", "nacre-ai.svg"),
+        ("ai-compact", "nacre-ai-compact.svg"),
+        ("ai-symbolic", "nacre-ai-symbolic.svg"),
     ]:
         (root / "shell/branding" / name).write_text(values[variant])
     (root / "shell/branding/nacre-text.txt").write_text(text_logo())
@@ -288,6 +310,11 @@ def build():
         + json.dumps(values["full"])
         + ";\nvar compactTemplate="
         + json.dumps(values["compact"])
+        + ";\n"
+        + "var aiFullTemplate="
+        + json.dumps(values["ai-full"])
+        + ";\nvar aiCompactTemplate="
+        + json.dumps(values["ai-compact"])
         + ";\n"
         + helper
     )

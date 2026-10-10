@@ -17,6 +17,16 @@ Keep transparent lock/logo corners. Updated after actual user screenshots: termi
 PNG also retains alpha; a baked surface color leaves a rectangle over translucent Kitty.
 Square geometry gets square layout bounds without optical H hacks/stretching.
 
+The AI application has an additive variant: independently drawn A/I paths in
+`ai-label.svg.in` occupy the open lower-right space under the shell's overhang.
+A uses primary, I secondary; lift toward foreground only when needed for 4.5:1
+contrast against the frame. Keep the approved shell and pearl paths untouched.
+Generate full/compact/symbolic AI SVGs, transparent AI PNG and a text fallback
+through the same publisher. The launcher tile and sidebar use `BrandLogo.ai`;
+the AI terminal controller reads nacre-ai.png. Ordinary Fastfetch, lock/login,
+Brain and desktop branding retain the unlabelled shell. No new polling or
+worker/session restart. The base geometry remains suitable for future apps.
+
 Extend the current branding.py owner, not a separate publisher. Canonical
 published names are nacre.svg, nacre.png and nacre-lock.png, plus symbolic/compact
 assets and a geometry-derived text fallback. Replace repository sh.json/sh.svg,

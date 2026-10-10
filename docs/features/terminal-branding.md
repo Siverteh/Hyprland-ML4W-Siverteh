@@ -75,5 +75,13 @@ Nacre AI is also installed as an application: search its name in the launcher.
 Its desktop entry uses `nacre-ai`, the existing AI window class and a generated
 transparent shell icon; it does not launch an assistant worker until requested.
 
+The AI mark adds outlined A/I geometry beneath the shell's right overhang.
+A follows primary and I follows secondary, with a readability adjustment when
+needed. The launcher tile and sidebar bind directly to the current palette;
+the terminal menu uses the publisher's transparent `nacre-ai.png`. The app icon
+is `nacre-ai.svg` in the user hicolor directory. Plain desktop, lock/login and
+Fastfetch logos retain the approved shell without letters. All variants derive
+from the shared master and `ai-label.svg.in`, with no idle animation or polling.
+
 Terminal sizing retains the 12-point default font and uses a larger 16-row Fastfetch logo with a
 36-column slot. Live palette edits preserve that placement and size.

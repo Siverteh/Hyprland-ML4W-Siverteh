@@ -56,6 +56,9 @@ class NacreBrandingTests(unittest.TestCase):
             for role in ("PRIMARY", "SECONDARY", "TERTIARY"):
                 a, b = sorted((brand.luminance(roles[role]), brand.luminance(bg)))
                 self.assertGreaterEqual((b + 0.05) / (a + 0.05), 3.4)
+            for role in ("AI_PRIMARY", "AI_SECONDARY"):
+                a, b = sorted((brand.luminance(roles[role]), brand.luminance(bg)))
+                self.assertGreaterEqual((b + 0.05) / (a + 0.05), 4.5)
             self.assertNotIn("@", brand.svg(False, colors, "compact"))
 
     @unittest.skipUnless(
@@ -70,10 +73,10 @@ class NacreBrandingTests(unittest.TestCase):
             surface="12121a",
             onSurface="eeeef4",
         )
-        for variant in ("full", "compact", "symbolic"):
+        for variant in brand.templates():
             source = brand.svg(False, colors, variant)
             self.assertEqual(ET.fromstring(source).get("viewBox"), brand.VIEWBOX)
-            for size in (16, 26, 30, 256, 512):
+            for size in (16, 26, 30, 48, 256, 512):
                 image = brand.raster(source, size)
                 self.assertEqual(image.size, (size, size))
                 self.assertIsNotNone(image.getbbox())
@@ -123,8 +126,35 @@ class NacreBrandingTests(unittest.TestCase):
         ] + [True]
         with tempfile.TemporaryDirectory() as folder:
             script = Path(folder) / "binding.js"
-            script.write_text(
-                source + "\nprocess.stdout.write(colored(..." + json.dumps(args) + "));"
-            )
-            result = subprocess.check_output([*command, str(script)], text=True)
-        self.assertEqual(result, brand.svg(False, colors, "compact"))
+            for ai, variant in [(False, "compact"), (True, "ai-compact")]:
+                script.write_text(
+                    source
+                    + "\nprocess.stdout.write(colored(..."
+                    + json.dumps([*args, ai])
+                    + "));"
+                )
+                result = subprocess.check_output([*command, str(script)], text=True)
+                self.assertEqual(result, brand.svg(False, colors, variant))
+
+    def test_ai_mark_adds_only_role_colored_letters_under_the_right_lip(self):
+        regular = ET.fromstring(brand.templates()["compact"])
+        ai = ET.fromstring(brand.templates()["ai-compact"])
+        self.assertEqual(
+            [ET.tostring(node).strip() for node in regular],
+            [ET.tostring(node).strip() for node in list(ai)[:-1]],
+        )
+        self.assertEqual(ai[-1].get("aria-label"), "AI")
+        self.assertEqual(
+            [node.get("fill") for node in ai[-1]],
+            ["@AI_PRIMARY@", "@AI_SECONDARY@"],
+        )
+        colors = dict(primary="ce5483", secondary="7ea4da", frame="12121a")
+        normal = brand.raster(brand.svg(False, colors, "compact"), 580)
+        labeled = brand.raster(brand.svg(False, colors, "ai-compact"), 580)
+        # The shell geometry is untouched; the empty lower-right area gains ink.
+        self.assertEqual(
+            normal.crop((0, 0, 580, 320)).tobytes(),
+            labeled.crop((0, 0, 580, 320)).tobytes(),
+        )
+        self.assertIsNone(normal.crop((390, 330, 560, 460)).getbbox())
+        self.assertIsNotNone(labeled.crop((390, 330, 560, 460)).getbbox())

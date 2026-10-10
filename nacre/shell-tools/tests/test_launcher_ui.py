@@ -56,11 +56,14 @@ class LauncherUITests(unittest.TestCase):
             (target / "fixtures/NacreIcon.qml").write_text(
                 "import QtQuick\nText {property real fill:0}"
             )
+            (target / "fixtures/BrandLogo.qml").write_text(
+                "import QtQuick\nItem {property bool ai:false}"
+            )
             with (target / "fixtures/qmldir").open("a") as manifest:
                 for name in fixtures:
                     manifest.write("\nsingleton " + name + " 1.0 " + name + ".qml")
                 manifest.write(
-                    "\nScriptModel 1.0 ScriptModel.qml\nNacreIcon 1.0 NacreIcon.qml\n"
+                    "\nScriptModel 1.0 ScriptModel.qml\nNacreIcon 1.0 NacreIcon.qml\nBrandLogo 1.0 BrandLogo.qml\n"
                 )
             button = target / "fixtures/ActionButton.qml"
             button.write_text(

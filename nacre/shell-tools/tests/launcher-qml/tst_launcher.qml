@@ -32,6 +32,32 @@ TestCase {
         compare(view.entries[0].action, "settings");
     }
 
+    function test_ai_app_uses_live_logo_only_for_its_own_tile() {
+        const original = NacreApps.all;
+        try {
+            for (const id of ["nacre-ai", "nacre-ai.desktop", "other-app"]) {
+                NacreApps.all = [
+                    {
+                        id: id,
+                        name: "Application",
+                        categories: [],
+                        icon: ""
+                    }
+                ];
+                const view = createTemporaryObject(launcher, test);
+                view.select("all");
+                wait(30);
+                const logo = findChild(view, "nacreAiAppLogo");
+                verify(logo !== null);
+                compare(logo.ai, true);
+                compare(logo.visible, id !== "other-app");
+                view.destroy();
+            }
+        } finally {
+            NacreApps.all = original;
+        }
+    }
+
     function test_favorites_hidden_and_restore() {
         LauncherPreferences.favorites = ["music"];
         const view = createTemporaryObject(launcher, test);
