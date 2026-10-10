@@ -2173,3 +2173,15 @@ model libraries/weights remain external; no download/inference/private token
 inspection or live browser/service restart. No runtime implementation changed.
 Larger control/discovery/web application/style bodies, remaining fixtures/docs/
 notices and final source/dependency/licensing comparison remain required.
+
+## Complete Brain core source review
+
+2026-10-10 UTC. [Spec](../specs/brain-core-source-audit.md) and
+[seven-file table](BRAIN-CORE-SOURCE-AUDIT.md) cover the complete controller,
+discovery, native DOM/SVG app, CSS and three own fixtures. Local authoring/history
+and full bodies reviewed; native/provider libraries remain external. Disposable
+current-server/headless-browser fixture demonstrated a search-from-reader bug:
+seven matches, zero visible result rows, read mode retained. ad0ec60 corrects the
+transition and tightens the browser gate; full isolated sequence/screenshots pass.
+No final whole-upstream/legal clean-room/licensing claim. Remaining fixtures/docs/
+notices/dependency comparison stay required; all applicable notices retained.

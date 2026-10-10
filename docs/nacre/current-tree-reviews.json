@@ -5471,6 +5471,69 @@
         "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md",
         "Complete current body and local history/native contracts reviewed. Basis 3f4132d; later none. Local integration/test/composition retained; external native/model libraries separate. Whole source comparison and dependency/licensing conclusion remain open."
       ]
+    },
+    "brain/control.py": {
+      "disposition": "independent",
+      "sha256": "63ddc5b631a38177cfdd055003641b7be5e3aa0469d9db7a8beab322cb19be64",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 548f0b4, 0f9fd41, 69aad30, de8222b, 3f4132d, ba5e48f, bb46dd6, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 007d020, a8b816f, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/discovery.py": {
+      "disposition": "independent",
+      "sha256": "710faa19d9b767831d902e60ef80cad0c8e39b0e1e64d7bbb10beefd8cf365e5",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis 543ee68; later 83b3531, 2fa3a95. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/web/app.js": {
+      "disposition": "independent",
+      "sha256": "af2a9f6b54cee50cfc612224b1b919ed59ead1b4f8d794274b5b8c9a8c682453",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, d5d8dbd, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/web/style.css": {
+      "disposition": "independent",
+      "sha256": "77b942a8a89cf982a4f259d7d2264512d01f12182751d15c4d4a34c8c4e03411",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later d5d8dbd, 2fa3a95, 543ee68, b0632b9, a8b816f. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/tests/test_index.py": {
+      "disposition": "independent",
+      "sha256": "894d34843df50e87f8d85c9871b44f02cb4c6ff30a63d1a5fb86dd1dd54f263b",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis e42b701; later 7cc8f33, 0f9fd41, 3f4132d, ba5e48f, fc19a5d, 83b3531, 2fa3a95, ddb0066, c288484, 543ee68, b0632b9, 1bcce9d. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/tests/test_discovery.py": {
+      "disposition": "independent",
+      "sha256": "d1fafae8c83ba027bc2ab86e004dbb2678985c820f61eb2b4953c43164b7eb7f",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis 543ee68; later 548f0b4, 83b3531, 2fa3a95. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
+    },
+    "brain/tests/browser-check.mjs": {
+      "disposition": "independent",
+      "sha256": "8b6cd3d91f6260086978d5dda44c3854b2385f9d28316be22d3746d86d74117b",
+      "evidence": [
+        "docs/specs/brain-core-source-audit.md",
+        "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md",
+        "Complete current body/local history/native contracts reviewed. Basis b0632b9; later ad0ec60, 2fa3a95, 543ee68. Locally authored workflow/browser/test code retained; ad0ec60 search regression demonstrated in isolated current server/browser. Whole-upstream comparison/licensing remains open."
+      ]
     }
   }
 }
