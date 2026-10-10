@@ -938,6 +938,15 @@
         "hypr/conf/nacre.lua",
         "tools/tests/test_config_defaults.py"
       ]
+    },
+    {
+      "area": "palette-publication",
+      "commit": "3e494c0",
+      "spec": "docs/specs/palette-publication.md",
+      "paths": [
+        "nacre/shell-tools/classic-state.py",
+        "nacre/shell-tools/tests/test_palette.py"
+      ]
     }
   ],
   "reviews": {

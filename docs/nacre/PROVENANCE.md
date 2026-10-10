@@ -1445,3 +1445,20 @@ trace to 8afd305 and subsequent local feature tests; current color fixtures use
 independently replaced Orient reference/preset data. Two SHA reviews added after
 current source/test review. Full dependency/asset/whole-tree comparison remains;
 notices and complete goal retained.
+
+Publication acceptance (2026-10-10 UTC): software 3e494c0, good shell release
+20261010T004000215343Z. All 397 tests (55 tools, 96 AI, 35 Brain, 211 shell),
+formatting/QML/native Hyprland and reviewed shell transaction/live menu gates pass.
+Thirteen palette tests include demonstrated baseline failures, real lock blocking,
+CLI parent-lock retention and actual prepared re-entry. Read-only validation of
+current live scheme accepts all 126 roles. Installer applied the current palette
+through the new direct path; no duplicate manual publication or wallpaper choice.
+Actual palette/poster/deadline/scheme records equal pre-deploy snapshot, native
+palette/presentation IPC coherent, installed helper and all 235 shell files exact.
+Nine private preference/history hashes and AI worker PID/start identity unchanged.
+Six owned app hover/dismiss/click/key-return cycles plus launcher/wallpaper outside
+dismissal pass; configerrors empty. No package upgrade/account/power change or AI
+restart. Two current source reviews added; templates/branding/icons/KDE/lock/login/
+remaining helpers/assets/tests/dependencies and full comparison remain open.
+Cold-login/hardware/all-file crash behavior not established. Notices and full
+originality goal retained.
