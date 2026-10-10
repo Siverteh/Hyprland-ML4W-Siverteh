@@ -16,14 +16,22 @@ Subjects and topics emerge from the private vault, world/topic annotations and l
 
 Optional semantic setup: run `siverteh-ai-tools python brain/provision-semantic.py` once to create an isolated CPU environment and download public model weights. No vault documents are sent during setup. Then deploy the brain. Without this environment, the index reports its lexical fallback and remains usable.
 
-Run `python3 brain/install.py` from the selected checkout. This deploys Brain code, its wrapper and dedicated service. It backs up those components privately and restarts the dedicated brain service while preserving its browser profile. It does not reinstall the old desktop shell, change wallpaper/theme preferences, rewrite notes, copy authentication or interrupt other assistants/browser profiles. Existing launcher windows need reopening to show new branding.
+For ordinary deployment, run `./install.sh --component brain` to inspect the plan,
+then `./install.sh --apply --component brain` from a clean committed checkout.
+The managed release invokes `brain/install.py` to deploy code, its wrapper and service. It backs up those components privately and restarts the dedicated brain service while preserving its browser profile. It does not reinstall the old desktop shell, change wallpaper/theme preferences, rewrite notes, copy authentication or interrupt other assistants/browser profiles. Existing launcher windows need reopening to show new branding.
 
-The loopback server remains127.0.0.1:17843. Hidden state/instruction files and external symlinks are excluded from the index/search; note reads enforce the vault boundary. Actions require same-origin JSON and an allowlist. Notes are rendered with DOM text nodes, not trusted as HTML. Knowledge/activity has no public synchronization via this OS repository.
+The loopback server remains127.0.0.1:17843. Hidden state/instruction files and external symlinks are excluded from the index/search; note reads enforce the vault boundary. Non-health API requests require a restart-safe browser cookie. The bootstrap
+token rotates per server start and stays in private mode-0600 state. Actions also require same-origin JSON and an allowlist. Notes are rendered with DOM text nodes, not trusted as HTML. Knowledge/activity has no public synchronization via this OS repository.
 
 ## Verify
 
 `python3 -m unittest discover -s brain/tests` verifies index/search/link boundaries and dynamic subjects. AI workflow tests remain under ai/tests.
 
-For browser checks, run a separate instance of Handler on17845 and isolated headless Chrome CDP on17946, then `siverteh-ai-tools node brain/tests/browser-check.mjs`. Ports/URL can be overridden through BRAIN_TEST_CDP/BRAIN_TEST_URL. Checks cover map clicks, reader, full-text search, confidence isolation, dynamic subjects, safe Markdown, light palette and narrow layouts. Screenshots stay in the private user state directory. This browser test is separate from the persistent brain window and authenticated browsers.
+For browser checks, create a separate `BrainServer` with synthetic notes, disposable
+HOME/XDG state and an isolated headless Chrome profile. Authenticate that fixture
+through its own bootstrap URL before running
+`siverteh-ai-tools node brain/tests/browser-check.mjs`. Use BRAIN_TEST_CDP and
+BRAIN_TEST_URL to select the isolated debug port and authenticated fixture URL.
+Never point this harness at the live vault or an existing browser profile. Checks cover map clicks, reader, full-text search, confidence isolation, dynamic subjects, safe Markdown, light palette and narrow layouts. Screenshots stay in the private user state directory. This browser test is separate from the persistent brain window and authenticated browsers.
 
 Grouping corrections are available in the main note reader. The original note and factual confidence are preserved. The brain starts tiled inside the desktop frame, keeping the bar visible.

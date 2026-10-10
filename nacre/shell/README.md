@@ -1,27 +1,29 @@
-# Nacre reference shell
+# Nacre desktop shell
 
-The desktop source is maintained here, inside Nacre. This baseline uses the actual reference-period components: workspace indicators, tray, clock, status icons, red power button, animated dashboard, surrounding frame, media and right-side controls. The bar is horizontal and the unlabelled center hover area opens the dashboard.
+The maintained Quickshell UI lives here: bar/frame, dashboard and twelve Settings
+pages, launcher, wallpaper views, notifications, level controls and AI sidebar.
+Shared primitives/tokens live in `widgets/`, native state providers in `services/`,
+and panel composition in `modules/`. The [system overview](../../docs/overview.md)
+and [ownership guide](../../docs/architecture.md) explain the boundaries.
 
-- Appearance and sizes: `config/Appearance.qml`, `config/BarConfig.qml`, `config/BorderConfig.qml`.
-- Horizontal arrangement: `modules/topbar/TopBar.qml`.
-- Dashboard and frame: `modules/dashboard/` and `modules/drawers/`.
-- System/audio services: `services/`.
-- Source edits deploy with `python3 nacre/shell-tools/install.py --code-only` from the OS repository.
+The installed renderer runs a validated copy, not an upstream checkout/submodule.
+Native Quickshell/Qt and licensed fonts/icons are dependencies; Nacre source-origin
+records live in the [provenance tracker](../../docs/nacre/PROVENANCE.md). Historical
+notices remain while the full comparison/licensing review finishes.
 
-The installed desktop is a deployed copy of this source. No separate upstream checkout, submodule or update process owns it. License and adapted-code attribution are in LICENSE and NOTICE.
+After source checks and native Hyprland verification, commit the candidate and
+review/apply the managed release plan from the repository root:
 
-Reference artwork is kept privately in the user's wallpaper folder; it is not included in public Git. The initial static wallpaper is extracted from the supplied demo's clean background region. Live values, host information, applications and monitor proportions differ from the recording; the interface uses the reference's real source. Custom background/color behavior is deferred.
+```sh
+./install.sh --component shell
+./install.sh --apply --component shell
+```
 
-Super+A and clicking the Arch icon open the same bottom launcher. Type to search apps, use Up/Down and Enter to choose, and Escape to close. Normal notification popups expire after five seconds by default; hovering pauses expiry.
+See [maintenance](../../docs/maintenance.md) for drift protection, backups, recovery
+and live input gates. The renderer is separate from the persistent sidebar worker;
+UI deployment preserves running conversations.
 
-## Unified controls
-
-- Super+A: app launcher at the bottom.
-- Super+W: wallpaper browser in that launcher.
-- Super+X or red power icon: the native side session menu.
-- Super+Z: hide/show the bar and complete frame.
-- Super+O: dashboard; Super+Shift+O: scheme commands in the launcher.
-- Hover Wi-Fi, Bluetooth or battery for its native dropdown.
-- The power menu suppresses the audio/brightness OSD.
-
-Legacy window/clipboard pickers use the reference palette rather than the old blue theme. Hardware sound and brightness keys operate the system controls directly and use the shell's native OSD.
+Super+A opens the app launcher; Super+W opens wallpapers; Super+X opens the power
+menu. Escape/outside-click dismissal, hover policy, manual pinning and motion are
+owned by the frame/panel controllers. Exact preferred visual/animation acceptance
+is separate from functional tests and is queued for the next cleanup pass.

@@ -23,10 +23,12 @@ picker is open for browsing. Switching to a static wallpaper destroys the player
 
 Output geometry or pixel-density changes can leave stale Qt/Wayland render
 buffers after fractional-scale transitions. DisplayRecovery coalesces actual
-screen changes and recreates only the desktop renderer after700ms settled.
+screen changes and recreates only the desktop renderer after 700 ms settled.
 Visible settings/drawer modes are restored; display confirmation stays available.
 The sidebar backend, conversations, accounts and application windows are not
-restarted. Only UI visibility flags are handed off, never draft or password text.
+restarted. Recovery carries panel flags, selections, scroll positions and editable drafts
+through private state. Password controls and rendered note/message bodies are
+excluded. The fallback uses stdin and a private runtime file, not arguments.
 
 Wallpaper presentation: Carousel remains a compact bottom drawer with an odd
 number of complete cards and centered controls. Spotlight and Hexagons use the
@@ -94,7 +96,7 @@ image corner pixels; ordinary Qt geometry fixtures alone do not prove clipping.
 
 A circular travel target keeps carousel wraparound short. Decode sources are
 bounded to nearby cards and visible buffered hexagons; ordinary carousel avoids
-large backdrop decoding. Silent preview starts only after180ms settled selection
+large backdrop decoding. Silent preview starts only after 180 ms settled selection
 and unloads on close/selection changes. Palette-matched motion preferences remain
 separate from preview presentation. Backdrop swaps defer to the next event step
 and retain old pixels until replacement readiness, including previously cached
@@ -106,7 +108,7 @@ NacreWallpapers owns the catalogue, browse/commit queues and rotation schedule.
 The old Wallpapers name is a compatibility forwarder. Opening the picker or
 Appearance reads prepared assets; it does not apply a selection or save a setting.
 The catalogue and last poster/media files use native event reads. Invalid refreshes
-keep the last usable list. Selection requests coalesce for 150ms; an already
+keep the last usable list. Selection requests coalesce for 150 ms; an already
 running publication finishes before the latest queued selection is applied.
 Preferences run serially through the existing helper and only confirmed results
 update the controls. Errors remain available for retry. Rotation uses the same
@@ -114,7 +116,7 @@ queue and preserves its saved deadline across temporary pauses.
 
 Search reuses Nacre's own ranking helper; the unused fuzzysort dependency has been
 removed. Wallpaper/cache/palette producer helpers and playback are separate
-owners and still require the remaining provenance audit. See the
+owners with separate completed source reviews. See the
 [provider specification](../specs/wallpaper-weather-services.md).
 
 ## Independent desktop background presentation
@@ -126,4 +128,12 @@ palette record. Native file URLs preserve percent/space names; output size/DPR
 sets decode size. Video stays silent and retains its poster until a real frame
 arrives; GIF/video follow the existing sleep/lock/battery/coverage/picker policy.
 No new palette publisher or polling is added. The shared WallpaperPlayback policy
-and helper provenance remain separate audit areas. Old names are small forwarders.
+and helpers have separate source reviews. Old names are small forwarders.
+
+## Visual acceptance
+
+The behavior above describes the implemented contracts and fixture coverage.
+The user has reported layout, scrolling and animation regressions after the
+rewrite. Those require a separate live visual cleanup after the final originality
+audit; these source reviews do not establish that the preferred appearance is
+restored.

@@ -12,7 +12,7 @@ pool before repeating; ordered rotation follows the catalog. Manual selection
 starts a fresh interval. Sleep, lock, the picker, Settings and an in-flight commit
 pause the one-shot timer but preserve its absolute deadline. Returning resumes
 the remaining interval, or makes one overdue change without catch-up bursts.
-There is one timer in the existing Wallpapers singleton, independent of monitor
+There is one timer in the NacreWallpapers singleton, independent of monitor
 count, and it uses the existing serialized commit queue. No polling worker or
 second wallpaper manager is installed.
 
@@ -62,3 +62,17 @@ Folder artwork is supplied by the installed [Papirus icon theme](https://github.
 under its retained [GPL-3.0 license](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE).
 The overlay links to that package artwork; it does not make the icons original
 Nacre art or copy them into this repository.
+
+
+## Rotation deadlines
+
+Rotation deadlines derive from persistent successful photo timestamps and the
+saved rotation enable/interval/filter anchor, so renderer restarts and unrelated
+picker/color preferences cannot postpone them indefinitely. Old private records
+migrate using their existing modification time, without changing the selected
+wallpaper. The publisher preserves the photo timestamp for color-only commits.
+Only a successful wallpaper change advances it; failures retry after one minute.
+Settings shows the real schedule or specific pause reason, and `wallpaper.state`
+IPC includes timer-running, due-time, remaining-seconds and pause-reason fields.
+There is still one one-shot timer, no recurring countdown polling and no new
+wallpaper owner. Deadline values are epoch milliseconds, independent of timezone.

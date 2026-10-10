@@ -29,7 +29,7 @@ is quiet; private colour publication still owns opacity/selection colours.
 Fastfetch uses an independent plain Nacre information layout and the existing
 private palette-coloured logo. Filesystem age validates root birth time and shows
 Unknown for unsupported/future dates; it is not labelled OS installation age.
-The logo generator/helpers have their own remaining provenance audit.
+The logo generator and helpers have separate completed source reviews.
 
 `python3 nacre/shell-tools/branding.py --build` regenerates repository SVG, QML
 and the shared web symbol only. It uses the current NacreColours provider and

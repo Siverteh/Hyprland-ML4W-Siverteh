@@ -27,7 +27,7 @@ python3 tools/check.py       # syntax and regression checks
 ./install.sh --apply        # apply reviewed components
 ```
 
-Installed configurations are copies with hash-based drift protection and private backups. Wallpaper colors, display preferences, accounts, chats and images stay outside the source tree. Desktop deployment parses QML and checks the running shell before marking a revision good. CI runs portable checks; the target host supplies compositor and UI validation.
+Installed configurations are copies with hash-based drift protection and private backups. Wallpaper colors, display preferences, accounts, chats and images stay outside the source tree. Desktop deployment parses QML and checks the running shell before marking a revision good. CI runs native Arch/Qt/Lua source and UI checks. Compositor verification, live input/focus and physical-device acceptance run on the target host.
 
 The semantic model is optional: `siverteh-ai-tools python brain/provision-semantic.py` prepares its isolated CPU environment and downloads public weights once. Normal note inference is offline. Private notes, chat/account state, the current wallpaper library and credentials remain outside public Git. Older commits retain previously published artwork removed from the current tree; see [repository boundaries](docs/repository-boundaries.md).
 
@@ -41,4 +41,4 @@ The semantic model is optional: `siverteh-ai-tools python brain/provision-semant
 | Super+Z | Fade bar and frame |
 | Super+B | Brain on workspace 6 |
 
-Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under nacre/; retained third-party licenses and notices are included alongside adapted components, including the [palette-engine NOTICE](nacre/shell-cli/NOTICE).
+Startup targets browser 1, AI 2, Discord 3, Spotify 4, mail 5 and Brain 6; editors route to 7. Plain terminals can open on any workspace. The native shell is maintained under nacre/; retained third-party and historical notices remain while the complete provenance review finishes, including the [palette-engine NOTICE](nacre/shell-cli/NOTICE).

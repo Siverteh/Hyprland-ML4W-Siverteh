@@ -12,12 +12,14 @@ The JSON output retains consumer roles and adds `overtone`, `orient1/2/3` and so
 candidate diagnostics. Warm caches are fingerprinted by engine code and image
 identity/settings; no periodic extraction or per-video-frame work is introduced.
 
-Install with the release installer, or provision using
-`python3 nacre/shell-tools/provision.py`. It tests a fresh environment before
+Provision the initial environment with
+`python3 nacre/shell-tools/provision.py`; subsequent managed releases refresh it.
+The provisioner tests a fresh environment before
 atomically selecting it, retaining the prior runtime for recovery. Repository
 installation/deployment belongs to `./install.sh`, not this CLI.
 
 See [the engine spec](../../docs/specs/orient.md),
 [feature behavior](../../docs/features/orient.md), [LICENSE](LICENSE) and retained
-[attribution](NOTICE). Other Nacre areas still contain inherited implementation;
-this component replacement does not establish a whole-project license change.
+[attribution](NOTICE). Implementation/fixture source reviews are recorded across Nacre; the complete
+source/runtime/dependency comparison and licensing conclusion remain open.
+A component review alone does not authorize a whole-project licence change.

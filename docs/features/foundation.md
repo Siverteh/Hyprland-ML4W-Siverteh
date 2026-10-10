@@ -15,17 +15,17 @@ remain the baseline; typography/corner overrides continue to work.
 `widgets/NacreTokens.qml` supplies body/raised/frame colors, foreground/muted ink,
 accent, outline, font and motion defaults. It reads the current palette and desktop
 animation preference. The existing Colours/Appearance/settings providers remain
-outside this replacement's ownership; those areas still need their own rewrite.
+outside these primitives' ownership and have separate completed source reviews.
 No primitive generates colors or starts processes.
 
 Use `NacreSurface` for ordinary backgrounds. It defaults to transparent / radius 0;
-callers set actual color and geometry. Color transitions are finite 200ms OutCubic
+callers set actual color and geometry. Color transitions are finite 200 ms OutCubic
 and configurable per instance. They skip initialization and respect animations
 being disabled. Light/dark mode changes skip color tweening to keep foreground and
 background readable together. Pending motion settles on disabling/hiding.
 
 `NacreText` preserves native Qt text rendering, plain-text defaults, wrapping and
-elision. Opt-in text changes retain the current scale 0→1 / 400ms compatibility defaults;
+elision. Opt-in text changes retain the current scale 0→1 / 400 ms compatibility defaults;
 rapid changes cancel obsolete transitions, and hidden/reduced-motion updates settle.
 Use explicit Qt text formats for rich text. Avoid resizing labels as they animate.
 
@@ -64,8 +64,8 @@ The offscreen platform's unsupported window-mask notice is distinct from in-scen
 clipping, which is asserted against captured pixels. The ordinary input/text tests
 remain headless Qt tests. No test draws a new window on the user's desktop.
 
-The remaining shared controls, config/services, panel designs and icon/logo work
-are separate batches. Applicable LICENSE/NOTICE files remain during the rewrite.
+Later sections describe the completed controls batch. The final whole-tree
+comparison and license decision remain separate from these functional tests.
 
 ## Shared controls and Nacre names
 

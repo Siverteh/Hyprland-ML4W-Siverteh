@@ -4,13 +4,14 @@ This is an original Qt6 SDDM theme matching the desktop lock screen. Authenticat
 
 ## Install
 
-First publish the current wallpaper/colors, then preview safely:
+Publish the current wallpaper/colors (this also updates installed login appearance):
 
 ```sh
 python3 nacre/shell-tools/login-appearance.py
 ```
 
-The preview uses a private copy of Main.qml/metadata.desktop/theme.conf, with the generated theme.conf as theme.conf.user. Run sddm-greeter-qt6 --test-mode --theme PATH. Test mode cannot authenticate or perform power actions.
+To preview without authenticating or changing the active SDDM session, use a
+private copy of Main.qml/Logo.qml/metadata.desktop/theme.conf, with the generated theme.conf as theme.conf.user. Run sddm-greeter-qt6 --test-mode --theme PATH. Test mode cannot authenticate or perform power actions.
 
 Install the reviewed source with administrator authentication:
 

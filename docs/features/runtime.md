@@ -29,21 +29,15 @@ Quickshell separately, and validate live shell IPC after deployment. Retire the
 old unpacked `usr` tree and `thunar-runtime` only after that succeeds. Rollback
 snapshots can restore code/configuration; pacman owns package-version recovery.
 
-## Future path consolidation
+## Canonical paths and compatibility
 
-The proposed canonical roots are `~/.config/nacre` for preferences,
-`~/.local/state/nacre` for durable desktop state, and
-`~/.cache/nacre` for disposable caches. Existing `nacre`,
-`nacre_shell`, and `siverteh-native-shell` paths remain compatibility contracts
-for current tools; this review does not move personal state.
-
-A future migration should inventory each owner, stop only affected idle services,
-copy to staged directories with verified hashes, atomically promote them, and
-leave old names as compatibility links. Refuse differing existing destinations.
-Record a versioned migration manifest and rollback paths, then update readers
-before eventually retiring links. AI accounts, chats, the vault and credentials
-are outside this desktop naming migration. The unused `shell.json` is retired;
-`cli.json` remains the palette CLI's configuration.
+Desktop preferences use `~/.config/nacre`, durable state uses
+`~/.local/state/nacre`, and caches use `~/.cache/nacre`. Recognized old desktop
+names remain compatibility links through the implemented
+[name migration](nacre-rename.md), with collision checks and a private rollback
+manifest. Personal AI accounts, chats, vault and credentials retain their own
+roots and are outside that desktop migration. Do not move them to tidy names.
+The unused `shell.json` is retired; `cli.json` remains the palette configuration.
 
 ## Distribution Qt mismatch recovery
 

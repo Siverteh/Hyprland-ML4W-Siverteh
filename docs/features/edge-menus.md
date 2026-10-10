@@ -32,7 +32,7 @@ that refresh fails. Authentication remains owned by Hyprlock/PAM.
 ## Clickable edge handles
 
 Desktop → Edge menu activation offers Hover (default) and optional Click handles. Handles
-fade in after a160ms hover and allow280ms to leave before hiding. They use the
+fade in after a 160 ms hover and allow280 ms to leave before hiding. They use the
 current shell palette and layer surfaces with no reserved space; window geometry
 and desktop spacing are unchanged. The top-center handle opens the dashboard;
 small targets at the middle of the left and right edges open AI and quick sliders.
@@ -55,7 +55,7 @@ Hover mode opens the dashboard when the pointer reaches the middle/title line
 of the top bar, within its existing centre band. Left/right activation uses a
 3-pixel outer-edge strip within each panel-height band.
 Opening has no additional delay, while the existing panel animations remain.
-Opened panels retain a larger padded interaction area. A120–140ms exit grace
+Opened panels retain a larger padded interaction area. A120–140 ms exit grace
 allows moving from the header into content without adding an opening delay.
 
 Explicit dismissal blocks only edges the pointer still touches. Leaving and
@@ -93,3 +93,11 @@ blocked state, fullscreen/drag suppression, real-exit rearming and the modal-hea
 geometric guard. An obsolete header teardown cannot delete a newer registration.
 No polling, update checker, process or user preference writer is added. Old names
 remain small compatibility adapters. See the [header spec](../specs/topbar-hover.md).
+
+## Visual acceptance
+
+The behavior above describes the implemented contracts and fixture coverage.
+The user has reported layout, scrolling and animation regressions after the
+rewrite. Those require a separate live visual cleanup after the final originality
+audit; these source reviews do not establish that the preferred appearance is
+restored.

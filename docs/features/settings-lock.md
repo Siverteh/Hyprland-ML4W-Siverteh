@@ -8,7 +8,7 @@ Settings remains inside the top-menu dashboard. Its navigation rail groups
 Appearance, Desktop, Displays, Sound, Network, Bluetooth, Notifications,
 Workflows, Lock screen, Nacre AI and Maintenance. Search matches page names
 and setting keywords. Only the active page is loaded while Settings is open.
-Display scale/mode changes use the same20-second Keep/Revert safeguard as layouts.
+Display scale/mode changes use the same 20-second Keep/Revert safeguard as layouts.
 
 Sound uses the existing PipeWire graph for device selection and application
 volumes. Network password entry uses NetworkManager's native `nmcli --ask`
@@ -39,7 +39,7 @@ compositor query temporarily fails. Neither production writer may use the generi
 
 The existing LockWidgets singleton prepares text and artwork on metadata,
 notification, privacy, battery or palette events, coalescing bursts. Private ready
-files have mode0600 inside a0700 directory. Hyprlock reads them with short `cat`
+files have mode 0600 inside a 0700 directory. Hyprlock reads them with short `cat`
 commands; no network requests, Python imports, font measuring or shell IPC happen
 in its widget render path. Safe and detailed notification labels are separate;
 current lock preferences select the safe file by default. Actions remain the
@@ -112,7 +112,7 @@ NacreDashboardPanel lazily loads the selected top-menu page and clips fixed
 internal geometry during dismissal. NacreDashboardNavigation changes the selected
 label/underline immediately. Settings keeps pinned keyboard focus; choosing
 another tab releases that pin. Hidden pages stop their declared update/active
-contract and unload after closing. Page bodies remain separate rewrite batches;
+contract and unload after closing. Page bodies have separate source reviews;
 existing personal settings and lock authentication ownership are preserved.
 
 ## Independent overview cards
@@ -152,8 +152,8 @@ section labels, descriptions and keywords; results navigate explicitly. Inactive
 menus and search results unload page bodies, while selections reset scroll. Plain
 Appearance replaces an internal type-name label. NacreSettingsPage/Section/Toggle
 measure content and wrapped labels, expose the existing content aliases and call
-the preference owner only after user activation. Individual page bodies remain
-separate rewrite work; existing device, palette, lock and account behavior stays.
+the preference owner only after user activation. Individual page bodies have
+separate source reviews; device, palette, lock and account owners stay separate.
 
 ## Independent Appearance controls
 
@@ -194,8 +194,8 @@ and opens existing account/project/Brain tools. Running conversations and their
 permissions are untouched. None of these pages writes preferences on opening.
 
 The source boundary and acceptance contract are in
-[the device-page spec](../specs/settings-devices-lock-ai.md). Providers and remaining
-helpers still need their own originality work; applicable notices remain.
+[the device-page spec](../specs/settings-devices-lock-ai.md). Provider and helper
+reviews are recorded separately; applicable notices await the final comparison.
 
 ## Weather reading owner
 
@@ -205,15 +205,15 @@ retains last-good conditions on failure, and labels stale data. Missing temperat
 is unknown rather than zero. Thirty-minute refreshes, explicit Refresh and city
 changes share a coalesced request; results from a prior requested city are ignored.
 Celsius/Fahrenheit changes only affect formatting. This provider neither writes
-preferences nor changes the system timezone. The weather helper's provenance is
-a separate remaining audit item.
+preferences nor changes the system timezone. The weather helper has a separate
+completed source review.
 
 Lock information cache freshness requires an age between zero and two seconds;
 future timestamps trigger a fresh read rather than exposing stale messages. Local
 and HTTPS artwork reads are capped before image decoding, with the same prepared
 fallback. These helpers supply presentation only; Hyprlock retains authentication
-and the managed session/sleep lock path. Private font-source ownership remains a
-separate asset audit, not inferred from the presentation code.
+and the managed session/sleep lock path. Font-source ownership is established by the separate manifest and asset review,
+not inferred from the presentation code.
 
 Display rebuild UI state capture retains editable drafts/selections and scroll
 positions. Read-only rendered text and password controls are excluded; restoring

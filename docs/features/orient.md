@@ -80,15 +80,15 @@ Do not delete historical environments until recovery references have been review
 Image assets and palette caches remain private, outside Git/release snapshots.
 
 The palette and shared foundation implementations are replaced. Existing GPL/notices
-remain pending the [whole-desktop audit](../nacre/PROVENANCE.md); panel/service and
-other inherited areas still need independent replacement.
+remain pending the final [whole-desktop comparison](../nacre/PROVENANCE.md).
+Panel, service and helper source reviews are recorded separately.
 
 ## Validation measurements
 
 For the initial Orient implementation (`5ecf556`), the 2026-10-08 private audit covered all twenty library
 wallpapers/posters. Across 240 repeated uncached extraction/generation operations
-(including decoding, warm OS file cache), median was 74.84ms and nearest-rank p95
-92.98ms. Across 240 cached reads, median was 0.30ms and p95 0.34ms. The audit
+(including decoding, warm OS file cache), median was 74.84 ms and nearest-rank p95
+92.98 ms. Across 240 cached reads, median was 0.30 ms and p95 0.34 ms. The audit
 process peaked at 122.4MiB including its inspection sheet on an ASUS UX3405CA
 with Intel Core Ultra 7 255H; these figures are not
 end-to-end desktop publication latency or a guarantee for larger inputs. Synthetic

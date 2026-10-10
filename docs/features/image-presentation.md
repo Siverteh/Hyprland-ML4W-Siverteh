@@ -3,7 +3,7 @@
 The generic Thumbnailer had no live consumer beyond the optional image helper
 and its tests. It is retired. NacreImage/CachingImage now use Qt's native Image:
 asynchronous load, native cache, DPI-sized decoding, original-size option and
-50ms coalesced path/size requests. Valid replacements retain old pixels while
+50 ms coalesced path/size requests. Valid replacements retain old pixels while
 loading; failed/empty requests clear them and expose a bounded error. Native
 file/image/qrc/HTTP URLs retain their schemes. No conversion process, duplicate
 thumbnail directory, helper job or download client is introduced.

@@ -6362,6 +6362,249 @@
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation e944518:tools/tests/test_window_routing.py; subsequent none. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
       ]
+    },
+    "README.md": {
+      "disposition": "non-implementation",
+      "sha256": "4f45acf8f072345dbfb81c8b000ce0cb0675519fba686f03b9b4046f3c31397c",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "brain/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "57e658cdb9d869d120bc156b8721c77ec8554c0624c708d2dbd1beeacfe2497d",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/architecture.md": {
+      "disposition": "non-implementation",
+      "sha256": "299563581da20488c23fd3a14c36cd8cf894206015959b7f62b4add0c05ecc58",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/appearance.md": {
+      "disposition": "non-implementation",
+      "sha256": "834f7a215ca870adddfeefc585c93f4887a849a6b513a7454a3ba3dddeb1e4db",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/colour-light.md": {
+      "disposition": "non-implementation",
+      "sha256": "e3cd1206a600098f01ff3fb1e86c2a1f20ca3151d0f6aa6dff10c215fc2345bc",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/connections.md": {
+      "disposition": "non-implementation",
+      "sha256": "c43e47ce53b558c7ee9d636287612c1febb8c2671c739615679d0c5d04a22580",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/edge-menus.md": {
+      "disposition": "non-implementation",
+      "sha256": "d095961c2b4cb29bd5d50f7f53b894385e035c7ba671709d56b057cf80de120e",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/foundation.md": {
+      "disposition": "non-implementation",
+      "sha256": "5425b5c55d369b1dc0768104eee640b5ee85d43e3ee0d3e2f9c97294f56ae9b2",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/frame-panels.md": {
+      "disposition": "non-implementation",
+      "sha256": "0d543aca4740be2246bb0cf15af1fe1c2d6f1a7ccf9c5a90141c5e586d01c753",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/image-presentation.md": {
+      "disposition": "non-implementation",
+      "sha256": "45fd9becbec1959ebc8646853e4f5588ee058b63b424a704ddb34895450460d8",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/launcher.md": {
+      "disposition": "non-implementation",
+      "sha256": "181eb7a69d83c2f2665883e4a4bffda3d57cbe67445eaebc3d2f1c1b0706482e",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/orient.md": {
+      "disposition": "non-implementation",
+      "sha256": "663c28760a6c366a320c0a810c1aa7a86da8ccabd183e2fd62bc1e0858211e8a",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/platform-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "17e13436b26173fb067f973fb60be6c4fe24d6f9fa27bf37b1e31cbe5ccd4e9c",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/runtime.md": {
+      "disposition": "non-implementation",
+      "sha256": "0769595c186d31e9ba6799b1f4261789d5fd964b447ee6500c4d2d4a6707a975",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/settings-lock.md": {
+      "disposition": "non-implementation",
+      "sha256": "ce6d8056d966d089324c3ef65791d5bce797d4eccda9627b583f84daec169adc",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/state-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "2f0c8546d1196d3166a9971ce5902798040d33985a9dfb70fc7d97bfafe8c51d",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/terminal-branding.md": {
+      "disposition": "non-implementation",
+      "sha256": "e13977eb41203c5a178f16ad17375e33f69d1943dfd566fa5e411e24bd39c886",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/travel-timezone.md": {
+      "disposition": "non-implementation",
+      "sha256": "26f3a3104b7bb31f17731b27be5a42aad79055725bc32165961afd5e235973c7",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/features/wallpapers.md": {
+      "disposition": "non-implementation",
+      "sha256": "de103898bd32512254375c780fee847c836fdba494bb645cca689e2700e37f9f",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/maintenance.md": {
+      "disposition": "non-implementation",
+      "sha256": "ad10894ea721c40eaf7858e8861b2eb21a18533e71e91b6e16d95e144a7228ba",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/overview.md": {
+      "disposition": "non-implementation",
+      "sha256": "477b0511a2e1814ec401fee9869702c0b15ad64a72d2c67f28f7c79fb275afd2",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "nacre/login/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "39a40660dace1fff2a1ed393bdda4e895a5c146dbf5b5a97d212c28dea5be866",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "nacre/shell-cli/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "f4611fce04376d993ffd94a84c616406feea7ff8a1be2d0864ece5109c5ca1fa",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "nacre/shell-tools/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "04c495029423c99345e5727e7b71816559977b5f5ef6eec1adb573c8e545957b",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "nacre/shell/README.md": {
+      "disposition": "non-implementation",
+      "sha256": "2ff4930c5255612a21ebe2a83b669c45b289296afa35bc4b5c7dfdfe50834087",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/specs/documentation-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "75ff98de6d9f031fc7d1f0eb3715969e0f49420978de36a6069e465728fa8266",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+    },
+    "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "3179f5ae7cea98a692b7022276d3865a9c1cc817b411b0813e92b20b39c5a61c",
+      "evidence": [
+        "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
+        "docs/specs/documentation-source-audit.md"
+      ],
+      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
     }
   }
 }

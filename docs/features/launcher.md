@@ -20,7 +20,7 @@ closes. Clicking outside dismisses the panel without activating the app behind
 it. Power actions stay in the existing power menu.
 
 Preferences are private atomic JSON in `~/.config/nacre/launcher.json`,
-with mode0600 and locked read/modify/write operations. They are outside source
+with mode 0600 and locked read/modify/write operations. They are outside source
 and desktop rollback, and malformed data is preserved rather than overwritten.
 The browser loads only while open/closing and uses the shared fast scrolling.
 

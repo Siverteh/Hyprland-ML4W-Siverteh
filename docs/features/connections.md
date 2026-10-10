@@ -32,23 +32,11 @@ Grouping reads every AP's active/signal fields so roaming updates the row withou
 waiting for a list rebuild. Read-only `networkStatus.state` IPC reports whether
 the current SSID's grouped row is connected for troubleshooting.
 
-Rotation deadlines derive from persistent successful photo timestamps and the
-saved rotation enable/interval/filter anchor, so renderer restarts and unrelated
-picker/color preferences cannot postpone them indefinitely. Old private records
-migrate using their existing modification time, without changing the selected
-wallpaper. The publisher preserves the photo timestamp for color-only commits.
-Only a successful wallpaper change advances it; failures retry after one minute.
-Settings shows the real schedule or specific pause reason, and `wallpaper.state`
-IPC includes timer-running, due-time, remaining-seconds and pause-reason fields.
-There is still one one-shot timer, no recurring countdown polling and no new
-wallpaper owner. Deadline values are epoch milliseconds, independent of timezone.
-
-
 ## Independent device-state owners
 
 NacreAudio tracks the default PipeWire output and microphone without process
 polling. Missing/unbound/removed nodes are unavailable. Volume writes are finite,
-bounded to0–100%, and preserve mute; optional original-node arguments prevent a
+bounded to 0–100%, and preserve mute; optional original-node arguments prevent a
 stale request from affecting a newly selected default. Native changes still
 drive the existing on-screen indicator.
 
@@ -69,7 +57,7 @@ snapshot. DeviceActions remains the sole write owner.
 Old Audio/Network/Bluetooth service names are small external compatibility
 forwarders. Their popup filenames are separate presentation components and
 remain unchanged. The [service spec](../specs/device-services.md) records source
-boundaries; other services/popouts and helper provenance remain pending.
+boundaries; other services, popouts and helpers have separate source reviews.
 
 ## Independent bar targets
 
@@ -84,7 +72,7 @@ NacreBatteryPopup uses native profile buttons with availability guards; opening
 it does not change a profile. NacreCalendarPopup uses Nacre's own local-date helper
 and locale week order. The inherited CalendarGrid is retired after its last caller
 was replaced. Old component names are small forwarders. Popup assembly and the
-other quick controls remain separate audit areas. See the
+other quick controls have separate source reviews. See the
 [bar behavior spec](../specs/bar-controls.md).
 
 ## Independent quick popup assembly
@@ -97,7 +85,7 @@ compact controls. Notification history reuses the Nacre notice presentation and
 writes only for explicit clear/remove/DND actions.
 
 NacrePopupPanel/NacrePopupContent load six supported views on demand. Closing
-releases pin/interaction immediately, retains clipped rendering for180ms, then
+releases pin/interaction immediately, retains clipped rendering for 180 ms, then
 unloads it. Reduced motion closes immediately. NacreQuickList gives bounded fast
 wheel scrolling with finite easing/native drag; NacreQuickSlider uses native Qt
 user-moved semantics and palette-colored rounded controls. No polling or extra
@@ -108,3 +96,11 @@ The notification popup's Do Not Disturb button uses the desktop setting owner's
 set API. The native fixture mirrors that real interface, so a stale mocked method
 cannot hide a broken click. Lock snapshots convert native battery fractions to
 percent values and use null for unavailable data, matching the bar's semantics.
+
+## Visual acceptance
+
+The behavior above describes the implemented contracts and fixture coverage.
+The user has reported layout, scrolling and animation regressions after the
+rewrite. Those require a separate live visual cleanup after the final originality
+audit; these source reviews do not establish that the preferred appearance is
+restored.

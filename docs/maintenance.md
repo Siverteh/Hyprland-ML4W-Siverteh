@@ -3,13 +3,13 @@
 This is the maintained source for a CachyOS/Arch desktop using Hyprland's Lua API.
 It is not an installer for an arbitrary Linux distribution. Install OS packages
 through the distribution's package manager, then provision the isolated shell
-palette environment with `python3 nacre/shell-tools/provision.py`. Native packages are
-checked against the SHA-256 values in the local package database before extraction;
-the palette engine's tested Python dependency versions are pinned.
+palette environment with `python3 nacre/shell-tools/provision.py`. The provisioner
+checks required system packages and builds/tests an immutable palette environment;
+it does not unpack private desktop binaries. Python dependency versions are pinned.
 
 The target host needs Hyprland with Lua support, UWSM, Hypridle/Hyprlock, Kitty,
 Python 3.13+, PipeWire/WirePlumber, NetworkManager, wl-clipboard/cliphist, jq,
-brightnessctl, polkit's graphical agent and fonts used by the shell. Package update
+brightnessctl, wtype, polkit's graphical agent and fonts used by the shell. Package update
 checking uses `checkupdates` from pacman-contrib and optionally paru/yay. The
 bar updater uses `paru -Syu --skipreview` so routine updates do not display every
 AUR package file, including long licence documents. Package lists, installation
@@ -28,11 +28,18 @@ Hyprland --verify-config --config "$PWD/hypr/hyprland.lua"
 ```
 
 The first check covers configuration ownership, the AI workflow, Brain and native
-shell regressions. CI runs the portable checks; compositor parsing, Qt behavior
-and live shell IPC still require the target host. Changes to display behavior
-also require real connected displays, not just a unit test.
+shell regressions. CI uses an Arch container with native Qt/QML/Lua checks.
+Hyprland verification, live IPC/input/focus and physical acceptance require the
+target host. Changes to display behavior
+also require real connected displays, not just a unit test. Require the native
+`qmlformat` parser in the Qt toolset for pre-cutover validation; the low-level
+shell installer makes that parse conditional when the tool is absent.
 
 ## Apply a reviewed plan
+
+Commit the reviewed candidate and keep its checkout clean: release deployment
+refuses an uncommitted/dirty tree. Apply on the running target desktop, where
+Hyprland and `wtype` can exercise the live launcher/Escape gates.
 
 ```sh
 ./install.sh --apply
@@ -51,12 +58,16 @@ local edits cause a refusal before configuration writes.
 `~/.local/state/nacre/configuration.json`. Routine updates replace files
 only when they still match the previous deployment. Edit host preferences through
 the native settings UI or private override files; source changes belong in Git.
-AI workflow deployment is an explicit `--component ai` operation and preserves
-authentication. SDDM installation has its own documented administrator step.
+AI setup is separate: the component manager refuses `--apply --component ai`.
+Use `ai/install.py` for explicit setup, or its reviewed `--helper-only NAME` /
+`--launcher-only` plan and `--apply` for code-only controller updates without
+account/vault setup. See [AI workflow](../ai/README.md). SDDM installation has its
+own documented administrator step.
 
 ## Validate and recover
 
-Shell deployment parses QML before cutover, requires native IPC readiness and
+With the required native Qt tools present, shell deployment parses QML before
+cutover, requires native IPC readiness and
 verifies the deployed source against the candidate. The supervisor can restore
 `source.good` after a startup failure; `source.previous` retains the preceding
 deployment. Configuration migration backups include a manifest under
