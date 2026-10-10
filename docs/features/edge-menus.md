@@ -54,3 +54,7 @@ deliberate click can switch panels. Disabled edges and the master shell hide
 still remove their handles. Wallpaper galleries suppress only the faint rim. Reserved window space,
 shared surface ownership and logical input-release behavior remain unchanged.
 See [iridescent frame specification](../specs/iridescent-frame.md).
+
+A dismissed moving handle stays blocked while the pointer remains in either its
+open position or its resting trigger. This prevents Escape from closing a menu
+and immediately reopening it as the handle returns beneath a stationary pointer.

@@ -23,7 +23,7 @@ Singleton {
     function markedContains(name, point) {
         const boxes = lipRegions[point?.name];
         if (boxes)
-            return regionContains(boxes[name], point);
+            return regionContains(boxes[name], point) || regionContains(boxes.resting?.[name], point);
         if (name === "dashboard")
             return !!point && point.y >= 0 && point.y <= dashboardDepth && Math.abs(point.x - point.width / 2) <= Math.min(350, point.width * .225);
         return !!point && (name === "left" ? point.x < edgeWidth : point.x >= point.width - edgeWidth);
@@ -92,7 +92,7 @@ Singleton {
         };
     }
     function rearm(name, screen) {
-        if (validScreen(screen) && blocked[screen.name] && ["dashboard", "left", "osd", "popouts"].includes(name))
+        if (validScreen(screen) && blocked[screen.name] && ["dashboard", "left", "osd", "popouts"].includes(name) && (name === "popouts" || !markedContains(name, positions[screen.name])))
             blocked[screen.name][name] = false;
     }
     function register(name, owner) {

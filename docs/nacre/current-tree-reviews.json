@@ -2674,12 +2674,13 @@
     },
     "nacre/shell/services/NacreHoverIntent.qml": {
       "disposition": "independent",
-      "sha256": "3ef23a80c0aa1d90a1c8573217f09dbd0dc3b4a703e2799e15199d259670c582",
+      "sha256": "e834916e77cc8f29021c0d55afd25d28ccd894b809a474caae0185d787de9cf5",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
         "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
-        "docs/specs/frame-control-center.md"
+        "docs/specs/frame-control-center.md",
+        "Current full body reviewed for moving-handle dismissal: stationary pointer gates cover open and resting trigger regions, and exit only rearms after observing departure. Actual native fixture reproduces return-under-pointer and checks release after departure. Own correction to independently authored hover service; no upstream implementation consulted."
       ],
       "notes": "User-steered refinement of own frame: longer/shallow unoutlined lips, no extra frame ring, and top activation constrained to the lip width but extending to the screen edge. Separate bar/lip hover sources combine so crossing surfaces does not close the menu. Native regression coverage updated; no inherited implementation consulted."
     },
@@ -6340,7 +6341,7 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "1588834dfd8181f9a3ba017557c208b76fc2ded1218b589c1aefb07c2e9bde09",
+      "sha256": "67a9238ed3a0afaf82949c672634759ecd29dfd3e34a420996a5ac22a876b5ef",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
@@ -6351,7 +6352,8 @@
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used.",
+        "Current full body reviewed for moving-handle dismissal: stationary pointer gates cover open and resting trigger regions, and exit only rearms after observing departure. Actual native fixture reproduces return-under-pointer and checks release after departure. Own correction to independently authored hover service; no upstream implementation consulted."
       ]
     },
     "nacre/shell-tools/tests/test_wallpaper_native.py": {
@@ -6540,7 +6542,7 @@
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "f37b736afb60b0de51fd5973cc960f7bd53893084426774def3b4fdb48c1e0f0",
+      "sha256": "5c1eb67ed0c2ffa3f9cf27421ff2635849026c8f69e5fa053d7cb53a5da257ca",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6551,7 +6553,8 @@
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used.",
+        "Current full body reviewed for moving-handle dismissal: stationary pointer gates cover open and resting trigger regions, and exit only rearms after observing departure. Actual native fixture reproduces return-under-pointer and checks release after departure. Own correction to independently authored hover service; no upstream implementation consulted."
       ]
     },
     "docs/features/foundation.md": {
@@ -8065,7 +8068,7 @@
     },
     "nacre/shell/modules/drawers/NacreFrameLips.qml": {
       "disposition": "independent",
-      "sha256": "f2b45bee196a7f6807515a77df7321a049fcfdeab7f4bedd5c010012755f0570",
+      "sha256": "b2a86a1da2ff46ca7b9b9d7f171d9c2efef360a618c98837e9b236e8db7c2dac",
       "evidence": [
         "docs/specs/frame-control-center.md",
         "Current body reviewed for tiny smooth moving lips and stable frame/header stacking, from frame-control-center spec. Native curved-shape/input and moving-edge fixtures cover geometry; real Wayland focus and bar visibility are checked after deployment. No upstream inherited implementation consulted for these changes.",
@@ -8073,7 +8076,8 @@
         "docs/specs/iridescent-frame.md",
         "Current full body reviewed: independently authored rectangle-union exposed contour, native Qt6.12 gradient rim and flat primary/secondary enamel with finite reduced-motion-aware sweep. Behavior follows own spec; existing logical input/provider ownership retained. Actual QML JS union/overlap/closing tests and native quiet/dark/light/moving-mask/render tests validate it. Visual research used first-party screenshots/README, not upstream implementation bodies; prior exposure acknowledged, no legal clean-room claim.",
         "docs/specs/iridescent-frame.md",
-        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used."
+        "Current full body reviewed: handle visibility independent of passive hover eligibility during modal/galleries; actual disabled/master-hide options retained. Old painted panel subtrees disable input on logical closing, avoiding interception during explicit handle switches. Native actual-lip and actual-host fixtures cover persistent landmarks, no passive replacement, deliberate switch and stale-control press exclusion. Own local correction, no upstream implementation used.",
+        "Current full body reviewed for moving-handle dismissal: stationary pointer gates cover open and resting trigger regions, and exit only rearms after observing departure. Actual native fixture reproduces return-under-pointer and checks release after departure. Own correction to independently authored hover service; no upstream implementation consulted."
       ]
     },
     "nacre/shell/modules/osd/NacreLevelNotice.qml": {

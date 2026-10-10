@@ -81,7 +81,7 @@ TestCase {
   mouseMove(view,500,51);verify(view.flags.dashboard);
   NacreHoverIntent.dismiss(view.screen);view.flags.dashboard=false;
   mouseMove(view,501,52);verify(!view.flags.dashboard);
-  mouseMove(view,500,180);mouseMove(view,500,51);verify(view.flags.dashboard);
+  mouseMove(view,500,180);NacreHoverIntent.observe(view.screen,500,180);mouseMove(view,500,51);verify(view.flags.dashboard);
   mouseMove(view,1,90);verify(!view.flags.left);
   mouseMove(view,8,350);verify(view.flags.left);verify(!view.flags.leftPinned);
   mouseMove(view,995,620);verify(!view.flags.osd);
@@ -136,6 +136,20 @@ TestCase {
   NacrePanelState.hidden=true;
   verify(!top.visible);verify(!left.visible);verify(!right.visible);
   NacrePanelState.hidden=false;
+ }
+ function test_moving_handle_dismissal_blocks_return_under_stationary_pointer(){
+  const view=createTemporaryObject(scene,this);wait(30);
+  view.controller.panels={dashboard:{height:0},leftDrawer:{width:0},osd:{width:424}};
+  NacreHoverIntent.observe(view.screen,990,350);
+  NacreHoverIntent.dismiss(view.screen,true);
+  verify(NacreHoverIntent.blocked.test.osd);
+  NacreHoverIntent.rearm("osd",view.screen);
+  verify(NacreHoverIntent.blocked.test.osd);
+  view.controller.panels={dashboard:{height:0},leftDrawer:{width:0},osd:{width:0}};
+  NacreHoverIntent.observe(view.screen,990,350);
+  verify(!NacreHoverIntent.canOpen("osd",view.screen,Qt.NoButton));
+  NacreHoverIntent.observe(view.screen,800,350);
+  verify(NacreHoverIntent.canOpen("osd",view.screen,Qt.NoButton));
  }
  function test_sheen_is_finite_and_reduce_motion_stops_it(){
   mouseMove(this,800,500);

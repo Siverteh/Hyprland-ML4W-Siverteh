@@ -32,7 +32,11 @@ Item {
         NacreHoverIntent.lipRegions[screen.name] = {
             dashboard: Qt.rect((width - 208) / 2, 0, 208, NacreFrame.headerHeight + 6),
             left: leftRect,
-            osd: rightRect
+            osd: rightRect,
+            resting: {
+                left: Qt.rect(0, (height - 144) / 2, NacreFrame.left + 5, 144),
+                osd: Qt.rect(width - NacreFrame.right - 5, (height - 144) / 2, NacreFrame.right + 5, 144)
+            }
         };
     }
     Component.onCompleted: publishRegions()
