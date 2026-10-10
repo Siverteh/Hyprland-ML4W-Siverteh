@@ -77,3 +77,12 @@ resize/input tests; visually inspect real windows. Full tools/check.py,
 Hyprland verification, install plan/apply, exact source/IPC/configerrors, preserved
 AI worker, managed rollback and exact CI success. Record remaining limitations
 rather than promise automatic third-party installation or perfect color vision.
+
+## Light-mode accent correction, 2026-10-10
+
+Lift shadow-derived light-mode accents into a shared middle-lightness band before
+contrast correction. Keep hue/chroma and original source provenance; preserve
+light body colors and all dark-mode role outputs. Neutral wallpapers need three
+spaced gray UI accents. Do not use the dark-mode color-vision lightness offsets
+to drive light accents back toward black. Retain full contrast checks, report
+chromatic simulation limits, and review real-image before/after comparisons.

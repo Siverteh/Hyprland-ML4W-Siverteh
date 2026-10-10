@@ -219,6 +219,13 @@ def generate(
             lifted_chroma = max(lifted_chroma, min(0.065, c * 3.0))
         if not soft and variant != "vibrant":
             lifted_chroma = min(lifted_chroma, 0.19 if role == "primary" else 0.16)
+        if not dark and role in ("primary", "secondary", "tertiary"):
+            # Shadow pigments need a usable middle tone in light mode too.
+            # Keep source hue/chroma; contrast may make a small final adjustment.
+            lifted = max(0.52, min(0.58, light))
+            lifted_chroma = c
+            if c < 0.012 or variant == "monochrome":
+                lifted = {"primary": 0.50, "secondary": 0.41, "tertiary": 0.35}[role]
         accent = readable(color(lifted, lifted_chroma, h), backgrounds)
         container_chroma = min(max(c * 0.65, min(0.045, c * 1.7)), 0.095) if dark and not soft else min(c * 0.42, 0.085)
         container = color(0.35 if dark else 0.88, container_chroma, h)
@@ -257,11 +264,13 @@ def generate(
     family("tertiary", tertiary, 0.85 if not soft else 0.5)
     family("error", "df303e")
     family("success", "289563")
-    # Preserve source hue; separate confusing accents with lightness only.
+    # Dark-mode accents have headroom to separate in lightness. Light mode keeps
+    # its middle-tone policy; diagnostics report chromatic simulation limits.
     for role, offset in (("secondary", 0.09), ("tertiary", 0.16)):
         previous = [colors["primary"]] + ([colors["secondary"]] if role == "tertiary" else [])
         if (
-            min(
+            dark
+            and min(
                 difference(colors[role], p, v)
                 for p in previous
                 for v in ("normal", "protanopia", "deuteranopia", "tritanopia")
@@ -271,7 +280,9 @@ def generate(
         ):
             light, c, h = lch(colors[role])
             target = (
-                min(0.94, lch(colors["primary"])[0] + offset) if dark else max(0.16, lch(colors["primary"])[0] - offset)
+                min(0.94, lch(colors["primary"])[0] + offset)
+                if dark
+                else max(0.38, lch(colors["primary"])[0] - offset * 0.5)
             )
             colors[role] = readable(color(target, c, h), backgrounds)
             colors["on" + role.title()] = foreground(colors[role])

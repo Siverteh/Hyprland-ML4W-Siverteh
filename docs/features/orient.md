@@ -55,6 +55,14 @@ without changing the entire desktop on workspace switches.
 
 ## Accessibility and fidelity
 
+Light-mode UI accents start in a middle-lightness band (OKLab L0.52–0.58),
+retaining source hue/chroma before gamut and contrast correction. Shadow pigments
+no longer stay near black. Neutral accents use three spaced gray levels. The
+source colors/provenance remain original; audited colored text still meets4.5:1,
+so especially luminous hues can require a darker final tone. Light backgrounds
+and dark-mode role colors are unchanged by this correction. Light-mode color-vision
+diagnostics report close chromatic pairs instead of progressively darkening them.
+
 Studio previews a bar, window, terminal, notification and logo. Compare shows all
 personalities. Accessibility provides a contrast grid and approximate full-severity
 protanopia/deuteranopia/tritanopia simulations. The engine validates its documented

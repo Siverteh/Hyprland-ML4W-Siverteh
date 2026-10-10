@@ -113,6 +113,59 @@ class Orient3Tests(unittest.TestCase):
             )
             self.assertTrue(result["accessibility"]["textPasses"])
 
+    def test_light_accents_lift_shadow_pigments_without_changing_sources_or_body(self):
+        p = self.home / "shadow-pigments.png"
+        image = Image.new("RGB", (128, 80), "#202020")
+        for i, hue in enumerate((20, 85, 250)):
+            image.paste("#" + color(0.24, 0.06, hue), (i * 40, 0, (i + 1) * 40, 80))
+        image.save(p)
+        for personality in PERSONALITIES:
+            for sampled_body in (False, True):
+                data = from_image(
+                    p,
+                    "light",
+                    personality=personality,
+                    background_from_wallpaper=sampled_body,
+                )
+                for role in ("primary", "secondary", "tertiary"):
+                    light, chroma, hue = lch(data["colours"][role])
+                    self.assertGreaterEqual(light, 0.43, (personality, role, light))
+                    self.assertLessEqual(light, 0.60)
+                    self.assertLess(
+                        hue_distance(
+                            hue, lch(data["roleSources"][role]["sourceColor"])[2]
+                        ),
+                        5,
+                    )
+                self.assertTrue(data["accessibility"]["textPasses"])
+                self.assertGreater(lch(data["colours"]["surface"])[0], 0.94)
+
+    def test_light_neutral_accents_are_distinct_grays_not_black(self):
+        for seed in ("070707", "808080", "eeeeee"):
+            p = self.scene(seed, seed)
+            data = from_image(p, "light")
+            colors = data["colours"]
+            values = [
+                lch(colors[role]) for role in ("primary", "secondary", "tertiary")
+            ]
+            self.assertTrue(
+                all(
+                    0.34 <= light <= 0.55 and chroma < 0.005
+                    for light, chroma, hue in values
+                )
+            )
+            self.assertEqual(
+                len({colors[r] for r in ("primary", "secondary", "tertiary")}), 3
+            )
+            for vision in ("normal", "protanopia", "deuteranopia", "tritanopia"):
+                self.assertGreater(
+                    difference(colors["primary"], colors["secondary"], vision), 0.045
+                )
+                self.assertGreater(
+                    difference(colors["secondary"], colors["tertiary"], vision), 0.045
+                )
+            self.assertTrue(data["accessibility"]["textPasses"])
+
     def test_pop_uses_a_contrasting_minority_not_a_bright_main_shade(self):
         path = self.home / "pop-scene.png"
         image = Image.new("RGB", (128, 80), "#87373c")
