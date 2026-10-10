@@ -6283,11 +6283,13 @@
     },
     "nacre/shell-tools/tests/test_overview_native.py": {
       "disposition": "independent",
-      "sha256": "11cf6b983cd350ee77d72176f711669a16ed779f769b1c4c3227b3c79349b300",
+      "sha256": "d5c9aba3b77cb443c0fe7f710b409406ef6218686d6adad1174e4657d88d9710",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 0a2b8a2:nacre/shell-tools/tests/test_overview_native.py; subsequent 28707f7, 02b2bda, a492dc6, 18d8aab. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
+        "Full current Python/embedded fixture body and local history reviewed. Creation 0a2b8a2:nacre/shell-tools/tests/test_overview_native.py; subsequent 28707f7, 02b2bda, a492dc6, 18d8aab. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/nacre-logo.md",
+        "Current fixture explicitly reassessed after concurrent audit: copy the generated branding JS module alongside the real BrandLogo.qml so native overview still tests its actual dependency. Existing rendering, geometry, fake providers and isolation retained; native test passed with the new shell logo."
       ]
     },
     "nacre/shell-tools/tests/test_overview_ui.py": {
