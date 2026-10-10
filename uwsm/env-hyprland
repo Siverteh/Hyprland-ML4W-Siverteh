@@ -1,2 +1,2 @@
-# Hyprland-specific variables. XDG session identity is supplied by UWSM.
+# UWSM loads env first. Match the compositor cursor to the shared cursor size.
 export HYPRCURSOR_SIZE="$XCURSOR_SIZE"

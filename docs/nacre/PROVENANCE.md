@@ -1327,3 +1327,31 @@ warning; cache reports rebuildNeeded=false, distributionReady=false. Read-only
 checks only, not a real update/recovery-build/physical multi-monitor test.
 Five current file reviews complete this bounded area, not the whole tree;
 launcher/provisioning/publisher/remaining helper/asset and dependency audits remain.
+
+## Shell and session environment composition
+
+[Spec](../specs/shell-session-defaults.md): UWSM exports previously moved from
+compositor configuration in 85316eb; later cursor ownership corrections d0bf508
+and c0816b6 retained. Deleted both migrated UWSM files before independently
+composing grouped toolkit/cursor defaults from isolated POSIX export contracts
+and live user-service observations. All ten variable names/values retained,
+including HYPRCURSOR_SIZE following XCURSOR_SIZE; no obsolete session/toolkit
+or private native-library overrides introduced. These are public API preferences,
+not an inherited palette/launch algorithm. Prior scalar exposure acknowledged,
+no upstream body copied or legal clean-room/final-license claim.
+
+Fish fragment is locally introduced in 2fa3a95 with no preceding managed Fish
+tree, then target namespace changed 548f0b4. Its two aliases are own routes, not
+a startup greeting: siverteh-update forwards to nacre-shell updates; ascii to
+figlet. Retain the fragment and private alias compatibility, do not migrate
+personal Fish settings. Initial probe incorrectly expected Fastfetch; it failed
+before any code/deploy change, corrected to actual alias contracts. Actual Fish
+tests with isolated HOME/fake executables prove no startup app invocation and
+argument forwarding in both interactive and noninteractive modes, including
+arguments containing spaces. Actual POSIX tests assert exact exports/absence of
+retired variables. Added Fish to CI packages so these native cases run there too.
+
+Four SHA-bound reviews cover the two composed defaults, own retained Fish fragment
+and new tests. Workflow dependency edit is a caller change, not a provenance
+certificate for the complete CI workflow. Personal config/state and next-login
+propagation remain separate. Whole-tree notices/audits remain active.

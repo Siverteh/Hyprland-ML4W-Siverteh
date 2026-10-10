@@ -1214,6 +1214,42 @@
         "docs/nacre/PROVENANCE.md#update-provider-and-runtime-guard-review",
         "Local regression suite first introduced 21ef4e2, failure/preflight tests 2c4595a and release guard tests 0f3bd08; formatting 2c1d2ca and rename 548f0b4. Own mocks/fixtures cover maintenance contracts, no upstream implementation embedded. Direct unittest guard moved to end during current audit so all seven cases execute directly as well as in discovery."
       ]
+    },
+    "uwsm/env": {
+      "disposition": "independent",
+      "sha256": "037ad7c3e1ddd354b7a5ea68711d03bc4514c4f4743276335f7408223440595f",
+      "evidence": [
+        "docs/specs/shell-session-defaults.md",
+        "docs/nacre/PROVENANCE.md#shell-and-session-environment-composition",
+        "Deleted old migrated composition, then fresh grouped toolkit/cursor exports from isolated POSIX-shell public value contracts and user-service observations. Standard API preference data preserved; no inherited algorithm or implementation body used. Previous scalar exposure acknowledged."
+      ]
+    },
+    "uwsm/env-hyprland": {
+      "disposition": "independent",
+      "sha256": "1cd64fc718a459f1bd0152cfc804235dd96cd7a6bacc37d617977d738c5aa831",
+      "evidence": [
+        "docs/specs/shell-session-defaults.md",
+        "docs/nacre/PROVENANCE.md#shell-and-session-environment-composition",
+        "Deleted old migrated composition, then fresh Hyprcursor size relation from public UWSM order/cursor contract. Shared env remains sole size owner. Standard variable interface data, no copied implementation body."
+      ]
+    },
+    "fish/conf.d/90-nacre.fish": {
+      "disposition": "independent",
+      "sha256": "19b48cb13f9cecdbfe635ae56591ff353866f7269498536e2b0d3ccd89ef45ef",
+      "evidence": [
+        "docs/specs/shell-session-defaults.md",
+        "docs/nacre/PROVENANCE.md#shell-and-session-environment-composition",
+        "New local fragment 2fa3a95 (no preceding managed Fish tree) defines two own routes; rename 548f0b4 changes only target to nacre-shell. Retains compatibility update alias and figlet alias. Actual Fish isolated startup/argument forwarding tests verify local declarations; no private Fish config/greeting imported."
+      ]
+    },
+    "tools/tests/test_shell_session.py": {
+      "disposition": "independent",
+      "sha256": "b6c16d62c497337bce1248fe5dd50a7dbd74e2118ffbbac69fa9c243ae0eba0c",
+      "evidence": [
+        "docs/specs/shell-session-defaults.md",
+        "docs/nacre/PROVENANCE.md#shell-and-session-environment-composition",
+        "New actual POSIX/Fish behavior tests authored from current spec/measured exports and alias public contracts. Isolated HOME and fake process owners; asserts no startup action, literal-space argument forwarding and no retired environment exports. No upstream implementation embedded."
+      ]
     }
   }
 }
