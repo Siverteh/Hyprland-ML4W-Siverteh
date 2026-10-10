@@ -130,7 +130,33 @@ class QuickControlsTests(unittest.TestCase):
                     ).read_text()
                 )
             )
-            for name in ["ActionButton", "NacreInteraction"]:
+            for component in (
+                "NacreControlCenter",
+                "NacreControlLevels",
+                "NacreControlTile",
+            ):
+                source = adapt(
+                    (
+                        ROOT.parent
+                        / "shell/modules/controlcenter"
+                        / (component + ".qml")
+                    ).read_text()
+                )
+                source = (
+                    source.replace("import Quickshell.Services.UPower", "")
+                    .replace("import qs.modules.notifications", "")
+                    .replace(
+                        "import qs.modules.bar.popouts as Details",
+                        'import "." as Details',
+                    )
+                )
+                (target / (component + ".qml")).write_text(source)
+            (target / "fixtures/NacreRangeSlider.qml").write_text(
+                (ROOT.parent / "shell/widgets/NacreRangeSlider.qml")
+                .read_text()
+                .replace("import qs.services", 'import "."')
+            )
+            for name in ["ActionButton", "NacreInteraction", "NacreScrollBar"]:
                 text = (
                     (ROOT.parent / "shell/widgets" / (name + ".qml"))
                     .read_text()
@@ -167,6 +193,18 @@ class QuickControlsTests(unittest.TestCase):
                 "UPower": "property bool onBattery:true;property var displayDevice:({ready:true,isLaptopBattery:true,percentage:.5,timeToEmpty:3600,timeToFull:0})",
                 "PowerProfiles": 'property int profile:1;property bool hasPerformanceProfile:true;property string degradationReason:""',
             }
+            services.update(
+                {
+                    "NacreBrightness": 'property QtObject device:QtObject {property bool available:true;property real brightness:.8;property string error:"";property var writes:[];function setBrightness(v){writes=[...writes,v];brightness=v}}function getMonitorForScreen(screen){return device}',
+                    "NacreKeyboardLight": 'property bool available:true;property real brightness:.5;property string error:"";property var writes:[];function setBrightness(v){writes=[...writes,v];brightness=v}',
+                    "NacreControlTools": 'property var data:({screenshot:true,colorPicker:true,powerProfilesSupported:true,nightLightSupported:true,nightLightExternal:false,nightLightEnabled:false});property string error:"";property bool busy:false;property var captures:[];property int writes:0;function capture(kind){captures=[...captures,kind]}function toggleNightLight(){writes++}',
+                    "NacrePanelState": 'property var calls:[];function openMode(mode){calls=[...calls,mode]}function openSettings(page){calls=[...calls,"settings"]}',
+                }
+            )
+            with (target / "fixtures/qmldir").open("a") as manifest:
+                manifest.write(
+                    "\nNacreRangeSlider 1.0 NacreRangeSlider.qml\nNacreScrollBar 1.0 NacreScrollBar.qml\n"
+                )
             for name, body in services.items():
                 (target / "fixtures" / (name + ".qml")).write_text(
                     "pragma Singleton\nimport QtQuick\nQtObject {" + body + "}"

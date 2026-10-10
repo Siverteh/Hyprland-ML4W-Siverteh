@@ -10,20 +10,30 @@ Item {
     readonly property var monitor: NacreBrightness.getMonitorForScreen(screen)
     property bool armed: false
     property bool audioBaseline: false
+    property bool micBaseline: false
+    readonly property bool micReady: NacreAudio.micAvailable
     readonly property bool audioReady: NacreAudio.available
-    function show() {
-        if (!armed || visibilities.session || WallpaperPlayback.locked || screen.name !== NacreHyprland.focusedMonitor?.name)
+    property bool shown: false
+    property string channel: "volume"
+    function show(kind = "volume") {
+        if (!armed || visibilities.osd || visibilities.session || WallpaperPlayback.locked || screen.name !== NacreHyprland.focusedMonitor?.name)
             return;
-        visibilities.osd = true;
+        channel = kind;
+        shown = true;
         expiry.restart();
     }
     onAudioReadyChanged: {
         audioBaseline = false;
         Qt.callLater(() => audioBaseline = audioReady);
     }
+    onMicReadyChanged: {
+        micBaseline = false;
+        Qt.callLater(() => micBaseline = micReady);
+    }
     Component.onCompleted: Qt.callLater(() => {
         armed = true;
         audioBaseline = audioReady;
+        micBaseline = micReady;
     })
     Connections {
         target: NacreAudio
@@ -37,25 +47,48 @@ Item {
         }
     }
     Connections {
+        target: NacreAudio
+        function onMicVolumeChanged() {
+            if (root.micBaseline)
+                root.show("microphone");
+        }
+        function onMicMutedChanged() {
+            if (root.micBaseline)
+                root.show("microphone");
+        }
+    }
+    Connections {
         target: root.monitor
         function onAdjusted() {
-            root.show();
+            root.show("display");
         }
     }
     Connections {
         target: NacreKeyboardLight
         function onAdjusted() {
-            root.show();
+            root.show("keyboard");
         }
+    }
+    Connections {
+        target: root.visibilities
+        function onOsdChanged() {
+            if (root.visibilities.osd)
+                root.shown = false;
+        }
+    }
+    NacreLevelNotice {
+        output: root.screen
+        channel: root.channel
+        shown: root.shown
     }
     onHoveredChanged: if (hovered)
         expiry.stop()
-    else if (visibilities.osd)
+    else if (shown)
         expiry.restart()
     Timer {
         id: expiry
         interval: NacreOsd.hideDelay
         onTriggered: if (!root.hovered)
-            root.visibilities.osd = false
+            root.shown = false
     }
 }

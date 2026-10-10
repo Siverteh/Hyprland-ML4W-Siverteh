@@ -10,7 +10,7 @@ is future work. See [maintenance](maintenance.md) for changes and recovery and
 Hyprland places windows and handles workspaces and keyboard bindings. UWSM supplies
 the session environment and starts enabled user services. Quickshell draws Nacre's
 bar, frame, dashboard, settings, launcher, wallpaper picker, notifications and
-level controls. Its renderer is separate from the persistent AI backend, so UI
+control center and temporary level feedback. Its renderer is separate from the persistent AI backend, so UI
 recovery can preserve running conversations.
 
 Orient extracts wallpaper colors and generates readable UI roles. Desktop helpers
@@ -84,7 +84,7 @@ possible future extraction; it is not an implemented public installer.
 - [Foundation](features/foundation.md), [frame/input ownership](features/frame-panels.md)
 - [Settings and lock screen](features/settings-lock.md), [wallpapers](features/wallpapers.md)
 - [Rotation and fixed palettes](features/appearance.md), [Orient](features/orient.md)
-- [Launcher](features/launcher.md), [edge menus](features/edge-menus.md)
+- [Launcher](features/launcher.md), [frame lips](features/edge-menus.md), [control center](features/control-center.md)
 - [Audio, Wi-Fi and Bluetooth](features/connections.md), [state services](features/state-services.md)
 - [Platform services](features/platform-services.md), [color/light services](features/colour-light.md)
 - [Image/presentation state](features/image-presentation.md), [fonts](features/fonts.md)

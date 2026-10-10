@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Wayland
 import qs.widgets
 import qs.services
-import qs.modules.osd as Osd
 
 NacreWindow {
     id: root
@@ -13,9 +12,9 @@ NacreWindow {
     anchors.bottom: true
     anchors.left: true
     anchors.right: true
-    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.layer: inputController.modal ? WlrLayer.Overlay : WlrLayer.Top
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
-    WlrLayershell.keyboardFocus: inputController.modal ? WlrKeyboardFocus.Exclusive : flags.left ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: inputController.modal ? WlrKeyboardFocus.Exclusive : (flags.left || flags.osd || flags.dashboard) ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     property string registeredName: ""
     PersistentProperties {
         id: flags
@@ -33,6 +32,7 @@ NacreWindow {
         property string launcherMode: "apps"
         property int launcherRequest: 0
         property string edgeMenu: ""
+        property string controlSection: "home"
     }
     Component.onCompleted: {
         registeredName = screen.name;
@@ -74,6 +74,7 @@ NacreWindow {
             anchors.fill: parent
             screen: root.screen
             panels: panelHost
+            lips: lips
             visibilities: flags
         }
         NacrePanelHost {
@@ -84,10 +85,13 @@ NacreWindow {
             input: inputController
             z: 1
         }
-    }
-    Osd.NacreOsdEvents {
-        screen: root.screen
-        visibilities: flags
-        hovered: inputController.osdHovered
+        NacreFrameLips {
+            id: lips
+            anchors.fill: parent
+            screen: root.screen
+            visibilities: flags
+            controller: inputController
+            z: 3
+        }
     }
 }

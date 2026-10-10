@@ -2180,16 +2180,6 @@
         "Current full body reviewed; basis 9a3b9a7: Independent control/config/utility replacement from foundation-controls spec; inherited bodies deleted before new composition, public option/default contracts retained and own old-name adapter created where applicable. Subsequent current-file history: unchanged since basis. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
       ]
     },
-    "nacre/shell/widgets/EdgeMenuHandle.qml": {
-      "disposition": "independent",
-      "sha256": "68cdc512ae3c28512cb943b5d3b37c1100b0f6016358a645f02fedc6e231d7f8",
-      "evidence": [
-        "docs/specs/foundation-source-audit.md",
-        "docs/nacre/FOUNDATION-SOURCE-AUDIT.md",
-        "docs/specs/foundation-controls.md",
-        "Current full body reviewed; basis 6fb4d5a: Local clickable edge feature; shared five-line native animation setup traced to own Overview 007d020, formatting 83b3531 is not authorship; foundation/owner migration 9a3b9a7/02b2bda. Subsequent current-file history: 02b2bda, 9a3b9a7, 548f0b4, 2c1d2ca. Public scalar API/default data and compatibility names are not an inherited algorithm. Prior source exposure acknowledged; no old/upstream body consulted for current correction. Separate dependency/test/whole-tree reviews remain."
-      ]
-    },
     "nacre/shell/widgets/FastScroll.qml": {
       "disposition": "independent",
       "sha256": "9dcc663e981c361c54914e4af602c3374f5bcf67eb5f4eb37223ba907c63df17",
@@ -2631,12 +2621,14 @@
     },
     "nacre/shell/services/NacreBrightness.qml": {
       "disposition": "independent",
-      "sha256": "da46ef473814affedca262eec0d67e2aa91fcb4e0b4da818244e95751b50a25d",
+      "sha256": "eb0218f4c2a7552cf28d8afdb9e93a1464b7ad50df492c302c9dcb2391d909d6",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, 4f8e178. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
-      ]
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, 4f8e178. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/services/NacreClient.qml": {
       "disposition": "independent",
@@ -2658,12 +2650,14 @@
     },
     "nacre/shell/services/NacreHoverIntent.qml": {
       "disposition": "independent",
-      "sha256": "3cb62a5804bb6fa3e295ae186f3d70c28f4ebe95cb5e5d63b87ef9a0a54acfc5",
+      "sha256": "346374fef0e9a0e5f1b9a557cc8ead38e22f7ecc9984e4786fe095214aa115a1",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
-      ]
+        "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/services/NacreHyprland.qml": {
       "disposition": "independent",
@@ -2712,21 +2706,25 @@
     },
     "nacre/shell/services/NacreNotifs.qml": {
       "disposition": "independent",
-      "sha256": "9913e9a3692633b32433124675f9618746609a0cac6cfbeb2d12ad9e20d51d9b",
+      "sha256": "b01e3bdd0ac6ae6273993205c9c37244007fd316db531b7c01c6747dc3b87cdc",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, f7cc3b1. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
-      ]
+        "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, f7cc3b1. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/services/NacrePanelState.qml": {
       "disposition": "independent",
-      "sha256": "8e852ead3f4061cf428f60f9d59ab12512754cc112a22c54cc3e28b2df955a96",
+      "sha256": "b6399f671842aac1362543248771b7803e819731138c6887f6c6179f092643af",
       "evidence": [
         "docs/specs/services-source-audit.md",
         "docs/nacre/SERVICES-SOURCE-AUDIT.md",
-        "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
-      ]
+        "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/services/NacrePlayers.qml": {
       "disposition": "independent",
@@ -2929,12 +2927,14 @@
     },
     "nacre/shell/modules/NacreShellIpc.qml": {
       "disposition": "independent",
-      "sha256": "8ae178b4660f3ba211c4d569b67c3306b39c051c86711162ba182698b1d9917b",
+      "sha256": "70dab18ffdc722df089d7f0a837b3ebaadd8bc3e950708d485910c159ce92799",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/NacreShellShortcuts.qml": {
       "disposition": "independent",
@@ -3111,12 +3111,14 @@
     },
     "nacre/shell/modules/bar/popouts/NacreBatteryPopup.qml": {
       "disposition": "independent",
-      "sha256": "7a5466c6e025f5b1da124fdb77c318d84627395702dedfcab331892e970703f3",
+      "sha256": "8057e17e8cd16aef858e77104ed9f70a3ad675237cccd30297b6a6eff369732d",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis ce69bc0: Independent bar/native status/battery/calendar or popup assembly/device/history/control replacement; stock native data/APIs and own calendar helper are distinct dependencies. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/bar/popouts/NacreBluetoothPopup.qml": {
       "disposition": "independent",
@@ -3258,50 +3260,59 @@
     },
     "nacre/shell/modules/drawers/NacreChrome.qml": {
       "disposition": "independent",
-      "sha256": "5ff4631743ea026a569e9bff8a2e33185075ecc11fd861918b2c099fbb4d2c15",
+      "sha256": "843064cf7b5a8ecdf642ae7486f1f8c8581bef81b73d243370951ea17654dba5",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/NacreDesktop.qml": {
       "disposition": "independent",
-      "sha256": "b08c84e2ff356d1bfff0abcf71f4d6f95dafffc0deef39a962236212a6aad4b5",
+      "sha256": "e74f1ff0049c8b471d4f71ddfefc8b1876196415c0732de450f187e36d352b00",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e, ea5653e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e, ea5653e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/NacrePanelHost.qml": {
       "disposition": "independent",
-      "sha256": "7e062ae0a6c8721ab41aa1f54fa08e1be30a11c014f1cf1a8de6dca7ef70ac69",
+      "sha256": "7ceffa6a267fce47376dc55ad8e87be476fc06b32eb21420caf66601b8c73a6c",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 216f23a, 28db63f, 1cd6ab7, e869927, 7b53c65, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 216f23a, 28db63f, 1cd6ab7, e869927, 7b53c65, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/NacrePanelInput.qml": {
       "disposition": "independent",
-      "sha256": "3ff1d6d165545769ad08469d353883b9ade121f9d252795d355f0a2e1920a559",
+      "sha256": "4408148364195f0f3b7f331f7f4877cf12401aa188ca731094679d4b3fea9c13",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 966ae9e. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/NacrePanelMask.qml": {
       "disposition": "independent",
-      "sha256": "0555541a289ac48db8274d7734e820df73e2dd53236b556936d51d992abf361e",
+      "sha256": "abe292e43cb33d3b3288ceee9d61e401c1bf73efd89a73e785fce243a1d8e61f",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/NacreReservedEdges.qml": {
       "disposition": "independent",
@@ -3314,12 +3325,14 @@
     },
     "nacre/shell/modules/drawers/NacreScreen.qml": {
       "disposition": "independent",
-      "sha256": "208c31bab243e5fb20cf8a599478f901548b2442e7211d812492c326ea461477",
+      "sha256": "51a32517403ee2f6cd8dde7b12245e21b1e5daab61832499605b7371069a7867",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 216f23a, 8d96a29, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 609a1e4: Independent frame/registry/mask/reservation/panel composition after inherited bodies removed; public output/panel geometry and input contracts retained. Subsequent current-file history: 5da1132, 216f23a, 8d96a29, 239af3a. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/drawers/layout.js": {
       "disposition": "independent",
@@ -3359,36 +3372,40 @@
     },
     "nacre/shell/modules/osd/NacreOsdControls.qml": {
       "disposition": "independent",
-      "sha256": "1cded4f6ddb1ec14704b03719087b2820c8dea410ebb71ffde227f4cade65626",
+      "sha256": "081f48c84a49f851c6259d684fd383805dd6d73138c966131c11c5337090f417",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/osd/NacreOsdEvents.qml": {
       "disposition": "independent",
-      "sha256": "a915eee18bfc7c4332a4ff5cf5b41d9829892f66e8a94afb55427430b03605ea",
+      "sha256": "66f47af046ce4d4bd2c4b730ad8e01253c1958da9dcdf82c531a789d82fcff4c",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/osd/NacreOsdPanel.qml": {
       "disposition": "independent",
-      "sha256": "0ba693b4716c651c64b75fd0e662ffe73df32728a4f7f75850b4163f01c20610",
+      "sha256": "65778b264cfe5a2212d450b5cab9164e3d712ba9678620e61bedbfd545592c18",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
         "Full current body reviewed; replacement basis 216f23a: Independent native presentation/control/background replacement and adapters after old bodies removed, capability/focus/pause/finite motion contracts retained. Subsequent current-file history: unchanged. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/osd/Wrapper.qml": {
       "disposition": "independent",
@@ -3437,12 +3454,14 @@
     },
     "nacre/shell/modules/topbar/NacreHeader.qml": {
       "disposition": "independent",
-      "sha256": "f34ccb48b1377a507ebb6e4de940353311ded7c7851e8f7bffe0e87a54a2ecdc",
+      "sha256": "85b60b6919d64a05137cf4236eb642225101dcef09ee563bbab5ab6a1b142f4b",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132, 7c8f3a6. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132, 7c8f3a6. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/topbar/NacreHeaderForwarder.qml": {
       "disposition": "independent",
@@ -3453,23 +3472,16 @@
         "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
       ]
     },
-    "nacre/shell/modules/topbar/NacreHeaderTrigger.qml": {
-      "disposition": "independent",
-      "sha256": "da16a40627257699f48ffd32209ebe9b12cade457e618d10246814d3c4975f0c",
-      "evidence": [
-        "docs/specs/core-presentation-source-audit.md",
-        "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
-    },
     "nacre/shell/modules/topbar/NacreTopBar.qml": {
       "disposition": "independent",
-      "sha256": "384bc53e3a86aaa3eadb60293285f1ca7757920498503e1deaf66ad8844f4713",
+      "sha256": "853d793890117cd946d1093961a909f9f07844c7a455523089cf8ff77e9c881f",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 966ae9e: Independent header/workspace/trigger/forwarder and adapters after inherited topbar removed; current lifecycle owner fixes traced. Subsequent current-file history: 5da1132. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/topbar/NacreWorkspaceRow.qml": {
       "disposition": "independent",
@@ -3500,23 +3512,26 @@
     },
     "nacre/shell/shell.qml": {
       "disposition": "independent",
-      "sha256": "d3e40ea09882259a0f0480c0790c20b3b705d804cf9366ffff84373ff295ac3c",
+      "sha256": "ebf0e7e2324e1972e3db3c8796f0f4a8e04fa7de0b7f7065779b5842f24f801b",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md",
-        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: 36c35e0. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths."
-      ]
+        "Full current body reviewed; replacement basis 5da1132: Independent root/routing/IPC/shortcut replacement from public contracts; current later battery initialization retained, not inherited shell body. Subsequent current-file history: 36c35e0. Compatibility names/public preference values are contracts, not old algorithms. Earlier source exposure acknowledged; no old/upstream body consulted for current own API correction. Source code review does not certify all dependency/test/asset origin or hardware/auth paths.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_quick_controls.py": {
       "disposition": "independent",
-      "sha256": "0365655100f5626d52618c00d9331578d6bb9b48d38e0d9dba3f24bf59e5f68a",
+      "sha256": "71277e97153cdcd4553112f1f4644ea57cdc5300bf58e06152207be613995303",
       "evidence": [
         "docs/specs/core-presentation-source-audit.md",
         "docs/nacre/PROVENANCE.md#core-presentation-current-source-review",
         "Own Qt popup/helper harness first 51eb6e1 and subsequent independent provider/popup/root migrations traced. Full current body reviewed. Corrected inline DesktopSettings fixture to actual set API (old change stub hid production failure); real native DND handler test fails baseline then passes fix. Fake device/preference owners only; included fixture/dependency originals remain separately audited.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_lock_snapshot.py": {
       "disposition": "independent",
@@ -3766,12 +3781,14 @@
     },
     "nacre/shell/modules/dashboard/settings/NacreDesktopPage.qml": {
       "disposition": "independent",
-      "sha256": "b330de5e96612b0c78fdacbc0525298154962a802914db33ba718ccaa0ba91cf",
+      "sha256": "20cb8f13c7a0bf4a65d077de96617da75b82da091d953b4bf3ac850f0b32616c",
       "evidence": [
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
+        "Full current body individually reviewed. Basis cbef0e4: fresh desktop/display/workflow/maintenance controls. Later current-file changes: unchanged. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell/modules/dashboard/settings/NacreDisplaysPage.qml": {
       "disposition": "independent",
@@ -3906,15 +3923,6 @@
         "docs/specs/application-panels-source-audit.md",
         "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
         "Full current body individually reviewed. Basis 007d020: locally authored extra view; current native provider/foundation/routing migrations traced. Later current-file changes: 02b2bda, 9a3b9a7, 548f0b4, 2c1d2ca, 83b3531, 5d0028f, e3d0298. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
-      ]
-    },
-    "nacre/shell/modules/extras/EdgeHandles.qml": {
-      "disposition": "independent",
-      "sha256": "d78ebfceddf2173fa83f98fa5159a2ab0ecd2a96ca0d22f35ceb39b82834e6b5",
-      "evidence": [
-        "docs/specs/application-panels-source-audit.md",
-        "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md",
-        "Full current body individually reviewed. Basis 6fb4d5a: locally authored extra view; current native provider/foundation/routing migrations traced. Later current-file changes: 5da1132, 9a3b9a7, 548f0b4, b12961b, 2c1d2ca, 9deeee7. Own application source/producer contracts and completed replacement specs examined; local extras/preview first-source peer comparison supplements history, not sole origin proof. Public native API scaffolding is retained. Prior exposure and visual references acknowledged; no legal clean-room or final-license claim. Referenced helper/test/asset origins remain separately scoped."
       ]
     },
     "nacre/shell/modules/extras/Keybindings.qml": {
@@ -4067,12 +4075,14 @@
     },
     "nacre/shell-tools/control.sh": {
       "disposition": "independent",
-      "sha256": "7b0fc6d6f6db8d5a5662c83369589aeca4461492620fcda26c9287f2d387da13",
+      "sha256": "7fe93a997aea7595917c2c20a69a7157ed761dafd47226596008367c4bae44f1",
       "evidence": [
         "docs/specs/desktop-startup-source-audit.md",
         "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md",
-        "Full current body reviewed; basis 548f0b4: 4874385 original local dispatcher; follow old siverteh path through ba5e48f desktop/Brain split and 1e24b63 light IPC; current renamed body and1488f68 locked palette CLI routing. Later current-path changes: 1488f68. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped."
-      ]
+        "Full current body reviewed; basis 548f0b4: 4874385 original local dispatcher; follow old siverteh path through ba5e48f desktop/Brain split and 1e24b63 light IPC; current renamed body and1488f68 locked palette CLI routing. Later current-path changes: 1488f68. First-source peer comparison supplements traced local history and current native producer/consumer contracts, not sole proof. Current helper interfaces and dependency paths are public/local data, not imported Caelestia/ML4W algorithms. Prior source exposure acknowledged; no legal clean-room/final-license claim. Called helpers, tests, packaging and third-party dependency origins remain separately scoped.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/launch.sh": {
       "disposition": "independent",
@@ -5777,12 +5787,14 @@
     },
     "nacre/shell-tools/tests/device-qml/tst_NacreNotifs.qml": {
       "disposition": "independent",
-      "sha256": "a35bc5b53e52d00894ce71efcbb10445c059d268c8d26c5f33f3e477de8253e9",
+      "sha256": "744accebbd3c2f74d9d20c55fd52707c69bcb1ed1bd39045e6149fc67725fb0f",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation e4d2474 nacre/shell-tools/tests/device-qml/tst_NacreNotifs.qml; subsequent 5da1132, 22a4ad1. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation e4d2474 nacre/shell-tools/tests/device-qml/tst_NacreNotifs.qml; subsequent 5da1132, 22a4ad1. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/device-qml/tst_NacrePlayers.qml": {
       "disposition": "independent",
@@ -5869,14 +5881,15 @@
     },
     "nacre/shell-tools/tests/frame-qml/render.qml": {
       "disposition": "independent",
-      "sha256": "b870ccbf1b5de33613e30e30e371395560b4c1900f66b1a12bc111c2a118b760",
+      "sha256": "a998e278072503fb981d02115161a789a73574ebec28c4b9fde1e59cc631d14b",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 609a1e4 nacre/shell-tools/tests/frame-qml/render.qml; subsequent 02b2bda. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/frame-qml/tst_registry.qml": {
       "disposition": "independent",
@@ -6046,14 +6059,15 @@
     },
     "nacre/shell-tools/tests/qml/tst_quick_controls.qml": {
       "disposition": "independent",
-      "sha256": "568e8a49b69e2851b312e0a743467a97a219f022f19f9d0fa0615bd213d38574",
+      "sha256": "92f2c5ae9e9948d1c5b49b536ff73022c9ca66651f9189ba7a3dadb99563167d",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 51eb6e1 siverteh/shell-tools/tests/qml/tst_quick_controls.qml; subsequent 5da1132, 490d457, 6e09600, 28db63f, 2f9300f, 548f0b4, 2c1d2ca, d2e2e40, c2bb50a. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/qml/tst_settings.qml": {
       "disposition": "independent",
@@ -6076,12 +6090,14 @@
     },
     "nacre/shell-tools/tests/state-qml/tst_state.qml": {
       "disposition": "independent",
-      "sha256": "19644475f8b3dc78042431672d4ed794c9d30ec436e62fb73ca8810aa44f09e1",
+      "sha256": "9b3a7f5772a3ae47d96f716fcab81f5c24bf3d86c45f777056612dfdadd7b380",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
-        "Complete current body/data reviewed. Local creation 5da1132 nacre/shell-tools/tests/state-qml/tst_state.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open."
-      ]
+        "Complete current body/data reviewed. Local creation 5da1132 nacre/shell-tools/tests/state-qml/tst_state.qml; subsequent none. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/wallpaper-qml/tst_wallpapers.qml": {
       "disposition": "independent",
@@ -6107,15 +6123,16 @@
     },
     "nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml": {
       "disposition": "independent",
-      "sha256": "60f19dc737a8fa2b4ea7510268f7b5e4bc21dbbf2847c3b41a5dec06ed995a53",
+      "sha256": "0636fdaffdb363c098ca8dc66f26cf150f259fb078934ac966f4a7914eaa9968",
       "evidence": [
         "docs/specs/native-fixture-source-audit.md",
         "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md",
         "Complete current body/data reviewed. Local creation 216f23a nacre/shell-tools/tests/wrappers-qml/tst_wrappers.qml; subsequent 5da1132, d1d9a1e. Own native behavior fixture/minimal contract double or measured functional data; no inherited production implementation retained in fixture. External illustration metadata explicitly credited. Whole-upstream/dependency/licensing comparison remains open.",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "tools/tests/fixtures/keybindings-contract.json": {
       "disposition": "non-implementation",
@@ -6209,12 +6226,14 @@
     },
     "nacre/shell-tools/tests/test_click_away.py": {
       "disposition": "independent",
-      "sha256": "3b0b5ac577994c9dfddf91ba67d5cd1a41f659a11fc88d9787405b1c8f24831f",
+      "sha256": "1087ca418908bf5e2f418db61106b1e9c3118dc597df3c56dc98565082e9c089",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 6e91ab0:siverteh/shell-tools/tests/test_click_away.py; subsequent 5da1132, 966ae9e, ea5653e, 609a1e4, 9a3b9a7, 548f0b4, 63162dc, 83b3531, 5d0028f. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 6e91ab0:siverteh/shell-tools/tests/test_click_away.py; subsequent 5da1132, 966ae9e, ea5653e, 609a1e4, 9a3b9a7, 548f0b4, 63162dc, 83b3531, 5d0028f. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_dashboard_assembly.py": {
       "disposition": "independent",
@@ -6227,30 +6246,25 @@
     },
     "nacre/shell-tools/tests/test_desktop_wrappers.py": {
       "disposition": "independent",
-      "sha256": "b7350fa52559cfc132f28ec56d9f2565fcd78b787884a9f71a947a5dbe6c383a",
+      "sha256": "aef674465c78c507122a9d6e8ba3b1bc83ad862edf1265ed37c5468cb1e55dd8",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 216f23a:nacre/shell-tools/tests/test_desktop_wrappers.py; subsequent 5da1132, d1d9a1e. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 216f23a:nacre/shell-tools/tests/test_desktop_wrappers.py; subsequent 5da1132, d1d9a1e. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_device_services.py": {
       "disposition": "independent",
-      "sha256": "90cd3c3ee41a1925f4ece97c25cc880bb963f671f2c53aa01cbd48ad570f6ac5",
+      "sha256": "820789dbb0ace6bd2ba3687a345a0a733408c7463c1d0ddecbcc528aa5717836",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 2f9300f:nacre/shell-tools/tests/test_device_services.py; subsequent 5da1132, 28707f7, eea01b9, 02b2bda, ea5653e, a492dc6, 3d93b32, 22a4ad1, e4d2474, 18d8aab, 13701fc, 977f628, d4a82bb. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
-    },
-    "nacre/shell-tools/tests/test_edge_handle.py": {
-      "disposition": "independent",
-      "sha256": "874f0bd94b8908f6eb28acc3f896b193df3b66fcd5a3d2f7879d0f7611fb816e",
-      "evidence": [
-        "docs/specs/python-fixture-source-audit.md",
-        "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 6fb4d5a:siverteh/shell-tools/tests/test_edge_handle.py; subsequent 9a3b9a7, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 2f9300f:nacre/shell-tools/tests/test_device_services.py; subsequent 5da1132, 28707f7, eea01b9, 02b2bda, ea5653e, a492dc6, 3d93b32, 22a4ad1, e4d2474, 18d8aab, 13701fc, 977f628, d4a82bb. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_foundation.py": {
       "disposition": "independent",
@@ -6263,23 +6277,26 @@
     },
     "nacre/shell-tools/tests/test_frame.py": {
       "disposition": "independent",
-      "sha256": "94926e727a42a89687a3af2b0dc22d1a360166665cba9fa25b6169991e023cae",
+      "sha256": "90e2eab7723756e1540edc5cbca5cb142ab232c337d233a580c7f15cf50e2e07",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
         "Full current Python/embedded fixture body and local history reviewed. Creation 609a1e4:nacre/shell-tools/tests/test_frame.py; subsequent 5da1132, 966ae9e, 02b2bda, 98108af, bc7c7e2, 2b21f0d, 8d96a29, 239af3a. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_header_widgets.py": {
       "disposition": "independent",
-      "sha256": "658d717ec7c9a99e7caedb20bfde5648de0a1068d92fb7f7d72a096272395fc7",
+      "sha256": "55c91e74786a88906fdea560291220cba19a88967dfa7dcfd3726748ba3e8ab9",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 966ae9e:nacre/shell-tools/tests/test_header_widgets.py; subsequent 5da1132. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 966ae9e:nacre/shell-tools/tests/test_header_widgets.py; subsequent 5da1132. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_launcher_panel.py": {
       "disposition": "independent",
@@ -6386,12 +6403,14 @@
     },
     "nacre/shell-tools/tests/test_top_hover.py": {
       "disposition": "independent",
-      "sha256": "c2ccfa937b563e8a8cc3a0565bebaca9958a8ab2d90a66455361bdf0a8cfaf29",
+      "sha256": "cbc1d97ec1a1adb3ad2cb07a19340ba57d169878bf4e41885e501514d2305152",
       "evidence": [
         "docs/specs/python-fixture-source-audit.md",
         "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md",
-        "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open."
-      ]
+        "Full current Python/embedded fixture body and local history reviewed. Creation 4c9d18e:siverteh/shell-tools/tests/test_top_hover.py; subsequent 5da1132, 966ae9e, ea5653e, 548f0b4. Own behavior/isolation/native staging contracts, external frameworks licensed separately; workflow isolation regression corrected in this area. Final whole-source/dependency/licensing comparison remains open.",
+        "docs/specs/frame-control-center.md"
+      ],
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/shell-tools/tests/test_wallpaper_native.py": {
       "disposition": "independent",
@@ -6522,7 +6541,7 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "de70662cd8011747e5d2979d0eea716b05641f531dfec61a4706d59328983147",
+      "sha256": "ae4d58235a578dd6342120b579c1c478382837a8437045a57b5edbb177e0a008",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
@@ -6531,9 +6550,10 @@
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/features/appearance.md": {
       "disposition": "non-implementation",
@@ -6555,22 +6575,24 @@
     },
     "docs/features/connections.md": {
       "disposition": "non-implementation",
-      "sha256": "5d33d56698f43598976c4135fc5ce1286478beea5db5512930cd9fe0f2338837",
+      "sha256": "7f1e91f2e1c91b06ec0b3de7573c808a3f5c78d3212f22389015c590d1c2057d",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
-        "docs/specs/visual-cleanup.md"
+        "docs/specs/visual-cleanup.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own post-rewrite visual cleanup changes re-reviewed against user requirements/current Nacre source: title/grid geometry, continuous measured picker travel and opaque image buffering, compact device/history presentation, finite motion, faster bounded axis-aware scrolling and cancel-before-settings-reset. Updated native fixtures keep real token/viewport contracts and assert new speed/timing, not retired values. No inherited implementation copied; actual synthetic RHI captures and native input/geometry tests inspected, device/provider/private state untouched. Full deployment/CI gates remain separate."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/features/edge-menus.md": {
       "disposition": "non-implementation",
-      "sha256": "d095961c2b4cb29bd5d50f7f53b894385e035c7ba671709d56b057cf80de120e",
+      "sha256": "07efc801f296a7011e85df5cf2e65b80f7c964fa1e1dd4b1019e709502f489b5",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/features/foundation.md": {
       "disposition": "non-implementation",
@@ -6583,14 +6605,15 @@
     },
     "docs/features/frame-panels.md": {
       "disposition": "non-implementation",
-      "sha256": "a5b7478702eee67c5af152c80cf679195e5a3af3b9cf08e98b6242802fba34a9",
+      "sha256": "ddaaca3ee94bde87c31ab8b60d754cf2db05fb49fbe7fb139eb3e1c474eea2a7",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/visual-cleanup.md",
-        "docs/specs/panel-integration.md"
+        "docs/specs/panel-integration.md",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Own Nacre integration repair reviewed against user requirements: attached notification chrome with immediate suppression and finite reveal, full-viewport gallery over real desktop, semantic toolbar groups, compact sliders, and serialized live browsing. Native tests cover provider publication before close, latest queue selection, joined/transparent pixels, contained control gaps, and suppression release. No inherited implementation consulted or copied."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "docs/features/image-presentation.md": {
       "disposition": "non-implementation",
@@ -6705,16 +6728,17 @@
     },
     "docs/overview.md": {
       "disposition": "non-implementation",
-      "sha256": "6ceaa4e6a359faf069cc2bd4264ba4550420acc90912887c62b826a4a7563f42",
+      "sha256": "4fe0ec9ad8e898c7e932330dfe56fef4f874033142e76430eb193586a4d5a879",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
         "docs/specs/documentation-source-audit.md",
         "docs/specs/nacre-logo.md: shared approved logo owner documentation reconciled with current component map.",
         "docs/features/terminal-branding.md: public nacre-ai entry point forwards to existing private controller; reviewed argument/status preservation, managed deployment, canonical help and desktop launch routes; accounts and workers unchanged.",
         "docs/specs/terminal-logo-refresh.md: independently authored event-driven Kitty image registration/frame editing and scoped default/resolved menu redraw; native PTY/image behavior and retired process/device rejection tested.",
-        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership."
+        "docs/features/terminal-branding.md: independently authored managed Nacre AI desktop entry and shared palette icon output; validated Name/Exec/TryExec/StartupWMClass without changing accounts or worker ownership.",
+        "docs/specs/frame-control-center.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     },
     "nacre/login/README.md": {
       "disposition": "non-implementation",
@@ -7983,6 +8007,118 @@
         "docs/specs/wallpaper-picker-opening.md: reviewed initial/reopen/late-data snapshot selection versus smooth explicit browsing; native tests assert immediate travel and preserve intermediate navigation positions."
       ],
       "sha256": "5127a7377874bfa4c2beb0e986251e7af07a0a9f23e26eb95cdc7b38f9472019"
+    },
+    "docs/features/control-center.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "8c70442d2243fed7e410bba66ef567929ae1096ec49c31c1000c1722d735aeec",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "docs/specs/frame-control-center.md": {
+      "disposition": "non-implementation",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "ab8c2cde95049b5ed71b816411da9418330f7a59ac1a50e241376189175e3311",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell-tools/control-tools.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "2075e5978a18a74cdf7d97980b4c480002a10ad39ed72052eb086fbf977b472b",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell-tools/tests/device-qml/tst_NacreControlTools.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "701b7df4c05f61c5fade51ec1f68933145f45ed8201ff63193e034b9ce4bd2ad",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell-tools/tests/test_control_tools.py": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "9fe06ba1fb597472276e5a98aa49db1780f9e30120283d0433d6d8ac1b65f2b8",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/controlcenter/NacreControlCenter.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "be63d0fac2b0777ae0a90c652fde79526f0b009e551d5d2bbb28770fc6bda325",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/controlcenter/NacreControlLevels.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "7083055335c7af5283e4d2d1d17fd97cf81a6cb6893dda986caf4c02a9913e0f",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/controlcenter/NacreControlTile.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "ac87e0d044be5ee8a4f4fa1868dd2ea6cbb062fb4e937a3cccc349cec776c5d3",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/drawers/NacreFrameLips.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "a984fc285c74432161a4727a7325133b51b07b56ae9d00ebbfb7d1131a21cbaa",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/osd/NacreLevelNotice.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "d4422211368f05668539a7706f437c05037cf6c7a31d122ea32e2689ceedeefc",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/modules/topbar/NacreStatusHint.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "d78aaeb561e2bb4e7284803b03cd18e1eb16b901476f6c1a16d4d163b61da8b2",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/services/NacreControlTools.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "031adba9bd4c4110352a4bf1848053a78b8a41c54d097d198f4ad449094b7c8b",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/widgets/NacreFrameLip.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "76193320ba146142dbfe74e17a6ab34a82a0f08b6342077db7d6e559b89f3e39",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
+    },
+    "nacre/shell/widgets/NacreRangeSlider.qml": {
+      "disposition": "independent",
+      "evidence": [
+        "docs/specs/frame-control-center.md"
+      ],
+      "sha256": "113d81b3303a40fe2b95c19d5a1d3dc7ac0f9cd4f2eb7a11fd588500ae1570e5",
+      "notes": "Own approved frame/control-center slice reviewed against current Nacre spec and public APIs, without inherited source consultation. Marked geometry and passive feedback remain shared-state owned; no writes on opening or idle polling. Current notification history clock observes actual visibility and reduced-motion feedback settles immediately. New native/ownership/routing/geometry regressions complement existing full checks and live acceptance."
     }
   }
 }

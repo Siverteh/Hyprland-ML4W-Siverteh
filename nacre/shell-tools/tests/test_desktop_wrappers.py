@@ -53,7 +53,7 @@ class DesktopWrappersTests(unittest.TestCase):
                     )
                     manifest.write(f"\nsingleton {name} 1.0 {name}.qml\n")
             components = {
-                "osd": ["NacreOsdControls", "NacreOsdPanel", "NacreOsdEvents"],
+                "osd": ["NacreOsdEvents"],
                 "session": ["NacreSessionControls", "NacreSessionPanel"],
                 "background": ["NacreWallpaperScene", "NacreDesktopVideo"],
             }
@@ -67,6 +67,9 @@ class DesktopWrappersTests(unittest.TestCase):
                     source = source.replace("import Quickshell.Io", "")
                     source = remove_objects(source, r"\bIpcHandler\s*\{")
                     (target / (name + ".qml")).write_text(source)
+            (target / "NacreLevelNotice.qml").write_text(
+                'import QtQuick\nItem {required property var output;property bool shown:false;property string channel:"volume"}'
+            )
             for name, color in [
                 ("first.png", "#b53535"),
                 ("second.png", "#2f7ab4"),

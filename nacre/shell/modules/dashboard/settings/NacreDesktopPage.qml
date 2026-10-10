@@ -85,17 +85,17 @@ NacreSettingsPage {
     }
     NacreSettingsSection {
         title: "Edge menu activation"
-        description: "Click handles appear over the desktop without moving windows. Hover opens menus directly."
+        description: "Three visible frame lips mark the menus without moving windows. Hover opens only those targets; status icons use clicks."
         Flow {
             width: parent.width
             spacing: 8
             ActionButton {
-                text: "Click handles"
+                text: "Click only"
                 selected: DesktopSettings.data.clickEdgeMenus === true
                 onClicked: DesktopSettings.set("clickEdgeMenus", true)
             }
             ActionButton {
-                text: "Hover"
+                text: "Hover lips"
                 selected: DesktopSettings.data.clickEdgeMenus !== true
                 onClicked: DesktopSettings.set("clickEdgeMenus", false)
             }

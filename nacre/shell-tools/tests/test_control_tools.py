@@ -1,0 +1,105 @@
+"""Optional control actions respect external ownership and publish after success."""
+
+import importlib.util
+from pathlib import Path
+import subprocess
+import tempfile
+import unittest
+from unittest.mock import patch
+
+spec = importlib.util.spec_from_file_location(
+    "control_tools", Path(__file__).resolve().parents[1] / "control-tools.py"
+)
+tools = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(tools)
+
+
+class ControlToolsTests(unittest.TestCase):
+    def test_state_discovery_is_readonly_and_external_owner_is_visible(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(tools.shutil, "which", return_value="/usr/bin/tool"),
+            patch.object(tools, "service", return_value=(True, 123)),
+            patch.object(tools.subprocess, "run") as run,
+        ):
+            home = Path(folder)
+            status = tools.state(home)
+            self.assertTrue(status["nightLightExternal"])
+            self.assertFalse(status["nightLightEnabled"])
+            self.assertFalse(tools.record_path(home).exists())
+            run.assert_not_called()
+            with self.assertRaisesRegex(ValueError, "externally"):
+                tools.night_light(True, home)
+            run.assert_not_called()
+
+    def test_night_light_claims_only_service_it_started_then_can_disable(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(tools.shutil, "which", return_value="/usr/bin/tool"),
+            patch.object(
+                tools,
+                "service",
+                side_effect=[
+                    (False, 0),
+                    (True, 321),
+                    (True, 321),
+                    (True, 321),
+                    (True, 321),
+                ],
+            ),
+            patch.object(tools.subprocess, "run") as run,
+        ):
+            home = Path(folder)
+            self.assertTrue(tools.night_light(True, home)["nightLightEnabled"])
+            self.assertEqual(
+                run.call_args_list[0].args[0],
+                ["systemctl", "--user", "start", "hyprsunset.service"],
+            )
+            self.assertEqual(
+                run.call_args_list[1].args[0],
+                ["hyprctl", "hyprsunset", "temperature", "4500"],
+            )
+            self.assertEqual(tools.record_path(home).stat().st_mode & 0o777, 0o600)
+            self.assertFalse(tools.night_light(False, home)["nightLightEnabled"])
+            self.assertEqual(
+                run.call_args.args[0], ["hyprctl", "hyprsunset", "identity"]
+            )
+
+    def test_private_schedule_and_unmanaged_socket_are_never_taken_over(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(tools.shutil, "which", return_value="/usr/bin/tool"),
+            patch.object(tools, "service", return_value=(False, "")),
+            patch.object(tools.subprocess, "run") as run,
+        ):
+            home = Path(folder)
+            config = home / ".config/hypr/hyprsunset.conf"
+            config.parent.mkdir(parents=True)
+            config.write_text("profile { identity = true }\n")
+            self.assertTrue(tools.state(home)["nightLightExternal"])
+            with self.assertRaises(ValueError):
+                tools.night_light(True, home)
+            run.assert_not_called()
+            config.unlink()
+            with patch.object(tools, "unmanaged_socket", return_value=True):
+                with self.assertRaises(ValueError):
+                    tools.night_light(True, home)
+                run.assert_not_called()
+
+    def test_failed_temperature_request_never_publishes_enabled(self):
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch.object(tools.shutil, "which", return_value="/usr/bin/tool"),
+            patch.object(
+                tools, "service", side_effect=[(False, 0), (True, 321), (True, 321)]
+            ),
+            patch.object(
+                tools.subprocess,
+                "run",
+                side_effect=[None, subprocess.CalledProcessError(1, ["hyprctl"]), None],
+            ),
+        ):
+            home = Path(folder)
+            with self.assertRaises(subprocess.CalledProcessError):
+                tools.night_light(True, home)
+            self.assertFalse(tools.load(home)["enabled"])

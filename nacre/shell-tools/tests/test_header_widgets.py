@@ -39,8 +39,8 @@ class HeaderWidgetTests(unittest.TestCase):
             (fixtures / "NacrePowerButton.qml").write_text(
                 "import QtQuick\nItem {implicitWidth:30;implicitHeight:30}"
             )
-            (fixtures / "EdgeMenuHandle.qml").write_text(
-                "import QtQuick\nItem {property bool externalHovered:false;signal clicked()}"
+            (target / "NacreStatusHint.qml").write_text(
+                'import QtQuick\nItem {property var output;property string text:"";property real center:0}'
             )
             (fixtures / "NacreStatusIcons.qml").write_text("""import QtQuick
 Item {
@@ -61,7 +61,7 @@ Item {
                 "NacreTime": 'function format(value){return "12:34"}',
                 "Updates": 'property int count:3;property string message:""',
                 "AppLaunch": "property var calls:[];function run(command){calls=[...calls,command]}",
-                "NacrePanelState": 'property bool hidden:false;property var screens:({test:{session:false,launcher:false,dashboard:false,dashboardPinned:false,edgeMenu:""}});property var panels:({});property var calls:[];function openMode(mode,q,preview){calls=[...calls,mode]}function popout(name,center,screen){calls=[...calls,name]}function openDeviceSettings(name){calls=[...calls,name];return ["audio","network","bluetooth"].includes(name)}function openEdge(name,screen){calls=[...calls,name]}',
+                "NacrePanelState": 'property bool hidden:false;property var screens:({test:{session:false,launcher:false,dashboard:false,dashboardPinned:false,edgeMenu:""}});property var panels:({});property var calls:[];function openMode(mode,q,preview){calls=[...calls,mode]}function popout(name,center,screen){calls=[...calls,name]}function openDeviceSettings(name){calls=[...calls,name];return ["audio","network","bluetooth"].includes(name)}function openControls(name,screen){calls=[...calls,name]}function openEdge(name,screen){calls=[...calls,name]}',
             }
             with (fixtures / "qmldir").open("a") as manifest:
                 for name in (
@@ -70,7 +70,6 @@ Item {
                     "NacreActiveTitle",
                     "NacreStatusIcons",
                     "NacrePowerButton",
-                    "EdgeMenuHandle",
                 ):
                     manifest.write(f"\n{name} 1.0 {name}.qml\n")
                 for name, body in definitions.items():
@@ -92,7 +91,6 @@ Item {
                 "NacreHeader",
                 "NacreWorkspaceRow",
                 "NacreHeaderForwarder",
-                "NacreHeaderTrigger",
             ):
                 source = (SHELL / "modules/topbar" / (name + ".qml")).read_text()
                 for imported in (

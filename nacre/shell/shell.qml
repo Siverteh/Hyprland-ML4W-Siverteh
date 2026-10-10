@@ -8,13 +8,13 @@ import qs.modules.topbar
 import qs.modules.extras
 
 ShellRoot {
+    property var controlTools: NacreControlTools
     property var batteryAlerts: NacreBatteryAlerts
     property var lockWidgets: LockWidgets
     property var displayRecovery: DisplayRecovery
     NacreBackground {}
     NacreDesktop {}
     NacreTopBar {}
-    EdgeHandles {}
     NacreShellShortcuts {}
     NacreShellIpc {}
     Component.onCompleted: ChatWindowTitle.scan()

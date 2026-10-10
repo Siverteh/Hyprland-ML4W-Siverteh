@@ -22,6 +22,7 @@ Item {
     readonly property alias session: session
     readonly property alias osd: osd
     readonly property alias popouts: popouts
+    readonly property alias feedback: feedback
     readonly property bool hovered: input.hovered
     readonly property bool popoutHovered: input.popoutHovered
     readonly property bool dashboardHovered: input.dashboardHovered
@@ -48,6 +49,8 @@ Item {
     }
     Osd.NacreOsdPanel {
         id: osd
+        section: root.visibilities.controlSection || "home"
+        onSectionRequested: section => root.visibilities.controlSection = section
         screen: root.screen
         visibility: root.visibilities.osd && !root.visibilities.session
         x: root.osdPosition.x
@@ -78,7 +81,7 @@ Item {
     }
     Notifications.NacreNotificationStack {
         id: notifications
-        suppressed: popouts.height > 0.1 || session.width > 0.1 || dashboard.height > 0.1
+        suppressed: popouts.height > 0.1 || session.width > 0.1 || dashboard.height > 0.1 || root.visibilities.osd
         anchors.right: parent.right
         anchors.top: parent.top
     }
@@ -89,5 +92,11 @@ Item {
         y: root.launcherPosition.y
         clip: true
         z: 10
+    }
+    Osd.NacreOsdEvents {
+        id: feedback
+        screen: root.screen
+        visibilities: root.visibilities
+        hovered: false
     }
 }

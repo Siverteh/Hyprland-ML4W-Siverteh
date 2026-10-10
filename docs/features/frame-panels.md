@@ -49,8 +49,9 @@ checking returned input, so it does not claim zero-latency pointer retargeting.
 
 ## Independent OSD and session wrappers
 
-NacreOsdPanel/Controls/Events own right-edge control presentation and activity
-lifetime. Existing audio/backlight/keyboard owners handle writes; loading/readiness
+The former NacreOsdPanel/Controls types forward to the control center's explicit
+right-menu presentation and horizontal levels. NacreOsdEvents/LevelNotice own
+separate short automatic feedback, never the full panel. Existing audio/backlight/keyboard owners handle writes; loading/readiness
 changes do not write hardware or reveal OSD. Actual adjustments reveal the focused
 output only, with hover-paused two-second expiry. NacreSessionPanel/Controls expose
 the four existing allowlisted actions through AppLaunch, with no action on display.

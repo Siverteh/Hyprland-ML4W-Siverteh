@@ -48,6 +48,66 @@ TestCase {
             }
         }
     }
+    Component {
+        id: center
+        Item {
+            width: 424
+            height: 860
+            property alias panel: panel
+            property string selectedSection: "home"
+            NacreControlCenter {
+                id: panel
+                width: implicitWidth
+                height: implicitHeight
+                screen: ({
+                        name: "test"
+                    })
+                section: parent.selectedSection
+                onSectionRequested: section => parent.selectedSection = section
+                visibility: true
+            }
+        }
+    }
+    function test_control_center_open_is_readonly_scrolls_are_separate_and_small_bounds() {
+        NacreAudio.writes = 0;
+        NacreKeyboardLight.writes = [];
+        NacreBrightness.device.writes = [];
+        NacreControlTools.writes = 0;
+        const scene = createTemporaryObject(center, this), panel = scene.panel;
+        wait(50);
+        compare(NacreAudio.writes, 0);
+        compare(NacreKeyboardLight.writes.length, 0);
+        compare(NacreBrightness.device.writes.length, 0);
+        compare(NacreControlTools.writes, 0);
+        const volume = findChild(panel, "controlVolume");
+        verify(!!volume);
+        verify(volume.width > 200);
+        volume.value = .8;
+        volume.moved();
+        compare(NacreAudio.writes, 1);
+        const notifications = findChild(panel, "controlDetailsScroll"), controls = findChild(panel, "controlPrimaryScroll");
+        verify(notifications.y >= controls.y + controls.height);
+        verify(notifications.height > 80);
+        controls.contentY = 10;
+        compare(notifications.contentY, 0);
+        findChild(panel, "controlWifi").clicked();
+        compare(panel.section, "network");
+        scene.selectedSection = "bluetooth";
+        compare(panel.section, "bluetooth");
+        scene.selectedSection = "network";
+        wait(30);
+        verify(findChild(panel, "quickWifiPower") !== null);
+        scene.height = 480;
+        scene.width = 280;
+        wait(30);
+        verify(panel.width <= 280 && panel.height <= 480);
+        verify(notifications.y + notifications.height <= panel.height);
+        verify(controls.height > 100 && notifications.height > 50);
+        panel.visibility = false;
+        verify(!panel.enabled);
+        wait(350);
+        compare(panel.width, 0);
+    }
     function test_quick_list_wheel_speed_tail_clamp_and_reduce_motion() {
         const actionsBefore = JSON.stringify(DeviceActions.lastRequest);
         DesktopSettings.data = {
@@ -92,9 +152,9 @@ TestCase {
         compare(NacreAudio.micMuted, true);
         verify(!findChild(popup, "quickSettingsLink"));
         NacrePanelState.openDeviceSettings("audio");
-        compare(NacrePanelState.settingsPage, "sound");
-        compare(NacrePanelState.screens.test.dashboardTab, 4);
-        verify(NacrePanelState.screens.test.dashboard);
+        compare(NacrePanelState.screens.test.controlSection, "audio");
+        verify(NacrePanelState.screens.test.osd);
+        verify(!NacrePanelState.screens.test.dashboard);
         verify(!NacrePanelState.panels.test.popouts.hasCurrent);
         verify(!NacrePanelState.panels.test.popouts.pinned);
     }
@@ -129,7 +189,7 @@ TestCase {
         compare(DeviceActions.lastRequest.join("|"), "wifi-radio|off");
         verify(!findChild(popup, "quickSettingsLink"));
         NacrePanelState.openDeviceSettings("network");
-        compare(NacrePanelState.settingsPage, "network");
+        compare(NacrePanelState.screens.test.controlSection, "network");
     }
 
     function test_bluetooth_shows_known_devices_and_links_settings() {
@@ -140,7 +200,7 @@ TestCase {
         compare(DeviceActions.lastRequest.join("|"), "bluetooth-power|off");
         verify(!findChild(popup, "quickSettingsLink"));
         NacrePanelState.openDeviceSettings("bluetooth");
-        compare(NacrePanelState.settingsPage, "bluetooth");
+        compare(NacrePanelState.screens.test.controlSection, "bluetooth");
     }
 
     function test_display_never_changes_devices_or_history_and_rejects_stale_rows() {

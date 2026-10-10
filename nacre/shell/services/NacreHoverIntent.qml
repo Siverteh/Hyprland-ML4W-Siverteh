@@ -7,6 +7,7 @@ Singleton {
     readonly property int edgeWidth: 3
     readonly property int dashboardDepth: Math.max(edgeWidth, Math.floor((40 + (DesktopSettings.data.frameWidth ?? 10)) / 2))
     property var positions: ({})
+    property var lipRegions: ({})
     property var blocked: ({})
     property var headers: ({})
     property var popupHovered: ({})
@@ -15,8 +16,19 @@ Singleton {
     function validScreen(screen) {
         return !!screen && typeof screen.name === "string" && screen.name.length > 0;
     }
+    function regionContains(box, point) {
+        return !!box && !!point && point.x >= box.x && point.y >= box.y && point.x < box.x + box.width && point.y < box.y + box.height;
+    }
+    function markedContains(name, point) {
+        const boxes = lipRegions[point?.name];
+        if (boxes)
+            return regionContains(boxes[name], point);
+        if (name === "dashboard")
+            return !!point && point.y >= 0 && point.y <= dashboardDepth && Math.abs(point.x - point.width / 2) <= Math.min(350, point.width * .225);
+        return !!point && (name === "left" ? point.x < edgeWidth : point.x >= point.width - edgeWidth);
+    }
     function titleContains(point) {
-        return !!point && point.y >= 0 && point.y <= dashboardDepth && Math.abs(point.x - point.width / 2) <= Math.min(350, point.width * .225);
+        return markedContains("dashboard", point);
     }
     function fullscreenFor(name) {
         return NacreHyprland.focusedMonitor?.name === name && Number(NacreHyprland.activeClient?.lastIpcObject?.fullscreen) === 2;
@@ -31,6 +43,7 @@ Singleton {
         if (!validScreen(screen) || ![x, y, screen.width, screen.height].every(Number.isFinite) || screen.width <= 0 || screen.height <= 0)
             return;
         const point = {
+            name: screen.name,
             x: x,
             y: y,
             width: screen.width,
@@ -42,9 +55,9 @@ Singleton {
             return;
         if (!titleContains(point))
             gates.dashboard = false;
-        if (x >= edgeWidth)
+        if (!markedContains("left", point))
             gates.left = false;
-        if (x < screen.width - edgeWidth)
+        if (!markedContains("osd", point))
             gates.osd = false;
     }
     function recordPopupRegion(screen, x, y, width, height) {
@@ -66,8 +79,8 @@ Singleton {
         const point = positions[screen.name];
         blocked[screen.name] = {
             dashboard: titleContains(point),
-            left: !!point && point.x < edgeWidth,
-            osd: !!point && point.x >= point.width - edgeWidth,
+            left: markedContains("left", point),
+            osd: markedContains("osd", point),
             popouts: popupHovered[screen.name] === true || popupAtPointer(screen.name)
         };
     }
@@ -82,7 +95,7 @@ Singleton {
     function release(name, owner) {
         if (owners[name] !== owner)
             return;
-        for (const map of [positions, blocked, headers, popupHovered, popupRegions, owners])
+        for (const map of [positions, blocked, headers, popupHovered, popupRegions, lipRegions, owners])
             delete map[name];
     }
 }

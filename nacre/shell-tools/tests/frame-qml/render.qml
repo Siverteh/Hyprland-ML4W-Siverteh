@@ -111,6 +111,12 @@ ShellRoot {
                         height: 400
                     })
             }
+            NacreFrameLips {
+                anchors.fill: parent
+                screen: input.screen
+                visibilities: flags
+                controller: input
+            }
         }
         property int phase: 0
         Timer {

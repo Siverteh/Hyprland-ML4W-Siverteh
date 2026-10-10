@@ -113,13 +113,22 @@ TestCase {
             target = Path(folder)
             for name in ("widgets", "config", "services", "modules/drawers"):
                 (target / name).mkdir(parents=True)
-            for name in ("NacreChrome", "NacrePanelInput", "NacrePanelMask"):
+            for name in (
+                "NacreChrome",
+                "NacrePanelInput",
+                "NacrePanelMask",
+                "NacreFrameLips",
+            ):
                 shutil.copy2(
                     SHELL / "modules/drawers" / (name + ".qml"),
                     target / "modules/drawers" / (name + ".qml"),
                 )
             shutil.copy2(
                 SHELL / "widgets/NacreTokens.qml", target / "widgets/NacreTokens.qml"
+            )
+            shutil.copy2(
+                SHELL / "widgets/NacreFrameLip.qml",
+                target / "widgets/NacreFrameLip.qml",
             )
             helpers = {
                 "services/NacreColours": "property bool light:false;property var palette:"
@@ -131,6 +140,8 @@ TestCase {
                         "m3onSurface": "#fafafa",
                         "m3onSurfaceVariant": "#aabbcc",
                         "m3primary": "#7696ff",
+                        "m3secondary": "#cf99bb",
+                        "m3tertiary": "#88bbaa",
                         "m3outline": "#888888",
                     }
                 ),
@@ -206,3 +217,8 @@ TestCase {
             gallery = pixels("gallery-clear")
             self.assertEqual(gallery.getpixel((500, 60)), (86, 125, 154))
             self.assertEqual(gallery.getpixel((300, 200)), (86, 125, 154))
+
+            self.assertEqual(closed.getpixel((300, 55)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((15, 200)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((585, 200)), (25, 26, 32))
+            self.assertEqual(closed.getpixel((15, 100)), (86, 125, 154))

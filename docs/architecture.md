@@ -43,7 +43,11 @@ newer and other-output owners.
 
 `NacreTopBar` and `NacreHeader` compose bar controls, workspace selection and shared
 update state. Hover triggering and passive click forwarding are separate from
-modal panel input. `NacreDashboardPanel` owns page loading/navigation. Settings
+modal panel input. `NacreFrameLips` owns the three marked edge targets, with actual rectangles shared
+by the frame input mask and hover-intent guard. `NacreControlCenter` owns explicit
+right-menu presentation, while `NacreOsdEvents`/`NacreLevelNotice` own short automatic
+level feedback. `NacreControlTools` discovers optional tools and delegates explicit
+capture/night-light actions; it adds no idle polling. `NacreDashboardPanel` owns page loading/navigation. Settings
 pages request changes through validated helpers; displaying a control does not
 write a device preference.
 

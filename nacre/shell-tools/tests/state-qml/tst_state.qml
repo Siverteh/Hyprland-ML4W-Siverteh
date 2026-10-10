@@ -30,6 +30,7 @@ TestCase {
             property string launcherMode: "apps"
             property int launcherRequest: 0
             property string edgeMenu: ""
+            property string controlSection: "home"
         }
     }
     property var one: null
@@ -127,7 +128,10 @@ TestCase {
         NacrePanelState.panels.one.popouts.pinned = true;
         NacrePanelState.panels.one.popouts.hasCurrent = true;
         verify(NacrePanelState.openDeviceSettings("audio"));
-        compare(NacrePanelState.settingsPage, "sound");
+        compare(NacrePanelState.getForActive().controlSection, "audio");
+        verify(NacrePanelState.getForActive().osd);
+        verify(one.left && one.leftPinned && !one.launcher && !one.dashboard);
+        verify(NacrePanelState.openSettings("sound"));
         verify(one.dashboard && one.dashboardPinned);
         verify(!one.left && !one.leftPinned && !one.launcher);
         verify(!NacrePanelState.panels.one.popouts.hasCurrent && !NacrePanelState.panels.one.popouts.pinned);

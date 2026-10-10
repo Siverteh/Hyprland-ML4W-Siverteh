@@ -19,7 +19,7 @@ Scope {
             return JSON.stringify({
                 registered: !!input,
                 visible: input?.leftEdgeAvailable ?? false,
-                width: NacreHoverIntent.edgeWidth,
+                width: input?.leftEdgeRect.width ?? 0,
                 height: input?.leftEdgeRect.height ?? 0
             });
         }

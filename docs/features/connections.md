@@ -2,35 +2,19 @@
 
 [System overview](../overview.md) · [Deployment and recovery](../maintenance.md)
 
-## Quick sound and connection controls
+## Quick controls and detailed Settings
 
-Hovering the Sound, Wi-Fi or Bluetooth top-bar icon shows its native quick
-controls. Clicking the icon opens its matching built-in Settings page and closes
-the preview. The quick popups have no Settings footer button. Escape dismisses
-open overlays; moving away closes hover previews. Sound offers
-volume/mute, microphone volume/mute and output selection; Wi-Fi offers its
-radio, refresh, connection status, nearby networks and disconnect; Bluetooth
-shows power and connect/disconnect for already known devices. Lists have bounded
-height and use the shared fast scroll. Error text is bounded inside the popup.
+Status icons open the matching right control-center section on click; their
+hover hints do not open device lists. Wi-Fi, Bluetooth and audio details reuse
+one set of native quick controls, with guarded writes and busy/error states.
+Wi-Fi entry refreshes read-only state; opening does not force a radio scan.
+Connected APs are preferred when grouping duplicate SSIDs. Known Bluetooth devices
+have connect/disconnect controls, and audio offers native output selection.
 
-The icon click opens the matching built-in Settings page and dismisses the quick
-popup through shared visibility/navigation state. Application audio streams,
-connection profiles, pairing and trust controls remain in detailed Settings.
-Password entry remains in NetworkManager's native prompt, and pairing stays in
-the Bluetooth manager. Device actions reuse the bounded helper and existing
-network/Bluetooth state owners; completion requests a fresh snapshot without a
-polling timer. Wi-Fi disconnect accepts a validated interface name, while the
-status helper selects only a connected Wi-Fi interface. Short SSIDs remain
-visible. Native tests use fake devices, so routine validation does not change
-the live connection or audio state.
-
-Wi-Fi lists share a grouped view that prefers the active access point for each
-SSID, even when another band or mesh node is stronger or appeared first. If none
-is active, the strongest access point represents the name. Connected rows show
-Connected and offer Disconnect in both the popup and detailed Network page.
-Grouping reads every AP's active/signal fields so roaming updates the row without
-waiting for a list rebuild. Read-only `networkStatus.state` IPC reports whether
-the current SSID's grouped row is connected for troubleshooting.
+Advanced streams, profiles and pairing remain in detailed Settings/native
+managers. Network authentication uses NetworkManager's native terminal prompt;
+secrets never enter shell IPC or command arguments. Existing state owners and
+helpers handle completion and refresh, without another device owner or polling.
 
 ## Independent device-state owners
 

@@ -7,6 +7,7 @@ Item {
     required property var screen
     required property var panels
     required property var visibilities
+    property var lips: null
     property bool leftWasHovered: false
     property bool ready: false
     Component.onCompleted: {
@@ -17,10 +18,13 @@ Item {
     readonly property real padding: Math.max(12, NacreFrame.rounding / 2)
     readonly property bool modal: !hidden && !visibilities.previewOnly && (visibilities.launcher || visibilities.session || visibilities.dashboard && visibilities.dashboardPinned || panels.popouts.pinned && panels.popouts.hasCurrent || visibilities.edgeMenu === "dashboard" && visibilities.dashboard || visibilities.edgeMenu === "left" && visibilities.left && !visibilities.leftPinned || visibilities.edgeMenu === "osd" && visibilities.osd)
     readonly property bool autoEdges: !hidden && !modal && DesktopSettings.data.clickEdgeMenus !== true && !visibilities.launcher && !visibilities.session && !NacreHoverIntent.fullscreenFor(screen.name)
-    readonly property bool leftEdgeAvailable: autoEdges && DesktopSettings.data.leftDrawer !== false && !visibilities.left
-    readonly property bool rightEdgeAvailable: autoEdges && DesktopSettings.data.rightEdge !== false && !visibilities.osd
-    readonly property rect leftEdgeRect: DesktopSettings.data.leftDrawer !== false ? Qt.rect(0, panels.y + panels.leftDrawer.y, NacreHoverIntent.edgeWidth, panels.leftDrawer.height) : Qt.rect(0, 0, 0, 0)
-    readonly property rect rightEdgeRect: DesktopSettings.data.rightEdge !== false ? Qt.rect(width - NacreHoverIntent.edgeWidth, panels.y + panels.osd.y, NacreHoverIntent.edgeWidth, panels.osd.height) : Qt.rect(0, 0, 0, 0)
+    readonly property bool lipsAvailable: !hidden && !modal && !visibilities.launcher && !visibilities.session && !visibilities.dashboardPinned && !NacreHoverIntent.fullscreenFor(screen.name)
+    readonly property bool leftEdgeAvailable: lipsAvailable && DesktopSettings.data.leftDrawer !== false && !visibilities.left
+    readonly property bool rightEdgeAvailable: lipsAvailable && DesktopSettings.data.rightEdge !== false && !visibilities.osd
+    readonly property bool topEdgeAvailable: lipsAvailable && !visibilities.dashboard
+    readonly property rect leftEdgeRect: lips?.leftRect ?? Qt.rect(0, (height - 88) / 2, NacreFrame.left + 12, 88)
+    readonly property rect rightEdgeRect: lips?.rightRect ?? Qt.rect(width - NacreFrame.right - 12, (height - 88) / 2, NacreFrame.right + 12, 88)
+    readonly property rect topEdgeRect: lips?.topRect ?? Qt.rect((width - 136) / 2, NacreFrame.headerHeight - 1, 136, 18)
     readonly property rect launcherRect: box(panels.launcher, visibilities.launcher)
     readonly property rect dashboardRect: box(panels.dashboard, visibilities.dashboard)
     readonly property rect leftRect: box(panels.leftDrawer, visibilities.left)
@@ -28,7 +32,7 @@ Item {
     readonly property rect sessionRect: box(panels.session, visibilities.session)
     readonly property rect popoutRect: box(panels.popouts, panels.popouts.hasCurrent)
     readonly property rect notificationRect: box(panels.notifications, panels.notifications.visible)
-    readonly property var regions: hidden ? [] : modal ? [Qt.rect(0, 0, width, height)] : [launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect, leftEdgeAvailable || visibilities.left && autoEdges ? leftEdgeRect : Qt.rect(0, 0, 0, 0), rightEdgeAvailable || visibilities.osd && autoEdges ? rightEdgeRect : Qt.rect(0, 0, 0, 0)].filter(r => r.width > 0 && r.height > 0)
+    readonly property var regions: hidden ? [] : modal ? [Qt.rect(0, 0, width, height)] : [launcherRect, dashboardRect, leftRect, osdRect, sessionRect, popoutRect, notificationRect, leftEdgeAvailable ? leftEdgeRect : Qt.rect(0, 0, 0, 0), rightEdgeAvailable ? rightEdgeRect : Qt.rect(0, 0, 0, 0), topEdgeAvailable ? topEdgeRect : Qt.rect(0, 0, 0, 0)].filter(r => r.width > 0 && r.height > 0)
     readonly property bool hovered: hover.hovered
     readonly property point pointer: hover.point.position
     readonly property bool dashboardHovered: hovered && inside(expand(dashboardRect), pointer)
@@ -100,6 +104,9 @@ Item {
         }
     }
     onModalChanged: settleHover()
+    onLeftRectChanged: settleHover()
+    onOsdRectChanged: settleHover()
+    onDashboardRectChanged: settleHover()
     onLeftHoveredChanged: {
         if (leftHovered)
             leftWasHovered = true;
@@ -133,46 +140,6 @@ Item {
         enabled: root.modal
         acceptedButtons: Qt.AllButtons
         onPressed: event => root.outsideClick(Qt.point(event.x, event.y))
-    }
-    MouseArea {
-        x: root.leftEdgeRect.x
-        y: root.leftEdgeRect.y
-        width: root.leftEdgeRect.width
-        height: root.leftEdgeRect.height
-        enabled: root.autoEdges && DesktopSettings.data.leftDrawer !== false
-        hoverEnabled: true
-        acceptedButtons: Qt.NoButton
-        function enter(buttons) {
-            NacreHoverIntent.observe(root.screen, mouseX + x, mouseY + y);
-            if (!root.visibilities.left && NacreHoverIntent.canOpen("left", root.screen, buttons)) {
-                root.visibilities.dashboard = false;
-                root.visibilities.left = true;
-            }
-        }
-        onEntered: enter(pressedButtons)
-        onPositionChanged: event => enter(event.buttons)
-        onExited: if (!root.visibilities.left)
-            NacreHoverIntent.rearm("left", root.screen)
-    }
-    MouseArea {
-        x: root.rightEdgeRect.x
-        y: root.rightEdgeRect.y
-        width: root.rightEdgeRect.width
-        height: root.rightEdgeRect.height
-        enabled: root.autoEdges && DesktopSettings.data.rightEdge !== false
-        hoverEnabled: true
-        acceptedButtons: Qt.NoButton
-        function enter(buttons) {
-            NacreHoverIntent.observe(root.screen, mouseX + x, mouseY + y);
-            if (!root.visibilities.osd && NacreHoverIntent.canOpen("osd", root.screen, buttons)) {
-                root.visibilities.dashboard = false;
-                root.visibilities.osd = true;
-            }
-        }
-        onEntered: enter(pressedButtons)
-        onPositionChanged: event => enter(event.buttons)
-        onExited: if (!root.visibilities.osd)
-            NacreHoverIntent.rearm("osd", root.screen)
     }
     Timer {
         id: leftExit
@@ -212,6 +179,11 @@ Item {
             left: leftRect,
             osd: osdRect,
             launcher: launcherRect,
+            lips: {
+                top: topEdgeRect,
+                left: leftEdgeRect,
+                right: rightEdgeRect
+            },
             hovered: hovered
         };
     }

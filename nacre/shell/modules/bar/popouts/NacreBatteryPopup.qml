@@ -7,6 +7,7 @@ import qs.config
 Column {
     id: root
     property var device: UPower.displayDevice
+    property bool profilesEnabled: true
     readonly property bool available: device.ready && device.isLaptopBattery && Number.isFinite(device.percentage) && device.percentage >= 0 && device.percentage <= 1
     readonly property int percent: available ? Math.round(device.percentage * 100) : -1
     readonly property string estimate: available ? formatSeconds(UPower.onBattery ? device.timeToEmpty : device.timeToFull, UPower.onBattery ? "Remaining time unavailable" : "Connected to power") : "Battery unavailable"
@@ -20,7 +21,7 @@ Column {
         return (minutes >= 60 ? Math.floor(minutes / 60) + "h " : "") + minutes % 60 + "m " + (UPower.onBattery ? "remaining" : "until full");
     }
     function chooseProfile(profile) {
-        if (![PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance].includes(profile))
+        if (!profilesEnabled || ![PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance].includes(profile))
             return false;
         if (profile === PowerProfile.Performance && !PowerProfiles.hasPerformanceProfile)
             return false;
@@ -58,7 +59,7 @@ Column {
     }
     NacreText {
         width: root.width
-        text: root.profileName
+        text: root.profilesEnabled ? root.profileName : "Power profiles unavailable"
         horizontalAlignment: Text.AlignHCenter
         font.pointSize: 11
     }
@@ -98,7 +99,7 @@ Column {
         width: (root.width - 16) / 3
         height: 38
         radius: 19
-        enabled: profile !== PowerProfile.Performance || PowerProfiles.hasPerformanceProfile
+        enabled: root.profilesEnabled && (profile !== PowerProfile.Performance || PowerProfiles.hasPerformanceProfile)
         opacity: enabled ? 1 : 0.45
         color: selected ? NacreColours.palette.m3primary : NacreColours.palette.m3surfaceContainer
         NacreIcon {

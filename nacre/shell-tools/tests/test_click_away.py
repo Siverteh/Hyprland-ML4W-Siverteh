@@ -49,7 +49,7 @@ class ClickAwayTests(unittest.TestCase):
                 "pragma Singleton\nimport QtQuick\nQtObject {property bool hidden:false}"
             )
             (path / "fixtures/NacreFrame.qml").write_text(
-                "pragma Singleton\nimport QtQuick\nQtObject {property int rounding:20}"
+                "pragma Singleton\nimport QtQuick\nQtObject {property int rounding:20;property int left:10;property int right:10;property int headerHeight:50}"
             )
             with (path / "fixtures/qmldir").open("a") as f:
                 f.write(

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Shapes
 import qs.config
 import qs.widgets
+import qs.services
 
 Item {
     id: root
@@ -45,6 +46,35 @@ Item {
             fillRule: ShapePath.OddEvenFill
             PathSvg {
                 path: root.boundary
+            }
+        }
+    }
+    Shape {
+        anchors.fill: parent
+        preferredRendererType: Shape.CurveRenderer
+        ShapePath {
+            fillRule: ShapePath.OddEvenFill
+            strokeWidth: 0
+            fillGradient: LinearGradient {
+                x1: 0
+                y1: 0
+                x2: root.width
+                y2: root.height
+                GradientStop {
+                    position: 0
+                    color: Qt.alpha(NacreTokens.accent, .35)
+                }
+                GradientStop {
+                    position: .5
+                    color: Qt.alpha(NacreColours.palette.m3secondary, .35)
+                }
+                GradientStop {
+                    position: 1
+                    color: Qt.alpha(NacreColours.palette.m3tertiary, .35)
+                }
+            }
+            PathSvg {
+                path: root.roundedHole(root.host.x - 1, root.host.y - 1, root.host.width + 2, root.host.height + 2, root.radius + 1) + root.roundedHole(root.host.x, root.host.y, root.host.width, root.host.height, root.radius)
             }
         }
     }

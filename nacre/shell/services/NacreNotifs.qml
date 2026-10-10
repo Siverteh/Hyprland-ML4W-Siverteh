@@ -13,6 +13,9 @@ Singleton {
     readonly property var popups: dnd ? [] : list.filter(entry => entry.popup)
     readonly property bool dnd: DesktopSettings.data.dnd === true
     readonly property bool suppressed: Object.values(NacrePanelState.screens).some(view => view.launcher || view.dashboard || view.session) || Object.values(NacrePanelState.panels).some(panel => panel.notifications?.suppressed === true)
+    readonly property bool historyVisible: Object.values(NacrePanelState.screens).some(view => view.osd && ["home", "notifications"].includes(view.controlSection || "home") || view.dashboard && NacrePanelState.settingsPage === "notifications") || Object.values(NacrePanelState.panels).some(panel => panel.popouts?.hasCurrent && panel.popouts.currentName === "notifications")
+    onHistoryVisibleChanged: if (historyVisible)
+        clock = new Date()
     readonly property bool expire: NacreNotifications.expire
     readonly property int defaultTimeout: NacreNotifications.defaultExpireTimeout
     property date clock: new Date()
@@ -164,9 +167,10 @@ Singleton {
         }
     }
     Timer {
+        objectName: "noticeClockTimer"
         interval: 60000
         repeat: true
-        running: root.popups.length > 0 || Object.values(NacrePanelState.screens).some(view => view.dashboard && NacrePanelState.settingsPage === "notifications")
+        running: root.popups.length > 0 || root.historyVisible
         onTriggered: root.clock = new Date()
     }
     Timer {

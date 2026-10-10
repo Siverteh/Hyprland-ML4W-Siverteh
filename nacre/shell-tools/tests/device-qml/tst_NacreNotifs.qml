@@ -57,6 +57,28 @@ TestCase {
         NacrePanelState.screens = {};
         NacreNotifications.defaultExpireTimeout = 5000;
     }
+    function test_control_center_history_clock_runs_only_while_visible() {
+        const view = createTemporaryObject(service, test);
+        NacrePanelState.panels = ({});
+        NacrePanelState.screens = ({});
+        view.clock = new Date(0);
+        NacrePanelState.screens = {
+            test: {
+                osd: true,
+                controlSection: "home"
+            }
+        };
+        verify(view.clock.getTime() > 0);
+        verify(findChild(view, "noticeClockTimer").running);
+        NacrePanelState.screens = {
+            test: {
+                osd: true,
+                controlSection: "network"
+            }
+        };
+        verify(!findChild(view, "noticeClockTimer").running);
+        NacrePanelState.screens = ({});
+    }
     function test_clean_load_never_writes_and_live_arrivals_merge_before_save() {
         const state = createTemporaryObject(service, test);
         const writer = findChild(state, "noticeHistoryWriter");

@@ -17,6 +17,7 @@ case "${1:-start}" in
   exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre launcher ">wallpaper " ;;
  doctor|profile|check|rollback) exec python3 "$HOME/.local/share/nacre/shell/tools/maintenance.py" "${1/doctor/state}" ;;
  lock-preview) exec "$HOME/.local/share/nacre/shell/bin/qs" -p "$HOME/.local/share/nacre/shell/source/lock-preview.qml" ;;
+ controls) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre controls "${2:-home}" ;;
  settings) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre settings ;;
  left) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre left ;;
  palette|overview|keys) exec "$HOME/.local/share/nacre/shell/bin/qs" -c nacre ipc call nacre mode "$1" ;;

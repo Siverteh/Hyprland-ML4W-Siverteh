@@ -1,77 +1,114 @@
-"""Run the production top trigger with real Qt hover entry/motion events."""
+"""Actual marked frame lips and shared state: hover, click, guards and rearming."""
 
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import unittest
+from qml_source import install_foundation_interaction
 
 ROOT = Path(__file__).resolve().parents[1]
+SHELL = ROOT.parent / "shell"
 
 
 class TopHoverTests(unittest.TestCase):
-    def test_title_boundary_and_dismissal_reentry(self):
+    def test_marked_lips_hover_click_guards_and_dismissal(self):
         runner = Path("/usr/lib/qt6/bin/qmltestrunner")
         if not runner.exists():
             self.skipTest("Qt Quick Test unavailable")
         with tempfile.TemporaryDirectory() as directory:
-            folder = Path(directory)
-            source = (
-                (ROOT.parent / "shell/modules/topbar/NacreHeaderTrigger.qml")
-                .read_text()
-                .replace("import qs.services", 'import "."')
-            )
-            (folder / "NacreHeaderTrigger.qml").write_text(source)
-            (folder / "Trigger.qml").write_text("""import QtQuick
-import "."
-Item {
- width:1920; height:100
- property bool clickMenus:false
- property var screen:({name:"test",width:1920,height:1200})
- property QtObject visibility:QtObject {property bool dashboard:false;property bool session:false;property bool launcher:false;property bool dashboardPinned:false;property string edgeMenu:""}
- NacreHeaderTrigger {anchors.horizontalCenter:parent.horizontalCenter;screen:parent.screen;visibility:parent.visibility;clickMenus:parent.clickMenus}
-}""")
-            helper = (
-                (ROOT.parent / "shell/services/NacreHoverIntent.qml")
-                .read_text()
-                .replace("import Quickshell", "")
-                .replace("Singleton {", "QtObject {")
-            )
-            (folder / "NacreHoverIntent.qml").write_text(helper)
-            (folder / "NacreHyprland.qml").write_text(
-                'pragma Singleton\nimport QtQuick\nQtObject {property var focusedMonitor:({name:"test"}); property var activeClient:null}'
-            )
-            (folder / "DesktopSettings.qml").write_text(
-                "pragma Singleton\nimport QtQuick\nQtObject {property var data:({frameWidth:10})}"
-            )
-            (folder / "NacrePanelState.qml").write_text(
-                "pragma Singleton\nimport QtQuick\nQtObject {property var panels:({})}"
-            )
-            (folder / "qmldir").write_text(
-                "singleton NacreHoverIntent 1.0 NacreHoverIntent.qml\nsingleton NacreHyprland 1.0 NacreHyprland.qml\nsingleton DesktopSettings 1.0 DesktopSettings.qml\nsingleton NacrePanelState 1.0 NacrePanelState.qml\n"
-            )
-            (folder / "tst_trigger.qml").write_text("""import QtQuick
+            target = Path(directory)
+            fixtures = target / "fixtures"
+            shutil.copytree(ROOT / "tests/qml/fixtures", fixtures)
+            install_foundation_interaction(fixtures, SHELL / "widgets")
+            definitions = {
+                "NacreFrame": "property int left:10;property int right:10;property int headerHeight:50",
+                "NacreHyprland": 'property var focusedMonitor:({name:"test"});property var activeClient:null',
+                "Environment": 'property var screens:[{name:"test"}]',
+            }
+            for name, text in definitions.items():
+                (fixtures / (name + ".qml")).write_text(
+                    "pragma Singleton\nimport QtQuick\nQtObject {" + text + "}"
+                )
+            for name in ("NacreHoverIntent", "NacrePanelState"):
+                source = (
+                    (SHELL / "services" / (name + ".qml"))
+                    .read_text()
+                    .replace("import Quickshell", "")
+                    .replace("Singleton {", "QtObject {")
+                    .replace("Quickshell.screens", "Environment.screens")
+                )
+                source = source.replace(
+                    "import QtQuick", 'import QtQuick\nimport "."', 1
+                )
+                (fixtures / (name + ".qml")).write_text(source)
+            with (fixtures / "qmldir").open("a") as manifest:
+                for name in (*definitions, "NacreHoverIntent", "NacrePanelState"):
+                    manifest.write(f"\nsingleton {name} 1.0 {name}.qml\n")
+            for name, path in (
+                ("NacreFrameLip", SHELL / "widgets/NacreFrameLip.qml"),
+                ("NacreFrameLips", SHELL / "modules/drawers/NacreFrameLips.qml"),
+            ):
+                source = path.read_text()
+                for imported in ("qs.widgets", "qs.config", "qs.services"):
+                    source = source.replace("import " + imported, 'import "fixtures"')
+                if name == "NacreFrameLip":
+                    source = source.replace(
+                        "import QtQuick", 'import QtQuick\nimport "fixtures"', 1
+                    )
+                (target / (name + ".qml")).write_text(source)
+            (target / "tst_lips.qml").write_text("""import QtQuick
 import QtTest
-import "."
+import "fixtures"
 TestCase {
-    width:1920; height:200; visible:true; when:windowShown; name:"TopHover"
-    Component { id:scene; Trigger {} }
-    function test_lower_entry_title_and_reentry() {
-        const view=createTemporaryObject(scene,this);
-        mouseMove(view,960,80); mouseMove(view,960,40); wait(30);
-        verify(!view.visibility.dashboard);
-        mouseMove(view,960,24); verify(view.visibility.dashboard);
-        NacreHoverIntent.dismiss(view.screen); view.visibility.dashboard=false;
-        mouseMove(view,961,23); verify(!view.visibility.dashboard);
-        mouseMove(view,960,40); mouseMove(view,960,24); verify(view.visibility.dashboard);
-    }
-}""")
+ id:test;name:"MarkedNacreLips";width:1100;height:760;visible:true;when:windowShown
+ Component {id:scene;Item {
+  width:1000;height:700
+  property alias flags: flags
+  property alias lips: lips
+  property var screen:({name:"test",width:1000,height:700})
+  QtObject {id:flags;property bool launcher:false;property bool session:false;property bool dashboard:false;property bool dashboardPinned:false;property bool left:false;property bool leftPinned:false;property bool osd:false;property bool previewOnly:false;property string controlSection:"home";property string edgeMenu:""}
+  QtObject {id:controller;property bool modal:false;function settleHover(){}}
+  NacreFrameLips {id:lips;anchors.fill:parent;screen:parent.screen;visibilities:flags;controller:controller}
+  Component.onCompleted: {NacrePanelState.screens={test:flags};NacrePanelState.panels={test:{popouts:{hasCurrent:false,pinned:false}}}}
+ }}
+ function init(){DesktopSettings.data={animations:false,clickEdgeMenus:false};NacreHyprland.activeClient=null;NacreHoverIntent.blocked=({});NacreHoverIntent.lipRegions=({});}
+ function test_only_marked_regions_open_and_explicit_dismissal_rearms(){
+  const view=createTemporaryObject(scene,this);wait(30);
+  mouseMove(view,500,25);verify(!view.flags.dashboard);
+  mouseMove(view,500,53);verify(view.flags.dashboard);
+  NacreHoverIntent.dismiss(view.screen);view.flags.dashboard=false;
+  mouseMove(view,501,54);verify(!view.flags.dashboard);
+  mouseMove(view,500,180);mouseMove(view,500,53);verify(view.flags.dashboard);
+  mouseMove(view,1,90);verify(!view.flags.left);
+  mouseMove(view,8,350);verify(view.flags.left);verify(!view.flags.leftPinned);
+  mouseMove(view,995,620);verify(!view.flags.osd);
+  mouseMove(view,990,350);verify(view.flags.osd);compare(view.flags.edgeMenu,"");
+  compare(view.width,1000);compare(view.height,700);
+ }
+ function test_click_only_and_fullscreen_held_button_guards(){
+  DesktopSettings.data={animations:false,clickEdgeMenus:true};
+  const view=createTemporaryObject(scene,this);wait(30);
+  mouseMove(view,990,350);verify(!view.flags.osd);
+  mouseClick(view,990,350);verify(view.flags.osd);compare(view.flags.edgeMenu,"osd");
+  view.flags.osd=false;view.flags.edgeMenu="";
+  DesktopSettings.data={animations:false,clickEdgeMenus:false};
+  const left=findChild(view,"frameLeftLip");
+  view.lips.approach("left",left,Qt.LeftButton);verify(!view.flags.left);
+  NacreHyprland.activeClient={lastIpcObject:{fullscreen:2}};
+  verify(!view.lips.available);
+  view.lips.approach("left",left,Qt.NoButton);verify(!view.flags.left);
+  NacreHyprland.activeClient=null;
+ }
+}
+""")
             result = subprocess.run(
-                [str(runner), "-input", str(folder), "-o", "-,txt"],
-                env=dict(os.environ, QT_QPA_PLATFORM="offscreen"),
+                [str(runner), "-input", str(target), "-o", "-,txt"],
                 capture_output=True,
                 text=True,
-                timeout=15,
+                env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
+                timeout=20,
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertNotIn("QWARN", result.stdout + result.stderr)

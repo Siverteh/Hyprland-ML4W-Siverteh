@@ -13,6 +13,7 @@ Item {
     readonly property var panel: NacrePanelState.panels[screen.name]
     readonly property bool clickMenus: DesktopSettings.data.clickEdgeMenus === true
     property string hoverHint: ""
+    property real hoverHintCenter: 0
     property string registeredName: ""
     function registerOutput() {
         const name = screen?.name || "";
@@ -43,8 +44,25 @@ Item {
         NacreHoverIntent.observe(screen, pointer.x, pointer.y);
         if (!clicked && !NacreHoverIntent.canOpen("popouts", screen, item.pressedButtons ?? Qt.NoButton))
             return;
-        if (clickMenus && !clicked) {
-            hoverHint = "Open " + name;
+        if (!clicked) {
+            if (visibility.osd)
+                return;
+            hoverHint = {
+                audio: "Audio",
+                network: "Wi-Fi",
+                bluetooth: "Bluetooth",
+                battery: "Power",
+                notifications: "Notifications",
+                calendar: "Calendar"
+            }[name] || name;
+            const hintTarget = {
+                audio: status.audioItem,
+                network: status.network,
+                bluetooth: status.bluetoothItem,
+                battery: status.battery,
+                notifications: status.notificationsItem
+            }[name] || item;
+            hoverHintCenter = hintTarget.mapToItem(root, hintTarget.width / 2, hintTarget.height / 2).x;
             return;
         }
         popupExpiry.stop();
@@ -123,15 +141,14 @@ Item {
         anchors.centerIn: parent
         width: Math.max(100, Math.min(650, root.width - 2 * Math.max(left.width, right.width) - 50))
         height: 30
-        visible: root.hoverHint === ""
+        visible: true
         horizontal: true
         monitor: NacreBrightness.getMonitorForScreen(root.screen)
     }
-    NacreText {
-        anchors.centerIn: parent
+    NacreStatusHint {
+        output: root.screen
         text: root.hoverHint
-        visible: text !== ""
-        color: NacreColours.palette.m3onSurfaceVariant
+        center: root.hoverHintCenter
     }
     RowLayout {
         id: right
@@ -190,15 +207,8 @@ Item {
                 onExited: root.leavePopup()
                 onClicked: {
                     const name = root.statusName(mouseX);
-                    if (NacrePanelState.openDeviceSettings(name))
-                        return;
-                    if (name === "notifications" && root.panel?.popouts.hasCurrent && root.panel.popouts.currentName === name && root.panel.popouts.pinned) {
-                        root.panel.input.dismiss();
-                        return;
-                    }
-                    root.showPopup(name, this, true);
-                    if (root.panel && (name === "notifications" || root.clickMenus))
-                        root.panel.popouts.pinned = true;
+                    root.hoverHint = "";
+                    NacrePanelState.openControls(name, root.screen.name);
                 }
             }
         }
@@ -231,6 +241,7 @@ Item {
                 }
                 onExited: root.leavePopup()
                 onClicked: {
+                    root.hoverHint = "";
                     root.showPopup("calendar", this, true);
                     if (root.panel && root.clickMenus)
                         root.panel.popouts.pinned = true;
@@ -244,20 +255,6 @@ Item {
         statusItem: statusHolder
         calendarItem: clockHolder
     }
-    NacreHeaderTrigger {
-        id: titleTrigger
-        anchors.horizontalCenter: parent.horizontalCenter
-        screen: root.screen
-        visibility: root.visibility
-        clickMenus: root.clickMenus
-    }
-    EdgeMenuHandle {
-        anchors.centerIn: parent
-        z: 3
-        visible: root.clickMenus && !NacrePanelState.hidden && root.visibility?.edgeMenu === "" && !root.visibility?.dashboard && !root.visibility?.launcher && !root.visibility?.session
-        externalHovered: titleTrigger.containsMouse
-        onClicked: NacrePanelState.openEdge("dashboard", root.screen.name)
-    }
     IpcHandler {
         target: "header-" + root.screen.name
         function state(): string {
@@ -265,10 +262,10 @@ Item {
                 screen: root.screen.name,
                 width: root.width,
                 height: root.height,
-                hovered: titleTrigger.containsMouse,
-                pointerX: titleTrigger.mouseX + titleTrigger.x,
-                pointerY: titleTrigger.mouseY,
-                buttons: titleTrigger.pressedButtons,
+                hovered: NacreHoverIntent.headers[root.screen.name] === true,
+                pointerX: NacreHoverIntent.positions[root.screen.name]?.x ?? -1,
+                pointerY: NacreHoverIntent.positions[root.screen.name]?.y ?? -1,
+                buttons: 0,
                 visibilityRegistered: !!root.visibility,
                 dashboard: root.visibility?.dashboard ?? false,
                 fullscreen: NacreHoverIntent.fullscreenFor(root.screen.name),

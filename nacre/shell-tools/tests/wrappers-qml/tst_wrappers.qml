@@ -35,15 +35,6 @@ TestCase {
         AppLaunch.calls = [];
     }
     Component {
-        id: osd
-        NacreOsdPanel {
-            screen: ({
-                    name: "test"
-                })
-            visibility: false
-        }
-    }
-    Component {
         id: events
         NacreOsdEvents {
             screen: ({
@@ -103,95 +94,40 @@ TestCase {
         tryCompare(view, "displayedPath", path, 1000);
         compare(NacrePresentation.active.poster, path);
     }
-    function test_osd_startup_readonly_user_actions_and_close_retention() {
-        const panel = createTemporaryObject(osd, test);
-        panel.visibility = true;
-        tryVerify(() => panel.width > 0, 300);
-        compare(NacreAudio.writes.length, 0);
-        compare(NacreBrightness.device.writes.length, 0);
-        NacreAudio.available = true;
-        NacreAudio.volume = .6;
-        const slider = findChild(panel, "osdVolume");
-        compare(slider.value, .6);
-        compare(NacreAudio.writes.length, 0);
-        slider.value = .7;
-        slider.moved();
-        compare(NacreAudio.writes[0], .7);
-        const keyboard = findChild(panel, "osdKeyboard");
-        keyboard.value = .3;
-        keyboard.moved();
-        compare(NacreKeyboardLight.writes[0], .3);
-        panel.visibility = false;
-        verify(!panel.enabled);
-        verify(panel.width > 0);
-        wait(240);
-        compare(panel.width, 0);
-        DesktopSettings.data = {
-            animations: false
-        };
-        panel.visibility = true;
-        verify(panel.width >= 170 && panel.width <= 240);
-        panel.visibility = false;
-        compare(panel.width, 0);
-    }
-    function test_level_controls_are_two_by_two_with_contained_mutes() {
-        DesktopSettings.data = {
-            animations: false
-        };
-        const panel = createTemporaryObject(osd, test);
-        panel.visibility = true;
-        wait(0);
-        const names = ["Screen", "Keyboard", "Volume", "Microphone"];
-        const controls = names.map(name => findChild(panel, "osd" + name));
-        verify(controls.every(control => !!control));
-        const positions = controls.map(control => control.mapToItem(panel, 0, 0));
-        compare(positions[0].y, positions[1].y);
-        compare(positions[2].y, positions[3].y);
-        verify(positions[0].x < positions[1].x && positions[2].x < positions[3].x);
-        const verticalGap = positions[2].y - positions[0].y - controls[0].height;
-        const horizontalGap = positions[1].x - positions[0].x - controls[0].width;
-        verify(verticalGap >= 24 && verticalGap <= 40);
-        verify(horizontalGap >= 36 && horizontalGap <= 52);
-        verify(panel.height <= 350);
-        for (let i = 0; i < controls.length; i++) {
-            verify(positions[i].x >= 0 && positions[i].x + controls[i].width <= panel.width);
-            verify(positions[i].y >= 0 && positions[i].y + controls[i].height <= panel.height);
-            const level = controls[i].parent;
-            const lower = level.mapToItem(panel, 0, level.height).y;
-            verify(lower <= panel.height);
-        }
-        compare(NacreAudio.writes.length, 0);
-        compare(NacreKeyboardLight.writes.length, 0);
-        compare(NacreBrightness.device.writes.length, 0);
-    }
     function test_osd_ready_baseline_focus_hover_and_deadline() {
         const view = createTemporaryObject(events, test);
         wait(1);
         NacreAudio.available = true;
         NacreAudio.volume = .4;
         wait(1);
-        verify(!view.visibilities.osd);
+        verify(!view.shown);
         NacreAudio.volume = .5;
-        verify(view.visibilities.osd);
+        verify(view.shown);
         view.hovered = true;
         wait(120);
-        verify(view.visibilities.osd);
+        verify(view.shown);
         view.hovered = false;
-        tryCompare(view.visibilities, "osd", false, 200);
+        tryCompare(view, "shown", false, 200);
         NacreHyprland.focusedMonitor = {
             name: "other"
         };
         NacreBrightness.device.adjusted();
-        verify(!view.visibilities.osd);
+        verify(!view.shown);
         NacreHyprland.focusedMonitor = {
             name: "test"
         };
         NacreKeyboardLight.adjusted();
-        verify(view.visibilities.osd);
+        verify(view.shown);
+        compare(view.channel, "keyboard");
+        view.visibilities.osd = true;
+        compare(view.shown, false);
+        NacreAudio.volume = .6;
+        verify(!view.shown);
         view.visibilities.osd = false;
+        view.shown = false;
         WallpaperPlayback.locked = true;
         NacreKeyboardLight.adjusted();
-        verify(!view.visibilities.osd);
+        verify(!view.shown);
     }
     function test_session_display_no_commands_allowlist_and_closing() {
         const panel = createTemporaryObject(session, test);

@@ -38,10 +38,14 @@ Singleton {
             return false;
         clearPopouts();
         closeTransient(view);
-        view.left = false;
-        view.leftPinned = false;
+        if (name === "left" || !view.leftPinned)
+            view.left = false;
+        if (name === "left")
+            view.leftPinned = false;
         view.previewOnly = false;
         view.edgeMenu = name;
+        if (name === "osd")
+            view.controlSection = "home";
         view[name] = true;
         hidden = false;
         return true;
@@ -75,13 +79,43 @@ Singleton {
         hidden = false;
         return true;
     }
+    function hoverEdge(name, screenName) {
+        const view = screens[screenName];
+        if (!view || !["dashboard", "left", "osd"].includes(name) || view.session || view.launcher || view.dashboardPinned)
+            return false;
+        clearPopouts();
+        view.dashboard = name === "dashboard";
+        view.osd = name === "osd";
+        if (!view.leftPinned)
+            view.left = name === "left";
+        if (name === "osd")
+            view.controlSection = "home";
+        view.edgeMenu = "";
+        view.previewOnly = false;
+        hidden = false;
+        return true;
+    }
+    function openControls(section = "home", screenName = "") {
+        const view = screenName ? screens[screenName] : getForActive();
+        if (!view || !["home", "audio", "network", "bluetooth", "battery", "notifications"].includes(section))
+            return false;
+        const wasOpen = view.osd && view.controlSection === section && view.edgeMenu === "osd";
+        clearPopouts();
+        closeTransient(view);
+        view.previewOnly = false;
+        view.controlSection = section;
+        view.osd = !wasOpen;
+        view.edgeMenu = view.osd ? "osd" : "";
+        hidden = false;
+        return true;
+    }
     function openDeviceSettings(icon) {
         const page = {
             audio: "sound",
             network: "network",
             bluetooth: "bluetooth"
         }[icon];
-        return page ? openSettings(page) : false;
+        return page ? openControls(icon) : false;
     }
     function openSettings(page) {
         const view = getForActive();

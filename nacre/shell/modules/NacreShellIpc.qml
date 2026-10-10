@@ -20,6 +20,8 @@ Scope {
             launcher: view?.launcher ?? false,
             session: view?.session ?? false,
             osd: view?.osd ?? false,
+            controlSection: view?.controlSection || "home",
+            feedback: root.activePanel()?.feedback?.shown ?? false,
             hidden: NacrePanelState.hidden,
             left: view?.left ?? false,
             leftPinned: view?.leftPinned ?? false,
@@ -140,6 +142,13 @@ Scope {
         }
         function previewDashboard(index: int): void {
             root.previewPanel("dashboard", index);
+        }
+        function controls(section: string): void {
+            NacrePanelState.openControls(section || "home");
+        }
+        function previewFeedback(channel: string): void {
+            if (["volume", "microphone", "display", "keyboard"].includes(channel))
+                root.activePanel()?.feedback?.show(channel);
         }
         function previewSliders(): void {
             root.previewPanel("osd");

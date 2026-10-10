@@ -28,10 +28,14 @@ Region {
         bounds: controller.notificationRect
     }
     Box {
-        bounds: controller.autoEdges && controller.leftEdgeRect.width ? controller.leftEdgeRect : Qt.rect(0, 0, 0, 0)
+        bounds: controller.leftEdgeAvailable && controller.leftEdgeRect.width ? controller.leftEdgeRect : Qt.rect(0, 0, 0, 0)
     }
     Box {
-        bounds: controller.autoEdges && controller.rightEdgeRect.width ? controller.rightEdgeRect : Qt.rect(0, 0, 0, 0)
+        bounds: controller.rightEdgeAvailable && controller.rightEdgeRect.width ? controller.rightEdgeRect : Qt.rect(0, 0, 0, 0)
+    }
+
+    Box {
+        bounds: controller.topEdgeAvailable ? controller.topEdgeRect : Qt.rect(0, 0, 0, 0)
     }
 
     component Box: Region {
