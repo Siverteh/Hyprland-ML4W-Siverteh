@@ -1699,3 +1699,28 @@ click/key-return cycles plus launcher/wallpaper outside dismissal pass. No real
 DPI/display change, account/power action, user preference reset or AI restart.
 Other fixtures/dependencies/source areas/full comparison remain separately scoped;
 notices and complete originality goal retained.
+
+## Current services and provider source review
+
+[Table](SERVICES-SOURCE-AUDIT.md) records 54 current service/JS hashes/bases after
+full body review. Completed Audio/BlueZ/Network/app/time/compositor/media/resource/
+color/light/notification/presentation/wallpaper/weather/hover/panel replacements
+and own compatibility adapters retained. Thirteen local launch/settings/recovery/
+lock/sidebar/workflow helpers have separate feature histories/caller contracts.
+Initial peer/predecessor comparison only shared initial native import/singleton/
+root-id setup; no substantive five-line implementation block, supplementary
+evidence rather than sole originality test. Earlier/current body exposure honest,
+no upstream implementation consulted for local correction or legal clean-room
+claim. Referenced Python helpers/assets/test bodies and native packages separately
+scoped; three already reviewed battery/update services excluded.
+
+Actual sidebar native fixture exposed unsupported Object.fromEntries, so current
+attachment result failed in Qt. First fixture lacked attachment-support setup,
+corrected before attributing failure. Supported Map merge alone passes current
+composer but reproduces stale response leaking into changed composer. Captured
+request context now gates queued/in-flight additions; stale files/pick/screenshot
+jobs/results discarded, legitimate current results accepted. Old draft saves/load
+revision guards/backend permissions unchanged. One independently authored actual
+QML service fixture review added with fake processes/IPC; no real picker/account/
+message/network/hardware action for QA. Remaining tree/dependencies/fixtures/full
+comparison and notices/goal remain open.

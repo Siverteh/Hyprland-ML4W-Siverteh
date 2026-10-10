@@ -41,3 +41,20 @@ visual gates. No physical hardware/network/account/power/auth action for QA;
 fake owners do not prove real hardware or cold login. Exact-main CI. Providers'
 called helper/asset/test/packaging dependencies remain separately audited, whole
 originality goal active until every original requirement is evidenced complete.
+
+Current inventory 57 paths; exclude 3 previously reviewed, review 54 current QML/JS
+bodies individually against completed native specs and local histories. Thirteen
+local service first-source comparisons have no substantive five-line blocks
+outside initial standard imports/singleton/root-id setup. Source table provides
+exact current hashes and real post-basis histories, not blanket caller-pointer
+certification. Current own bodies exposed during review, no clean-room claim.
+
+Native SidebarChat fixture uncovered unsupported Object.fromEntries (Qt engine
+undefined), blocking legitimate attachment merges. Initial fixture also missed
+attachment-support setup; corrected before interpreting failure. After supported
+Map merge alone, current context passes but stale result crosses composer.
+Bind queued/in-flight file/pick/screenshot requests to captured composer key;
+skip stale additions and reject their attachment results, preserve saved drafts/
+load revision and backend/full-access behavior. Native actual service/fake process
+fixture now passes current/stale/queued cases, no real picker/file/send/account
+action. Other service/controller helper dependencies remain separate reviews.

@@ -53,14 +53,21 @@ Singleton {
     function composer(action, payload) {
         composerQueue.push({
             action: action,
-            payload: payload ?? {}
+            payload: payload ?? {},
+            contextKey: composerKey
         });
         nextComposer();
     }
     function nextComposer() {
         if (composerWorker.running || composerQueue.length === 0)
             return;
-        const request = composerQueue.shift();
+        let request = composerQueue.shift();
+        while (["files", "pick", "screenshot"].includes(request.action) && request.contextKey !== composerKey) {
+            if (!composerQueue.length)
+                return;
+            request = composerQueue.shift();
+        }
+        composerWorker.contextKey = request.contextKey;
         composerWorker.action = request.action;
         composerWorker.payload = request.payload;
         composerWorker.command = ["python3", Quickshell.env("HOME") + "/.local/share/nacre/shell/tools/composer.py", request.action];
@@ -109,8 +116,10 @@ Singleton {
     }
     Process {
         id: composerWorker
+        objectName: "composerWorker"
         stdinEnabled: true
         property string action
+        property string contextKey: ""
         property var payload: ({})
         onStarted: {
             if (["load", "save", "files", "copy"].includes(action)) {
@@ -129,9 +138,11 @@ Singleton {
                         root.draft = value.text ?? "";
                         root.attachments = value.attachments ?? [];
                         root.loadingDraft = false;
-                    } else if (composerWorker.action !== "load" && value.attachments) {
-                        const unique = Object.fromEntries([...root.attachments, ...value.attachments].map(f => [f.path, f]));
-                        root.attachments = Object.values(unique);
+                    } else if (["files", "pick", "screenshot"].includes(composerWorker.action) && composerWorker.contextKey === root.composerKey && value.attachments) {
+                        const unique = new Map();
+                        for (const file of [...root.attachments, ...value.attachments])
+                            unique.set(file.path, file);
+                        root.attachments = [...unique.values()];
                     }
                 } catch (e) {
                     root.error = "Could not update the draft";

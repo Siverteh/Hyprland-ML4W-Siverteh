@@ -2189,6 +2189,500 @@
         "docs/specs/foundation-source-audit.md",
         "local display-state native fixture b12961b; current actual read-only/password/draft/selection/scroll/binding regression additions from observed gap, no private fixture or upstream implementation embedded; other native fixture origins remain separate"
       ]
+    },
+    "nacre/shell/services/AppLaunch.qml": {
+      "disposition": "independent",
+      "sha256": "e23862ed6f8eeca20a9c2074a3302067f8167591de61f57d0b417e548aca3e9a",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 007d020: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 548f0b4, 83b3531, 7a05033. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Apps.qml": {
+      "disposition": "independent",
+      "sha256": "bbfe4d865135c2619c442caa888c6d6c7a491a9fd07333f29503a1ff54b0a187",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 3d93b32: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Audio.qml": {
+      "disposition": "independent",
+      "sha256": "9cb13e5021ed7c88b62b33f64a9ebd83eab1d89ea0000af1ed1da4134a278037",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 2f9300f: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Bluetooth.qml": {
+      "disposition": "independent",
+      "sha256": "a126f2942b1ae45c935559dc6a7f276b9107dbbd0f6e22607e5722f0dbee9e17",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement d4a82bb: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Brightness.qml": {
+      "disposition": "independent",
+      "sha256": "401995475b848a09a0e1696b7432e2f2b1a54fe583e815a7e2bf30cc0b1ff506",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/ChatWindowTitle.qml": {
+      "disposition": "independent",
+      "sha256": "f2e9622c8144a785750ab44dbd3b0097d200c210955e56e572127a2e41f3a8f8",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement be81bf0: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: ea5653e, 548f0b4, 83b3531, 8bd5e65, 007d020, 746fc96. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Colours.qml": {
+      "disposition": "independent",
+      "sha256": "38710e88e124b0fd646694b4398bda3916826d3861c447a0d42101d041a0966e",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/DesktopActions.qml": {
+      "disposition": "independent",
+      "sha256": "dc3cc52ecca647acfea9e0cb6f746cdf6f9380e2a8c8ddb96bf4e58e648c024d",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 007d020: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 02b2bda, 548f0b4, 83b3531, e83d56f, 3121dad. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/DesktopExtras.qml": {
+      "disposition": "independent",
+      "sha256": "378851ab18ef888a15704c4853d38a5a9730f06b1a4e4191b8b8606ae7d6c399",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 007d020: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 548f0b4, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/DesktopSettings.qml": {
+      "disposition": "independent",
+      "sha256": "6e5a337768983d08291770a2a75032e8b8030496f5e11f0e3aeff2b940445fde",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a9a683d: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 83b3531, 8bd5e65. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/DeviceActions.qml": {
+      "disposition": "independent",
+      "sha256": "d792363ad943aac7ff3840303fe6565357c34ee7a3268d1409406f6aa5812ec5",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a0090ce: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 977f628, d4a82bb, 548f0b4, 51eb6e1, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/DisplayRecovery.qml": {
+      "disposition": "independent",
+      "sha256": "7b93f33793cc00eeeb70abc6da286ddfaec93e432ecc8d0989a59220e39dcfb2",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 407e5c7: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, b12961b, 83b3531, 454d1fc. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/HoverIntent.qml": {
+      "disposition": "independent",
+      "sha256": "172d77e7b43f721a0781e2df49f575e608807ee6bc67447bf85b1db67159da8b",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Hyprland.qml": {
+      "disposition": "independent",
+      "sha256": "4d3d93d2a5154afc483a7d8bacee15b4f3023df00973247516231e164e7cc991",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement ea5653e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/KeyboardLight.qml": {
+      "disposition": "independent",
+      "sha256": "281409106b1cfdd49b37598ea26ba210bf350662e41a25371b5efc3232b27c2b",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/LauncherPreferences.qml": {
+      "disposition": "independent",
+      "sha256": "24fe1eabd65ed90feae3b69d1e19896d2bff976233fbca330057d01b7a9da08a",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a3e2420: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 548f0b4, 2c1d2ca, 83b3531, e044859, 7ed920d. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/LockWidgets.qml": {
+      "disposition": "independent",
+      "sha256": "195b1cca797bdaba7fb6ffbf6c922f428c446d3496fb253d1a8f76bc59588006",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a0090ce: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 28707f7, eea01b9, a492dc6, e4d2474, 548f0b4, 55fbe20, 2c1d2ca, 8ff30bc, 3369d3d, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Maintenance.qml": {
+      "disposition": "independent",
+      "sha256": "c9d1026a2ac18411336d8aec1fa845ff94aeb8d22531a87e93e0162c6e1dce40",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 8bd5e65: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, bfba6bb, 2c1d2ca, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreApps.qml": {
+      "disposition": "independent",
+      "sha256": "668eb405d1800d1f484aa3d5e1e9e7e9a45f16b08d2ac91f059b730937df3779",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 3d93b32: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreAudio.qml": {
+      "disposition": "independent",
+      "sha256": "f1074dea487408c1a928f12aeae85680e941f1f8eae167de8f5ecff1e1ed89a6",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 2f9300f: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreBacklight.qml": {
+      "disposition": "independent",
+      "sha256": "3ad1c895e7be0548ab22a69ed662cd2ab555bc44d5c75e95fed51e6cdaf1a1e9",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreBluetooth.qml": {
+      "disposition": "independent",
+      "sha256": "c66b54e35850fbe44fa0b7f1b3c49f33f46896bf691fbed49f5e1cd8daab94c5",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement d4a82bb: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreBrightness.qml": {
+      "disposition": "independent",
+      "sha256": "da46ef473814affedca262eec0d67e2aa91fcb4e0b4da818244e95751b50a25d",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, 4f8e178. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreClient.qml": {
+      "disposition": "independent",
+      "sha256": "344131fc5984eb320e2360d82e3b5b1dc905a4a2014adf27e1f73584fc3005a8",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement ea5653e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreColours.qml": {
+      "disposition": "independent",
+      "sha256": "79695cf8c3bafed824d5f0902632be47d7c8d4135fffb35e46affe01510f4e37",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: eea01b9. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreHoverIntent.qml": {
+      "disposition": "independent",
+      "sha256": "3cb62a5804bb6fa3e295ae186f3d70c28f4ebe95cb5e5d63b87ef9a0a54acfc5",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 966ae9e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreHyprland.qml": {
+      "disposition": "independent",
+      "sha256": "219302c55dc2b4fbd1803e5bacb27123bcf5fb17d9c276f21a3bc42be2dae624",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement ea5653e: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 98108af. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreKeyboardLight.qml": {
+      "disposition": "independent",
+      "sha256": "f33772b548e0fb9fc2b119ea0601af4ecbebe4570003db7ae543db7d456f56f9",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreLightChannel.qml": {
+      "disposition": "independent",
+      "sha256": "ed596e17c7fd1ce7546d4249e571be6e961e9831f11f601754ae220fd35b8213",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreNetwork.qml": {
+      "disposition": "independent",
+      "sha256": "15de44812717f9a68ac3b6e826d0d60ba0b56d6d5e461fe7aed682e606846e9c",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 977f628: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreNotificationEntry.qml": {
+      "disposition": "independent",
+      "sha256": "439315fe876764a07be711112e5374979f9303fcfc0f1c474fe42db92ab3a92a",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreNotifs.qml": {
+      "disposition": "independent",
+      "sha256": "9913e9a3692633b32433124675f9618746609a0cac6cfbeb2d12ad9e20d51d9b",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132, f7cc3b1. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacrePanelState.qml": {
+      "disposition": "independent",
+      "sha256": "8e852ead3f4061cf428f60f9d59ab12512754cc112a22c54cc3e28b2df955a96",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacrePlayers.qml": {
+      "disposition": "independent",
+      "sha256": "b5edb7889f4a07ad8abc12b711dfe4dd88111f0a8a5b25e52070479b10bc37ba",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 13701fc: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: f7cc3b1. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacrePresentation.qml": {
+      "disposition": "independent",
+      "sha256": "8352ad8608dcd3c3750ad81e43c2bf70b2c57ffe98fa45246fc9b9074c7cf42e",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement eea01b9: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 08641a8. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreSystemUsage.qml": {
+      "disposition": "independent",
+      "sha256": "adcb3c01fb2adcfb5befa7617fc7a2333a8419d1847bb4055f29d9de15b6edea",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 18d8aab: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreTime.qml": {
+      "disposition": "independent",
+      "sha256": "aca0f9fd5725eae554dbf9dbdc574a4a64c128ff17814dba858ddced3d1f0109",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a492dc6: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreWallpapers.qml": {
+      "disposition": "independent",
+      "sha256": "21dead05cf34118cce707e2b4e1383d18da08ff5232ced03f207257f6f5f2e27",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: 5da1132. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/NacreWeather.qml": {
+      "disposition": "independent",
+      "sha256": "9f77095d2717175037977792abd8b2f6da61e99ee764fcec43ccb7a57ed67809",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Network.qml": {
+      "disposition": "independent",
+      "sha256": "94c33b4c4f349959e77db340074e9e98c3673fcf0a1e7e29ca11bb79484acf3d",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 977f628: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Notifs.qml": {
+      "disposition": "independent",
+      "sha256": "d545520bad2f42b79da536ab7becafd71e7617a80cd931c2fdc42d97729af2e9",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement e4d2474: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Players.qml": {
+      "disposition": "independent",
+      "sha256": "d13167be735e59cdc74dd20b06fe585279ecf220be89f85ac90930195e26c5a5",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 13701fc: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/SidebarChat.qml": {
+      "disposition": "independent",
+      "sha256": "bcc8a3000ed8f1caaa0eb6eb3394d603ddbcfae8f74e939f73bdf366cbe4d2fc",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement e3d0298: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 548f0b4, b12961b, 83b3531, 8a32ba0, 9bdad72, 8bd5e65, 973e0a4, ddb0066, d10c724. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/SystemUsage.qml": {
+      "disposition": "independent",
+      "sha256": "c2c348904810321e17959bdf7e2b22e09cad88c6fbb8205e964390149299bf0b",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 18d8aab: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/ThemePresentation.qml": {
+      "disposition": "independent",
+      "sha256": "25fc1557c72e00d5df8e1f92ca5099c2847aa1b93529d10717a2860bd9b437d4",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement eea01b9: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Time.qml": {
+      "disposition": "independent",
+      "sha256": "45643f589ebc558bf2dd95da809e2ea2bbc6e8a91e3b068c47bfc88d776082c1",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement a492dc6: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/TimezoneSettings.qml": {
+      "disposition": "independent",
+      "sha256": "85059255c5e5f20fb384117b626bb83e4a85e825aa8dbe2c8012243897cb3883",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 9dd732a: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 5da1132, 548f0b4, 2c1d2ca, b8be61e, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Visibilities.qml": {
+      "disposition": "independent",
+      "sha256": "9c28b25d64ecd0828a2d7fcff5a09c455dce6135cbb9eaa999923833e8782a90",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 5da1132: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/WallpaperPlayback.qml": {
+      "disposition": "independent",
+      "sha256": "20b1f77d33340215243c98e6716a65db62e380359bd5fb81f8fd77abbfb208f9",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 06ffaf4: Locally introduced desktop/workflow helper service; actual current body/caller schemas reviewed, meaningful owner integrations traced separately. Later changes: 28707f7, 548f0b4, 61c5f72, 8c92402, 2c1d2ca, 83b3531. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Wallpapers.qml": {
+      "disposition": "independent",
+      "sha256": "912ee6f678183c1e3034d231394fcb19c869791604abc1cfe2636bd614ead465",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/Weather.qml": {
+      "disposition": "independent",
+      "sha256": "1ec570e00871bf214bf7f3d40b71feaac40e7eb618f8e0031750001f79944775",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 28707f7: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/app-search.js": {
+      "disposition": "independent",
+      "sha256": "e37b062d5ac998a8a08df7630e7862d2911887131cc82021da8089a913f3d364",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 3d93b32: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/colour-data.js": {
+      "disposition": "independent",
+      "sha256": "629a6f886742e85f00b66b0bde77116f0968e9f9e7225576f734eeddda555a37",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 02b2bda: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell/services/resource-data.js": {
+      "disposition": "independent",
+      "sha256": "3795b7fbc340c66a8ad04fa46bb37435b4562e0916bc2bd2f8ca88e7f1859b4c",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "docs/nacre/SERVICES-SOURCE-AUDIT.md",
+        "Full current body reviewed; authoring/replacement 18d8aab: Independent native owner/replacement and own compatibility adapter; completed matching provider spec/behavior boundary retained. Later changes: none. Local mechanical first-source comparisons show only import/singleton/root-id setup overlap, not substantive matched implementation blocks; source/history evidence is primary, not a low match score. Prior source exposure acknowledged; no upstream body consulted for current local corrections. Public Qt/Quickshell libraries and verified fonts remain dependencies, referenced Python helper/asset/tests remain separately audited."
+      ]
+    },
+    "nacre/shell-tools/tests/test_sidebar_service.py": {
+      "disposition": "independent",
+      "sha256": "ebb346a2fe0cb1ffa3367047c069fe8954126527ea9f0547eb2820c1e620bc7c",
+      "evidence": [
+        "docs/specs/services-source-audit.md",
+        "new actual SidebarChat owner imported into native Qt fixture with fake process/IPC only; current/stale attachment response and queue-context behavior from observed gaps, no backend/account/private asset interaction or upstream implementation fixture"
+      ]
     }
   }
 }
