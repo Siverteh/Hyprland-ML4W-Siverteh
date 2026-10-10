@@ -34,7 +34,7 @@ class FrameTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertNotIn("QWARN", result.stdout + result.stderr)
 
-    def test_topbar_forwarder_is_passive_and_only_dismisses_modal_views(self):
+    def test_topbar_dismissal_consumes_modal_click_and_preserves_normal_input(self):
         runner = Path("/usr/lib/qt6/bin/qmltestrunner")
         if not runner.exists():
             self.skipTest("Qt Quick Test unavailable")
@@ -51,6 +51,7 @@ import "."
 Item {
  id:root;width:200;height:50
  property alias handler:forwarder.handler
+ property alias statusItem:forwarder.statusItem
  property int clicks:0
  property alias childHovered:child.containsMouse
  MouseArea {id:child;anchors.fill:parent;hoverEnabled:true;onClicked:root.clicks++}
@@ -69,18 +70,25 @@ TestCase {
  name:"TopbarModalForwarder";width:300;height:100;visible:true;when:windowShown
  Component{id:scene;Forwarder{}}
  QtObject{id:controller;property bool modal:true;property int calls:0;function outsideClick(point){calls++}}
- function test_forwarding_preserves_child_clicks(){
+ function test_modal_dismissal_does_not_activate_bar_control(){
   const view=createTemporaryObject(scene,this);
   NacrePanelState.panels={test:{input:controller}};
   controller.modal=true;controller.calls=0;
   wait(30);mouseMove(view,80,20);wait(10);
   mouseClick(view,80,20);
   compare(controller.calls,1);
-  compare(view.clicks,1);
+  compare(view.clicks,0);
   controller.modal=false;
   mouseClick(view,80,20);
   compare(controller.calls,1);
+  compare(view.clicks,1);
+  controller.modal=true;
+  view.statusItem=view;
+  NacrePanelState.panels={test:{input:controller,popouts:{pinned:true}}};
+  mouseClick(view,80,20);
+  compare(controller.calls,1);
   compare(view.clicks,2);
+  controller.modal=false;
   mouseMove(this,280,80);mouseMove(view,80,20);
   tryCompare(view,"childHovered",true);
  }

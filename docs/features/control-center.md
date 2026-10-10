@@ -11,7 +11,9 @@ Native providers and existing guarded write helpers remain the device owners.
 
 Quick tiles expose connections, power profiles, DND and optional Night light.
 Frame, panels and header share one overlay surface, with the header drawn last.
-Opening menus or changing keyboard focus cannot raise the frame over the bar. They hide over fullscreen content until a panel is
+Opening menus or changing keyboard focus cannot raise the frame over the bar.
+A header click while a modal panel is open dismisses it without also activating
+the bar control underneath; normal header clicks remain available afterwards. They hide over fullscreen content until a panel is
 explicitly opened; passive lips remain blocked there. Detailed connection lists reuse the existing native quick controls and refresh
 read-only state on entry. Settings remains available for advanced pairing and
 configuration. Notification history has its own bounded fast scroll. Controls
