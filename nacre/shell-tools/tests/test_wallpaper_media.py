@@ -262,6 +262,57 @@ class OrientPreparedCacheTests(unittest.TestCase):
             self.assertFalse((home / ".local/state/nacre/presentation.json").exists())
             self.assertFalse((home / ".local/share/icons").exists())
 
+    def test_prepared_treatment_uses_publisher_and_rejects_wrong_treatment(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            poster = home / "poster.png"
+            Image.new("RGB", (32, 24), "red").save(poster)
+            digest = "a" * 64
+            thumbnail = home / ".cache/nacre/wallpapers" / digest / "thumbnail.jpg"
+            thumbnail.parent.mkdir(parents=True)
+            Image.new("RGB", (32, 24), "red").save(thumbnail)
+            data = json.loads(
+                Path(media.__file__).with_name("reference-style.json").read_text()
+            )
+            data.update(
+                name="dynamic",
+                mode="dark",
+                variant="tonalspot",
+                flavour="default",
+                input={"harmony": True},
+                source={"digest": digest, "selected": "ff0000"},
+            )
+            scheme = home / ".local/state/nacre/scheme.json"
+            scheme.parent.mkdir(parents=True)
+            scheme.write_text(json.dumps(data))
+            with (
+                patch.object(media, "HOME", home),
+                patch.object(media, "CACHE", home / ".cache/nacre/wallpaper-media"),
+                patch.object(
+                    media, "PREFS", home / ".config/nacre/wallpaper-picker.json"
+                ),
+            ):
+                media.preference({"paletteHarmony": True})
+                marker = media.palette_marker(poster, "default")
+                media.atomic(marker, data)
+                self.assertTrue(media.prepared_theme(poster, live=False))
+                presentation = json.loads(
+                    (home / ".local/state/nacre/presentation.json").read_text()
+                )
+                self.assertTrue(presentation["paletteHarmony"])
+                self.assertEqual(presentation["selectedAccent"], "ff0000")
+                data["input"]["harmony"] = False
+                media.atomic(marker, data)
+                self.assertFalse(media.prepared_theme(poster, live=False))
+                media.atomic(marker, [])
+                self.assertFalse(media.prepared_theme(poster, live=False))
+                self.assertEqual(
+                    json.loads(
+                        (home / ".local/state/nacre/presentation.json").read_text()
+                    ),
+                    presentation,
+                )
+
     def test_mode_variant_accent_and_engine_change_invalidate_prepared_cache(self):
         with tempfile.TemporaryDirectory() as folder:
             home = Path(folder)

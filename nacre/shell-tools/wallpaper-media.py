@@ -98,6 +98,12 @@ def theme(value):
     result = preference(changes)
     try:
         cli = HOME / ".local/share/nacre/shell/bin/nacre_shell"
+        if (
+            set(value) == {"paletteHarmony"}
+            and result["palettePreset"] == "wallpaper"
+            and prepared_theme(poster)
+        ):
+            return result
         if accent is not None:
             args = [str(cli), "scheme", "set", "-n", "dynamic"]
             if "paletteMode" in value:
@@ -294,7 +300,7 @@ def catalog():
     )
 
 
-def palette_marker(poster, flavour):
+def palette_marker(poster, flavour, harmony=None):
     poster = Path(poster)
     stat = poster.stat()
     cli = HOME / ".local/share/nacre/palette-runtime/venv/bin/nacre_shell"
@@ -313,7 +319,9 @@ def palette_marker(poster, flavour):
             "mode": scheme.get("mode", "dark"),
             "variant": scheme.get("variant", "tonalspot"),
             "orient": config.get("orient", {}),
-            "harmony": settings().get("paletteHarmony", False),
+            "harmony": settings().get("paletteHarmony", False)
+            if harmony is None
+            else harmony,
         },
         sort_keys=True,
     )
@@ -331,6 +339,40 @@ def palette_marker(poster, flavour):
         ).encode()
     ).hexdigest()
     return CACHE / (key + ".palette.json")
+
+
+def prepared_theme(poster, live=True):
+    """Apply a fresh prepared treatment through the same locked publisher."""
+    scheme = read(HOME / ".local/state/nacre/scheme.json", {})
+    marker = palette_marker(poster, scheme.get("flavour", "default"))
+    if not marker.exists():
+        return False
+    try:
+        data = read(marker, {})
+        if (
+            not isinstance(data, dict)
+            or not isinstance(data.get("input"), dict)
+            or not isinstance(data.get("source"), dict)
+        ):
+            return False
+        if data.get("input", {}).get("harmony") is not settings().get(
+            "paletteHarmony", False
+        ):
+            return False
+        digest = data.get("source", {}).get("digest", "")
+        if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            return False
+        thumbnail = HOME / ".cache/nacre/wallpapers" / digest / "thumbnail.jpg"
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "palette", Path(__file__).with_name("classic-state.py")
+        )
+        palette = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(palette)
+        return palette.commit_prepared(HOME, poster, data, thumbnail, live=live)
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
 
 
 def warm():
@@ -369,7 +411,14 @@ def warm():
                         check=True,
                         timeout=30,
                     )
-                    brand.prepare(json.loads(result.stdout)["colours"], HOME)
+                    candidate = json.loads(result.stdout)
+                    marker = palette_marker(
+                        current_poster,
+                        candidate.get("flavour", "default"),
+                        harmony=treatment == "--harmony",
+                    )
+                    atomic(marker, candidate)
+                    brand.prepare(candidate["colours"], HOME)
                 except (OSError, ValueError, KeyError, subprocess.SubprocessError):
                     continue
         prepared = 0

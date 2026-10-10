@@ -40,3 +40,8 @@ The existing low-priority cache worker prepares both Natural and Harmony for
 the current wallpaper, plus their app artwork. Raster caches include geometry,
 color roles, image size and renderer build; they are private, bounded to 64 PNGs,
 and create no idle polling. Mode changes publish once instead of twice.
+
+Natural/Harmony switches use fresh prepared records through the same palette
+publisher, avoiding repeated CLI startup. Input/engine/file identity, treatment,
+mode and variant still gate reuse; missing or invalid data and custom hooks fall
+back to the normal path. Accent selection and color calculations are unchanged.

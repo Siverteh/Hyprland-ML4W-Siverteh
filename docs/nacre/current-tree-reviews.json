@@ -4585,12 +4585,13 @@
     },
     "nacre/shell-tools/wallpaper-media.py": {
       "disposition": "independent",
-      "sha256": "cabdb766c8ff8e48ee14b7326696ef8cfd69053a7705e2daaf098d2c87a5fb53",
+      "sha256": "05b3243f1c0e87ba9935aa172c7a3b6ceb9f55558be3b7b128f087a3cdff004a",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
         "Complete current source/data body reviewed. Basis 06ffaf4: local media/poster/thumb/preferences/selection/import/rotation-cache integration; independent Orient5ecf556 and current Natural/Harmony9c9089f traced. Later path changes: 9c9089f, 372fe77, 5ecf556, 548f0b4, 8c92402, aee7ec3, e16d354, 4ea19d5, 83b3531, 81827c1, 09f9ceb. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used."
       ]
     },
     "nacre/shell-tools/wallpaper-watch.py": {
@@ -4661,12 +4662,13 @@
     },
     "nacre/shell-tools/tests/test_wallpaper_media.py": {
       "disposition": "independent",
-      "sha256": "5e887caef7354ecb64eef5231687af6ac5292582cbeb48a5b5b07450f6f80d12",
+      "sha256": "3b626ead0cf687c1a6dcde011826b7ba316079a40da42a6a1e681c1c32d9c3a5",
       "evidence": [
         "docs/specs/persistence-helpers-source-audit.md",
         "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md",
         "Complete current source/data body reviewed. Basis 06ffaf4: own synthetic images/temp commands and cache/preference/publication tests;428abbe isolates remaining default HOME/cache/library/state paths. Later path changes: 428abbe, 9c9089f, 372fe77, 5ecf556, 548f0b4, aee7ec3, 4ea19d5, 83b3531, 81827c1, 09f9ceb. Actual local source history/body/public native producer and caller contracts plus first-source peer comparison support origin, not creation dates/metrics alone. Prior exposure acknowledged; no upstream/old Caelestia/ML4W body consulted for current own correction or legal clean-room/final-license claim. Framework and other callee/fixture origins remain separate.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used."
       ]
     },
     "nacre/shell-tools/tests/test_wallpaper_watch.py": {
@@ -8446,10 +8448,11 @@
     },
     "docs/features/settings-app.md": {
       "disposition": "non-implementation",
-      "sha256": "00d5b4e51e59a1607426fa8032102b33a64c98c2ea91137bd2c1967f9e2b2d52",
+      "sha256": "085ce2a03a7a66da2083f9a7ceb10f85d9e136790b7b3e0c4694ed077f14624a",
       "evidence": [
         "docs/specs/settings-app.md: independently authored standalone Settings host/controller/window/activation and own radial-cog app mark; existing independently audited page code moved intact with explicit import/routing/visibility edits. Architecture research from official behavior/API docs only, no upstream implementation copied. Native page/lifecycle/focus/launcher/targeted hide tests and live real-font/palette/cached-wallpaper preview reviewed. User master artwork provenance remains qualified; notices retained.",
-        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed."
+        "docs/specs/settings-app.md: full changed body reviewed. Own shared app-glyph geometry, explicit active-palette UI, bounded read-only artwork caching and current-wallpaper treatment preparation; no upstream implementation used. Focused native Settings, branding and media tests passed.",
+        "docs/features/settings-app.md: independent prepared Natural/Harmony fast path inspected, retains classic-state locked publisher and cache identity checks; native fake-home integration confirms publication and malformed/wrong-treatment rejection. No upstream code used."
       ]
     },
     "docs/specs/settings-app.md": {
