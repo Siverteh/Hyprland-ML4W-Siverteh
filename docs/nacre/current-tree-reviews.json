@@ -4070,6 +4070,141 @@
         "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md",
         "Complete current source/data reviewed. Basis d7bf767: own pinned-generator fixture and5ecf556 engine migration;790b508 adds actual boot-policy regression and isolated real generator no-home-writes test; baseline boot mismatch fails then regenerated artifact passes. Later path history: 790b508, 5ecf556, 548f0b4. Generated artifact origin is established through exact deterministic own-engine reproduction and producer/input history; prior source exposure acknowledged, no legal clean-room/final-license claim. Native libraries/referenced third-party artwork and remaining helper/test origins are separately scoped."
       ]
+    },
+    "nacre/login/Main.qml": {
+      "disposition": "independent",
+      "sha256": "1af709dc68f280500c305c5f35d0cd3c05830d8200f9045353123f227b45f389",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: own QtQuick greeter presentation from native SDDM context/models/proxy contracts; later logical screen sizing and own logo integration traced. Later path changes: 548f0b4, 83b3531, b0632b9, b57c06a. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/login/metadata.desktop": {
+      "disposition": "independent",
+      "sha256": "506f87f9d65cc23aeede9608736bdf8eadc7d29f6a824935123f17020ec75d31",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: own Nacre theme identity using standard SDDM metadata keys, not a vendor theme implementation. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/login/theme.conf": {
+      "disposition": "independent",
+      "sha256": "a6bf8bfcb7386705ba5a3ea530780627ce25cfc020b52226d3a28bbf4458bea9",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: own fallback colors/configuration; current writable appearance overlay remains the live palette owner. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/login-appearance.py": {
+      "disposition": "independent",
+      "sha256": "c68339fe4dac3d78932047745d588a442d1f9cbbc5fcbc84215747162b1754e6",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: local data-only cached blur/palette publisher with strict color validation and user-owned public appearance directory;09f9ceb cache integration traced. Later path changes: 548f0b4, bb46dd6, 83b3531, 09f9ceb. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/login-install.py": {
+      "disposition": "independent",
+      "sha256": "156fd1a5f4539bb858340d86f11db4dc33469b82954ca29a44be614062b011fc",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: local root theme-only installer and backups; never installs repository issue or changes PAM/autologin/session startup. Later path changes: 548f0b4, bb46dd6, 83b3531, b0632b9. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/thunar-files.py": {
+      "disposition": "independent",
+      "sha256": "ed0bcc93f426790d1ab54726d2a2e03cb404999651cd388e7b05de8f473a0e84",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: locally authored Thunar trial, old thunar-trial.py rename explicitly traced througha046f7b;47b06d4 native runtime/environment replaced extraction paths. Later path changes: 548f0b4, 47b06d4, a046f7b. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/thunar-theme.c": {
+      "disposition": "independent",
+      "sha256": "f127c692a396c869edfb853d64e98f8612da27a9e4c36da7ca1e496eb90c7d36",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: own app-scoped GTK provider, atomic file-event coalescing and palette/settings reload, using native public GLib/GTK APIs. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/thunar.css": {
+      "disposition": "independent",
+      "sha256": "94c73b33ecf5538ebc61a13a1686f1946682338b5d1bbf43d35981098809bca1",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: own Thunar selectors and layout/style values with shared generated GTK roles; stock native widgets/icons remain dependencies. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/install-thunar.py": {
+      "disposition": "independent",
+      "sha256": "684412ce41f5b4f6e1af5e6213acb64dd1a38a1d4ed212dd31a87c29695671b4",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: local compiler/desktop/MIME integration; initial trial extraction shared only with own retired Yazi/Dolphin installers30a52ae/86bebe6, current native package replacement47b06d4 reviewed. Later path changes: 548f0b4, 47b06d4, a046f7b. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_login_theme.py": {
+      "disposition": "independent",
+      "sha256": "801c40fd06619629da003ce9e767d2b115076b8d367f931815b6518cb506fb22",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis cb36d47: own appearance/install/cache tests;7a524e7 isolates image cache in temporary HOME while retaining data-only validation and auth/config preservation tests. Later path changes: 7a524e7, 548f0b4, 83b3531, 09f9ceb. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_thunar_style.py": {
+      "disposition": "independent",
+      "sha256": "c4cfe2c7fb4f98970f8f001098ab053323708f39c8df81d26467f32dfbd46396",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: own compiled native GTK real-widget harness for actual CSS parse and atomic red-to-green reload in one process. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/native/thunar-style.c": {
+      "disposition": "independent",
+      "sha256": "e679805dde5e84cee5f7628cd98d7baa991a36c0aba74de424c12e6bd60491f4",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 338417c: own native GTK widget/check/replacement fixture; no actual Thunar preference/network/account/device operation. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_runtime_environment.py": {
+      "disposition": "independent",
+      "sha256": "396b0a59b8c1dcb330ce479205f5f0815544432a58bb3f9c316ad6d7294c5520",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 47b06d4: own native migration regression: private library/Qt paths removed while user PATH/cursor settings preserved. Later path changes: 548f0b4. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/test_login_ui.py": {
+      "disposition": "independent",
+      "sha256": "39ba8dacb88bb236979001516f8a9d6de9dfe1ebc268a5176edcaa79db641388",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 7a524e7: new own actual Main/Logo native Qt Quick test runner with synthetic models/fake authentication backend, no real credentials or SDDM proxy. Later path changes: unchanged. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
+    },
+    "nacre/shell-tools/tests/login-qml/tst_login.qml": {
+      "disposition": "independent",
+      "sha256": "0e9a14f22ad9c9fe1db8a1e9dd7118eb7855795b803c0921b3ebfdcd872ebd16",
+      "evidence": [
+        "docs/specs/login-files-source-audit.md",
+        "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md",
+        "Full current body/data reviewed. Basis 7a524e7: new own SDDM model/proxy-contract fixture: defaults, missing/busy guards, failure retry and input clearing, palette fallback; native dependency APIs only. Later path changes: unchanged. First-source peer comparison supplements actual local ancestry/body/native API review, not sole certification. Earlier source exposure acknowledged; no vendor body consulted for banner retirement or own fixtures, legal clean-room/final-license claim. Stock SDDM/GTK/Thunar/fonts/icons and other callee/test origins stay separate."
+      ]
     }
   }
 }
