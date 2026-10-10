@@ -1355,3 +1355,18 @@ Four SHA-bound reviews cover the two composed defaults, own retained Fish fragme
 and new tests. Workflow dependency edit is a caller change, not a provenance
 certificate for the complete CI workflow. Personal config/state and next-login
 propagation remain separate. Whole-tree notices/audits remain active.
+
+Session acceptance (2026-10-09 local / 2026-10-10 UTC): software c550bba,
+good config release 20261010T000438103610Z. All 393 tests (55 tools, 96 AI,
+35 Brain, 207 shell), formatting/QML/native Hyprland and reviewed two-file
+config transaction passed. Ten isolated exports exactly match before/after and
+actual user-service environment, sampled through owned temporary units. Three
+installed environment/Fish files match source. Fish aliases preserve argument
+boundaries and invoke nothing on startup. Native 101 bindings, nine sampled
+options, private preference/history hashes and AI worker identity unchanged.
+All 235 shell files exact, live IPC healthy, configerrors empty; launcher and
+wallpaper transaction gates receive Escape. No logout, package update or AI
+restart. Fresh login propagation remains a separate observation, although values
+are unchanged. Initial incorrect Fish probe and unstaged-test registry rejection
+were resolved before deployment; neither protection was bypassed. Four current
+file reviews added; full-tree notices/audits remain.
