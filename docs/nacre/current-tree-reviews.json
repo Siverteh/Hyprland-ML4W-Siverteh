@@ -4842,12 +4842,14 @@
     },
     ".github/workflows/check.yml": {
       "disposition": "independent",
-      "sha256": "073a3283e511ee1934c15da2d94a6b8543b81ec0c4c6713bc1c4f5d3719ea90a",
+      "sha256": "27d0db8f268560be717d0b27690a061d4f9fbd956cf1015dfa6421e520125ed0",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 2fa3a95: locally authored target/CI orchestration; native Arch image/tools, candidate engine and current exact-checkout trust changes traced. Later path changes: c550bba, c8d3d69, 36de6d6, cb07776, 548f0b4, 1964e9d, 73e71c4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
-      ]
+        "Full current body/data/licence reviewed. Basis 2fa3a95: locally authored target/CI orchestration; native Arch image/tools, candidate engine and current exact-checkout trust changes traced. Later path changes: c550bba, c8d3d69, 36de6d6, cb07776, 548f0b4, 1964e9d, 73e71c4. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/nacre/FINAL-COMPARISON.md"
+      ],
+      "notes": "Changed full source re-reviewed: independently authored immutable-registry completion gate, isolated actual-Git/JSON-output regression, or explicit CI invocation, from final verification spec and public Git/Python interfaces. No upstream Caelestia/ML4W body used for this implementation. Existing own base remains; no active user/provider state touched."
     },
     ".gitignore": {
       "disposition": "non-implementation",
@@ -4932,12 +4934,14 @@
     },
     "tools/provenance.py": {
       "disposition": "independent",
-      "sha256": "3dc5f282e1e575e253746382b148d075d715bbb72e8f3b81b0053f0c8b105bf6",
+      "sha256": "da651d154f9954989a272a42805cd9270352e80818413eaf5b4706e45d6b3187",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 5eef4ae: own current Git index/hash/category/change-pointer/source-review inventory; pending/stale states explicit, not copied origin checker. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
-      ]
+        "Full current body/data/licence reviewed. Basis 5eef4ae: own current Git index/hash/category/change-pointer/source-review inventory; pending/stale states explicit, not copied origin checker. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/nacre/FINAL-COMPARISON.md"
+      ],
+      "notes": "Changed full source re-reviewed: independently authored immutable-registry completion gate, isolated actual-Git/JSON-output regression, or explicit CI invocation, from final verification spec and public Git/Python interfaces. No upstream Caelestia/ML4W body used for this implementation. Existing own base remains; no active user/provider state touched."
     },
     "tools/quickshell-qt612.patch": {
       "disposition": "third-party",
@@ -5033,12 +5037,14 @@
     },
     "tools/tests/test_provenance.py": {
       "disposition": "independent",
-      "sha256": "a002bf68e6ca62fb9d87b963940c9c36d3303313b4ba6788c8fcd36defc5802b",
+      "sha256": "c00eb89fc9452f87fbd3effaa62a42f28dd5c107669a285284cfc22ecfbcb95e",
       "evidence": [
         "docs/specs/packaging-source-audit.md",
         "docs/nacre/PACKAGING-SOURCE-AUDIT.md",
-        "Full current body/data/licence reviewed. Basis 5eef4ae: own temp Git/hash/review/stale/symlink/category cases and actual error diagnostics. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped."
-      ]
+        "Full current body/data/licence reviewed. Basis 5eef4ae: own temp Git/hash/review/stale/symlink/category cases and actual error diagnostics. Later path changes: c8d3d69. Local authoring/public contracts/history/body review and peer comparison support own origin; native patch/licence explicitly third-party. Prior exposure recorded; no old/upstream Caelestia/ML4W body consulted for replacements, legal clean-room/final-license claim. Other AI/Brain/remaining fixtures/docs/dependencies/final comparison stay separately scoped.",
+        "docs/nacre/FINAL-COMPARISON.md"
+      ],
+      "notes": "Changed full source re-reviewed: independently authored immutable-registry completion gate, isolated actual-Git/JSON-output regression, or explicit CI invocation, from final verification spec and public Git/Python interfaces. No upstream Caelestia/ML4W body used for this implementation. Existing own base remains; no active user/provider state touched."
     },
     "tools/tests/test_window_rules.py": {
       "disposition": "independent",
@@ -6367,12 +6373,13 @@
     },
     "README.md": {
       "disposition": "non-implementation",
-      "sha256": "4f45acf8f072345dbfb81c8b000ce0cb0675519fba686f03b9b4046f3c31397c",
+      "sha256": "9f8c350798169ad879415f756078df6e6216da9f3716dfb412e32d7c72477d1c",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "brain/README.md": {
       "disposition": "non-implementation",
@@ -6385,12 +6392,13 @@
     },
     "docs/architecture.md": {
       "disposition": "non-implementation",
-      "sha256": "299563581da20488c23fd3a14c36cd8cf894206015959b7f62b4add0c05ecc58",
+      "sha256": "71fe0f6410c2c222616b558ed30587e7cda4f9b66e3b91f14f624947466d14be",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "docs/features/appearance.md": {
       "disposition": "non-implementation",
@@ -6565,12 +6573,13 @@
     },
     "nacre/shell-cli/README.md": {
       "disposition": "non-implementation",
-      "sha256": "f4611fce04376d993ffd94a84c616406feea7ff8a1be2d0864ece5109c5ca1fa",
+      "sha256": "307dd6ec1e7a697e4dc5d5f91d47135a707f13927f456daada9d228fef6da74e",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "nacre/shell-tools/README.md": {
       "disposition": "non-implementation",
@@ -6583,12 +6592,13 @@
     },
     "nacre/shell/README.md": {
       "disposition": "non-implementation",
-      "sha256": "2ff4930c5255612a21ebe2a83b669c45b289296afa35bc4b5c7dfdfe50834087",
+      "sha256": "c5474a4430fe06b90c0c2f61de8a2d9e2ae4affda841be91b3360a2c65a18025",
       "evidence": [
         "docs/nacre/DOCUMENTATION-GUIDE-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Locally maintained current project behavior/deployment prose reviewed in full with history and reader/source checks; no implementation-origin or license conclusion."
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "docs/specs/documentation-source-audit.md": {
       "disposition": "non-implementation",
@@ -6826,21 +6836,23 @@
     },
     "nacre/shell-cli/NOTICE": {
       "disposition": "non-implementation",
-      "sha256": "1a5eb150c66fdf7677df2b5bc1359ef8381dd14719e961a4499bf5b550a5daab",
+      "sha256": "0f69bf751ab788e98675f4bd237958ddb722ed92c52e79fc39ba16d4ea7b7167",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: ef71f98 Retain explicit attribution for the adapted palette engine"
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "nacre/shell/NOTICE": {
       "disposition": "non-implementation",
-      "sha256": "441dbd64d7c9b20c33abb9412161cda086db28fdf8ecf82d34725f7b6c73f585",
+      "sha256": "3992c0aceeafbe6ed1e8cec7a7b585924d14581d68fe25addd4166ccd21bb02d",
       "evidence": [
         "docs/nacre/REMAINING-GUIDES-NOTICES-AUDIT.md",
-        "docs/specs/documentation-source-audit.md"
+        "docs/specs/documentation-source-audit.md",
+        "docs/nacre/FINAL-COMPARISON.md"
       ],
-      "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: 4874385 Integrate reference-era desktop shell with horizontal bar and full frame"
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     },
     "tools/quickshell-NOTICE": {
       "disposition": "non-implementation",
@@ -6859,6 +6871,798 @@
         "docs/specs/documentation-source-audit.md"
       ],
       "notes": "Full current prose/metadata and local authoring history reviewed; own policy/feature prose or attribution record, no executable-origin/license-completion claim. Initial history: New review report."
+    },
+    "docs/nacre/AI-BOOTSTRAP-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "2280629f2abd7a6eaa1143b77a0b8407a445aadb49addbe9521eee2f36227f1e",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 02e0b9a785700d25125afb4317eb92286b1aee5d Audit independent AI bootstrap and support integrations"
+    },
+    "docs/nacre/AI-CONTROLLER-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "1e2f91f6fe8ab1346b0e255b163d2f12ccb99651152507a67f3f8839feed3404",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 5ae175a971090d2da24db61281b61437d28ca2e8 Record complete AI controller source audit and isolated deployment"
+    },
+    "docs/nacre/APPLICATION-PANELS-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "10eece2e464cba86299b5d2e1d8fe9eb367f82bcf505fbdcceb737a3a014c550",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 135e5c0576b5e8af488cc17a37abf4897f0a1b94 Audit current application panels and local extra view origins"
+    },
+    "docs/nacre/BRAIN-CORE-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "78199becd5ce5f16ffd4cfd515c32fd42572821aa19a5d2e673b5787fb9c1a5d",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 0f235190fa6e9423adce4914176fc919a009be94 Record complete independent Brain implementation source audit"
+    },
+    "docs/nacre/BRAIN-INTEGRATION-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "4b540c2397b872fc6023cd894fad346537fecd115599d76c510bc04fe6f6c498",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: a7c51d306940b873be79bfd14d421d65a2bee32f Audit independent Brain authentication and native integrations"
+    },
+    "docs/nacre/CONFIG-HELPER-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "cf3822f786c6e5f174263f33b30c4b322141d918a40b8457f4427a4591844aa5",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/nacre/CORE-PRESENTATION-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "959c3ac79418f6028c8ccacc6623319ad567278860f81b17432ee374a8ce4fe5",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: fca10e6266ee14d2100ecd91b0e0664b9eacb290 Audit core presentation and fix setting callback and battery snapshot"
+    },
+    "docs/nacre/CURRENT-TREE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "c20e2c9d21c72a453c9ba920512858ef44960e7176e08961a4ea3433c2914f01",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/nacre/DESKTOP-STARTUP-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "ed0b3e6a33c37a26809db96730830553f0fa8af74b9257fb37257f731b2b9193",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 61f3d3d0cc3e4ea70aa8a4dd9ce15bf2f0ba3258 Audit complete desktop startup and installer source origins"
+    },
+    "docs/nacre/DEVICE-SESSION-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "dcd8509db1397fed53093a2e0ce310299959294244458bd3a78c9e625c82229f",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 8a8c5e31992d4041e663d556a8e91554a3e5808e Audit desktop device session helpers and bounded fixtures"
+    },
+    "docs/nacre/FINAL-COMPARISON.md": {
+      "disposition": "non-implementation",
+      "sha256": "89d2ee94a289f2cb5b6b244d06c646123aed2c80593e6747123d3d8d439b9fcd",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/nacre/FOUNDATION-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "24f4090d691fbdf8d40e3f2d3fae04548eaaf2e07c8c910683db3b822978ec19",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: d3751e851372732311af61f54340cd13b5f556f6 Audit current foundation sources and exclude read-only text from UI snapshots"
+    },
+    "docs/nacre/KNOWLEDGE-HELPER-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "7a1d213055de6307155b0d641e2bb876388fccb6f922fc081922a7f7b25d1135",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 7dd66c70176eb40c3b79927271c27b3002e773f2 Audit independent knowledge helpers and private vault fixtures"
+    },
+    "docs/nacre/LOGIN-FILES-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "ae99c1bd6b740fbfcc2375f06e0e16ff376be2363c9cc86435eb887da2b4b58f",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 5c1dc592d04bcacfa338648ada15b5dc61e94f7f Audit retained login and Files integrations with native fixtures"
+    },
+    "docs/nacre/NATIVE-FIXTURE-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "ab2804323592149750c0731fce457b03b101c938f46e4dd6a7a6f1d51facc966",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 110edb4adbad18dec7965053f9feb6219e4e9dd2 Audit native QML tests and functional fixture data"
+    },
+    "docs/nacre/ORIENT-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "fa7ecebb8baaf622755c5eb745ae09e54f32f0e61ae26d725a1ac34c6fb8e308",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 0d0e5fbdb91701144c7a664319a1bfb9eb94fe89 Record exact-file Orient source and active dependency provenance reviews"
+    },
+    "docs/nacre/PACKAGING-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "ae68c23032ffefec8b5f6952ffe224f4da71ebc96647d26d81648ba3442eaac6",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/nacre/PALETTE-DATA-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "19512ad7c23a2bd0c146dec946112cc5ae7cca8af522a900589d0e60b6f3fb68",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b2dd5264b35f19e3b60fed419126cea54c1a1360 Record palette data generator and fixture origins"
+    },
+    "docs/nacre/PERSISTENCE-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "655265fa13c532268e551f82850c16cca246aaa88dddc15f656bcd5baa9ba0ca",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 731b923953b33fb1e55406a1dde6bc23f8eb7b28 Audit remaining desktop persistence helpers and isolated fixtures"
+    },
+    "docs/nacre/PROVENANCE.md": {
+      "disposition": "non-implementation",
+      "sha256": "e5dcd0040fb0739a05256e0744906c12dd2f9c90e7e0f195da71baa5c13bf0aa",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/nacre/PYTHON-FIXTURE-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "04a7d992967d81609bbf1ce3df411d0c1df37cc60902ac98fc07e0c61dd095bb",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ce528d38575913d9a904aadaa600957e2edb099e Audit remaining Python fixtures and verify caller-state isolation"
+    },
+    "docs/nacre/SERVICES-SOURCE-AUDIT.md": {
+      "disposition": "non-implementation",
+      "sha256": "1c1a381508022bfeb7537b87d9fee66e3be46666ccd5330b4b90282df0873901",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ecbedfb2ad5c643898cdda80b5cd60b1cbac3547 Audit native services and isolate asynchronous composer attachments"
+    },
+    "docs/specs/ai-bootstrap-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "ce19849e6cc258f483f0cb48ce92e123e220fa3c142e0bb943097c7850f87dba",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b9eb84dbc7c1e36fb90f66c634697a46493b35c2 Specify AI bootstrap and support source audit without account changes"
+    },
+    "docs/specs/ai-controller-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "3a3c530f35d426648d0671c600487181dd31f538a278a9a408bf5c71166af488",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: c54a22d9717f81a478ffe29d68d532af6b2ab4d2 Specify remaining AI controller and provider transport audit"
+    },
+    "docs/specs/app-clock-compositor-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "e3261892c875d689d2e15ba2ad88b5b36bac678f4a7a87a9582df324680418f8",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 1058ccae12eaf393c71ca6c0e37f03192d0ac64d Specify independent app discovery clock and compositor providers"
+    },
+    "docs/specs/application-panels-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "b2f73224e5b48cdd22d8524d6cf577d0630fbfde9ba4613e0a3ce7bb14b31942",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: dd75afa448d3f9180f63f42a93334dc0195da77c Specify remaining application and extra panel source audit"
+    },
+    "docs/specs/bar-controls.md": {
+      "disposition": "non-implementation",
+      "sha256": "23658aaee42060002fd3d3e316525dc2d876b1ed4ef9f4399d41523913369f26",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ce69bc01d3a119231574b7fab7bdaf024ecef947 Replace bar controls and battery calendar popouts independently"
+    },
+    "docs/specs/base-config-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "6530352fd0fffe467c6118cd7b0b4b46d5029b179752186a55c1b594aa7a1128",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: e77f3aff46167cb00a79eb56ae11ab4d0539713e Specify final source review for the independently replaced base defaults"
+    },
+    "docs/specs/battery-alerts.md": {
+      "disposition": "non-implementation",
+      "sha256": "c306c16d14455dc4279278fe68dcf8b3748e45c573d0c60b046b5826ca137091",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: a1d7d571f7bf2d9a7dddc1d1ab54a20b61bae61d Specify independent event-driven battery alert policy and safe watcher cutover"
+    },
+    "docs/specs/brain-core-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "5d72f50df942a1a23dd45eb9177f92786d92b47ddf03ef6b05d7184da52c70d8",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: c7751d0ea4cb9996cfdd17d799096e642b185756 Specify final Brain core implementation source audit"
+    },
+    "docs/specs/brain-integration-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "eb2a1de2af3f56093d251f7698845377df125f1290eaf7ab43cde5f96e2bbd9b",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 62245e06411a0e8484b4f70d592a1357ec894fca Specify Brain authentication and native integration source audit"
+    },
+    "docs/specs/branding-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "dc51c8e84f4a2e392a578b895e990d97f5ade858895f126627acc651db6db286",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 1b0c6e1c57d37e3cfdcf748b387f20826f3ce42b Specify branding generator and logo asset source audit"
+    },
+    "docs/specs/colour-light-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "b7bcda0e84b7f7ab2e7e43c55a005666a0bf19059a4a668259e8ce4bff2c781a",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b92a4f9bb649cf22c20da659d4bf738a42ac140f Specify independent palette loading and native light control services"
+    },
+    "docs/specs/compositor-entrypoint.md": {
+      "disposition": "non-implementation",
+      "sha256": "641be1054675eb9cce02e9b13873ea98d2593deb613faf709a7fb576a4a391a6",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: bfb087bf867d4db8897a22f602f2e4d3fe11cb2e Specify independent compositor entry composition and extension origin review"
+    },
+    "docs/specs/config-defaults.md": {
+      "disposition": "non-implementation",
+      "sha256": "ece6a44b957cd08a3bbe539e0dd8e385c69fe2ea0a779e1153c613f9dc5c0b0a",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 3bf8870983a42920f09bed21cc99f74f90a12c5b Replace inherited compositor and terminal defaults with Nacre configuration"
+    },
+    "docs/specs/config-helper-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "b646bbbea22bc56f945a6ee4427e365a7512e9440f70f462a41f2c08aa5e98ed",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/specs/core-presentation-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "e6834f200b9835eea54b17ce5c46afdcdff7b2d3b86705fb05fb4d0e2fe215a6",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 8bdedfbdf7168a9e6a4ccf32ccc2d9e4187c8828 Specify core presentation and root panel current-source audit"
+    },
+    "docs/specs/dashboard-media-performance.md": {
+      "disposition": "non-implementation",
+      "sha256": "2b37eb8ff8d0c15663000ecec1afac0a7c9e56a41fec886f81074f7cf856b205",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: d33bcd79f5cf98d7443ba5b7c5e16291b7d83c9f Specify independent full media and performance pages"
+    },
+    "docs/specs/dashboard-overview.md": {
+      "disposition": "non-implementation",
+      "sha256": "f0450031818dd0d39c4385985d7496fa2795cf0f9824081d100bc157dadb6e57",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: d2b058f4593df02b6a5092e631e6e923170cfbe9 Specify independent dashboard overview cards and data boundaries"
+    },
+    "docs/specs/dashboard-workspaces-settings.md": {
+      "disposition": "non-implementation",
+      "sha256": "d6479b54ecd00016ff23ff821f1a0b94b970ec719f715e9f0913708eaa870d9f",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 2b6835e37a75a1461071c51dc802a38d85adea8d Specify independent workspace overview and Settings foundation"
+    },
+    "docs/specs/dashboard.md": {
+      "disposition": "non-implementation",
+      "sha256": "245cf13c092af3167b3236095b7c4a65eb46e1a5e540740b50b2167403a99a15",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: d78e5a67a7c6074bdc17c44f3a3f4e55845d36f1 Specify independent dashboard assembly and page rewrite"
+    },
+    "docs/specs/design-foundation.md": {
+      "disposition": "non-implementation",
+      "sha256": "be8c731526c0012f130174bdc3ca7f29b76411376c29cb97b3cd94f29118534e",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 64e0dcd67df8135747a39885232cd6bb5c6a8660 Specify independent Nacre text and surface primitives"
+    },
+    "docs/specs/desktop-startup-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "2b1d30e0259efc6db7ff0ff8f44b69b619f10f5f665f0a225902876482f7bcaa",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ea666d80c5dfad901cb38cd4ebcf3ecbdf1ec28b Specify complete desktop startup and installer source audit"
+    },
+    "docs/specs/desktop-wrappers.md": {
+      "disposition": "non-implementation",
+      "sha256": "5b6754c807301f97cca989e4fc13a2bf06d24053f8cd100e91bda5c5c75370e7",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 216f23a2665832ed9e5cc98e4de22191f3184b77 Replace OSD session and background presentation independently"
+    },
+    "docs/specs/device-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "b5ae3ed5dca9fcd05a12a12a653402d7bc561e8ebf50fd80b173ab78471cc206",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 0466f572234fc528d9e03ffd3138f3928558503d Specify independent audio Wi-Fi and Bluetooth service contracts"
+    },
+    "docs/specs/device-session-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "dead04cec0387e6904f8607376963de577e41af26f12d5b84eabad72f623dafd",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b44717dc5734ce66cfae3b92ce32919f8d8a8f46 Specify desktop device and session helper source audit"
+    },
+    "docs/specs/final-provenance-comparison.md": {
+      "disposition": "non-implementation",
+      "sha256": "1bbd61e50a139577a356ac5cdf0d423eb05b9d836aac60b0acc0ae971bff89e5",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: a79cdd65331322a659c7eca310bc22926af029ac Specify final source comparison and active runtime verification"
+    },
+    "docs/specs/font-provenance.md": {
+      "disposition": "non-implementation",
+      "sha256": "e702040886cf3692628db38c8e54bef890e95d79daba33581fa49d0b1fd8cc3d",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: e32f155e560f87b973ad32ba4c5ca5e0b5f842e5 Specify independent font source ownership and safe provisioning"
+    },
+    "docs/specs/foundation-controls.md": {
+      "disposition": "non-implementation",
+      "sha256": "da8070d9949f80dad47321b12420ae5a1e84647b5af361dc6189917691d913ec",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 124c4962b704c8b1ca69f3732b16879b9f33a376 Specify independent Nacre controls and configuration helpers"
+    },
+    "docs/specs/foundation-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "84c24043eef427f9c9ac9ac15d2584dc2ecc7f4156cbdeef36d9e0e49bcde304",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 98c984c0a93aa13067d5706e4561e49c12c0adde Specify shared foundation and utility current-source audit"
+    },
+    "docs/specs/frame-panels.md": {
+      "disposition": "non-implementation",
+      "sha256": "5bbd283a71fc69df0cd996972a2c98ca6483bb30729ce2912107ecca53771d06",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: b0dd275cfe9d71c824467fb0a32405d08060ca85 Specify the next independent Nacre frame and panel rewrite"
+    },
+    "docs/specs/image-presentation-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "682df185e910018b463bc92e3aea479b817b435efa05c0addf7eb727c21b21d4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 8749d8e3c20c570d8c42d6e943ecef1512ee8148 Specify native image loading and independent matched presentation"
+    },
+    "docs/specs/keybindings.md": {
+      "disposition": "non-implementation",
+      "sha256": "5d5859b7b074622b68e42d771b373125dc4694335a26e0cf7a334782f4d83668",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 7c4fffee42966ce813831f365b617b3441b98fa0 Specify independent compositor shortcut contracts and safe native verification"
+    },
+    "docs/specs/knowledge-helper-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "54a0077f417fad483f507320be8ca94e02506c496c391b59a396eda19b6bdd05",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 064f6aae4e2eee2812bb2435d047ed77bbd4a793 Specify knowledge helper source and private-state audit"
+    },
+    "docs/specs/launcher.md": {
+      "disposition": "non-implementation",
+      "sha256": "0571e68da12a3f040dc2aaaa00e542a7cc1ccd83a24e01cfd28941ff637bc1fc",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 47ce57299a62f696c9c51b62da8acb606d5bf5a3 Specify the independent Nacre launcher and wallpaper presentation rewrite"
+    },
+    "docs/specs/lock-appearance-pipeline.md": {
+      "disposition": "non-implementation",
+      "sha256": "72a94a1646693890975f7e1c1f6b2d11631d0628acd9384d7c086a02896868b4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 397933e865fed6290bc75bb57e4a267adf411b66 Specify lock appearance and prepared dashboard source audit"
+    },
+    "docs/specs/login-files-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "12239aa9d6b51c98bb792d69ca8617035b42adcc6924e2d2966e2efd7e50a7d4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 7754a2aee2086ec80256fdfb00777254d9685d88 Specify login Files source audit and independent console banner"
+    },
+    "docs/specs/matrix-rest.md": {
+      "disposition": "non-implementation",
+      "sha256": "c3d2d007338a084f2c462387357789fbacd1b4f4ebe4eeb20aefae12e9e5003e",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 2a977c4d5a41cf44ab80a512000e077005dac264 Replace uncertain Matrix helper with original terminal renderer"
+    },
+    "docs/specs/media-notification-resource-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "527262769317fa9d5e47645917ad9fd6eb202eda43186d37f1dd59723e9dec59",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: e0df64d1e0d05f9133a7de6ef37e1602559fdcc4 Specify independent media notification and resource state services"
+    },
+    "docs/specs/motion-defaults.md": {
+      "disposition": "non-implementation",
+      "sha256": "78a5cd425c0f7d0d0785605bbc582d2ab9db6f7079af3d26951c22a5e7fd09ca",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/specs/native-fixture-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "43f10fc3b76167cc30e779814af2b7863208dca64be1ae82f478a2dc719bd564",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 3b1b13f2bb912bf2087188943a2c91967ea83fdc Specify remaining native QML and functional fixture audit"
+    },
+    "docs/specs/notifications.md": {
+      "disposition": "non-implementation",
+      "sha256": "c514e58296ac3878617e415080fe0213a9cf1dfe60a7d0d7ce44fdf2db93a961",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: eccc063660509ad946a03ba525a44a0e7bc1ea5c Specify independent Nacre notification presentation"
+    },
+    "docs/specs/orient-comparison.md": {
+      "disposition": "non-implementation",
+      "sha256": "ba44cb938dadeee9a3ba8222addf213be256f0d2e9fd6bd3920ec2e05a20c6bc",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: efdeaac7d433e3c44078713f3a8344ff2081c984 Specify independent Orient palette rewrite and comparison gates"
+    },
+    "docs/specs/orient-harmony.md": {
+      "disposition": "non-implementation",
+      "sha256": "501247c26e42478ec7c79397033a8dad1c80f6396f91ca750e37171b4a816ce4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 99750a19e72fc4b1e389c83acfd8c7f609ec7698 Specify optional Orient harmony and visible container tint"
+    },
+    "docs/specs/orient-packaging.md": {
+      "disposition": "non-implementation",
+      "sha256": "bb641a97523b047c2f8143273d0bbe26f23acf4fef6f631be724619690262b2a",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 0573f6bca8dcf4b384f07a5262793ab5a723a96d Keep Orient runtime identity stable across formatter and build caches"
+    },
+    "docs/specs/orient.md": {
+      "disposition": "non-implementation",
+      "sha256": "13484deca95ef6f37250ac66ec1861c3dc071084e29d6d41c41df64edc07e673",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: efdeaac7d433e3c44078713f3a8344ff2081c984 Specify independent Orient palette rewrite and comparison gates"
+    },
+    "docs/specs/packaging-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "8f6024b72a00cff98678aefee7840d689fd51a4e51a7c701116c9a0ed59c2d8f",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: cd8868cc92e931fbaf7af538ee8aa44d90a48880 Specify complete deployment checks and packaging source audit"
+    },
+    "docs/specs/palette-data-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "0ee7716e3af9d2df335dc8bc46e9a19295bb7ff8ed485992fbf9df316c48d76a",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 75c769c5547e5cdce03e77fc06bb9542cac5c306 Specify palette data and generator source audit"
+    },
+    "docs/specs/palette-publication.md": {
+      "disposition": "non-implementation",
+      "sha256": "ce9b1a0e25ba17851e52210539c18a1cc123ec028e460364df837242dd8c0a99",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ac8fcbcf3102a64bc55a405715970bc2e70276d1 Specify palette publication provenance and behavioral contracts"
+    },
+    "docs/specs/persistence-helpers-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "5b9c35cccbe485f5e5fc319860e567cccee73809844551e0e56073aa237fc2a4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: bc9ed1e3d19faa6ac044cbe76b2602d73bfb6cb6 Specify remaining desktop persistence helper source audit"
+    },
+    "docs/specs/python-fixture-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "2d1f3b96f43960469df3e9d1049c676f78920072aeb1de2bea2d482566c7b312",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: de2a5e587e143fd7130cbb7a6bf07c613c84290d Specify remaining Python fixture and native harness source audit"
+    },
+    "docs/specs/quick-popups.md": {
+      "disposition": "non-implementation",
+      "sha256": "a36057fae627b234a41630d76d5f4b7a0614771ad00fc6c2ee656246412ff5b6",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 28db63f57cee51ea1759ab81128323ca0d5b5730 Replace quick device history popups and shared assembly independently"
+    },
+    "docs/specs/retire-legacy-shell-runner.md": {
+      "disposition": "non-implementation",
+      "sha256": "6a72b01fdf62d4a18567f2a7262e784893a515b2fc6a2d641510afbe07d40c6c",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: a58fca6acd861e8da343f8754f9742f40bcf1b5c Specify retirement of unused inherited shell launcher"
+    },
+    "docs/specs/retired-audio-visualizer.md": {
+      "disposition": "non-implementation",
+      "sha256": "6edfcfc1d8b653f49af5ad94aae2f062cbeabf2cf7879586e209ee6dc46ec335",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 76101df5a90fb6968b5df9b37702dbc366a03403 Retire unreachable legacy Cava spectrum and beat visualizer code"
+    },
+    "docs/specs/retired-thumbnail-helper.md": {
+      "disposition": "non-implementation",
+      "sha256": "91fe2705a047e237557371338f8d77a2487311fda2326c87d44a0b20f6f61655",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 3544a59f494be28c89a3c552493f1363947ea1a6 Retire the unused inherited file thumbnail helper from desktop source"
+    },
+    "docs/specs/services-source-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "f7bba34c67db372153f828c83cf157a570dc9242426100a866c257335a4a485f",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: f64a8f56b4328142b1f08cf11c7716e88ea9d73a Specify current native providers and mixed service source audit"
+    },
+    "docs/specs/session-defaults.md": {
+      "disposition": "non-implementation",
+      "sha256": "2976d6a876947d0c2ddd7aed20047d470c3b147a5860bc26ceaf6f95ce182663",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 557d68345ad713ec4d2cd3a4d7c587db7d37cd3a Specify independent session input and placement defaults before replacement"
+    },
+    "docs/specs/session-startup.md": {
+      "disposition": "non-implementation",
+      "sha256": "6ddfcc20ad638d23b3cf909a69f698942a6142dec32b240d188402d4009649b8",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/specs/settings-devices-lock-ai.md": {
+      "disposition": "non-implementation",
+      "sha256": "beb8997607caf1e830722c4efbff522cd6bd36eae122d1b013cecbecf43adf37",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 42420d88f3eb1923d8a5214c012b1c6f2b902d3f Specify remaining independent device lock time and AI Settings pages"
+    },
+    "docs/specs/settings-personalization-desktop.md": {
+      "disposition": "non-implementation",
+      "sha256": "4a1ab005f7f0a1c76e60a32e3d33a0dfb820df936dbfc59848948022423a4d89",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
+    },
+    "docs/specs/shell-session-defaults.md": {
+      "disposition": "non-implementation",
+      "sha256": "459f7ed13ca8f13d174801eaf5dbe671e05b8b2907f9132a3541be8667b7f0d6",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 43e2d960870f1d38a3d8fdc2d1c90ed7336f1351 Specify shell and session environment origin review"
+    },
+    "docs/specs/shell-state-shortcuts.md": {
+      "disposition": "non-implementation",
+      "sha256": "f96bdfbe1f15f58f0574f8338189bf8fda714df4e0d5839965174d2d70c64bc4",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 5da1132a08b61ca4a4c0253d9ebbf35fda128766 Replace root shell panel state IPC and shortcut routing independently"
+    },
+    "docs/specs/toolkit-palette-companions.md": {
+      "disposition": "non-implementation",
+      "sha256": "9bf9f147bd75eaaac7c27e2e66026ac6b4a1a93f5443fccee7e4e89a40c7a900",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 14829a8d485378bd648f2e0e89a067b93b6bc2e9 Specify toolkit palette companion provenance and output contracts"
+    },
+    "docs/specs/topbar-hover.md": {
+      "disposition": "non-implementation",
+      "sha256": "76c626656dbb547fd1d9db8b788c89b6f0fc6cbf76b605b8dde8fddcd31c8ee7",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 966ae9e496336d1f20f73c0be09736b92b15ab35 Replace top bar workspace row and hover policy independently"
+    },
+    "docs/specs/update-runtime-audit.md": {
+      "disposition": "non-implementation",
+      "sha256": "a225c3c6f666a1cd048e46204b6cb981ca17f6381b78ade4a2f32e9af4fa53ee",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: ff363f2422ebaf17227dd5cd0dbb297d6c324d6e Specify the update provider and Qt guard source audit"
+    },
+    "docs/specs/wallpaper-weather-services.md": {
+      "disposition": "non-implementation",
+      "sha256": "a2a3c05a122e3b4dd4621e19a4a9e9aac84a7796ea900f6eb2baef4e8ef01423",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 28707f7abf66107d336ae9349f2ada7e060e67a8 Replace wallpaper and weather providers independently"
+    },
+    "docs/specs/window-hide.md": {
+      "disposition": "non-implementation",
+      "sha256": "4a511bb7dfd19d81cae2c6dc243615cc7cdb39cc18ddae628f417a9e1e166fb9",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Full prose read by fresh read-only reader; no fenced executable implementation. Root reviewed complete creation/change history, registry structure and whole-index upstream matches. Own historical behavior/source-audit prose, public contracts, hashes and tables; earlier status is dated, not current source certification. Initial history: 6c8f06d1fce8c059edaae570d7bc652d680cdc1c Replace imported hide helper and retire Matrix legacy color reads"
+    },
+    "docs/specs/window-routing.md": {
+      "disposition": "non-implementation",
+      "sha256": "687bd946f0c3a4755c131b142c97d25af99cabb708ae12b52ea6e14ddebdaa4a",
+      "evidence": [
+        "docs/nacre/FINAL-COMPARISON.md",
+        "docs/specs/final-provenance-comparison.md"
+      ],
+      "notes": "Changed full prose/attribution re-reviewed: current versus historical source/status, native fresh-session follow-up, metadata boundary and canonical dependency credits clarified. Own maintenance prose, no executable vendor implementation or third-party relicensing."
     }
   }
 }

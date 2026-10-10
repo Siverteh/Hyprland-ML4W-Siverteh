@@ -78,3 +78,18 @@ size expectation failed before deployment: Kitty retained its950x500 preference
 despite the70%/75% static rule. The probe compares that observed baseline geometry,
 float/pin/route afterward; it does not falsely claim actual GTK Thunar sizing was
 physically verified. Old/new11-rule data and native parser cover configured geometry.
+
+## Fresh-session follow-up verified, 2026-10-10
+
+An isolated native Hyprland 0.56.2 process loaded the current managed composition,
+with external startup/cursor hooks suppressed and no private overrides. Its real
+IPC reported 35 animation nodes and exactly default/linear plus four Nacre curves,
+with no configuration errors. Bubblewrap isolated HOME/runtime/process/network,
+exposed only a render node and the parent Wayland socket, and hid KMS cards and
+system/session buses. Its temporary parent rule/process were removed and original
+focus/workspace restored. The live session still uses only Nacre/native curve IDs;
+its stale unused registration cache is not an active old implementation.
+
+This closes the required fresh-process registry follow-up. It does not establish
+a physical cold login, private-profile acceptance or an animation timing benchmark.
+See the final comparison for source/runtime evidence and the separate visual cleanup.

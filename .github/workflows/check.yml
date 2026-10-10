@@ -22,3 +22,5 @@ jobs:
           # Container root reads a runner-owned checkout; trust only this workspace.
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           dbus-run-session -- xvfb-run -a /tmp/check-env/bin/python tools/check.py
+      - name: Require completed source reviews and immutable metadata
+        run: python tools/provenance.py --complete --metadata-revision "$(git rev-parse HEAD)"

@@ -6,6 +6,7 @@ from collections import Counter
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 
@@ -100,18 +101,75 @@ def inventory(root, registry, paths):
     return result
 
 
+def completion_metadata(root, records, revision):
+    """Require exact source reviews and anchor only registry metadata externally."""
+    if not re.fullmatch(r"[0-9a-f]{40}", revision or ""):
+        raise ValueError("Completion needs an immutable 40-character Git revision")
+    unresolved = [
+        item["path"]
+        for item in records
+        if item["path"] != str(REGISTRY)
+        and (
+            item["audit"] != "reviewed" or item["review"]["disposition"] == "inherited"
+        )
+    ]
+    if unresolved:
+        raise ValueError("Unfinished source reviews: " + ", ".join(unresolved))
+    metadata = next((item for item in records if item["path"] == str(REGISTRY)), None)
+    if metadata is None or metadata["review"] is not None:
+        raise ValueError(
+            "Registry metadata must be present without a circular self-review"
+        )
+    try:
+        committed = subprocess.run(
+            ["git", "show", revision + ":" + str(REGISTRY)],
+            cwd=root,
+            check=True,
+            capture_output=True,
+        ).stdout
+    except subprocess.CalledProcessError as error:
+        raise ValueError("Cannot read the immutable registry revision") from error
+    current = (root / REGISTRY).read_bytes()
+    if committed != current:
+        raise ValueError("Registry differs from its immutable metadata revision")
+    return {
+        "revision": revision,
+        "sha256": hashlib.sha256(current).hexdigest(),
+        "disposition": "non-implementation",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--json", action="store_true", help="Emit the complete inventory"
     )
     parser.add_argument("--check", action="store_true", help="Reject stale reviews")
+    parser.add_argument(
+        "--complete",
+        action="store_true",
+        help="Require all source reviews to be resolved",
+    )
+    parser.add_argument(
+        "--metadata-revision",
+        help="Immutable commit containing the exact registry bytes",
+    )
     args = parser.parse_args()
+    if args.complete and not args.metadata_revision:
+        parser.error("--complete requires --metadata-revision")
     registry = json.loads((ROOT / REGISTRY).read_text())
     records = inventory(ROOT, registry, tracked_paths(ROOT))
     stale = [item["path"] for item in records if item["audit"] == "stale"]
+    metadata = (
+        completion_metadata(ROOT, records, args.metadata_revision)
+        if args.complete
+        else None
+    )
     if args.json:
-        print(json.dumps({"version": 1, "files": records}, indent=2))
+        result = {"version": 1, "files": records}
+        if metadata is not None:
+            result["metadata_audit"] = metadata
+        print(json.dumps(result, indent=2))
     else:
         print(f"Tracked artifacts: {len(records)}")
         print(
@@ -129,6 +187,12 @@ def main():
         print(
             "Recorded changes are evidence pointers, not independent-origin certification."
         )
+    if metadata is not None and not args.json:
+        print(
+            "All source reviews resolved; registry metadata anchored at "
+            + metadata["revision"]
+        )
+        print("Registry metadata SHA-256: " + metadata["sha256"])
     if args.check and stale:
         raise SystemExit("Stale provenance reviews: " + ", ".join(stale))
 

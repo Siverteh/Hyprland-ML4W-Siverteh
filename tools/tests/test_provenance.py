@@ -99,3 +99,100 @@ class ProvenanceTests(unittest.TestCase):
         }
         for path, expected in samples.items():
             self.assertEqual(provenance.category(path), expected)
+
+
+class CompletionTests(unittest.TestCase):
+    def test_incomplete_or_inherited_sources_cannot_complete(self):
+        records = [
+            {"path": str(provenance.REGISTRY), "audit": "pending", "review": None},
+            {"path": "view.qml", "audit": "pending", "review": None},
+        ]
+        with self.assertRaisesRegex(ValueError, "Unfinished.*view.qml"):
+            provenance.completion_metadata(Path("."), records, "a" * 40)
+        records[1].update(audit="reviewed", review={"disposition": "inherited"})
+        with self.assertRaisesRegex(ValueError, "Unfinished.*view.qml"):
+            provenance.completion_metadata(Path("."), records, "a" * 40)
+        records[1].update(audit="stale", review={"disposition": "independent"})
+        with self.assertRaisesRegex(ValueError, "Unfinished.*view.qml"):
+            provenance.completion_metadata(Path("."), records, "a" * 40)
+
+    def test_circular_or_unpinned_metadata_cannot_complete(self):
+        records = [
+            {"path": str(provenance.REGISTRY), "audit": "pending", "review": None}
+        ]
+        with self.assertRaisesRegex(ValueError, "immutable"):
+            provenance.completion_metadata(Path("."), records, "main")
+        records[0]["review"] = {"disposition": "non-implementation"}
+        with self.assertRaisesRegex(ValueError, "circular"):
+            provenance.completion_metadata(Path("."), records, "a" * 40)
+
+    def test_real_git_anchor_rejects_later_metadata_edits(self):
+        import json
+        import os
+        import subprocess
+        from unittest.mock import patch
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            metadata = root / provenance.REGISTRY
+            metadata.parent.mkdir(parents=True)
+            metadata.write_text(json.dumps({"version": 1, "reviews": {}}))
+            env = {
+                "PATH": os.environ["PATH"],
+                "HOME": str(root),
+                "GIT_CONFIG_NOSYSTEM": "1",
+                "GIT_CONFIG_GLOBAL": "/dev/null",
+                "GIT_AUTHOR_NAME": "Nacre fixture",
+                "GIT_AUTHOR_EMAIL": "fixture@example.invalid",
+                "GIT_COMMITTER_NAME": "Nacre fixture",
+                "GIT_COMMITTER_EMAIL": "fixture@example.invalid",
+            }
+            with patch.dict(os.environ, env, clear=True):
+                for command in (
+                    ["git", "init", "--quiet"],
+                    ["git", "add", str(provenance.REGISTRY)],
+                    ["git", "commit", "--quiet", "-m", "Metadata fixture"],
+                ):
+                    subprocess.run(command, cwd=root, check=True, capture_output=True)
+                revision = subprocess.check_output(
+                    ["git", "rev-parse", "HEAD"], cwd=root, text=True
+                ).strip()
+                records = [
+                    {
+                        "path": str(provenance.REGISTRY),
+                        "audit": "pending",
+                        "review": None,
+                    }
+                ]
+                result = provenance.completion_metadata(root, records, revision)
+                import contextlib
+                import io
+                import sys
+
+                output = io.StringIO()
+                with (
+                    patch.object(provenance, "ROOT", root),
+                    patch.object(
+                        sys,
+                        "argv",
+                        [
+                            "provenance",
+                            "--complete",
+                            "--metadata-revision",
+                            revision,
+                            "--json",
+                        ],
+                    ),
+                    contextlib.redirect_stdout(output),
+                ):
+                    provenance.main()
+                self.assertEqual(
+                    json.loads(output.getvalue())["metadata_audit"], result
+                )
+                self.assertEqual(result["revision"], revision)
+                self.assertEqual(
+                    result["sha256"], hashlib.sha256(metadata.read_bytes()).hexdigest()
+                )
+                metadata.write_text('{"version": 1, "reviews": {}, "changed": true}')
+                with self.assertRaisesRegex(ValueError, "differs"):
+                    provenance.completion_metadata(root, records, revision)

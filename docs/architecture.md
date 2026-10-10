@@ -132,5 +132,6 @@ and deploy it rather than relying on runtime copies as the source owner.
 
 [Current-tree provenance](nacre/CURRENT-TREE-AUDIT.md) distinguishes source origin,
 assets/dependencies and active runtime from historical releases and functional
-acceptance. Source/fixture reviews are recorded; final comparison/licensing is
-still in progress. Applicable notices remain until that evidence is complete.
+acceptance. The [final comparison](nacre/FINAL-COMPARISON.md) joins the source/fixture,
+dependency and active-runtime evidence. Current and historical attribution have
+separate scope; passing source checks does not certify physical/visual acceptance.

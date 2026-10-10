@@ -20,6 +20,6 @@ installation/deployment belongs to `./install.sh`, not this CLI.
 
 See [the engine spec](../../docs/specs/orient.md),
 [feature behavior](../../docs/features/orient.md), [LICENSE](LICENSE) and retained
-[attribution](NOTICE). Implementation/fixture source reviews are recorded across Nacre; the complete
-source/runtime/dependency comparison and licensing conclusion remain open.
-A component review alone does not authorize a whole-project licence change.
+[attribution](NOTICE). The [final comparison](../../docs/nacre/FINAL-COMPARISON.md) joins complete
+implementation/fixture, runtime and dependency evidence. Current project licensing
+and historical attribution remain distinct from third-party licenses.

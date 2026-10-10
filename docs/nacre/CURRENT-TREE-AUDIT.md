@@ -36,7 +36,7 @@ continually become stale, and hashing the report into itself is circular. The
 registry is inventoried as an ordinary artifact, with no self-hash review. Final
 review evidence for audit metadata can use a separately identified Git revision.
 
-## Next audit groups
+## Historical audit groups
 
 1. Mixed shell services and playback/state/recovery/settings/action providers.
 2. Remaining extras, widgets and local JavaScript utilities; retire dead code.
@@ -45,8 +45,10 @@ review evidence for audit metadata can use a separately identified Git revision.
 5. AI/Brain source history and dependency/asset notices, followed by the deployed
    source/runtime comparison. Their personal state remains private.
 
-The earlier verified replacement records remain in `PROVENANCE.md`. Pending
-final audit status here does not reverse those functional/live acceptance results.
+These groups have completed area/source reviews. Current dispositions come from
+the registry; the [final comparison](FINAL-COMPARISON.md) supplies the whole-tree
+and active-runtime conclusion. Historical pending status does not reverse the
+recorded functional/live results.
 
 ## CI checkout ownership
 
@@ -59,4 +61,14 @@ See [Git safe.directory](https://git-scm.com/docs/git-config#Documentation/git-c
 and [checkout's setting](https://github.com/actions/checkout#usage).
 
 [Orient source review](ORIENT-SOURCE-AUDIT.md) records the first nine exact-file
-implementation reviews; other areas and the final upstream comparison remain open.
+reviews. Later area reports cover the remaining implementation and fixtures;
+the final comparison and immutable metadata revision establish completion.
+
+## Completion and metadata anchor
+
+The final source/runtime map is [FINAL-COMPARISON.md](FINAL-COMPARISON.md). Run
+`python3 tools/provenance.py --complete --metadata-revision COMMIT` from the clean
+committed candidate. It rejects pending/stale/inherited source reviews and requires
+registry bytes to match that immutable Git revision, without a circular self-hash.
+`--json` remains pure JSON and includes the separate metadata audit. CI runs this
+completion gate for the exact checkout; integrity is not an authorship certificate.

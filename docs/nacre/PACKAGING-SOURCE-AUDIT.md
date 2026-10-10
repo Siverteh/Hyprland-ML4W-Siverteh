@@ -27,7 +27,8 @@ Quickshell compatibility patch is native upstream material: all 15source-file
 added/removed lines match commit 5d5d498 exactly; local backport omits changelog.
 It is NOT independent Nacre code. Cloud0310/outfoxxed/contributors and source are
 credited in tools/NOTICE; verbatim pinned LGPL v3 retained, with incorporated GPL
-root text. Local packaging recipe is own public integration, native library under
+root text (historical wording; the current complete copy is
+`tools/quickshell-LICENSE-GPL`). Local packaging recipe is own public integration, native library under
 its own licence. No native package rebuild/root install or relicense performed.
 
 [Upstream commit](https://github.com/quickshell-mirror/quickshell/commit/5d5d49873fe8cf1f99ddfd5006ceb2057c5c9b13)

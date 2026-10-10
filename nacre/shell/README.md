@@ -9,7 +9,7 @@ and [ownership guide](../../docs/architecture.md) explain the boundaries.
 The installed renderer runs a validated copy, not an upstream checkout/submodule.
 Native Quickshell/Qt and licensed fonts/icons are dependencies; Nacre source-origin
 records live in the [provenance tracker](../../docs/nacre/PROVENANCE.md). Historical
-notices remain while the full comparison/licensing review finishes.
+credits and the current project license are scoped in the final comparison.
 
 After source checks and native Hyprland verification, commit the candidate and
 review/apply the managed release plan from the repository root:

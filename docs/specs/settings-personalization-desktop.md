@@ -56,4 +56,5 @@ palette semantics, responsive tiles, display request args/pending controls, pres
 workflow save and maintenance actions. Retain existing page tests. Native render/
 source/IPC and live page navigation/scrolling without changing preferences or
 physical displays. Full checks/Hyprland, plan/apply strict gates, configerrors and
-CI for each batch. Never run UI-changing probes during deployment gates.
+CI for each batch. Do not run concurrent UI probes that interfere with release
+gates or change preferences/devices. Required gates may open and dismiss panels.

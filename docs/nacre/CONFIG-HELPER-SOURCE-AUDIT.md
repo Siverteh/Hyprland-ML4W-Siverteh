@@ -50,4 +50,6 @@ preserved; notices/full whole-tree comparison remain open.
 
 Generated configuration artifact regression exposed files() deploying local pyc/pyo/cache files. cbea2ea excludes them and .qmlls.ini; existing owned-only removal/backup/drift contracts retained. New test body reviewed separately; the complete configure.py origin remains pending packaging audit.
 
+| Current artifact | Authoring basis | Later changes | Current SHA-256 |
+|---|---|---|---|
 | `tools/tests/test_configure_artifacts.py` | `cbea2ea` | unchanged | `e3b1540dca79ff8da7ee71f3ca227e649288d3135e3023e5a9f9c080ba89d16e` |

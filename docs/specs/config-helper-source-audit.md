@@ -1,5 +1,8 @@
 # Remaining terminal and compositor helper source audit
 
+This is the historical contract before replacement. Matrix now reads canonical
+Nacre colors, with no Rofi dependency; see the completed configuration-helper audit.
+
 2026-10-10 UTC. Scope: fastfetch/logo.sh, fastfetch/render-logo.sh,
 hypr/hypridle.conf, hypr/scripts/hyprctl-lua.sh, matrix-rest.py, matrix-rest.sh,
 startup-apps.sh, window-close.sh, window-minimize.sh and window-trash.sh. Other

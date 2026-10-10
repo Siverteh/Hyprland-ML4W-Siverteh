@@ -1,5 +1,8 @@
 # Independent graphical-session startup composition
 
+The five-task capture below is historical. Current autostart has four tasks;
+the retired battery watcher is superseded by NacreBatteryAlerts.
+
 Implemented and natively deployed, 2026-10-09. Cold-login/PAM acceptance remains separate. Target: `hypr/conf/autostart.lua`; app keybindings and
 window routing follow in separate branches. The Lua introduction in `f3290a5`
 coincides with old dotfile edits; translating old startup config is not originality.

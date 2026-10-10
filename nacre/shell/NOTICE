@@ -1,3 +1,13 @@
-Nacre classic shell
+Nacre desktop shell
 
-Contains source from caelestia-dots/shell and its contributors, under GPL-3.0-only; LICENSE is retained. Adapted for Siverteh OS horizontal layout and current Hyprland on 2026-10-03.
+The maintained implementation was independently replaced and reviewed through
+Nacre's behavior specifications, exact-file origin records and final source/runtime
+comparison. Quickshell/Qt and licensed fonts/icons are separate dependencies.
+LICENSE retains the project's current GPL-3.0-only choice; it does not assert that
+current implementation is supplied by Caelestia.
+
+Historical versions imported caelestia-dots/shell under GPL-3.0-only and credited
+its contributors. That source remains in historical Git revisions. The replacement
+history and previous exposure are preserved in docs/nacre/PROVENANCE.md and
+FINAL-COMPARISON.md. This is not a legal clean-room guarantee or a claim of
+ownership over third-party libraries/artwork.

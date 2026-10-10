@@ -1,9 +1,13 @@
 # Nacre independent implementation tracker
 
-Status: Orient, foundation/frame/launcher/notices/dashboard/Settings, initial
-services and presentation/wallpaper/weather providers, all bar/popups, OSD/session/
-background and topbar/hover verified. Root/shortcuts/panel-state also verified. Other state/helpers/extras/config/assets and whole-tree audit remain;
-2026-10-09.
+Current file dispositions are tracked by `tools/provenance.py` and
+`current-tree-reviews.json`. The completed area records below are dated historical
+evidence; their pending-work statements describe that date, not today's inventory.
+The [final comparison](FINAL-COMPARISON.md) records current source/runtime coverage
+and remaining validation. Visual cleanup and public extraction follow separately.
+
+Initial status (2026-10-09): the first UI/provider batches were verified while
+remaining state/helpers/config/assets and the whole-tree audit were still pending.
 [Orient specification](../specs/orient.md) is the first ready spec.
 
 See the [whole-current-tree audit](CURRENT-TREE-AUDIT.md) for repeatable coverage
@@ -35,7 +39,7 @@ For every replacement record: exact paths, prior inheritance evidence, spec link
 replacement commit, implementation references, dependencies/licenses, test evidence,
 live gate and any remaining derived adapters. Preserve rollback until proven.
 
-## Initial areas and proposed order
+## Initial areas and proposed order (historical inventory)
 
 | Order | Area / current paths | Status | Spec and remaining work |
 |---|---|---|---|
@@ -2111,7 +2115,8 @@ snapshot/private preservation tests pass, without actual rollback or migration.
 Quickshell patch verification: all fifteen source-file additions/removals exactly
 match pinned upstream 5d5d498; only changelog omitted. Author/source/native LGPL v3
 credits and verbatim pinned licence retained in tools/NOTICE/licenses, incorporated
-GPL root text retained. Local package recipe remains public native integration;
+GPL root text retained (historical wording; current full text is
+`tools/quickshell-LICENSE-GPL`). Local package recipe remains public native integration;
 no claim of original Nacre native code, package rebuild/root install or relicensing.
 
 All 432 tests pass (72 tools, 96 AI, 35 Brain, 229 shell), native QML,
