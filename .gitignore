@@ -28,3 +28,4 @@ auth.json
 # Explicitly licensed bundled Welcome art, with hashes/credits; personal images stay ignored.
 !nacre/shell-tools/demo-wallpapers/*.jpg
 !nacre/shell-tools/demo-wallpapers/*.png
+!nacre/shell-tools/demo-wallpapers/*.webp

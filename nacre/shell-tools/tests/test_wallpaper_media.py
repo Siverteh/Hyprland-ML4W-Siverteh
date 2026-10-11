@@ -272,7 +272,14 @@ class OrientPreparedCacheTests(unittest.TestCase):
                 for call in run.call_args_list
                 if call.args[0][0] == str(cli)
             ]
-            self.assertEqual([q[-1] for q in queries], ["--no-harmony", "--harmony"])
+            self.assertEqual(len(queries), 14)
+            self.assertEqual(
+                set(q[-1] for q in queries),
+                {"natural", "pigment", "harmony", "pop", "mist", "vivid", "pearl"},
+            )
+            self.assertEqual(
+                set(q[q.index("--mode") + 1] for q in queries), {"dark", "light"}
+            )
             self.assertTrue(list((home / ".cache/nacre/branding").glob("*.png")))
             self.assertFalse((home / ".local/state/nacre/presentation.json").exists())
             self.assertFalse((home / ".local/share/icons").exists())

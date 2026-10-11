@@ -1,180 +1,202 @@
 import QtQuick
 import qs.widgets
 import qs.services
+import "../colors"
 
 Column {
     id: root
-    spacing: 10
-    property bool showCredits: false
+    spacing: 12
     readonly property var entries: NacreWelcomeApp.demoEntries
-    NacreText {
-        text: "Try the colors"
-        font.pointSize: 15
-    }
     Row {
         id: scenes
         objectName: "welcomeScenes"
         width: parent.width
-        spacing: 10
+        spacing: 12
         Repeater {
             model: root.entries
-            NacreSurface {
+            Column {
                 id: tile
                 required property var modelData
                 required property int index
-                objectName: "welcomeScene_" + index
-                width: (scenes.width - Math.max(0, root.entries.length - 1) * scenes.spacing) / Math.max(1, root.entries.length)
-                height: imageFrame.height + 44
-                radius: 10
-                color: NacreTokens.raised
-                border.width: selected ? 2 : 1
-                border.color: selected ? NacreTokens.accent : Qt.alpha(NacreTokens.outline, .35)
-                readonly property bool selected: NacreWallpapers.displayPath === modelData.path
-                enabled: !NacreWelcomeApp.demoBusy
-                NacreClip {
-                    id: imageFrame
-                    x: 3
-                    y: 3
-                    width: parent.width - 6
-                    height: width * .56
-                    radius: 8
-                    Image {
-                        id: picture
-                        anchors.fill: parent
-                        source: "file://" + (modelData.preview || modelData.thumbnail || modelData.poster)
-                        fillMode: Image.PreserveAspectCrop
-                        asynchronous: true
-                        cache: true
-                        retainWhileLoading: true
-                        sourceSize.width: 512
-                        sourceSize.height: 288
+                width: (scenes.width - 36) / 4
+                spacing: 7
+                NacreSurface {
+                    objectName: "welcomeScene_" + tile.index
+                    width: parent.width
+                    height: Math.min(120, width * .56)
+                    radius: 12
+                    color: NacreTokens.raised
+                    border.width: selected ? 2 : 1
+                    border.color: selected ? Qt.alpha(NacreTokens.ink, .65) : Qt.alpha(NacreTokens.outline, .4)
+                    readonly property bool selected: NacreWallpapers.displayPath === tile.modelData.path
+                    enabled: !NacreWelcomeApp.demoBusy
+                    NacreClip {
+                        x: 4
+                        y: 4
+                        width: parent.width - 8
+                        height: parent.height - 8
+                        radius: 9
+                        Image {
+                            anchors.fill: parent
+                            source: "file://" + (tile.modelData.preview || tile.modelData.poster)
+                            fillMode: Image.PreserveAspectCrop
+                            asynchronous: true
+                            cache: true
+                            retainWhileLoading: true
+                            sourceSize: Qt.size(512, 288)
+                        }
+                        NacreSurface {
+                            anchors.right: parent.right
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 6
+                            width: 24
+                            height: 24
+                            radius: 12
+                            visible: parent.parent.selected
+                            color: NacreTokens.body
+                            NacreIcon {
+                                anchors.centerIn: parent
+                                text: "check"
+                                font.pointSize: 10
+                            }
+                        }
                     }
-                    NacreIcon {
-                        anchors.centerIn: parent
-                        text: "wallpaper"
-                        color: NacreTokens.mutedInk
-                        visible: picture.status !== Image.Ready
+                    NacreInteraction {
+                        accessibleName: "Use wallpaper " + tile.modelData.name
+                        function onClicked() {
+                            NacreWelcomeApp.selectDemo(tile.modelData.path);
+                        }
                     }
                 }
                 NacreText {
-                    x: 9
-                    y: imageFrame.y + imageFrame.height + 5
-                    width: parent.width - 18
-                    text: modelData.name
-                    font.pointSize: 9.5
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 2
+                    width: parent.width
+                    text: tile.modelData.name
+                    font.pointSize: 10
+                    maximumLineCount: 1
                     elide: Text.ElideRight
                 }
-                NacreInteraction {
-                    accessibleName: "Use wallpaper " + modelData.name
-                    function onClicked() {
-                        NacreWelcomeApp.selectDemo(tile.modelData.path);
-                    }
+                NacreText {
+                    width: parent.width
+                    textFormat: Text.RichText
+                    font.pointSize: 8.5
+                    wrapMode: Text.Wrap
+                    color: NacreTokens.mutedInk
+                    linkColor: NacreTokens.mutedInk
+                    text: "<a href=\"" + tile.modelData.source + "\">" + tile.modelData.artist + "</a> · " + tile.modelData.license.replace(/-/g, " ")
+                    onLinkActivated: url => NacreWelcomeApp.openCredit(url)
                 }
             }
         }
     }
-    Column {
-        width: parent.width
-        spacing: 8
+    NacreText {
         visible: !root.entries.length
-        NacreText {
-            width: parent.width
-            text: NacreWelcomeApp.demoStarting ? "Preparing your starting point and four curated wallpapers…" : "The demo could not be prepared. Reopen Welcome to try again."
-            color: NacreTokens.mutedInk
-            wrapMode: Text.Wrap
-        }
-        ActionButton {
-            text: "More wallpapers"
-            onClicked: NacreWallpapers.pickFiles()
-        }
+        text: NacreWelcomeApp.demoStarting ? "Preparing the demo…" : NacreWelcomeApp.demoError
+        font.pointSize: 10
+        color: NacreTokens.mutedInk
     }
-    Flow {
-        objectName: "welcomeColorModes"
+    Item {
         width: parent.width
-        spacing: 14
-        visible: root.entries.length > 0
+        height: 38
         Row {
             spacing: 6
+            anchors.verticalCenter: parent.verticalCenter
+            NacreText {
+                text: "Style"
+                font.pointSize: 11
+                anchors.verticalCenter: parent.verticalCenter
+                rightPadding: 8
+            }
+            Repeater {
+                model: ["natural", "pop", "pearl"]
+                ActionButton {
+                    required property string modelData
+                    objectName: "welcomePersonality_" + modelData
+                    text: modelData.charAt(0).toUpperCase() + modelData.slice(1)
+                    compact: true
+                    selected: NacreWelcomeApp.appearance.palettePersonality === modelData
+                    enabled: !NacreWelcomeApp.demoBusy
+                    onClicked: NacreWelcomeApp.themeDemo("", modelData)
+                }
+            }
+        }
+        Row {
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 4
             Repeater {
                 model: ["dark", "light"]
                 ActionButton {
                     required property string modelData
                     objectName: "welcomeMode_" + modelData
+                    text: ""
+                    accessibleLabel: modelData === "dark" ? "Dark colors" : "Light colors"
+                    icon: modelData === "dark" ? "dark_mode" : "light_mode"
                     compact: true
-                    text: modelData.charAt(0).toUpperCase() + modelData.slice(1)
                     selected: NacreWelcomeApp.appearance.paletteMode === modelData
                     enabled: !NacreWelcomeApp.demoBusy
                     onClicked: NacreWelcomeApp.themeDemo(modelData, "")
                 }
             }
         }
-        Rectangle {
-            width: 1
-            height: 28
-            color: NacreTokens.outline
-            opacity: .45
+    }
+    NacreText {
+        width: parent.width
+        wrapMode: Text.Wrap
+        text: ({
+                natural: "The original balance of the wallpaper's own colors",
+                pop: "A bold contrasting detail becomes the accent",
+                pearl: "Neutral surfaces and Nacre's mother-of-pearl tones"
+            })[NacreWelcomeApp.appearance.palettePersonality] || "Your chosen color style"
+        font.pointSize: 10
+        color: NacreTokens.mutedInk
+    }
+    Row {
+        width: parent.width
+        spacing: 18
+        NacreThemePreview {
+            width: Math.min(440, parent.width * .58)
+            height: 140
+            palette: NacrePresentation.active.colours || {}
+            wallpaper: NacreWallpapers.displayPreview || ""
         }
-        Row {
-            spacing: 6
-            Repeater {
-                model: ["natural", "pop", "pearl"]
-                ActionButton {
-                    required property string modelData
-                    objectName: "welcomePersonality_" + modelData
-                    compact: true
-                    text: modelData.charAt(0).toUpperCase() + modelData.slice(1)
-                    selected: NacreWelcomeApp.appearance.palettePreset === "wallpaper" && (NacreWelcomeApp.appearance.palettePersonality || "natural") === modelData
-                    enabled: !NacreWelcomeApp.demoBusy
-                    onClicked: NacreWelcomeApp.themeDemo("", modelData)
+        Column {
+            width: Math.max(0, parent.width - parent.children[0].width - 18)
+            spacing: 12
+            NacreText {
+                text: "Your desktop colors"
+                font.pointSize: 11
+            }
+            Row {
+                spacing: 8
+                Repeater {
+                    model: ["primary", "secondary", "tertiary", "surface"]
+                    Rectangle {
+                        required property string modelData
+                        width: 32
+                        height: 32
+                        radius: 16
+                        color: "#" + (NacrePresentation.active.colours?.[modelData] || "202020")
+                        border.width: 1
+                        border.color: NacreTokens.outline
+                    }
                 }
             }
-        }
-    }
-    Flow {
-        width: parent.width
-        spacing: 8
-        ActionButton {
-            objectName: "welcomeRestoreDemo"
-            text: "Back to how it was"
-            icon: "history"
-            compact: true
-            enabled: !NacreWelcomeApp.demoBusy && NacreWelcomeApp.demoChanged
-            onClicked: NacreWelcomeApp.restoreDemo()
-        }
-        ActionButton {
-            objectName: "welcomeWallpaperCredits"
-            text: root.showCredits ? "Hide wallpaper credits" : "Wallpaper credits"
-            compact: true
-            onClicked: root.showCredits = !root.showCredits
-        }
-    }
-    Column {
-        objectName: "welcomeWallpaperCreditList"
-        width: parent.width
-        spacing: 6
-        visible: root.showCredits
-        Repeater {
-            model: root.entries
-            NacreText {
-                required property var modelData
-                width: parent.width
-                font.pointSize: 9
-                color: NacreTokens.mutedInk
-                linkColor: NacreTokens.accent
-                textFormat: Text.RichText
-                wrapMode: Text.Wrap
-                text: modelData.name + " — " + modelData.artist + " · <a href=\"" + modelData.licenseUrl + "\">" + modelData.license + "</a> · <a href=\"" + modelData.source + "\">Source</a>"
-                onLinkActivated: url => NacreWelcomeApp.openCredit(url)
+            ActionButton {
+                objectName: "welcomeRestoreDemo"
+                text: "Undo: back to your colors"
+                compact: true
+                visible: NacreWelcomeApp.demoChanged
+                enabled: !NacreWelcomeApp.demoBusy
+                onClicked: NacreWelcomeApp.restoreDemo()
             }
         }
     }
     NacreText {
         width: parent.width
-        text: NacreWelcomeApp.demoError || (NacreWelcomeApp.demoBusy ? (NacreWelcomeApp.demoStarting ? "Preparing the demo…" : "Applying to your desktop…") : NacreWelcomeApp.demoRestored ? "Your starting wallpaper and colors are restored." : "Changes apply live. Colors offers previews and more choices.")
-        color: NacreWelcomeApp.demoError ? NacreColours.palette.m3error : NacreTokens.mutedInk
+        text: NacreWelcomeApp.demoError || (NacreWelcomeApp.demoBusy ? "Applying to your desktop…" : NacreWelcomeApp.demoRestored ? "Your starting colors are restored." : "")
+        visible: !!text
         font.pointSize: 10
         wrapMode: Text.Wrap
+        color: NacreTokens.mutedInk
     }
 }

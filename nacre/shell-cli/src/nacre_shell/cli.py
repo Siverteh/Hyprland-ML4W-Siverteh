@@ -114,6 +114,7 @@ def image_settings(path, args):
         "background_from_wallpaper": background,
         "overrides": overrides,
         "brightness": choice.get("brightness", 0.0),
+        "time_tint": choice.get("timeTint", False),
         "saturation": choice.get("saturation", 1.0),
         "hour": __import__("datetime").datetime.now().hour if choice.get("tideAutomatic") else choice.get("hour", 12),
     }

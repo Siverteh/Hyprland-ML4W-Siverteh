@@ -23,7 +23,7 @@ TestCase {
             property string appIcon: ""
             property string image: ""
             property int urgency: 1
-            property real expireTimeout: 20
+            property real expireTimeout: 20000
             property var actions: []
             property int dismissed: 0
             property int expired: 0
@@ -181,7 +181,7 @@ TestCase {
             }
         };
         verify(!entry.hovered);
-        verify(!entry.deadline.running);
+        verify(entry.deadline.running);
         NacrePanelState.screens = {};
         verify(entry.deadline.running);
         native.closed(1);
@@ -197,8 +197,8 @@ TestCase {
             expireTimeout: 0
         });
         const sticky = state.receive(permanent);
-        verify(!sticky.deadline.running);
-        permanent.expireTimeout = .03;
+        verify(sticky.deadline.running);
+        permanent.expireTimeout = 30;
         verify(sticky.deadline.running);
         wait(90);
         compare(permanent.expired, 1);

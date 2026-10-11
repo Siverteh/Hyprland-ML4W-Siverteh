@@ -120,6 +120,14 @@ Singleton {
         else
             persist();
     }
+    function hideEntry(entry) {
+        if (!list.includes(entry))
+            return;
+        entry.popup = false;
+        entry.hovered = false;
+        if (!entry.retain)
+            remove(entry);
+    }
     function expireEntry(entry) {
         if (!list.includes(entry))
             return;
@@ -227,6 +235,8 @@ Singleton {
                 retained: root.retained.length,
                 timers: root.list.filter(entry => entry.popup).map(entry => ({
                             hovered: entry.hovered,
+                            timeoutMs: entry.timeout,
+                            intervalMs: entry.deadline.interval,
                             running: entry.deadline.running
                         })),
                 historyReady: root.historyReady,

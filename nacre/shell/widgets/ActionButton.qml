@@ -6,6 +6,7 @@ NacreSurface {
 
     property string text
     property string icon: ""
+    property string accessibleLabel: ""
     property bool selected: false
     property bool compact: false
 
@@ -38,6 +39,7 @@ NacreSurface {
     }
 
     NacreInteraction {
+        accessibleName: root.accessibleLabel || root.text || root.icon
         function onClicked() {
             root.clicked();
         }

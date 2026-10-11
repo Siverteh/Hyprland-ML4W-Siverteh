@@ -243,3 +243,17 @@ home page participates in rotation pause policy. `welcome.py` reads described
 live compositor bindings on user/config events; Lua binds remain owned by the
 existing files, with action descriptions attached there. Optional AI/Brain
 guide content never installs accounts/components. No idle observer is added.
+
+## Colors/tour responsiveness
+
+Shared NacreAppHeader/NacreTabStrip distinguish navigation from palette choices;
+Welcome uses five-page progress navigation instead of tabs. Natural's former
+hue-family selector is retained in Orient/classic.py, with Pigment naming the
+newer subject/perceptual policy. Time tint and body tint remain independent.
+Colors comparison generation is view-driven and preview-only. Notifications use
+native raw-millisecond deadlines; zero requests get bounded banners with retained
+history/actions. Immutable branding cache1024 entries avoids64-image churn; native
+wallpaper uses three ready-image slots and paired palette activation. One-shot
+warmer precomputes selected scene modes/styles and never publishes. See feature
+[Orient](features/orient.md), [Welcome](features/welcome.md) and
+[specification](specs/colors-welcome-performance.md).

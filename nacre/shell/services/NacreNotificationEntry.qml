@@ -23,9 +23,9 @@ QtObject {
     }
     readonly property real timeout: notification?.expireTimeout ?? -1
     readonly property Timer deadline: Timer {
-        interval: root.timeout > 0 ? Math.max(1, root.timeout * 1000) : root.owner.defaultTimeout
-        running: root.popup && !!root.notification && !root.hovered && !root.owner.suppressed && !root.owner.dnd && root.owner.expire && root.timeout !== 0
-        onTriggered: root.owner.expireEntry(root)
+        interval: root.timeout > 0 ? Math.max(1, Math.min(root.timeout, 10000)) : root.owner.defaultTimeout
+        running: root.popup && !!root.notification && !root.hovered && !root.owner.dnd && root.owner.expire
+        onTriggered: root.timeout === 0 || root.timeout > 10000 ? root.owner.hideEntry(root) : root.owner.expireEntry(root)
     }
     readonly property Connections changes: Connections {
         target: root.notification

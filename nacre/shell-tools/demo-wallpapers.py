@@ -21,7 +21,11 @@ def collection():
     entries = manifest["wallpapers"]
     for item in entries:
         name = item["file"]
-        if Path(name).name != name or Path(name).suffix not in (".jpg", ".png"):
+        if Path(name).name != name or Path(name).suffix not in (
+            ".jpg",
+            ".png",
+            ".webp",
+        ):
             raise ValueError("Invalid bundled wallpaper filename")
         source = ASSETS / name
         if hashlib.sha256(source.read_bytes()).hexdigest() != item["sha256"]:

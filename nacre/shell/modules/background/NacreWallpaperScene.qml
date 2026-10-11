@@ -26,13 +26,16 @@ Item {
         return path ? "file://" + encodeURIComponent(path).replace(/%2F/g, "/") : "";
     }
     function request() {
-        if (!requestedPath || transitioning || width < 1 || height < 1)
+        if (!requestedPath || width < 1 || height < 1)
             return;
         if (hasImage && current.requestPath === requestedPath) {
             NacrePresentation.activate(requestedPath);
             return;
         }
-        const slot = hasImage ? (current === first ? second : first) : current;
+        const slots = [first, second, third];
+        const slot = !hasImage ? current : (slots.find(item => item !== current && item !== previous && item.requestPath === requestedPath) || slots.find(item => item !== current && item !== previous));
+        if (!slot)
+            return;
         slot.animateOpacity = false;
         slot.opacity = 0;
         slot.requestPath = requestedPath;
@@ -94,6 +97,9 @@ Item {
     Poster {
         id: second
     }
+    Poster {
+        id: third
+    }
     AnimatedImage {
         anchors.fill: parent
         z: 2
@@ -107,7 +113,7 @@ Item {
     Loader {
         z: 2
         anchors.fill: parent
-        active: NacreWallpapers.displayDynamic && !NacreWallpapers.displayAnimated && !WallpaperPlayback.batteryPaused
+        active: NacreWallpapers.displayDynamic && !NacreWallpapers.displayAnimated && !WallpaperPlayback.batteryPaused && !root.pickerOpen
         sourceComponent: NacreDesktopVideo {
             screenName: root.screenName
             path: NacreWallpapers.displayPath
@@ -116,7 +122,7 @@ Item {
     }
     Timer {
         id: settle
-        interval: 320
+        interval: 230
         onTriggered: root.finish()
     }
     Connections {
@@ -149,7 +155,7 @@ Item {
         Behavior on opacity {
             enabled: poster.animateOpacity && NacreTokens.motionEnabled
             NumberAnimation {
-                duration: 300
+                duration: 210
                 easing.type: Easing.InOutCubic
             }
         }

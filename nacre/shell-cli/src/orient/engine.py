@@ -5,6 +5,7 @@ from pathlib import Path
 from . import ENGINE_ID, FORMAT_VERSION
 from .colour import clean, lch, hue_distance
 from .extract import analyze
+from .classic import analyze as classic_analyze
 from .palette import DEFAULT_SEED, SEMANTIC_SEEDS, background_policy, generate, validate
 from .accessibility import audit
 from .storage import cache_key, read, roots, write_json
@@ -71,6 +72,7 @@ def from_image(
     hour=12,
     cache_dir=None,
     background_from_wallpaper=None,
+    time_tint=False,
 ):
     path = Path(path).expanduser().resolve(strict=True)
     personality = personality or ("harmony" if harmony else "natural")
@@ -88,7 +90,8 @@ def from_image(
         "overrides": overrides,
         "brightness": brightness,
         "saturation": saturation,
-        "hour": hour if personality == "tide" else 12,
+        "hour": hour if personality == "tide" or time_tint else 12,
+        "time_tint": bool(time_tint),
     }
     identity = cache_key(path, settings)
     folder = Path(cache_dir) if cache_dir is not None else roots()[2] / "palettes"
@@ -139,6 +142,21 @@ def from_image(
             write_json(analysis_path, analysis)
         except OSError:
             pass
+    if personality == "natural":
+        classic_key = cache_key(path, {"classic": 1})
+        classic_path = folder / ("classic-" + classic_key + ".json")
+        classic = read(classic_path, {})
+        if not classic.get("candidates") or classic.get("engine") != ENGINE_ID:
+            classic = dict(classic_analyze(path), engine=ENGINE_ID)
+            write_json(classic_path, classic)
+        analysis = dict(
+            analysis,
+            seed=classic["seed"],
+            candidates=classic["candidates"],
+            neutral=classic["neutral"],
+            reason=classic["reason"],
+            selectionPolicy="classic-natural",
+        )
     if smart:
         mode = "light" if analysis["meanLightness"] >= 0.68 else "dark"
     seed = overrides.get("primary") or settings["accent"] or analysis["seed"]
@@ -188,6 +206,7 @@ def from_image(
         saturation=saturation,
         hour=hour,
         background_from_wallpaper=background_from_wallpaper,
+        time_tint=time_tint,
     )
     if cache_key(path, settings) != identity:
         raise ValueError("Wallpaper changed during extraction; select it again")

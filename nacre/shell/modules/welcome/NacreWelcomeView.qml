@@ -8,65 +8,43 @@ Item {
     id: root
     focus: true
     readonly property bool narrow: width < 820
+    property bool allShortcuts: false
+    property real pageOffset: 0
+    property real pageOpacity: 1
+    property int previousStep: 0
+    Keys.onEscapePressed: NacreWelcomeApp.close()
+    Keys.onReturnPressed: if (!NacreWelcomeApp.demoBusy)
+        NacreWelcomeApp.advance()
+    Keys.onEnterPressed: if (!NacreWelcomeApp.demoBusy)
+        NacreWelcomeApp.advance()
     function page(name) {
-        NacreWelcomeApp.page = name;
+        NacreWelcomeApp.jump(name);
         canvas.contentY = 0;
     }
-    Keys.onEscapePressed: NacreWelcomeApp.close()
-    Flow {
-        id: navigation
-        objectName: "welcomeNavigation"
-        width: parent.width
-        spacing: 8
-        Repeater {
-            model: [
-                {
-                    id: "home",
-                    name: "Start here"
-                },
-                {
-                    id: "shortcuts",
-                    name: "Shortcuts"
-                },
-                {
-                    id: "apps",
-                    name: "Nacre apps"
-                },
-                {
-                    id: "help",
-                    name: "Help"
-                }
-            ]
-            ActionButton {
-                required property var modelData
-                objectName: "welcomePage_" + modelData.id
-                text: modelData.name
-                selected: NacreWelcomeApp.page === modelData.id
-                onClicked: root.page(modelData.id)
+    Connections {
+        target: NacreWelcomeApp
+        function onPageChanged() {
+            canvas.contentY = 0;
+            if (NacreTokens.motionEnabled) {
+                root.pageOffset = NacreWelcomeApp.step >= root.previousStep ? 24 : -24;
+                root.pageOpacity = 0;
+                Qt.callLater(() => {
+                    root.pageOffset = 0;
+                    root.pageOpacity = 1;
+                });
             }
+            root.previousStep = NacreWelcomeApp.step;
         }
-    }
-    NacreText {
-        id: error
-        y: navigation.height + 10
-        width: parent.width
-        text: NacreWelcomeApp.error
-        visible: text.length > 0
-        wrapMode: Text.Wrap
-        color: NacreColours.palette.m3error
     }
     Flickable {
         id: canvas
         objectName: "welcomeCanvas"
-        x: 0
-        y: navigation.height + (error.visible ? error.implicitHeight + 20 : 14)
         width: parent.width
-        height: Math.max(0, footer.y - y - 12)
+        height: Math.max(0, footer.y - 16)
         contentWidth: width
         contentHeight: body.implicitHeight
         clip: true
         boundsBehavior: Flickable.StopAtBounds
-        flickableDirection: Flickable.VerticalFlick
         maximumFlickVelocity: 3400
         FastScroll {
             view: canvas
@@ -76,146 +54,149 @@ Item {
             id: body
             width: canvas.width
             spacing: 14
+            x: root.pageOffset
+            opacity: root.pageOpacity
+            Behavior on x {
+                enabled: NacreTokens.motionEnabled
+                NumberAnimation {
+                    duration: 170
+                    easing.type: Easing.OutCubic
+                }
+            }
+            Behavior on opacity {
+                enabled: NacreTokens.motionEnabled
+                NumberAnimation {
+                    duration: 150
+                }
+            }
             Column {
+                visible: NacreWelcomeApp.page === "welcome"
+                width: parent.width
+                spacing: 24
+                Item {
+                    width: 1
+                    height: 30
+                }
+                BrandLogo {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 200
+                    height: 200
+                    compact: false
+                    motionEnabled: NacreTokens.motionEnabled
+                }
+                NacreText {
+                    width: parent.width
+                    text: "Nacre"
+                    font.pointSize: 36
+                    font.weight: Font.Medium
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                NacreText {
+                    width: parent.width
+                    text: "Mother-of-pearl. Colors shaped by your wallpaper."
+                    font.pointSize: 14
+                    wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                NacreText {
+                    width: parent.width
+                    text: "A short tour of your desktop"
+                    font.pointSize: 11
+                    color: NacreTokens.mutedInk
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+            Column {
+                visible: NacreWelcomeApp.page === "colors"
                 width: parent.width
                 spacing: 12
-                visible: NacreWelcomeApp.page === "home"
-                Item {
+                NacreText {
+                    text: "Your colors"
+                    font.pointSize: 25
+                }
+                NacreText {
                     width: parent.width
-                    height: root.narrow ? 132 : 120
-                    BrandLogo {
-                        id: heroLogo
-                        x: root.narrow ? 8 : 16
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: root.narrow ? 100 : 112
-                        height: width
-                        compact: false
-                        motionEnabled: NacreTokens.motionEnabled
-                    }
-                    Column {
-                        x: root.narrow ? 132 : 164
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: parent.width - x - 16
-                        spacing: 10
-                        NacreText {
-                            text: "Nacre"
-                            font.pointSize: root.narrow ? 28 : 32
-                            font.weight: Font.Medium
-                        }
-                        NacreText {
-                            width: parent.width
-                            text: "Mother-of-pearl. Colors shaped by your wallpaper."
-                            font.pointSize: root.narrow ? 11 : 13
-                            wrapMode: Text.Wrap
-                        }
-                        NacreText {
-                            width: parent.width
-                            text: "Nacre is the iridescent lining inside a shell. Here, your wallpaper brings those colors to a desktop for Hyprland."
-                            color: NacreTokens.mutedInk
-                            font.pointSize: 11
-                            wrapMode: Text.Wrap
-                        }
-                    }
+                    text: "Pick a wallpaper and watch your whole desktop change live."
+                    wrapMode: Text.Wrap
+                    color: NacreTokens.mutedInk
                 }
                 NacreWelcomeDemo {
                     width: parent.width
                 }
-                Flow {
-                    width: parent.width
+                Row {
                     spacing: 8
                     ActionButton {
                         objectName: "welcomeColors"
                         text: "Open Colors"
-                        icon: "palette"
+                        compact: true
                         onClicked: NacreWelcomeApp.route("colors")
                     }
                     ActionButton {
-                        objectName: "welcomeWallpaper"
                         text: "More wallpapers"
-                        icon: "wallpaper"
+                        compact: true
                         onClicked: NacreWelcomeApp.route("wallpaper")
-                    }
-                    ActionButton {
-                        text: "Settings"
-                        onClicked: NacreWelcomeApp.route("settings:desktop")
-                    }
-                    ActionButton {
-                        text: "Shortcuts"
-                        onClicked: root.page("shortcuts")
-                    }
-                    ActionButton {
-                        text: "Maintenance"
-                        onClicked: NacreWelcomeApp.route("settings:maintenance")
                     }
                 }
             }
-
             Column {
-                width: parent.width
-                spacing: 12
                 visible: NacreWelcomeApp.page === "shortcuts"
+                width: parent.width
+                spacing: 14
                 NacreText {
-                    text: "A few keys go a long way"
-                    font.pointSize: 23
+                    text: "Getting around"
+                    font.pointSize: 25
                 }
                 NacreText {
-                    width: parent.width
-                    text: "Super is usually the Windows key. These are the bindings registered in your current Hyprland session."
-                    color: NacreTokens.mutedInk
-                    wrapMode: Text.Wrap
-                }
-                NacreText {
-                    width: parent.width
-                    visible: !!NacreWelcomeApp.data.shortcutError
-                    text: NacreWelcomeApp.data.shortcutError || ""
-                    wrapMode: Text.Wrap
+                    text: "The keys you need first, read from your current bindings."
+                    font.pointSize: 11
                     color: NacreTokens.mutedInk
                 }
-                ActionButton {
-                    text: "Refresh bindings"
-                    enabled: !NacreWelcomeApp.busy
-                    onClicked: NacreWelcomeApp.refresh()
-                }
-                Repeater {
-                    model: NacreWelcomeApp.data.shortcuts || []
-                    NacreSurface {
-                        required property var modelData
-                        width: body.width
-                        height: Math.max(76, info.implicitHeight + 24, keyLabel.implicitHeight + 32)
-                        radius: 10
-                        color: NacreTokens.raised
-                        NacreText {
-                            id: keyLabel
-                            x: 16
-                            y: 16
-                            width: root.narrow ? 172 : 220
-                            text: modelData.key
-                            font.family: NacreTokens.monoFamily
-                            font.pointSize: 10
-                            wrapMode: Text.Wrap
-                            color: NacreTokens.accent
-                        }
-                        Column {
-                            id: info
-                            x: root.narrow ? 204 : 248
-                            y: 12
-                            width: parent.width - x - 16
-                            spacing: 4
-                            NacreText {
-                                width: parent.width
-                                text: modelData.title
-                                wrapMode: Text.Wrap
-                                font.pointSize: 12
-                            }
-                            NacreText {
-                                width: parent.width
-                                text: modelData.detail
-                                wrapMode: Text.Wrap
-                                color: NacreTokens.mutedInk
-                                font.pointSize: 10.5
+                Flow {
+                    id: keyFlow
+                    width: parent.width
+                    spacing: 12
+                    Repeater {
+                        model: (NacreWelcomeApp.data.shortcuts || []).filter(item => root.allShortcuts || ["launcher", "terminal", "put-away", "workspace", "lock", "settings"].includes(item.id))
+                        NacreSurface {
+                            required property var modelData
+                            width: (keyFlow.width - 12) / 2
+                            height: 90
+                            radius: 10
+                            color: NacreTokens.raised
+                            Column {
+                                x: 14
+                                y: 12
+                                width: parent.width - 28
+                                spacing: 8
+                                NacreText {
+                                    width: parent.width
+                                    text: modelData.key
+                                    font.family: NacreTokens.monoFamily
+                                    font.pointSize: 13
+                                    color: NacreTokens.accent
+                                    wrapMode: Text.Wrap
+                                }
+                                NacreText {
+                                    width: parent.width
+                                    text: modelData.title
+                                    font.pointSize: 10
+                                    wrapMode: Text.Wrap
+                                }
                             }
                         }
                     }
+                }
+                ActionButton {
+                    text: root.allShortcuts ? "Show essentials" : "See all shortcuts"
+                    compact: true
+                    onClicked: root.allShortcuts = !root.allShortcuts
+                }
+                NacreText {
+                    width: parent.width
+                    wrapMode: Text.Wrap
+                    text: NacreWelcomeApp.data.shortcutError || "Super is usually the Windows key."
+                    font.pointSize: 10
+                    color: NacreTokens.mutedInk
                 }
             }
             Column {
@@ -326,6 +307,53 @@ Item {
                     font.pointSize: 10.5
                 }
             }
+
+            Column {
+                visible: NacreWelcomeApp.page === "ready"
+                width: parent.width
+                spacing: 18
+                BrandLogo {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 120
+                    height: 120
+                    compact: false
+                }
+                NacreText {
+                    width: parent.width
+                    text: "You're all set."
+                    font.pointSize: 28
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                NacreText {
+                    width: parent.width
+                    text: (NacreWallpapers.currentEntry?.name || "Your wallpaper") + " · " + (NacreWelcomeApp.appearance.palettePersonality || "natural").replace(/^./, s => s.toUpperCase()) + " · " + (NacreWelcomeApp.appearance.paletteMode || "dark").replace(/^./, s => s.toUpperCase())
+                    font.pointSize: 12
+                    color: NacreTokens.mutedInk
+                    wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                NacreSwitch {
+                    objectName: "welcomeStartupToggle"
+                    width: parent.width
+                    label: "Show at login"
+                    checked: NacreWelcomeApp.data.preferences?.showAtLogin !== false
+                    onToggled: value => NacreWelcomeApp.setStartup(value)
+                }
+                Row {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: 10
+                    ActionButton {
+                        text: "Help"
+                        compact: true
+                        onClicked: root.page("help")
+                    }
+                    ActionButton {
+                        text: "Maintenance"
+                        compact: true
+                        onClicked: NacreWelcomeApp.route("settings:maintenance")
+                    }
+                }
+            }
             Column {
                 width: parent.width
                 spacing: 14
@@ -419,57 +447,43 @@ Item {
             color: NacreTokens.outline
             opacity: .3
         }
-        Switch {
-            id: startup
-            objectName: "welcomeStartupToggle"
-            x: 0
+        ActionButton {
+            objectName: "welcomeBack"
             anchors.verticalCenter: parent.verticalCenter
-            text: "Show at login"
-            checked: NacreWelcomeApp.data.preferences?.showAtLogin !== false
-            enabled: !NacreWelcomeApp.busy
-            onToggled: NacreWelcomeApp.setStartup(checked)
-            Accessible.name: text
-            indicator: NacreSurface {
-                implicitWidth: 42
-                implicitHeight: 24
-                x: 0
-                y: (startup.height - height) / 2
-                radius: 12
-                color: startup.checked ? NacreTokens.accent : NacreTokens.raised
-                border.width: 1
-                border.color: NacreTokens.outline
+            text: NacreWelcomeApp.step === 0 && NacreWelcomeApp.page !== "help" ? "Skip tour" : "Back"
+            compact: true
+            onClicked: NacreWelcomeApp.back()
+        }
+        Row {
+            anchors.centerIn: parent
+            spacing: 10
+            Repeater {
+                model: NacreWelcomeApp.steps
                 NacreSurface {
-                    width: 18
-                    height: 18
-                    y: 3
-                    x: startup.checked ? 21 : 3
-                    radius: 9
-                    color: startup.checked ? NacreColours.palette.m3onPrimary : NacreTokens.mutedInk
+                    required property string modelData
+                    required property int index
+                    objectName: "welcomeStep_" + modelData
+                    width: 10
+                    height: 10
+                    radius: 5
+                    color: NacreWelcomeApp.page === modelData ? NacreTokens.accent : NacreTokens.outline
+                    NacreInteraction {
+                        accessibleName: "Step " + (index + 1) + ": " + modelData
+                        function onClicked() {
+                            NacreWelcomeApp.jump(modelData);
+                        }
+                    }
                 }
             }
-            contentItem: NacreText {
-                text: startup.text
-                leftPadding: 52
-                verticalAlignment: Text.AlignVCenter
-                color: NacreTokens.ink
-                font.pointSize: 11
-            }
-        }
-        NacreText {
-            x: startup.x + startup.width + 20
-            anchors.verticalCenter: parent.verticalCenter
-            visible: !root.narrow
-            text: "Always available in the launcher"
-            font.pointSize: 10
-            color: NacreTokens.mutedInk
         }
         ActionButton {
             objectName: "welcomeDone"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
-            text: "Start using Nacre"
             selected: true
-            onClicked: NacreWelcomeApp.close()
+            text: NacreWelcomeApp.page === "ready" ? "Start using Nacre" : NacreWelcomeApp.page === "help" ? "Back to finish" : "Next"
+            enabled: !NacreWelcomeApp.demoBusy
+            onClicked: NacreWelcomeApp.advance()
         }
     }
 }

@@ -255,7 +255,8 @@ def release_login(home, instance, claim):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "action", choices=("state", "set-startup", "claim-login", "release-login")
+        "action",
+        choices=("state", "set-startup", "finish-tour", "claim-login", "release-login"),
     )
     parser.add_argument("value", nargs="?", default="")
     args = parser.parse_args()
@@ -265,6 +266,12 @@ def main():
             result = state(home)
         elif args.action == "set-startup":
             result = set_startup(home, json.loads(args.value))
+        elif args.action == "finish-tour":
+            with locked(home):
+                data = preferences(home)
+                data["tourCompleted"] = True
+                atomic(paths(home)[0], data)
+            result = state(home)
         elif args.action == "claim-login":
             result = claim_login(
                 home, os.environ.get("HYPRLAND_INSTANCE_SIGNATURE", "")

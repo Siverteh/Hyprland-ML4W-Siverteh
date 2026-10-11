@@ -19,38 +19,41 @@
       "changes": "None; original publisher download bytes."
     },
     {
-      "file": "the-healer.jpg",
-      "name": "The Healer",
-      "title": "Episode 38: The Healer \u2014 landscape",
-      "artist": "David Revoy",
-      "artistUrl": "https://www.davidrevoy.com/",
+      "file": "forest-path.webp",
+      "name": "Forest Path",
+      "title": "ForestPath",
+      "artist": "Folium Creations",
+      "artistUrl": "https://github.com/FoliumCreations",
       "license": "CC-BY-4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-      "source": "https://www.peppercarrot.com/en/wallpapers/index.html",
-      "download": "https://www.peppercarrot.com/0_sources/0ther/wallpapers/hi-res/2023-04-26_Episode-38-The-Healer-landscape_by-David-Revoy.jpg",
-      "size": [
-        4200,
-        2625
-      ],
-      "sha256": "3badaea591acb4069e07c6c5d3a6f6791cfb3cad37f038b1d2ac9aea578505db",
-      "changes": "None; original publisher download bytes."
-    },
-    {
-      "file": "point-of-view.jpg",
-      "name": "Point of View",
-      "title": "Point of View",
-      "artist": "David Revoy",
-      "artistUrl": "https://www.davidrevoy.com/",
-      "license": "CC-BY-4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-      "source": "https://www.peppercarrot.com/en/wallpapers/index.html",
-      "download": "https://www.peppercarrot.com/0_sources/0ther/wallpapers/hi-res/2022-12-18_Point-of-View_by-David-Revoy.jpg",
+      "source": "https://github.com/FoliumCreations/Wallpapers/blob/50c5e0b093ff1f00371fc5b0808839ee7e9b37c4/README.md",
+      "download": "https://raw.githubusercontent.com/FoliumCreations/Wallpapers/50c5e0b093ff1f00371fc5b0808839ee7e9b37c4/Nature/ForestPath.png",
       "size": [
         3840,
-        2047
+        2160
       ],
-      "sha256": "7fe56fd1c7ddbd557e5921f3772c1ea55c8fef91839d24873189b514c2862684",
-      "changes": "None; original publisher download bytes."
+      "sha256": "346d89148952ae563c2112bb49d2b321e0f6c59481ae5f361367489bdfbaeaf3",
+      "changes": "Lossless WebP encoding; original native dimensions and RGB pixels verified identical.",
+      "originalSha256": "94c227c466092dcc7212089dfb4fa029ad58ac049023a9fe58e1b707bcd72b9c"
+    },
+    {
+      "file": "space-blue.webp",
+      "name": "Blue Orbit",
+      "title": "nick-nazzaro-space-blue",
+      "artist": "Nick Nazzaro",
+      "artistUrl": "https://nicknazzaro.com/",
+      "publisher": "System76",
+      "license": "CC-BY-SA-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://github.com/pop-os/wallpapers/blob/20a9fdd1ed86aadfbbfcd55dc3d2d9eb8ae28e15/README.md",
+      "download": "https://raw.githubusercontent.com/pop-os/wallpapers/20a9fdd1ed86aadfbbfcd55dc3d2d9eb8ae28e15/original/nick-nazzaro-space-blue.png",
+      "size": [
+        4800,
+        2700
+      ],
+      "sha256": "e9f142e28e6cfe555e6b98200bacc749727e0024929a7d54df1a28cdc2032a36",
+      "changes": "Lossless WebP encoding; original native dimensions and RGB pixels verified identical.",
+      "originalSha256": "27194f621cca0b810c4e547447f866e7e835db95b0103f1401b6019ccd17191c"
     },
     {
       "file": "jungle-red.png",

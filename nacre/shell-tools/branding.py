@@ -184,7 +184,7 @@ def cached_png(text, home, size=512):
         # Bound disk use; cache misses only prune, never a recurring idle job.
         for stale in sorted(
             folder.glob("*.png"), key=lambda p: p.stat().st_mtime, reverse=True
-        )[64:]:
+        )[1024:]:
             stale.unlink(missing_ok=True)
     except OSError:
         pass

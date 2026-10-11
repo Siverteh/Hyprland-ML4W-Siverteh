@@ -276,23 +276,18 @@ NacreSettingsPage {
         Flow {
             width: parent.width
             spacing: 8
-            ActionButton {
-                objectName: "naturalPaletteButton"
-                text: "Natural"
-                selected: (root.prefs.palettePersonality || (root.prefs.paletteHarmony ? "harmony" : "natural")) === "natural"
-                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
-                onClicked: NacreWallpapers.preference({
-                    paletteHarmony: false
-                })
-            }
-            ActionButton {
-                objectName: "harmonyPaletteButton"
-                text: "Harmony"
-                selected: (root.prefs.palettePersonality || (root.prefs.paletteHarmony ? "harmony" : "natural")) === "harmony"
-                enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
-                onClicked: NacreWallpapers.preference({
-                    paletteHarmony: true
-                })
+            Repeater {
+                model: ["natural", "pigment", "harmony", "pop", "mist", "vivid", "pearl", "tide"]
+                ActionButton {
+                    required property string modelData
+                    objectName: modelData + "PaletteButton"
+                    text: modelData.charAt(0).toUpperCase() + modelData.slice(1)
+                    selected: (root.prefs.palettePersonality || "natural") === modelData
+                    enabled: (root.prefs.palettePreset || "wallpaper") === "wallpaper" && !NacreWallpapers.themeBusy
+                    onClicked: NacreWallpapers.preference({
+                        palettePersonality: modelData
+                    })
+                }
             }
         }
         ActionButton {
@@ -302,7 +297,7 @@ NacreSettingsPage {
         }
         NacreText {
             width: parent.width
-            text: "Natural keeps the image's distinct colors. Harmony prefers supporting accents that relate to the main color."
+            text: "Natural restores the original Nacre color balance. Pigment uses the newer subject-weighted color grouping. All styles are also available in Nacre Colors."
             font.pointSize: 10
             color: NacreTokens.mutedInk
             wrapMode: Text.Wrap

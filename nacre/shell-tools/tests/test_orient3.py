@@ -103,7 +103,7 @@ class Orient3Tests(unittest.TestCase):
         image.paste("#dbcf79", (112, 0, 128, 80))
         image.save(path)
         for mode in ("dark", "light"):
-            result = from_image(path, mode)
+            result = from_image(path, mode, personality="pigment")
             hues = [lch(s["sourceColor"])[2] for s in result["roleSources"].values()]
             self.assertTrue(any(hue_distance(h, 19) < 8 for h in hues))
             self.assertTrue(any(hue_distance(h, lch("b46549")[2]) < 8 for h in hues))
@@ -311,7 +311,7 @@ class Orient3Tests(unittest.TestCase):
     def test_pop_fallback_does_not_invent_detail_in_single_family_or_gray_images(self):
         for base, detail in (("87373c", "ed3041"), ("303030", "909090")):
             p = self.scene(base, detail)
-            natural = from_image(p)
+            natural = from_image(p, personality="pigment")
             pop = from_image(p, personality="pop")
             self.assertEqual(pop["source"]["selected"], natural["source"]["selected"])
         with self.assertRaises(ValueError):
@@ -375,7 +375,7 @@ class Orient3Tests(unittest.TestCase):
 
     def test_salience_coverage_locations_and_small_crop_stability(self):
         p = self.scene("253452", "e19858")
-        data = from_image(p)
+        data = from_image(p, personality="pigment")
         candidate = next(
             c
             for c in data["source"]["candidates"]

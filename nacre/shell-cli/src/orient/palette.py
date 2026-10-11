@@ -79,7 +79,7 @@ def supporting_sources(seed, candidates, harmony=False):
     return chosen
 
 
-PERSONALITIES = ("natural", "harmony", "pop", "mist", "vivid", "pearl", "tide")
+PERSONALITIES = ("natural", "pigment", "harmony", "pop", "mist", "vivid", "pearl", "tide")
 
 
 def background_policy(personality, background_from_wallpaper=None):
@@ -91,7 +91,7 @@ def background_policy(personality, background_from_wallpaper=None):
     if personality not in PERSONALITIES:
         raise ValueError("Unknown palette personality")
     if background_from_wallpaper is None:
-        background_from_wallpaper = personality != "natural"
+        background_from_wallpaper = personality not in ("natural", "pigment")
     if type(background_from_wallpaper) is not bool:
         raise ValueError("Background from wallpaper must be a boolean")
     return personality, background_from_wallpaper
@@ -111,6 +111,7 @@ def generate(
     saturation=1.0,
     hour=12,
     background_from_wallpaper=None,
+    time_tint=False,
 ):
     personality = personality or ("harmony" if harmony else "natural")
     personality, background_from_wallpaper = background_policy(personality, background_from_wallpaper)
@@ -164,7 +165,7 @@ def generate(
         body_chroma = min(observed_chroma, 0.045 if dark else 0.035)
     if personality in ("mist", "pearl"):
         body_chroma *= 0.18 if personality == "mist" else 0
-    if personality == "tide":
+    if personality == "tide" or (time_tint and personality != "pearl"):
         body_hue = 55 if hour >= 17 or hour < 5 else 250
         body_chroma = min(0.022, max(0.012, body_chroma))
     colors = {role: color(light, body_chroma, body_hue) for role, light in levels.items()}

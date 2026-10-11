@@ -9,7 +9,9 @@ Singleton {
     property bool created: false
     property bool visible: false
     property var window: null
-    property string page: "home"
+    property string page: "welcome"
+    readonly property var steps: ["welcome", "colors", "shortcuts", "apps", "ready"]
+    readonly property int step: Math.max(0, steps.indexOf(page))
     property var data: ({
             preferences: {
                 showAtLogin: true
@@ -125,8 +127,32 @@ Singleton {
         error = "";
         request(["set-startup", JSON.stringify(value)]);
     }
+    function jump(name) {
+        page = steps.includes(name) || name === "help" ? name : "welcome";
+        optionalApp = "";
+    }
+    function advance() {
+        if (page === "help")
+            jump("ready");
+        else if (step < steps.length - 1)
+            jump(steps[step + 1]);
+        else
+            finish();
+    }
+    function back() {
+        if (page === "help")
+            jump("ready");
+        else if (step > 0)
+            jump(steps[step - 1]);
+        else
+            close();
+    }
+    function finish() {
+        request(["finish-tour"]);
+        close();
+    }
     function open(section = "home") {
-        page = ["home", "shortcuts", "apps", "help"].includes(section) ? section : "home";
+        jump(section === "home" ? "welcome" : section);
         NacrePanelState.clearPopouts();
         const view = NacrePanelState.getForActive();
         if (view)

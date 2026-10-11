@@ -30,6 +30,7 @@ class WelcomeUITests(unittest.TestCase):
                 "ActionButton",
                 "FastScroll",
                 "NacreScrollBar",
+                "NacreSwitch",
             ):
                 text = (
                     (SHELL / "widgets" / (name + ".qml"))
@@ -37,7 +38,7 @@ class WelcomeUITests(unittest.TestCase):
                     .replace("import qs.services", 'import "."')
                 )
                 (fixtures / (name + ".qml")).write_text(text)
-                if name in ("NacreIcon", "NacreScrollBar"):
+                if name in ("NacreIcon", "NacreScrollBar", "NacreSwitch"):
                     with (fixtures / "qmldir").open("a") as stream:
                         stream.write(f"\n{name} 1.0 {name}.qml\n")
             clip = (
@@ -107,16 +108,17 @@ class WelcomeUITests(unittest.TestCase):
             )
             (fixtures / "NacreWelcomeApp.qml").write_text("""pragma Singleton
 import QtQuick
-QtObject { property string page:"home";property string error:"";property bool busy:false;
+QtObject { property string page:"welcome";property var steps:["welcome","colors","shortcuts","apps","ready"];readonly property int step:Math.max(0,steps.indexOf(page));property string error:"";property bool busy:false;
  property var data:({preferences:{showAtLogin:true},available:{ai:false,brain:false},shortcuts:SHORTCUTS});
- property var actions:[];property string optionalApp:"";property var demoEntries:SAMPLES;property bool demoBusy:false;property string demoError:"";property bool demoStarting:false;property bool demoChanged:true;property bool demoRestored:false;
+ property var actions:[];property string optionalApp:"";property var demoEntries:SAMPLES;property bool demoBusy:false;property string demoError:"";property bool demoStarting:false;property bool demoChanged:false;property bool demoRestored:false;
  property var appearance:({palettePreset:"wallpaper",paletteMode:"CURRENT_MODE",palettePersonality:"natural"});
- function refresh(){}function setup(name){optionalApp=name}function selectDemo(path){actions=[...actions,"scene:"+path]}
+ function refresh(){}function setup(name){optionalApp=name}function selectDemo(path){demoChanged=true;actions=[...actions,"scene:"+path]}
  function restoreDemo(){actions=[...actions,"restore-demo"];demoChanged=false;demoRestored=true}
  function themeDemo(mode,name){actions=[...actions,"theme:"+mode+":"+name]}
  function route(name){actions=[...actions,name]} function link(name){actions=[...actions,"link:"+name]}
  function setStartup(value){data=Object.assign({},data,{preferences:{showAtLogin:value}})}
  function openCredit(url){actions=[...actions,"credit:"+url]}
+ function jump(name){page=name}function advance(){if(step<4)page=steps[step+1];else finish()}function back(){if(page==="help")page="ready";else if(step>0)page=steps[step-1];else close()}function finish(){actions=[...actions,"finish"]}
  function close(){actions=[...actions,"close"]}
 }""")
             with (fixtures / "qmldir").open("a") as stream:
@@ -126,6 +128,20 @@ QtObject { property string page:"home";property string error:"";property bool bu
             stub = fixtures / "NacreWelcomeApp.qml"
             shortcuts = [
                 {
+                    "id": [
+                        "launcher",
+                        "terminal",
+                        "put-away",
+                        "workspace",
+                        "lock",
+                        "settings",
+                        "files",
+                        "wallpaper",
+                        "ai",
+                        "focus",
+                        "move",
+                        "capture",
+                    ][i],
                     "key": "Super + " + str(i),
                     "title": "Current action " + str(i),
                     "detail": "A described binding from the current compositor.",
@@ -147,8 +163,25 @@ QtObject { property string page:"home";property string error:"";property bool bu
                     .read_text()
                     .replace("import qs.services", 'import "fixtures"')
                     .replace("import qs.widgets", 'import "fixtures"')
+                    .replace('import "../colors"', 'import "fixtures"')
                 )
                 (target / (name + ".qml")).write_text(text)
+            previewSource = (
+                (SHELL / "modules/colors/NacreThemePreview.qml")
+                .read_text()
+                .replace("import qs.services", 'import "."')
+                .replace("import qs.widgets", 'import "."')
+            )
+            (fixtures / "NacreThemePreview.qml").write_text(previewSource)
+            (fixtures / "NacrePresentation.qml").write_text(
+                "pragma Singleton\nimport QtQuick\nQtObject {property var active:({colours:"
+                + json.dumps(palette)
+                + "})}"
+            )
+            with (fixtures / "qmldir").open("a") as stream:
+                stream.write(
+                    "\nNacreThemePreview 1.0 NacreThemePreview.qml\nsingleton NacrePresentation 1.0 NacrePresentation.qml\n"
+                )
             shutil.copyfile(
                 SHELL / "modules/welcome/welcome-catalog.js",
                 target / "welcome-catalog.js",
@@ -165,10 +198,8 @@ TestCase {id:test;name:"Welcome";width:1200;height:900;visible:true;when:windowS
   const prefix=Qt.application.arguments.find(a=>a.startsWith("welcome-preview="));
   if(prefix){let saved=false;verify(preview.grabToImage(result=>{saved=result.saveToFile(prefix.slice(16)+"-wide.png")}));tryVerify(()=>saved,3000)}
   compare(NacreWelcomeApp.actions.length,0);
-  const creditList=findChild(view,"welcomeWallpaperCreditList");verify(!creditList.visible);
-  findChild(view,"welcomeWallpaperCredits").clicked();verify(creditList.visible);
-  compare(NacreWelcomeApp.actions.length,0);
-  findChild(view,"welcomeWallpaperCredits").clicked();verify(!creditList.visible);
+  compare(NacreWelcomeApp.page,"welcome");
+  findChild(view,"welcomeDone").clicked();compare(NacreWelcomeApp.page,"colors");wait(200);
   compare(findChild(view,"welcomeScenes").children.length>0,true);
   const scene=findChild(view,"welcomeScene_1");verify(scene!==null);
   const hit=findChild(scene,"nacreInteractionFeedback").parent;mouseClick(hit,20,20);
@@ -177,21 +208,19 @@ TestCase {id:test;name:"Welcome";width:1200;height:900;visible:true;when:windowS
   findChild(view,"welcomePersonality_pop").clicked();compare(NacreWelcomeApp.actions[2],"theme::pop");
   findChild(view,"welcomePersonality_pearl").clicked();compare(NacreWelcomeApp.actions[3],"theme::pearl");
   NacreWelcomeApp.demoBusy=true;verify(!findChild(view,"welcomeMode_dark").enabled);NacreWelcomeApp.demoBusy=false;
-  findChild(view,"welcomeRestoreDemo").clicked();compare(NacreWelcomeApp.actions[4],"restore-demo");verify(!findChild(view,"welcomeRestoreDemo").enabled);
+  findChild(view,"welcomeRestoreDemo").clicked();compare(NacreWelcomeApp.actions[4],"restore-demo");verify(!findChild(view,"welcomeRestoreDemo").visible);
   findChild(view,"welcomeColors").clicked();compare(NacreWelcomeApp.actions[5],"colors");
-  findChild(view,"welcomePage_shortcuts").clicked();compare(NacreWelcomeApp.page,"shortcuts");wait(20);
-  verify(canvas.contentHeight>canvas.height);
-  findChild(view,"welcomePage_apps").clicked();compare(NacreWelcomeApp.page,"apps");wait(30);
-  const ai=findChild(view,"welcomeAppRow_ai");const brain=findChild(view,"welcomeAppRow_brain");
-  verify(ai.optional);verify(brain.optional);compare(ai.buttonText,"Setup guide");
-  compare(findChild(ai,"welcomeRowGlyph").text,"chat_bubble");compare(findChild(brain,"welcomeRowGlyph").text,"neurology");
-  ai.clicked();compare(NacreWelcomeApp.optionalApp,"ai");NacreWelcomeApp.optionalApp="";
-
-  if(prefix){wait(100);let saved=false;verify(preview.grabToImage(result=>{saved=result.saveToFile(prefix.slice(16)+"-apps.png")}));tryVerify(()=>saved,3000)}
-  findChild(view,"welcomePage_help").clicked();compare(NacreWelcomeApp.page,"help");
+  findChild(view,"welcomeStep_shortcuts").children[0];
+  NacreWelcomeApp.jump("shortcuts");wait(180);compare(NacreWelcomeApp.page,"shortcuts");
+  NacreWelcomeApp.jump("apps");wait(180);
+  findChild(view,"welcomeAppRow_ai").clicked();compare(NacreWelcomeApp.optionalApp,"ai");
+  compare(findChild(view,"welcomeAppRow_ai").icon,"chat_bubble");
+  compare(findChild(view,"welcomeAppRow_brain").icon,"neurology");
+  NacreWelcomeApp.jump("ready");wait(180);
   preview.width=672;preview.height=440;wait(30);verify(canvas.height>100);
   verify(footer.y+footer.height<=view.height);verify(findChild(view,"welcomeDone").x>=0);
-  if(prefix){NacreWelcomeApp.page="home";wait(100);let saved=false;verify(preview.grabToImage(result=>{saved=result.saveToFile(prefix.slice(16)+"-narrow.png")}));tryVerify(()=>saved,3000)}
+  if(prefix){NacreWelcomeApp.page="colors";wait(100);let saved=false;verify(preview.grabToImage(result=>{saved=result.saveToFile(prefix.slice(16)+"-narrow.png")}));tryVerify(()=>saved,3000)}
+  NacreWelcomeApp.page="ready";wait(200);
   const startup=findChild(view,"welcomeStartupToggle");mouseClick(startup,15,startup.height/2);
   compare(NacreWelcomeApp.data.preferences.showAtLogin,false);
   view.forceActiveFocus();keyClick(Qt.Key_Escape);compare(NacreWelcomeApp.actions[NacreWelcomeApp.actions.length-1],"close");

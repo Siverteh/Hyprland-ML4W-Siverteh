@@ -97,6 +97,7 @@ def validate_request(request):
         "hour": time.localtime().tm_hour,
         "autoMode": False,
         "tideAutomatic": False,
+        "timeTint": False,
         "workspaceColors": False,
         **request,
     }
@@ -115,12 +116,12 @@ def validate_request(request):
     for key in ("brightness", "saturation"):
         if not isinstance(result[key], (int, float)) or not math.isfinite(result[key]):
             raise ValueError("Invalid color adjustment")
-    for key in ("autoMode", "tideAutomatic", "workspaceColors"):
+    for key in ("autoMode", "tideAutomatic", "workspaceColors", "timeTint"):
         if type(result[key]) is not bool:
             raise ValueError("Expected a boolean option")
     if result["tideAutomatic"]:
         result["hour"] = time.localtime().tm_hour
-    if result["personality"] == "tide" and result["autoMode"]:
+    if (result["personality"] == "tide" or result["timeTint"]) and result["autoMode"]:
         result["mode"] = "light" if 6 <= result["hour"] < 19 else "dark"
     result["image"] = str(Path(result["image"]).resolve())
     return result
@@ -140,6 +141,7 @@ def palette_args(request):
     } | {
         "accent": request.get("accent"),
         "background_from_wallpaper": request["backgroundFromWallpaper"],
+        "time_tint": request["timeTint"],
     }
 
 
@@ -167,6 +169,7 @@ def stage(request):
                 "mode": request["mode"],
                 "personality": request["personality"],
                 "background_from_wallpaper": request["backgroundFromWallpaper"],
+                "time_tint": request["timeTint"],
             },
         )
         validate(data["colours"])
@@ -176,7 +179,7 @@ def stage(request):
     else:
         data = from_image(request["image"], **palette_args(request))
         comparisons = []
-        for personality in PERSONALITIES:
+        for personality in PERSONALITIES if request.get("compare") else ():
             comparison = (
                 data
                 if personality == request["personality"]
@@ -218,6 +221,15 @@ def stage(request):
         "request": request,
         "palette": data,
         "comparisons": comparisons,
+        "imageColors": data.get("source", {}).get("clusters", [])[:8],
+        "otherCoverage": max(
+            0,
+            1
+            - sum(
+                item["coverage"]
+                for item in data.get("source", {}).get("clusters", [])[:8]
+            ),
+        ),
         "thumbnail": item["preview"],
         "image": item["path"],
         "name": item["name"],
@@ -343,6 +355,7 @@ def apply(identity, live=True):
                 "hour",
                 "autoMode",
                 "tideAutomatic",
+                "timeTint",
                 "workspaceColors",
             )
         }

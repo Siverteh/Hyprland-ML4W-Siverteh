@@ -29,35 +29,18 @@ FloatingWindow {
         NacreWelcomeApp.window = null
     onWindowConnected: activate()
     onClosed: NacreWelcomeApp.close()
-    Item {
-        id: header
+    NacreAppHeader {
+        title: "Nacre Welcome"
         width: parent.width
-        height: 64
-        MouseArea {
-            anchors.fill: parent
-            onPressed: root.contentItem.Window.window.startSystemMove()
-            onDoubleClicked: root.maximized = !root.maximized
-        }
-        BrandLogo {
-            x: 20
-            width: 32
-            height: 32
-            anchors.verticalCenter: parent.verticalCenter
-            motionEnabled: NacreTokens.motionEnabled
-        }
-        NacreText {
-            x: 64
-            text: "Nacre Welcome"
-            font.pointSize: 15
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        Rectangle {
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 1
-            color: NacreTokens.outline
-            opacity: .35
-        }
+        section: ({
+                welcome: "Welcome",
+                colors: "Your colors",
+                shortcuts: "Getting around",
+                apps: "Nacre apps",
+                ready: "You're ready",
+                help: "Help"
+            })[NacreWelcomeApp.page] || ""
+        onMoveRequested: root.contentItem.Window.window.startSystemMove()
     }
     NacreWelcomeView {
         id: view

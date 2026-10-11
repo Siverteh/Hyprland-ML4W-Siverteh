@@ -134,8 +134,8 @@ def theme(value):
     try:
         cli = HOME / ".local/share/nacre/shell/bin/nacre_shell"
         if (
-            set(value) == {"paletteHarmony"}
-            and result["palettePreset"] == "wallpaper"
+            result["palettePreset"] == "wallpaper"
+            and accent is None
             and prepared_theme(poster)
         ):
             return result
@@ -183,6 +183,7 @@ def preference(value):
         "paletteMode": ("dark", "light"),
         "palettePersonality": (
             "natural",
+            "pigment",
             "harmony",
             "pop",
             "mist",
@@ -353,7 +354,9 @@ def catalog():
     )
 
 
-def palette_marker(poster, flavour, harmony=None, source=None):
+def palette_marker(
+    poster, flavour, harmony=None, source=None, mode=None, personality=None
+):
     poster = Path(poster)
     stat = poster.stat()
     active = media_state()
@@ -381,15 +384,18 @@ def palette_marker(poster, flavour, harmony=None, source=None):
                 source_stat.st_mtime_ns,
                 source_stat.st_ctime_ns,
             ],
-            "mode": scheme.get("mode", "dark"),
+            "mode": mode or scheme.get("mode", "dark"),
             "variant": scheme.get("variant", "tonalspot"),
             "orient": config.get("orient", {}),
             "harmony": settings().get("paletteHarmony", False)
             if harmony is None
             else harmony,
-            "personality": settings().get("palettePersonality", "natural")
-            if harmony is None
-            else ("harmony" if harmony else "natural"),
+            "personality": personality
+            or (
+                settings().get("palettePersonality", "natural")
+                if harmony is None
+                else ("harmony" if harmony else "natural")
+            ),
             "backgroundFromWallpaper": settings().get(
                 "paletteBackgroundFromWallpaper", False
             ),
@@ -418,7 +424,11 @@ def palette_marker(poster, flavour, harmony=None, source=None):
 def prepared_theme(poster, live=True):
     """Apply a fresh prepared treatment through the same locked publisher."""
     scheme = read(HOME / ".local/state/nacre/scheme.json", {})
-    marker = palette_marker(poster, scheme.get("flavour", "default"))
+    marker = palette_marker(
+        poster,
+        scheme.get("flavour", "default"),
+        mode=settings().get("paletteMode", scheme.get("mode", "dark")),
+    )
     if not marker.exists():
         return False
     try:
@@ -444,7 +454,9 @@ def prepared_theme(poster, live=True):
         )
         palette = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(palette)
-        return palette.commit_prepared(HOME, poster, data, thumbnail, live=live)
+        return palette.commit_prepared(
+            HOME, poster, data, thumbnail, live=live, allow_mode_change=True
+        )
     except (OSError, ValueError, KeyError, TypeError):
         return False
 
@@ -477,33 +489,49 @@ def warm():
             )
             brand = importlib.util.module_from_spec(brand_spec)
             brand_spec.loader.exec_module(brand)
-            for treatment in ("--no-harmony", "--harmony"):
-                try:
-                    result = subprocess.run(
-                        [
-                            str(cli),
-                            "wallpaper",
-                            "-p",
+            # Prewarm the selected scene's style/mode choices once, read-only.
+            # A bounded cache keeps these rasters instead of evicting other scenes.
+            for mode in ("dark", "light"):
+                for personality in (
+                    "natural",
+                    "pigment",
+                    "harmony",
+                    "pop",
+                    "mist",
+                    "vivid",
+                    "pearl",
+                ):
+                    try:
+                        result = subprocess.run(
+                            [
+                                str(cli),
+                                "wallpaper",
+                                "-p",
+                                current_poster,
+                                "--source",
+                                current_media.get("path", current_poster),
+                                "--mode",
+                                mode,
+                                "--personality",
+                                personality,
+                            ],
+                            capture_output=True,
+                            text=True,
+                            check=True,
+                            timeout=30,
+                        )
+                        candidate = json.loads(result.stdout)
+                        marker = palette_marker(
                             current_poster,
-                            "--source",
-                            current_media.get("path", current_poster),
-                            treatment,
-                        ],
-                        capture_output=True,
-                        text=True,
-                        check=True,
-                        timeout=30,
-                    )
-                    candidate = json.loads(result.stdout)
-                    marker = palette_marker(
-                        current_poster,
-                        candidate.get("flavour", "default"),
-                        harmony=treatment == "--harmony",
-                    )
-                    atomic(marker, candidate)
-                    brand.prepare(candidate["colours"], HOME)
-                except (OSError, ValueError, KeyError, subprocess.SubprocessError):
-                    continue
+                            candidate.get("flavour", "default"),
+                            harmony=personality == "harmony",
+                            mode=mode,
+                            personality=personality,
+                        )
+                        atomic(marker, candidate)
+                        brand.prepare(candidate["colours"], HOME)
+                    except (OSError, ValueError, KeyError, subprocess.SubprocessError):
+                        continue
         prepared = 0
         computed = 0
         flavour = read(HOME / ".local/state/nacre/scheme.json", {}).get(

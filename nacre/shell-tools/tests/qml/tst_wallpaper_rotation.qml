@@ -69,7 +69,7 @@ TestCase {
         verify(!w.canRotate);
         compare(w.rotationDueMs, due);
         NacreWelcomeApp.page = "shortcuts";
-        verify(!w.welcomeDemoOpen);
+        verify(w.welcomeDemoOpen);
         NacreWelcomeApp.active = false;
         NacreWelcomeApp.page = "home";
         compare(w.rotationDueMs, due);

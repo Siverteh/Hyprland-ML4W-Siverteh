@@ -10,7 +10,7 @@ NacreSurface {
     signal assign(string value)
     signal clear
     width: 180
-    height: 112
+    height: 54
     radius: 12
     color: NacreTokens.raised
     border.width: drop.containsDrag ? 2 : 1
@@ -25,22 +25,27 @@ NacreSurface {
     }
     NacreText {
         x: 52
-        y: 11
-        text: root.role.charAt(0).toUpperCase() + root.role.slice(1)
-        font.pointSize: 11
+        y: 18
+        text: ({
+                primary: "Main",
+                secondary: "Second",
+                tertiary: "Third"
+            })[root.role]
+        font.pointSize: 10
     }
     NacreText {
-        x: 52
-        y: 31
+        x: 114
+        y: 18
         text: "#" + root.value
         font.family: NacreTokens.monoFamily
         font.pointSize: 9
         color: NacreTokens.mutedInk
     }
     ActionButton {
-        x: 12
-        y: 63
-        text: root.pinned ? "Unpin" : "Pin color"
+        x: parent.width - width - 10
+        y: 10
+        text: ""
+        accessibleLabel: root.pinned ? "Unlock " + root.role : "Lock " + root.role
         icon: root.pinned ? "lock" : "lock_open"
         onClicked: root.pinned ? root.clear() : root.assign(root.value)
     }

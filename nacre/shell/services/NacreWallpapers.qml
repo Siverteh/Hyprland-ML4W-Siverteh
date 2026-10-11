@@ -76,7 +76,7 @@ Singleton {
     readonly property bool pickerOpen: Object.values(NacrePanelState.screens).some(view => view.launcher && view.launcherMode === "wallpaper")
     readonly property bool appearanceOpen: NacrePanelState.settingsVisible && NacrePanelState.settingsPage === "appearance"
     readonly property bool rotationReady: rotationPool.length > 1 && !WallpaperPlayback.sleeping && !WallpaperPlayback.locked && !commit.running && !themeBusy && !catalog.running && !selectedPath && !queuedPath
-    readonly property bool welcomeDemoOpen: NacreWelcomeApp.active && NacreWelcomeApp.page === "home"
+    readonly property bool welcomeDemoOpen: NacreWelcomeApp.active
     readonly property bool canRotate: rotationReady && !pickerOpen && !appearanceOpen && !welcomeDemoOpen
     readonly property bool rotationAllowed: preferences.rotationEnabled === true && canRotate
     readonly property real rotationIntervalMs: Math.max(5, Math.min(1440, Number(preferences.rotationMinutes) || 30)) * 60000
@@ -269,7 +269,7 @@ Singleton {
 
     Timer {
         id: selectionDelay
-        interval: 150
+        interval: 35
         onTriggered: root.startCommit()
     }
     Timer {

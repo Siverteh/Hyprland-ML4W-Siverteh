@@ -53,7 +53,10 @@ def main():
     mode.add_argument("--enable", action="store_true")
     mode.add_argument("--disable", action="store_true")
     parser.add_argument(
-        "page", nargs="?", default="home", choices=("home", "shortcuts", "apps", "help")
+        "page",
+        nargs="?",
+        default="home",
+        choices=("home", "colors", "shortcuts", "apps", "ready", "help"),
     )
     args = parser.parse_args()
     claim = ""

@@ -13,7 +13,8 @@ Apply/export action.
 
 | Mode | Intent |
 |---|---|
-| Natural (default) | Distinct real image families; restrained backgrounds tinted toward the chosen accent, as in the original Natural |
+| Natural (default) | Original Nacre hue-family and coverage/spread balance, with current readable light/dark roles |
+| Pigment | Newer perceptual grouping and subject/detail weighting; the previous Orient3 Natural |
 | Harmony | Neighboring hues around the main family, with lightness separation |
 | Pop | A small, contrasting pigment family becomes the main accent: the striking detail |
 | Mist | Soft, nearly neutral accents and body |
@@ -223,3 +224,22 @@ References: [OKLab definition](https://bottosson.github.io/posts/oklab/),
 [Machado/Oliveira/Fernandes model](https://profs.ic.uff.br/~laffernandes/content/publications/journal/2009_tvcg_15%286%29/machado_oliveira_fernandes-tvcg-15%286%29-2009-corrected.pdf),
 [VS Code themes](https://code.visualstudio.com/api/extension-guides/color-theme),
 [Firefox theme format](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/theme).
+
+## Studio layout and source areas
+
+Studio, Compare and Accessibility use underline navigation in the shared app
+header; dark/light previews have labeled icon controls. Styles sit under the
+source image; final UI-role values (not dark raw source samples) fill compact
+Main/Second/Third lockable rows. Fine-tune holds themed sliders, time tint,
+workspace chips and **Background tint: Accent / Wallpaper**. Accent gives panels
+a discreet main-accent tint; Wallpaper uses actual image shadows in dark mode and
+highlights in light mode. Neither changes the wallpaper or the accent selection.
+Studio shows a simple Readable badge; numerical contrast/CVD details stay in
+Accessibility. Apply stays explicit/right-aligned; Share contains exports/cards.
+
+The color census includes gray/dark clusters, measured area percentages and an
+Other remainder. The former two-color row was an accent shortlist, not the whole
+picture. Similar shades can form one cluster; the generator does not fabricate
+colors for low-color scenes. Comparisons are computed only in Compare, reducing
+work for everyday previews. Maximized content is capped to1360 logical pixels.
+The Colors glyph is three horizontally aligned palette dots under the logo lip.

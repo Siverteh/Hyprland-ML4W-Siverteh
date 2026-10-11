@@ -28,42 +28,39 @@ FloatingWindow {
         NacreColorsApp.window = null
     onWindowConnected: activate()
     onClosed: NacreColorsApp.close()
-    Item {
+    NacreAppHeader {
         id: header
+        title: "Nacre Colors"
+        app: "colors"
         width: parent.width
-        height: 64
-        MouseArea {
-            width: parent.width
-            height: 64
-            onPressed: root.contentItem.Window.window.startSystemMove()
-            onDoubleClicked: root.maximized = !root.maximized
-        }
-        BrandLogo {
-            x: 20
-            anchors.verticalCenter: parent.verticalCenter
-            width: 32
-            height: 32
-            colorsApp: true
-        }
-        NacreText {
-            x: 64
-            anchors.verticalCenter: parent.verticalCenter
-            text: "Nacre Colors"
-            font.pointSize: 15
-        }
-        Rectangle {
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 1
-            color: NacreTokens.outline
-            opacity: .4
-        }
+        tabs: [
+            {
+                id: "studio",
+                name: "Studio"
+            },
+            {
+                id: "compare",
+                name: "Compare"
+            },
+            {
+                id: "accessibility",
+                name: "Accessibility"
+            }
+        ]
+        currentTab: view.page
+        mode: NacreColorsApp.options.mode
+        onNavigate: name => view.page = name
+        onModeChangedByUser: name => NacreColorsApp.change({
+                mode: name,
+                autoMode: false
+            })
+        onMoveRequested: root.contentItem.Window.window.startSystemMove()
     }
     NacreColorsView {
         id: view
-        x: 16
+        x: Math.max(16, (parent.width - 1360) / 2 + 16)
         y: 80
-        width: parent.width - 32
+        width: Math.min(parent.width, 1360) - 32
         height: parent.height - 96
     }
     Shortcut {

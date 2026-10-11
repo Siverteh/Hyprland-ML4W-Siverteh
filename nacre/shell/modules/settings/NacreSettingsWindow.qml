@@ -32,36 +32,13 @@ FloatingWindow {
         NacreSettingsApp.window = null
     onClosed: NacreSettingsApp.close()
     onWindowConnected: activate()
-    Item {
+    NacreAppHeader {
         id: header
+        title: "Nacre Settings"
+        app: "settings"
         width: parent.width
-        height: 64
-        MouseArea {
-            width: parent.width
-            height: parent.height
-            onPressed: root.contentItem.Window.window.startSystemMove()
-            onDoubleClicked: root.maximized = !root.maximized
-        }
-        BrandLogo {
-            x: 20
-            anchors.verticalCenter: parent.verticalCenter
-            width: 32
-            height: 32
-            settings: true
-        }
-        NacreText {
-            x: 64
-            anchors.verticalCenter: parent.verticalCenter
-            text: "Nacre Settings"
-            font.pointSize: 15
-        }
-        Rectangle {
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 1
-            color: NacreTokens.outline
-            opacity: .4
-        }
+        section: view.current?.name || view.current?.title || ""
+        onMoveRequested: root.contentItem.Window.window.startSystemMove()
     }
     NacreText {
         x: 20

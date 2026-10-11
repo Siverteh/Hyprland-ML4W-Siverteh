@@ -30,6 +30,8 @@ class ColorsUITests(unittest.TestCase):
                 "ActionButton",
                 "FastScroll",
                 "NacreTextField",
+                "NacreAdjustSlider",
+                "NacreScrollBar",
             ):
                 s = (
                     (SHELL / "widgets" / f"{name}.qml")
@@ -62,7 +64,7 @@ class ColorsUITests(unittest.TestCase):
             )
             with (fixtures / "qmldir").open("a") as stream:
                 stream.write(
-                    "\nsingleton NacreColorsApp 1.0 NacreColorsApp.qml\nNacreIcon 1.0 NacreIcon.qml\n"
+                    "\nsingleton NacreColorsApp 1.0 NacreColorsApp.qml\nNacreIcon 1.0 NacreIcon.qml\nNacreAdjustSlider 1.0 NacreAdjustSlider.qml\nNacreScrollBar 1.0 NacreScrollBar.qml\n"
                 )
             (fixtures / "BrandLogo.qml").write_text(
                 "import QtQuick\nItem{property color primary;property color secondary;property color tertiary;property color highlight;property color background;property color foreground;property bool motionEnabled:false}"
@@ -75,14 +77,16 @@ TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;visible:true;when:w
  function test_resize_and_preview_controls_are_read_only(){
   const view=createTemporaryObject(studio,test);wait(30);
   const initial=NacreColorsApp.actions.length;
+  const snap=Qt.application.arguments.find(a=>a.startsWith("colors-preview="));
+  if(snap){let done=false;verify(view.grabToImage(result=>done=result.saveToFile(snap.slice(15)+"-wide.png")));tryVerify(()=>done,2000)}
   compare(findChild(view,"sourcePersonality"),null);
-  const styles=findChild(view,"colorStyleControls");
-  const appearance=findChild(view,"appearanceControls");
-  verify(appearance.y>=styles.y+styles.height+12);
-  compare(findChild(view,"darkModeButton").parent,appearance);
-  compare(findChild(view,"lightModeButton").parent,appearance);
+  verify(findChild(view,"pigmentPersonality")!==null);
+  verify(findChild(view,"colorStyleControls")!==null);
+  compare(findChild(view,"appearanceControls"),null);
+  view.fineTune=true;wait(10);
   const background=findChild(view,"wallpaperBackgroundSwitch");
-  mouseClick(background,20,background.height/2);
+  const scroll=findChild(view,"colorsCanvas");scroll.contentY=Math.max(0,background.mapToItem(scroll.contentItem,0,0).y-scroll.height/2);wait(20);
+  background.clicked();
   compare(NacreColorsApp.options.backgroundFromWallpaper,true);
   compare(NacreColorsApp.options.personality,"natural");compare(NacreColorsApp.actions.length,initial);
   findChild(view,"popPersonality").clicked();compare(NacreColorsApp.options.personality,"pop");compare(NacreColorsApp.actions.length,initial);
@@ -96,8 +100,24 @@ TestCase {id:test;name:"ColorsStudio";width:1300;height:1000;visible:true;when:w
  }
 }
 """)
+            if os.environ.get("NACRE_COLORS_PREVIEW"):
+                test = target / "tst_colors.qml"
+                test.write_text(
+                    test.read_text().replace(
+                        'Qt.application.arguments.find(a=>a.startsWith("colors-preview="))',
+                        json.dumps(
+                            "colors-preview=" + os.environ["NACRE_COLORS_PREVIEW"]
+                        ),
+                    )
+                )
             result = subprocess.run(
-                [str(runner), "-input", str(target), "-o", "-,txt"],
+                [
+                    str(runner),
+                    "-input",
+                    str(target),
+                    "-o",
+                    "-,txt",
+                ],
                 env={**os.environ, "QT_QPA_PLATFORM": "offscreen"},
                 capture_output=True,
                 text=True,

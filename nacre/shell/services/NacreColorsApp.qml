@@ -20,6 +20,7 @@ Singleton {
             hour: 12,
             autoMode: false,
             tideAutomatic: false,
+            timeTint: false,
             workspaceColors: false
         })
     property var preview: ({})
@@ -75,9 +76,11 @@ Singleton {
             hour: NacreTime.hours,
             autoMode: false,
             tideAutomatic: false,
+            timeTint: false,
             workspaceColors: false
         }, choice, {
-            image: image
+            image: image,
+            compare: false
         });
         changed();
     }
