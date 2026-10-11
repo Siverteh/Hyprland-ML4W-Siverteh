@@ -176,6 +176,10 @@ Singleton {
             Quickshell.execDetached(["uwsm", "app", "--", "nacre-brain", "open"]);
         }
     }
+    function openCredit(url) {
+        if (typeof url === "string" && url.startsWith("https://") && demoEntries.some(item => item.source === url || item.licenseUrl === url))
+            Quickshell.execDetached(["uwsm", "app", "--", "xdg-open", url]);
+    }
     function link(name) {
         const urls = {
             project: "https://github.com/nacre-desktop/nacre",
@@ -274,7 +278,9 @@ Singleton {
                 data: root.data,
                 demoEntries: root.demoEntries.map(item => ({
                             path: item.path,
-                            name: item.name
+                            name: item.name,
+                            artist: item.artist,
+                            license: item.license
                         })),
                 demoBusy: root.demoBusy,
                 demoSnapshotReady: !!root.demoSnapshot,

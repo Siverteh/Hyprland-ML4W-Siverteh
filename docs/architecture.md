@@ -231,8 +231,11 @@ never restart workers or publish themes. The standard logo/icon remains owned by
 `branding.py`, with no separate Welcome artwork or identity. See [Welcome](features/welcome.md).
 
 Welcome's live scene/personality/mode controls are consumers of `NacreWallpapers`,
-not a second publisher. Original procedural demo artwork is rendered into a versioned cache during
-installation, with CC0 generated images and no private-library dependency.
+not a second publisher. Curated third-party demo artwork is bundled offline with native dimensions,
+SHA-256 hashes and artist attribution/license texts. `demo-wallpapers.py` validates
+and copies the original bytes into an immutable cache during installation and
+repairs missing/corrupt cached copies, without rendering/upscaling or network
+access. Welcome exposes artist/license/source links. No private-library dependency.
 `wallpaper-media.py` captures bounded private baselines and delegates restore to
 `classic-state.py` under its existing publication lock; only the demo's palette
 preferences are reverted. Cached sample metadata is held stable, and its active

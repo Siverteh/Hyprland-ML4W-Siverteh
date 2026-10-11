@@ -9,7 +9,9 @@ palette engine, Brain, AI workflow and optional SDDM appearance. See
 - Read `ai/AGENTS.md` before changing the AI workflow. The private brain and account
   state are external to this repository and must never be committed.
 - Source is deployed as copies. Host overrides, generated palettes, wallpaper
-  images, credentials and conversations stay outside Git.
+  images, credentials and conversations stay outside Git. The explicit exception
+  is curated, redistribution-licensed Welcome art in
+  `nacre/shell-tools/demo-wallpapers/`, with its manifest, attribution and licenses.
 - Do not revive retired desktop installers or introduce a second owner for bars,
   notifications, wallpaper, display settings or palette publication.
 - Run `python3 tools/check.py` before publishing. It checks syntax, retired paths,

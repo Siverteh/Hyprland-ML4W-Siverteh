@@ -24,3 +24,7 @@ auth.json
 
 # Original CC0 regression artwork; private wallpaper PNGs stay ignored.
 !nacre/shell-tools/tests/orient-gallery/images/*.png
+
+# Explicitly licensed bundled Welcome art, with hashes/credits; personal images stay ignored.
+!nacre/shell-tools/demo-wallpapers/*.jpg
+!nacre/shell-tools/demo-wallpapers/*.png

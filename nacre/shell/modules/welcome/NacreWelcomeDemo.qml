@@ -5,6 +5,7 @@ import qs.services
 Column {
     id: root
     spacing: 10
+    property bool showCredits: false
     readonly property var entries: NacreWelcomeApp.demoEntries
     NacreText {
         text: "Try the colors"
@@ -80,7 +81,7 @@ Column {
         visible: !root.entries.length
         NacreText {
             width: parent.width
-            text: NacreWelcomeApp.demoStarting ? "Preparing your starting point and four original pearl scenes…" : "The demo could not be prepared. Reopen Welcome to try again."
+            text: NacreWelcomeApp.demoStarting ? "Preparing your starting point and four curated wallpapers…" : "The demo could not be prepared. Reopen Welcome to try again."
             color: NacreTokens.mutedInk
             wrapMode: Text.Wrap
         }
@@ -131,13 +132,43 @@ Column {
             }
         }
     }
-    ActionButton {
-        objectName: "welcomeRestoreDemo"
-        text: "Back to how it was"
-        icon: "history"
-        compact: true
-        enabled: !NacreWelcomeApp.demoBusy && NacreWelcomeApp.demoChanged
-        onClicked: NacreWelcomeApp.restoreDemo()
+    Flow {
+        width: parent.width
+        spacing: 8
+        ActionButton {
+            objectName: "welcomeRestoreDemo"
+            text: "Back to how it was"
+            icon: "history"
+            compact: true
+            enabled: !NacreWelcomeApp.demoBusy && NacreWelcomeApp.demoChanged
+            onClicked: NacreWelcomeApp.restoreDemo()
+        }
+        ActionButton {
+            objectName: "welcomeWallpaperCredits"
+            text: root.showCredits ? "Hide wallpaper credits" : "Wallpaper credits"
+            compact: true
+            onClicked: root.showCredits = !root.showCredits
+        }
+    }
+    Column {
+        objectName: "welcomeWallpaperCreditList"
+        width: parent.width
+        spacing: 6
+        visible: root.showCredits
+        Repeater {
+            model: root.entries
+            NacreText {
+                required property var modelData
+                width: parent.width
+                font.pointSize: 9
+                color: NacreTokens.mutedInk
+                linkColor: NacreTokens.accent
+                textFormat: Text.RichText
+                wrapMode: Text.Wrap
+                text: modelData.name + " — " + modelData.artist + " · <a href=\"" + modelData.licenseUrl + "\">" + modelData.license + "</a> · <a href=\"" + modelData.source + "\">Source</a>"
+                onLinkActivated: url => NacreWelcomeApp.openCredit(url)
+            }
+        }
     }
     NacreText {
         width: parent.width

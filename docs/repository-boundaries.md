@@ -34,3 +34,14 @@ maintenance pass. Document the distinction now; if a later rewrite is desired,
 prepare a private repository backup, inventory all active worktrees and references,
 review exactly which historical paths are removed, and schedule the coordinated
 cutover separately.
+
+## Licensed Welcome artwork
+
+The explicit exception to private wallpaper payloads is the small offline demo
+bundle in `nacre/shell-tools/demo-wallpapers/`. It contains curated original
+publisher downloads under CC BY 4.0 (David Revoy) and CC BY-SA 4.0 (Nick Nazzaro /
+System76), with exact hashes, source/license links, credits and full license texts.
+It is third-party artwork, not Nacre-owned or public-domain content. Personal
+collections, generated host colors and account data remain outside Git. Image
+ignore exceptions are scoped to this reviewed bundle; it does not revive retired
+`nacre/wallpapers` or permit unlicensed personal artwork in source.

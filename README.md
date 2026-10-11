@@ -29,7 +29,9 @@ python3 tools/check.py       # syntax and regression checks
 
 Installed configurations are copies with hash-based drift protection and private backups. Wallpaper colors, display preferences, accounts, chats and images stay outside the source tree. Desktop deployment parses QML and checks the running shell before marking a revision good. CI runs native Arch/Qt/Lua source and UI checks. Compositor verification, live input/focus and physical-device acceptance run on the target host.
 
-The semantic model is optional: `siverteh-ai-tools python brain/provision-semantic.py` prepares its isolated CPU environment and downloads public weights once. Normal note inference is offline. Private notes, chat/account state, the current wallpaper library and credentials remain outside public Git. Older commits retain previously published artwork removed from the current tree; see [repository boundaries](docs/repository-boundaries.md).
+The semantic model is optional: `siverteh-ai-tools python brain/provision-semantic.py` prepares its isolated CPU environment and downloads public weights once. Normal note inference is offline. Private notes, chat/account state, the personal wallpaper library and credentials remain outside public Git. The
+small [Welcome demo collection](nacre/shell-tools/demo-wallpapers/NOTICE.md) ships
+explicitly licensed artist wallpapers with attribution and full license texts. Older commits retain previously published artwork removed from the current tree; see [repository boundaries](docs/repository-boundaries.md).
 
 ## Useful shortcuts
 

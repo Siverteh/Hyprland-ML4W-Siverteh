@@ -4,9 +4,9 @@ Open **Nacre Welcome** from the app launcher or run `nacre-welcome`.
 It is a single normal app window hosted by the existing Quickshell service,
 with the standard Nacre shell logo and current Orient colors.
 
-- **Start here** offers four original procedural 4K scenes: Opal Tide, Rose
-  Current, Amber Fold and Violet Lagoon. These are available even with an empty
-  personal library. Each has a dominant family and a contrasting smaller inset,
+- **Start here** offers four curated artist wallpapers: After Rain, The Healer,
+  Point of View and Red Jungle. These are available even with an empty
+  personal library. Each has a dominant family and a contrasting detail,
   so Natural and Pop make visibly different choices; Pearl demonstrates Nacre's
   signature tones. Dark/Light and personality controls use the existing publisher.
   Opening Welcome captures a private starting point and does not apply changes.
@@ -79,13 +79,23 @@ binding metadata, performance and optional-component boundaries.
 
 ## Bundled artwork and demo recovery
 
-`demo-wallpapers.py` authors curves, growth edges, an analytic light field and a
-contrasting inset directly in code. No external or generated-by-AI artwork is
-used. Generated images are **CC0-1.0**, freely shareable; the software retains the
-repository license. See `nacre/shell-tools/demo-wallpapers.LICENSE`. Install renders
-3840×2160 PNGs once per generator hash into `~/.cache/nacre/demo-wallpapers/`;
-Welcome can regenerate missing cache files. Existing private artwork is never
-copied, replaced or committed. Warm opens reuse images and cached thumbnails.
+`demo-wallpapers.py` validates the offline, licensed artwork bundle in
+`nacre/shell-tools/demo-wallpapers/`. After Rain, The Healer and Point of View are
+by **David Revoy**, under **CC BY 4.0**; Red Jungle is by **Nick Nazzaro**, published
+by System76 under **CC BY-SA 4.0**. The expandable **Wallpaper credits** section
+shows the artists and explicit license/source links. Full attribution, original
+titles, source/download URLs, dimensions, hashes and license texts ship alongside
+images in `NOTICE.md`, `manifest.json`, `CC-BY-4.0.txt`, `CC-BY-SA-4.0.txt`.
+
+The original bytes and native dimensions are preserved: 3840×2047 for After Rain
+and Point of View, 4200×2625 for The Healer, and 4800×2700 for Red Jungle. There is
+no upscaling, recoloring, AI modification or re-encoding. Ordinary picker thumbnails
+are viewing previews. Install validates the bundle and copies it to a content-
+identified cache; Welcome repairs missing/corrupt cache copies without network
+access or writing the private library. Immutable originals remain valid through
+software upgrades. These explicitly licensed demo files are the sole bundled-
+wallpaper exception to the private-artwork boundary; not public-domain/Nacre-
+authored artwork. Old procedural scene caches are no longer offered by the demo.
 
 `wallpaper-media.py demo-start` captures before enabling choices. The serialized
 QML restore action calls `demo-restore`, which validates and republishes through
@@ -95,6 +105,6 @@ solid image matching its starting background, so it can also be restored without
 requiring an existing wallpaper. Private 0600 snapshots live under
 `~/.local/state/nacre/welcome/demo/`, retain at most ten entries, and contain no
 accounts or credentials. Cache preparation does not publish or add idle polling.
-Tests cover deterministic 4K/cache reuse, visibly separated Natural/Pop accents in
+Tests cover unaltered native-resolution/offline cache reuse and repair, visibly separated Natural/Pop accents in
 both modes, palette validation, empty-library capture, exact restoration with
 animated source and unrelated preferences preserved, and unavailable-file refusal.

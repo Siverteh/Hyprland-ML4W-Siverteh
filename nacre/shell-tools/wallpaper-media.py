@@ -685,7 +685,14 @@ def demo_start():
             old.unlink()
         scenes = demo_module("demo-wallpapers").ensure(HOME)
     entries = [
-        dict(describe(item["path"]), name=item["name"], license=item["license"])
+        dict(
+            describe(item["path"]),
+            name=item["name"],
+            license=item["license"],
+            artist=item.get("artist", ""),
+            licenseUrl=item.get("licenseUrl", ""),
+            source=item.get("source", ""),
+        )
         for item in scenes
     ]
     return {"demoEntries": entries, "snapshot": token}

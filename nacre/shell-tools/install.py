@@ -140,11 +140,14 @@ def deploy(code_only=False):
         dirs_exist_ok=True,
         ignore=shutil.ignore_patterns("__pycache__", "tests"),
     )
+    # Retire the superseded procedural-image dedication from owned helper code.
+    # The release transaction snapshots this tree before activation.
+    (DEST / "tools/demo-wallpapers.LICENSE").unlink(missing_ok=True)
     shutil.copyfile(
         ROOT.parents[1] / "tools/nacre_migration.py", DEST / "tools/nacre_migration.py"
     )
-    # Original shareable demo scenes are ready on fresh installs. Render once per
-    # generator revision into cache; never import into/overwrite the private library.
+    # Licensed demo artwork is ready offline on fresh installs. Validate/cache the
+    # original bytes; never resize or import into/overwrite the private library.
     subprocess.run(
         [str(runtime / "venv/bin/python"), str(DEST / "tools/demo-wallpapers.py")],
         check=True,

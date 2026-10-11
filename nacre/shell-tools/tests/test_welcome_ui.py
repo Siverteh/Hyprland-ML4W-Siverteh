@@ -59,6 +59,10 @@ class WelcomeUITests(unittest.TestCase):
                 )
                 samples.append(
                     {
+                        "artist": "Test artist",
+                        "source": "https://example.test/source",
+                        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+                        "license": "CC-BY-4.0",
                         "path": str(image),
                         "preview": str(image),
                         "poster": str(image),
@@ -112,6 +116,7 @@ QtObject { property string page:"home";property string error:"";property bool bu
  function themeDemo(mode,name){actions=[...actions,"theme:"+mode+":"+name]}
  function route(name){actions=[...actions,name]} function link(name){actions=[...actions,"link:"+name]}
  function setStartup(value){data=Object.assign({},data,{preferences:{showAtLogin:value}})}
+ function openCredit(url){actions=[...actions,"credit:"+url]}
  function close(){actions=[...actions,"close"]}
 }""")
             with (fixtures / "qmldir").open("a") as stream:
@@ -160,6 +165,10 @@ TestCase {id:test;name:"Welcome";width:1200;height:900;visible:true;when:windowS
   const prefix=Qt.application.arguments.find(a=>a.startsWith("welcome-preview="));
   if(prefix){let saved=false;verify(preview.grabToImage(result=>{saved=result.saveToFile(prefix.slice(16)+"-wide.png")}));tryVerify(()=>saved,3000)}
   compare(NacreWelcomeApp.actions.length,0);
+  const creditList=findChild(view,"welcomeWallpaperCreditList");verify(!creditList.visible);
+  findChild(view,"welcomeWallpaperCredits").clicked();verify(creditList.visible);
+  compare(NacreWelcomeApp.actions.length,0);
+  findChild(view,"welcomeWallpaperCredits").clicked();verify(!creditList.visible);
   compare(findChild(view,"welcomeScenes").children.length>0,true);
   const scene=findChild(view,"welcomeScene_1");verify(scene!==null);
   const hit=findChild(scene,"nacreInteractionFeedback").parent;mouseClick(hit,20,20);

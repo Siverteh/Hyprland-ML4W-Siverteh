@@ -1,16 +1,19 @@
 # Welcome live demo and current shortcuts
 
 The first page demonstrates actual wallpaper-driven desktop colors. Hold four
-original procedural 4K pearl scenes stable while the app is open, independent of
+curated, artist-licensed high-resolution wallpapers stable while the app is open, independent of
 the personal library. Dominant families and minority contrasting details must
 yield clearly different Natural and Pop accents in dark and light modes. Selecting uses NacreWallpapers' existing serialized
 wallpaper/palette publisher; modes Dark/Light and Natural/Pop/Pearl use the same
 appearance preference path. Do not publish while merely opening Welcome. Preserve
 ready thumbnails while loading, show selected/busy/error feedback, pause automatic
 rotation while the active Welcome demo is on screen, and add no idle polling.
-Empty libraries still have the full demo. Generated artwork is CC0-1.0; its
-geometry/light field source and license ship, and the installer renders an
-idempotent generator-hashed cache. Capture the opening wallpaper/palette before
+Empty libraries still have the full demo. Ship the original offline artwork and full artist attribution/license texts,
+source URLs, exact native dimensions and content hashes. Never upscale, recolor
+or re-encode the originals. Include expandable artist/license/source credits in
+Welcome; ordinary thumbnails may be resized for display. The installer validates
+and copies an immutable content-hashed cache. Repair missing/corrupt cached copies
+from the bundle without network access. Personal artwork stays excluded from Git. Capture the opening wallpaper/palette before
 enabling choices. A Back to how it was button republishes the captured baseline
 through the same publisher, restoring original dynamic source and palette
 preferences while preserving unrelated settings. Validate missing source files

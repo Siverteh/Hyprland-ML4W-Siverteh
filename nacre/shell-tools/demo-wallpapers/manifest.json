@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "wallpapers": [
+    {
+      "file": "after-rain.jpg",
+      "name": "After Rain",
+      "title": "The after rain smell",
+      "artist": "David Revoy",
+      "artistUrl": "https://www.davidrevoy.com/",
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://www.peppercarrot.com/en/wallpapers/index.html",
+      "download": "https://www.peppercarrot.com/0_sources/0ther/wallpapers/hi-res/2023-01-09_The-after-rain-smell_by-David-Revoy.jpg",
+      "size": [
+        3840,
+        2047
+      ],
+      "sha256": "1ae67b08013f4e52bb992224bb9bd3eee674b72f5d77d1abee02691565537e31",
+      "changes": "None; original publisher download bytes."
+    },
+    {
+      "file": "the-healer.jpg",
+      "name": "The Healer",
+      "title": "Episode 38: The Healer \u2014 landscape",
+      "artist": "David Revoy",
+      "artistUrl": "https://www.davidrevoy.com/",
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://www.peppercarrot.com/en/wallpapers/index.html",
+      "download": "https://www.peppercarrot.com/0_sources/0ther/wallpapers/hi-res/2023-04-26_Episode-38-The-Healer-landscape_by-David-Revoy.jpg",
+      "size": [
+        4200,
+        2625
+      ],
+      "sha256": "3badaea591acb4069e07c6c5d3a6f6791cfb3cad37f038b1d2ac9aea578505db",
+      "changes": "None; original publisher download bytes."
+    },
+    {
+      "file": "point-of-view.jpg",
+      "name": "Point of View",
+      "title": "Point of View",
+      "artist": "David Revoy",
+      "artistUrl": "https://www.davidrevoy.com/",
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://www.peppercarrot.com/en/wallpapers/index.html",
+      "download": "https://www.peppercarrot.com/0_sources/0ther/wallpapers/hi-res/2022-12-18_Point-of-View_by-David-Revoy.jpg",
+      "size": [
+        3840,
+        2047
+      ],
+      "sha256": "7fe56fd1c7ddbd557e5921f3772c1ea55c8fef91839d24873189b514c2862684",
+      "changes": "None; original publisher download bytes."
+    },
+    {
+      "file": "jungle-red.png",
+      "name": "Red Jungle",
+      "title": "nick-nazzaro-jungle-red",
+      "artist": "Nick Nazzaro",
+      "artistUrl": "https://nicknazzaro.com/",
+      "publisher": "System76",
+      "license": "CC-BY-SA-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://github.com/pop-os/wallpapers/blob/20a9fdd1ed86aadfbbfcd55dc3d2d9eb8ae28e15/README.md",
+      "download": "https://raw.githubusercontent.com/pop-os/wallpapers/20a9fdd1ed86aadfbbfcd55dc3d2d9eb8ae28e15/original/nick-nazzaro-jungle-red.png",
+      "size": [
+        4800,
+        2700
+      ],
+      "sha256": "da563ed2700fdfbc53bae2190092de7d8f4fd75e0021f75925d65f6a3bfd5665",
+      "changes": "None; original publisher download bytes."
+    }
+  ]
+}
