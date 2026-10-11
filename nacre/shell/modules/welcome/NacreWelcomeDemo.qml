@@ -21,6 +21,7 @@ Column {
                 width: (scenes.width - 36) / 4
                 spacing: 7
                 NacreSurface {
+                    id: card
                     objectName: "welcomeScene_" + tile.index
                     width: parent.width
                     height: Math.min(120, width * .56)
@@ -52,7 +53,7 @@ Column {
                             width: 24
                             height: 24
                             radius: 12
-                            visible: parent.parent.selected
+                            visible: card.selected
                             color: NacreTokens.body
                             NacreIcon {
                                 anchors.centerIn: parent
@@ -153,11 +154,16 @@ Column {
     Row {
         width: parent.width
         spacing: 18
-        NacreThemePreview {
+        Item {
             width: Math.min(440, parent.width * .58)
             height: 140
-            palette: NacrePresentation.active.colours || {}
-            wallpaper: NacreWallpapers.displayPreview || ""
+            clip: true
+            NacreThemePreview {
+                width: parent.width
+                height: 280
+                palette: NacrePresentation.active.colours || {}
+                wallpaper: NacreWallpapers.displayPreview || ""
+            }
         }
         Column {
             width: Math.max(0, parent.width - parent.children[0].width - 18)

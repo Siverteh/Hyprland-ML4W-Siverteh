@@ -296,7 +296,7 @@ Item {
                     Item {
                         id: photo
                         width: parent.width
-                        height: Math.min(420, width * .60)
+                        height: Math.min(280, width * .56)
                         Image {
                             id: wallpaper
                             anchors.fill: parent
@@ -349,6 +349,8 @@ Item {
                             NacreColorSample {
                                 required property var modelData
                                 entry: modelData
+                                width: Math.max(44, (parent.width - 49) / 8)
+                                height: 60
                                 onPicked: value => NacreColorsApp.change({
                                         accent: value
                                     })
@@ -368,7 +370,7 @@ Item {
                         wrapMode: Text.Wrap
                         font.pointSize: 9
                         color: NacreTokens.mutedInk
-                        text: "Percentages show image area, including grays and shadows. The remaining shades are grouped as Other."
+                        text: "Image area, including grays and shadows; remaining shades are grouped as Other."
                     }
                     NacreText {
                         text: "Color style"
@@ -400,7 +402,7 @@ Item {
                         font.pointSize: 10
                         text: ({
                                 natural: "The original Nacre balance of the wallpaper's colors",
-                                pigment: "Perceptual grouping that weights the picture's subject and details",
+                                pigment: "Puts more weight on the subject and small details",
                                 harmony: "Related hues for a quieter theme",
                                 pop: "A contrasting detail becomes the main accent",
                                 mist: "Soft colors for focus",
